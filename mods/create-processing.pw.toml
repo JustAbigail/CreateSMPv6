@@ -1,0 +1,13 @@
+name = "Create: Processing"
+filename = "create_processing-1.0.1.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/FUig7WGr/versions/mBwzvOrc/create_processing-1.0.1.jar"
+hash-format = "sha512"
+hash = "a60745c736b0aeb06a4a15d6015f75b620b073baf741442eef406e0496d7663719563495b4521808f77dbba3360893181ad49b4d1a85bf8a5abeedd2cc91bad4"
+
+[update]
+[update.modrinth]
+mod-id = "FUig7WGr"
+version = "mBwzvOrc"

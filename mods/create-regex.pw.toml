@@ -1,0 +1,13 @@
+name = "Create Regex"
+filename = "create_regex-1.0.0.jar"
+side = "server"
+
+[download]
+url = "https://cdn.modrinth.com/data/DqfZWf7r/versions/A2eyuoDb/create_regex-1.0.0.jar"
+hash-format = "sha512"
+hash = "0181bfe98c96626ec222ad641f11745997164c12eccc52d69c575ca2c24eff84e5facbcaa0b6732984a2aff413663b209b8b5ee4cb8e8c1d26d200f68350d5e1"
+
+[update]
+[update.modrinth]
+mod-id = "DqfZWf7r"
+version = "A2eyuoDb"

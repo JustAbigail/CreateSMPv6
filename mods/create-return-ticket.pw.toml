@@ -1,0 +1,13 @@
+name = "Create: Return Ticket"
+filename = "createreturnticket-1.21.1-b1.1.2.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/UdtKNQQp/versions/pVReSsqS/createreturnticket-1.21.1-b1.1.2.jar"
+hash-format = "sha512"
+hash = "11eff0fca8ea067db7d96b15ff6d5e6f38861254f4eceae0525f482e5848ab8e37ce08494d8f03577a01e0ceb41f24a85b8926b7a16b09ef0cb5ff6876f4ad92"
+
+[update]
+[update.modrinth]
+mod-id = "UdtKNQQp"
+version = "pVReSsqS"

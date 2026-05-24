@@ -1,0 +1,13 @@
+name = "Create: Beamline"
+filename = "create-beamline_neoforge-1.0.2+nfg_mc-1.21.1-cr-6.0.8.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/ZmrUepY5/versions/vm92tsuo/create-beamline_neoforge-1.0.2%2Bnfg_mc-1.21.1-cr-6.0.8.jar"
+hash-format = "sha512"
+hash = "2558a6e3883cfa919a26e96fadf767bb79f3aa9522f89b8360c85e7ecf3fb13e849a8fbec503f3c265d067a0b9a4ddcf9acf43a05263434fa7d1d05084d76efe"
+
+[update]
+[update.modrinth]
+mod-id = "ZmrUepY5"
+version = "vm92tsuo"

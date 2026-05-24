@@ -1,0 +1,13 @@
+name = "Create SMP v6"
+author = "JustAbigail"
+version = "0.0.1"
+pack-format = "packwiz:1.1.0"
+
+[index]
+file = "index.toml"
+hash-format = "sha256"
+hash = "abdb760e419f1fdf7ca3d599001c8c82a386c48cb2281778c8625fe581b3d2eb"
+
+[versions]
+minecraft = "1.21.1"
+neoforge = "21.1.228"

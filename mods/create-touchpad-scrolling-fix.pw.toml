@@ -1,0 +1,13 @@
+name = "Create touchpad scrolling fix"
+filename = "create-touchpad-scrolling-fix-1.0.0.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/Y445C7VK/versions/RIzwG0o0/create-touchpad-scrolling-fix-1.0.0.jar"
+hash-format = "sha512"
+hash = "f31741a9453e7dd7971254bd8bb5db666504edb6309f0ea0557a93421a0cfb869ca7ce0eab251d8c59b56c82a5414c9c5e54e1f04321cc1eb565e2d296563f77"
+
+[update]
+[update.modrinth]
+mod-id = "Y445C7VK"
+version = "RIzwG0o0"
