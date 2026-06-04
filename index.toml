@@ -434,6 +434,11 @@ hash = "c6abf0b9e9455e965b3a5a8b0e02e69da749fe39ba3ca35c32bd72fecdfb6e32"
 metafile = true
 
 [[files]]
+file = "mods/create-train-track-rail-grinding.pw.toml"
+hash = "1255602ebdffc8e8d9b3d68bc744c4bd5629032f4cd4c61ea4b96ebfe8182ceb"
+metafile = true
+
+[[files]]
 file = "mods/create-trial-and-error.pw.toml"
 hash = "66c22cdbadb6dc099aa3617293622ab91a58acf98a301425dc4085827a933279"
 metafile = true
@@ -896,6 +901,11 @@ metafile = true
 [[files]]
 file = "mods/universal-bone-meal.pw.toml"
 hash = "36451170388b68c89ba69f5f2bd4fd283d1811a3d9b5e31281a424f9ca6f61a7"
+metafile = true
+
+[[files]]
+file = "mods/vs-hose-connectors.pw.toml"
+hash = "0beacfea53e3c4ceb9403be8ab7f993201263c2d9de6d4c340a48b930bc69d01"
 metafile = true
 
 [[files]]
