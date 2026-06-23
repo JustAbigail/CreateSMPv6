@@ -549,11 +549,6 @@ hash = "6adce6422e74091638dbd7872270ee58d9a22dc18340580f809cc50c739e0d4f"
 metafile = true
 
 [[files]]
-file = "mods/exposure.pw.toml"
-hash = "28c29922378fa19f4edf1d16fffb48287a87be159a3378647073bbdebd2a2196"
-metafile = true
-
-[[files]]
 file = "mods/extended-wrenches.pw.toml"
 hash = "59cfcbd44968549b7dc2f6e13b691d50c9c65af6bad966b47e097c7c937e6cfc"
 metafile = true
@@ -566,11 +561,6 @@ metafile = true
 [[files]]
 file = "mods/fast-ip-ping.pw.toml"
 hash = "f3935636357eb78086ff6ba4e8ed68ea0d63411dadbaaf97f25727cfbc6399e3"
-metafile = true
-
-[[files]]
-file = "mods/fast-item-frames.pw.toml"
-hash = "d3a435d8304fc8aef17248da6ec5c456ed3fa8d8aeb351d54eec12b3c12824a5"
 metafile = true
 
 [[files]]
@@ -601,11 +591,6 @@ metafile = true
 [[files]]
 file = "mods/geophilic.pw.toml"
 hash = "e56f8bbfe55aa00d09e341913cba870fb6218fba8df4a136f2443705982bce1f"
-metafile = true
-
-[[files]]
-file = "mods/immersive-paintings.pw.toml"
-hash = "75b43f1a86593360f10703b7625da4e0a3c435bf13bf8b5b75fa383a0338dade"
 metafile = true
 
 [[files]]
@@ -669,18 +654,8 @@ hash = "32c683932e730d56841b7017a206aa38582e7cbd0d7070adf0f3a8b217a12573"
 metafile = true
 
 [[files]]
-file = "mods/libjf.pw.toml"
-hash = "b00d95521c30ec7a29440ef9c6f32e91300450bf3ad098b2a63ebbe7cb5b43c8"
-metafile = true
-
-[[files]]
 file = "mods/lithostitched.pw.toml"
 hash = "f4ec9f142fbd572f9da8253241b6c532bc9234e2defbe0e67e7ea7ea164d019c"
-metafile = true
-
-[[files]]
-file = "mods/midnightlib.pw.toml"
-hash = "73aba17132f267dd76ff682aa84abfb7c09d25a93b9220ee261a1e25337bebc7"
 metafile = true
 
 [[files]]
@@ -746,11 +721,6 @@ metafile = true
 [[files]]
 file = "mods/puzzles-lib.pw.toml"
 hash = "6be463e57622036302e6555834d4b915e9d0407ce646a20edc770901111eca0d"
-metafile = true
-
-[[files]]
-file = "mods/redirected.pw.toml"
-hash = "b0038c775e22fa883d474eb1ef0f686cc544091844e24a8a4b5774838059e808"
 metafile = true
 
 [[files]]
@@ -826,11 +796,6 @@ metafile = true
 [[files]]
 file = "mods/supermartijn642s-config-lib.pw.toml"
 hash = "62bd7012826fdcccf17a089055be67f87fb7335c88e73efc52bc9e51a1bf3188"
-metafile = true
-
-[[files]]
-file = "mods/superresolution.pw.toml"
-hash = "e3bf9b4051268faea8ae490ae39c8c5db1542629d571147eaff41a0ea04ed928"
 metafile = true
 
 [[files]]
