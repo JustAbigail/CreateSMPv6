@@ -869,11 +869,6 @@ hash = "8ad08b7e8faec8a46438e1551f717e4a35bba2e23f44f490a35e4275e5030734"
 metafile = true
 
 [[files]]
-file = "mods/toadlib.pw.toml"
-hash = "fb3f7aff0e776639951d7e8efbf88224fdd2b65426667d59a531164794f78463"
-metafile = true
-
-[[files]]
 file = "mods/txnilib.pw.toml"
 hash = "bbf8f2ba1e4bba18c1f61b2f003063052f56dd9951ceae3e227b6cbf9affd29f"
 metafile = true
