@@ -9,11 +9,6 @@ file = "README.md"
 hash = "76da2b3c9de6b4ee03683a455937db2721ed40b7ecb47344c0ec9738aad69ef5"
 
 [[files]]
-file = "mods/0pack2reload.pw.toml"
-hash = "05609721e7b08d0bd8f29296c68dd0927148a15f315970d629c1fca3f375e7f0"
-metafile = true
-
-[[files]]
 file = "mods/aeronautics-claims.pw.toml"
 hash = "d0f3f8d958a3d030141f7e3c1265f302f361792c009427676b29ed75fe3f9d67"
 metafile = true
@@ -774,11 +769,6 @@ hash = "6be463e57622036302e6555834d4b915e9d0407ce646a20edc770901111eca0d"
 metafile = true
 
 [[files]]
-file = "mods/quick-pack.pw.toml"
-hash = "55fe49c1872586b7c987eddf92be04aa7c8b837807b261f71474b15e3ab8cc39"
-metafile = true
-
-[[files]]
 file = "mods/redirected.pw.toml"
 hash = "b0038c775e22fa883d474eb1ef0f686cc544091844e24a8a4b5774838059e808"
 metafile = true
@@ -796,11 +786,6 @@ metafile = true
 [[files]]
 file = "mods/resourcify.pw.toml"
 hash = "bcbe9e58c89b859ef98d99531d5fdca48c1b38eea5c4198e24fac60a18200024"
-metafile = true
-
-[[files]]
-file = "mods/respackopts.pw.toml"
-hash = "90b9919bbe87b80bb3274228d6543adb328a51753b0741f6ea4d98441f268983"
 metafile = true
 
 [[files]]
