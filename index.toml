@@ -379,11 +379,6 @@ hash = "36debf7653e95a855b4fedacc19027cf2e01960fc0b6d55ef2ffbffbcb455690"
 metafile = true
 
 [[files]]
-file = "mods/deployer.pw.toml"
-hash = "34f20675ca26ae05670def8d9d84faf42009fabd1113d1739cea6fd380420aac"
-metafile = true
-
-[[files]]
 file = "mods/dismount-entity.pw.toml"
 hash = "3a191ec81bcc9d5e55193d4836abbd8d3b74ca2f391c9f6e73237ab01880e482"
 metafile = true
@@ -436,11 +431,6 @@ metafile = true
 [[files]]
 file = "mods/extended-wrenches.pw.toml"
 hash = "59cfcbd44968549b7dc2f6e13b691d50c9c65af6bad966b47e097c7c937e6cfc"
-metafile = true
-
-[[files]]
-file = "mods/extra-gauges.pw.toml"
-hash = "635b8380894bc7c050deeb426f3e5947b27bda821a616b0ef6a757ae729e96b8"
 metafile = true
 
 [[files]]
