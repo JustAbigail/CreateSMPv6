@@ -394,11 +394,6 @@ hash = "f943c276fcebd5542c4b3dda60634728e1a70212f15dc9af8f0b7b9bb40199db"
 metafile = true
 
 [[files]]
-file = "mods/durability-tooltip.pw.toml"
-hash = "4f70e3a81a737468bc9de58f12ec91b31d9062395a83ec8e5d9fd9c1ddeeb306"
-metafile = true
-
-[[files]]
 file = "mods/elytra-slot.pw.toml"
 hash = "9e2b351f3cabb1252259f5383e6f2fec3e3d90534dbecddef4ed183eba42f35a"
 metafile = true
@@ -611,11 +606,6 @@ metafile = true
 [[files]]
 file = "mods/strut-your-stuff.pw.toml"
 hash = "dad6338fb1027e1a75ef211244381a72e9b00150796d0b9691698fa1e606af90"
-metafile = true
-
-[[files]]
-file = "mods/supermartijn642s-config-lib.pw.toml"
-hash = "62bd7012826fdcccf17a089055be67f87fb7335c88e73efc52bc9e51a1bf3188"
 metafile = true
 
 [[files]]
