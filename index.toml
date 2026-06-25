@@ -129,11 +129,6 @@ hash = "2380dbce66b62a630cbd0c7bed227bfeabeae4dc25032b2e86eee62232ca2e26"
 metafile = true
 
 [[files]]
-file = "mods/create-big-cannons.pw.toml"
-hash = "a0e9ff95570cd9af3374ca8b44aa095447baf94e565f46ae99819d52a9b48dc1"
-metafile = true
-
-[[files]]
 file = "mods/create-blueprinted.pw.toml"
 hash = "a919ae52108199cb6e364732a82ae7fee3e9c4bf71de03bf6487d650676db90a"
 metafile = true
@@ -141,11 +136,6 @@ metafile = true
 [[files]]
 file = "mods/create-cardboarded-conveynience.pw.toml"
 hash = "250b9b967cb0ecc2b9f4e579b26b81c5d9dbed5a35eb152370cefbe5568485d4"
-metafile = true
-
-[[files]]
-file = "mods/create-connected.pw.toml"
-hash = "61afa588fd3156a29418aef463c527308b014e72d86b5ca7c03f2f28973ca27a"
 metafile = true
 
 [[files]]
@@ -194,11 +184,6 @@ hash = "ff6a3d4bed914978aada4a059a16100cd2fd69a3cf19987c0d80160a7125e78b"
 metafile = true
 
 [[files]]
-file = "mods/create-ender-transmission.pw.toml"
-hash = "dba1cec5505db9aa2a65d9cc14f017a956a6e2044c006db1d48ff92c59871992"
-metafile = true
-
-[[files]]
 file = "mods/create-framed.pw.toml"
 hash = "c6f449a5dbd6640cef3a2d46f198af505b1d3fe7cb38c43057bb16ea055c3d7f"
 metafile = true
@@ -209,11 +194,6 @@ hash = "0f4b89bb4f50efe8bd93e3ef28e736704653298f66b130311a6c488f06179e35"
 metafile = true
 
 [[files]]
-file = "mods/create-idlx.pw.toml"
-hash = "789e2c06dee3a587e93214bb982bfec882256fd8e331ffcd136eb0e709cc3c36"
-metafile = true
-
-[[files]]
 file = "mods/create-let-the-adventure-begin.pw.toml"
 hash = "125550f754e447392aab3688e11652157296f53eac160bb62d1fbdca6c5af359"
 metafile = true
@@ -221,11 +201,6 @@ metafile = true
 [[files]]
 file = "mods/create-liquid-fuel.pw.toml"
 hash = "2af9229718d9edb1eaa4b88fac0063ab2f5f7ba7650a4efa5f0a8e6ce25549cd"
-metafile = true
-
-[[files]]
-file = "mods/create-meta-logistics.pw.toml"
-hash = "9be9defcf19f0cae1b38f3775d832b84f8f6f9724e3ea2309bccdcd7adc1afdc"
 metafile = true
 
 [[files]]
@@ -289,11 +264,6 @@ hash = "572ec7a57be68aa913863f4fa3be7208ae3dbb846043f3c5890a290976b41f90"
 metafile = true
 
 [[files]]
-file = "mods/create-randomize-filters.pw.toml"
-hash = "59467ecda962858e575fe59ddedfeab19f2a3c85128070a3f8ef6ad6575debfa"
-metafile = true
-
-[[files]]
 file = "mods/create-regex.pw.toml"
 hash = "11c7f5221b9653853adf45d457dcc922edbcbf8347581876253f01520808ca33"
 metafile = true
@@ -301,11 +271,6 @@ metafile = true
 [[files]]
 file = "mods/create-return-ticket.pw.toml"
 hash = "4983e203abbd632262d0af36bc7c5f5ca1678816627c86fd52c5edbd177090a5"
-metafile = true
-
-[[files]]
-file = "mods/create-sound-of-steam.pw.toml"
-hash = "a7a87fc6ea98d8fbaa426258990f2dec714699e98fb8a083f9a399c90d02844f"
 metafile = true
 
 [[files]]
@@ -329,23 +294,8 @@ hash = "3a9b74a2c7cb7635e27030ea02910335f5e33cbc84e58c5371de139c2cefe61c"
 metafile = true
 
 [[files]]
-file = "mods/create-train-parts.pw.toml"
-hash = "c6abf0b9e9455e965b3a5a8b0e02e69da749fe39ba3ca35c32bd72fecdfb6e32"
-metafile = true
-
-[[files]]
 file = "mods/create-trial-and-error.pw.toml"
 hash = "66c22cdbadb6dc099aa3617293622ab91a58acf98a301425dc4085827a933279"
-metafile = true
-
-[[files]]
-file = "mods/create-tweaked-controllers.pw.toml"
-hash = "2c72104b4cf249d4f096f673293a41c199d611dc9b99a9055d463fa5cd90c7cd"
-metafile = true
-
-[[files]]
-file = "mods/create-vibrant-vaults.pw.toml"
-hash = "960645d7f385081b108208e58bbbdfc6b93288b7bd7da90e6f229a57b237234a"
 metafile = true
 
 [[files]]
@@ -394,31 +344,6 @@ hash = "9e2b351f3cabb1252259f5383e6f2fec3e3d90534dbecddef4ed183eba42f35a"
 metafile = true
 
 [[files]]
-file = "mods/emi-enchanting.pw.toml"
-hash = "ff029ee6fc50f2696e96cdbcc696f42e75b483c9d7b83f2b1447dcf5c865e664"
-metafile = true
-
-[[files]]
-file = "mods/emi-ores.pw.toml"
-hash = "f2cbcb3d01017133313e1594cb89f052923592b7fa0c78eb9b6d09fb6e03bfb5"
-metafile = true
-
-[[files]]
-file = "mods/emi.pw.toml"
-hash = "67bb77eae0b644960be3b1074178ceb5d54facbb42f326981b9d94625238a54a"
-metafile = true
-
-[[files]]
-file = "mods/emiffect.pw.toml"
-hash = "b53c40130b7c2f91237cf62480877414296fbea3525f2c824351c0c07f136ddb"
-metafile = true
-
-[[files]]
-file = "mods/emixx.pw.toml"
-hash = "3f8003f27bce0f29b7933706baf8579e15b59781a738b049936ae58eebe4f9c9"
-metafile = true
-
-[[files]]
 file = "mods/essential.pw.toml"
 hash = "aa4e731e3abce5827bb346de201fd600093f958e4e2fe05854d8e7ae185754ce"
 metafile = true
@@ -431,11 +356,6 @@ metafile = true
 [[files]]
 file = "mods/extended-wrenches.pw.toml"
 hash = "59cfcbd44968549b7dc2f6e13b691d50c9c65af6bad966b47e097c7c937e6cfc"
-metafile = true
-
-[[files]]
-file = "mods/fast-ip-ping.pw.toml"
-hash = "f3935636357eb78086ff6ba4e8ed68ea0d63411dadbaaf97f25727cfbc6399e3"
 metafile = true
 
 [[files]]
@@ -456,11 +376,6 @@ metafile = true
 [[files]]
 file = "mods/geophilic.pw.toml"
 hash = "e56f8bbfe55aa00d09e341913cba870fb6218fba8df4a136f2443705982bce1f"
-metafile = true
-
-[[files]]
-file = "mods/interiors.pw.toml"
-hash = "e7e6b3effe3022cf1fdb900c857111fdcbfd6b385c2d5bd28c914efaed436ecb"
 metafile = true
 
 [[files]]
@@ -489,11 +404,6 @@ hash = "27302b0087cf53570cd7a3b4eb550a208cbb6f6ba07210c604176155f39e0078"
 metafile = true
 
 [[files]]
-file = "mods/lan-server-properties.pw.toml"
-hash = "5ff304981d07360fcd58c96803d990886f48a6041af628f75ec65798d440ee79"
-metafile = true
-
-[[files]]
 file = "mods/lever-drugster.pw.toml"
 hash = "32c683932e730d56841b7017a206aa38582e7cbd0d7070adf0f3a8b217a12573"
 metafile = true
@@ -501,16 +411,6 @@ metafile = true
 [[files]]
 file = "mods/lithostitched.pw.toml"
 hash = "e2a4209ef47d6a109d75669cc048e7a73a2e7d36195898c490e26cf76e32c396"
-metafile = true
-
-[[files]]
-file = "mods/monsters-in-the-closet.pw.toml"
-hash = "6afce08213c05a33240e980e2b92032a6a3ad25d2a54ff8e9f56b5f00d46d45d"
-metafile = true
-
-[[files]]
-file = "mods/mru.pw.toml"
-hash = "42805ef7e224873873d190b0363f2a53dae02530553574f29fab92e258bc0470"
 metafile = true
 
 [[files]]
@@ -536,11 +436,6 @@ metafile = true
 [[files]]
 file = "mods/playeranimator.pw.toml"
 hash = "93284ca7f2f23f0bb76d42b797cabf2aea1914ee9825bec82bf6ffe4c60dda0d"
-metafile = true
-
-[[files]]
-file = "mods/polymorph.pw.toml"
-hash = "152769b5dfbb92a836634e315898b23b6a555c60b6f05ddf38c00085f2b784f6"
 metafile = true
 
 [[files]]
@@ -576,11 +471,6 @@ metafile = true
 [[files]]
 file = "mods/sound-physics-remastered.pw.toml"
 hash = "258a77de0a6db4c9ab045cbb240bcf4eac0dbbca3f6bc981fb461e55c247f23f"
-metafile = true
-
-[[files]]
-file = "mods/sound.pw.toml"
-hash = "4063a3c0f2f9a6544a870f0b90679441d7333652875dafbe3db255fc67f72c82"
 metafile = true
 
 [[files]]
