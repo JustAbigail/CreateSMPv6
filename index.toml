@@ -40,7 +40,7 @@ metafile = true
 
 [[files]]
 file = "mods/amendments.pw.toml"
-hash = "ca7ccbfc12a2103e8a155731eb03f94b243cc07fe9fae2f22c9ab04656109544"
+hash = "4500f5accff7206412fd9c17e181567739192833a3f70f0bf54d63820e378d44"
 metafile = true
 
 [[files]]
@@ -265,7 +265,7 @@ metafile = true
 
 [[files]]
 file = "mods/create-encased.pw.toml"
-hash = "c3cbea800ad6c0b2442f89f83a40b7bb950c1c3645192348e5ba389dacdc3e55"
+hash = "d6caec9fa4c1fdb3b27d6f68ff4197760fef9ae87eaa8bd57cd08e011af3b06e"
 metafile = true
 
 [[files]]
@@ -285,7 +285,7 @@ metafile = true
 
 [[files]]
 file = "mods/create-fuel-water-information.pw.toml"
-hash = "0f4b89bb4f50efe8bd93e3ef28e736704653298f66b130311a6c488f06179e35"
+hash = "85d691b98c1e905c738b8595a14e4aa3950538ce76717561c16b350bca61a8c9"
 metafile = true
 
 [[files]]
