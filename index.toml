@@ -20,7 +20,7 @@ metafile = true
 
 [[files]]
 file = "mods/aeronautics-dyeable-components.pw.toml"
-hash = "b218b7696365829e01cc3b6844913c757836d1ebdb0c49a9abf7a7fcbc0f6678"
+hash = "3f866cfbaad92b14b25f4b132310c895d83e364bcd2aa2b0375796be42f99480"
 metafile = true
 
 [[files]]
