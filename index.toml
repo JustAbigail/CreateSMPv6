@@ -922,3 +922,8 @@ metafile = true
 file = "mods/yungs-extras.pw.toml"
 hash = "2541b092b92a82757e5d200a6093658e20db548bb8583abad3f4506ed04e5ce6"
 metafile = true
+
+[[files]]
+file = "shaderpacks/complementary-unbound.pw.toml"
+hash = "7c0f054aa1af18a505d8c3747bac786245c1fe1412eb64e83c832971afcf80f6"
+metafile = true
