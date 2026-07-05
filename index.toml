@@ -484,6 +484,11 @@ hash = "36debf7653e95a855b4fedacc19027cf2e01960fc0b6d55ef2ffbffbcb455690"
 metafile = true
 
 [[files]]
+file = "mods/deployer.pw.toml"
+hash = "34f20675ca26ae05670def8d9d84faf42009fabd1113d1739cea6fd380420aac"
+metafile = true
+
+[[files]]
 file = "mods/dismount-entity.pw.toml"
 hash = "3a191ec81bcc9d5e55193d4836abbd8d3b74ca2f391c9f6e73237ab01880e482"
 metafile = true
@@ -914,6 +919,41 @@ hash = "2541b092b92a82757e5d200a6093658e20db548bb8583abad3f4506ed04e5ce6"
 metafile = true
 
 [[files]]
+file = "shaderpacks/astra-lex.pw.toml"
+hash = "47e5e73ed92dff94892fa89598f07d512878d7d0b98d7b11a346f2cf46b06479"
+metafile = true
+
+[[files]]
+file = "shaderpacks/bliss.pw.toml"
+hash = "64386360eec34153cdef6f610b4173ac1fcad429d080d58855944960b647854a"
+metafile = true
+
+[[files]]
+file = "shaderpacks/bsl.pw.toml"
+hash = "8be55c9f6bd6d6be0ed4fee0f328f0967d9954c63c9c862908b7edc5874ef34a"
+metafile = true
+
+[[files]]
 file = "shaderpacks/complementary-unbound.pw.toml"
 hash = "7c0f054aa1af18a505d8c3747bac786245c1fe1412eb64e83c832971afcf80f6"
+metafile = true
+
+[[files]]
+file = "shaderpacks/fantasy-complementary.pw.toml"
+hash = "4f6c84f6f9ae2c289eb2754b26699a2d8a93dd3762620cf1eecb73e261b332cc"
+metafile = true
+
+[[files]]
+file = "shaderpacks/photon.pw.toml"
+hash = "fddf28902127ae2fe53807de3191349438190e5de2d3fdeb90725a98cbee7608"
+metafile = true
+
+[[files]]
+file = "shaderpacks/rethinking-voxels.pw.toml"
+hash = "56001d225898e11d4e524e09d42165cddba54f1a194def64b284b07a82ef2daa"
+metafile = true
+
+[[files]]
+file = "shaderpacks/solas.pw.toml"
+hash = "c7013f2ca3ce52945f103abeb76b9e8dae377a06a143ca8500bb4127e17a480a"
 metafile = true

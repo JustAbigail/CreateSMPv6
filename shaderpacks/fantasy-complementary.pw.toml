@@ -1,0 +1,13 @@
+name = "Complementary Shaders - Unbound - Fantasy Edit"
+filename = "Fantasy Shaders Unbound v1.1.zip"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/Q1ICdkzj/versions/xncGr4KP/Fantasy%20Shaders%20Unbound%20v1.1.zip"
+hash-format = "sha256"
+hash = "756d164e1a59712f8aaa1936f3b97294b47be2aa38054ae3c2e34f9a55762fc7"
+
+[update]
+[update.modrinth]
+mod-id = "Q1ICdkzj"
+version = "xncGr4KP"
