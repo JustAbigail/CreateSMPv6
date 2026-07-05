@@ -1,5 +1,5 @@
 name = "BSL Shaders"
-filename = "BSL_v10.1.3.zip"
+filename = "BSL.zip"
 side = "client"
 
 [download]

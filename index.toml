@@ -925,35 +925,40 @@ metafile = true
 
 [[files]]
 file = "shaderpacks/bliss.pw.toml"
-hash = "64386360eec34153cdef6f610b4173ac1fcad429d080d58855944960b647854a"
+hash = "a2826dde24ad777bed7fc17b5cf07dfbc529b66cb367dd18dfdbdd084bb929c8"
 metafile = true
 
 [[files]]
 file = "shaderpacks/bsl.pw.toml"
-hash = "8be55c9f6bd6d6be0ed4fee0f328f0967d9954c63c9c862908b7edc5874ef34a"
+hash = "1ec0ae33dad87591393aa5e71c495ff9c54799b85f57405127281aa2a8821f2e"
 metafile = true
 
 [[files]]
 file = "shaderpacks/complementary-unbound.pw.toml"
-hash = "7c0f054aa1af18a505d8c3747bac786245c1fe1412eb64e83c832971afcf80f6"
+hash = "0f5a2feefd47847d8ccd7235fcdcf4dde75affb57dae68336c2ba19e20cbae1d"
 metafile = true
 
 [[files]]
 file = "shaderpacks/fantasy-complementary.pw.toml"
-hash = "4f6c84f6f9ae2c289eb2754b26699a2d8a93dd3762620cf1eecb73e261b332cc"
+hash = "0befc6407c85b4073ed451787d6746efd196f2d26b5edf51c8ddc3cf49d50be6"
+metafile = true
+
+[[files]]
+file = "shaderpacks/makeup-ultrafast.pw.toml"
+hash = "2904e25426b4f335bc18f49fbd0be1df7bf77591c3982460d07210de6c24894e"
 metafile = true
 
 [[files]]
 file = "shaderpacks/photon.pw.toml"
-hash = "fddf28902127ae2fe53807de3191349438190e5de2d3fdeb90725a98cbee7608"
+hash = "66b73eac83c6ba4398e6e1bedbf8e77ab0d6dd7052ef75ea78275821ad292238"
 metafile = true
 
 [[files]]
 file = "shaderpacks/rethinking-voxels.pw.toml"
-hash = "56001d225898e11d4e524e09d42165cddba54f1a194def64b284b07a82ef2daa"
+hash = "d53acf7179da80c89a601461482ede8c02f96cf0e22902949ae37660f5a4ad50"
 metafile = true
 
 [[files]]
 file = "shaderpacks/solas.pw.toml"
-hash = "c7013f2ca3ce52945f103abeb76b9e8dae377a06a143ca8500bb4127e17a480a"
+hash = "f28704951f8dc5a34a619458825e61c26cfcb4d0cd1daa53a4dfe379b286c3d2"
 metafile = true
