@@ -1,0 +1,13 @@
+name = "Dither"
+filename = "Dither.zip"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/nIIpn55X/versions/r0k0Lgvp/Dither.zip"
+hash-format = "sha512"
+hash = "7af6aed83a72134408b0f31ee12e139f29afe16ff38d0438f1386052ce948ed9631b7838eec6105f7232fc6fc2effad8726eaf533a8849c8d3ee8bdd8ae2b0b5"
+
+[update]
+[update.modrinth]
+mod-id = "nIIpn55X"
+version = "r0k0Lgvp"

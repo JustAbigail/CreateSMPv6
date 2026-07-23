@@ -1,0 +1,13 @@
+name = "Phial"
+filename = "Phial.zip"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/XcwivM4z/versions/HHSwegCm/Phial.zip"
+hash-format = "sha512"
+hash = "10d81fd846811331630166966cb915751741eebda2901d590799a049d9dcb8b9049bd7f4c8044167bccfc46318a1c90b8d7c3cdc50a0ff11c142e004a831ebd2"
+
+[update]
+[update.modrinth]
+mod-id = "XcwivM4z"
+version = "HHSwegCm"

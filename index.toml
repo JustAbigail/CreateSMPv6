@@ -6,7 +6,7 @@ hash = "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
 
 [[files]]
 file = "README.md"
-hash = "76da2b3c9de6b4ee03683a455937db2721ed40b7ecb47344c0ec9738aad69ef5"
+hash = "be6753f12be62593c1215565eb199616236d922299699a425a1eeb4ff3597d06"
 
 [[files]]
 file = "mods/0pack2reload.pw.toml"
@@ -939,6 +939,11 @@ hash = "0f5a2feefd47847d8ccd7235fcdcf4dde75affb57dae68336c2ba19e20cbae1d"
 metafile = true
 
 [[files]]
+file = "shaderpacks/dither.pw.toml"
+hash = "2e11c7449dd9417b0f5ae2e2b58393ad323007c04c2d9f91383b186ba6c9fdab"
+metafile = true
+
+[[files]]
 file = "shaderpacks/fantasy-complementary.pw.toml"
 hash = "0befc6407c85b4073ed451787d6746efd196f2d26b5edf51c8ddc3cf49d50be6"
 metafile = true
@@ -949,8 +954,18 @@ hash = "2904e25426b4f335bc18f49fbd0be1df7bf77591c3982460d07210de6c24894e"
 metafile = true
 
 [[files]]
+file = "shaderpacks/phial.pw.toml"
+hash = "698df42e24976157ce6cec7ce926d2585be8aae23150303a9dc013bf7f7fb5bb"
+metafile = true
+
+[[files]]
 file = "shaderpacks/photon.pw.toml"
 hash = "66b73eac83c6ba4398e6e1bedbf8e77ab0d6dd7052ef75ea78275821ad292238"
+metafile = true
+
+[[files]]
+file = "shaderpacks/raincore.pw.toml"
+hash = "7b67215171b390bf0fb70e8d01c158ee906c6a446f269e2385c7d4845a1cc578"
 metafile = true
 
 [[files]]
@@ -961,4 +976,9 @@ metafile = true
 [[files]]
 file = "shaderpacks/solas.pw.toml"
 hash = "f28704951f8dc5a34a619458825e61c26cfcb4d0cd1daa53a4dfe379b286c3d2"
+metafile = true
+
+[[files]]
+file = "shaderpacks/wither-rose.pw.toml"
+hash = "e881eca17b996b0eb29e95227445653ffd5bf24f74a035b6fffa7f90a78f6784"
 metafile = true

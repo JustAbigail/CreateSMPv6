@@ -1,0 +1,13 @@
+name = "Wither Rose"
+filename = "WitherRose-shader.zip"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/7wfGkCoM/versions/a9gL2Zla/WitherRose-shader.zip"
+hash-format = "sha512"
+hash = "5be405aa5fde4b842b8643938572d42f759d350728fbe5b6fae096776ab840770c7b2bcac856b4a8e42f77173234f0cc165b7b79e0ebe5e4a501b9372827b935"
+
+[update]
+[update.modrinth]
+mod-id = "7wfGkCoM"
+version = "a9gL2Zla"

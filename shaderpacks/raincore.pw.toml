@@ -1,0 +1,13 @@
+name = "Raincore"
+filename = "Raincore_a0.102.rain.zip"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/GEuwLKq2/versions/XVmtlTv0/Raincore_a0.102.rain.zip"
+hash-format = "sha512"
+hash = "c0be7c779737db74c0c083802595a9ff2fca3abc9675b954d5f518ce8918cc013cdecf9485f280e60b59d29988cb330077f57dee48cbaf45a07eccdca3f82c5b"
+
+[update]
+[update.modrinth]
+mod-id = "GEuwLKq2"
+version = "XVmtlTv0"
