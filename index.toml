@@ -44,11 +44,6 @@ hash = "f3d66527c4f82b44d9409f643332bc15f91b85f033afe147e3d8b421c0ea6d1e"
 metafile = true
 
 [[files]]
-file = "mods/amecs.pw.toml"
-hash = "34252ff1af7c44739d405fcddbc85735931308e9673f9e821d02be0a4b8ba7cc"
-metafile = true
-
-[[files]]
 file = "mods/amendments.pw.toml"
 hash = "793e70a07961b1670ba13dcdfe2c1cfb1379df52485adc2d3ba5db128e9536a6"
 metafile = true
@@ -189,11 +184,6 @@ hash = "09c4eef0fe467f04601c514ffc6ad805dd09ecb9975fce0f4b9792fbe56f0fde"
 metafile = true
 
 [[files]]
-file = "mods/chatpatches.pw.toml"
-hash = "50a6452407be21007f1cdd1b24244734bf59588878c7791d9bcfb45078eef8a4"
-metafile = true
-
-[[files]]
 file = "mods/cherished-worlds.pw.toml"
 hash = "63f417eca4f251f85a5ae512394cbb9fa88dfdfb2b934b94637ba8b7dac1a831"
 metafile = true
@@ -251,11 +241,6 @@ metafile = true
 [[files]]
 file = "mods/coolrain.pw.toml"
 hash = "2a8390fe5190839d1206a8ac6d6fa245d821fd0c1cef5bf93ad43dab07339f5a"
-metafile = true
-
-[[files]]
-file = "mods/copperrails.pw.toml"
-hash = "177d284a411532b427c50ad2f9f384ed3161fdff26444a0a0c88f3ae06eabe43"
 metafile = true
 
 [[files]]
@@ -634,11 +619,6 @@ hash = "9e2b351f3cabb1252259f5383e6f2fec3e3d90534dbecddef4ed183eba42f35a"
 metafile = true
 
 [[files]]
-file = "mods/elytra-trims.pw.toml"
-hash = "7b3c7609e07faade9f1c2f5bcf9c655215d38c2ae32d68fc2de7b5b1459fda4c"
-metafile = true
-
-[[files]]
 file = "mods/emi-enchanting.pw.toml"
 hash = "ff029ee6fc50f2696e96cdbcc696f42e75b483c9d7b83f2b1447dcf5c865e664"
 metafile = true
@@ -711,11 +691,6 @@ metafile = true
 [[files]]
 file = "mods/extra-gauges.pw.toml"
 hash = "635b8380894bc7c050deeb426f3e5947b27bda821a616b0ef6a757ae729e96b8"
-metafile = true
-
-[[files]]
-file = "mods/fabric-api.pw.toml"
-hash = "0f6ef76068ccf1e3607722151921861e27783c6951b2e7a724eccce3951d6447"
 metafile = true
 
 [[files]]
@@ -809,11 +784,6 @@ hash = "a246c345f9568f6b244d017c4201c6170b1ad54808c9c4799c146a0a794663aa"
 metafile = true
 
 [[files]]
-file = "mods/iris.pw.toml"
-hash = "db1c1e6382878b78e994dba1b9026935f8d1c5ca685c89d2437858e0a0dcab58"
-metafile = true
-
-[[files]]
 file = "mods/jade-addons-forge.pw.toml"
 hash = "8cd8400cb4e2c5ba60c8a359a7b6ff501078d2056eab0aba7f6b0ac77b7a0694"
 metafile = true
@@ -876,21 +846,6 @@ metafile = true
 [[files]]
 file = "mods/lovely_snails.pw.toml"
 hash = "2d906d3bf073103930b304d7b6a6356ba9565a930ebea5dfa3db6fcdf54082f9"
-metafile = true
-
-[[files]]
-file = "mods/luna-slimes.pw.toml"
-hash = "1097ab8b2b92e6f868d969869a61d4a48f116e53883a06b80ba1ab66cb97fec1"
-metafile = true
-
-[[files]]
-file = "mods/map-atlases.pw.toml"
-hash = "7350ee902bcf7d729c4950bc5372dbccb5f252c20c513668fc8cf28d65649fe2"
-metafile = true
-
-[[files]]
-file = "mods/midnightlib.pw.toml"
-hash = "647807ff387e333abd790b47082a3cf6b7d41a2b27a4337ff65a611f096a7315"
 metafile = true
 
 [[files]]
@@ -989,11 +944,6 @@ hash = "6be463e57622036302e6555834d4b915e9d0407ce646a20edc770901111eca0d"
 metafile = true
 
 [[files]]
-file = "mods/quick-menu.pw.toml"
-hash = "5734eae073cabeea14928b336b38d71bde77fc79a21845270ba1efc62ed9421e"
-metafile = true
-
-[[files]]
 file = "mods/quick-pack.pw.toml"
 hash = "ab0f53148bc234f45a120aef9450e0627587754f3f8a7f024f37be2146c38799"
 metafile = true
@@ -1074,11 +1024,6 @@ hash = "e96290239804a7b4110ce31993d8c1089e6ca0df36827c7063f21170dc8e4830"
 metafile = true
 
 [[files]]
-file = "mods/sodium.pw.toml"
-hash = "8b237735f64f339d35d40eaceb76cdf137fd05a49b452d2a8c3434cada762e11"
-metafile = true
-
-[[files]]
 file = "mods/sound-physics-remastered.pw.toml"
 hash = "258a77de0a6db4c9ab045cbb240bcf4eac0dbbca3f6bc981fb461e55c247f23f"
 metafile = true
@@ -1096,11 +1041,6 @@ metafile = true
 [[files]]
 file = "mods/sparkle.pw.toml"
 hash = "824f8f17fee45de268db67dee184017846868ac4176e9addd8071dd2922208ce"
-metafile = true
-
-[[files]]
-file = "mods/specific-slots.pw.toml"
-hash = "994eafe1decdd4a4b8a8c2ff416a53c95c79214fa23a0999e6ca50e593e86417"
 metafile = true
 
 [[files]]
