@@ -1,0 +1,13 @@
+name = "KvaKva"
+filename = "KvaKva-1.0.0+1.21.1.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/RNelkDET/versions/VKQgfVUK/KvaKva-1.0.0%2B1.21.1.jar"
+hash-format = "sha512"
+hash = "4baaa4451feee1d5e4274bb3cf4738fe5986a044f5ee5fcfa7838a49b3fdd417d9532fd290f2c32c6069ffb7d47266edbdcfb34e91a54896e010be720bc14a22"
+
+[update]
+[update.modrinth]
+mod-id = "RNelkDET"
+version = "VKQgfVUK"

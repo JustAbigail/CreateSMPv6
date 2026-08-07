@@ -1,0 +1,13 @@
+name = "Goat Expansion"
+filename = "goatexpansion-1.0.2_1.21.1.jar"
+side = "server"
+
+[download]
+url = "https://cdn.modrinth.com/data/5kU1O8pw/versions/MRLDnWsJ/goatexpansion-1.0.2_1.21.1.jar"
+hash-format = "sha512"
+hash = "6444409a4f13f8b9e3950e33e12762a1061f2e8c4dfab67721407e4054f230232e1bdc192b007db8db0c439f21a9357733dfb96068f6c75dd24699d5018aa156"
+
+[update]
+[update.modrinth]
+mod-id = "5kU1O8pw"
+version = "MRLDnWsJ"

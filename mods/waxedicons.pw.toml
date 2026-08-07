@@ -1,0 +1,13 @@
+name = "WaxedIcons"
+filename = "WaxedIcons-1.2+1.21.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/pC9ELBuh/versions/JDLMsqpB/WaxedIcons-1.2%2B1.21.jar"
+hash-format = "sha512"
+hash = "6a1c832ce94359a6c164e7753b358dc63200a2f01b6e26c1b71e5a649e911cf79140e1d452f8bea579e81a038b5d020da2d489e4efcf71d3de863caeecf858f5"
+
+[update]
+[update.modrinth]
+mod-id = "pC9ELBuh"
+version = "JDLMsqpB"

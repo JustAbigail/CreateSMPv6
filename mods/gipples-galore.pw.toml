@@ -1,0 +1,13 @@
+name = "Gipples Galore"
+filename = "gipples_galore-1.21.1-1.1.2.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/QYfKDJOV/versions/vbsQFXHy/gipples_galore-1.21.1-1.1.2.jar"
+hash-format = "sha512"
+hash = "b50d3d5fe8556a35a3f89511c79fe4b1c599f4793bd5048ccfd54ba4eed1534cbe788c915ae9b6905670b257c74031b00e4bc56b6c269e093db44ae842540e65"
+
+[update]
+[update.modrinth]
+mod-id = "QYfKDJOV"
+version = "vbsQFXHy"

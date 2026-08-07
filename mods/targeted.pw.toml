@@ -1,0 +1,13 @@
+name = "Targeted"
+filename = "targeted-0.2.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/niDWEyVk/versions/hL1iNZA4/targeted-0.2.jar"
+hash-format = "sha512"
+hash = "75e4835f75039ee46a38715f06f24c663ff3442716e2df7c540a56e65bc8db937e53aa8edd5aa8474035fbabb749b1bafdb2bf81454814e868df08f891a07118"
+
+[update]
+[update.modrinth]
+mod-id = "niDWEyVk"
+version = "hL1iNZA4"

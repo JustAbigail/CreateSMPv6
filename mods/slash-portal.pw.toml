@@ -1,0 +1,13 @@
+name = "Slash Portal"
+filename = "SlashPortal-1.0.1.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/44woVQ8H/versions/wqacWYdT/SlashPortal-1.0.1.jar"
+hash-format = "sha512"
+hash = "52a03737e3a78b2486c2e073c657fca429f1e604fa40cfd7d6923edec7b64c6dbc30f6310981138cd2222bd7e7f59c841df4da94f763dbb3da2451ef0c6fec33"
+
+[update]
+[update.modrinth]
+mod-id = "44woVQ8H"
+version = "wqacWYdT"

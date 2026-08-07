@@ -1,0 +1,13 @@
+name = "Command Macros"
+filename = "cmdkeybind-1.6.3-1.20.4.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/h3r1moh7/versions/918HsaTO/cmdkeybind-1.6.3-1.20.4.jar"
+hash-format = "sha512"
+hash = "c1e34e2628e8138c905dfd7a49097007b0865aeb0201309f73c9c63f46a5d96fb8f6ffe10a1f0b972ff3f2fd7d53158ec07742c2f1a8cbc7367e373666733366"
+
+[update]
+[update.modrinth]
+mod-id = "h3r1moh7"
+version = "918HsaTO"

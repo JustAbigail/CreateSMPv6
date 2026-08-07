@@ -1,0 +1,13 @@
+name = "Drop Spread 2"
+filename = "dropspread-1.0.5.jar"
+side = "server"
+
+[download]
+url = "https://cdn.modrinth.com/data/abiELH6a/versions/LSz1gETa/dropspread-1.0.5.jar"
+hash-format = "sha512"
+hash = "536e627497704588bc62f937518c75dba6c765e8bf6078a123929e564c2c0fe93c130bb4b2c3963eccb75ecec2c85bfd564116a5775174cfbc0f9d3da2fcfaad"
+
+[update]
+[update.modrinth]
+mod-id = "abiELH6a"
+version = "LSz1gETa"

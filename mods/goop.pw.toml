@@ -1,0 +1,13 @@
+name = "Goop"
+filename = "goop-0.4.3-1.21.1.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/S8fWq3KT/versions/CmNEu1jv/goop-0.4.3-1.21.1.jar"
+hash-format = "sha512"
+hash = "7a9f53fcbb2544af06f9c94e3dc5efbc9dc4973979a26d969b7e3d40313eb48ef40929123d92595ccc2cdb7703ff7a29e3e90c6d645a48b06de1e3ad2f37b3b1"
+
+[update]
+[update.modrinth]
+mod-id = "S8fWq3KT"
+version = "CmNEu1jv"

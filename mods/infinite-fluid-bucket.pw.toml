@@ -1,0 +1,13 @@
+name = "Infinite Fluid Bucket"
+filename = "InfiniteFluidBucket+1.21+0.5.0.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/L5FvP12r/versions/H7K2aW9A/InfiniteFluidBucket%2B1.21%2B0.5.0.jar"
+hash-format = "sha512"
+hash = "d804e210b7077ead6dfcc3b5a5dbec41e5ad41076ec49451ce165c39f0572b50a1aaf2b069a57a04e0a9dd584926016f15561a7efc6df2894dca3ab431c77d89"
+
+[update]
+[update.modrinth]
+mod-id = "L5FvP12r"
+version = "H7K2aW9A"
