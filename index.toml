@@ -879,7 +879,7 @@ metafile = true
 
 [[files]]
 file = "mods/tfmg-patched.pw.toml"
-hash = "8672b946980bd6fc0afacc5c9231438f0a92a931ec1cdbd21c84e3f46e6887a8"
+hash = "75ab12387beaa8f7f100ee6f4401a2f19ec1f187dbf3db1305d73c777441a861"
 metafile = true
 
 [[files]]
