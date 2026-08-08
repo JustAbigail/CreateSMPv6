@@ -1,0 +1,13 @@
+name = "Inventory Interactions"
+filename = "InventoryInteractions-1.3.0+1.21.1+neoforge.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/FCzmUKBr/versions/DlxwBXWC/InventoryInteractions-1.3.0%2B1.21.1%2Bneoforge.jar"
+hash-format = "sha512"
+hash = "85ce4d04b1721a7fbd2fc304d8e43d5f4595d4642ac1f3ee6a39dd9128d8b5e5866badeac643f6fa2dc741587e98256aacd6df28e934ae88d154851b0322313d"
+
+[update]
+[update.modrinth]
+mod-id = "FCzmUKBr"
+version = "DlxwBXWC"

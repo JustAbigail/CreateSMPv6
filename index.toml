@@ -999,6 +999,11 @@ hash = "e7e6b3effe3022cf1fdb900c857111fdcbfd6b385c2d5bd28c914efaed436ecb"
 metafile = true
 
 [[files]]
+file = "mods/inventory-interactions.pw.toml"
+hash = "613368df74ab70a78df4eb7225a1004f30634522ae68952473008bf1acf563c6"
+metafile = true
+
+[[files]]
 file = "mods/inventory-particles.pw.toml"
 hash = "e842d455a534f69100265661dd9de0e9bd9b6e33b1273c1d03c75a4726a8d8e9"
 metafile = true
@@ -1171,6 +1176,11 @@ metafile = true
 [[files]]
 file = "mods/mru.pw.toml"
 hash = "0e0be66913cdb3c1df311684e6b40ca0e8aaacb4b3c58b4b219036a959569c55"
+metafile = true
+
+[[files]]
+file = "mods/my_totem_doll.pw.toml"
+hash = "a1466945b7048df3fa7774c9d68be2880aa43eff977095e9310bdb6c1b46d58d"
 metafile = true
 
 [[files]]
