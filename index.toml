@@ -784,6 +784,11 @@ hash = "e7e6b3effe3022cf1fdb900c857111fdcbfd6b385c2d5bd28c914efaed436ecb"
 metafile = true
 
 [[files]]
+file = "mods/inventory-tabs.pw.toml"
+hash = "77e564f0ba938056be27bf43b0422c0fcb767aa206e8cd0ee351aada0f664591"
+metafile = true
+
+[[files]]
 file = "mods/invmove.pw.toml"
 hash = "a246c345f9568f6b244d017c4201c6170b1ad54808c9c4799c146a0a794663aa"
 metafile = true
@@ -881,6 +886,16 @@ metafile = true
 [[files]]
 file = "mods/moonlight.pw.toml"
 hash = "1707b4f1e3df638815211af1336c4d565d7eeae0b629527f1f9cd14eae9c0335"
+metafile = true
+
+[[files]]
+file = "mods/moremousetweaks.pw.toml"
+hash = "b12e185f44fe38eb91a431173e5b0ebf910cdfd1f4ee030da25fb5e107b0f59a"
+metafile = true
+
+[[files]]
+file = "mods/mouse-tweaks.pw.toml"
+hash = "6bc414cc0f2d4c078fe83f384d786343f701f371d657c5279b5b0df1595804bd"
 metafile = true
 
 [[files]]
