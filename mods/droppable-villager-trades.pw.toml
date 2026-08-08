@@ -1,0 +1,13 @@
+name = "Droppable Villager Trades"
+filename = "droppablevillagertrades-neoforge-1.21.1-1.0.0.jar"
+side = "server"
+
+[download]
+url = "https://cdn.modrinth.com/data/SlhyZVWA/versions/ghpLute2/droppablevillagertrades-neoforge-1.21.1-1.0.0.jar"
+hash-format = "sha512"
+hash = "291a5900c4bc6d5fe0e017ea3bcda876ceca7df41f3accc3f01bcd4294807e979c9736898c4b92415d73930744b96205aada46473788ea6414fe3542703b2ac5"
+
+[update]
+[update.modrinth]
+mod-id = "SlhyZVWA"
+version = "ghpLute2"

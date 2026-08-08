@@ -1,0 +1,13 @@
+name = "XP Boost Enchantment"
+filename = "xp-boost-enchantment-v1.0.2.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/4KzWiLBH/versions/u5vcTfUW/xp-boost-enchantment-v1.0.2.jar"
+hash-format = "sha512"
+hash = "08369c4f00bb9f2597a8ef8e6ed2b10c603ebfb6646119292b5f2f5fe207f41238e8ec1f5084d2ff37692449a8d9df2913e1b1141adb9f58344b707a67b5274d"
+
+[update]
+[update.modrinth]
+mod-id = "4KzWiLBH"
+version = "u5vcTfUW"

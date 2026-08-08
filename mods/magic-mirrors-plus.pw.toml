@@ -1,0 +1,13 @@
+name = "Magic Mirrors Plus - Teleporting Mirrors"
+filename = "magic-mirrors-+-1.0.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/G7MR1kP2/versions/9swsKQgP/magic-mirrors-%2B-1.0.jar"
+hash-format = "sha512"
+hash = "07b2a1b3fc392cd0818663154d8c8b58e09124e48ea35acd8a44a3759bfa824d7c46cbafb647061e309026ff48f537ba0725cd0cacb9f3ab7fb6a54599685110"
+
+[update]
+[update.modrinth]
+mod-id = "G7MR1kP2"
+version = "9swsKQgP"

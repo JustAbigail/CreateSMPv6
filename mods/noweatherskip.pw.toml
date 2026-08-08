@@ -1,0 +1,13 @@
+name = "NoWeatherSkip"
+filename = "noweatherskip_mt-1.1.1-neoforge+mc1.20.6.jar"
+side = "server"
+
+[download]
+url = "https://cdn.modrinth.com/data/ncsAPvAb/versions/GtslMbzV/noweatherskip_mt-1.1.1-neoforge%2Bmc1.20.6.jar"
+hash-format = "sha512"
+hash = "079de49d15aa60de8c59345069f59a23417174332712dc7127980c2181a1f971b83cd9356f85004ccb7f57398178afb35e4bdfc7f119027bbf5e2d4da48ec2c0"
+
+[update]
+[update.modrinth]
+mod-id = "ncsAPvAb"
+version = "GtslMbzV"

@@ -1,0 +1,13 @@
+name = "No AI Spawn Eggs"
+filename = "NoAISpawnEggs-neoforge-1.21.1-21.1.2.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/VOUckZSf/versions/Cx9DFSjg/NoAISpawnEggs-neoforge-1.21.1-21.1.2.jar"
+hash-format = "sha512"
+hash = "c0d42cb384c0fe9799514e9ff8f4ef75669751c35b7ee7febe89139129599cff63b8d0b50896e93529836776df0ac01d95779566c09d0f42f99ef0e1ba3d57b2"
+
+[update]
+[update.modrinth]
+mod-id = "VOUckZSf"
+version = "Cx9DFSjg"

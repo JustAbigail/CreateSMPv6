@@ -1,0 +1,13 @@
+name = "Just Sit!"
+filename = "justsit-1.0.0-neoforge-1.21.1.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/i3b0Zjk0/versions/z57djj6F/justsit-1.0.0-neoforge-1.21.1.jar"
+hash-format = "sha512"
+hash = "51e9dd024f490c2155460c2c93ceaac6cf02217e8cfb10439b969c450a1422773347e56740722b00494de49e49f7806268f0461d2c39a1f5d175ac1109a9a62c"
+
+[update]
+[update.modrinth]
+mod-id = "i3b0Zjk0"
+version = "z57djj6F"

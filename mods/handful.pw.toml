@@ -1,0 +1,13 @@
+name = "Handful"
+filename = "Handful-1.0.0-neoforge+mc1.21.1.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/pOinkRyW/versions/qMyDrOmP/Handful-1.0.0-neoforge%2Bmc1.21.1.jar"
+hash-format = "sha512"
+hash = "b37fbb7743ccebac3cacb4ed61be4a87e9167aa80aa84721232a0f4b3f6cf37419e6f59a7353c2787db1ab4595d2fbbca654d504364843a6f74c980e3c78de66"
+
+[update]
+[update.modrinth]
+mod-id = "pOinkRyW"
+version = "qMyDrOmP"
