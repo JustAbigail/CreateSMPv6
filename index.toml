@@ -749,11 +749,6 @@ hash = "73adb59ea91b825485025349d0feab4f1124cb2d13e097ac76b272b1301f9284"
 metafile = true
 
 [[files]]
-file = "mods/elytra-drag.pw.toml"
-hash = "811112bffd7ecb0647709b72d649408dd059a5baa6ad67a6234c595ded0489b4"
-metafile = true
-
-[[files]]
 file = "mods/elytra-slot.pw.toml"
 hash = "9e2b351f3cabb1252259f5383e6f2fec3e3d90534dbecddef4ed183eba42f35a"
 metafile = true
@@ -946,11 +941,6 @@ metafile = true
 [[files]]
 file = "mods/goat-expansion.pw.toml"
 hash = "e6304e06b4651d7c5f6299f40ee601b721614dc4b0cec488416f400a0539e42f"
-metafile = true
-
-[[files]]
-file = "mods/goop.pw.toml"
-hash = "b9d0b0386c7dbb7916d9e026ea6e7bd79397e47d306991a8132f5f6ca1d66dc7"
 metafile = true
 
 [[files]]
