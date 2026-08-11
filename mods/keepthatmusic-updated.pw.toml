@@ -1,0 +1,13 @@
+name = "KeepThatMusic - Updated"
+filename = "keepthatmusicupdated-1.0.1.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/xfdgqsQ2/versions/7asoJo3J/keepthatmusicupdated-1.0.1.jar"
+hash-format = "sha512"
+hash = "d545744be6d338a8b29c2b152801452aadae56b18cc501b621ee1ee1a6b43df774f6cad782dcf9982b9256f2851968c32069f0f1039cda565cee45c6ed6d28ab"
+
+[update]
+[update.modrinth]
+mod-id = "xfdgqsQ2"
+version = "7asoJo3J"

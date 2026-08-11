@@ -1,0 +1,13 @@
+name = "Simple Music Player"
+filename = "simple-music-player-1.21.1-1.21.11-fabric-1.21.4-1.1.3.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/Ln1bQgka/versions/8agtwXSd/simple-music-player-1.21.1-1.21.11-fabric-1.21.4-1.1.3.jar"
+hash-format = "sha512"
+hash = "b1c135585d7441cf174c585c33fc252b8ea8db1a202306d91b756111797333e35abc3477e1798b90e7988d8447ffa6326a82537155af2f99e9444b380a154a46"
+
+[update]
+[update.modrinth]
+mod-id = "Ln1bQgka"
+version = "8agtwXSd"

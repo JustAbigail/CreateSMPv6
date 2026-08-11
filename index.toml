@@ -1084,6 +1084,11 @@ hash = "fcab8293a8da2d50363d202c8c72307d6a8671ddc80ac071ae878d1e3a9fc44f"
 metafile = true
 
 [[files]]
+file = "mods/keepthatmusic-updated.pw.toml"
+hash = "b09016d8595fa76701581758726a43728c957b597fcd3981a5f87d6fe1e7124e"
+metafile = true
+
+[[files]]
 file = "mods/kleeslabs.pw.toml"
 hash = "239ce94d468f02f6ace4c69e171a5668138a143936e313992635cb3d2a2a5a8c"
 metafile = true
@@ -1221,6 +1226,11 @@ metafile = true
 [[files]]
 file = "mods/mru.pw.toml"
 hash = "0e0be66913cdb3c1df311684e6b40ca0e8aaacb4b3c58b4b219036a959569c55"
+metafile = true
+
+[[files]]
+file = "mods/music-and-melody.pw.toml"
+hash = "5ac23607c04c57c71d6b2519029d2c3e5fd1d10e38be179229d02467708b1ba7"
 metafile = true
 
 [[files]]
@@ -1486,6 +1496,16 @@ metafile = true
 [[files]]
 file = "mods/shatterbyte-lib.pw.toml"
 hash = "3f552bbdc42f07fd7d5695ced1d27d774af63cff5460be45817939e5f8e4f9de"
+metafile = true
+
+[[files]]
+file = "mods/simple-music-control.pw.toml"
+hash = "a70fbfcbb470a7d89d9dabd825ddd12094570c1aca1f76355e5ed65ea34d2688"
+metafile = true
+
+[[files]]
+file = "mods/simple-music-player.pw.toml"
+hash = "bc1c1e40d548f371655d8d35b0c7c297ba35211e506bb813cf56c08a1da85779"
 metafile = true
 
 [[files]]
