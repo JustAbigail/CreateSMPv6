@@ -1,0 +1,13 @@
+name = "New Lodestone Recipe"
+filename = "new-lodestone-recipe-1.1-1.21.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/fOYJe3oj/versions/nTlLV9mR/new-lodestone-recipe-1.1-1.21.jar"
+hash-format = "sha512"
+hash = "a18b285c60b2ff90c7e8e34be1c4dd064c2630a7ffb591eb08a31688b17fad5c423b0bd13d47d83aefe4c6e933d85ce5b88960cdc2f9e62baed53b10c3688f54"
+
+[update]
+[update.modrinth]
+mod-id = "fOYJe3oj"
+version = "nTlLV9mR"

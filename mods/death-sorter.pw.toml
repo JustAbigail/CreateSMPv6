@@ -1,0 +1,13 @@
+name = "Death Sorter"
+filename = "deathsorter-neoforge-0.0.4_1.21-1.21.4-neoforge.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/zXz2aiaa/versions/xxlrePM1/deathsorter-neoforge-0.0.4_1.21-1.21.4-neoforge.jar"
+hash-format = "sha512"
+hash = "bf5c46958404045b9c87ca4f5791e827556f29629809839d4e7a2d48c78bfaa67493c84e4e586ea6aed1240492ac7f6353bee524cea0006156101043ff02ddf2"
+
+[update]
+[update.modrinth]
+mod-id = "zXz2aiaa"
+version = "xxlrePM1"

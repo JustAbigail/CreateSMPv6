@@ -1,0 +1,13 @@
+name = "Bound!"
+filename = "bound!-1.4.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/5u5wg6uM/versions/ToxVpjWO/bound%21-1.4.jar"
+hash-format = "sha512"
+hash = "9cd2109ccb78efe18307b7658f50028a4d9758202bf8901462201ff12935d7bf0564039d4cb1b2c02b5e514ad3d1b9fe42544c32c92715839a87502698d4db80"
+
+[update]
+[update.modrinth]
+mod-id = "5u5wg6uM"
+version = "ToxVpjWO"

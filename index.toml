@@ -64,6 +64,11 @@ hash = "a7f0850f3ae1c6e6f75126f67438af21d853a86b8b8d6c146cb61d47c6e824cf"
 metafile = true
 
 [[files]]
+file = "mods/architects-palette.pw.toml"
+hash = "ffa80ab737db677474192e7f09f6b1daff0276e2e15c375b332feb3015376580"
+metafile = true
+
+[[files]]
 file = "mods/architectury-api.pw.toml"
 hash = "187eafde5974beee1263538b462b7b8fe2fc8948c5d413980d9796d55928580b"
 metafile = true
@@ -209,8 +214,18 @@ hash = "2cfa9768cc635d7ec8cbc0172e62db5ad0fc79117b927344d7f2484b78ebd7b7"
 metafile = true
 
 [[files]]
+file = "mods/blasting-plus.pw.toml"
+hash = "87ed2057345b0e7dca5613149e1677274dccd9e153dc309cb0214a5f97649d72"
+metafile = true
+
+[[files]]
 file = "mods/blocks-bogies.pw.toml"
 hash = "feb4efaaeaa4ee270d04de7f06e377ada25e3977649c7d6de227ea6338396634"
+metafile = true
+
+[[files]]
+file = "mods/blooming-biosphere.pw.toml"
+hash = "0a4a096ab2c285a1ef789ccd733a0963aa8b4eaab40b37dc0df541d097f170e5"
 metafile = true
 
 [[files]]
@@ -221,6 +236,11 @@ metafile = true
 [[files]]
 file = "mods/bottle-your-xp.pw.toml"
 hash = "6510dea3a8d92ed6196c2c77c23072da1795882ebc8d0657a2197329119a8e32"
+metafile = true
+
+[[files]]
+file = "mods/bound!.pw.toml"
+hash = "babd9cb60c99f90f22b59b8ea3a82af11c289af264e4b538f4f5851efcfa8f6a"
 metafile = true
 
 [[files]]
@@ -684,6 +704,16 @@ hash = "36debf7653e95a855b4fedacc19027cf2e01960fc0b6d55ef2ffbffbcb455690"
 metafile = true
 
 [[files]]
+file = "mods/death-sorter.pw.toml"
+hash = "b68d225ee4670bae6fbfe2dabe5038776483ad7660d601a34a9c051f73a4b816"
+metafile = true
+
+[[files]]
+file = "mods/deepslatedubble.pw.toml"
+hash = "49b5ff69c9e776cc96d17485554f13cc195faed830dafa812efded9b33c50d8c"
+metafile = true
+
+[[files]]
 file = "mods/deployer.pw.toml"
 hash = "34f20675ca26ae05670def8d9d84faf42009fabd1113d1739cea6fd380420aac"
 metafile = true
@@ -706,6 +736,11 @@ metafile = true
 [[files]]
 file = "mods/do-a-barrel-roll.pw.toml"
 hash = "fe88386ca7a7c34be094f10e3a012810cec23f21b580dbc1c908cf95a17bf6f8"
+metafile = true
+
+[[files]]
+file = "mods/double-shulker-shell-drops.pw.toml"
+hash = "6a0e6a6817aa9ea23227b4eac64a92e997383681836dc711a7f4a139be01f85f"
 metafile = true
 
 [[files]]
@@ -974,6 +1009,11 @@ hash = "4a5e7ba2003a7c5df99905c4952c43e011f7b29a7fad9e20457a76a72e92fde2"
 metafile = true
 
 [[files]]
+file = "mods/immersivethunder.pw.toml"
+hash = "086d8b88627ca2b5eb4457a26a8894d1b0861e7b8e909e461a02b054814914da"
+metafile = true
+
+[[files]]
 file = "mods/infinite-fluid-bucket.pw.toml"
 hash = "e2d286acb97c7770a8aec975fe9bc214d9f3d07acbd6e24138e1d18debb26f07"
 metafile = true
@@ -1114,6 +1154,21 @@ hash = "28d8aeaaa4e12098474b3028cf7dce0ef867de2f1a98fc6de2c224731e176fd3"
 metafile = true
 
 [[files]]
+file = "mods/mansion-redux.pw.toml"
+hash = "a080aa4732ea503290f12e73334895b7ea7c0ee64b0e48423c2b47654b8afafd"
+metafile = true
+
+[[files]]
+file = "mods/mastercutter.pw.toml"
+hash = "eda5b091e0f753f42c557e5ef2a1efba2b17c11e44115d93f90c246290627146"
+metafile = true
+
+[[files]]
+file = "mods/mcqoy.pw.toml"
+hash = "604b7674b96d10b2c9f03e47a91ec50b448e8193de56f36fca93b5ff0f3132f6"
+metafile = true
+
+[[files]]
 file = "mods/minecraft-cursor.pw.toml"
 hash = "e33eecdf643bb0f6d9401c4b7e8fa84ec5f8c38eefc815256c488fee643b1b34"
 metafile = true
@@ -1181,6 +1236,11 @@ metafile = true
 [[files]]
 file = "mods/netherportalfix.pw.toml"
 hash = "5dc059422613b5645cb00e32d3bfd53de428c4939113d11ce2c844cb54165da6"
+metafile = true
+
+[[files]]
+file = "mods/new-lodestone-recipe.pw.toml"
+hash = "818113c0412a29c2234f2434f4672bd437d56021a10b0d11d20e98d0fe1cb96f"
 metafile = true
 
 [[files]]
@@ -1389,6 +1449,11 @@ hash = "e55ca32b338a0e0540f4fec5170675d860566255ae0f45692a00cb4ebf2eb535"
 metafile = true
 
 [[files]]
+file = "mods/rp-renames.pw.toml"
+hash = "611410b3e6491e22d4b6d26ec4e27cb6bb82f371ef46b907e0e9fed26489e771"
+metafile = true
+
+[[files]]
 file = "mods/rpl.pw.toml"
 hash = "7815e5a589de0c02a62ae83590e1f75f4d0c269e48f2435ce2ac448976ddf49f"
 metafile = true
@@ -1479,6 +1544,16 @@ hash = "1fa203fbf7578d4f6fc251b3529cf79935d7e4a573a281241de74e488be639b7"
 metafile = true
 
 [[files]]
+file = "mods/stellarview.pw.toml"
+hash = "3792d649d29e5c684218283dcb787cca922ac74524730ae04118768aaed5cccf"
+metafile = true
+
+[[files]]
+file = "mods/stonecutter-damage.pw.toml"
+hash = "cfaf49eafc97c42521ce937cca9edda143838bfe45a6650ed76d792903695aa0"
+metafile = true
+
+[[files]]
 file = "mods/stoneworks.pw.toml"
 hash = "5f34acf1abde884e2e955103bcadfbd03652e0cd1d3e224ced4c4a1e9e1664c6"
 metafile = true
@@ -1504,6 +1579,11 @@ hash = "ed372669a465c3c7e0881c27960c75040c50e66e9ccdfc6fbf6dabc8c4ef57ad"
 metafile = true
 
 [[files]]
+file = "mods/suggestion-tweaker.pw.toml"
+hash = "9a1695184cdb4646ae5deef3ed576e7dc1235cff1ff20493aa482a2c512928b0"
+metafile = true
+
+[[files]]
 file = "mods/supermartijn642s-config-lib.pw.toml"
 hash = "62bd7012826fdcccf17a089055be67f87fb7335c88e73efc52bc9e51a1bf3188"
 metafile = true
@@ -1511,6 +1591,11 @@ metafile = true
 [[files]]
 file = "mods/superresolution.pw.toml"
 hash = "a74f503e3ffb635828d2583a0f5ed294c7e09f2750b52c3757f14cdde574a13c"
+metafile = true
+
+[[files]]
+file = "mods/surveyor.pw.toml"
+hash = "13848a9eb3c5fd091b52f78cfae4ace2c3cd0cb32a76d6f61c12435f47d82ed1"
 metafile = true
 
 [[files]]
@@ -1614,6 +1699,11 @@ hash = "0ed7d23f7f9bb186c0ff097fe015bf0988a456999f2cf6658705a6b4a17350e4"
 metafile = true
 
 [[files]]
+file = "mods/vexxed.pw.toml"
+hash = "3e4933ef9660c2972c85df127f84ba939f775d6bdeb2da999437c8286f3357f6"
+metafile = true
+
+[[files]]
 file = "mods/villager-hats.pw.toml"
 hash = "6f713619285ecd927a139ce675f2d340f88063cbc78790f87d6b1b9717f4a7df"
 metafile = true
@@ -1636,6 +1726,11 @@ metafile = true
 [[files]]
 file = "mods/visuality.pw.toml"
 hash = "39426bfeeab22ea17f94fd3904dd9b78f9a3c9b4ddcb732b734ddbfd0e3568af"
+metafile = true
+
+[[files]]
+file = "mods/void-totem.pw.toml"
+hash = "d7758954f0c6be6346f05001ca5533c58d98c4114906308b6c34e4f0db6bedf8"
 metafile = true
 
 [[files]]

@@ -1,0 +1,13 @@
+name = "deepslate dubble"
+filename = "deepslatedubble-2.0.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/U0okx0Jo/versions/yOZNVxWl/deepslatedubble-2.0.jar"
+hash-format = "sha512"
+hash = "789e58321da6ba351aad82774172d3b879d964e2e7ca83a0544cb90448148ba183cadad835ae72e73b4a3170524abe5899dd3e66979997c0637be040c0f007a8"
+
+[update]
+[update.modrinth]
+mod-id = "U0okx0Jo"
+version = "yOZNVxWl"

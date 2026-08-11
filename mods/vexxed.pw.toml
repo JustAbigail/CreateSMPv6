@@ -1,0 +1,13 @@
+name = "Vexxed"
+filename = "vexxed-2.0.0-mod.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/Pv9L4UI0/versions/TX8lhVxA/vexxed-2.0.0-mod.jar"
+hash-format = "sha512"
+hash = "61e5ff778b70e41eaab20fe8b95d63c7337002560657f2513a5be4ad52fc4e3b3c31155c87207528fe5c708d7805371c1c4f6661f8e42135a2485d53650900ed"
+
+[update]
+[update.modrinth]
+mod-id = "Pv9L4UI0"
+version = "TX8lhVxA"

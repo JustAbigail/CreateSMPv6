@@ -1,0 +1,13 @@
+name = "Mansion Redux"
+filename = "mansion-redux-1.3.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/ojGCcCCI/versions/hiLspMlt/mansion-redux-1.3.jar"
+hash-format = "sha512"
+hash = "8665f6cd551e04ca7d667b2a739eba4ecadf1635e1e93c1a6fcd0a4ee1e7700b27dba517a32461c1f5fd2036fbaa4cf33d077936d827b46441e1a7c267e1dce6"
+
+[update]
+[update.modrinth]
+mod-id = "ojGCcCCI"
+version = "hiLspMlt"
