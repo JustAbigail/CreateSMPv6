@@ -1,0 +1,13 @@
+name = "LAN Whitelist"
+filename = "lan-whitelist-1.0.0+1.21.5.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/cBMO5cly/versions/RXmQqTku/lan-whitelist-1.0.0%2B1.21.5.jar"
+hash-format = "sha512"
+hash = "b95ea9c79b9c61028f94a74483e04deb4b236741543ec7c1ee5dad2dc3bb2d72ee6bc72a9a8d2a10ea7681143b7b74bcf9844f27711dfe67ef96220544a64b6f"
+
+[update]
+[update.modrinth]
+mod-id = "cBMO5cly"
+version = "RXmQqTku"

@@ -1,0 +1,13 @@
+name = "Cherished Trades"
+filename = "cherishedtrades-1.0.0.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/zLIZRYYZ/versions/IiM2pB6x/cherishedtrades-1.0.0.jar"
+hash-format = "sha512"
+hash = "0f1d32f9f9c4265e2fa0025e1a3151d47844dcc310f1a9e657f91f36cc322c23ec707938cf286e46d6752e3cc0d97cf4fa06deafb6614fcabc4f244525a775d7"
+
+[update]
+[update.modrinth]
+mod-id = "zLIZRYYZ"
+version = "IiM2pB6x"

@@ -1,0 +1,13 @@
+name = "Notebook"
+filename = "notebook 1.21 - 1.21.1.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/ybfwJYZk/versions/22DCfTRy/notebook%201.21%20-%201.21.1.jar"
+hash-format = "sha512"
+hash = "b0ec704a3ad87429ecccc1e0b9b74d1f57aacf0ac8c7f9021e726d7b85825f1d51b6ec2b4b99a47f129e09346ad254e54cc227f0bb97e40ab9890e42162006b1"
+
+[update]
+[update.modrinth]
+mod-id = "ybfwJYZk"
+version = "22DCfTRy"

@@ -1,0 +1,13 @@
+name = "MC-122477 Fix"
+filename = "mc-122477-fix-1.0.0+1.21.11.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/JCaafxDA/versions/CNlGCVaa/mc-122477-fix-1.0.0%2B1.21.11.jar"
+hash-format = "sha512"
+hash = "a17531a42647b473f71f85902fe398abd3b0fef57ecbe4deacd8e501d83ec65d55e5ff81d5afcfd95d853881a144c5ae78225ba8d3e4383b8bfd106e1f705153"
+
+[update]
+[update.modrinth]
+mod-id = "JCaafxDA"
+version = "CNlGCVaa"

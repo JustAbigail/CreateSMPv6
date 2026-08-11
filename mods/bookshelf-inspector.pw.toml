@@ -1,0 +1,13 @@
+name = "Bookshelf Inspector"
+filename = "bookshelfinspector-neoforge-2.4+1.21.1.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/rOrXjyPb/versions/djl4TM9H/bookshelfinspector-neoforge-2.4%2B1.21.1.jar"
+hash-format = "sha512"
+hash = "f18268e51726e19e06bbd028c0c3ee329e4890e455f76848f5e31a5820dd1efbe3699bea835b389fe8b9306896d81c6a917e6427a97b474796cc5c6ccdd3c7f8"
+
+[update]
+[update.modrinth]
+mod-id = "rOrXjyPb"
+version = "djl4TM9H"

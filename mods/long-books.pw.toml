@@ -1,0 +1,13 @@
+name = "Long Books"
+filename = "longbooks-1.0+1.21.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/rONcvWzZ/versions/1y4X90CJ/longbooks-1.0%2B1.21.jar"
+hash-format = "sha512"
+hash = "1441d3b755d419f96432d363352fce598f6494fe2a765920c6be61aaf7dd610198b50a630201d0888442b9c0e1b61c8ce91b5cb3f26bda89a5afab8fe70e62fa"
+
+[update]
+[update.modrinth]
+mod-id = "rONcvWzZ"
+version = "1y4X90CJ"
