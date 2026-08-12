@@ -9,6 +9,10 @@ file = "README.md"
 hash = "e70d7f583c9a8142bb5ecc448a71b3a4503ec6838253cea2898a7fef989d8988"
 
 [[files]]
+file = "config/fabric_loader_dependencies.json"
+hash = "acdc2716d642f9c96a0d66263e187356c929aeb647d30482babe98c5760a96f7"
+
+[[files]]
 file = "mods/0pack2reload.pw.toml"
 hash = "05609721e7b08d0bd8f29296c68dd0927148a15f315970d629c1fca3f375e7f0"
 metafile = true
@@ -1314,11 +1318,6 @@ hash = "eda5b091e0f753f42c557e5ef2a1efba2b17c11e44115d93f90c246290627146"
 metafile = true
 
 [[files]]
-file = "mods/mc-122477-fix.pw.toml"
-hash = "26fd22bf222e7e9331ad0683edb2b5254adb407d48bb59c53105f677d0604cc6"
-metafile = true
-
-[[files]]
 file = "mods/mcqoy.pw.toml"
 hash = "604b7674b96d10b2c9f03e47a91ec50b448e8193de56f36fca93b5ff0f3132f6"
 metafile = true
@@ -1886,6 +1885,11 @@ metafile = true
 [[files]]
 file = "mods/tax-free-levels.pw.toml"
 hash = "5b9f71bc9ae06fe7736cc500086ce29f87bf4414134133626e2b89462ee35767"
+metafile = true
+
+[[files]]
+file = "mods/tcdcommons.pw.toml"
+hash = "ffa71e1ce188b71291daa8bb67e8094ff7d0ef695add362200591c28e75cf457"
 metafile = true
 
 [[files]]
