@@ -1,0 +1,11 @@
+{
+	"version": 1,
+	"overrides": {
+		"hold_my_button": {
+			"depends": {}
+		},
+		"cherishedtrades": {
+			"depends": {}
+		}
+	}
+}
