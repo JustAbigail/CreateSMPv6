@@ -358,11 +358,6 @@ hash = "09c4eef0fe467f04601c514ffc6ad805dd09ecb9975fce0f4b9792fbe56f0fde"
 metafile = true
 
 [[files]]
-file = "mods/cherished-trades.pw.toml"
-hash = "41382e609637a7dc1941ddd30db906ef28ba24ec45b9797c11c5145a1f436aee"
-metafile = true
-
-[[files]]
 file = "mods/cherished-worlds.pw.toml"
 hash = "63f417eca4f251f85a5ae512394cbb9fa88dfdfb2b934b94637ba8b7dac1a831"
 metafile = true
@@ -773,11 +768,6 @@ hash = "36debf7653e95a855b4fedacc19027cf2e01960fc0b6d55ef2ffbffbcb455690"
 metafile = true
 
 [[files]]
-file = "mods/customhud.pw.toml"
-hash = "b0380bdd48ebff49f32c1419880357d2a258b5343b3d3378a994d2cf80a1dd7a"
-metafile = true
-
-[[files]]
 file = "mods/dark-graph.pw.toml"
 hash = "2e220b2a1ce7a3598b4ccb56b7f76825ba50e546fbf8358e6291da22b7278292"
 metafile = true
@@ -863,18 +853,8 @@ hash = "4f70e3a81a737468bc9de58f12ec91b31d9062395a83ec8e5d9fd9c1ddeeb306"
 metafile = true
 
 [[files]]
-file = "mods/dynamicsurroundingsfabric.pw.toml"
-hash = "4995541fb5da57ab155931be858b4c5073c9d9c8bd171e32e09d04fc336685df"
-metafile = true
-
-[[files]]
 file = "mods/e4mc.pw.toml"
 hash = "947d0493c5a7039e4fa0a9318daa9dad36870f10d8764e9835783144a292a619"
-metafile = true
-
-[[files]]
-file = "mods/ebe.pw.toml"
-hash = "b1f89407254a20cde6c60994a6315bd841b7f562669a1d29b436ec97463ff2ae"
 metafile = true
 
 [[files]]
@@ -1118,11 +1098,6 @@ hash = "86ef2b9ef821ac11e0d7fdd07ee8d85b74dc08302cbeca928671bd8ce4c1455f"
 metafile = true
 
 [[files]]
-file = "mods/hold-my-button.pw.toml"
-hash = "ea1edcaff9babdeca6c00cea944dc2b7f9394ac1f2c98e012dfa98f4d03bb1ff"
-metafile = true
-
-[[files]]
 file = "mods/horseman.pw.toml"
 hash = "8730559c5f0eac6309c0f4f0c5809304ca68985900385fa4353f47bae02f1ef1"
 metafile = true
@@ -1278,11 +1253,6 @@ hash = "154c4ee948271ee8521758eaa135b3b42ce587a555f0acb2016e8315094afd8d"
 metafile = true
 
 [[files]]
-file = "mods/limelight.pw.toml"
-hash = "a72d6784092aced3bf61c9e5f3909f5cd6140ff5e3b4d53d91f0019b810d2169"
-metafile = true
-
-[[files]]
 file = "mods/lithostitched.pw.toml"
 hash = "f0c66fc8c3d9dbea2704b007e79125377d50484ff3a40c280b48707659209045"
 metafile = true
@@ -1330,11 +1300,6 @@ metafile = true
 [[files]]
 file = "mods/mmmmmmmmmmmm.pw.toml"
 hash = "724b5f22ab51c24880dedc363ae4f87fd76855a9cbf81732cf45c17f092159f3"
-metafile = true
-
-[[files]]
-file = "mods/mod-loading-screen.pw.toml"
-hash = "147f3fc9a0fa837fcc2a7fc21fd01cb6b46c6fd842b1f40c20f6066d239d0e72"
 metafile = true
 
 [[files]]
@@ -1390,11 +1355,6 @@ metafile = true
 [[files]]
 file = "mods/mru.pw.toml"
 hash = "0e0be66913cdb3c1df311684e6b40ca0e8aaacb4b3c58b4b219036a959569c55"
-metafile = true
-
-[[files]]
-file = "mods/music-and-melody.pw.toml"
-hash = "5ac23607c04c57c71d6b2519029d2c3e5fd1d10e38be179229d02467708b1ba7"
 metafile = true
 
 [[files]]
@@ -1513,11 +1473,6 @@ hash = "2dc5bf4118f932f3d328b163e1b97972964ac33e82c4eb89f2f122ef0661de7e"
 metafile = true
 
 [[files]]
-file = "mods/owo-lib.pw.toml"
-hash = "46831c04077a06df823bcd0f254833a90a9a9ccc78f5069f4b4c27fa301ac0cf"
-metafile = true
-
-[[files]]
 file = "mods/packed-packs.pw.toml"
 hash = "cff6d5801dac31965f98e404212a0f85aade08f7b2b2cb2f20694efd2aa16210"
 metafile = true
@@ -1530,11 +1485,6 @@ metafile = true
 [[files]]
 file = "mods/particle-interactions.pw.toml"
 hash = "12fa04dfc69d95c522b43e3d5a3e0d2439c332f51d87aea9c214631dd607a7ce"
-metafile = true
-
-[[files]]
-file = "mods/particle-rain.pw.toml"
-hash = "6f24e7f5ecef862b1bdb61031637e27b093f185c3219023bea94d2d954ec4180"
 metafile = true
 
 [[files]]
