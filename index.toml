@@ -73,11 +73,6 @@ hash = "a7f0850f3ae1c6e6f75126f67438af21d853a86b8b8d6c146cb61d47c6e824cf"
 metafile = true
 
 [[files]]
-file = "mods/animated-loading-screen.pw.toml"
-hash = "94874770a1aee9600e7c378e8b1f01eff8919f374613368ef3022a6c15a01d9b"
-metafile = true
-
-[[files]]
 file = "mods/appleskin.pw.toml"
 hash = "716d930feff599bf9ce732e05979fbae8025dc8a3c13ccf4f1cb207a70883bc6"
 metafile = true
@@ -165,11 +160,6 @@ metafile = true
 [[files]]
 file = "mods/beautified-chat-server.pw.toml"
 hash = "449a8b96d5c565287a409f2ebda894ea730181b031eb9e341e6044e0ff6853e4"
-metafile = true
-
-[[files]]
-file = "mods/bedrockify.pw.toml"
-hash = "ac5b35d1cd0b1039dbc3a4c1070a6dd17b5c352a7d133e22463b67c47e273617"
 metafile = true
 
 [[files]]
@@ -773,11 +763,6 @@ hash = "2e220b2a1ce7a3598b4ccb56b7f76825ba50e546fbf8358e6291da22b7278292"
 metafile = true
 
 [[files]]
-file = "mods/dark-loading-screen-neoforge.pw.toml"
-hash = "7ba6a6d36d0b563d6eb3dda343ecefdd0f529c21972661f7c82439db88c2e89c"
-metafile = true
-
-[[files]]
 file = "mods/death-sorter.pw.toml"
 hash = "b68d225ee4670bae6fbfe2dabe5038776483ad7660d601a34a9c051f73a4b816"
 metafile = true
@@ -1203,11 +1188,6 @@ hash = "239ce94d468f02f6ace4c69e171a5668138a143936e313992635cb3d2a2a5a8c"
 metafile = true
 
 [[files]]
-file = "mods/konkrete.pw.toml"
-hash = "054a1887da4f14b791910660a2a7a2035ac1382461b881a65fe07b224c03735f"
-metafile = true
-
-[[files]]
 file = "mods/kotlin-for-forge.pw.toml"
 hash = "712a69b3569a8055979de6eea262068535fe182dffb3833e53e5833e9cbf9766"
 metafile = true
@@ -1305,11 +1285,6 @@ metafile = true
 [[files]]
 file = "mods/modelfix.pw.toml"
 hash = "6f0dcbcffd4400c6cef07f1eeb48cdc25bac0fa01270936feab4c549aff4738e"
-metafile = true
-
-[[files]]
-file = "mods/modern-world-creation.pw.toml"
-hash = "db66914d9b56888814b4135142661f98a632b1ab666da823d8cb2f6c7dfc9348"
 metafile = true
 
 [[files]]
@@ -1430,11 +1405,6 @@ metafile = true
 [[files]]
 file = "mods/not-enough-animations.pw.toml"
 hash = "e92633222b9275744ba9ae7a90781494f67933924b56ea8287c5dc7553e77e17"
-metafile = true
-
-[[files]]
-file = "mods/notebook.pw.toml"
-hash = "e031ce7304c79f3a9c318f09555a686dc711fe93935100fbb0aa1b5b1c6dda3a"
 metafile = true
 
 [[files]]
@@ -1733,11 +1703,6 @@ hash = "593fa7b30ab016aa45be07bd6bef3a9f160ed0f24689850d60bf84995d69b843"
 metafile = true
 
 [[files]]
-file = "mods/sparkle.pw.toml"
-hash = "824f8f17fee45de268db67dee184017846868ac4176e9addd8071dd2922208ce"
-metafile = true
-
-[[files]]
 file = "mods/spyglass-astronomy-sync.pw.toml"
 hash = "77683b03dbb0a96210958fa35173b9d48853ba70e38b78f341965312e9613886"
 metafile = true
@@ -1760,11 +1725,6 @@ metafile = true
 [[files]]
 file = "mods/stellarview.pw.toml"
 hash = "3792d649d29e5c684218283dcb787cca922ac74524730ae04118768aaed5cccf"
-metafile = true
-
-[[files]]
-file = "mods/stendhal.pw.toml"
-hash = "8cd4c8bc9d0b3a0059f870c04b0fa273c32812c34e56340d3fa66c5b79cc965e"
 metafile = true
 
 [[files]]
