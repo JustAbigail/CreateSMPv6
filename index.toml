@@ -843,6 +843,11 @@ hash = "947d0493c5a7039e4fa0a9318daa9dad36870f10d8764e9835783144a292a619"
 metafile = true
 
 [[files]]
+file = "mods/ebe.pw.toml"
+hash = "b1f89407254a20cde6c60994a6315bd841b7f562669a1d29b436ec97463ff2ae"
+metafile = true
+
+[[files]]
 file = "mods/economical-villager-trading.pw.toml"
 hash = "0522425da4b2d7b99fe9cbffbc10b31e729413b0df59c02964029b0d2fe9529f"
 metafile = true
@@ -1458,6 +1463,11 @@ hash = "12fa04dfc69d95c522b43e3d5a3e0d2439c332f51d87aea9c214631dd607a7ce"
 metafile = true
 
 [[files]]
+file = "mods/particle-rain.pw.toml"
+hash = "6f24e7f5ecef862b1bdb61031637e27b093f185c3219023bea94d2d954ec4180"
+metafile = true
+
+[[files]]
 file = "mods/particular-reforged.pw.toml"
 hash = "e1829765957db3777232d634f9d38222e669da17f95722f42bb422de141d4d99"
 metafile = true
@@ -1700,6 +1710,11 @@ metafile = true
 [[files]]
 file = "mods/spark.pw.toml"
 hash = "593fa7b30ab016aa45be07bd6bef3a9f160ed0f24689850d60bf84995d69b843"
+metafile = true
+
+[[files]]
+file = "mods/sparkle.pw.toml"
+hash = "824f8f17fee45de268db67dee184017846868ac4176e9addd8071dd2922208ce"
 metafile = true
 
 [[files]]
