@@ -13,6 +13,11 @@ file = "config/fabric_loader_dependencies.json"
 hash = "acdc2716d642f9c96a0d66263e187356c929aeb647d30482babe98c5760a96f7"
 
 [[files]]
+file = "datapacks/tidal-towns.pw.toml"
+hash = "02c04c4b5d4dc08d631be47b1be287f7b0c9dc18c0249142b9e3f0aa1406e4da"
+metafile = true
+
+[[files]]
 file = "mods/0pack2reload.pw.toml"
 hash = "05609721e7b08d0bd8f29296c68dd0927148a15f315970d629c1fca3f375e7f0"
 metafile = true
@@ -90,11 +95,6 @@ metafile = true
 [[files]]
 file = "mods/armor-stand-poses.pw.toml"
 hash = "face508f7cf57e0b33c483be276c00bd5ae6463ffd16bd8e6d7d6d2924888015"
-metafile = true
-
-[[files]]
-file = "mods/async-pack-scan.pw.toml"
-hash = "f7078a5ce8e99fc186d0339dfa9ae259b66ae8f90c0443abd0533c1679941692"
 metafile = true
 
 [[files]]
@@ -1449,7 +1449,7 @@ metafile = true
 
 [[files]]
 file = "mods/packed-packs.pw.toml"
-hash = "cff6d5801dac31965f98e404212a0f85aade08f7b2b2cb2f20694efd2aa16210"
+hash = "f2d20ebcf89e20f06aead21213964f0c560d327fa040b636e3213fce82afca78"
 metafile = true
 
 [[files]]
