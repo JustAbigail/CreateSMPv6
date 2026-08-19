@@ -418,11 +418,6 @@ hash = "1a3eaa6747c1467a235ee17c29c5e0b264ecb3ac1108d2f794d803b95be92660"
 metafile = true
 
 [[files]]
-file = "mods/connector.pw.toml"
-hash = "c19c2e5a0b485648c801c4663ece3596d7e3bd1164f9065f27242346655066bf"
-metafile = true
-
-[[files]]
 file = "mods/controlling.pw.toml"
 hash = "65c8086d2ec3d39acc7bd36c7a0306ccc43b602b38fa07d13291bc478ef7dfff"
 metafile = true
@@ -1138,11 +1133,6 @@ hash = "e842d455a534f69100265661dd9de0e9bd9b6e33b1273c1d03c75a4726a8d8e9"
 metafile = true
 
 [[files]]
-file = "mods/inventory-tabs.pw.toml"
-hash = "77e564f0ba938056be27bf43b0422c0fcb767aa206e8cd0ee351aada0f664591"
-metafile = true
-
-[[files]]
 file = "mods/invmove.pw.toml"
 hash = "a246c345f9568f6b244d017c4201c6170b1ad54808c9c4799c146a0a794663aa"
 metafile = true
@@ -1513,11 +1503,6 @@ hash = "152769b5dfbb92a836634e315898b23b6a555c60b6f05ddf38c00085f2b784f6"
 metafile = true
 
 [[files]]
-file = "mods/portable-crafting.pw.toml"
-hash = "09524d42c0d4b73bd208c550ff08fffc401ad14a34b1663aa3df9e873fb55abe"
-metafile = true
-
-[[files]]
 file = "mods/presence-footsteps.pw.toml"
 hash = "8083e49b94eb72deca40e87757359cfaceef8d1f6a1a07c82f9e8bc9285eb5f2"
 metafile = true
@@ -1790,11 +1775,6 @@ metafile = true
 [[files]]
 file = "mods/superresolution.pw.toml"
 hash = "a74f503e3ffb635828d2583a0f5ed294c7e09f2750b52c3757f14cdde574a13c"
-metafile = true
-
-[[files]]
-file = "mods/surveyor.pw.toml"
-hash = "13848a9eb3c5fd091b52f78cfae4ace2c3cd0cb32a76d6f61c12435f47d82ed1"
 metafile = true
 
 [[files]]
