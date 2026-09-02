@@ -13,11 +13,6 @@ file = "config/fabric_loader_dependencies.json"
 hash = "acdc2716d642f9c96a0d66263e187356c929aeb647d30482babe98c5760a96f7"
 
 [[files]]
-file = "datapacks/tidal-towns.pw.toml"
-hash = "02c04c4b5d4dc08d631be47b1be287f7b0c9dc18c0249142b9e3f0aa1406e4da"
-metafile = true
-
-[[files]]
 file = "mods/0pack2reload.pw.toml"
 hash = "05609721e7b08d0bd8f29296c68dd0927148a15f315970d629c1fca3f375e7f0"
 metafile = true
@@ -45,11 +40,6 @@ metafile = true
 [[files]]
 file = "mods/aerowear.pw.toml"
 hash = "a0b366eb0b182b4017ff3f7e99fe23012fad12b48986e79ce7a105275e29593e"
-metafile = true
-
-[[files]]
-file = "mods/allay_upgrades.pw.toml"
-hash = "95a3c851ff40bca451a4c90d15d857be6d662dcd2c2586dc47a4a8a512b8a126"
 metafile = true
 
 [[files]]
@@ -263,11 +253,6 @@ hash = "feb4efaaeaa4ee270d04de7f06e377ada25e3977649c7d6de227ea6338396634"
 metafile = true
 
 [[files]]
-file = "mods/blooming-biosphere.pw.toml"
-hash = "0a4a096ab2c285a1ef789ccd733a0963aa8b4eaab40b37dc0df541d097f170e5"
-metafile = true
-
-[[files]]
 file = "mods/boat-item-view.pw.toml"
 hash = "ba58df8c82fc920a316a3ad2f8d52e985e34cd09713487ccbb5ea778b6168c2d"
 metafile = true
@@ -285,11 +270,6 @@ metafile = true
 [[files]]
 file = "mods/bottle-your-xp.pw.toml"
 hash = "6510dea3a8d92ed6196c2c77c23072da1795882ebc8d0657a2197329119a8e32"
-metafile = true
-
-[[files]]
-file = "mods/bound!.pw.toml"
-hash = "babd9cb60c99f90f22b59b8ea3a82af11c289af264e4b538f4f5851efcfa8f6a"
 metafile = true
 
 [[files]]
@@ -1258,11 +1238,6 @@ hash = "a080aa4732ea503290f12e73334895b7ea7c0ee64b0e48423c2b47654b8afafd"
 metafile = true
 
 [[files]]
-file = "mods/mastercutter.pw.toml"
-hash = "eda5b091e0f753f42c557e5ef2a1efba2b17c11e44115d93f90c246290627146"
-metafile = true
-
-[[files]]
 file = "mods/mcqoy.pw.toml"
 hash = "604b7674b96d10b2c9f03e47a91ec50b448e8193de56f36fca93b5ff0f3132f6"
 metafile = true
@@ -1355,11 +1330,6 @@ metafile = true
 [[files]]
 file = "mods/network-protocol-disconnect.pw.toml"
 hash = "5062e10bf7aed41933f6edfbbc906b552f4759c8e4d45f58ecac5612af382710"
-metafile = true
-
-[[files]]
-file = "mods/new-lodestone-recipe.pw.toml"
-hash = "818113c0412a29c2234f2434f4672bd437d56021a10b0d11d20e98d0fe1cb96f"
 metafile = true
 
 [[files]]
@@ -1728,11 +1698,6 @@ hash = "3792d649d29e5c684218283dcb787cca922ac74524730ae04118768aaed5cccf"
 metafile = true
 
 [[files]]
-file = "mods/stonecutter-damage.pw.toml"
-hash = "cfaf49eafc97c42521ce937cca9edda143838bfe45a6650ed76d792903695aa0"
-metafile = true
-
-[[files]]
 file = "mods/stoneworks.pw.toml"
 hash = "5f34acf1abde884e2e955103bcadfbd03652e0cd1d3e224ced4c4a1e9e1664c6"
 metafile = true
@@ -1883,11 +1848,6 @@ hash = "0ed7d23f7f9bb186c0ff097fe015bf0988a456999f2cf6658705a6b4a17350e4"
 metafile = true
 
 [[files]]
-file = "mods/vexxed.pw.toml"
-hash = "3e4933ef9660c2972c85df127f84ba939f775d6bdeb2da999437c8286f3357f6"
-metafile = true
-
-[[files]]
 file = "mods/villager-hats.pw.toml"
 hash = "6f713619285ecd927a139ce675f2d340f88063cbc78790f87d6b1b9717f4a7df"
 metafile = true
@@ -1910,11 +1870,6 @@ metafile = true
 [[files]]
 file = "mods/visuality.pw.toml"
 hash = "39426bfeeab22ea17f94fd3904dd9b78f9a3c9b4ddcb732b734ddbfd0e3568af"
-metafile = true
-
-[[files]]
-file = "mods/void-totem.pw.toml"
-hash = "d7758954f0c6be6346f05001ca5533c58d98c4114906308b6c34e4f0db6bedf8"
 metafile = true
 
 [[files]]
