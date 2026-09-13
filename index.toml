@@ -164,6 +164,11 @@ hash = "75181b55e0407d1fca1e2f346c6501f919f5109545990ddfb66db9cd1b771f8a"
 metafile = true
 
 [[files]]
+file = "mods/collective.pw.toml"
+hash = "e37aafe5cd58c8289c3b8929393cba2a5c7f2cdd5bbe01e9c6ada1f3f5b86436"
+metafile = true
+
+[[files]]
 file = "mods/colorful-catalysts.pw.toml"
 hash = "3f3cce2668803042dab5e2c53bd357f0694d6ecf5c8f9af99c8df66b2c0a81c9"
 metafile = true
