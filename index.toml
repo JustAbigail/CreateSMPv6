@@ -314,11 +314,6 @@ hash = "cf0d1cc245400f14674ccdf77b110658c2d4d84156f98df06ae3b0a0cae84fec"
 metafile = true
 
 [[files]]
-file = "mods/create-idlx.pw.toml"
-hash = "789e2c06dee3a587e93214bb982bfec882256fd8e331ffcd136eb0e709cc3c36"
-metafile = true
-
-[[files]]
 file = "mods/create-let-the-adventure-begin.pw.toml"
 hash = "125550f754e447392aab3688e11652157296f53eac160bb62d1fbdca6c5af359"
 metafile = true
