@@ -1,0 +1,16 @@
+export * as networking from "@package/net/fabricmc/fabric/mixin/networking";
+export * as attachment from "@package/net/fabricmc/fabric/mixin/attachment";
+export * as screen from "@package/net/fabricmc/fabric/mixin/screen";
+export * as tag from "@package/net/fabricmc/fabric/mixin/tag";
+export * as event from "@package/net/fabricmc/fabric/mixin/event";
+export * as item from "@package/net/fabricmc/fabric/mixin/item";
+export * as loot from "@package/net/fabricmc/fabric/mixin/loot";
+export * as client from "@package/net/fabricmc/fabric/mixin/client";
+export * as blockview from "@package/net/fabricmc/fabric/mixin/blockview";
+export * as datagen from "@package/net/fabricmc/fabric/mixin/datagen";
+export * as block from "@package/net/fabricmc/fabric/mixin/block";
+export * as object from "@package/net/fabricmc/fabric/mixin/object";
+export * as content from "@package/net/fabricmc/fabric/mixin/content";
+export * as renderer from "@package/net/fabricmc/fabric/mixin/renderer";
+export * as rendering from "@package/net/fabricmc/fabric/mixin/rendering";
+export * as gamerule from "@package/net/fabricmc/fabric/mixin/gamerule";

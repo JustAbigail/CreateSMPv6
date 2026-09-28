@@ -1,0 +1,15 @@
+import { $Set, $List } from "@package/java/util";
+import { $ICustomPlayerConfigGroupDataManagerAPI } from "@package/xaero/pac/common/player/config/group/custom/api";
+
+declare module "@package/xaero/pac/client/player/config/group/api" {
+    export class $IClientPlayerConfigGroupManagerAPI {
+    }
+    export interface $IClientPlayerConfigGroupManagerAPI extends $ICustomPlayerConfigGroupDataManagerAPI {
+        getIds(): $Set<string>;
+        isSyncInProgress(): boolean;
+        getAllIdsSorted(): $List<string>;
+        dataExists(arg0: string): boolean;
+        getMaxGroups(): number;
+        getGroupSpace(): number;
+    }
+}

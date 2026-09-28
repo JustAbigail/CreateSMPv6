@@ -1,0 +1,12 @@
+export * as minecraft from "@package/net/minecraft";
+export * as neoforged from "@package/net/neoforged";
+export * as fabricmc from "@package/net/fabricmc";
+export * as createmod from "@package/net/createmod";
+export * as liukrast from "@package/net/liukrast";
+export * as mehvahdjukaar from "@package/net/mehvahdjukaar";
+export * as caffeinemc from "@package/net/caffeinemc";
+export * as irisshaders from "@package/net/irisshaders";
+export * as swzo from "@package/net/swzo";
+export * as zlt from "@package/net/zlt";
+export * as vercte from "@package/net/vercte";
+export * as yeoxuhang from "@package/net/yeoxuhang";

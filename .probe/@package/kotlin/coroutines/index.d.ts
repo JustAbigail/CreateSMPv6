@@ -1,0 +1,55 @@
+import { $Function1_, $Function2_ } from "@package/kotlin/jvm/functions";
+import { $Object } from "@package/java/lang";
+
+declare module "@package/kotlin/coroutines" {
+    export class $CoroutineContext {
+    }
+    export interface $CoroutineContext {
+        plus(arg0: $CoroutineContext): $CoroutineContext;
+        get<E extends $CoroutineContext$Element>(arg0: $CoroutineContext$Key<E>): E;
+        fold<R>(arg0: R, arg1: $Function2_<R, $CoroutineContext$Element, R>): R;
+        minusKey(arg0: $CoroutineContext$Key<never>): $CoroutineContext;
+    }
+    export class $AbstractCoroutineContextElement implements $CoroutineContext$Element {
+        plus(arg0: $CoroutineContext): $CoroutineContext;
+        get<E extends $CoroutineContext$Element>(arg0: $CoroutineContext$Key<E>): E;
+        getKey(): $CoroutineContext$Key<never>;
+        fold<R>(arg0: R, arg1: $Function2_<R, $CoroutineContext$Element, R>): R;
+        minusKey(arg0: $CoroutineContext$Key<never>): $CoroutineContext;
+        constructor(arg0: $CoroutineContext$Key<never>);
+    }
+    export class $Continuation<T> {
+    }
+    export interface $Continuation<T> {
+        resumeWith(arg0: $Object): void;
+        getContext(): $CoroutineContext;
+    }
+    export class $CoroutineContext$Key<E extends $CoroutineContext$Element> {
+    }
+    export interface $CoroutineContext$Key<E extends $CoroutineContext$Element> {
+    }
+    export class $ContinuationInterceptor {
+        static Key: $ContinuationInterceptor$Key;
+    }
+    export interface $ContinuationInterceptor extends $CoroutineContext$Element {
+        interceptContinuation<T>(arg0: $Continuation<T>): $Continuation<T>;
+        releaseInterceptedContinuation(arg0: $Continuation<never>): void;
+        get<E extends $CoroutineContext$Element>(arg0: $CoroutineContext$Key<E>): E;
+        minusKey(arg0: $CoroutineContext$Key<never>): $CoroutineContext;
+    }
+    export class $AbstractCoroutineContextKey<B extends $CoroutineContext$Element, E extends B> implements $CoroutineContext$Key<E> {
+        tryCast$kotlin_stdlib(arg0: $CoroutineContext$Element): E;
+        isSubKey$kotlin_stdlib(arg0: $CoroutineContext$Key<never>): boolean;
+        constructor(arg0: $CoroutineContext$Key<B>, arg1: $Function1_<$CoroutineContext$Element, E>);
+    }
+    export class $CoroutineContext$Element {
+    }
+    export interface $CoroutineContext$Element extends $CoroutineContext {
+        get<E extends $CoroutineContext$Element>(arg0: $CoroutineContext$Key<E>): E;
+        getKey(): $CoroutineContext$Key<never>;
+        fold<R>(arg0: R, arg1: $Function2_<R, $CoroutineContext$Element, R>): R;
+        minusKey(arg0: $CoroutineContext$Key<never>): $CoroutineContext;
+    }
+    export class $ContinuationInterceptor$Key implements $CoroutineContext$Key<$ContinuationInterceptor> {
+    }
+}

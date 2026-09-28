@@ -1,0 +1,220 @@
+import { $RenderType, $ShaderInstance } from "@package/net/minecraft/client/renderer";
+import { $CloudSetting, $ParticleRenderingSettings, $PackDirectives } from "@package/net/irisshaders/iris/shaderpack/properties";
+import { $CallbackInfo } from "@package/org/spongepowered/asm/mixin/injection/callback";
+import { $CompositeRendererAccessor as $CompositeRendererAccessor$1, $IrisRenderingPipelineAccessor as $IrisRenderingPipelineAccessor$1 } from "@package/io/homo/superresolution/shadercompat/mixin/core";
+import { $Camera } from "@package/net/minecraft/client";
+import { $ProgramSource, $ComputeSource, $ProgramSet } from "@package/net/irisshaders/iris/shaderpack/programs";
+import { $Set_, $List_, $Set, $OptionalInt } from "@package/java/util";
+import { $Supplier_ } from "@package/java/util/function";
+import { $Object2ObjectMap } from "@package/it/unimi/dsi/fastutil/objects";
+import { $FeatureFlags_ } from "@package/net/irisshaders/iris/features";
+import { $ShadowRenderTargets } from "@package/net/irisshaders/iris/shadows";
+import { $CustomUniforms } from "@package/net/irisshaders/iris/uniforms/custom";
+import { $CenterDepthSampler } from "@package/net/irisshaders/iris/pathways";
+import { $IrisRenderingPipelineAccessor as $IrisRenderingPipelineAccessor$2 } from "@package/foundry/veil/forge/mixin/compat/iris";
+import { $Enum, $Object } from "@package/java/lang";
+import { $IrisRenderingPipelineAccessor, $CompositeRendererAccessor } from "@package/io/homo/irisapi/mixin/composite";
+import { $LevelRendererAccessor } from "@package/net/irisshaders/iris/mixin";
+import { $TextureStage, $TextureStage_ } from "@package/net/irisshaders/iris/shaderpack/texture";
+import { $DHCompat } from "@package/net/irisshaders/iris/compat/dh";
+import { $SamplerHolder } from "@package/net/irisshaders/iris/gl/sampler";
+import { $GlImage, $ImageHolder } from "@package/net/irisshaders/iris/gl/image";
+import { $IrisRenderingPipelineExtension } from "@package/foundry/veil/ext/iris";
+import { $Tri } from "@package/net/irisshaders/iris/helpers";
+import { $GlFramebuffer } from "@package/net/irisshaders/iris/gl/framebuffer";
+import { $ImmutableList, $ImmutableMap, $ImmutableSet } from "@package/com/google/common/collect";
+import { $TextureType, $TextureAccess } from "@package/net/irisshaders/iris/gl/texture";
+import { $ShaderStorageBufferHolder } from "@package/net/irisshaders/iris/gl/buffer";
+import { $RenderTargets, $BufferFlipper } from "@package/net/irisshaders/iris/targets";
+import { $SodiumPrograms, $ShaderMap } from "@package/net/irisshaders/iris/pipeline/programs";
+import { $FrameUpdateNotifier } from "@package/net/irisshaders/iris/uniforms";
+export * as programs from "@package/net/irisshaders/iris/pipeline/programs";
+
+declare module "@package/net/irisshaders/iris/pipeline" {
+    export class $IrisRenderingPipeline implements $WorldRenderingPipeline, $ShaderRenderingPipeline, $IrisRenderingPipelineAccessor$2, $IrisRenderingPipelineExtension, $IrisRenderingPipelineAccessor, $IrisRenderingPipelineAccessor$1 {
+        getDHCloudSetting(): $CloudSetting;
+        addGbufferOrShadowSamplers(arg0: $SamplerHolder, arg1: $ImageHolder, arg2: $Supplier_<$ImmutableSet<number>>, arg3: boolean, arg4: boolean, arg5: boolean, arg6: boolean): void;
+        removePhaseIfNeeded(): void;
+        handler$bja000$veil$destroy(arg0: $CallbackInfo): void;
+        getDHTerrainShader(): ($ProgramSource) | undefined;
+        getDHGenericShader(): ($ProgramSource) | undefined;
+        getDHWaterShader(): ($ProgramSource) | undefined;
+        getDHShadowShader(): ($ProgramSource) | undefined;
+        getCustomUniforms(): $CustomUniforms;
+        createDHFramebuffer(arg0: $ProgramSource, arg1: boolean): $GlFramebuffer;
+        getFlippedBeforeShadow(): $ImmutableSet<number>;
+        getFlippedAfterPrepare(): $ImmutableSet<number>;
+        getFlippedAfterTranslucent(): $ImmutableSet<number>;
+        createDHFramebufferShadow(arg0: $ProgramSource): $GlFramebuffer;
+        hasShadowRenderTargets(): boolean;
+        bindDefaultShadow(): void;
+        hasFeature(arg0: $FeatureFlags_): boolean;
+        destroy(): void;
+        getPhase(): $WorldRenderingPhase;
+        getForcedShadowRenderDistanceChunksForDisplay(): $OptionalInt;
+        beginLevelRendering(): void;
+        renderShadows(arg0: $LevelRendererAccessor, arg1: $Camera): void;
+        addDebugText(arg0: $List_<string>): void;
+        getTextureMap(): $Object2ObjectMap<$Tri<string, $TextureType, $TextureStage>, string>;
+        setPhase(arg0: $WorldRenderingPhase_): void;
+        setOverridePhase(arg0: $WorldRenderingPhase_): void;
+        getCurrentNormalTexture(): number;
+        getCurrentSpecularTexture(): number;
+        onSetShaderTexture(arg0: number): void;
+        beginHand(): void;
+        beginTranslucents(): void;
+        finalizeLevelRendering(): void;
+        finalizeGameRendering(): void;
+        getSodiumPrograms(): $SodiumPrograms;
+        getFrameUpdateNotifier(): $FrameUpdateNotifier;
+        getCloudSetting(): $CloudSetting;
+        shouldRenderVignette(): boolean;
+        shouldRenderSun(): boolean;
+        shouldRenderWeather(): boolean;
+        shouldRenderWeatherParticles(): boolean;
+        shouldRenderMoon(): boolean;
+        shouldRenderStars(): boolean;
+        shouldRenderSkyDisc(): boolean;
+        shouldWriteRainAndSnowToDepthBuffer(): boolean;
+        getParticleRenderingSettings(): $ParticleRenderingSettings;
+        allowConcurrentCompute(): boolean;
+        getSunPathRotation(): number;
+        getDHCompat(): $DHCompat;
+        setIsMainBound(arg0: boolean): void;
+        shouldDisableFrustumCulling(): boolean;
+        shouldDisableOcclusionCulling(): boolean;
+        shouldRenderUnderwaterOverlay(): boolean;
+        getShaderMap(): $ShaderMap;
+        shouldDisableVanillaEntityShadows(): boolean;
+        bindDefault(): void;
+        shouldDisableDirectionalShading(): boolean;
+        shouldOverrideShaders(): boolean;
+        veil$bindSimpleFramebuffer(): void;
+        skipAllRendering(): boolean;
+        getDeferredRenderer(): $CompositeRenderer;
+        getBeginRenderer(): $CompositeRenderer;
+        getPrepareRenderer(): $CompositeRenderer;
+        getFinalPassRenderer(): $FinalPassRenderer;
+        getCompositeRenderer(): $CompositeRenderer;
+        getLoadedShaders(): $Set<$ShaderInstance>;
+        getRenderTargets(): $RenderTargets;
+        isBeforeTranslucent: boolean;
+        constructor(arg0: $ProgramSet);
+    }
+    export class $FinalPassRenderer {
+        recalculateSwapPassSize(): void;
+        renderFinalPass(): void;
+        destroy(): void;
+        constructor(arg0: $WorldRenderingPipeline, arg1: $ProgramSet, arg2: $RenderTargets, arg3: $TextureAccess, arg4: $ShaderStorageBufferHolder, arg5: $FrameUpdateNotifier, arg6: $ImmutableSet<number>, arg7: $CenterDepthSampler, arg8: $Supplier_<$ShadowRenderTargets>, arg9: $Object2ObjectMap<string, $TextureAccess>, arg10: $Object2ObjectMap<string, $TextureAccess>, arg11: $Set_<$GlImage>, arg12: $ImmutableSet<number>, arg13: $CustomUniforms);
+    }
+    export class $ShaderRenderingPipeline {
+    }
+    export interface $ShaderRenderingPipeline extends $WorldRenderingPipeline {
+        getFrameUpdateNotifier(): $FrameUpdateNotifier;
+        getShaderMap(): $ShaderMap;
+        shouldOverrideShaders(): boolean;
+    }
+    export class $CompositeRenderer implements $CompositeRendererAccessor, $CompositeRendererAccessor$1 {
+        recalculateSizes(): void;
+        renderAll(): void;
+        destroy(): void;
+        getNoiseTexture(): $TextureAccess;
+        getIrisCustomTextures(): $Object2ObjectMap<string, $TextureAccess>;
+        getFlippedAtLeastOnceFinal(): $ImmutableSet<number>;
+        getCustomUniforms(): $CustomUniforms;
+        getPasses(): $ImmutableList<$Object>;
+        setPipeline(arg0: $WorldRenderingPipeline): void;
+        setRenderTargets(arg0: $RenderTargets): void;
+        setPasses(arg0: $ImmutableList<$Object>): void;
+        setNoiseTexture(arg0: $TextureAccess): void;
+        getCenterDepthSampler(): $CenterDepthSampler;
+        setCenterDepthSampler(arg0: $CenterDepthSampler): void;
+        getCustomTextureIds(): $Object2ObjectMap<string, $TextureAccess>;
+        setCustomTextureIds(arg0: $Object2ObjectMap<string, $TextureAccess>): void;
+        setFlippedAtLeastOnceFinal(arg0: $ImmutableSet<number>): void;
+        setCustomUniforms(arg0: $CustomUniforms): void;
+        setIrisCustomTextures(arg0: $Object2ObjectMap<string, $TextureAccess>): void;
+        getCustomImages(): $Set<$GlImage>;
+        setCustomImages(arg0: $Set_<$GlImage>): void;
+        getTextureStage(): $TextureStage;
+        setTextureStage(arg0: $TextureStage_): void;
+        getPipeline(): $WorldRenderingPipeline;
+        getRenderTargets(): $RenderTargets;
+        constructor(arg0: $WorldRenderingPipeline, arg1: $CompositePass, arg2: $PackDirectives, arg3: $ProgramSource[], arg4: $ComputeSource[][], arg5: $RenderTargets, arg6: $ShaderStorageBufferHolder, arg7: $TextureAccess, arg8: $FrameUpdateNotifier, arg9: $CenterDepthSampler, arg10: $BufferFlipper, arg11: $Supplier_<$ShadowRenderTargets>, arg12: $TextureStage_, arg13: $Object2ObjectMap<string, $TextureAccess>, arg14: $Object2ObjectMap<string, $TextureAccess>, arg15: $Set_<$GlImage>, arg16: $ImmutableMap<number, boolean>, arg17: $CustomUniforms);
+    }
+    export class $WorldRenderingPipeline {
+    }
+    export interface $WorldRenderingPipeline {
+        hasFeature(arg0: $FeatureFlags_): boolean;
+        destroy(): void;
+        getPhase(): $WorldRenderingPhase;
+        getForcedShadowRenderDistanceChunksForDisplay(): $OptionalInt;
+        beginLevelRendering(): void;
+        renderShadows(arg0: $LevelRendererAccessor, arg1: $Camera): void;
+        addDebugText(arg0: $List_<string>): void;
+        getTextureMap(): $Object2ObjectMap<$Tri<string, $TextureType, $TextureStage>, string>;
+        setPhase(arg0: $WorldRenderingPhase_): void;
+        setOverridePhase(arg0: $WorldRenderingPhase_): void;
+        getCurrentNormalTexture(): number;
+        getCurrentSpecularTexture(): number;
+        onSetShaderTexture(arg0: number): void;
+        beginHand(): void;
+        beginTranslucents(): void;
+        finalizeLevelRendering(): void;
+        finalizeGameRendering(): void;
+        getSodiumPrograms(): $SodiumPrograms;
+        getFrameUpdateNotifier(): $FrameUpdateNotifier;
+        getCloudSetting(): $CloudSetting;
+        shouldRenderVignette(): boolean;
+        shouldRenderSun(): boolean;
+        shouldRenderWeather(): boolean;
+        shouldRenderWeatherParticles(): boolean;
+        shouldRenderMoon(): boolean;
+        shouldRenderStars(): boolean;
+        shouldRenderSkyDisc(): boolean;
+        shouldWriteRainAndSnowToDepthBuffer(): boolean;
+        getParticleRenderingSettings(): $ParticleRenderingSettings;
+        allowConcurrentCompute(): boolean;
+        getSunPathRotation(): number;
+        getDHCompat(): $DHCompat;
+        setIsMainBound(arg0: boolean): void;
+        shouldDisableFrustumCulling(): boolean;
+        shouldDisableOcclusionCulling(): boolean;
+        shouldRenderUnderwaterOverlay(): boolean;
+        shouldDisableVanillaEntityShadows(): boolean;
+        shouldDisableDirectionalShading(): boolean;
+    }
+    export class $WorldRenderingPhase extends $Enum<$WorldRenderingPhase> {
+        static values(): $WorldRenderingPhase[];
+        static valueOf(arg0: string): $WorldRenderingPhase;
+        static fromTerrainRenderType(arg0: $RenderType): $WorldRenderingPhase;
+        static SKY: $WorldRenderingPhase;
+        static SUNSET: $WorldRenderingPhase;
+        static PARTICLES: $WorldRenderingPhase;
+        static CUSTOM_SKY: $WorldRenderingPhase;
+        static MOON: $WorldRenderingPhase;
+        static DESTROY: $WorldRenderingPhase;
+        static HAND_SOLID: $WorldRenderingPhase;
+        static TERRAIN_CUTOUT: $WorldRenderingPhase;
+        static TRIPWIRE: $WorldRenderingPhase;
+        static SUN: $WorldRenderingPhase;
+        static DEBUG: $WorldRenderingPhase;
+        static HAND_TRANSLUCENT: $WorldRenderingPhase;
+        static TERRAIN_CUTOUT_MIPPED: $WorldRenderingPhase;
+        static WORLD_BORDER: $WorldRenderingPhase;
+        static RAIN_SNOW: $WorldRenderingPhase;
+        static CLOUDS: $WorldRenderingPhase;
+        static TERRAIN_SOLID: $WorldRenderingPhase;
+        static BLOCK_ENTITIES: $WorldRenderingPhase;
+        static TERRAIN_TRANSLUCENT: $WorldRenderingPhase;
+        static STARS: $WorldRenderingPhase;
+        static OUTLINE: $WorldRenderingPhase;
+        static ENTITIES: $WorldRenderingPhase;
+        static NONE: $WorldRenderingPhase;
+        static VOID: $WorldRenderingPhase;
+    }
+    /**
+     * Values that may be interpreted as {@link $WorldRenderingPhase}.
+     */
+    export type $WorldRenderingPhase_ = "none" | "sky" | "sunset" | "custom_sky" | "sun" | "moon" | "stars" | "void" | "terrain_solid" | "terrain_cutout_mipped" | "terrain_cutout" | "entities" | "block_entities" | "destroy" | "outline" | "debug" | "hand_solid" | "terrain_translucent" | "tripwire" | "particles" | "clouds" | "rain_snow" | "world_border" | "hand_translucent";
+}

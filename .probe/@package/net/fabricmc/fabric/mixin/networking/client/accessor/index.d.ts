@@ -1,0 +1,13 @@
+import { $Connection } from "@package/net/minecraft/network";
+
+declare module "@package/net/fabricmc/fabric/mixin/networking/client/accessor" {
+    export class $MinecraftClientAccessor {
+    }
+    export interface $MinecraftClientAccessor {
+        getConnection(): $Connection;
+    }
+    /**
+     * Values that may be interpreted as {@link $MinecraftClientAccessor}.
+     */
+    export type $MinecraftClientAccessor_ = (() => $Connection);
+}

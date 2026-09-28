@@ -1,0 +1,15 @@
+import { $DisplayTarget, $DisplayTarget_ } from "@package/com/simibubi/create/api/behaviour/display";
+import { $Record } from "@package/java/lang";
+
+declare module "@package/com/simibubi/create/content/redstone/displayLink/target" {
+    export class $DisplayTargetStats extends $Record {
+        maxRows(): number;
+        maxColumns(): number;
+        type(): $DisplayTarget;
+        constructor(maxRows: number, maxColumns: number, type: $DisplayTarget_);
+    }
+    /**
+     * Values that may be interpreted as {@link $DisplayTargetStats}.
+     */
+    export type $DisplayTargetStats_ = { type?: $DisplayTarget_, maxRows?: number, maxColumns?: number,  } | [type?: $DisplayTarget_, maxRows?: number, maxColumns?: number, ];
+}

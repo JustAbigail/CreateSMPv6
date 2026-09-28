@@ -1,0 +1,201 @@
+import { $Serializable } from "@package/java/io";
+import { $Shape, $Rectangle } from "@package/java/awt";
+import { $Object, $Cloneable } from "@package/java/lang";
+
+declare module "@package/java/awt/geom" {
+    export class $AffineTransform implements $Cloneable, $Serializable {
+        concatenate(arg0: $AffineTransform): void;
+        setToTranslation(arg0: number, arg1: number): void;
+        setToRotation(arg0: number, arg1: number): void;
+        setToRotation(arg0: number): void;
+        setToRotation(arg0: number, arg1: number, arg2: number): void;
+        setToRotation(arg0: number, arg1: number, arg2: number, arg3: number): void;
+        setToQuadrantRotation(arg0: number, arg1: number, arg2: number): void;
+        setToQuadrantRotation(arg0: number): void;
+        setToScale(arg0: number, arg1: number): void;
+        setToShear(arg0: number, arg1: number): void;
+        static getRotateInstance(arg0: number): $AffineTransform;
+        static getRotateInstance(arg0: number, arg1: number): $AffineTransform;
+        static getRotateInstance(arg0: number, arg1: number, arg2: number): $AffineTransform;
+        static getRotateInstance(arg0: number, arg1: number, arg2: number, arg3: number): $AffineTransform;
+        static getQuadrantRotateInstance(arg0: number): $AffineTransform;
+        static getQuadrantRotateInstance(arg0: number, arg1: number, arg2: number): $AffineTransform;
+        static getScaleInstance(arg0: number, arg1: number): $AffineTransform;
+        static getShearInstance(arg0: number, arg1: number): $AffineTransform;
+        getDeterminant(): number;
+        getShearX(): number;
+        getShearY(): number;
+        getTranslateX(): number;
+        quadrantRotate(arg0: number): void;
+        quadrantRotate(arg0: number, arg1: number, arg2: number): void;
+        setToIdentity(): void;
+        createInverse(): $AffineTransform;
+        inverseTransform(arg0: $Point2D, arg1: $Point2D): $Point2D;
+        inverseTransform(arg0: number[], arg1: number, arg2: number[], arg3: number, arg4: number): void;
+        createTransformedShape(arg0: $Shape): $Shape;
+        getMatrix(arg0: number[]): void;
+        static getTranslateInstance(arg0: number, arg1: number): $AffineTransform;
+        preConcatenate(arg0: $AffineTransform): void;
+        getTranslateY(): number;
+        deltaTransform(arg0: number[], arg1: number, arg2: number[], arg3: number, arg4: number): void;
+        deltaTransform(arg0: $Point2D, arg1: $Point2D): $Point2D;
+        getScaleX(): number;
+        getScaleY(): number;
+        setTransform(arg0: $AffineTransform): void;
+        setTransform(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number): void;
+        invert(): void;
+        shear(arg0: number, arg1: number): void;
+        clone(): $Object;
+        scale(arg0: number, arg1: number): void;
+        transform(arg0: number[], arg1: number, arg2: number[], arg3: number, arg4: number): void;
+        transform(arg0: number[], arg1: number, arg2: number[], arg3: number, arg4: number): void;
+        transform(arg0: $Point2D, arg1: $Point2D): $Point2D;
+        transform(arg0: number[], arg1: number, arg2: number[], arg3: number, arg4: number): void;
+        transform(arg0: $Point2D[], arg1: number, arg2: $Point2D[], arg3: number, arg4: number): void;
+        transform(arg0: number[], arg1: number, arg2: number[], arg3: number, arg4: number): void;
+        getType(): number;
+        isIdentity(): boolean;
+        rotate(arg0: number, arg1: number): void;
+        rotate(arg0: number, arg1: number, arg2: number, arg3: number): void;
+        rotate(arg0: number): void;
+        rotate(arg0: number, arg1: number, arg2: number): void;
+        translate(arg0: number, arg1: number): void;
+        static TYPE_QUADRANT_ROTATION: number;
+        static TYPE_TRANSLATION: number;
+        static TYPE_IDENTITY: number;
+        static TYPE_UNIFORM_SCALE: number;
+        static TYPE_MASK_SCALE: number;
+        static TYPE_MASK_ROTATION: number;
+        static TYPE_GENERAL_SCALE: number;
+        static TYPE_FLIP: number;
+        static TYPE_GENERAL_ROTATION: number;
+        static TYPE_GENERAL_TRANSFORM: number;
+        constructor(arg0: number[]);
+        constructor(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number);
+        constructor(arg0: number[]);
+        constructor(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number);
+        constructor(arg0: $AffineTransform);
+        constructor();
+    }
+    export class $Dimension2D implements $Cloneable {
+        getWidth(): number;
+        getHeight(): number;
+        clone(): $Object;
+        setSize(arg0: $Dimension2D): void;
+        setSize(arg0: number, arg1: number): void;
+    }
+    export class $Rectangle2D extends $RectangularShape {
+        createUnion(arg0: $Rectangle2D): $Rectangle2D;
+        intersectsLine(arg0: $Line2D): boolean;
+        intersectsLine(arg0: number, arg1: number, arg2: number, arg3: number): boolean;
+        outcode(arg0: $Point2D): number;
+        outcode(arg0: number, arg1: number): number;
+        createIntersection(arg0: $Rectangle2D): $Rectangle2D;
+        static intersect(arg0: $Rectangle2D, arg1: $Rectangle2D, arg2: $Rectangle2D): void;
+        setRect(arg0: number, arg1: number, arg2: number, arg3: number): void;
+        setRect(arg0: $Rectangle2D): void;
+        static union(arg0: $Rectangle2D, arg1: $Rectangle2D, arg2: $Rectangle2D): void;
+        add(arg0: number, arg1: number): void;
+        add(arg0: $Point2D): void;
+        add(arg0: $Rectangle2D): void;
+        static OUT_TOP: number;
+        static OUT_RIGHT: number;
+        static OUT_BOTTOM: number;
+        static OUT_LEFT: number;
+    }
+    export class $Line2D implements $Shape, $Cloneable {
+        getPathIterator(arg0: $AffineTransform, arg1: number): $PathIterator;
+        getPathIterator(arg0: $AffineTransform): $PathIterator;
+        getX1(): number;
+        getY1(): number;
+        getX2(): number;
+        getY2(): number;
+        intersectsLine(arg0: $Line2D): boolean;
+        intersectsLine(arg0: number, arg1: number, arg2: number, arg3: number): boolean;
+        static linesIntersect(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number, arg6: number, arg7: number): boolean;
+        relativeCCW(arg0: $Point2D): number;
+        static relativeCCW(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number): number;
+        relativeCCW(arg0: number, arg1: number): number;
+        ptSegDistSq(arg0: $Point2D): number;
+        static ptSegDistSq(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number): number;
+        ptSegDistSq(arg0: number, arg1: number): number;
+        ptSegDist(arg0: number, arg1: number): number;
+        static ptSegDist(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number): number;
+        ptSegDist(arg0: $Point2D): number;
+        static ptLineDistSq(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number): number;
+        ptLineDistSq(arg0: number, arg1: number): number;
+        ptLineDistSq(arg0: $Point2D): number;
+        static ptLineDist(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number): number;
+        ptLineDist(arg0: number, arg1: number): number;
+        ptLineDist(arg0: $Point2D): number;
+        getP1(): $Point2D;
+        getP2(): $Point2D;
+        intersects(arg0: number, arg1: number, arg2: number, arg3: number): boolean;
+        intersects(arg0: $Rectangle2D): boolean;
+        clone(): $Object;
+        contains(arg0: number, arg1: number): boolean;
+        contains(arg0: $Rectangle2D): boolean;
+        contains(arg0: number, arg1: number, arg2: number, arg3: number): boolean;
+        contains(arg0: $Point2D): boolean;
+        getBounds(): $Rectangle;
+        setLine(arg0: number, arg1: number, arg2: number, arg3: number): void;
+        setLine(arg0: $Line2D): void;
+        setLine(arg0: $Point2D, arg1: $Point2D): void;
+    }
+    export class $Point2D implements $Cloneable {
+        getY(): number;
+        static distanceSq(arg0: number, arg1: number, arg2: number, arg3: number): number;
+        distanceSq(arg0: number, arg1: number): number;
+        distanceSq(arg0: $Point2D): number;
+        clone(): $Object;
+        distance(arg0: $Point2D): number;
+        distance(arg0: number, arg1: number): number;
+        static distance(arg0: number, arg1: number, arg2: number, arg3: number): number;
+        setLocation(arg0: $Point2D): void;
+        setLocation(arg0: number, arg1: number): void;
+        getX(): number;
+    }
+    export class $PathIterator {
+        static WIND_EVEN_ODD: number;
+        static SEG_QUADTO: number;
+        static SEG_CLOSE: number;
+        static SEG_CUBICTO: number;
+        static SEG_LINETO: number;
+        static WIND_NON_ZERO: number;
+        static SEG_MOVETO: number;
+    }
+    export interface $PathIterator {
+        currentSegment(arg0: number[]): number;
+        currentSegment(arg0: number[]): number;
+        getWindingRule(): number;
+        next(): void;
+        isDone(): boolean;
+    }
+    export class $RectangularShape implements $Shape, $Cloneable {
+        getPathIterator(arg0: $AffineTransform, arg1: number): $PathIterator;
+        getMaxY(): number;
+        setFrame(arg0: $Point2D, arg1: $Dimension2D): void;
+        setFrame(arg0: number, arg1: number, arg2: number, arg3: number): void;
+        setFrame(arg0: $Rectangle2D): void;
+        setFrameFromDiagonal(arg0: $Point2D, arg1: $Point2D): void;
+        setFrameFromDiagonal(arg0: number, arg1: number, arg2: number, arg3: number): void;
+        setFrameFromCenter(arg0: $Point2D, arg1: $Point2D): void;
+        setFrameFromCenter(arg0: number, arg1: number, arg2: number, arg3: number): void;
+        getY(): number;
+        getWidth(): number;
+        getHeight(): number;
+        getMinX(): number;
+        getMinY(): number;
+        getCenterY(): number;
+        getMaxX(): number;
+        getFrame(): $Rectangle2D;
+        intersects(arg0: $Rectangle2D): boolean;
+        clone(): $Object;
+        isEmpty(): boolean;
+        contains(arg0: $Rectangle2D): boolean;
+        contains(arg0: $Point2D): boolean;
+        getBounds(): $Rectangle;
+        getX(): number;
+        getCenterX(): number;
+    }
+}

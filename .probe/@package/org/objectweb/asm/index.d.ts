@@ -1,0 +1,58 @@
+import { $Constructor, $Method } from "@package/java/lang/reflect";
+import { $Class } from "@package/java/lang";
+
+declare module "@package/org/objectweb/asm" {
+    export class $Type {
+        getInternalName(): string;
+        static getInternalName(arg0: $Class<never>): string;
+        getSort(): number;
+        static getConstructorDescriptor(arg0: $Constructor<never>): string;
+        getDimensions(): number;
+        getElementType(): $Type;
+        static getObjectType(arg0: string): $Type;
+        getOpcode(arg0: number): number;
+        static getArgumentsAndReturnSizes(arg0: string): number;
+        getArgumentsAndReturnSizes(): number;
+        getArgumentTypes(): $Type[];
+        static getArgumentTypes(arg0: string): $Type[];
+        static getArgumentTypes(arg0: $Method): $Type[];
+        getDescriptor(): string;
+        static getDescriptor(arg0: $Class<never>): string;
+        getReturnType(): $Type;
+        static getReturnType(arg0: $Method): $Type;
+        static getReturnType(arg0: string): $Type;
+        static getType(arg0: $Method): $Type;
+        static getType(arg0: $Constructor<never>): $Type;
+        static getType(arg0: $Class<never>): $Type;
+        static getType(arg0: string): $Type;
+        getSize(): number;
+        static getMethodType(arg0: string): $Type;
+        static getMethodType(arg0: $Type, ...arg1: $Type[]): $Type;
+        static getMethodDescriptor(arg0: $Method): string;
+        static getMethodDescriptor(arg0: $Type, ...arg1: $Type[]): string;
+        getClassName(): string;
+        getArgumentCount(): number;
+        static getArgumentCount(arg0: string): number;
+        static CHAR_TYPE: $Type;
+        static FLOAT: number;
+        static DOUBLE_TYPE: $Type;
+        static ARRAY: number;
+        static LONG_TYPE: $Type;
+        static BYTE_TYPE: $Type;
+        static CHAR: number;
+        static VOID_TYPE: $Type;
+        static OBJECT: number;
+        static BOOLEAN_TYPE: $Type;
+        static FLOAT_TYPE: $Type;
+        static BOOLEAN: number;
+        static INT: number;
+        static SHORT: number;
+        static BYTE: number;
+        static METHOD: number;
+        static SHORT_TYPE: $Type;
+        static DOUBLE: number;
+        static VOID: number;
+        static LONG: number;
+        static INT_TYPE: $Type;
+    }
+}

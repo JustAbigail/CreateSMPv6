@@ -1,0 +1,36 @@
+import { $BlockState_ } from "@package/net/minecraft/world/level/block/state";
+import { $ResourceLocation_ } from "@package/net/minecraft/resources";
+import { $List_ } from "@package/java/util";
+
+declare module "@package/net/fabricmc/fabric/mixin/registry/sync" {
+    export class $BaseMappedRegistryAccessor {
+    }
+    export interface $BaseMappedRegistryAccessor {
+        setSync(arg0: boolean): void;
+        invokeUnfreeze(): void;
+    }
+    export class $RegistryManagerAccessor {
+        static invokeTrackModdedRegistry(arg0: $ResourceLocation_): void;
+    }
+    export interface $RegistryManagerAccessor {
+    }
+    /**
+     * @deprecated
+     */
+    export class $DebugChunkGeneratorAccessor {
+        static setBLOCK_STATES(arg0: $List_<$BlockState_>): void;
+        static setX_SIDE_LENGTH(arg0: number): void;
+        static setZ_SIDE_LENGTH(arg0: number): void;
+    }
+    export interface $DebugChunkGeneratorAccessor {
+    }
+    export class $MappedRegistryAccessor {
+    }
+    export interface $MappedRegistryAccessor {
+        getFrozen(): boolean;
+    }
+    /**
+     * Values that may be interpreted as {@link $MappedRegistryAccessor}.
+     */
+    export type $MappedRegistryAccessor_ = (() => boolean);
+}

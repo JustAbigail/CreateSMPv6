@@ -1,0 +1,69 @@
+import { $Behavior, $BehaviorControl } from "@package/net/minecraft/world/entity/ai/behavior";
+import { $LevelAccessor, $Level_ } from "@package/net/minecraft/world/level";
+import { $SensorType_, $Sensor } from "@package/net/minecraft/world/entity/ai/sensing";
+import { $ItemStack_, $ItemStack } from "@package/net/minecraft/world/item";
+import { $Pair } from "@package/com/mojang/datafixers/util";
+import { $LightningBolt } from "@package/net/minecraft/world/entity";
+import { $Player } from "@package/net/minecraft/world/entity/player";
+import { $ImmutableList } from "@package/com/google/common/collect";
+import { $Activity_ } from "@package/net/minecraft/world/entity/schedule";
+import { $Map } from "@package/java/util";
+import { $Villager } from "@package/net/minecraft/world/entity/npc";
+import { $MemoryModuleType, $ExpirableValue } from "@package/net/minecraft/world/entity/ai/memory";
+import { $BlockPos, $BlockPos_, $Direction_, $Direction } from "@package/net/minecraft/core";
+import { $VillagerBrainEventInternal } from "@package/net/mehvahdjukaar/moonlight/core/misc";
+import { $BlockState_, $BlockState } from "@package/net/minecraft/world/level/block/state";
+export * as platform from "@package/net/mehvahdjukaar/moonlight/api/events/platform";
+
+declare module "@package/net/mehvahdjukaar/moonlight/api/events" {
+    export class $ILightningStruckBlockEvent {
+        static create(arg0: $BlockState_, arg1: $LevelAccessor, arg2: $BlockPos_, arg3: $LightningBolt): $ILightningStruckBlockEvent;
+    }
+    export interface $ILightningStruckBlockEvent extends $SimpleEvent {
+        getLevel(): $LevelAccessor;
+        getEntity(): $LightningBolt;
+        getState(): $BlockState;
+        getPos(): $BlockPos;
+    }
+    export class $IFireConsumeBlockEvent {
+        static create(arg0: $BlockPos_, arg1: $Level_, arg2: $BlockState_, arg3: number, arg4: number, arg5: $Direction_, arg6: boolean): $IFireConsumeBlockEvent;
+    }
+    export interface $IFireConsumeBlockEvent extends $SimpleEvent {
+        wasReplacedByFire(): boolean;
+        setFinalState(arg0: $BlockState_): void;
+        getFace(): $Direction;
+        getFinalState(): $BlockState;
+        getChance(): number;
+        getLevel(): $LevelAccessor;
+        getState(): $BlockState;
+        getAge(): number;
+        getPos(): $BlockPos;
+    }
+    export class $IDropItemOnDeathEvent {
+        static create(arg0: $ItemStack_, arg1: $Player, arg2: boolean): $IDropItemOnDeathEvent;
+    }
+    export interface $IDropItemOnDeathEvent extends $SimpleEvent {
+        setReturnItemStack(arg0: $ItemStack_): void;
+        isBeforeDrop(): boolean;
+        getPlayer(): $Player;
+        setCanceled(arg0: boolean): void;
+        getReturnItemStack(): $ItemStack;
+        isCanceled(): boolean;
+        getItemStack(): $ItemStack;
+    }
+    export class $SimpleEvent {
+    }
+    export interface $SimpleEvent {
+    }
+    export class $IVillagerBrainEvent {
+    }
+    export interface $IVillagerBrainEvent extends $SimpleEvent {
+        getVillager(): $Villager;
+        getMemories(): $Map<$MemoryModuleType<never>, ($ExpirableValue<never>) | undefined>;
+        addOrReplaceActivity(arg0: $Activity_, arg1: $ImmutableList<$Pair<number, $BehaviorControl<$Villager>>>): void;
+        scheduleActivity(arg0: $Activity_, arg1: number, arg2: number): void;
+        addTaskToActivity<P extends $Pair<number, $Behavior<$Villager>>>(arg0: $Activity_, arg1: P): boolean;
+        addSensor(arg0: $SensorType_<$Sensor<$Villager>>): void;
+        getInternal(): $VillagerBrainEventInternal;
+    }
+}

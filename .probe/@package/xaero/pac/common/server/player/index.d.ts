@@ -1,0 +1,4 @@
+export * as permission from "@package/xaero/pac/common/server/player/permission";
+export * as config from "@package/xaero/pac/common/server/player/config";
+export * as localization from "@package/xaero/pac/common/server/player/localization";
+export * as data from "@package/xaero/pac/common/server/player/data";

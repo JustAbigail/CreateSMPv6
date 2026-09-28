@@ -1,0 +1,58 @@
+import { $Long2ObjectMap } from "@package/it/unimi/dsi/fastutil/longs";
+import { $RenderType, $RenderBuffers } from "@package/net/minecraft/client/renderer";
+import { $Entity } from "@package/net/minecraft/world/entity";
+import { $CallbackInfo } from "@package/org/spongepowered/asm/mixin/injection/callback";
+import { $SodiumWorldRendererAccessor } from "@package/foundry/veil/forge/mixin/compat/sodium";
+import { $Camera, $Minecraft } from "@package/net/minecraft/client";
+import { $SortedSet, $Map_, $Map, $Collection } from "@package/java/util";
+import { $SodiumWorldRendererExtension } from "@package/foundry/veil/forge/ext";
+import { $ClientLevel } from "@package/net/minecraft/client/multiplayer";
+import { $Consumer_ } from "@package/java/util/function";
+import { $BlockDestructionProgress } from "@package/net/minecraft/server/level";
+import { $RenderSectionManager, $ChunkRenderMatrices_ } from "@package/net/caffeinemc/mods/sodium/client/render/chunk";
+import { $SortedRenderLists } from "@package/net/caffeinemc/mods/sodium/client/render/chunk/lists";
+import { $PoseStack } from "@package/com/mojang/blaze3d/vertex";
+import { $LocalBooleanRef } from "@package/com/llamalad7/mixinextras/sugar/ref";
+import { $Viewport } from "@package/net/caffeinemc/mods/sodium/client/render/viewport";
+import { $BlockEntity } from "@package/net/minecraft/world/level/block/entity";
+export * as chunk from "@package/net/caffeinemc/mods/sodium/client/render/chunk";
+export * as viewport from "@package/net/caffeinemc/mods/sodium/client/render/viewport";
+export * as texture from "@package/net/caffeinemc/mods/sodium/client/render/texture";
+export * as vertex from "@package/net/caffeinemc/mods/sodium/client/render/vertex";
+
+declare module "@package/net/caffeinemc/mods/sodium/client/render" {
+    export class $SodiumWorldRenderer implements $SodiumWorldRendererExtension, $SodiumWorldRendererAccessor {
+        isBoxVisible(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number): boolean;
+        handler$hmc000$sable$scheduleRebuildForChunk(arg0: number, arg1: number, arg2: number, arg3: boolean, arg4: $CallbackInfo): void;
+        handler$hmc000$sable$setupTerrain(arg0: $Camera, arg1: $Viewport, arg2: boolean, arg3: boolean, arg4: $CallbackInfo): void;
+        modifyReturnValue$hmc000$sable$getVisibleChunkCount(arg0: number): number;
+        handler$hmc000$sable$markGraphDirty(arg0: $Camera, arg1: $Viewport, arg2: boolean, arg3: boolean, arg4: $CallbackInfo): void;
+        handler$cen000$aeronautics$cleanupLevititeShaders(arg0: $RenderType, arg1: $ChunkRenderMatrices_, arg2: number, arg3: number, arg4: number, arg5: $CallbackInfo): void;
+        handler$hmc000$sable$drawRenderSources(arg0: $RenderType, arg1: $ChunkRenderMatrices_, arg2: number, arg3: number, arg4: number, arg5: $CallbackInfo): void;
+        isEntityVisible(arg0: $Entity): boolean;
+        getDebugStrings(): $Collection<string>;
+        handler$cen000$aeronautics$setupLevititeShaders(arg0: $RenderType, arg1: $ChunkRenderMatrices_, arg2: number, arg3: number, arg4: number, arg5: $CallbackInfo): void;
+        setLevel(arg0: $ClientLevel): void;
+        reload(): void;
+        static instance(): $SodiumWorldRenderer;
+        static instanceNullable(): $SodiumWorldRenderer;
+        veil$getSortedRenderLists(): $SortedRenderLists;
+        veil$setSortedRenderLists(arg0: $SortedRenderLists): void;
+        veil$getTaskLists(): $Map<any, any>;
+        veil$setTaskLists(arg0: $Map_<any, any>): void;
+        getVisibleChunkCount(): number;
+        isTerrainRenderComplete(): boolean;
+        scheduleTerrainUpdate(): void;
+        drawChunkLayer(arg0: $RenderType, arg1: $ChunkRenderMatrices_, arg2: number, arg3: number, arg4: number): void;
+        setupTerrain(arg0: $Camera, arg1: $Viewport, arg2: boolean, arg3: boolean): void;
+        scheduleRebuildForBlockArea(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number, arg6: boolean): void;
+        scheduleRebuildForChunks(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number, arg6: boolean): void;
+        scheduleRebuildForChunk(arg0: number, arg1: number, arg2: number, arg3: boolean): void;
+        renderBlockEntities(arg0: $PoseStack, arg1: $RenderBuffers, arg2: $Long2ObjectMap<$SortedSet<$BlockDestructionProgress>>, arg3: $Camera, arg4: number, arg5: $LocalBooleanRef): void;
+        getChunksDebugString(): string;
+        isSectionReady(arg0: number, arg1: number, arg2: number): boolean;
+        iterateVisibleBlockEntities(arg0: $Consumer_<$BlockEntity>): void;
+        getRenderSectionManager(): $RenderSectionManager;
+        constructor(arg0: $Minecraft);
+    }
+}

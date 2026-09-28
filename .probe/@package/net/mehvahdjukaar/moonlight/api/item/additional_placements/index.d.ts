@@ -1,0 +1,44 @@
+import { $InteractionResult } from "@package/net/minecraft/world";
+import { $BlockPos, $Direction } from "@package/net/minecraft/core";
+import { $Item$Properties, $BlockItem, $Item } from "@package/net/minecraft/world/item";
+import { $BlockPlaceContext, $UseOnContext } from "@package/net/minecraft/world/item/context";
+import { $FoodProperties_ } from "@package/net/minecraft/world/food";
+import { $BlockState } from "@package/net/minecraft/world/level/block/state";
+import { $ResourceLocation } from "@package/net/minecraft/resources";
+import { $SoundType_, $Block, $Block_ } from "@package/net/minecraft/world/level/block";
+import { $Map } from "@package/java/util";
+import { $Object } from "@package/java/lang";
+
+declare module "@package/net/mehvahdjukaar/moonlight/api/item/additional_placements" {
+    export class $AdditionalItemPlacement {
+        static getBlockPlacer(): $BlockPlacerItem;
+        getPlacedBlock(): $Block;
+        overrideGetPlacementState(arg0: $BlockPlaceContext): $BlockState;
+        overridePlace(arg0: $BlockPlaceContext): $InteractionResult;
+        overrideUpdatePlacementContext(arg0: $BlockPlaceContext): $BlockPlaceContext;
+        overrideUseOn(arg0: $UseOnContext, arg1: $FoodProperties_): $InteractionResult;
+        constructor(arg0: $Block_);
+    }
+    export class $BlockPlacerItem extends $BlockItem {
+        mimicGetPlacementState(arg0: $BlockPlaceContext, arg1: $Block_): $BlockState;
+        mimicUseOn(arg0: $UseOnContext, arg1: $Block_, arg2: $FoodProperties_): $InteractionResult;
+        mimicPlace(arg0: $BlockPlaceContext, arg1: $Block_, arg2: $SoundType_): $InteractionResult;
+        static get(): $BlockPlacerItem;
+        static BASE_ATTACK_DAMAGE_ID: $ResourceLocation;
+        static DEFAULT_MAX_STACK_SIZE: number;
+        paw$canModifyPos: boolean;
+        paw$direction: $Direction;
+        paw$newPos: $BlockPos;
+        static MAX_BAR_WIDTH: number;
+        static BASE_ATTACK_SPEED_ID: $ResourceLocation;
+        static ABSOLUTE_MAX_STACK_SIZE: number;
+        /**
+         * @deprecated
+         */
+        block: $Block;
+        canRepair: boolean;
+        moonlight$clientAnimationProvider: $Object;
+        static BY_BLOCK: $Map<$Block, $Item>;
+        constructor(arg0: $Block_, arg1: $Item$Properties);
+    }
+}

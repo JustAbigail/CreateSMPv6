@@ -1,0 +1,21 @@
+import { $IFluidHandler, $IFluidHandler$FluidAction_ } from "@package/net/neoforged/neoforge/fluids/capability";
+import { $Consumer_ } from "@package/java/util/function";
+import { $FluidStack_, $FluidStack } from "@package/net/neoforged/neoforge/fluids";
+import { $FluidTank } from "@package/net/neoforged/neoforge/fluids/capability/templates";
+
+declare module "@package/com/simibubi/create/foundation/fluid" {
+    export class $CombinedTankWrapper implements $IFluidHandler {
+        getTankCapacity(arg0: number): number;
+        isFluidValid(arg0: number, arg1: $FluidStack_): boolean;
+        enforceVariety(): $CombinedTankWrapper;
+        getTanks(): number;
+        getFluidInTank(arg0: number): $FluidStack;
+        drain(arg0: number, arg1: $IFluidHandler$FluidAction_): $FluidStack;
+        drain(arg0: $FluidStack_, arg1: $IFluidHandler$FluidAction_): $FluidStack;
+        fill(arg0: $FluidStack_, arg1: $IFluidHandler$FluidAction_): number;
+        constructor(...arg0: $IFluidHandler[]);
+    }
+    export class $SmartFluidTank extends $FluidTank {
+        constructor(arg0: number, arg1: $Consumer_<$FluidStack>);
+    }
+}

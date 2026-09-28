@@ -1,0 +1,41 @@
+import { $Consumer_ } from "@package/java/util/function";
+import { $CullFrustum } from "@package/foundry/veil/api/client/render";
+import { $VertexConsumer } from "@package/com/mojang/blaze3d/vertex";
+import { $LightData } from "@package/foundry/veil/api/client/render/light/data";
+import { $AdvancedFbo } from "@package/foundry/veil/api/client/render/framebuffer";
+import { $Map, $Collection } from "@package/java/util";
+import { $LightTypeRegistry$LightType, $LightTypeRegistry$LightType_ } from "@package/foundry/veil/api/client/registry";
+import { $NativeResource } from "@package/org/lwjgl/system";
+
+declare module "@package/foundry/veil/api/client/render/light/renderer" {
+    export class $LightRenderHandle<T extends $LightData> {
+    }
+    export interface $LightRenderHandle<T extends $LightData> extends $NativeResource {
+        getLightData(): T;
+        markDirty(): void;
+        isValid(): boolean;
+    }
+    export class $LightRenderer implements $NativeResource {
+        getRenderers(): $Map<$LightTypeRegistry$LightType<never>, $LightTypeRenderer<never>>;
+        addLight<T extends $LightData>(arg0: T): $LightRenderHandle<T>;
+        addLight<T extends $LightData>(arg0: $LightRenderHandle<T>): $LightRenderHandle<T>;
+        getLights<T extends $LightData>(arg0: $LightTypeRegistry$LightType_<T>): $Collection<$LightRenderHandle<T>>;
+        addDebugInfo(arg0: $Consumer_<string>): void;
+        free(): void;
+        render(arg0: $CullFrustum, arg1: $AdvancedFbo): boolean;
+        close(): void;
+        constructor();
+    }
+    export class $LightTypeRenderer<T extends $LightData> {
+        static createQuad(arg0: $VertexConsumer): void;
+        static createInvertedCube(arg0: $VertexConsumer): void;
+    }
+    export interface $LightTypeRenderer<T extends $LightData> extends $NativeResource {
+        addLight(arg0: T): $LightRenderHandle<T>;
+        prepareLights(arg0: $LightRenderer, arg1: $CullFrustum): void;
+        steal(arg0: $LightRenderHandle<T>): $LightRenderHandle<T>;
+        renderLights(arg0: $LightRenderer): void;
+        getLights(): $Collection<$LightRenderHandle<T>>;
+        getVisibleLights(): number;
+    }
+}

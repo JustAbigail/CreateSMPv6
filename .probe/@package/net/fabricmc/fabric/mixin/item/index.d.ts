@@ -1,0 +1,29 @@
+import { $HolderSet } from "@package/net/minecraft/core";
+import { $Enchantment, $Enchantment$EnchantmentDefinition } from "@package/net/minecraft/world/item/enchantment";
+import { $DataComponentMap, $DataComponentMap$Builder, $DataComponentMap_, $DataComponentType_ } from "@package/net/minecraft/core/component";
+import { $List_, $List } from "@package/java/util";
+import { $FabricTooltipType } from "@package/net/fabricmc/fabric/api/item/v1";
+
+declare module "@package/net/fabricmc/fabric/mixin/item" {
+    export class $TooltipTypeMixin {
+    }
+    export interface $TooltipTypeMixin extends $FabricTooltipType {
+    }
+    export class $EnchantmentBuilderAccessor {
+    }
+    export interface $EnchantmentBuilderAccessor {
+        getExclusiveSet(): $HolderSet<$Enchantment>;
+        getEffectMap(): $DataComponentMap$Builder;
+        invokeGetEffectsList<E>(arg0: $DataComponentType_<$List_<E>>): $List<E>;
+        getDefinition(): $Enchantment$EnchantmentDefinition;
+    }
+    export class $ItemAccessor {
+    }
+    export interface $ItemAccessor {
+        setComponents(arg0: $DataComponentMap_): void;
+    }
+    /**
+     * Values that may be interpreted as {@link $ItemAccessor}.
+     */
+    export type $ItemAccessor_ = ((arg0: $DataComponentMap) => void);
+}

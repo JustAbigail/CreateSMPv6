@@ -1,0 +1,20 @@
+import { RegistryTypes, RegistryMarked } from "@special/types";
+import { $Component } from "@package/net/minecraft/network/chat";
+
+declare module "@package/dev/eriksonn/aeronautics/content/blocks/hot_air/lifting_gas" {
+    export class $LiftingGasType {
+    }
+    export interface $LiftingGasType {
+        getResponsivenessAdjustmentFactor(): number;
+        getFillingTime(): number;
+        getEmptyingTime(): number;
+        getLiftStrength(): number;
+        getResponsivenessAdjustmentRange(): number;
+        getName(): $Component;
+    }
+    /**
+     * Values that may be interpreted as {@link $LiftingGasType}.
+     */
+    export type $LiftingGasType_ = RegistryTypes.AeronauticsLiftingGasType;
+    export interface $LiftingGasType extends RegistryMarked<RegistryTypes.AeronauticsLiftingGasTypeTag, RegistryTypes.AeronauticsLiftingGasType> {}
+}
