@@ -1,4 +1,4 @@
-ENV.send(:define_singleton_method, :method_missing) {|attr| self[attr.to_s]}
+ENV.send :define_singleton_method, :method_missing, {|attr| self[attr.to_s]}
 
 if not ENV.REPOSITORY_ROOT:
 	puts "REPOSITORY_ROOT is not set, using default path"

@@ -1,0 +1,15 @@
+edit mods w/ packwiz in cmdline
+open inst folder in vscode
+provide copy script to copy type bindings and kjs pre-commit
+possible to add pre-commit hook?
+no types in kjs repo required then?
+force pull to delete refs? reclone?
+scrap that, bad for quick revert & bisect
+
+symlink? refetch keybind on int server?
+
+symlink probe res to dev repo
+symlink kjs from dev repo to dev instance
+pwign probe res
+check probe => ign, but git commit(?)
+check kjs => target already up to date bcuz same file virtually

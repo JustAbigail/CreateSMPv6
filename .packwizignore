@@ -1,2 +1,5 @@
 /dev
-/CreateSMPv6.code-workspace
+/*.code-workspace
+/.probe
+/kubejs/package.json
+/kubejs/*_scripts/jsconfig.json

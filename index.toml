@@ -9,6 +9,14 @@ file = "README.md"
 hash = "e70d7f583c9a8142bb5ecc448a71b3a4503ec6838253cea2898a7fef989d8988"
 
 [[files]]
+file = "kubejs/server_scripts/GreetPlayer.js"
+hash = "85026a9537bfaf52e4104459bfff6f756f5f06d31201e48facdbd02a761050f7"
+
+[[files]]
+file = "kubejs/server_scripts/GreetPlayer.ts"
+hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[files]]
 file = "mods/0pack2reload.pw.toml"
 hash = "05609721e7b08d0bd8f29296c68dd0927148a15f315970d629c1fca3f375e7f0"
 metafile = true
