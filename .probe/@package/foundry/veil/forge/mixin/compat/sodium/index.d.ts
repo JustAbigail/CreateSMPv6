@@ -8,6 +8,7 @@ declare module "@package/foundry/veil/forge/mixin/compat/sodium" {
     }
     export interface $SodiumWorldRendererAccessor {
         getRenderSectionManager(): $RenderSectionManager;
+        get renderSectionManager(): $RenderSectionManager;
     }
     /**
      * Values that may be interpreted as {@link $SodiumWorldRendererAccessor}.
@@ -18,6 +19,8 @@ declare module "@package/foundry/veil/forge/mixin/compat/sodium" {
     export interface $RenderSectionManagerAccessor {
         getChunkRenderer(): $ChunkRenderer;
         getSectionByPosition(): $Long2ReferenceMap<$RenderSection>;
+        get chunkRenderer(): $ChunkRenderer;
+        get sectionByPosition(): $Long2ReferenceMap<$RenderSection>;
     }
     export class $SortedRenderListsAccessor {
         static init(arg0: $ObjectArrayList<$ChunkRenderList>): $SortedRenderLists;

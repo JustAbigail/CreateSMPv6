@@ -10,6 +10,7 @@ declare module "@package/foundry/veil/api/client/render/shader/block" {
         static STD140: $ShaderBlock$MemoryLayout;
         static PACKED: $ShaderBlock$MemoryLayout;
         static STD430: $ShaderBlock$MemoryLayout;
+        get layoutId(): $GlslTypeQualifier$LayoutId;
     }
     /**
      * Values that may be interpreted as {@link $ShaderBlock$MemoryLayout}.
@@ -21,6 +22,7 @@ declare module "@package/foundry/veil/api/client/render/shader/block" {
         static valueOf(arg0: string): $ShaderBlock$BufferBinding;
         static UNIFORM: $ShaderBlock$BufferBinding;
         static SHADER_STORAGE: $ShaderBlock$BufferBinding;
+        get glType(): number;
     }
     /**
      * Values that may be interpreted as {@link $ShaderBlock$BufferBinding}.

@@ -17,13 +17,16 @@ import { $Matrix4f } from "@package/org/joml";
 
 declare module "@package/com/simibubi/create/content/contraptions/render" {
     export class $ActorVisual implements $Visual {
+        tick(): void;
         update(arg0: number): void;
         "delete"(): void;
-        tick(): void;
         beginFrame(): void;
         constructor(arg0: $VisualizationContext, arg1: $BlockAndTintGetter, arg2: $MovementContext);
     }
     export class $ClientContraption {
+        resetRenderLevel(): void;
+        invalidateStructure(): void;
+        invalidateChildren(): void;
         structureVersion(): number;
         childrenVersion(): number;
         readBlockEntity(arg0: $Level_, arg1: $StructureTemplate$StructureBlockInfo_, arg2: boolean): $BlockEntity;
@@ -31,14 +34,15 @@ declare module "@package/com/simibubi/create/content/contraptions/render" {
         getMatrices(): $ContraptionMatrices;
         getRenderedBlocks(): $ClientContraption$RenderedBlocks;
         getAndAdjustShouldRenderBlockEntities(): $BitSet;
-        resetRenderLevel(): void;
-        invalidateStructure(): void;
-        invalidateChildren(): void;
         getBlockEntity(arg0: $BlockPos_): $BlockEntity;
         shouldRenderBlockEntities: $BitSet;
         renderedBlockEntityView: $List<$BlockEntity>;
         scratchErroredBlockEntities: $BitSet;
         constructor(arg0: $Contraption);
+        get renderLevel(): $VirtualRenderWorld;
+        get matrices(): $ContraptionMatrices;
+        get renderedBlocks(): $ClientContraption$RenderedBlocks;
+        get andAdjustShouldRenderBlockEntities(): $BitSet;
     }
     export class $ContraptionMatrices {
         getWorld(): $Matrix4f;
@@ -50,6 +54,11 @@ declare module "@package/com/simibubi/create/content/contraptions/render" {
         static clearStack(arg0: $PoseStack): void;
         getModel(): $PoseStack;
         constructor();
+        get world(): $Matrix4f;
+        get modelViewProjection(): $PoseStack;
+        get viewProjection(): $PoseStack;
+        get light(): $Matrix4f;
+        get model(): $PoseStack;
     }
     export class $ClientContraption$RenderedBlocks extends $Record {
         positions(): $Iterable<$BlockPos>;

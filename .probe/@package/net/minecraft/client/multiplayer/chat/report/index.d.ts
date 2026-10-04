@@ -57,25 +57,27 @@ declare module "@package/net/minecraft/client/multiplayer/chat/report" {
         reportLimits(): $AbuseReportLimits;
         isEnabled(): boolean;
         send(id: $UUID_, reportType: $ReportType_, report: $AbuseReport_): $CompletableFuture<$Unit>;
+        get enabled(): boolean;
     }
     export class $ReportingContext {
+        hasDraftReport(): boolean;
+        draftReportHandled(minecraft: $Minecraft, screen: $Screen, quitter: $Runnable_, quitToTitle: boolean): void;
         setReportDraft(draftReport: $Report | null): void;
         hasDraftReportFor(uuid: $UUID_): boolean;
         chatLog(): $ChatLog;
         sender(): $AbuseReportSender;
         matches(environment: $ReportEnvironment_): boolean;
         static create(environment: $ReportEnvironment_, userApiService: $UserApiService): $ReportingContext;
-        hasDraftReport(): boolean;
-        draftReportHandled(minecraft: $Minecraft, screen: $Screen, quitter: $Runnable_, quitToTitle: boolean): void;
         constructor(sender: $AbuseReportSender, enviroment: $ReportEnvironment_, chatLog: $ChatLog);
+        set reportDraft(value: $Report | null);
     }
     export class $ReportEnvironment extends $Record {
         static thirdParty(ip: string): $ReportEnvironment;
         clientInfo(): $AbuseReportRequest$ClientInfo;
         thirdPartyServerInfo(): $AbuseReportRequest$ThirdPartyServerInfo;
         realmInfo(): $AbuseReportRequest$RealmInfo;
-        static realm(realmsServer: $RealmsServer): $ReportEnvironment;
         clientVersion(): string;
+        static realm(realmsServer: $RealmsServer): $ReportEnvironment;
         static create(server: $ReportEnvironment$Server | null): $ReportEnvironment;
         static local(): $ReportEnvironment;
         server(): $ReportEnvironment$Server;

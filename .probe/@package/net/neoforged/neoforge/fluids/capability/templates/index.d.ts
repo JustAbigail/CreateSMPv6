@@ -9,25 +9,30 @@ declare module "@package/net/neoforged/neoforge/fluids/capability/templates" {
      * Flexible implementation of a Fluid Storage object. NOT REQUIRED.
      */
     export class $FluidTank implements $IFluidHandler, $IFluidTank {
+        writeToNBT(lookupProvider: $HolderLookup$Provider, nbt: $CompoundTag_): $CompoundTag;
         getTankCapacity(tank: number): number;
-        isFluidValid(stack: $FluidStack_): boolean;
         isFluidValid(tank: number, stack: $FluidStack_): boolean;
+        isFluidValid(stack: $FluidStack_): boolean;
         setValidator(validator: $Predicate_<$FluidStack>): $FluidTank;
         setFluid(stack: $FluidStack_): void;
         getFluidAmount(): number;
         readFromNBT(lookupProvider: $HolderLookup$Provider, nbt: $CompoundTag_): $FluidTank;
-        writeToNBT(lookupProvider: $HolderLookup$Provider, nbt: $CompoundTag_): $CompoundTag;
         setCapacity(capacity: number): $FluidTank;
-        getCapacity(): number;
         getFluid(): $FluidStack;
         getTanks(): number;
         getFluidInTank(tank: number): $FluidStack;
         drain(arg0: number, arg1: $IFluidHandler$FluidAction_): $FluidStack;
         drain(arg0: $FluidStack_, arg1: $IFluidHandler$FluidAction_): $FluidStack;
+        getSpace(): number;
+        getCapacity(): number;
         isEmpty(): boolean;
         fill(arg0: $FluidStack_, arg1: $IFluidHandler$FluidAction_): number;
-        getSpace(): number;
         constructor(capacity: number);
         constructor(capacity: number, validator: $Predicate_<$FluidStack>);
+        set validator(value: $Predicate_<$FluidStack>);
+        get fluidAmount(): number;
+        get tanks(): number;
+        get space(): number;
+        get empty(): boolean;
     }
 }

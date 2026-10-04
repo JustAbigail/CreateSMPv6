@@ -32,6 +32,7 @@ declare module "@package/gg/moonflower/molangcompiler/api" {
         getCopy(): $MolangExpression;
         isConstant(): boolean;
         getConstant(): number;
+        get copy(): $MolangExpression;
     }
     /**
      * Values that may be interpreted as {@link $MolangExpression}.
@@ -40,18 +41,18 @@ declare module "@package/gg/moonflower/molangcompiler/api" {
     export class $MolangEnvironmentBuilder<V extends $MolangEnvironment> {
     }
     export interface $MolangEnvironmentBuilder<V extends $MolangEnvironment> {
-        clearQuery(): $MolangEnvironmentBuilder<V>;
         unloadLibrary(arg0: string): $MolangEnvironmentBuilder<V>;
         removeQuery(arg0: string): $MolangEnvironmentBuilder<V>;
         removeGlobal(arg0: string): $MolangEnvironmentBuilder<V>;
+        clearQuery(): $MolangEnvironmentBuilder<V>;
         removeVariable(arg0: string): $MolangEnvironmentBuilder<V>;
         clearLibraries(): $MolangEnvironmentBuilder<V>;
         clearGlobal(): $MolangEnvironmentBuilder<V>;
         clearVariable(): $MolangEnvironmentBuilder<V>;
         setVariables(arg0: $MolangVariableProvider_): $MolangEnvironmentBuilder<V>;
-        setQuery(arg0: string, arg1: $MolangExpression_): $MolangEnvironmentBuilder<V>;
         setQuery(arg0: string, arg1: $Supplier_<number>): $MolangEnvironmentBuilder<V>;
         setQuery(arg0: string, arg1: number): $MolangEnvironmentBuilder<V>;
+        setQuery(arg0: string, arg1: $MolangExpression_): $MolangEnvironmentBuilder<V>;
         setQuery(arg0: string, arg1: number, arg2: $MolangJavaFunction_): $MolangEnvironmentBuilder<V>;
         loadLibrary(arg0: string, arg1: $MolangObject): $MolangEnvironmentBuilder<V>;
         copy(arg0: $MolangEnvironment): $MolangEnvironmentBuilder<V>;
@@ -65,6 +66,7 @@ declare module "@package/gg/moonflower/molangcompiler/api" {
         setVariable(arg0: string, arg1: $Supplier_<number>): $MolangEnvironmentBuilder<V>;
         setVariable(arg0: string, arg1: $MolangExpression_): $MolangEnvironmentBuilder<V>;
         setVariable(arg0: string, arg1: $MolangVariable): $MolangEnvironmentBuilder<V>;
+        set variables(value: $MolangVariableProvider_);
     }
     export class $MolangEnvironment {
         static immutable(arg0: $MolangEnvironment): $MolangEnvironment;
@@ -72,15 +74,15 @@ declare module "@package/gg/moonflower/molangcompiler/api" {
     export interface $MolangEnvironment {
         getThis(): number;
         canEdit(): boolean;
+        loadAlias(arg0: string, arg1: string, ...arg2: string[]): void;
         edit(): $MolangEnvironmentBuilder<$MolangEnvironment>;
         safeResolve(arg0: $MolangExpression_): number;
-        loadAlias(arg0: string, arg1: string, ...arg2: string[]): void;
         loadParameter(arg0: number): void;
         clearParameters(): void;
         hasParameter(arg0: number): boolean;
         setThisValue(arg0: number): void;
-        getObjects(): $Collection<string>;
         has(arg0: string): boolean;
+        getObjects(): $Collection<string>;
         get(arg0: string): $MolangObject;
         loadLibrary(arg0: string, arg1: $MolangObject, ...arg2: string[]): void;
         loadLibrary(arg0: string, arg1: $MolangObject): void;
@@ -88,5 +90,9 @@ declare module "@package/gg/moonflower/molangcompiler/api" {
         copy(): $MolangEnvironment;
         getParameters(): number;
         getParameter(arg0: number): number;
+        get this(): number;
+        set thisValue(value: number);
+        get objects(): $Collection<string>;
+        get parameters(): number;
     }
 }

@@ -44,10 +44,31 @@ declare module "@package/com/google/common/reflect" {
         getDeclaredAnnotation<T extends $Annotation>(arg0: $Class<T>): T;
         getDeclaredAnnotationsByType<T extends $Annotation>(arg0: $Class<T>): T[];
         accessFlags(): $Set<$AccessFlag>;
+        get packagePrivate(): boolean;
+        get overridable(): boolean;
+        get name(): string;
+        get modifiers(): number;
+        get typeParameters(): $TypeVariable<never>[];
+        get returnType(): $TypeToken<R>;
+        get synthetic(): boolean;
+        get final(): boolean;
+        get static(): boolean;
+        get declaringClass(): $Class<T>;
+        get annotations(): $Annotation[];
+        get declaredAnnotations(): $Annotation[];
+        get public(): boolean;
+        get protected(): boolean;
+        get varArgs(): boolean;
+        get exceptionTypes(): $ImmutableList<$TypeToken<$Throwable>>;
+        get annotatedReturnType(): $AnnotatedType;
+        get parameters(): $ImmutableList<$Parameter>;
+        get abstract(): boolean;
+        get private(): boolean;
+        get native(): boolean;
+        get synchronized(): boolean;
+        get ownerType(): $TypeToken<T>;
     }
     export class $TypeToken<T> extends $TypeCapture<T> implements $Serializable {
-        isSupertypeOf(type: $TypeToken<never>): boolean;
-        isSupertypeOf(type: $Type): boolean;
         resolveType(type: $Type): $TypeToken<never>;
         getSubtype(subclass: $Class<never>): $TypeToken<T>;
         isSubtypeOf(type: $TypeToken<never>): boolean;
@@ -58,8 +79,8 @@ declare module "@package/com/google/common/reflect" {
         isArray(): boolean;
         isPrimitive(): boolean;
         wrap(): $TypeToken<T>;
-        static of(type: $Type): $TypeToken<never>;
         static of<T>(type: $Class<T>): $TypeToken<T>;
+        static of(type: $Type): $TypeToken<never>;
         getComponentType(): $TypeToken<never>;
         "constructor"(arg0: $Constructor<never>): $Invokable<T, T>;
         getType(): $Type;
@@ -67,6 +88,14 @@ declare module "@package/com/google/common/reflect" {
         getRawType(): $Class<T>;
         getSupertype(superclass: $Class<T>): $TypeToken<T>;
         getTypes(): $TypeToken$TypeSet;
+        isSupertypeOf(type: $TypeToken<never>): boolean;
+        isSupertypeOf(type: $Type): boolean;
+        get array(): boolean;
+        get primitive(): boolean;
+        get componentType(): $TypeToken<never>;
+        get type(): $Type;
+        get rawType(): $Class<T>;
+        get types(): $TypeToken$TypeSet;
     }
     export class $TypeParameter<T> extends $TypeCapture<T> {
     }
@@ -86,6 +115,11 @@ declare module "@package/com/google/common/reflect" {
         getDeclaredAnnotations(): $Annotation[];
         getType(): $TypeToken<never>;
         getAnnotatedType(): $AnnotatedType;
+        get declaringInvokable(): $Invokable<never, never>;
+        get annotations(): $Annotation[];
+        get declaredAnnotations(): $Annotation[];
+        get type(): $TypeToken<never>;
+        get annotatedType(): $AnnotatedType;
     }
     export class $TypeCapture<T> {
     }

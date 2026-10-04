@@ -10,28 +10,24 @@ declare module "@package/xaero/pac/common/claims/api" {
     export class $IClaimsManagerAPI {
     }
     export interface $IClaimsManagerAPI {
-        getTracker(): $IClaimsManagerTrackerAPI;
         hasPlayerInfo(arg0: $UUID_): boolean;
-        getPlayerInfo(arg0: $UUID_): $IPlayerClaimInfoAPI;
-        getDefaultName(arg0: $IPlayerChunkClaimAPI | null): $Component;
+        getTracker(): $IClaimsManagerTrackerAPI;
         getDimension(arg0: $ResourceLocation_): $IDimensionClaimsManagerAPI;
+        getDefaultName(arg0: $IPlayerChunkClaimAPI | null): $Component;
+        getPlayerInfo(arg0: $UUID_): $IPlayerClaimInfoAPI;
+        getFullName(arg0: $IPlayerChunkClaimAPI | null): $Component;
+        get(arg0: $ResourceLocation_, arg1: $BlockPos_): $IPlayerChunkClaimAPI;
         get(arg0: $ResourceLocation_, arg1: number, arg2: number): $IPlayerChunkClaimAPI;
         get(arg0: $ResourceLocation_, arg1: $ChunkPos): $IPlayerChunkClaimAPI;
-        get(arg0: $ResourceLocation_, arg1: $BlockPos_): $IPlayerChunkClaimAPI;
-        getFullName(arg0: $IPlayerChunkClaimAPI | null): $Component;
-    }
-    export class $IRegionClaimsAPI {
-    }
-    export interface $IRegionClaimsAPI {
-        get(arg0: number, arg1: number): $IPlayerChunkClaimAPI;
-        getX(): number;
-        getZ(): number;
+        get tracker(): $IClaimsManagerTrackerAPI;
     }
     export class $IDimensionClaimsManagerAPI {
     }
     export interface $IDimensionClaimsManagerAPI {
-        getRegion(arg0: number, arg1: number): $IRegionClaimsAPI;
         getDimension(): $ResourceLocation;
         getCount(): number;
+        getRegion(arg0: number, arg1: number): $IRegionClaimsAPI;
+        get dimension(): $ResourceLocation;
+        get count(): number;
     }
 }

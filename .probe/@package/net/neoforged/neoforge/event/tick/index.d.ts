@@ -100,6 +100,7 @@ declare module "@package/net/neoforged/neoforge/event/tick" {
          * @return the server instance
          */
         getServer(): $MinecraftServer;
+        get server(): $MinecraftServer;
     }
     /**
      * `Pre` is fired once per game tick, per entity, before the entity performs work for the current tick.
@@ -131,5 +132,6 @@ declare module "@package/net/neoforged/neoforge/event/tick" {
          * @return the level being ticked
          */
         getLevel(): $Level;
+        get level(): $Level;
     }
 }

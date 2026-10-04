@@ -18,10 +18,10 @@ import { $NeighborUpdater } from "@package/net/minecraft/world/level/redstone";
 
 declare module "@package/net/createmod/catnip/levelWrappers" {
     export class $SchematicLevel extends $WrappedLevel implements $ServerLevelAccessor, $SchematicLevelAccessor, $SchematicLevelExtension {
+        getBlockMap(): $Map<$BlockPos, $BlockState>;
         sable$getSubLevels(): $List<any>;
         getAllPositions(): $Set<$BlockPos>;
         getEntityList(): $List<$Entity>;
-        getBlockMap(): $Map<$BlockPos, $BlockState>;
         getRenderedBlockEntities(): $Iterable<$BlockEntity>;
         getBlockEntities(): $Iterable<$BlockEntity>;
         getLevel(): $ServerLevel;
@@ -59,6 +59,12 @@ declare module "@package/net/createmod/catnip/levelWrappers" {
         captureBlockSnapshots: boolean;
         constructor(arg0: $Level_);
         constructor(arg0: $BlockPos_, arg1: $Level_);
+        get blockMap(): $Map<$BlockPos, $BlockState>;
+        get allPositions(): $Set<$BlockPos>;
+        get entityList(): $List<$Entity>;
+        get renderedBlockEntities(): $Iterable<$BlockEntity>;
+        get blockEntities(): $Iterable<$BlockEntity>;
+        get level(): $ServerLevel;
     }
     export class $WrappedLevel extends $Level {
         setChunkSource(arg0: $ChunkSource): void;
@@ -91,16 +97,23 @@ declare module "@package/net/createmod/catnip/levelWrappers" {
         blockEntityTickers: $List<$TickingBlockEntity>;
         captureBlockSnapshots: boolean;
         constructor(arg0: $Level_);
+        set chunkSource(value: $ChunkSource);
+        get level(): $Level;
     }
     export class $SchematicLevelAccessor {
     }
     export interface $SchematicLevelAccessor extends $LevelAccessor {
+        getBlockMap(): $Map<$BlockPos, $BlockState>;
         getAllPositions(): $Set<$BlockPos>;
         getEntityList(): $List<$Entity>;
-        getBlockMap(): $Map<$BlockPos, $BlockState>;
         getRenderedBlockEntities(): $Iterable<$BlockEntity>;
         getBlockEntities(): $Iterable<$BlockEntity>;
         getBounds(): $BoundingBox;
         setBounds(arg0: $BoundingBox): void;
+        get blockMap(): $Map<$BlockPos, $BlockState>;
+        get allPositions(): $Set<$BlockPos>;
+        get entityList(): $List<$Entity>;
+        get renderedBlockEntities(): $Iterable<$BlockEntity>;
+        get blockEntities(): $Iterable<$BlockEntity>;
     }
 }

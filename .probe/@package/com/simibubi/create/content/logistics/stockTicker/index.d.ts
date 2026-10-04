@@ -18,12 +18,12 @@ declare module "@package/com/simibubi/create/content/logistics/stockTicker" {
      */
     export type $PackageOrderWithCrafts$CraftingEntry_ = { count?: number, pattern?: $PackageOrder_,  } | [count?: number, pattern?: $PackageOrder_, ];
     export class $PackageOrderWithCrafts extends $Record {
-        orderedCrafts(): $List<$PackageOrderWithCrafts$CraftingEntry>;
-        static singleRecipe(arg0: $List_<$BigItemStack>): $PackageOrderWithCrafts;
-        orderedStacksMatchOrderedRecipes(): boolean;
         orderedStacks(): $PackageOrder;
         static hasCraftingInformation(arg0: $PackageOrderWithCrafts_): boolean;
         getCraftingInformation(): $List<$BigItemStack>;
+        orderedStacksMatchOrderedRecipes(): boolean;
+        static singleRecipe(arg0: $List_<$BigItemStack>): $PackageOrderWithCrafts;
+        orderedCrafts(): $List<$PackageOrderWithCrafts$CraftingEntry>;
         isEmpty(): boolean;
         static empty(): $PackageOrderWithCrafts;
         static simple(arg0: $List_<$BigItemStack>): $PackageOrderWithCrafts;
@@ -31,11 +31,12 @@ declare module "@package/com/simibubi/create/content/logistics/stockTicker" {
         static CODEC: $Codec<$PackageOrderWithCrafts>;
         static STREAM_CODEC: $StreamCodec<$RegistryFriendlyByteBuf, $PackageOrderWithCrafts>;
         constructor(orderedStacks: $PackageOrder_, orderedCrafts: $List_<$PackageOrderWithCrafts$CraftingEntry_>);
+        get craftingInformation(): $List<$BigItemStack>;
     }
     /**
      * Values that may be interpreted as {@link $PackageOrderWithCrafts}.
      */
-    export type $PackageOrderWithCrafts_ = { orderedCrafts?: $List_<$PackageOrderWithCrafts$CraftingEntry_>, orderedStacks?: $PackageOrder_,  } | [orderedCrafts?: $List_<$PackageOrderWithCrafts$CraftingEntry_>, orderedStacks?: $PackageOrder_, ];
+    export type $PackageOrderWithCrafts_ = { orderedStacks?: $PackageOrder_, orderedCrafts?: $List_<$PackageOrderWithCrafts$CraftingEntry_>,  } | [orderedStacks?: $PackageOrder_, orderedCrafts?: $List_<$PackageOrderWithCrafts$CraftingEntry_>, ];
     export class $PackageOrder extends $Record {
         isEmpty(): boolean;
         static empty(): $PackageOrder;

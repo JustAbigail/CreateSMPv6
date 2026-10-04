@@ -21,11 +21,19 @@ declare module "@package/com/drmangotea/tfmg/content/machinery/vat/electrode_hol
         getOrCreateDescriptionId(): string;
         getDisplayName(): $Component;
         getItem(): $ItemEntry<never>;
+        tick(arg0: $VatBlockEntity, arg1: $Level_, arg2: $BlockPos_, arg3: boolean, arg4: boolean): void;
         getKey(): $ResourceLocation;
         getStack(): $ItemStack;
-        tick(arg0: $VatBlockEntity, arg1: $Level_, arg2: $BlockPos_, arg3: boolean, arg4: boolean): void;
         getDescriptionId(): string;
         constructor(arg0: $Electrode$Properties);
+        get resistance(): number;
+        get operationId(): string;
+        get orCreateDescriptionId(): string;
+        get displayName(): $Component;
+        get item(): $ItemEntry<never>;
+        get key(): $ResourceLocation;
+        get stack(): $ItemStack;
+        get descriptionId(): string;
     }
     /**
      * Values that may be interpreted as {@link $Electrode}.

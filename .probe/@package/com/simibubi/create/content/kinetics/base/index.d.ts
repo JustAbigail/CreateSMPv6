@@ -26,15 +26,16 @@ declare module "@package/com/simibubi/create/content/kinetics/base" {
     export class $IRotate {
     }
     export interface $IRotate extends $IWrenchable {
+        getRotationAxis(arg0: $BlockState_): $Direction$Axis;
+        hasShaftTowards(arg0: $LevelReader, arg1: $BlockPos_, arg2: $BlockState_, arg3: $Direction_): boolean;
         getMinimumRequiredSpeedLevel(): $IRotate$SpeedLevel;
         hideStressImpact(): boolean;
         showCapacityWithAnnotation(): boolean;
-        getRotationAxis(arg0: $BlockState_): $Direction$Axis;
-        hasShaftTowards(arg0: $LevelReader, arg1: $BlockPos_, arg2: $BlockState_, arg3: $Direction_): boolean;
+        get minimumRequiredSpeedLevel(): $IRotate$SpeedLevel;
     }
     export class $KineticEffectHandler implements $KineticEffectHandlerAccessor {
-        triggerOverStressedEffect(): void;
         spawnEffect(arg0: $ParticleOptions_, arg1: number, arg2: number): void;
+        triggerOverStressedEffect(): void;
         spawnRotationIndicators(): void;
         queueRotationIndicators(): void;
         tick(): void;
@@ -42,10 +43,10 @@ declare module "@package/com/simibubi/create/content/kinetics/base" {
         constructor(arg0: $KineticBlockEntity);
     }
     export class $IRotate$SpeedLevel extends $Enum<$IRotate$SpeedLevel> {
-        getSpeedValue(): number;
-        static getFormattedSpeedText(arg0: number, arg1: boolean): $LangBuilder;
         getParticleSpeed(): number;
+        getSpeedValue(): number;
         getTextColor(): $ChatFormatting;
+        static getFormattedSpeedText(arg0: number, arg1: boolean): $LangBuilder;
         static values(): $IRotate$SpeedLevel[];
         static valueOf(arg0: string): $IRotate$SpeedLevel;
         static of(arg0: number): $IRotate$SpeedLevel;
@@ -54,6 +55,10 @@ declare module "@package/com/simibubi/create/content/kinetics/base" {
         static SLOW: $IRotate$SpeedLevel;
         static NONE: $IRotate$SpeedLevel;
         static FAST: $IRotate$SpeedLevel;
+        get particleSpeed(): number;
+        get speedValue(): number;
+        get textColor(): $ChatFormatting;
+        get color(): number;
     }
     /**
      * Values that may be interpreted as {@link $IRotate$SpeedLevel}.
@@ -62,8 +67,11 @@ declare module "@package/com/simibubi/create/content/kinetics/base" {
     export class $KineticBlockEntity extends $SmartBlockEntity implements $IHaveGoggleInformation, $IHaveHoveringInformation, $KineticBlockEntityExtension, $IPlacerTracked, $KineticBlockEntityAccessor$1, $KineticBlockEntityAccessor {
         setSpeed(arg0: number): void;
         getSpeed(): number;
-        getFlickerScore(): number;
+        onSpeedChanged(arg0: number): void;
         hasSource(): boolean;
+        needsSpeedUpdate(): boolean;
+        attachKinetics(): void;
+        getFlickerScore(): number;
         getGeneratedSpeed(): number;
         updateFromNetwork(arg0: number, arg1: number, arg2: number): void;
         calculateStressApplied(): number;
@@ -84,8 +92,6 @@ declare module "@package/com/simibubi/create/content/kinetics/base" {
         addPropagationLocations(arg0: $IRotate, arg1: $BlockState_, arg2: $List_<$BlockPos_>): $List<$BlockPos>;
         isCustomConnection(arg0: $KineticBlockEntity, arg1: $BlockState_, arg2: $BlockState_): boolean;
         tickAudio(): void;
-        needsSpeedUpdate(): boolean;
-        attachKinetics(): void;
         getRotationAngleOffset(arg0: $Direction$Axis_): number;
         simulated$setConnectedToExtraKinetics(arg0: boolean): void;
         simulated$getConnectedToExtraKinetics(): boolean;
@@ -95,17 +101,16 @@ declare module "@package/com/simibubi/create/content/kinetics/base" {
         aeroclaims$getPlacerUUID(): $UUID;
         aeroclaims$setPlacerUUID(arg0: $UUID_): void;
         addToGoggleTooltip(arg0: $List_<$Component_>, arg1: boolean): boolean;
-        onSpeedChanged(arg0: number): void;
-        warnOfMovement(): void;
-        clearKineticInformation(): void;
-        static convertToDirection(arg0: number, arg1: $Direction_): number;
-        addToTooltip(arg0: $List_<$Component_>, arg1: boolean): boolean;
+        static switchToBlockState(arg0: $Level_, arg1: $BlockPos_, arg2: $BlockState_): void;
         hasNetwork(): boolean;
         getOrCreateNetwork(): $KineticNetwork;
         detachKinetics(): void;
         removeSource(): void;
         isSource(): boolean;
-        static switchToBlockState(arg0: $Level_, arg1: $BlockPos_, arg2: $BlockState_): void;
+        warnOfMovement(): void;
+        clearKineticInformation(): void;
+        addToTooltip(arg0: $List_<$Component_>, arg1: boolean): boolean;
+        static convertToDirection(arg0: number, arg1: $Direction_): number;
         setSource(arg0: $BlockPos_): void;
         containedFluidTooltip(arg0: $List_<$Component_>, arg1: boolean, arg2: $IFluidHandler): boolean;
         getIcon(arg0: boolean): $ItemStack;
@@ -125,5 +130,11 @@ declare module "@package/com/simibubi/create/content/kinetics/base" {
         preventSpeedUpdate: number;
         network: number;
         constructor(arg0: $BlockEntityType_<never>, arg1: $BlockPos_, arg2: $BlockState_);
+        get flickerScore(): number;
+        get generatedSpeed(): number;
+        get theoreticalSpeed(): number;
+        get speedRequirementFulfilled(): boolean;
+        get overStressed(): boolean;
+        get orCreateNetwork(): $KineticNetwork;
     }
 }

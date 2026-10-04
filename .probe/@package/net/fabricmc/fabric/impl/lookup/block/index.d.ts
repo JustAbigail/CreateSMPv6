@@ -12,11 +12,11 @@ import { $BlockApiLookup$BlockApiProvider_, $BlockApiLookup$BlockEntityApiProvid
 
 declare module "@package/net/fabricmc/fabric/impl/lookup/block" {
     export class $BlockApiLookupImpl<A, C> implements $BlockApiLookup<A, C> {
+        registerForBlockEntities(arg0: $BlockApiLookup$BlockEntityApiProvider_<A, C>, ...arg1: $BlockEntityType_<never>[]): void;
+        getFallbackProviders(): $List<$BlockApiLookup$BlockApiProvider<A, C>>;
+        registerForBlocks(arg0: $BlockApiLookup$BlockApiProvider_<A, C>, ...arg1: $Block_[]): void;
         registerSelf(...arg0: $BlockEntityType_<never>[]): void;
         registerFallback(arg0: $BlockApiLookup$BlockApiProvider_<A, C>): void;
-        registerForBlocks(arg0: $BlockApiLookup$BlockApiProvider_<A, C>, ...arg1: $Block_[]): void;
-        getFallbackProviders(): $List<$BlockApiLookup$BlockApiProvider<A, C>>;
-        registerForBlockEntities(arg0: $BlockApiLookup$BlockEntityApiProvider_<A, C>, ...arg1: $BlockEntityType_<never>[]): void;
         getProvider(arg0: $Block_): $BlockApiLookup$BlockApiProvider<A, C>;
         static get<A, C>(arg0: $ResourceLocation_, arg1: $Class<A>, arg2: $Class<C>): $BlockApiLookup<A, C>;
         find(arg0: $Level_, arg1: $BlockPos_, arg2: $BlockState_, arg3: $BlockEntity, arg4: C): A;
@@ -25,6 +25,8 @@ declare module "@package/net/fabricmc/fabric/impl/lookup/block" {
         apiClass(): $Class<A>;
         registerForBlockEntity<T extends $BlockEntity>(arg0: $BiFunction_<T, C, A>, arg1: $BlockEntityType_<T>): void;
         find(arg0: $Level_, arg1: $BlockPos_, arg2: C): A;
+        get fallbackProviders(): $List<$BlockApiLookup$BlockApiProvider<A, C>>;
+        get id(): $ResourceLocation;
     }
     export class $ServerWorldCache {
     }
@@ -34,12 +36,16 @@ declare module "@package/net/fabricmc/fabric/impl/lookup/block" {
     }
     export class $BlockApiCacheImpl<A, C> implements $BlockApiCache<A, C> {
         getWorld(): $ServerLevel;
-        getLookup(): $BlockApiLookupImpl<A, C>;
         invalidate(): void;
+        getLookup(): $BlockApiLookupImpl<A, C>;
         find(arg0: $BlockState_, arg1: C): A;
         getBlockEntity(): $BlockEntity;
         getPos(): $BlockPos;
         find(arg0: C): A;
         constructor(arg0: $BlockApiLookupImpl<A, C>, arg1: $ServerLevel, arg2: $BlockPos_);
+        get world(): $ServerLevel;
+        get lookup(): $BlockApiLookupImpl<A, C>;
+        get blockEntity(): $BlockEntity;
+        get pos(): $BlockPos;
     }
 }

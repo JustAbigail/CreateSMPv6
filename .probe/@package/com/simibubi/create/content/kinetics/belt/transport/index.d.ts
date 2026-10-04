@@ -26,5 +26,7 @@ declare module "@package/com/simibubi/create/content/kinetics/belt/transport" {
         processedBy: $FanProcessingType;
         processingTime: number;
         constructor(arg0: $ItemStack_);
+        get targetSideOffset(): number;
+        get similar(): $TransportedItemStack;
     }
 }

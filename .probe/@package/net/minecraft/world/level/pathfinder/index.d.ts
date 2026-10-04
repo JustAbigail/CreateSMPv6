@@ -21,7 +21,7 @@ declare module "@package/net/minecraft/world/level/pathfinder" {
     /**
      * Values that may be interpreted as {@link $Path$DebugData}.
      */
-    export type $Path$DebugData_ = { targetNodes?: $Set_<$Target>, closedSet?: $Node[], openSet?: $Node[],  } | [targetNodes?: $Set_<$Target>, closedSet?: $Node[], openSet?: $Node[], ];
+    export type $Path$DebugData_ = { openSet?: $Node[], closedSet?: $Node[], targetNodes?: $Set_<$Target>,  } | [openSet?: $Node[], closedSet?: $Node[], targetNodes?: $Set_<$Target>, ];
     export class $Node {
         static createHash(x: number, y: number, z: number): number;
         distanceToXZ(point: $Node): number;
@@ -89,6 +89,7 @@ declare module "@package/net/minecraft/world/level/pathfinder" {
         heapIdx: number;
         constructor(x: number, y: number, z: number);
         constructor(node: $Node);
+        get bestNode(): $Node;
     }
     export class $PathTypeCache {
         getOrCompute(level: $BlockGetter, pos: $BlockPos_): $PathType;
@@ -112,17 +113,17 @@ declare module "@package/net/minecraft/world/level/pathfinder" {
         constructor(nodeEvaluator: $NodeEvaluator, maxVisitedNodes: number);
     }
     export class $NodeEvaluator {
-        getNeighbors(outputArray: $Node[], node: $Node): number;
         canWalkOverFences(): boolean;
         getTargetNodeAt(x: number, arg1: number, y: number): $Target;
         getPathTypeOfMob(context: $PathfindingContext, x: number, y: number, z: number, mob: $Mob): $PathType;
-        static isBurningBlock(state: $BlockState_): boolean;
+        getNeighbors(outputArray: $Node[], node: $Node): number;
+        canFloat(): boolean;
         canPassDoors(): boolean;
         canOpenDoors(): boolean;
         setCanWalkOverFences(canFloat: boolean): void;
         getPathType(mob: $Mob, pos: $BlockPos_): $PathType;
         getPathType(context: $PathfindingContext, x: number, y: number, z: number): $PathType;
-        canFloat(): boolean;
+        static isBurningBlock(state: $BlockState_): boolean;
         setCanOpenDoors(canFloat: boolean): void;
         setCanFloat(canFloat: boolean): void;
         setCanPassDoors(canFloat: boolean): void;
@@ -145,6 +146,7 @@ declare module "@package/net/minecraft/world/level/pathfinder" {
         currentContext: $PathfindingContext;
         entityWidth: number;
         constructor();
+        get start(): $Node;
     }
     export class $PathType extends $Enum<$PathType> {
         getMalus(): number;
@@ -176,6 +178,7 @@ declare module "@package/net/minecraft/world/level/pathfinder" {
         static DANGER_OTHER: $PathType;
         static STICKY_HONEY: $PathType;
         static DAMAGE_CAUTIOUS: $PathType;
+        get malus(): number;
     }
     /**
      * Values that may be interpreted as {@link $PathType}.
@@ -185,14 +188,6 @@ declare module "@package/net/minecraft/world/level/pathfinder" {
         getDistToTarget(): number;
         writeToStream(buffer: $FriendlyByteBuf): void;
         static createFromStream(buf: $FriendlyByteBuf): $Path;
-        /**
-         * Returns the last `Node` of the Array.
-         */
-        getPreviousNode(): $Node;
-        /**
-         * Returns `true` if this path has reached the end
-         */
-        notStarted(): boolean;
         setNextNodeIndex(currentPathIndex: number): void;
         /**
          * Gets the vector of the `Node` associated with the given index.
@@ -201,6 +196,15 @@ declare module "@package/net/minecraft/world/level/pathfinder" {
         static readNodeArray(buffer: $FriendlyByteBuf): $Node[];
         static writeNodeArray(buffer: $FriendlyByteBuf, nodeArray: $Node[]): void;
         debugData(): $Path$DebugData;
+        /**
+         * Returns the last `Node` of the Array.
+         */
+        getPreviousNode(): $Node;
+        /**
+         * Returns `true` if this path has reached the end
+         */
+        notStarted(): boolean;
+        truncateNodes(currentPathIndex: number): void;
         /**
          * Returns `true` if the EntityPath are the same. Non instance related equals.
          */
@@ -222,7 +226,6 @@ declare module "@package/net/minecraft/world/level/pathfinder" {
          */
         getEndNode(): $Node;
         sable$setLocalPath(arg0: $Level_, arg1: boolean): void;
-        truncateNodes(currentPathIndex: number): void;
         /**
          * Returns `true` if this path has reached the end
          */
@@ -244,5 +247,13 @@ declare module "@package/net/minecraft/world/level/pathfinder" {
         getNode(index: number): $Node;
         setDebug(openSet: $Node[], closedSet: $Node[], targetNodes: $Set_<$Target>): void;
         constructor(nodes: $List_<$Node>, target: $BlockPos_, reached: boolean);
+        get distToTarget(): number;
+        get previousNode(): $Node;
+        get nodeCount(): number;
+        get nextNodePos(): $BlockPos;
+        get nextNode(): $Node;
+        get endNode(): $Node;
+        get done(): boolean;
+        get target(): $BlockPos;
     }
 }

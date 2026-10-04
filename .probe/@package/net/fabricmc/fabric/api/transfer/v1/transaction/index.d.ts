@@ -18,10 +18,13 @@ declare module "@package/net/fabricmc/fabric/api/transfer/v1/transaction" {
          * @deprecated
          */
         static getCurrentUnsafe(): $TransactionContext;
-        static getLifecycle(): $Transaction$Lifecycle;
         static openNested(arg0: $TransactionContext): $Transaction;
         static openOuter(): $Transaction;
+        static getLifecycle(): $Transaction$Lifecycle;
         static isOpen(): boolean;
+        static get currentUnsafe(): $TransactionContext;
+        static get lifecycle(): $Transaction$Lifecycle;
+        static get open(): boolean;
     }
     export interface $Transaction extends $AutoCloseable, $TransactionContext {
         abort(): void;
@@ -38,8 +41,8 @@ declare module "@package/net/fabricmc/fabric/api/transfer/v1/transaction" {
      */
     export type $TransactionContext$OuterCloseCallback_ = ((arg0: $TransactionContext$Result) => void);
     export class $TransactionContext$Result extends $Enum<$TransactionContext$Result> {
-        wasCommitted(): boolean;
         wasAborted(): boolean;
+        wasCommitted(): boolean;
         static values(): $TransactionContext$Result[];
         static valueOf(arg0: string): $TransactionContext$Result;
         static ABORTED: $TransactionContext$Result;
@@ -61,10 +64,10 @@ declare module "@package/net/fabricmc/fabric/api/transfer/v1/transaction" {
     export class $TransactionContext {
     }
     export interface $TransactionContext {
+        openNested(): $Transaction;
         nestingDepth(): number;
         getOpenTransaction(arg0: number): $Transaction;
         addCloseCallback(arg0: $TransactionContext$CloseCallback_): void;
         addOuterCloseCallback(arg0: $TransactionContext$OuterCloseCallback_): void;
-        openNested(): $Transaction;
     }
 }

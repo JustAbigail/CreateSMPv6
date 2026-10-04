@@ -9,6 +9,7 @@ declare module "@package/gg/essential/gui/elementa/state/v2" {
     export interface $Observer {
         getObserverImpl(): $ObserverImpl;
         invoke<T>(arg0: $State_<T>): T;
+        get observerImpl(): $ObserverImpl;
     }
     /**
      * Values that may be interpreted as {@link $Observer}.
@@ -21,6 +22,7 @@ declare module "@package/gg/essential/gui/elementa/state/v2" {
         onSetValue(arg0: $ReferenceHolder_, arg1: $Function1_<T, $Unit>): $Function0<$Unit>;
         get(arg0: $Observer_): T;
         get(): T;
+        get untracked(): T;
     }
     /**
      * Values that may be interpreted as {@link $State}.

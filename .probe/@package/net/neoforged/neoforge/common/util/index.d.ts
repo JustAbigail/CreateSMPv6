@@ -2,7 +2,7 @@ import { $MinecraftServer } from "@package/net/minecraft/server";
 import { $Tag, $CompoundTag } from "@package/net/minecraft/nbt";
 import { $HumanoidArm, $Pose, $PortalProcessor, $Entity, $EntityDimensions, $Entity$RemovalReason, $WalkAnimationState } from "@package/net/minecraft/world/entity";
 import { $FluidType } from "@package/net/neoforged/neoforge/fluids";
-import { $UUID, $SequencedSet, $Stack } from "@package/java/util";
+import { $UUID, $Stack } from "@package/java/util";
 import { $RandomSource } from "@package/net/minecraft/util";
 import { $Supplier_, $Supplier } from "@package/java/util/function";
 import { $InteractionHand } from "@package/net/minecraft/world";
@@ -67,6 +67,19 @@ declare module "@package/net/neoforged/neoforge/common/util" {
          */
         recreateBlockEntity(provider: $HolderLookup$Provider): $BlockEntity;
         /**
+         * @return the recorded dimension key
+         */
+        getDimension(): $ResourceKey<$Level>;
+        getFlags(): number;
+        /**
+         * @return the recorded block entity NBT data, if one was present
+         */
+        getTag(): $CompoundTag;
+        /**
+         * @return the stored level, attempting to resolve it from the current server if it has gone out of scope
+         */
+        getLevel(): $LevelAccessor;
+        /**
          * Calls `#restoreToLocation` with the stored level, position, but custom block flags.
          */
         restore(flags: number): boolean;
@@ -74,18 +87,6 @@ declare module "@package/net/neoforged/neoforge/common/util" {
          * Calls `#restoreToLocation` with the stored level, position, and block flags.
          */
         restore(): boolean;
-        /**
-         * @return the stored level, attempting to resolve it from the current server if it has gone out of scope
-         */
-        getLevel(): $LevelAccessor;
-        /**
-         * @return the recorded dimension key
-         */
-        getDimension(): $ResourceKey<$Level>;
-        /**
-         * @return the recorded block entity NBT data, if one was present
-         */
-        getTag(): $CompoundTag;
         /**
          * @return the snapshot's recorded block state
          */
@@ -98,7 +99,6 @@ declare module "@package/net/neoforged/neoforge/common/util" {
          * Creates a new snapshot with the default block flags (and Block#UPDATE_CLIENTS.
          */
         static create(dim: $ResourceKey_<$Level>, level: $LevelAccessor, pos: $BlockPos_): $BlockSnapshot;
-        getFlags(): number;
         /**
          * @return the snapshot's recorded block state
          */
@@ -107,6 +107,13 @@ declare module "@package/net/neoforged/neoforge/common/util" {
          * @return the recorded position
          */
         getPos(): $BlockPos;
+        get dimension(): $ResourceKey<$Level>;
+        get flags(): number;
+        get tag(): $CompoundTag;
+        get level(): $LevelAccessor;
+        get state(): $BlockState;
+        get currentState(): $BlockState;
+        get pos(): $BlockPos;
     }
     /**
      * A basic fake server player implementation that can be used to simulate player actions.
@@ -325,6 +332,9 @@ declare module "@package/net/neoforged/neoforge/common/util" {
         static TRUE: $TriState;
         static FALSE: $TriState;
         static DEFAULT: $TriState;
+        get false(): boolean;
+        get default(): boolean;
+        get true(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $TriState}.
@@ -337,7 +347,6 @@ declare module "@package/net/neoforged/neoforge/common/util" {
     export class $InsertableLinkedOpenCustomHashSet<T> extends $ObjectLinkedOpenCustomHashSet<T> {
         addAfter(arg0: T, arg1: T): boolean;
         addBefore(arg0: T, arg1: T): boolean;
-        reversed(): $SequencedSet<T>;
         /**
          * Constructs a new `InsertableLinkedOpenCustomHashSet` with a `BasicStrategy`.
          */
@@ -369,9 +378,9 @@ declare module "@package/net/neoforged/neoforge/common/util" {
     export class $TriPredicate<T, U, V> {
     }
     export interface $TriPredicate<T, U, V> {
-        or(other: $TriPredicate_<T, U, V>): $TriPredicate<T, U, V>;
         negate(): $TriPredicate<T, U, V>;
         and(other: $TriPredicate_<T, U, V>): $TriPredicate<T, U, V>;
+        or(other: $TriPredicate_<T, U, V>): $TriPredicate<T, U, V>;
         test(arg0: T, arg1: U, arg2: V): boolean;
     }
     /**

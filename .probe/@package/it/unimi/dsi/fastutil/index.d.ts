@@ -66,6 +66,7 @@ declare module "@package/it/unimi/dsi/fastutil" {
         isEmpty(): boolean;
         peek(arg0: number): K;
         top(): K;
+        get empty(): boolean;
     }
     export class $Hash {
         /**

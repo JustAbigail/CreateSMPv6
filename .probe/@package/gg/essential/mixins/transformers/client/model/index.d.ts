@@ -6,5 +6,7 @@ declare module "@package/gg/essential/mixins/transformers/client/model" {
     export interface $ModelPlayerAccessor {
         getCape(): $ModelPart;
         getEars(): $ModelPart;
+        get cape(): $ModelPart;
+        get ears(): $ModelPart;
     }
 }

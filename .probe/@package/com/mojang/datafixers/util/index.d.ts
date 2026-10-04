@@ -10,14 +10,16 @@ declare module "@package/com/mojang/datafixers/util" {
     }
     export class $Pair<F, S> implements $App<$Pair$Mu<S>, F> {
         static unbox<F, S>(arg0: $App<$Pair$Mu<S>, F>): $Pair<F, S>;
+        getSecond(): S;
         static of<F, S>(arg0: F, arg1: S): $Pair<F, S>;
         static toMap<F, S>(): $Collector<$Pair<F, S>, never, $Map<F, S>>;
         getFirst(): $Pair$Mu<S>;
         swap(): $Pair<S, $Pair$Mu<S>>;
-        getSecond(): S;
         mapFirst<F2>(arg0: $Function_<$Pair$Mu<S>, F2>): $Pair<F2, S>;
         mapSecond<S2>(arg0: $Function_<S, S2>): $Pair<$Pair$Mu<S>, S2>;
         constructor(arg0: $Pair$Mu<S>, arg1: S);
+        get second(): S;
+        get first(): $Pair$Mu<S>;
     }
     export class $Function3<T1, T2, T3, R> {
     }

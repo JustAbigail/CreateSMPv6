@@ -38,11 +38,17 @@ declare module "@package/io/homo/superresolution/core/graphics/impl/framebuffer"
         getColorTextureFormat(): $TextureFormat;
         getDepthTextureFormat(): $TextureFormat;
         asMcRenderTarget(): $RenderTarget;
-        getWidth(): number;
-        getHeight(): number;
         getTextureId(arg0: $FrameBufferAttachmentType_): number;
         label(arg0: string): void;
+        getWidth(): number;
+        getHeight(): number;
         getTexture(arg0: $FrameBufferAttachmentType_): $ITexture;
         getColorAttachments(): $List<$ColorAttachment>;
+        get depthStencilAttachment(): $DepthStencilAttachment;
+        get colorTextureFormat(): $TextureFormat;
+        get depthTextureFormat(): $TextureFormat;
+        get width(): number;
+        get height(): number;
+        get colorAttachments(): $List<$ColorAttachment>;
     }
 }

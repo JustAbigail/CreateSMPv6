@@ -23,10 +23,10 @@ declare module "@package/com/simibubi/create/content/trains/signal" {
         resolveColor(): void;
         removeIntersection(arg0: $UUID_): void;
         putIntersection(arg0: $UUID_, arg1: $UUID_): void;
-        isOccupiedUnless(arg0: $SignalBoundary): boolean;
-        isOccupiedUnless(arg0: $Train): boolean;
         removeAdjacent(arg0: $UUID_): void;
         putAdjacent(arg0: $UUID_): void;
+        isOccupiedUnless(arg0: $Train): boolean;
+        isOccupiedUnless(arg0: $SignalBoundary): boolean;
         asFallback(): $SignalEdgeGroup;
         write(): $CompoundTag;
         static read(arg0: $CompoundTag_): $SignalEdgeGroup;
@@ -73,14 +73,17 @@ declare module "@package/com/simibubi/create/content/trains/signal" {
         getRemappedEnumConstantName(): string;
         static ENTRY_SIGNAL: $SignalBlock$SignalType;
         static CROSS_SIGNAL: $SignalBlock$SignalType;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $SignalBlock$SignalType}.
      */
     export type $SignalBlock$SignalType_ = "entry_signal" | "cross_signal";
     export class $SignalBoundary extends $TrackEdgePoint {
-        isForcedRed(arg0: boolean): boolean;
+        queueUpdate(arg0: $TrackNode): void;
         isForcedRed(arg0: $TrackNode): boolean;
+        isForcedRed(arg0: boolean): boolean;
         setGroupAndUpdate(arg0: $TrackNode, arg1: $UUID_): void;
         updateBlockEntityPower(arg0: $SignalBlockEntity): void;
         getOverlayFor(arg0: $BlockPos_): $SignalBlockEntity$OverlayState;
@@ -89,7 +92,6 @@ declare module "@package/com/simibubi/create/content/trains/signal" {
         setGroup(arg0: boolean, arg1: $UUID_): void;
         getGroup(arg0: $TrackNode): $UUID;
         getTypeFor(arg0: $BlockPos_): $SignalBlock$SignalType;
-        queueUpdate(arg0: $TrackNode): void;
         edgeLocation: $Couple<$TrackNodeLocation>;
         sidesToUpdate: $Couple<boolean>;
         types: $Couple<$SignalBlock$SignalType>;
@@ -101,23 +103,23 @@ declare module "@package/com/simibubi/create/content/trains/signal" {
         constructor();
     }
     export class $TrackEdgePoint {
-        isPrimary(arg0: $TrackNode): boolean;
         onRemoved(arg0: $TrackGraph): void;
         getLocationOn(arg0: $TrackEdge): number;
         canCoexistWith(arg0: $EdgePointType<never>, arg1: boolean): boolean;
         blockEntityAdded(arg0: $BlockEntity, arg1: boolean): void;
         blockEntityRemoved(arg0: $BlockPos_, arg1: boolean): void;
         canNavigateVia(arg0: $TrackNode): boolean;
-        setType(arg0: $EdgePointType<never>): void;
+        isPrimary(arg0: $TrackNode): boolean;
         canMerge(): boolean;
         invalidate(arg0: $LevelAccessor): void;
+        setType(arg0: $EdgePointType<never>): void;
+        tick(arg0: $TrackGraph, arg1: boolean): void;
         write(arg0: $FriendlyByteBuf, arg1: $DimensionPalette): void;
         write(arg0: $CompoundTag_, arg1: $HolderLookup$Provider, arg2: $DimensionPalette): void;
         read(arg0: $FriendlyByteBuf, arg1: $DimensionPalette): void;
         read(arg0: $CompoundTag_, arg1: $HolderLookup$Provider, arg2: boolean, arg3: $DimensionPalette): void;
         getId(): $UUID;
         getType(): $EdgePointType<never>;
-        tick(arg0: $TrackGraph, arg1: boolean): void;
         setLocation(arg0: $Couple<$TrackNodeLocation>, arg1: number): void;
         setId(arg0: $UUID_): void;
         edgeLocation: $Couple<$TrackNodeLocation>;
@@ -127,9 +129,9 @@ declare module "@package/com/simibubi/create/content/trains/signal" {
     }
     export class $SignalBlockEntity extends $SmartBlockEntity implements $TransformableBlockEntity {
         static registerCapabilities(arg0: $RegisterCapabilitiesEvent): void;
-        enterState(arg0: $SignalBlockEntity$SignalState_): void;
         getReportedPower(): boolean;
         isPowered(): boolean;
+        enterState(arg0: $SignalBlockEntity$SignalState_): void;
         transform(arg0: $BlockEntity, arg1: $StructureTransform): void;
         getState(): $SignalBlockEntity$SignalState;
         setOverlay(arg0: $SignalBlockEntity$OverlayState_): void;
@@ -145,6 +147,10 @@ declare module "@package/com/simibubi/create/content/trains/signal" {
         type: $BlockEntityType<never>;
         edgePoint: $TrackTargetingBehaviour<$SignalBoundary>;
         constructor(arg0: $BlockEntityType_<never>, arg1: $BlockPos_, arg2: $BlockState_);
+        get reportedPower(): boolean;
+        get powered(): boolean;
+        get state(): $SignalBlockEntity$SignalState;
+        get signal(): $SignalBoundary;
     }
     export class $SingleBlockEntityEdgePoint extends $TrackEdgePoint {
         getBlockEntityDimension(): $ResourceKey<$Level>;

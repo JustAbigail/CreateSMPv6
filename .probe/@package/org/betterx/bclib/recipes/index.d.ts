@@ -3,7 +3,7 @@ import { $UnknownReceipBookCategory } from "@package/org/betterx/bclib/interface
 import { $TagKey, $TagKey_ } from "@package/net/minecraft/tags";
 import { $MapCodec } from "@package/com/mojang/serialization";
 import { $Item_, $Item, $ItemStack_, $ItemStack } from "@package/net/minecraft/world/item";
-import { $RecipeSerializer, $Ingredient_, $Ingredient, $Recipe, $RecipeType, $RecipeInput } from "@package/net/minecraft/world/item/crafting";
+import { $RecipeSerializer, $Ingredient, $Ingredient_, $Recipe, $RecipeInput, $RecipeType } from "@package/net/minecraft/world/item/crafting";
 import { $Player } from "@package/net/minecraft/world/entity/player";
 import { $CallbackInfoReturnable } from "@package/org/spongepowered/asm/mixin/injection/callback";
 import { $List } from "@package/java/util";
@@ -23,28 +23,28 @@ declare module "@package/org/betterx/bclib/recipes" {
         static getIngredientSlot(arg0: $Container): number;
         getMainIngredient(): $Ingredient;
         static isHammer(arg0: $Item_): boolean;
-        getDamage(): number;
         getResultItem(arg0: $HolderLookup$Provider): $ItemStack;
         getIngredients(): $NonNullList<$Ingredient>;
         canCraftInDimensions(arg0: number, arg1: number): boolean;
         getSerializer(): $RecipeSerializer<never>;
-        assemble(arg0: $AnvilRecipeInput, arg1: $HolderLookup$Provider): $ItemStack;
         getAllowedTools(): $TagKey<$Item>;
         checkHammerDurability(arg0: $AnvilRecipeInput, arg1: $Player): boolean;
         getIngredient(arg0: $AnvilRecipeInput): $ItemStack;
         getInputCount(): number;
         craft(arg0: $AnvilRecipeInput, arg1: $Player): $ItemStack;
         getAnvilLevel(): number;
-        matches(arg0: $AnvilRecipeInput): boolean;
+        assemble(arg0: $AnvilRecipeInput, arg1: $HolderLookup$Provider): $ItemStack;
         matches(arg0: $AnvilRecipeInput, arg1: $Level_): boolean;
+        matches(arg0: $AnvilRecipeInput): boolean;
         static register(): void;
         canUse(arg0: $Item_): boolean;
         getType(): $RecipeType<never>;
         isSpecial(): boolean;
-        handler$ejk000$bclib$bcl_getRemainingItems(arg0: $RecipeInput, arg1: $CallbackInfoReturnable<any>): void;
-        getToastSymbol(): $ItemStack;
+        getDamage(): number;
         isIncomplete(): boolean;
         showNotification(): boolean;
+        handler$ejk000$bclib$bcl_getRemainingItems(arg0: $RecipeInput, arg1: $CallbackInfoReturnable<any>): void;
+        getToastSymbol(): $ItemStack;
         getRemainingItems(arg0: $AnvilRecipeInput): $NonNullList<$ItemStack>;
         getGroup(): string;
         static GROUP: string;
@@ -52,6 +52,19 @@ declare module "@package/org/betterx/bclib/recipes" {
         static ID: $ResourceLocation;
         static TYPE: $RecipeType<$AnvilRecipe>;
         constructor(arg0: $Ingredient_, arg1: $ItemStack_, arg2: number, arg3: $TagKey_<$Item>, arg4: number, arg5: number);
+        static get allHammers(): $Iterable<$Holder<$Item>>;
+        get mainIngredient(): $Ingredient;
+        get ingredients(): $NonNullList<$Ingredient>;
+        get serializer(): $RecipeSerializer<never>;
+        get allowedTools(): $TagKey<$Item>;
+        get inputCount(): number;
+        get anvilLevel(): number;
+        get type(): $RecipeType<never>;
+        get special(): boolean;
+        get damage(): number;
+        get incomplete(): boolean;
+        get toastSymbol(): $ItemStack;
+        get group(): string;
     }
     export class $AnvilRecipeInput implements $RecipeInput {
         hasHammer(): boolean;
@@ -69,6 +82,9 @@ declare module "@package/org/betterx/bclib/recipes" {
         INGREDIENT_SLOT: number;
         HAMMER_SLOT: number;
         constructor(arg0: $ItemStack_, arg1: $ItemStack_, arg2: $TagKey_<$Item>);
+        get hammer(): $ItemStack;
+        get ingredient(): $ItemStack;
+        get empty(): boolean;
     }
     export class $AnvilRecipe$Serializer implements $RecipeSerializer<$AnvilRecipe> {
         static fromNetwork(arg0: $RegistryFriendlyByteBuf): $AnvilRecipe;

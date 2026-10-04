@@ -20,11 +20,12 @@ declare module "@package/com/simibubi/create/foundation/virtualWorld" {
         setBlockEntities(arg0: $Collection_<$BlockEntity>): void;
         getChunkAtImmediately(arg0: number, arg1: number): $LevelChunk;
         getAnyChunkImmediately(arg0: number, arg1: number): $ChunkAccess;
-        runLightEngine(): void;
         static nextMultipleOf16(arg0: number): number;
+        runLightEngine(): void;
         clear(): void;
         getBlockState(arg0: number, arg1: number, arg2: number): $BlockState;
         supportsVisualization(): boolean;
+        getChunk(arg0: number, arg1: number): $ChunkAccess;
         self(): $BlockGetter;
         restoringBlockSnapshots: boolean;
         neighborUpdater: $NeighborUpdater;
@@ -53,5 +54,7 @@ declare module "@package/com/simibubi/create/foundation/virtualWorld" {
         blockEntityTickers: $List<$TickingBlockEntity>;
         captureBlockSnapshots: boolean;
         constructor(arg0: $Level_, arg1: number, arg2: number, arg3: $Vec3i, arg4: $Runnable_);
+        set externalLight(value: number);
+        set blockEntities(value: $Collection_<$BlockEntity>);
     }
 }

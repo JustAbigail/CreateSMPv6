@@ -48,7 +48,6 @@ declare module "@package/io/homo/superresolution/common/minecraft/handler/shader
     }
     export interface $SRCompatProcessor {
         needsPreProcessMotionVectors(arg0: $SRShaderCompatData, arg1: $AbstractAlgorithm, arg2: $AlgorithmDescription<never>): boolean;
-        adaptJitterForShaderpack(arg0: $Vector2f, arg1: $AbstractAlgorithm, arg2: $SRShaderCompatData, arg3: $AlgorithmDescription<never>): $Vector2f;
         needsPreProcessColor(arg0: $SRShaderCompatData, arg1: $AbstractAlgorithm, arg2: $AlgorithmDescription<never>): boolean;
         needsPreProcessDepth(arg0: $SRShaderCompatData, arg1: $AbstractAlgorithm, arg2: $AlgorithmDescription<never>): boolean;
         needsPreProcessExposure(arg0: $SRShaderCompatData, arg1: $AbstractAlgorithm, arg2: $AlgorithmDescription<never>): boolean;
@@ -60,6 +59,7 @@ declare module "@package/io/homo/superresolution/common/minecraft/handler/shader
         adaptPreExposureForAlgorithm(arg0: number, arg1: $AbstractAlgorithm, arg2: $SRShaderCompatData, arg3: $AlgorithmDescription<never>): number;
         needsAdaptJitter(arg0: $SRShaderCompatData, arg1: $AbstractAlgorithm, arg2: $AlgorithmDescription<never>): boolean;
         adaptJitterForAlgorithm(arg0: $Vector2f, arg1: $AbstractAlgorithm, arg2: $SRShaderCompatData, arg3: $AlgorithmDescription<never>): $Vector2f;
+        adaptJitterForShaderpack(arg0: $Vector2f, arg1: $AbstractAlgorithm, arg2: $SRShaderCompatData, arg3: $AlgorithmDescription<never>): $Vector2f;
         registerMacros(arg0: $MacroRegistrar_, arg1: $AbstractAlgorithm, arg2: $AlgorithmDescription<never>): void;
         registerUniforms(arg0: $UniformRegistrar, arg1: $SRShaderCompatData, arg2: $AbstractAlgorithm, arg3: $AlgorithmDescription<never>): void;
         version(): number;
@@ -121,5 +121,6 @@ declare module "@package/io/homo/superresolution/common/minecraft/handler/shader
         getProcessor(): $SRCompatProcessor;
         version: number;
         constructor(arg0: number, arg1: $Map_<string, $SRShaderCompatData$WorldProfile>, arg2: $SRShaderCompatData$WorldProfile, arg3: $SRCompatProcessor);
+        get processor(): $SRCompatProcessor;
     }
 }

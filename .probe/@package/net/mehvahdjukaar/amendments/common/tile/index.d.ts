@@ -22,5 +22,8 @@ declare module "@package/net/mehvahdjukaar/amendments/common/tile" {
         load(arg0: $CompoundTag_, arg1: $HolderLookup$Provider): void;
         clientTick(arg0: $Level_, arg1: $BlockPos_, arg2: $BlockState_): void;
         constructor(arg0: $BlockState_);
+        get rightAttachment(): $ModBlockProperties$PostType;
+        get leftAttachment(): $ModBlockProperties$PostType;
+        get clientAnimation(): $SwingAnimation;
     }
 }

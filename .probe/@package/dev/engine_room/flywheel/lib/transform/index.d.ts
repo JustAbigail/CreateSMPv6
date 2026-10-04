@@ -8,15 +8,15 @@ declare module "@package/dev/engine_room/flywheel/lib/transform" {
     export class $Rotate<Self extends $Rotate<Self>> {
     }
     export interface $Rotate<Self extends $Rotate<Self>> {
-        rotateXDegrees(degrees: number): Self;
+        rotateDegrees(degrees: number, axis: $Vector3fc): Self;
+        rotateDegrees(degrees: number, axis: $Direction_): Self;
+        rotateDegrees(degrees: number, axisX: number, axisY: number, axisZ: number): Self;
+        rotateDegrees(degrees: number, axis: $Axis_): Self;
+        rotateDegrees(degrees: number, axis: $Direction$Axis_): Self;
+        rotateToFace(facing: $Direction_): Self;
         rotateZDegrees(degrees: number): Self;
         rotateYDegrees(degrees: number): Self;
-        rotateDegrees(degrees: number, axis: $Direction_): Self;
-        rotateDegrees(degrees: number, axis: $Axis_): Self;
-        rotateDegrees(degrees: number, axisX: number, axisY: number, axisZ: number): Self;
-        rotateDegrees(degrees: number, axis: $Direction$Axis_): Self;
-        rotateDegrees(degrees: number, axis: $Vector3fc): Self;
-        rotateToFace(facing: $Direction_): Self;
+        rotateXDegrees(degrees: number): Self;
         self(): Self;
         rotate(radians: number, axis: $Vector3fc): Self;
         rotate(radians: number, axis: $Axis_): Self;
@@ -56,17 +56,17 @@ declare module "@package/dev/engine_room/flywheel/lib/transform" {
         static CENTER: number;
     }
     export interface $Translate<Self extends $Translate<Self>> {
+        translateZ(z: number): Self;
         translateX(x: number): Self;
         translateY(y: number): Self;
         uncenter(): Self;
         translateBack(vec: $Vector3ic): Self;
-        translateBack(vec: $Vector3fc): Self;
-        translateBack(v: number): Self;
         translateBack(vec: $Vec3i): Self;
+        translateBack(v: number): Self;
+        translateBack(x: number, y: number, z: number): Self;
+        translateBack(vec: $Vector3fc): Self;
         translateBack(x: number, y: number, z: number): Self;
         translateBack(vec: $Vec3_): Self;
-        translateBack(x: number, y: number, z: number): Self;
-        translateZ(z: number): Self;
         nudge(seed: number): Self;
         center(): Self;
         translate(v: number): Self;
@@ -84,9 +84,9 @@ declare module "@package/dev/engine_room/flywheel/lib/transform" {
     export class $Scale<Self extends $Scale<Self>> {
     }
     export interface $Scale<Self extends $Scale<Self>> {
+        scaleZ(factor: number): Self;
         scaleX(factor: number): Self;
         scaleY(factor: number): Self;
-        scaleZ(factor: number): Self;
         scale(factors: $Vector3fc): Self;
         scale(arg0: number, arg1: number, arg2: number): Self;
         scale(factor: number): Self;
@@ -101,41 +101,38 @@ declare module "@package/dev/engine_room/flywheel/lib/transform" {
         unwrap(): $PoseStack;
         rotate(quaternion: $Quaternionfc): $PoseTransformStack;
         pushPose(): $PoseTransformStack;
-        translate(x: number, y: number, z: number): $PoseTransformStack;
-        mulPose(pose: $Matrix4fc): $PoseTransformStack;
-        rotateAround(quaternion: $Quaternionfc, x: number, y: number, z: number): $PoseTransformStack;
         transform(pose: $PoseStack$Pose): $PoseTransformStack;
         transform(stack: $PoseStack): $PoseTransformStack;
         transform(pose: $Matrix4fc, normal: $Matrix3fc): $PoseTransformStack;
-        rotateXCentered(radians: number): $PoseTransformStack;
-        rotateYCentered(radians: number): $PoseTransformStack;
-        rotateZCentered(radians: number): $PoseTransformStack;
-        rotateCenteredDegrees(degrees: number, axisX: number, axisY: number, axisZ: number): $PoseTransformStack;
-        rotateCenteredDegrees(degrees: number, axis: $Axis_): $PoseTransformStack;
-        rotateCenteredDegrees(degrees: number, axis: $Vector3fc): $PoseTransformStack;
-        rotateCenteredDegrees(degrees: number, axis: $Direction_): $PoseTransformStack;
-        rotateCenteredDegrees(degrees: number, axis: $Direction$Axis_): $PoseTransformStack;
-        rotateCentered(radians: number, axis: $Direction_): $PoseTransformStack;
-        rotateCentered(q: $Quaternionfc): $PoseTransformStack;
-        rotateCentered(radians: number, axisX: number, axisY: number, axisZ: number): $PoseTransformStack;
-        rotateCentered(radians: number, axis: $Axis_): $PoseTransformStack;
-        rotateCentered(radians: number, axis: $Vector3fc): $PoseTransformStack;
-        rotateCentered(radians: number, axis: $Direction$Axis_): $PoseTransformStack;
         rotateZCenteredDegrees(degrees: number): $PoseTransformStack;
         rotateXCenteredDegrees(degrees: number): $PoseTransformStack;
         rotateYCenteredDegrees(degrees: number): $PoseTransformStack;
+        rotateXCentered(radians: number): $PoseTransformStack;
+        rotateYCentered(radians: number): $PoseTransformStack;
+        rotateZCentered(radians: number): $PoseTransformStack;
+        rotateCenteredDegrees(degrees: number, axis: $Vector3fc): $PoseTransformStack;
+        rotateCenteredDegrees(degrees: number, axis: $Axis_): $PoseTransformStack;
+        rotateCenteredDegrees(degrees: number, axis: $Direction_): $PoseTransformStack;
+        rotateCenteredDegrees(degrees: number, axis: $Direction$Axis_): $PoseTransformStack;
+        rotateCenteredDegrees(degrees: number, axisX: number, axisY: number, axisZ: number): $PoseTransformStack;
+        rotateCentered(radians: number, axis: $Axis_): $PoseTransformStack;
+        rotateCentered(radians: number, axisX: number, axisY: number, axisZ: number): $PoseTransformStack;
+        rotateCentered(q: $Quaternionfc): $PoseTransformStack;
+        rotateCentered(radians: number, axis: $Direction_): $PoseTransformStack;
+        rotateCentered(radians: number, axis: $Direction$Axis_): $PoseTransformStack;
+        rotateCentered(radians: number, axis: $Vector3fc): $PoseTransformStack;
         rotateAround(quaternion: $Quaternionfc, vec: $Vector3fc): $PoseTransformStack;
+        translateZ(z: number): $PoseTransformStack;
         translateX(x: number): $PoseTransformStack;
         translateY(y: number): $PoseTransformStack;
         uncenter(): $PoseTransformStack;
         translateBack(vec: $Vector3ic): $PoseTransformStack;
-        translateBack(vec: $Vector3fc): $PoseTransformStack;
-        translateBack(v: number): $PoseTransformStack;
         translateBack(vec: $Vec3i): $PoseTransformStack;
+        translateBack(v: number): $PoseTransformStack;
+        translateBack(x: number, y: number, z: number): $PoseTransformStack;
+        translateBack(vec: $Vector3fc): $PoseTransformStack;
         translateBack(x: number, y: number, z: number): $PoseTransformStack;
         translateBack(vec: $Vec3_): $PoseTransformStack;
-        translateBack(x: number, y: number, z: number): $PoseTransformStack;
-        translateZ(z: number): $PoseTransformStack;
         nudge(seed: number): $PoseTransformStack;
         center(): $PoseTransformStack;
         translate(v: number): $PoseTransformStack;
@@ -144,15 +141,15 @@ declare module "@package/dev/engine_room/flywheel/lib/transform" {
         translate(vec: $Vector3fc): $PoseTransformStack;
         translate(vec: $Vector3ic): $PoseTransformStack;
         translate(vec: $Vec3i): $PoseTransformStack;
-        rotateXDegrees(degrees: number): $PoseTransformStack;
+        rotateDegrees(degrees: number, axis: $Vector3fc): $PoseTransformStack;
+        rotateDegrees(degrees: number, axis: $Direction_): $PoseTransformStack;
+        rotateDegrees(degrees: number, axisX: number, axisY: number, axisZ: number): $PoseTransformStack;
+        rotateDegrees(degrees: number, axis: $Axis_): $PoseTransformStack;
+        rotateDegrees(degrees: number, axis: $Direction$Axis_): $PoseTransformStack;
+        rotateToFace(facing: $Direction_): $PoseTransformStack;
         rotateZDegrees(degrees: number): $PoseTransformStack;
         rotateYDegrees(degrees: number): $PoseTransformStack;
-        rotateDegrees(degrees: number, axis: $Direction_): $PoseTransformStack;
-        rotateDegrees(degrees: number, axis: $Axis_): $PoseTransformStack;
-        rotateDegrees(degrees: number, axisX: number, axisY: number, axisZ: number): $PoseTransformStack;
-        rotateDegrees(degrees: number, axis: $Direction$Axis_): $PoseTransformStack;
-        rotateDegrees(degrees: number, axis: $Vector3fc): $PoseTransformStack;
-        rotateToFace(facing: $Direction_): $PoseTransformStack;
+        rotateXDegrees(degrees: number): $PoseTransformStack;
         self(): $PoseTransformStack;
         rotate(radians: number, axis: $Vector3fc): $PoseTransformStack;
         rotate(radians: number, axis: $Axis_): $PoseTransformStack;
@@ -166,34 +163,36 @@ declare module "@package/dev/engine_room/flywheel/lib/transform" {
         rotateTo(from: $Vector3fc, to: $Vector3fc): $PoseTransformStack;
         rotateTo(from: $Direction_, to: $Direction_): $PoseTransformStack;
         rotateTo(fromX: number, fromY: number, fromZ: number, toX: number, toY: number, toZ: number): $PoseTransformStack;
+        scaleZ(factor: number): $PoseTransformStack;
         scaleX(factor: number): $PoseTransformStack;
         scaleY(factor: number): $PoseTransformStack;
-        scaleZ(factor: number): $PoseTransformStack;
         scale(factors: $Vector3fc): $PoseTransformStack;
         scale(factor: number): $PoseTransformStack;
+        mulPose(arg0: $Matrix4fc): $PoseTransformStack;
         popPose(): $PoseTransformStack;
+        rotateAround(quaternion: $Quaternionfc, x: number, y: number, z: number): $PoseTransformStack;
         constructor(stack: $PoseStack);
     }
     export class $Affine<Self extends $Affine<Self>> {
     }
     export interface $Affine<Self extends $Affine<Self>> extends $Translate<Self>, $Rotate<Self>, $Scale<Self> {
-        rotateXCentered(radians: number): Self;
-        rotateYCentered(radians: number): Self;
-        rotateZCentered(radians: number): Self;
-        rotateCenteredDegrees(degrees: number, axisX: number, axisY: number, axisZ: number): Self;
-        rotateCenteredDegrees(degrees: number, axis: $Axis_): Self;
-        rotateCenteredDegrees(degrees: number, axis: $Vector3fc): Self;
-        rotateCenteredDegrees(degrees: number, axis: $Direction_): Self;
-        rotateCenteredDegrees(degrees: number, axis: $Direction$Axis_): Self;
-        rotateCentered(radians: number, axis: $Direction_): Self;
-        rotateCentered(q: $Quaternionfc): Self;
-        rotateCentered(radians: number, axisX: number, axisY: number, axisZ: number): Self;
-        rotateCentered(radians: number, axis: $Axis_): Self;
-        rotateCentered(radians: number, axis: $Vector3fc): Self;
-        rotateCentered(radians: number, axis: $Direction$Axis_): Self;
         rotateZCenteredDegrees(degrees: number): Self;
         rotateXCenteredDegrees(degrees: number): Self;
         rotateYCenteredDegrees(degrees: number): Self;
+        rotateXCentered(radians: number): Self;
+        rotateYCentered(radians: number): Self;
+        rotateZCentered(radians: number): Self;
+        rotateCenteredDegrees(degrees: number, axis: $Vector3fc): Self;
+        rotateCenteredDegrees(degrees: number, axis: $Axis_): Self;
+        rotateCenteredDegrees(degrees: number, axis: $Direction_): Self;
+        rotateCenteredDegrees(degrees: number, axis: $Direction$Axis_): Self;
+        rotateCenteredDegrees(degrees: number, axisX: number, axisY: number, axisZ: number): Self;
+        rotateCentered(radians: number, axis: $Axis_): Self;
+        rotateCentered(radians: number, axisX: number, axisY: number, axisZ: number): Self;
+        rotateCentered(q: $Quaternionfc): Self;
+        rotateCentered(radians: number, axis: $Direction_): Self;
+        rotateCentered(radians: number, axis: $Direction$Axis_): Self;
+        rotateCentered(radians: number, axis: $Vector3fc): Self;
         rotateAround(quaternion: $Quaternionfc, vec: $Vector3fc): Self;
         rotateAround(quaternion: $Quaternionfc, x: number, y: number, z: number): Self;
     }

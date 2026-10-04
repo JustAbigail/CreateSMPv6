@@ -7,6 +7,7 @@ declare module "@package/foundry/veil/mixin/pipeline/accessor" {
     }
     export interface $PipelineBufferSourceAccessor {
         getLastSharedType(): $RenderType;
+        get lastSharedType(): $RenderType;
     }
     /**
      * Values that may be interpreted as {@link $PipelineBufferSourceAccessor}.
@@ -17,11 +18,13 @@ declare module "@package/foundry/veil/mixin/pipeline/accessor" {
     export interface $PipelineNativeImageAccessor {
         invokeCheckAllocated(): void;
         getPixels(): number;
+        get pixels(): number;
     }
     export class $PipelineReloadableResourceManagerAccessor {
     }
     export interface $PipelineReloadableResourceManagerAccessor {
         getListeners(): $List<$PreparableReloadListener>;
+        get listeners(): $List<$PreparableReloadListener>;
     }
     /**
      * Values that may be interpreted as {@link $PipelineReloadableResourceManagerAccessor}.

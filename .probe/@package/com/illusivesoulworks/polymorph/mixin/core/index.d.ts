@@ -8,9 +8,12 @@ declare module "@package/com/illusivesoulworks/polymorph/mixin/core" {
     export class $AccessorCraftingMenu {
     }
     export interface $AccessorCraftingMenu {
-        getPlayer(): $Player;
         getResultSlots(): $ResultContainer;
+        getPlayer(): $Player;
         getCraftSlots(): $CraftingContainer;
+        get resultSlots(): $ResultContainer;
+        get player(): $Player;
+        get craftSlots(): $CraftingContainer;
     }
     export class $AccessorInventoryMenu {
     }
@@ -18,6 +21,9 @@ declare module "@package/com/illusivesoulworks/polymorph/mixin/core" {
         getResultSlots(): $ResultContainer;
         getOwner(): $Player;
         getCraftSlots(): $CraftingContainer;
+        get resultSlots(): $ResultContainer;
+        get owner(): $Player;
+        get craftSlots(): $CraftingContainer;
     }
     export class $AccessorSmithingTrimRecipe {
     }
@@ -25,6 +31,9 @@ declare module "@package/com/illusivesoulworks/polymorph/mixin/core" {
         getAddition(): $Ingredient;
         getBase(): $Ingredient;
         getTemplate(): $Ingredient;
+        get addition(): $Ingredient;
+        get base(): $Ingredient;
+        get template(): $Ingredient;
     }
     export class $AccessorCrafterMenu {
     }
@@ -39,6 +48,7 @@ declare module "@package/com/illusivesoulworks/polymorph/mixin/core" {
     }
     export interface $AccessorAbstractFurnaceBlockEntity {
         getItems(): $NonNullList<$ItemStack>;
+        get items(): $NonNullList<$ItemStack>;
     }
     /**
      * Values that may be interpreted as {@link $AccessorAbstractFurnaceBlockEntity}.
@@ -50,5 +60,8 @@ declare module "@package/com/illusivesoulworks/polymorph/mixin/core" {
         getAddition(): $Ingredient;
         getBase(): $Ingredient;
         getTemplate(): $Ingredient;
+        get addition(): $Ingredient;
+        get base(): $Ingredient;
+        get template(): $Ingredient;
     }
 }

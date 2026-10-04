@@ -1,5 +1,5 @@
 import { $Component } from "@package/net/minecraft/network/chat";
-import { $Set_, $Set } from "@package/java/util";
+import { $Set, $Set_ } from "@package/java/util";
 import { $Enum, $Record } from "@package/java/lang";
 import { $ReflectionBasedSerialization } from "@package/com/mojang/realmsclient/dto";
 
@@ -25,6 +25,7 @@ declare module "@package/com/mojang/realmsclient/util" {
         static FLAT: $LevelType;
         static LARGE_BIOMES: $LevelType;
         static DEFAULT: $LevelType;
+        get dtoIndex(): number;
     }
     /**
      * Values that may be interpreted as {@link $LevelType}.
@@ -40,5 +41,5 @@ declare module "@package/com/mojang/realmsclient/util" {
     /**
      * Values that may be interpreted as {@link $WorldGenerationInfo}.
      */
-    export type $WorldGenerationInfo_ = { generateStructures?: boolean, levelType?: $LevelType_, experiments?: $Set_<string>, seed?: string,  } | [generateStructures?: boolean, levelType?: $LevelType_, experiments?: $Set_<string>, seed?: string, ];
+    export type $WorldGenerationInfo_ = { experiments?: $Set_<string>, levelType?: $LevelType_, generateStructures?: boolean, seed?: string,  } | [experiments?: $Set_<string>, levelType?: $LevelType_, generateStructures?: boolean, seed?: string, ];
 }

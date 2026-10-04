@@ -8,6 +8,7 @@ declare module "@package/com/copycatsplus/copycats/mixin/foundation/copycat" {
     }
     export interface $ChunkAccessAccessor {
         getBlockEntities(): $Map<$BlockPos, $BlockEntity>;
+        get blockEntities(): $Map<$BlockPos, $BlockEntity>;
     }
     /**
      * Values that may be interpreted as {@link $ChunkAccessAccessor}.

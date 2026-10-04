@@ -36,6 +36,8 @@ declare module "@package/net/minecraft/world/entity/ai/navigation" {
         timeoutCachedNode: $Vec3i;
         timeLastRecompute: number;
         constructor(mob: $Mob, level: $Level_);
+        set avoidSun(value: boolean);
+        set canWalkOverFences(value: boolean);
     }
     export class $WaterBoundPathNavigation extends $PathNavigation {
         mob: $Mob;
@@ -58,6 +60,10 @@ declare module "@package/net/minecraft/world/entity/ai/navigation" {
         /**
          * If on ground or swimming and can swim
          */
+        canFloat(): boolean;
+        /**
+         * If on ground or swimming and can swim
+         */
         isStuck(): boolean;
         createPathFinder(maxVisitedNodes: number): $PathFinder;
         setMaxVisitedNodesMultiplier(multiplier: number): void;
@@ -70,6 +76,10 @@ declare module "@package/net/minecraft/world/entity/ai/navigation" {
          * If on ground or swimming and can swim
          */
         canUpdatePath(): boolean;
+        /**
+         * Sets the active `Path` to `null`.
+         */
+        resetMaxVisitedNodesMultiplier(): void;
         /**
          * Sets the active `Path` to `null`.
          */
@@ -97,29 +107,7 @@ declare module "@package/net/minecraft/world/entity/ai/navigation" {
         isStableDestination(pos: $BlockPos_): boolean;
         getNodeEvaluator(): $NodeEvaluator;
         getMaxDistanceToWaypoint(): number;
-        /**
-         * Sets the active `Path` to `null`.
-         */
-        resetMaxVisitedNodesMultiplier(): void;
-        /**
-         * If on ground or swimming and can swim
-         */
-        canFloat(): boolean;
-        shouldRecomputePath(pos: $BlockPos_): boolean;
-        /**
-         * Sets the active `Path` to `null`.
-         */
-        recomputePath(): void;
-        setCanFloat(canSwim: boolean): void;
-        /**
-         * Returns a path to one of the elements of the stream or null
-         */
-        createPath(targets: $Stream<$BlockPos_>, accuracy: number): $Path;
-        createPath(pos: $BlockPos_, regionOffset: number, accuracy: number): $Path;
-        /**
-         * Returns path to given BlockPos
-         */
-        createPath(x: number, arg1: number, y: number, arg3: number): $Path;
+        createPath(positions: $Set_<$BlockPos_>, distance: number): $Path;
         /**
          * Returns a path to one of the given targets or null
          */
@@ -129,11 +117,29 @@ declare module "@package/net/minecraft/world/entity/ai/navigation" {
          */
         createPath(pos: $BlockPos_, accuracy: number): $Path;
         /**
+         * Returns path to given BlockPos
+         */
+        createPath(x: number, arg1: number, y: number, arg3: number): $Path;
+        /**
+         * Returns a path to one of the elements of the stream or null
+         */
+        createPath(targets: $Stream<$BlockPos_>, accuracy: number): $Path;
+        createPath(targets: $Set_<$BlockPos_>, regionOffset: number, offsetUpward: boolean, accuracy: number, followRange: number): $Path;
+        createPath(pos: $BlockPos_, regionOffset: number, accuracy: number): $Path;
+        /**
          * Returns a path to the given entity or null
          */
         createPath(entity: $Entity, accuracy: number): $Path;
-        createPath(targets: $Set_<$BlockPos_>, regionOffset: number, offsetUpward: boolean, accuracy: number, followRange: number): $Path;
-        createPath(positions: $Set_<$BlockPos_>, distance: number): $Path;
+        setCanFloat(canSwim: boolean): void;
+        shouldRecomputePath(pos: $BlockPos_): boolean;
+        /**
+         * Sets the active `Path` to `null`.
+         */
+        recomputePath(): void;
+        /**
+         * Sets the active `Path` to `null`.
+         */
+        tick(): void;
         /**
          * Sets the active `Path` to `null`.
          */
@@ -147,22 +153,18 @@ declare module "@package/net/minecraft/world/entity/ai/navigation" {
          */
         getPath(): $Path;
         /**
-         * Sets the active `Path` to `null`.
+         * Try to find and set a path to EntityLiving. Returns `true` if successful.
          */
-        tick(): void;
-        /**
-         * Try to find and set a path to XYZ. Returns `true` if successful.
-         */
-        moveTo(x: number, arg1: number, y: number, arg3: number): boolean;
+        moveTo(entity: $Entity, speed: number): boolean;
         /**
          * Sets a new path. If it's different from the old path. Checks to adjust path for sun avoiding, and stores start coords.
          */
         moveTo(pathentity: $Path | null, speed: number): boolean;
-        moveTo(x: number, arg1: number, y: number, arg3: number, z: number): boolean;
         /**
-         * Try to find and set a path to EntityLiving. Returns `true` if successful.
+         * Try to find and set a path to XYZ. Returns `true` if successful.
          */
-        moveTo(entity: $Entity, speed: number): boolean;
+        moveTo(x: number, arg1: number, y: number, arg3: number): boolean;
+        moveTo(x: number, arg1: number, y: number, arg3: number, z: number): boolean;
         mob: $Mob;
         lastStuckCheck: number;
         level: $Level;
@@ -178,5 +180,11 @@ declare module "@package/net/minecraft/world/entity/ai/navigation" {
         timeoutCachedNode: $Vec3i;
         timeLastRecompute: number;
         constructor(mob: $Mob, level: $Level_);
+        get stuck(): boolean;
+        set maxVisitedNodesMultiplier(value: number);
+        get targetPos(): $BlockPos;
+        get tempMobPos(): $Vec3;
+        get inProgress(): boolean;
+        get done(): boolean;
     }
 }

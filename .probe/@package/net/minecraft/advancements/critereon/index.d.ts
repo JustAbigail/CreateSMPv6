@@ -24,11 +24,11 @@ import { $StreamCodec } from "@package/net/minecraft/network/codec";
 
 declare module "@package/net/minecraft/advancements/critereon" {
     export class $MinMaxBounds$Ints extends $Record implements $MinMaxBounds<number> {
-        static atLeast(min: number): $MinMaxBounds$Ints;
         static exactly(min: number): $MinMaxBounds$Ints;
         minSq(): (number) | undefined;
         maxSq(): (number) | undefined;
         matchesSqr(value: number): boolean;
+        static atLeast(min: number): $MinMaxBounds$Ints;
         min(): (number) | undefined;
         max(): (number) | undefined;
         matches(value: number): boolean;
@@ -41,11 +41,12 @@ declare module "@package/net/minecraft/advancements/critereon" {
         static CODEC: $Codec<$MinMaxBounds$Ints>;
         static ANY: $MinMaxBounds$Ints;
         constructor(arg0: (number) | undefined, arg1: (number) | undefined, arg2: (number) | undefined, arg3: (number) | undefined);
+        get any(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $MinMaxBounds$Ints}.
      */
-    export type $MinMaxBounds$Ints_ = { minSq?: (number) | undefined, min?: (number) | undefined, maxSq?: (number) | undefined, max?: (number) | undefined,  } | [minSq?: (number) | undefined, min?: (number) | undefined, maxSq?: (number) | undefined, max?: (number) | undefined, ];
+    export type $MinMaxBounds$Ints_ = { max?: (number) | undefined, maxSq?: (number) | undefined, min?: (number) | undefined, minSq?: (number) | undefined,  } | [max?: (number) | undefined, maxSq?: (number) | undefined, min?: (number) | undefined, minSq?: (number) | undefined, ];
     export class $MinMaxBounds<T extends $Number> {
         static fromReader<T extends $Number, R extends $MinMaxBounds<T>>(reader: $StringReader, boundedFactory: $MinMaxBounds$BoundsFromReaderFactory_<T, R>, valueFactory: $Function_<string, T>, commandExceptionSupplier: $Supplier_<$DynamicCommandExceptionType>, formatter: $Function_<T, T>): R;
         static createCodec<T extends $Number, R extends $MinMaxBounds<T>>(codec: $Codec<T>, boundsFactory: $MinMaxBounds$BoundsFactory_<T, R>): $Codec<R>;
@@ -57,6 +58,7 @@ declare module "@package/net/minecraft/advancements/critereon" {
         unwrapPoint(): (T) | undefined;
         min(): (T) | undefined;
         max(): (T) | undefined;
+        get any(): boolean;
     }
     export class $CriterionValidator {
         validateEntities(entities: $List_<$ContextAwarePredicate>, name: string): void;
@@ -81,7 +83,7 @@ declare module "@package/net/minecraft/advancements/critereon" {
     /**
      * Values that may be interpreted as {@link $InventoryChangeTrigger$TriggerInstance}.
      */
-    export type $InventoryChangeTrigger$TriggerInstance_ = { items?: $List_<$ItemPredicate_>, slots?: $InventoryChangeTrigger$TriggerInstance$Slots_, player?: ($ContextAwarePredicate) | undefined,  } | [items?: $List_<$ItemPredicate_>, slots?: $InventoryChangeTrigger$TriggerInstance$Slots_, player?: ($ContextAwarePredicate) | undefined, ];
+    export type $InventoryChangeTrigger$TriggerInstance_ = { player?: ($ContextAwarePredicate) | undefined, slots?: $InventoryChangeTrigger$TriggerInstance$Slots_, items?: $List_<$ItemPredicate_>,  } | [player?: ($ContextAwarePredicate) | undefined, slots?: $InventoryChangeTrigger$TriggerInstance$Slots_, items?: $List_<$ItemPredicate_>, ];
     export class $ItemSubPredicate$Type<T extends $ItemSubPredicate> extends $Record {
         codec(): $Codec<T>;
         constructor(arg0: $Codec<T>);
@@ -113,7 +115,7 @@ declare module "@package/net/minecraft/advancements/critereon" {
     /**
      * Values that may be interpreted as {@link $EnterBlockTrigger$TriggerInstance}.
      */
-    export type $EnterBlockTrigger$TriggerInstance_ = { state?: ($StatePropertiesPredicate_) | undefined, block?: ($Holder_<$Block>) | undefined, player?: ($ContextAwarePredicate) | undefined,  } | [state?: ($StatePropertiesPredicate_) | undefined, block?: ($Holder_<$Block>) | undefined, player?: ($ContextAwarePredicate) | undefined, ];
+    export type $EnterBlockTrigger$TriggerInstance_ = { state?: ($StatePropertiesPredicate_) | undefined, player?: ($ContextAwarePredicate) | undefined, block?: ($Holder_<$Block>) | undefined,  } | [state?: ($StatePropertiesPredicate_) | undefined, player?: ($ContextAwarePredicate) | undefined, block?: ($Holder_<$Block>) | undefined, ];
     export class $MinMaxBounds$BoundsFactory<T extends $Number, R extends $MinMaxBounds<T>> {
     }
     export interface $MinMaxBounds$BoundsFactory<T extends $Number, R extends $MinMaxBounds<T>> {
@@ -131,13 +133,13 @@ declare module "@package/net/minecraft/advancements/critereon" {
         constructor(conditions: $List_<$LootItemCondition>);
     }
     export class $ItemPredicate$Builder {
-        hasComponents(components: $DataComponentPredicate): $ItemPredicate$Builder;
         withCount(count: $MinMaxBounds$Ints_): $ItemPredicate$Builder;
+        hasComponents(components: $DataComponentPredicate): $ItemPredicate$Builder;
         withSubPredicate<T extends $ItemSubPredicate>(arg0: $ItemSubPredicate$Type_<T>, arg1: T): $ItemPredicate$Builder;
+        static item(): $ItemPredicate$Builder;
         of(tag: $TagKey_<$Item>): $ItemPredicate$Builder;
         of(...items: $ItemLike_[]): $ItemPredicate$Builder;
         build(): $ItemPredicate;
-        static item(): $ItemPredicate$Builder;
     }
     export class $ItemSubPredicate {
         static CODEC: $Codec<$Map<$ItemSubPredicate$Type<never>, $ItemSubPredicate>>;
@@ -164,10 +166,10 @@ declare module "@package/net/minecraft/advancements/critereon" {
      */
     export type $StatePropertiesPredicate_ = { properties?: $List_<$StatePropertiesPredicate$PropertyMatcher_>,  } | [properties?: $List_<$StatePropertiesPredicate$PropertyMatcher_>, ];
     export class $InventoryChangeTrigger$TriggerInstance$Slots extends $Record {
-        occupied(): $MinMaxBounds$Ints;
         matches(full: number, empty: number, occupied: number): boolean;
         empty(): $MinMaxBounds$Ints;
         full(): $MinMaxBounds$Ints;
+        occupied(): $MinMaxBounds$Ints;
         static CODEC: $Codec<$InventoryChangeTrigger$TriggerInstance$Slots>;
         static ANY: $InventoryChangeTrigger$TriggerInstance$Slots;
         constructor(arg0: $MinMaxBounds$Ints_, arg1: $MinMaxBounds$Ints_, arg2: $MinMaxBounds$Ints_);
@@ -175,13 +177,13 @@ declare module "@package/net/minecraft/advancements/critereon" {
     /**
      * Values that may be interpreted as {@link $InventoryChangeTrigger$TriggerInstance$Slots}.
      */
-    export type $InventoryChangeTrigger$TriggerInstance$Slots_ = { occupied?: $MinMaxBounds$Ints_, empty?: $MinMaxBounds$Ints_, full?: $MinMaxBounds$Ints_,  } | [occupied?: $MinMaxBounds$Ints_, empty?: $MinMaxBounds$Ints_, full?: $MinMaxBounds$Ints_, ];
+    export type $InventoryChangeTrigger$TriggerInstance$Slots_ = { occupied?: $MinMaxBounds$Ints_, full?: $MinMaxBounds$Ints_, empty?: $MinMaxBounds$Ints_,  } | [occupied?: $MinMaxBounds$Ints_, full?: $MinMaxBounds$Ints_, empty?: $MinMaxBounds$Ints_, ];
     export class $MinMaxBounds$Doubles extends $Record implements $MinMaxBounds<number> {
-        static atLeast(min: number): $MinMaxBounds$Doubles;
         static exactly(min: number): $MinMaxBounds$Doubles;
         minSq(): (number) | undefined;
         maxSq(): (number) | undefined;
         matchesSqr(value: number): boolean;
+        static atLeast(min: number): $MinMaxBounds$Doubles;
         min(): (number) | undefined;
         max(): (number) | undefined;
         matches(value: number): boolean;
@@ -194,27 +196,28 @@ declare module "@package/net/minecraft/advancements/critereon" {
         static CODEC: $Codec<$MinMaxBounds$Doubles>;
         static ANY: $MinMaxBounds$Doubles;
         constructor(arg0: (number) | undefined, arg1: (number) | undefined, arg2: (number) | undefined, arg3: (number) | undefined);
+        get any(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $MinMaxBounds$Doubles}.
      */
-    export type $MinMaxBounds$Doubles_ = { minSq?: (number) | undefined, min?: (number) | undefined, maxSq?: (number) | undefined, max?: (number) | undefined,  } | [minSq?: (number) | undefined, min?: (number) | undefined, maxSq?: (number) | undefined, max?: (number) | undefined, ];
+    export type $MinMaxBounds$Doubles_ = { max?: (number) | undefined, maxSq?: (number) | undefined, min?: (number) | undefined, minSq?: (number) | undefined,  } | [max?: (number) | undefined, maxSq?: (number) | undefined, min?: (number) | undefined, minSq?: (number) | undefined, ];
     export class $ItemPredicate extends $Record implements $Predicate<$ItemStack> {
-        items(): ($HolderSet<$Item>) | undefined;
         subPredicates(): $Map<$ItemSubPredicate$Type<never>, $ItemSubPredicate>;
+        items(): ($HolderSet<$Item>) | undefined;
         test(arg0: $ItemStack_): boolean;
         count(): $MinMaxBounds$Ints;
         components(): $DataComponentPredicate;
-        or(arg0: $Predicate_<$ItemStack>): $Predicate<$ItemStack>;
         negate(): $Predicate<$ItemStack>;
         and(arg0: $Predicate_<$ItemStack>): $Predicate<$ItemStack>;
+        or(arg0: $Predicate_<$ItemStack>): $Predicate<$ItemStack>;
         static CODEC: $Codec<$ItemPredicate>;
         constructor(arg0: ($HolderSet_<$Item>) | undefined, arg1: $MinMaxBounds$Ints_, arg2: $DataComponentPredicate, arg3: $Map_<$ItemSubPredicate$Type_<never>, $ItemSubPredicate_>);
     }
     /**
      * Values that may be interpreted as {@link $ItemPredicate}.
      */
-    export type $ItemPredicate_ = { components?: $DataComponentPredicate, count?: $MinMaxBounds$Ints_, items?: ($HolderSet_<$Item>) | undefined, subPredicates?: $Map_<$ItemSubPredicate$Type_<never>, $ItemSubPredicate_>,  } | [components?: $DataComponentPredicate, count?: $MinMaxBounds$Ints_, items?: ($HolderSet_<$Item>) | undefined, subPredicates?: $Map_<$ItemSubPredicate$Type_<never>, $ItemSubPredicate_>, ];
+    export type $ItemPredicate_ = { count?: $MinMaxBounds$Ints_, components?: $DataComponentPredicate, subPredicates?: $Map_<$ItemSubPredicate$Type_<never>, $ItemSubPredicate_>, items?: ($HolderSet_<$Item>) | undefined,  } | [count?: $MinMaxBounds$Ints_, components?: $DataComponentPredicate, subPredicates?: $Map_<$ItemSubPredicate$Type_<never>, $ItemSubPredicate_>, items?: ($HolderSet_<$Item>) | undefined, ];
     export class $SimpleCriterionTrigger$SimpleInstance {
     }
     export interface $SimpleCriterionTrigger$SimpleInstance extends $CriterionTriggerInstance {

@@ -58,6 +58,8 @@ declare module "@package/net/minecraft/server/packs" {
         isHidden(): boolean;
         getPathsForType(): $Map<$PackType, $List<$Path>>;
         constructor(location: $PackLocationInfo_, metadata: $BuiltInMetadata, namespaces: $Set_<string>, rootPaths: $List_<$Path_>, pathsForType: $Map_<$PackType_, $List_<$Path_>>);
+        get hidden(): boolean;
+        get pathsForType(): $Map<$PackType, $List<$Path>>;
     }
     export class $PackLocationInfo extends $Record {
         createChatLink(enabled: boolean, text: $Component_): $Component;
@@ -70,7 +72,7 @@ declare module "@package/net/minecraft/server/packs" {
     /**
      * Values that may be interpreted as {@link $PackLocationInfo}.
      */
-    export type $PackLocationInfo_ = { title?: $Component_, knownPackInfo?: ($KnownPack_) | undefined, id?: string, source?: $PackSource,  } | [title?: $Component_, knownPackInfo?: ($KnownPack_) | undefined, id?: string, source?: $PackSource, ];
+    export type $PackLocationInfo_ = { source?: $PackSource, id?: string, knownPackInfo?: ($KnownPack_) | undefined, title?: $Component_,  } | [source?: $PackSource, id?: string, knownPackInfo?: ($KnownPack_) | undefined, title?: $Component_, ];
     export class $DownloadQueue$BatchResult extends $Record {
         downloaded(): $Map<$UUID, $Path>;
         failed(): $Set<$UUID>;
@@ -112,6 +114,9 @@ declare module "@package/net/minecraft/server/packs" {
         getRemappedEnumConstantName(): string;
         static CLIENT_RESOURCES: $PackType;
         static SERVER_DATA: $PackType;
+        get directory(): string;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $PackType}.
@@ -125,6 +130,7 @@ declare module "@package/net/minecraft/server/packs" {
         knownPackInfo(): ($KnownPack) | undefined;
         isHidden(): boolean;
         constructor(location: $PackLocationInfo_);
+        get hidden(): boolean;
     }
     export class $PackSelectionConfig extends $Record {
         defaultPosition(): $Pack$Position;
@@ -135,5 +141,5 @@ declare module "@package/net/minecraft/server/packs" {
     /**
      * Values that may be interpreted as {@link $PackSelectionConfig}.
      */
-    export type $PackSelectionConfig_ = { required?: boolean, defaultPosition?: $Pack$Position_, fixedPosition?: boolean,  } | [required?: boolean, defaultPosition?: $Pack$Position_, fixedPosition?: boolean, ];
+    export type $PackSelectionConfig_ = { required?: boolean, fixedPosition?: boolean, defaultPosition?: $Pack$Position_,  } | [required?: boolean, fixedPosition?: boolean, defaultPosition?: $Pack$Position_, ];
 }

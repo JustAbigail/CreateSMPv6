@@ -7,10 +7,12 @@ declare module "@package/net/caffeinemc/mods/sodium/client/model/quad" {
     export class $BakedQuadView {
     }
     export interface $BakedQuadView extends $ModelQuadView {
-        hasShade(): boolean;
         getNormalFace(): $ModelQuadFacing;
         hasAO(): boolean;
+        hasShade(): boolean;
         getFaceNormal(): number;
+        get normalFace(): $ModelQuadFacing;
+        get faceNormal(): number;
     }
     export class $ModelQuadView {
     }
@@ -21,8 +23,6 @@ declare module "@package/net/caffeinemc/mods/sodium/client/model/quad" {
         getX(arg0: number): number;
         getZ(arg0: number): number;
         getColor(arg0: number): number;
-        hasColor(): boolean;
-        getSprite(): $TextureAtlasSprite;
         getColorIndex(): number;
         getVertexNormal(arg0: number): number;
         getFaceNormal(): number;
@@ -31,5 +31,12 @@ declare module "@package/net/caffeinemc/mods/sodium/client/model/quad" {
         getLightFace(): $Direction;
         calculateNormal(): number;
         getAccurateNormal(arg0: number): number;
+        getSprite(): $TextureAtlasSprite;
+        hasColor(): boolean;
+        get flags(): number;
+        get colorIndex(): number;
+        get faceNormal(): number;
+        get lightFace(): $Direction;
+        get sprite(): $TextureAtlasSprite;
     }
 }

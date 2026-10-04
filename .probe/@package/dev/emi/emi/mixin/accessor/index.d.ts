@@ -27,11 +27,17 @@ declare module "@package/dev/emi/emi/mixin/accessor" {
         invokeGetSlotAt(arg0: number, arg1: number): $Slot;
         getY(): number;
         getX(): number;
+        get focusedSlot(): $Slot;
+        get backgroundWidth(): number;
+        get backgroundHeight(): number;
+        get y(): number;
+        get x(): number;
     }
     export class $BakedModelManagerAccessor {
     }
     export interface $BakedModelManagerAccessor {
         getModels(): $Map<$ModelResourceLocation, $BakedModel>;
+        get models(): $Map<$ModelResourceLocation, $BakedModel>;
     }
     /**
      * Values that may be interpreted as {@link $BakedModelManagerAccessor}.
@@ -43,6 +49,9 @@ declare module "@package/dev/emi/emi/mixin/accessor" {
         getAddition(): $Ingredient;
         getBase(): $Ingredient;
         getTemplate(): $Ingredient;
+        get addition(): $Ingredient;
+        get base(): $Ingredient;
+        get template(): $Ingredient;
     }
     export class $SmithingTransformRecipeAccessor {
     }
@@ -50,6 +59,9 @@ declare module "@package/dev/emi/emi/mixin/accessor" {
         getAddition(): $Ingredient;
         getBase(): $Ingredient;
         getTemplate(): $Ingredient;
+        get addition(): $Ingredient;
+        get base(): $Ingredient;
+        get template(): $Ingredient;
     }
     export class $ItemRendererAccessor {
     }
@@ -63,8 +75,11 @@ declare module "@package/dev/emi/emi/mixin/accessor" {
     export class $BrewingRecipeRegistryAccessor {
     }
     export interface $BrewingRecipeRegistryAccessor {
-        getItemRecipes(): $List<$PotionBrewing$Mix<$Item>>;
         getPotionTypes(): $List<$Ingredient>;
         getPotionRecipes(): $List<$PotionBrewing$Mix<$Potion>>;
+        getItemRecipes(): $List<$PotionBrewing$Mix<$Item>>;
+        get potionTypes(): $List<$Ingredient>;
+        get potionRecipes(): $List<$PotionBrewing$Mix<$Potion>>;
+        get itemRecipes(): $List<$PotionBrewing$Mix<$Item>>;
     }
 }

@@ -6,6 +6,7 @@ declare module "@package/net/caffeinemc/mods/sodium/mixin/features/textures/anim
     }
     export interface $AnimatedTextureAccessor {
         getFrames(): $List<$SpriteContents$FrameInfo>;
+        get frames(): $List<$SpriteContents$FrameInfo>;
     }
     /**
      * Values that may be interpreted as {@link $AnimatedTextureAccessor}.
@@ -15,6 +16,7 @@ declare module "@package/net/caffeinemc/mods/sodium/mixin/features/textures/anim
     }
     export interface $SpriteContentsFrameInfoAccessor {
         getTime(): number;
+        get time(): number;
     }
     /**
      * Values that may be interpreted as {@link $SpriteContentsFrameInfoAccessor}.

@@ -52,19 +52,19 @@ declare module "@package/com/sonicether/soundphysics/world" {
         getOrigin(): $BlockPos;
         getHeight(): number;
         getBlockState(arg0: $BlockPos_): $BlockState;
-        getBlockEntity(arg0: $BlockPos_): $BlockEntity;
-        getFluidState(arg0: $BlockPos_): $FluidState;
         getChunk(arg0: number, arg1: number): $ClonedLevelChunk;
         getMinBuildHeight(): number;
+        getFluidState(arg0: $BlockPos_): $FluidState;
+        getBlockEntity(arg0: $BlockPos_): $BlockEntity;
         self(): $BlockGetter;
+        getLightEmission(arg0: $BlockPos_): number;
         getBlockEntity<T extends $BlockEntity>(arg0: $BlockPos_, arg1: $BlockEntityType_<T>): (T) | undefined;
+        getMaxLightLevel(): number;
         isBlockInLine(arg0: $ClipBlockStateContext): $BlockHitResult;
         clipWithInteractionOverride(arg0: $Vec3_, arg1: $Vec3_, arg2: $BlockPos_, arg3: $VoxelShape, arg4: $BlockState_): $BlockHitResult;
         clip(arg0: $ClipContext): $BlockHitResult;
-        getBlockFloorHeight(arg0: $VoxelShape, arg1: $Supplier_<$VoxelShape>): number;
         getBlockFloorHeight(arg0: $BlockPos_): number;
-        getLightEmission(arg0: $BlockPos_): number;
-        getMaxLightLevel(): number;
+        getBlockFloorHeight(arg0: $VoxelShape, arg1: $Supplier_<$VoxelShape>): number;
         getBlockStates(arg0: $AABB_): $Stream<$BlockState>;
         isOutsideBuildHeight(arg0: $BlockPos_): boolean;
         isOutsideBuildHeight(arg0: number): boolean;
@@ -82,5 +82,14 @@ declare module "@package/com/sonicether/soundphysics/world" {
         hasBiomes(): boolean;
         getBiomeFabric(arg0: $BlockPos_): $Holder<$Biome>;
         constructor(arg0: $ClientLevel, arg1: $BlockPos_, arg2: number, arg3: number);
+        get tick(): number;
+        get origin(): $BlockPos;
+        get height(): number;
+        get minBuildHeight(): number;
+        get maxLightLevel(): number;
+        get maxBuildHeight(): number;
+        get sectionsCount(): number;
+        get maxSection(): number;
+        get minSection(): number;
     }
 }

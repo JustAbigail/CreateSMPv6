@@ -15,18 +15,19 @@ declare module "@package/net/mehvahdjukaar/moonlight/api/misc" {
         getType(): $WorldSavedDataType<$WorldSavedData>;
         sync(): void;
         constructor();
+        get type(): $WorldSavedDataType<$WorldSavedData>;
     }
     export class $Triplet<L, M, R> extends $Record {
+        middle(): M;
         static of<A, B, C>(arg0: A, arg1: B, arg2: C): $Triplet<A, B, C>;
         left(): L;
         right(): R;
-        middle(): M;
         constructor(left: L, middle: M, right: R);
     }
     /**
      * Values that may be interpreted as {@link $Triplet}.
      */
-    export type $Triplet_<L, M, R> = { middle?: any, left?: any, right?: any,  } | [middle?: any, left?: any, right?: any, ];
+    export type $Triplet_<L, M, R> = { right?: any, left?: any, middle?: any,  } | [right?: any, left?: any, middle?: any, ];
     export class $WorldSavedDataType$Scope extends $Enum<$WorldSavedDataType$Scope> {
         static values(): $WorldSavedDataType$Scope[];
         static valueOf(arg0: string): $WorldSavedDataType$Scope;
@@ -41,13 +42,17 @@ declare module "@package/net/mehvahdjukaar/moonlight/api/misc" {
         isSyncable(): boolean;
         getStreamCodec(): $StreamCodec<$RegistryFriendlyByteBuf, D>;
         setData(arg0: $Level_, arg1: D): void;
-        getName(): string;
         getData(arg0: $Level_): D;
+        getName(): string;
         getCodec(): $Codec<D>;
         static CODEC: $Codec<$WorldSavedDataType<$WorldSavedData>>;
         static STREAM_CODEC: $StreamCodec<$RegistryFriendlyByteBuf, $WorldSavedDataType<$WorldSavedData>>;
         constructor(arg0: $ResourceLocation_, arg1: $Function_<$ServerLevel, D>, arg2: $Supplier_<$Codec<D>>, arg3: $Supplier_<$StreamCodec<$RegistryFriendlyByteBuf, D>>, arg4: $WorldSavedDataType$Scope_);
         constructor(arg0: $ResourceLocation_, arg1: $Function_<$ServerLevel, D>, arg2: $Supplier_<$Codec<D>>, arg3: $Supplier_<$StreamCodec<$RegistryFriendlyByteBuf, D>>);
+        get syncable(): boolean;
+        get streamCodec(): $StreamCodec<$RegistryFriendlyByteBuf, D>;
+        get name(): string;
+        get codec(): $Codec<D>;
     }
     /**
      * Values that may be interpreted as {@link $WorldSavedDataType}.

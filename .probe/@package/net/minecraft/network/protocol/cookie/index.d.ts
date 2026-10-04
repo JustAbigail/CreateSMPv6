@@ -24,6 +24,8 @@ declare module "@package/net/minecraft/network/protocol/cookie" {
         isSkippable(): boolean;
         static STREAM_CODEC: $StreamCodec<$FriendlyByteBuf, $ServerboundCookieResponsePacket>;
         constructor(arg0: $ResourceLocation_, arg1: number[] | null);
+        get terminal(): boolean;
+        get skippable(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $ServerboundCookieResponsePacket}.
@@ -50,6 +52,8 @@ declare module "@package/net/minecraft/network/protocol/cookie" {
         isSkippable(): boolean;
         static STREAM_CODEC: $StreamCodec<$FriendlyByteBuf, $ClientboundCookieRequestPacket>;
         constructor(arg0: $ResourceLocation_);
+        get terminal(): boolean;
+        get skippable(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $ClientboundCookieRequestPacket}.

@@ -7,5 +7,8 @@ declare module "@package/com/rieno/gadgetsandgizmos/mixin" {
         getLeftPos(): number;
         getTopPos(): number;
         getMenu(): $AbstractContainerMenu;
+        get leftPos(): number;
+        get topPos(): number;
+        get menu(): $AbstractContainerMenu;
     }
 }

@@ -11,7 +11,7 @@ declare module "@package/net/minecraft/world/level/validation" {
     /**
      * Values that may be interpreted as {@link $ForbiddenSymlinkInfo}.
      */
-    export type $ForbiddenSymlinkInfo_ = { target?: $Path_, link?: $Path_,  } | [target?: $Path_, link?: $Path_, ];
+    export type $ForbiddenSymlinkInfo_ = { link?: $Path_, target?: $Path_,  } | [link?: $Path_, target?: $Path_, ];
     export class $DirectoryValidator {
         validateKnownDirectory(directory: $Path_, forbiddenSymlinkInfos: $List_<$ForbiddenSymlinkInfo_>): void;
         validateSymlink(directory: $Path_): $List<$ForbiddenSymlinkInfo>;

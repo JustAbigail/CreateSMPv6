@@ -24,12 +24,12 @@ import { $MLMapMarker } from "@package/net/mehvahdjukaar/moonlight/api/map/decor
 
 declare module "@package/net/minecraft/world/level/saveddata/maps" {
     export class $MapDecorationType extends $Record {
-        mapColor(): number;
+        assetId(): $ResourceLocation;
         showOnItemFrame(): boolean;
         explorationMapElement(): boolean;
         trackCount(): boolean;
         hasMapColor(): boolean;
-        assetId(): $ResourceLocation;
+        mapColor(): number;
         static CODEC: $Codec<$Holder<$MapDecorationType>>;
         static NO_MAP_COLOR: number;
         static STREAM_CODEC: $StreamCodec<$RegistryFriendlyByteBuf, $Holder<$MapDecorationType>>;
@@ -38,7 +38,7 @@ declare module "@package/net/minecraft/world/level/saveddata/maps" {
     /**
      * Values that may be interpreted as {@link $MapDecorationType}.
      */
-    export type $MapDecorationType_ = RegistryTypes.MapDecorationType | { showOnItemFrame?: boolean, trackCount?: boolean, explorationMapElement?: boolean, assetId?: $ResourceLocation_, mapColor?: number,  } | [showOnItemFrame?: boolean, trackCount?: boolean, explorationMapElement?: boolean, assetId?: $ResourceLocation_, mapColor?: number, ];
+    export type $MapDecorationType_ = RegistryTypes.MapDecorationType | { trackCount?: boolean, showOnItemFrame?: boolean, mapColor?: number, assetId?: $ResourceLocation_, explorationMapElement?: boolean,  } | [trackCount?: boolean, showOnItemFrame?: boolean, mapColor?: number, assetId?: $ResourceLocation_, explorationMapElement?: boolean, ];
     export class $MapBanner extends $Record {
         static fromWorld(level: $BlockGetter, pos: $BlockPos_): $MapBanner;
         name(): ($Component) | undefined;
@@ -49,11 +49,13 @@ declare module "@package/net/minecraft/world/level/saveddata/maps" {
         static CODEC: $Codec<$MapBanner>;
         static LIST_CODEC: $Codec<$List<$MapBanner>>;
         constructor(arg0: $BlockPos_, arg1: $DyeColor_, arg2: ($Component_) | undefined);
+        get id(): string;
+        get decoration(): $Holder<$MapDecorationType>;
     }
     /**
      * Values that may be interpreted as {@link $MapBanner}.
      */
-    export type $MapBanner_ = { name?: ($Component_) | undefined, pos?: $BlockPos_, color?: $DyeColor_,  } | [name?: ($Component_) | undefined, pos?: $BlockPos_, color?: $DyeColor_, ];
+    export type $MapBanner_ = { name?: ($Component_) | undefined, color?: $DyeColor_, pos?: $BlockPos_,  } | [name?: ($Component_) | undefined, color?: $DyeColor_, pos?: $BlockPos_, ];
     export class $MapItemSavedData$MapPatch extends $Record {
         mapColors(): number[];
         applyToMap(savedData: $MapItemSavedData): void;
@@ -67,32 +69,33 @@ declare module "@package/net/minecraft/world/level/saveddata/maps" {
     /**
      * Values that may be interpreted as {@link $MapItemSavedData$MapPatch}.
      */
-    export type $MapItemSavedData$MapPatch_ = { height?: number, startX?: number, startY?: number, width?: number, mapColors?: number[],  } | [height?: number, startX?: number, startY?: number, width?: number, mapColors?: number[], ];
+    export type $MapItemSavedData$MapPatch_ = { height?: number, mapColors?: number[], width?: number, startY?: number, startX?: number,  } | [height?: number, mapColors?: number[], width?: number, startY?: number, startX?: number, ];
     export class $MapDecoration extends $Record {
-        rot(): number;
         renderOnFrame(): boolean;
         getSpriteLocation(): $ResourceLocation;
         name(): ($Component) | undefined;
         type(): $Holder<$MapDecorationType>;
         x(): number;
         y(): number;
+        rot(): number;
         static STREAM_CODEC: $StreamCodec<$RegistryFriendlyByteBuf, $MapDecoration>;
         constructor(type: $Holder_<$MapDecorationType>, x: number, y: number, rot: number, name: ($Component_) | undefined);
+        get spriteLocation(): $ResourceLocation;
     }
     /**
      * Values that may be interpreted as {@link $MapDecoration}.
      */
-    export type $MapDecoration_ = { name?: ($Component_) | undefined, x?: number, rot?: number, y?: number, type?: $Holder_<$MapDecorationType>,  } | [name?: ($Component_) | undefined, x?: number, rot?: number, y?: number, type?: $Holder_<$MapDecorationType>, ];
+    export type $MapDecoration_ = { name?: ($Component_) | undefined, type?: $Holder_<$MapDecorationType>, y?: number, rot?: number, x?: number,  } | [name?: ($Component_) | undefined, type?: $Holder_<$MapDecorationType>, y?: number, rot?: number, x?: number, ];
     export class $MapItemSavedData$HoldingPlayer implements $IHoldingPlayerExtension {
-        nextUpdatePacket(mapId: $MapId_): $Packet<never>;
-        markColorsDirty(x: number, z: number): void;
-        moonlight$setCustomDataDirty(arg0: $CustomMapData$Type_<any, any>, arg1: $Consumer_<any>): void;
-        moonlight$setCustomMarkersDirty(): void;
-        handler$gal000$moonlight$initializeDirty(arg0: $MapItemSavedData, arg1: $Player, arg2: $CallbackInfo): void;
         handler$gal000$moonlight$checkLocked(arg0: $MapId_, arg1: $CallbackInfoReturnable<any>): void;
         modifyReturnValue$gal000$moonlight$addExtraPacketData(arg0: $Packet<any>, arg1: $MapId_): $Packet<any>;
         handler$gal000$moonlight$lockData(arg0: number, arg1: number, arg2: $CallbackInfo): void;
         handler$gal000$moonlight$sanityCheck(arg0: number, arg1: number, arg2: $CallbackInfo): void;
+        handler$gal000$moonlight$initializeDirty(arg0: $MapItemSavedData, arg1: $Player, arg2: $CallbackInfo): void;
+        nextUpdatePacket(mapId: $MapId_): $Packet<never>;
+        markColorsDirty(x: number, z: number): void;
+        moonlight$setCustomDataDirty(arg0: $CustomMapData$Type_<any, any>, arg1: $Consumer_<any>): void;
+        moonlight$setCustomMarkersDirty(): void;
         this$0: $MapItemSavedData;
         step: number;
         player: $Player;
@@ -113,7 +116,11 @@ declare module "@package/net/minecraft/world/level/saveddata/maps" {
         ml$toggleCustomDecoration(accessor: $LevelAccessor, pos: $BlockPos_): boolean;
         ml$getCustomDecorations(): $Map<any, any>;
         ml$getVanillaDecorationSize(): number;
+        static createForClient(scale: number, locked: boolean, dimension: $ResourceKey_<$Level>): $MapItemSavedData;
+        toggleStation(arg0: $LevelAccessor, arg1: $BlockPos_, arg2: $StationBlockEntity): boolean;
         ml$addCustomMarker(arg0: $MLMapMarker<any>): void;
+        getBanners(): $Collection<$MapBanner>;
+        addDecoration(decorationType: $Holder_<$MapDecorationType>, level: $LevelAccessor | null, id: string, x: number, arg4: number, z: number, arg6: $Component_ | null): void;
         handler$gca000$moonlight$initCustomData(arg0: number, arg1: number, arg2: number, arg3: boolean, arg4: boolean, arg5: boolean, arg6: $ResourceKey_<any>, arg7: $CallbackInfo): void;
         handler$gca000$moonlight$save(arg0: $CompoundTag_, arg1: $HolderLookup$Provider, arg2: $CallbackInfoReturnable<any>): void;
         handler$gca000$moonlight$locked(arg0: $CallbackInfoReturnable<any>): void;
@@ -132,10 +139,8 @@ declare module "@package/net/minecraft/world/level/saveddata/maps" {
         ml$copy(): $MapItemSavedData;
         ml$resetCustomDecoration(): void;
         addStationMarker(arg0: $StationMarker): void;
-        getBanners(): $Collection<$MapBanner>;
-        addDecoration(decorationType: $Holder_<$MapDecorationType>, level: $LevelAccessor | null, id: string, x: number, arg4: number, z: number, arg6: $Component_ | null): void;
-        static createForClient(scale: number, locked: boolean, dimension: $ResourceKey_<$Level>): $MapItemSavedData;
-        toggleStation(arg0: $LevelAccessor, arg1: $BlockPos_, arg2: $StationBlockEntity): boolean;
+        getUpdatePacket(mapId: $MapId_, player: $Player): $Packet<never>;
+        isExplorationMap(): boolean;
         static createFresh(x: number, arg1: number, z: number, arg3: boolean, scale: boolean, trackingPosition: $ResourceKey_<$Level>): $MapItemSavedData;
         getHoldingPlayer(player: $Player): $MapItemSavedData$HoldingPlayer;
         checkBanners(reader: $BlockGetter, x: number, z: number): void;
@@ -147,14 +152,12 @@ declare module "@package/net/minecraft/world/level/saveddata/maps" {
         scaled(): $MapItemSavedData;
         toggleBanner(accessor: $LevelAccessor, pos: $BlockPos_): boolean;
         ml$getCustomData(): $Map<any, any>;
-        getUpdatePacket(mapId: $MapId_, player: $Player): $Packet<never>;
         removedFromFrame(pos: $BlockPos_, entityId: number): void;
         isTrackedCountOverLimit(trackedCount: number): boolean;
-        isExplorationMap(): boolean;
         static addTargetDecoration(stack: $ItemStack_, pos: $BlockPos_, type: string, mapDecorationType: $Holder_<$MapDecorationType>): void;
+        setColor(x: number, z: number, color: number): void;
         static load(tag: $CompoundTag_, levelRegistry: $HolderLookup$Provider): $MapItemSavedData;
         static factory(): $SavedData$Factory<$MapItemSavedData>;
-        setColor(x: number, z: number, color: number): void;
         locked(): $MapItemSavedData;
         getDecorations(): $Iterable<$MapDecoration>;
         centerZ: number;
@@ -167,6 +170,8 @@ declare module "@package/net/minecraft/world/level/saveddata/maps" {
         static MAX_SCALE: number;
         dimension: $ResourceKey<$Level>;
         colors: number[];
+        get banners(): $Collection<$MapBanner>;
+        get explorationMap(): boolean;
     }
     export interface $MapDecorationType extends RegistryMarked<RegistryTypes.MapDecorationTypeTag, RegistryTypes.MapDecorationType> {}
 }

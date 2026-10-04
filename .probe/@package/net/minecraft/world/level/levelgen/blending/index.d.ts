@@ -11,19 +11,20 @@ import { $DensityFunction$FunctionContext } from "@package/net/minecraft/world/l
 
 declare module "@package/net/minecraft/world/level/levelgen/blending" {
     export class $BlendingData {
+        iterateBiomes(x: number, y: number, z: number, consumer: $BlendingData$BiomeConsumer_): void;
         iterateHeights(x: number, z: number, consumer: $BlendingData$HeightConsumer_): void;
+        iterateDensities(x: number, z: number, minY: number, maxY: number, consumer: $BlendingData$DensityConsumer_): void;
         getAreaWithOldGeneration(): $LevelHeightAccessor;
         static getOrUpdateBlendingData(region: $WorldGenRegion, chunkX: number, chunkZ: number): $BlendingData;
-        iterateDensities(x: number, z: number, minY: number, maxY: number, consumer: $BlendingData$DensityConsumer_): void;
-        iterateBiomes(x: number, y: number, z: number, consumer: $BlendingData$BiomeConsumer_): void;
         static sideByGenerationAge(level: $WorldGenLevel, chunkX: number, chunkZ: number, oldNoiseGeneration: boolean): $Set<$Direction8>;
-        getHeight(x: number, y: number, z: number): number;
         getDensity(x: number, y: number, z: number): number;
+        getHeight(x: number, y: number, z: number): number;
         static CELL_RATIO: number;
         static CODEC: $Codec<$BlendingData>;
         static CELL_HEIGHT: number;
         static NO_VALUE: number;
         static CELL_WIDTH: number;
+        get areaWithOldGeneration(): $LevelHeightAccessor;
     }
     export class $BlendingData$DensityConsumer {
     }
@@ -41,12 +42,12 @@ declare module "@package/net/minecraft/world/level/levelgen/blending" {
     /**
      * Values that may be interpreted as {@link $Blender$BlendingOutput}.
      */
-    export type $Blender$BlendingOutput_ = { blendingOffset?: number, alpha?: number,  } | [blendingOffset?: number, alpha?: number, ];
+    export type $Blender$BlendingOutput_ = { alpha?: number, blendingOffset?: number,  } | [alpha?: number, blendingOffset?: number, ];
     export class $Blender {
         static addAroundOldChunksCarvingMaskFilter(level: $WorldGenLevel, chunk: $ProtoChunk): void;
         static generateBorderTicks(region: $WorldGenRegion, chunk: $ChunkAccess): void;
-        static makeOldChunkDistanceGetter(blendingData: $BlendingData | null, surroundingBlendingData: $Map_<$Direction8_, $BlendingData>): $Blender$DistanceGetter;
         blendOffsetAndFactor(x: number, z: number): $Blender$BlendingOutput;
+        static makeOldChunkDistanceGetter(blendingData: $BlendingData | null, surroundingBlendingData: $Map_<$Direction8_, $BlendingData>): $Blender$DistanceGetter;
         blendDensity(context: $DensityFunction$FunctionContext, density: number): number;
         getBiomeResolver(resolver: $BiomeResolver_): $BiomeResolver;
         static of(region: $WorldGenRegion | null): $Blender;

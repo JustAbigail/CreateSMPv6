@@ -9,17 +9,21 @@ import { $List, $List_, $Collection, $Set } from "@package/java/util";
 
 declare module "@package/net/minecraft/client/renderer/block/model/multipart" {
     export class $MultiPart implements $UnbakedModel {
-        bake(baker: $ModelBaker, spriteGetter: $Function_<$Material, $TextureAtlasSprite>, state: $ModelState): $BakedModel;
-        resolveParents(resolver: $Function_<$ResourceLocation, $UnbakedModel>): void;
         getMultiVariants(): $Set<$MultiVariant>;
         getSelectors(): $List<$Selector>;
+        bake(baker: $ModelBaker, spriteGetter: $Function_<$Material, $TextureAtlasSprite>, state: $ModelState): $BakedModel;
+        resolveParents(resolver: $Function_<$ResourceLocation, $UnbakedModel>): void;
         getDependencies(): $Collection<$ResourceLocation>;
         definition: $StateDefinition<$Block, $BlockState>;
         constructor(definition: $StateDefinition<$Block_, $BlockState_>, selectors: $List_<$Selector>);
+        get multiVariants(): $Set<$MultiVariant>;
+        get selectors(): $List<$Selector>;
+        get dependencies(): $Collection<$ResourceLocation>;
     }
     export class $Selector {
         getVariant(): $MultiVariant;
         getPredicate(definition: $StateDefinition<$Block_, $BlockState_>): $Predicate<$BlockState>;
         constructor(condition: $Condition, variant: $MultiVariant);
+        get variant(): $MultiVariant;
     }
 }

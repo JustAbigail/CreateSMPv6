@@ -13,7 +13,7 @@ declare module "@package/net/irisshaders/iris/gl/framebuffer" {
     /**
      * Values that may be interpreted as {@link $ViewportData}.
      */
-    export type $ViewportData_ = { scale?: number, viewportX?: number, viewportY?: number,  } | [scale?: number, viewportX?: number, viewportY?: number, ];
+    export type $ViewportData_ = { scale?: number, viewportY?: number, viewportX?: number,  } | [scale?: number, viewportY?: number, viewportX?: number, ];
     export class $GlFramebuffer extends $GlResource {
         addDepthAttachment(arg0: number): void;
         bindAsReadBuffer(): void;
@@ -21,13 +21,15 @@ declare module "@package/net/irisshaders/iris/gl/framebuffer" {
         addColorAttachment(arg0: number, arg1: number): void;
         noDrawBuffers(): void;
         bindAsDrawBuffer(): void;
+        readBuffer(arg0: number): void;
         getId(): number;
         bind(): void;
-        readBuffer(arg0: number): void;
         getStatus(): number;
         drawBuffers(arg0: number[]): void;
         getColorAttachment(arg0: number): number;
         hasDepthAttachment(): boolean;
         constructor();
+        get id(): number;
+        get status(): number;
     }
 }

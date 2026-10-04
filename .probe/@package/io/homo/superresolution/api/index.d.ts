@@ -19,6 +19,8 @@ declare module "@package/io/homo/superresolution/api" {
         destroy(): void;
         resize(arg0: number, arg1: number): void;
         constructor();
+        get outputFrameBuffer(): $IFrameBuffer;
+        get outputTextureId(): number;
     }
     export class $InitializationDescription {
         isMotionJittered(): boolean;
@@ -40,7 +42,7 @@ declare module "@package/io/homo/superresolution/api" {
     /**
      * Values that may be interpreted as {@link $InputResourceSet}.
      */
-    export type $InputResourceSet_ = { colorTexture?: $ITexture, depthTexture?: $ITexture, motionVectorsTexture?: $ITexture, exposureTexture?: $ITexture,  } | [colorTexture?: $ITexture, depthTexture?: $ITexture, motionVectorsTexture?: $ITexture, exposureTexture?: $ITexture, ];
+    export type $InputResourceSet_ = { exposureTexture?: $ITexture, motionVectorsTexture?: $ITexture, depthTexture?: $ITexture, colorTexture?: $ITexture,  } | [exposureTexture?: $ITexture, motionVectorsTexture?: $ITexture, depthTexture?: $ITexture, colorTexture?: $ITexture, ];
     export class $QualityPreset {
         getUpscaleRatio(): number;
         setUpscaleRatio(arg0: number): $QualityPreset;

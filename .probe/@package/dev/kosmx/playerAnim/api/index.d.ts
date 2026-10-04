@@ -8,6 +8,7 @@ declare module "@package/dev/kosmx/playerAnim/api" {
     }
     export interface $IPlayer {
         getAnimationStack(): $AnimationStack;
+        get animationStack(): $AnimationStack;
     }
     /**
      * Values that may be interpreted as {@link $IPlayer}.

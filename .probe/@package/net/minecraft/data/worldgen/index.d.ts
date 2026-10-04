@@ -1,4 +1,4 @@
-import { $HolderGetter, $Holder$Reference, $Registry, $HolderLookup$RegistryLookup } from "@package/net/minecraft/core";
+import { $HolderGetter, $Registry, $Holder$Reference, $HolderLookup$RegistryLookup } from "@package/net/minecraft/core";
 import { $Lifecycle } from "@package/com/mojang/serialization";
 import { $ResourceKey_ } from "@package/net/minecraft/resources";
 

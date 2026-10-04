@@ -89,6 +89,9 @@ declare module "@package/it/unimi/dsi/fastutil/shorts" {
         setValue(arg0: boolean): boolean;
         getBooleanValue(): boolean;
         getValue(): boolean;
+        get shortKey(): number;
+        get key(): number;
+        get booleanValue(): boolean;
     }
     export class $Short2DoubleFunction {
     }
@@ -219,27 +222,26 @@ declare module "@package/it/unimi/dsi/fastutil/shorts" {
     export class $ShortPredicate {
     }
     export interface $ShortPredicate extends $Predicate<number>, $IntPredicate {
-        or(arg0: $ShortPredicate_): $ShortPredicate;
-        or(arg0: $IntPredicate_): $ShortPredicate;
-        /**
-         * @deprecated
-         */
-        or(arg0: $Predicate_<number>): $Predicate<number>;
-        and(arg0: $ShortPredicate_): $ShortPredicate;
+        negate(): $ShortPredicate;
         /**
          * @deprecated
          */
         and(arg0: $Predicate_<number>): $Predicate<number>;
+        and(arg0: $ShortPredicate_): $ShortPredicate;
+        /**
+         * @deprecated
+         */
+        or(arg0: $Predicate_<number>): $Predicate<number>;
+        or(arg0: $ShortPredicate_): $ShortPredicate;
+        test(arg0: number): boolean;
         /**
          * @deprecated
          */
         test(arg0: number): boolean;
-        test(arg0: number): boolean;
         /**
          * @deprecated
          */
         test(arg0: number): boolean;
-        negate(): $Predicate<number>;
     }
     /**
      * Values that may be interpreted as {@link $ShortPredicate}.
@@ -378,6 +380,7 @@ declare module "@package/it/unimi/dsi/fastutil/shorts" {
     export class $Short2BooleanMap {
     }
     export interface $Short2BooleanMap extends $Short2BooleanFunction, $Map<number, boolean> {
+        computeIfAbsentNullable(arg0: number, arg1: $IntFunction_<boolean>): boolean;
         short2BooleanEntrySet(): $ObjectSet<$Short2BooleanMap$Entry>;
         /**
          * @deprecated
@@ -390,8 +393,8 @@ declare module "@package/it/unimi/dsi/fastutil/shorts" {
          */
         put(arg0: number, arg1: boolean): boolean;
         clear(): void;
-        replace(arg0: number, arg1: boolean): boolean;
         replace(arg0: number, arg1: boolean, arg2: boolean): boolean;
+        replace(arg0: number, arg1: boolean): boolean;
         merge(arg0: number, arg1: boolean, arg2: $BiFunction_<boolean, boolean, boolean>): boolean;
         /**
          * @deprecated
@@ -405,9 +408,8 @@ declare module "@package/it/unimi/dsi/fastutil/shorts" {
          * @deprecated
          */
         containsKey(arg0: $Object): boolean;
-        computeIfAbsent(arg0: number, arg1: $IntPredicate_): boolean;
         computeIfAbsent(arg0: number, arg1: $Short2BooleanFunction_): boolean;
-        keySet(): $ShortSet;
+        computeIfAbsent(arg0: number, arg1: $IntPredicate_): boolean;
         containsValue(arg0: boolean): boolean;
         /**
          * @deprecated
@@ -419,15 +421,15 @@ declare module "@package/it/unimi/dsi/fastutil/shorts" {
          */
         getOrDefault(arg0: $Object, arg1: boolean): boolean;
         computeIfPresent(arg0: number, arg1: $BiFunction_<number, boolean, boolean>): boolean;
-        defaultReturnValue(): boolean;
         defaultReturnValue(arg0: boolean): void;
+        defaultReturnValue(): boolean;
         /**
          * @deprecated
          */
         computeIfAbsentPartial(arg0: number, arg1: $Short2BooleanFunction_): boolean;
-        computeIfAbsentNullable(arg0: number, arg1: $IntFunction_<boolean>): boolean;
         get(arg0: number): boolean;
         values(): $Collection<boolean>;
+        keySet(): $Set<number>;
     }
     export class $ShortSet {
         static of(arg0: number, arg1: number): $ShortSet;
@@ -465,6 +467,8 @@ declare module "@package/it/unimi/dsi/fastutil/shorts" {
          * @deprecated
          */
         getKey(): number;
+        get shortKey(): number;
+        get key(): number;
     }
     export class $ShortComparator {
     }
@@ -986,6 +990,7 @@ declare module "@package/it/unimi/dsi/fastutil/shorts" {
         forEachRemaining(arg0: $Consumer_<number>): void;
         skip(arg0: number): number;
         getComparator(): $Comparator<number>;
+        get comparator(): $Comparator<number>;
     }
     export class $Short2IntFunction {
     }

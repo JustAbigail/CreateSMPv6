@@ -218,6 +218,8 @@ declare module "@package/net/minecraft/world/entity/animal/sniffer" {
         static BASE_SAFE_FALL_DISTANCE: number;
         age: number;
         constructor(entityType: $EntityType_<$Animal>, level: $Level_);
+        get searching(): boolean;
+        get tempted(): boolean;
     }
     export class $Sniffer$State extends $Enum<$Sniffer$State> {
         static values(): $Sniffer$State[];

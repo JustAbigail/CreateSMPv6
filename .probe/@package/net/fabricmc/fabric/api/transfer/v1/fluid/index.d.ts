@@ -15,8 +15,10 @@ declare module "@package/net/fabricmc/fabric/api/transfer/v1/fluid" {
         static PACKET_CODEC: $StreamCodec<$RegistryFriendlyByteBuf, $FluidVariant>;
     }
     export interface $FluidVariant extends $TransferVariant<$Fluid> {
+        getFluid(): $Fluid;
         withComponentChanges(arg0: $DataComponentPatch_): $FluidVariant;
         getRegistryEntry(): $Holder<$Fluid>;
-        getFluid(): $Fluid;
+        get fluid(): $Fluid;
+        get registryEntry(): $Holder<$Fluid>;
     }
 }

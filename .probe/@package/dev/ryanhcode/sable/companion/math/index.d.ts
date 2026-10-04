@@ -9,30 +9,30 @@ declare module "@package/dev/ryanhcode/sable/companion/math" {
     export class $BoundingBox3ic {
     }
     export interface $BoundingBox3ic {
-        toAABB(): $AABB;
-        minX(): number;
-        minY(): number;
-        intersect(arg0: $BoundingBox3ic, arg1: $BoundingBox3i): $BoundingBox3i;
-        chunkBoundsFrom(arg0: $BoundingBox3i): $BoundingBox3i;
         chunkBoundsFrom(): $BoundingBox3i;
-        move(arg0: number, arg1: number, arg2: number, arg3: $BoundingBox3i): $BoundingBox3i;
-        move(arg0: $Vector3ic, arg1: $BoundingBox3i): $BoundingBox3i;
+        chunkBoundsFrom(arg0: $BoundingBox3i): $BoundingBox3i;
         volume(): number;
+        move(arg0: $Vector3ic, arg1: $BoundingBox3i): $BoundingBox3i;
+        move(arg0: number, arg1: number, arg2: number, arg3: $BoundingBox3i): $BoundingBox3i;
         expandTo(arg0: $Vector3ic, arg1: $BoundingBox3i): $BoundingBox3i;
         expandTo(arg0: number, arg1: number, arg2: number, arg3: $BoundingBox3i): $BoundingBox3i;
         expandTo(arg0: $BoundingBox3ic, arg1: $BoundingBox3i): $BoundingBox3i;
         intersects(arg0: $BoundingBox3ic): boolean;
         intersects(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number): boolean;
         intersects(arg0: $BoundingBox): boolean;
+        intersect(arg0: $BoundingBox3ic, arg1: $BoundingBox3i): $BoundingBox3i;
+        minX(): number;
+        minY(): number;
         size(arg0: $Vector3i): $Vector3i;
         length(): number;
+        contains(arg0: $Vector3dc): boolean;
         contains(arg0: number, arg1: number, arg2: number): boolean;
         contains(arg0: $Vector3ic): boolean;
-        contains(arg0: $Vector3dc): boolean;
         width(): number;
         height(): number;
         center(arg0: $Vector3i): $Vector3i;
         maxX(): number;
+        toAABB(): $AABB;
         toMojang(): $BoundingBox;
         maxY(): number;
         minZ(): number;
@@ -41,21 +41,21 @@ declare module "@package/dev/ryanhcode/sable/companion/math" {
     export class $BoundingBox3dc {
     }
     export interface $BoundingBox3dc {
-        minX(): number;
-        minY(): number;
-        intersect(arg0: $BoundingBox3dc, arg1: $BoundingBox3d): $BoundingBox3d;
         chunkBoundsFrom(): $BoundingBox3i;
         chunkBoundsFrom(arg0: $BoundingBox3i): $BoundingBox3i;
-        move(arg0: number, arg1: number, arg2: number, arg3: $BoundingBox3d): $BoundingBox3d;
         volume(): number;
-        expandTo(arg0: $Vector3dc, arg1: $BoundingBox3d): $BoundingBox3d;
+        move(arg0: number, arg1: number, arg2: number, arg3: $BoundingBox3d): $BoundingBox3d;
         expandTo(arg0: number, arg1: number, arg2: number, arg3: $BoundingBox3d): $BoundingBox3d;
         expandTo(arg0: $BoundingBox3dc, arg1: $BoundingBox3d): $BoundingBox3d;
+        expandTo(arg0: $Vector3dc, arg1: $BoundingBox3d): $BoundingBox3d;
+        intersects(arg0: $AABB_): boolean;
         intersects(arg0: $BoundingBox3dc): boolean;
         intersects(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number): boolean;
-        intersects(arg0: $AABB_): boolean;
-        size(): $Vector3d;
+        intersect(arg0: $BoundingBox3dc, arg1: $BoundingBox3d): $BoundingBox3d;
+        minX(): number;
+        minY(): number;
         size(arg0: $Vector3d): $Vector3d;
+        size(): $Vector3d;
         length(): number;
         expand(arg0: number, arg1: number, arg2: number, arg3: $BoundingBox3d): $BoundingBox3d;
         expand(arg0: number, arg1: $BoundingBox3d): $BoundingBox3d;
@@ -78,15 +78,15 @@ declare module "@package/dev/ryanhcode/sable/companion/math" {
         maxZ(): number;
     }
     export class $BoundingBox3d implements $BoundingBox3dc {
-        minX(): number;
-        minY(): number;
-        intersect(arg0: $BoundingBox3dc): $BoundingBox3d;
         setUnchecked(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number): $BoundingBox3d;
         setUnchecked(arg0: $BoundingBox3dc): $BoundingBox3d;
         move(arg0: number, arg1: number, arg2: number): $BoundingBox3d;
+        expandTo(arg0: number, arg1: number, arg2: number): $BoundingBox3d;
         expandTo(arg0: $Vector3dc): $BoundingBox3d;
         expandTo(arg0: $BoundingBox3dc): $BoundingBox3d;
-        expandTo(arg0: number, arg1: number, arg2: number): $BoundingBox3d;
+        intersect(arg0: $BoundingBox3dc): $BoundingBox3d;
+        minX(): number;
+        minY(): number;
         expand(arg0: number, arg1: number, arg2: number): $BoundingBox3d;
         expand(arg0: number): $BoundingBox3d;
         transform(arg0: $Pose3dc): $BoundingBox3d;
@@ -102,19 +102,19 @@ declare module "@package/dev/ryanhcode/sable/companion/math" {
         maxY(): number;
         minZ(): number;
         maxZ(): number;
-        intersect(arg0: $BoundingBox3dc, arg1: $BoundingBox3d): $BoundingBox3d;
         chunkBoundsFrom(): $BoundingBox3i;
         chunkBoundsFrom(arg0: $BoundingBox3i): $BoundingBox3i;
-        move(arg0: number, arg1: number, arg2: number, arg3: $BoundingBox3d): $BoundingBox3d;
         volume(): number;
-        expandTo(arg0: $Vector3dc, arg1: $BoundingBox3d): $BoundingBox3d;
+        move(arg0: number, arg1: number, arg2: number, arg3: $BoundingBox3d): $BoundingBox3d;
         expandTo(arg0: number, arg1: number, arg2: number, arg3: $BoundingBox3d): $BoundingBox3d;
         expandTo(arg0: $BoundingBox3dc, arg1: $BoundingBox3d): $BoundingBox3d;
+        expandTo(arg0: $Vector3dc, arg1: $BoundingBox3d): $BoundingBox3d;
+        intersects(arg0: $AABB_): boolean;
         intersects(arg0: $BoundingBox3dc): boolean;
         intersects(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number): boolean;
-        intersects(arg0: $AABB_): boolean;
-        size(): $Vector3d;
+        intersect(arg0: $BoundingBox3dc, arg1: $BoundingBox3d): $BoundingBox3d;
         size(arg0: $Vector3d): $Vector3d;
+        size(): $Vector3d;
         length(): number;
         expand(arg0: number, arg1: number, arg2: number, arg3: $BoundingBox3d): $BoundingBox3d;
         expand(arg0: number, arg1: $BoundingBox3d): $BoundingBox3d;
@@ -134,29 +134,29 @@ declare module "@package/dev/ryanhcode/sable/companion/math" {
         static CODEC: $Codec<$BoundingBox3d>;
         static EMPTY: $BoundingBox3d;
         constructor(arg0: $AABB_);
-        constructor(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number);
         constructor(arg0: $BoundingBox3dc);
-        constructor(arg0: $Position, arg1: $Position);
-        constructor();
+        constructor(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number);
+        constructor(arg0: $BoundingBox3ic);
         /**
          * @deprecated
          */
         constructor(arg0: $Vec3_, arg1: $Vec3_);
-        constructor(arg0: $BoundingBox3ic);
-        constructor(arg0: $BlockPos_);
+        constructor(arg0: $Position, arg1: $Position);
+        constructor();
         constructor(arg0: $BoundingBox);
+        constructor(arg0: $BlockPos_);
     }
     export class $BoundingBox3i implements $BoundingBox3ic {
-        minX(): number;
-        minY(): number;
-        intersect(arg0: $BoundingBox3ic): $BoundingBox3i;
         setUnchecked(arg0: $BoundingBox3ic): $BoundingBox3i;
         setUnchecked(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number): $BoundingBox3i;
-        move(arg0: $Vector3ic): $BoundingBox3i;
         move(arg0: number, arg1: number, arg2: number): $BoundingBox3i;
+        move(arg0: $Vector3ic): $BoundingBox3i;
+        expandTo(arg0: $BoundingBox3ic): $BoundingBox3i;
         expandTo(arg0: $Vector3ic): $BoundingBox3i;
         expandTo(arg0: number, arg1: number, arg2: number): $BoundingBox3i;
-        expandTo(arg0: $BoundingBox3ic): $BoundingBox3i;
+        intersect(arg0: $BoundingBox3ic): $BoundingBox3i;
+        minX(): number;
+        minY(): number;
         expand(arg0: number, arg1: number, arg2: number): $BoundingBox3i;
         static from(arg0: $Iterable_<$BlockPos>): $BoundingBox3i;
         set(arg0: $BoundingBox3d): $BoundingBox3i;
@@ -166,27 +166,27 @@ declare module "@package/dev/ryanhcode/sable/companion/math" {
         maxY(): number;
         minZ(): number;
         maxZ(): number;
-        toAABB(): $AABB;
-        intersect(arg0: $BoundingBox3ic, arg1: $BoundingBox3i): $BoundingBox3i;
-        chunkBoundsFrom(arg0: $BoundingBox3i): $BoundingBox3i;
         chunkBoundsFrom(): $BoundingBox3i;
-        move(arg0: number, arg1: number, arg2: number, arg3: $BoundingBox3i): $BoundingBox3i;
-        move(arg0: $Vector3ic, arg1: $BoundingBox3i): $BoundingBox3i;
+        chunkBoundsFrom(arg0: $BoundingBox3i): $BoundingBox3i;
         volume(): number;
+        move(arg0: $Vector3ic, arg1: $BoundingBox3i): $BoundingBox3i;
+        move(arg0: number, arg1: number, arg2: number, arg3: $BoundingBox3i): $BoundingBox3i;
         expandTo(arg0: $Vector3ic, arg1: $BoundingBox3i): $BoundingBox3i;
         expandTo(arg0: number, arg1: number, arg2: number, arg3: $BoundingBox3i): $BoundingBox3i;
         expandTo(arg0: $BoundingBox3ic, arg1: $BoundingBox3i): $BoundingBox3i;
         intersects(arg0: $BoundingBox3ic): boolean;
         intersects(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number): boolean;
         intersects(arg0: $BoundingBox): boolean;
+        intersect(arg0: $BoundingBox3ic, arg1: $BoundingBox3i): $BoundingBox3i;
         size(arg0: $Vector3i): $Vector3i;
         length(): number;
+        contains(arg0: $Vector3dc): boolean;
         contains(arg0: number, arg1: number, arg2: number): boolean;
         contains(arg0: $Vector3ic): boolean;
-        contains(arg0: $Vector3dc): boolean;
         width(): number;
         height(): number;
         center(arg0: $Vector3i): $Vector3i;
+        toAABB(): $AABB;
         toMojang(): $BoundingBox;
         static CODEC: $Codec<$BoundingBox3i>;
         static EMPTY: $BoundingBox3ic;

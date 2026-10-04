@@ -27,6 +27,8 @@ declare module "@package/kotlin/collections" {
         removeLast(): E;
         reversed(): $SequencedCollection<E>;
         static Companion: $AbstractList$Companion;
+        get first(): E;
+        get last(): E;
     }
     export class $AbstractCollection<E> implements $Collection<E>, $KMappedMarker {
         remove(arg0: $Object): boolean;
@@ -50,14 +52,15 @@ declare module "@package/kotlin/collections" {
         removeIf(arg0: $Predicate_<E>): boolean;
         forEach(arg0: $Consumer_<E>): void;
         [Symbol.iterator](): Iterator<E>
+        get empty(): boolean;
     }
     export class $AbstractList$Companion {
         checkRangeIndexes$kotlin_stdlib(arg0: number, arg1: number, arg2: number): void;
+        newCapacity$kotlin_stdlib(arg0: number, arg1: number): number;
         checkElementIndex$kotlin_stdlib(arg0: number, arg1: number): void;
         checkPositionIndex$kotlin_stdlib(arg0: number, arg1: number): void;
         orderedEquals$kotlin_stdlib(arg0: $Collection_<never>, arg1: $Collection_<never>): boolean;
         orderedHashCode$kotlin_stdlib(arg0: $Collection_<never>): number;
-        newCapacity$kotlin_stdlib(arg0: number, arg1: number): number;
         checkBoundsIndexes$kotlin_stdlib(arg0: number, arg1: number, arg2: number): void;
         constructor(arg0: $DefaultConstructorMarker);
     }

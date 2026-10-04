@@ -10,6 +10,7 @@ declare module "@package/net/neoforged/neoforge/event/brewing" {
         setItem(index: number, stack: $ItemStack_): void;
         getItem(index: number): $ItemStack;
         getLength(): number;
+        get length(): number;
     }
     /**
      * This event is called when a player picks up a potion from a brewing stand.
@@ -20,6 +21,7 @@ declare module "@package/net/neoforged/neoforge/event/brewing" {
          */
         getStack(): $ItemStack;
         constructor(player: $Player, stack: $ItemStack_);
+        get stack(): $ItemStack;
     }
     /**
      * Event to register new brewing recipes.
@@ -30,6 +32,8 @@ declare module "@package/net/neoforged/neoforge/event/brewing" {
         getRegistryAccess(): $RegistryAccess;
         getBuilder(): $PotionBrewing$Builder;
         constructor(builder: $PotionBrewing$Builder, registryAccess: $RegistryAccess);
+        get registryAccess(): $RegistryAccess;
+        get builder(): $PotionBrewing$Builder;
     }
     /**
      * PotionBrewEvent.Post is fired when a potion is brewed in the brewing stand.

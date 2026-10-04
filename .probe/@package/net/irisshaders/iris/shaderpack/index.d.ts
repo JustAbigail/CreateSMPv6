@@ -44,15 +44,17 @@ declare module "@package/net/irisshaders/iris/shaderpack" {
         height(): number;
         samplerName(): string;
         constructor(name: string, samplerName: string, target: $TextureType_, format: $PixelFormat_, internalTextureFormat: $InternalTextureFormat_, type: $PixelType_, width: number, height: number, depth: number, clear: boolean, isRelative: boolean, relativeWidth: number, relativeHeight: number);
+        get relative(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $ImageInformation}.
      */
-    export type $ImageInformation_ = { isRelative?: boolean, width?: number, internalTextureFormat?: $InternalTextureFormat_, name?: string, format?: $PixelFormat_, relativeHeight?: number, relativeWidth?: number, clear?: boolean, target?: $TextureType_, height?: number, depth?: number, type?: $PixelType_, samplerName?: string,  } | [isRelative?: boolean, width?: number, internalTextureFormat?: $InternalTextureFormat_, name?: string, format?: $PixelFormat_, relativeHeight?: number, relativeWidth?: number, clear?: boolean, target?: $TextureType_, height?: number, depth?: number, type?: $PixelType_, samplerName?: string, ];
+    export type $ImageInformation_ = { name?: string, internalTextureFormat?: $InternalTextureFormat_, width?: number, isRelative?: boolean, samplerName?: string, type?: $PixelType_, depth?: number, height?: number, target?: $TextureType_, clear?: boolean, relativeWidth?: number, relativeHeight?: number, format?: $PixelFormat_,  } | [name?: string, internalTextureFormat?: $InternalTextureFormat_, width?: number, isRelative?: boolean, samplerName?: string, type?: $PixelType_, depth?: number, height?: number, target?: $TextureType_, clear?: boolean, relativeWidth?: number, relativeHeight?: number, format?: $PixelFormat_, ];
     export class $LanguageMap {
         getLanguages(): $Set<string>;
         getTranslations(arg0: string): $Map<string, string>;
         constructor(arg0: $Path_);
+        get languages(): $Set<string>;
     }
     export class $IdMap {
         getEntityIdMap(): $Object2IntFunction<$NamespacedId>;
@@ -60,6 +62,11 @@ declare module "@package/net/irisshaders/iris/shaderpack" {
         getBlockRenderTypeMap(): $Map<$NamespacedId, $BlockRenderType>;
         getBlockProperties(): $Int2ObjectLinkedOpenHashMap<$List<$BlockEntry>>;
         getTagEntries(): $Int2ObjectLinkedOpenHashMap<$List<$TagEntry>>;
+        get entityIdMap(): $Object2IntFunction<$NamespacedId>;
+        get itemIdMap(): $Object2IntFunction<$NamespacedId>;
+        get blockRenderTypeMap(): $Map<$NamespacedId, $BlockRenderType>;
+        get blockProperties(): $Int2ObjectLinkedOpenHashMap<$List<$BlockEntry>>;
+        get tagEntries(): $Int2ObjectLinkedOpenHashMap<$List<$TagEntry>>;
     }
     export class $ShaderPack implements $ShaderPackAccessor, $IrisSRCompatShaderPack {
         getProfileInfo(): string;
@@ -73,13 +80,24 @@ declare module "@package/net/irisshaders/iris/shaderpack" {
         superresolution$isSupportsSuperResolution(): boolean;
         readTexture(arg0: $Path_, arg1: $TextureDefinition): $CustomTextureData;
         hasFeature(arg0: $FeatureFlags_): boolean;
-        getProgramSet(arg0: $NamespacedId): $ProgramSet;
         getShaderPackOptions(): $ShaderPackOptions;
+        getProgramSet(arg0: $NamespacedId): $ProgramSet;
         getMenuContainer(): $OptionMenuContainer;
         getLanguageMap(): $LanguageMap;
         getDimensionMap(): $Map<$NamespacedId, string>;
         customUniforms: $CustomUniforms$Builder;
         constructor(arg0: $Path_, arg1: $ImmutableList<$StringPair_>, arg2: boolean);
         constructor(arg0: $Path_, arg1: $Map_<string, string>, arg2: $ImmutableList<$StringPair_>, arg3: boolean);
+        get profileInfo(): string;
+        get bufferObjects(): $Int2ObjectArrayMap<$BuiltShaderStorageInfo>;
+        get irisCustomImages(): $List<$ImageInformation>;
+        get customTextureDataMap(): $EnumMap<$TextureStage, $Object2ObjectMap<string, $CustomTextureData>>;
+        get irisCustomTextureDataMap(): $Object2ObjectMap<string, $CustomTextureData>;
+        get customNoiseTexture(): $CustomTextureData;
+        get idMap(): $IdMap;
+        get shaderPackOptions(): $ShaderPackOptions;
+        get menuContainer(): $OptionMenuContainer;
+        get languageMap(): $LanguageMap;
+        get dimensionMap(): $Map<$NamespacedId, string>;
     }
 }

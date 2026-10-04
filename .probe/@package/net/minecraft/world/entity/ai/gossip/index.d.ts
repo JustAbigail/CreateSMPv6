@@ -20,6 +20,7 @@ declare module "@package/net/minecraft/world/entity/ai/gossip" {
         add(identifier: $UUID_, gossipType: $GossipType_, gossipValue: number): void;
         static DISCARD_THRESHOLD: number;
         constructor();
+        get gossipEntries(): $Map<$UUID, $Object2IntMap<$GossipType>>;
     }
     export class $GossipType extends $Enum<$GossipType> implements $StringRepresentable {
         static values(): $GossipType[];
@@ -40,6 +41,8 @@ declare module "@package/net/minecraft/world/entity/ai/gossip" {
         static REPUTATION_CHANGE_PER_EVENT: number;
         id: string;
         static REPUTATION_CHANGE_PER_TRADE: number;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $GossipType}.

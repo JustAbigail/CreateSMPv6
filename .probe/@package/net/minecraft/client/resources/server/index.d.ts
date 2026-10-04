@@ -57,15 +57,15 @@ declare module "@package/net/minecraft/client/resources/server" {
      */
     export type $PackDownloader_ = ((arg0: $Map<$UUID, $DownloadQueue$DownloadRequest>, arg1: $Consumer<$DownloadQueue$BatchResult>) => void);
     export class $ServerPackManager {
-        registerForUpdate(): void;
-        popAll(): void;
-        tick(): void;
         pushPack(id: $UUID_, url: $URL, hash: $HashCode | null): void;
         pushLocalPack(id: $UUID_, path: $Path_): void;
         popPack(id: $UUID_): void;
         allowServerPacks(): void;
         rejectServerPacks(): void;
         resetPromptStatus(): void;
+        registerForUpdate(): void;
+        tick(): void;
+        popAll(): void;
         packLoadFeedback: $PackLoadFeedback;
         packs: $List<$ServerPackManager$ServerPackData>;
         constructor(downloader: $PackDownloader_, packLoadFeedback: $PackLoadFeedback, reloadConfig: $PackReloadConfig_, updateRequest: $Runnable_, packPromptStatus: $ServerPackManager$PackPromptStatus_);
@@ -97,13 +97,6 @@ declare module "@package/net/minecraft/client/resources/server" {
     export class $DownloadedPackSource implements $AutoCloseable {
         createDownloadNotifier(packCount: number): $HttpUtil$DownloadProgressListener;
         handler$bkd000$chat_heads$chatheads$checkForDisableResource(list: $List_<any>, cir: $CallbackInfoReturnable<any>): void;
-        popAll(): void;
-        close(): void;
-        cleanupAfterDisconnect(): void;
-        onReloadSuccess(): void;
-        onRecoveryFailure(): void;
-        createRepositorySource(): $RepositorySource;
-        onRecovery(): void;
         pushPack(uuid: $UUID_, url: $URL, hash: string | null): void;
         pushLocalPack(uuid: $UUID_, path: $Path_): void;
         popPack(uuid: $UUID_): void;
@@ -112,6 +105,13 @@ declare module "@package/net/minecraft/client/resources/server" {
         rejectServerPacks(): void;
         configureForLocalWorld(): void;
         waitForPackFeedback(uuid: $UUID_): $CompletableFuture<void>;
+        popAll(): void;
+        close(): void;
+        createRepositorySource(): $RepositorySource;
+        cleanupAfterDisconnect(): void;
+        onReloadSuccess(): void;
+        onRecoveryFailure(): void;
+        onRecovery(): void;
         minecraft: $Minecraft;
         manager: $ServerPackManager;
         static LOGGER: $Logger;

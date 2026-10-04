@@ -32,14 +32,14 @@ declare module "@package/dev/latvian/mods/kubejs/client/highlight" {
      */
     export type $HighlightRenderer$Mode_ = "none" | "screen" | "world";
     export class $HighlightRenderer {
+        loadPostChains(mc: $Minecraft): void;
+        resizePostChains(width: number, height: number): void;
         updateDepth(mc: $Minecraft): void;
         hudPostDraw(mc: $Minecraft, graphics: $GuiGraphics, delta: number): void;
         renderAfterEntities(mc: $Minecraft, event: $RenderLevelStageEvent): void;
         renderAfterLevel(mc: $Minecraft, event: $RenderLevelStageEvent): void;
         screen(mc: $Minecraft, graphics: $GuiGraphics, screen: $AbstractContainerScreen<never>, mx: number, my: number, delta: number): void;
         tickPre(mc: $Minecraft): void;
-        loadPostChains(mc: $Minecraft): void;
-        resizePostChains(width: number, height: number): void;
         clearBuffers(mc: $Minecraft): void;
         highlightedEntities: $Reference2IntMap<$Entity>;
         color: $KubeColor;
@@ -57,12 +57,12 @@ declare module "@package/dev/latvian/mods/kubejs/client/highlight" {
         constructor();
     }
     export class $HighlightRenderer$ShaderChain extends $Record {
+        renderOutput(): $RenderTarget;
         postChain(): $PostChain;
         clearInput(mc: $Minecraft): void;
         renderAnything(): $MutableBoolean;
         mcDepthInput(): $RenderTarget;
         renderInput(): $RenderTarget;
-        renderOutput(): $RenderTarget;
         static load(mc: $Minecraft, id: $ResourceLocation_): $HighlightRenderer$ShaderChain;
         close(): void;
         draw(mc: $Minecraft, delta: number): void;
@@ -72,18 +72,20 @@ declare module "@package/dev/latvian/mods/kubejs/client/highlight" {
     /**
      * Values that may be interpreted as {@link $HighlightRenderer$ShaderChain}.
      */
-    export type $HighlightRenderer$ShaderChain_ = { renderInput?: $RenderTarget, mcDepthInput?: $RenderTarget, renderOutput?: $RenderTarget, postChain?: $PostChain, renderAnything?: $MutableBoolean,  } | [renderInput?: $RenderTarget, mcDepthInput?: $RenderTarget, renderOutput?: $RenderTarget, postChain?: $PostChain, renderAnything?: $MutableBoolean, ];
+    export type $HighlightRenderer$ShaderChain_ = { mcDepthInput?: $RenderTarget, renderInput?: $RenderTarget, renderAnything?: $MutableBoolean, postChain?: $PostChain, renderOutput?: $RenderTarget,  } | [mcDepthInput?: $RenderTarget, renderInput?: $RenderTarget, renderAnything?: $MutableBoolean, postChain?: $PostChain, renderOutput?: $RenderTarget, ];
     export class $HighlightKubeEvent extends $ClientPlayerKubeEvent {
-        addBlocks(from: $BlockPos_, to: $BlockPos_, color: $KubeColor_): void;
+        getTargetBlock(): $LevelBlock;
         addTarget(color: $KubeColor_): void;
         addTargetBlock(color: $KubeColor_): void;
         addEntitiesByType(type: $EntityType_<never>, color: $KubeColor_): void;
         addTargetEntity(color: $KubeColor_): void;
         getTargetEntity(): $Entity;
+        addBlocks(from: $BlockPos_, to: $BlockPos_, color: $KubeColor_): void;
         addEntities(selector: $EntitySelector, color: $KubeColor_): void;
-        getTargetBlock(): $LevelBlock;
         addBlock(pos: $BlockPos_, color: $KubeColor_): void;
         addEntity(entity: $Entity, color: $KubeColor_): void;
         constructor(mc: $Minecraft, renderer: $HighlightRenderer);
+        get targetBlock(): $LevelBlock;
+        get targetEntity(): $Entity;
     }
 }

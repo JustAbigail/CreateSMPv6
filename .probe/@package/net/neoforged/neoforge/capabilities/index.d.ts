@@ -89,6 +89,7 @@ declare module "@package/net/neoforged/neoforge/capabilities" {
          */
         static create<T, C>(name: $ResourceLocation_, typeClass: $Class<T>, contextClass: $Class<C>): $ItemCapability<T, C>;
         getCapability(arg0: $ItemStack_, arg1: C): T;
+        static get all(): $List<$ItemCapability<never, never>>;
     }
     export class $ICapabilityProvider<O, C, T> {
     }
@@ -238,6 +239,9 @@ declare module "@package/net/neoforged/neoforge/capabilities" {
          */
         static create<T, C>(name: $ResourceLocation_, typeClass: $Class<T>, contextClass: $Class<C>): $BlockCapability<T, C>;
         getCapability(arg0: $Level_, arg1: $BlockPos_, arg2: $BlockState_, arg3: $BlockEntity, arg4: C): T;
+        static get allProxyable(): $List<$BlockCapability<never, never>>;
+        get proxyable(): boolean;
+        static get all(): $List<$BlockCapability<never, never>>;
     }
     /**
      * An `EntityCapability` gives flexible access to objects of type `T` from entities.
@@ -289,6 +293,7 @@ declare module "@package/net/neoforged/neoforge/capabilities" {
          */
         static create<T, C>(name: $ResourceLocation_, typeClass: $Class<T>, contextClass: $Class<C>): $EntityCapability<T, C>;
         getCapability(arg0: $Entity, arg1: C): T;
+        static get all(): $List<$EntityCapability<never, never>>;
     }
     /**
      * Fired to register capability providers at an appropriate time.
@@ -339,5 +344,7 @@ declare module "@package/net/neoforged/neoforge/capabilities" {
         mfix$getTrackedCaps(): $Set<any>;
         registerBlock<T, C>(arg0: $BlockCapability<T, C>, arg1: $IBlockCapabilityProvider_<T, C>, ...arg2: $Block_[]): void;
         registerItem<T, C>(arg0: $ItemCapability<T, C>, arg1: $ICapabilityProvider_<$ItemStack, C, T>, ...arg2: $ItemLike_[]): void;
+        set proxyable(value: $BlockCapability<never, never>);
+        set nonProxyable(value: $BlockCapability<never, never>);
     }
 }

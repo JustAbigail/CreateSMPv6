@@ -16,6 +16,7 @@ declare module "@package/net/neoforged/neoforge/client/event/sound" {
          * @return the sound engine
          */
         getEngine(): $SoundEngine;
+        get engine(): $SoundEngine;
     }
     /**
      * Superclass for when a sound has started to play on an audio channel.
@@ -36,6 +37,9 @@ declare module "@package/net/neoforged/neoforge/client/event/sound" {
          * @return the sound being played
          */
         getSound(): $SoundInstance;
+        get name(): string;
+        get channel(): $Channel;
+        get sound(): $SoundInstance;
     }
     /**
      * Fired when a sound is about to be played by the sound engine. This fires before the sound is played and before any
@@ -66,6 +70,8 @@ declare module "@package/net/neoforged/neoforge/client/event/sound" {
          */
         getSound(): $SoundInstance;
         constructor(manager: $SoundEngine, sound: $SoundInstance);
+        get originalSound(): $SoundInstance;
+        get name(): string;
     }
     /**
      * Fired when a *streaming* sound is being played. A streaming sound is streamed directly from its source

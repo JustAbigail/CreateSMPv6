@@ -24,6 +24,8 @@ declare module "@package/net/minecraft/network/protocol/configuration" {
         isSkippable(): boolean;
         static STREAM_CODEC: $StreamCodec<$ByteBuf, $ServerboundSelectKnownPacks>;
         constructor(knownPacks: $List_<$KnownPack_>);
+        get terminal(): boolean;
+        get skippable(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $ServerboundSelectKnownPacks}.
@@ -36,5 +38,7 @@ declare module "@package/net/minecraft/network/protocol/configuration" {
         isSkippable(): boolean;
         static INSTANCE: $ServerboundFinishConfigurationPacket;
         static STREAM_CODEC: $StreamCodec<$ByteBuf, $ServerboundFinishConfigurationPacket>;
+        get terminal(): boolean;
+        get skippable(): boolean;
     }
 }

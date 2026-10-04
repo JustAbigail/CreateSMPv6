@@ -11,6 +11,7 @@ import { $StringRepresentable, $RandomSource } from "@package/net/minecraft/util
 import { $IntUnaryOperator_, $DoubleSupplier_ } from "@package/java/util/function";
 import { $InteractionResult, $ContainerListener, $InteractionHand, $SimpleContainer, $Container } from "@package/net/minecraft/world";
 import { $SoundEvent, $SoundSource_ } from "@package/net/minecraft/sounds";
+import { $ServerLevel } from "@package/net/minecraft/server/level";
 import { $Object2DoubleMap } from "@package/it/unimi/dsi/fastutil/objects";
 import { $HolderLookup$Provider, $BlockPos, $BlockPos_ } from "@package/net/minecraft/core";
 import { $Brain } from "@package/net/minecraft/world/entity/ai";
@@ -35,15 +36,24 @@ import { $Vec3, $Vec2, $Vec3_ } from "@package/net/minecraft/world/phys";
 declare module "@package/net/minecraft/world/entity/animal/horse" {
     export class $AbstractHorse extends $Animal implements $ContainerListener, $HasCustomInventoryScreen, $OwnableEntity, $PlayerRideableJumping, $Saddleable {
         getEatingSound(): $SoundEvent;
-        getFlag(flagId: number): boolean;
+        /**
+         * Get number of ticks, at least during which the living entity will be silent.
+         */
+        getInventoryColumns(): number;
+        getOwnerUUID(): $UUID;
+        /**
+         * Called by `InventoryBasic.onInventoryChanged()` on an array that is never filled.
+         */
+        containerChanged(invBasic: $Container): void;
         /**
          * Returns `true` if the horse entity ready to mate. (no rider, not riding, tame, adult, not steril...)
          */
         isTamed(): boolean;
         /**
-         * Called by `InventoryBasic.onInventoryChanged()` on an array that is never filled.
+         * Returns `true` if the horse entity ready to mate. (no rider, not riding, tame, adult, not steril...)
          */
-        containerChanged(invBasic: $Container): void;
+        canJump(): boolean;
+        onPlayerJump(jumpPower: number): void;
         /**
          * Returns `true` if the horse entity ready to mate. (no rider, not riding, tame, adult, not steril...)
          */
@@ -112,11 +122,11 @@ declare module "@package/net/minecraft/world/entity/animal/horse" {
          * Get number of ticks, at least during which the living entity will be silent.
          */
         getMaxTemper(): number;
-        static getInventorySize(columns: number): number;
         /**
          * Get number of ticks, at least during which the living entity will be silent.
          */
         getInventorySize(): number;
+        static getInventorySize(columns: number): number;
         /**
          * Called every tick so the entity can update its state as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
          */
@@ -136,11 +146,11 @@ declare module "@package/net/minecraft/world/entity/animal/horse" {
          * Called every tick so the entity can update its state as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
          */
         followMommy(): void;
+        getAmbientStandSound(): $SoundEvent;
         /**
          * Called every tick so the entity can update its state as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
          */
         makeMad(): void;
-        getAmbientStandSound(): $SoundEvent;
         tameWithName(player: $Player): boolean;
         /**
          * Called every tick so the entity can update its state as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
@@ -162,19 +172,10 @@ declare module "@package/net/minecraft/world/entity/animal/horse" {
          */
         getAmbientStandInterval(): number;
         getBodyArmorAccess(): $Container;
-        /**
-         * Returns `true` if the horse entity ready to mate. (no rider, not riding, tame, adult, not steril...)
-         */
-        canJump(): boolean;
-        onPlayerJump(jumpPower: number): void;
-        /**
-         * Get number of ticks, at least during which the living entity will be silent.
-         */
-        getInventoryColumns(): number;
-        getOwnerUUID(): $UUID;
+        getFlag(flagId: number): boolean;
         setFlag(flagId: number, value: boolean): void;
-        getInventory(): $Container;
         setOwnerUUID(uuid: $UUID_ | null): void;
+        getInventory(): $Container;
         /**
          * For vehicles, the first passenger is generally considered the controller and "drives" the vehicle. For example, Pigs, Horses, and Boats are generally "steered" by the controlling passenger.
          */
@@ -371,6 +372,18 @@ declare module "@package/net/minecraft/world/entity/animal/horse" {
         static BASE_SAFE_FALL_DISTANCE: number;
         age: number;
         constructor(entityType: $EntityType_<$AbstractHorse>, level: $Level_);
+        get eatingSound(): $SoundEvent;
+        get inventoryColumns(): number;
+        get saddled(): boolean;
+        get saddleable(): boolean;
+        get maxTemper(): number;
+        get angrySound(): $SoundEvent;
+        get ambientStandSound(): $SoundEvent;
+        get ambientStandInterval(): number;
+        get bodyArmorAccess(): $Container;
+        get owner(): $LivingEntity;
+        get jumpCooldown(): number;
+        get saddleSoundEvent(): $SoundEvent;
     }
     export class $Variant extends $Enum<$Variant> implements $StringRepresentable {
         static values(): $Variant[];
@@ -387,15 +400,18 @@ declare module "@package/net/minecraft/world/entity/animal/horse" {
         static BLACK: $Variant;
         static BROWN: $Variant;
         static CREAMY: $Variant;
+        get id(): number;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $Variant}.
      */
     export type $Variant_ = "white" | "creamy" | "chestnut" | "brown" | "black" | "gray" | "dark_brown";
     export class $SkeletonHorse extends $AbstractHorse {
+        setTrap(isTrap: boolean): void;
         isTrap(): boolean;
         static checkSkeletonHorseSpawnRules(animal: $EntityType_<$Animal>, level: $LevelAccessor, spawnType: $MobSpawnType_, pos: $BlockPos_, random: $RandomSource): boolean;
-        setTrap(isTrap: boolean): void;
         static createAttributes(): $AttributeSupplier$Builder;
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
         static MAX_WEARING_ARMOR_CHANCE: number;
@@ -775,6 +791,7 @@ declare module "@package/net/minecraft/world/entity/animal/horse" {
         static BASE_SAFE_FALL_DISTANCE: number;
         age: number;
         constructor(entityType: $EntityType_<$TraderLlama>, level: $Level_);
+        set despawnDelay(value: number);
     }
     export class $Llama$Variant extends $Enum<$Llama$Variant> implements $StringRepresentable {
         static values(): $Llama$Variant[];
@@ -789,6 +806,8 @@ declare module "@package/net/minecraft/world/entity/animal/horse" {
         id: number;
         static BROWN: $Llama$Variant;
         static CREAMY: $Llama$Variant;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $Llama$Variant}.
@@ -993,6 +1012,7 @@ declare module "@package/net/minecraft/world/entity/animal/horse" {
         static NONE: $Markings;
         static BLACK_DOTS: $Markings;
         static WHITE_DOTS: $Markings;
+        get id(): number;
     }
     /**
      * Values that may be interpreted as {@link $Markings}.
@@ -1190,10 +1210,15 @@ declare module "@package/net/minecraft/world/entity/animal/horse" {
         static BASE_SAFE_FALL_DISTANCE: number;
         age: number;
         constructor(entityType: $EntityType_<$AbstractChestedHorse>, level: $Level_);
+        set chest(value: boolean);
     }
     export class $Llama extends $AbstractChestedHorse implements $VariantHolder<$Llama$Variant>, $RangedAttackMob {
         getStrength(): number;
-        setVariant(variant: $Llama$Variant_): void;
+        /**
+         * Attack the specified entity using a ranged attack.
+         */
+        performRangedAttack(target: $LivingEntity, distanceFactor: number): void;
+        getBreedOffspring(level: $ServerLevel, otherParent: $AgeableMob): $Llama;
         /**
          * Dead and sleeping entities cannot move
          */
@@ -1212,10 +1237,7 @@ declare module "@package/net/minecraft/world/entity/animal/horse" {
          */
         inCaravan(): boolean;
         getCaravanHead(): $Llama;
-        /**
-         * Attack the specified entity using a ranged attack.
-         */
-        performRangedAttack(target: $LivingEntity, distanceFactor: number): void;
+        setVariant(variant: $Llama$Variant_): void;
         static createAttributes(): $AttributeSupplier$Builder;
         getVariant(): $Llama$Variant;
         serializeNBT(arg0: $HolderLookup$Provider): $Llama$Variant;
@@ -1406,10 +1428,14 @@ declare module "@package/net/minecraft/world/entity/animal/horse" {
         static BASE_SAFE_FALL_DISTANCE: number;
         age: number;
         constructor(entityType: $EntityType_<$Llama>, level: $Level_);
+        get strength(): number;
+        get traderLlama(): boolean;
+        get swag(): $DyeColor;
+        get caravanHead(): $Llama;
     }
     export class $Horse extends $AbstractHorse implements $VariantHolder<$Variant> {
-        setVariant(variant: $Variant_): void;
         getMarkings(): $Markings;
+        setVariant(variant: $Variant_): void;
         getVariant(): $Variant;
         serializeNBT(arg0: $HolderLookup$Provider): $Variant;
         static MAX_WEARING_ARMOR_CHANCE: number;
@@ -1598,6 +1624,7 @@ declare module "@package/net/minecraft/world/entity/animal/horse" {
         static BASE_SAFE_FALL_DISTANCE: number;
         age: number;
         constructor(entityType: $EntityType_<$Horse>, level: $Level_);
+        get markings(): $Markings;
     }
     export class $Donkey extends $AbstractChestedHorse {
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;

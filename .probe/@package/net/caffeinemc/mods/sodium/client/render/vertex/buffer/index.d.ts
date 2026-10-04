@@ -5,8 +5,8 @@ declare module "@package/net/caffeinemc/mods/sodium/client/render/vertex/buffer"
     export class $BufferBuilderExtension {
     }
     export interface $BufferBuilderExtension extends $VertexBufferWriter {
+        sodium$duplicateVertex(): void;
         sodium$getVertexFormat(): $VertexFormat;
         canUseIntrinsics(arg0: $VertexFormat): boolean;
-        sodium$duplicateVertex(): void;
     }
 }

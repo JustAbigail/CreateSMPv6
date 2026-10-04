@@ -31,5 +31,6 @@ declare module "@package/net/irisshaders/iris/uniforms/custom" {
         getType(arg0: string): $Type;
         getUniform(arg0: string): $CachedUniform;
         constructor(arg0: $ImmutableMap<string, $CachedUniform>);
+        get all(): $Collection<$CachedUniform>;
     }
 }

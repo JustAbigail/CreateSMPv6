@@ -67,6 +67,9 @@ declare module "@package/net/neoforged/neoforge/common/damagesource" {
          */
         getSource(): $DamageSource;
         constructor(source: $DamageSource_, originalDamage: number);
+        get originalDamage(): number;
+        get shieldDamage(): number;
+        get source(): $DamageSource;
     }
     /**
      * An `IReductionFunction` is used by `DamageContainer` instances.

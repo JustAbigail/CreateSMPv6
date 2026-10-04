@@ -145,5 +145,6 @@ declare module "@package/foundry/veil/ext" {
     }
     export interface $AbstractTextureExtension {
         getTextureTarget(): number;
+        get textureTarget(): number;
     }
 }

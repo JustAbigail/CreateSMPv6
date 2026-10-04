@@ -13,15 +13,15 @@ declare module "@package/net/minecraft/client/animation" {
      */
     export type $AnimationChannel$Interpolation_ = ((arg0: $Vector3f, arg1: number, arg2: $Keyframe[], arg3: number, arg4: number, arg5: number) => $Vector3f);
     export class $Keyframe extends $Record {
+        interpolation(): $AnimationChannel$Interpolation;
         target(): $Vector3f;
         timestamp(): number;
-        interpolation(): $AnimationChannel$Interpolation;
         constructor(arg0: number, arg1: $Vector3f, arg2: $AnimationChannel$Interpolation_);
     }
     /**
      * Values that may be interpreted as {@link $Keyframe}.
      */
-    export type $Keyframe_ = { timestamp?: number, interpolation?: $AnimationChannel$Interpolation_, target?: $Vector3f,  } | [timestamp?: number, interpolation?: $AnimationChannel$Interpolation_, target?: $Vector3f, ];
+    export type $Keyframe_ = { timestamp?: number, target?: $Vector3f, interpolation?: $AnimationChannel$Interpolation_,  } | [timestamp?: number, target?: $Vector3f, interpolation?: $AnimationChannel$Interpolation_, ];
     export class $AnimationChannel$Target {
     }
     export interface $AnimationChannel$Target {

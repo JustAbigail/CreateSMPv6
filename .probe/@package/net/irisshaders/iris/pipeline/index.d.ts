@@ -32,6 +32,7 @@ export * as programs from "@package/net/irisshaders/iris/pipeline/programs";
 
 declare module "@package/net/irisshaders/iris/pipeline" {
     export class $IrisRenderingPipeline implements $WorldRenderingPipeline, $ShaderRenderingPipeline, $IrisRenderingPipelineAccessor$2, $IrisRenderingPipelineExtension, $IrisRenderingPipelineAccessor, $IrisRenderingPipelineAccessor$1 {
+        skipAllRendering(): boolean;
         getDHCloudSetting(): $CloudSetting;
         addGbufferOrShadowSamplers(arg0: $SamplerHolder, arg1: $ImageHolder, arg2: $Supplier_<$ImmutableSet<number>>, arg3: boolean, arg4: boolean, arg5: boolean, arg6: boolean): void;
         removePhaseIfNeeded(): void;
@@ -51,6 +52,12 @@ declare module "@package/net/irisshaders/iris/pipeline" {
         hasFeature(arg0: $FeatureFlags_): boolean;
         destroy(): void;
         getPhase(): $WorldRenderingPhase;
+        shouldOverrideShaders(): boolean;
+        getShaderMap(): $ShaderMap;
+        veil$bindSimpleFramebuffer(): void;
+        bindDefault(): void;
+        shouldDisableDirectionalShading(): boolean;
+        shouldDisableVanillaEntityShadows(): boolean;
         getForcedShadowRenderDistanceChunksForDisplay(): $OptionalInt;
         beginLevelRendering(): void;
         renderShadows(arg0: $LevelRendererAccessor, arg1: $Camera): void;
@@ -67,7 +74,10 @@ declare module "@package/net/irisshaders/iris/pipeline" {
         finalizeGameRendering(): void;
         getSodiumPrograms(): $SodiumPrograms;
         getFrameUpdateNotifier(): $FrameUpdateNotifier;
+        shouldDisableFrustumCulling(): boolean;
+        shouldDisableOcclusionCulling(): boolean;
         getCloudSetting(): $CloudSetting;
+        shouldRenderUnderwaterOverlay(): boolean;
         shouldRenderVignette(): boolean;
         shouldRenderSun(): boolean;
         shouldRenderWeather(): boolean;
@@ -81,16 +91,6 @@ declare module "@package/net/irisshaders/iris/pipeline" {
         getSunPathRotation(): number;
         getDHCompat(): $DHCompat;
         setIsMainBound(arg0: boolean): void;
-        shouldDisableFrustumCulling(): boolean;
-        shouldDisableOcclusionCulling(): boolean;
-        shouldRenderUnderwaterOverlay(): boolean;
-        getShaderMap(): $ShaderMap;
-        shouldDisableVanillaEntityShadows(): boolean;
-        bindDefault(): void;
-        shouldDisableDirectionalShading(): boolean;
-        shouldOverrideShaders(): boolean;
-        veil$bindSimpleFramebuffer(): void;
-        skipAllRendering(): boolean;
         getDeferredRenderer(): $CompositeRenderer;
         getBeginRenderer(): $CompositeRenderer;
         getPrepareRenderer(): $CompositeRenderer;
@@ -100,6 +100,35 @@ declare module "@package/net/irisshaders/iris/pipeline" {
         getRenderTargets(): $RenderTargets;
         isBeforeTranslucent: boolean;
         constructor(arg0: $ProgramSet);
+        get DHCloudSetting(): $CloudSetting;
+        get DHTerrainShader(): ($ProgramSource) | undefined;
+        get DHGenericShader(): ($ProgramSource) | undefined;
+        get DHWaterShader(): ($ProgramSource) | undefined;
+        get DHShadowShader(): ($ProgramSource) | undefined;
+        get customUniforms(): $CustomUniforms;
+        get flippedBeforeShadow(): $ImmutableSet<number>;
+        get flippedAfterPrepare(): $ImmutableSet<number>;
+        get flippedAfterTranslucent(): $ImmutableSet<number>;
+        get shaderMap(): $ShaderMap;
+        get forcedShadowRenderDistanceChunksForDisplay(): $OptionalInt;
+        get textureMap(): $Object2ObjectMap<$Tri<string, $TextureType, $TextureStage>, string>;
+        set overridePhase(value: $WorldRenderingPhase_);
+        get currentNormalTexture(): number;
+        get currentSpecularTexture(): number;
+        get sodiumPrograms(): $SodiumPrograms;
+        get frameUpdateNotifier(): $FrameUpdateNotifier;
+        get cloudSetting(): $CloudSetting;
+        get particleRenderingSettings(): $ParticleRenderingSettings;
+        get sunPathRotation(): number;
+        get DHCompat(): $DHCompat;
+        set isMainBound(value: boolean);
+        get deferredRenderer(): $CompositeRenderer;
+        get beginRenderer(): $CompositeRenderer;
+        get prepareRenderer(): $CompositeRenderer;
+        get finalPassRenderer(): $FinalPassRenderer;
+        get compositeRenderer(): $CompositeRenderer;
+        get loadedShaders(): $Set<$ShaderInstance>;
+        get renderTargets(): $RenderTargets;
     }
     export class $FinalPassRenderer {
         recalculateSwapPassSize(): void;
@@ -110,9 +139,11 @@ declare module "@package/net/irisshaders/iris/pipeline" {
     export class $ShaderRenderingPipeline {
     }
     export interface $ShaderRenderingPipeline extends $WorldRenderingPipeline {
-        getFrameUpdateNotifier(): $FrameUpdateNotifier;
-        getShaderMap(): $ShaderMap;
         shouldOverrideShaders(): boolean;
+        getShaderMap(): $ShaderMap;
+        getFrameUpdateNotifier(): $FrameUpdateNotifier;
+        get shaderMap(): $ShaderMap;
+        get frameUpdateNotifier(): $FrameUpdateNotifier;
     }
     export class $CompositeRenderer implements $CompositeRendererAccessor, $CompositeRendererAccessor$1 {
         recalculateSizes(): void;
@@ -148,6 +179,8 @@ declare module "@package/net/irisshaders/iris/pipeline" {
         hasFeature(arg0: $FeatureFlags_): boolean;
         destroy(): void;
         getPhase(): $WorldRenderingPhase;
+        shouldDisableDirectionalShading(): boolean;
+        shouldDisableVanillaEntityShadows(): boolean;
         getForcedShadowRenderDistanceChunksForDisplay(): $OptionalInt;
         beginLevelRendering(): void;
         renderShadows(arg0: $LevelRendererAccessor, arg1: $Camera): void;
@@ -164,7 +197,10 @@ declare module "@package/net/irisshaders/iris/pipeline" {
         finalizeGameRendering(): void;
         getSodiumPrograms(): $SodiumPrograms;
         getFrameUpdateNotifier(): $FrameUpdateNotifier;
+        shouldDisableFrustumCulling(): boolean;
+        shouldDisableOcclusionCulling(): boolean;
         getCloudSetting(): $CloudSetting;
+        shouldRenderUnderwaterOverlay(): boolean;
         shouldRenderVignette(): boolean;
         shouldRenderSun(): boolean;
         shouldRenderWeather(): boolean;
@@ -178,16 +214,23 @@ declare module "@package/net/irisshaders/iris/pipeline" {
         getSunPathRotation(): number;
         getDHCompat(): $DHCompat;
         setIsMainBound(arg0: boolean): void;
-        shouldDisableFrustumCulling(): boolean;
-        shouldDisableOcclusionCulling(): boolean;
-        shouldRenderUnderwaterOverlay(): boolean;
-        shouldDisableVanillaEntityShadows(): boolean;
-        shouldDisableDirectionalShading(): boolean;
+        get forcedShadowRenderDistanceChunksForDisplay(): $OptionalInt;
+        get textureMap(): $Object2ObjectMap<$Tri<string, $TextureType, $TextureStage>, string>;
+        set overridePhase(value: $WorldRenderingPhase_);
+        get currentNormalTexture(): number;
+        get currentSpecularTexture(): number;
+        get sodiumPrograms(): $SodiumPrograms;
+        get frameUpdateNotifier(): $FrameUpdateNotifier;
+        get cloudSetting(): $CloudSetting;
+        get particleRenderingSettings(): $ParticleRenderingSettings;
+        get sunPathRotation(): number;
+        get DHCompat(): $DHCompat;
+        set isMainBound(value: boolean);
     }
     export class $WorldRenderingPhase extends $Enum<$WorldRenderingPhase> {
+        static fromTerrainRenderType(arg0: $RenderType): $WorldRenderingPhase;
         static values(): $WorldRenderingPhase[];
         static valueOf(arg0: string): $WorldRenderingPhase;
-        static fromTerrainRenderType(arg0: $RenderType): $WorldRenderingPhase;
         static SKY: $WorldRenderingPhase;
         static SUNSET: $WorldRenderingPhase;
         static PARTICLES: $WorldRenderingPhase;

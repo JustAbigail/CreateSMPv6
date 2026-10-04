@@ -11,6 +11,8 @@ declare module "@package/io/homo/superresolution/core/graphics/impl/buffer" {
         map(arg0: boolean): $ByteBuffer;
         map(arg0: number, arg1: number, arg2: boolean): $ByteBuffer;
         getSize(): number;
+        get usages(): $BufferUsages;
+        get size(): number;
     }
     /**
      * @deprecated
@@ -19,6 +21,7 @@ declare module "@package/io/homo/superresolution/core/graphics/impl/buffer" {
     }
     export interface $IBufferData {
         containerPtr(): number;
+        updatePartial(arg0: $Buffer, arg1: number, arg2: number): void;
         asByteBuffer(): $ByteBuffer;
         size(): number;
         get(arg0: number[], arg1: number): void;
@@ -26,6 +29,5 @@ declare module "@package/io/homo/superresolution/core/graphics/impl/buffer" {
         update(arg0: $Buffer): void;
         container(): $Buffer;
         free(): void;
-        updatePartial(arg0: $Buffer, arg1: number, arg2: number): void;
     }
 }

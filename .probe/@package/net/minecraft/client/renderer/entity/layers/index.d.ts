@@ -16,5 +16,6 @@ declare module "@package/net/minecraft/client/renderer/entity/layers" {
         setUpperPart(bl: boolean): void;
         render(poseStack: $PoseStack, bufferSource: $MultiBufferSource_, packedLight: number, livingEntity: T, limbSwing: number, limbSwingAmount: number, partialTick: number, ageInTicks: number, netHeadYaw: number, headPitch: number): void;
         constructor(renderer: $RenderLayerParent<T, M>);
+        get parentModel(): M;
     }
 }

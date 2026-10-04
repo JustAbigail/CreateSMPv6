@@ -45,11 +45,11 @@ declare module "@package/net/fabricmc/fabric/api/client/model/loading/v1" {
     export class $ModelLoadingPlugin$Context {
     }
     export interface $ModelLoadingPlugin$Context {
+        registerBlockStateResolver(arg0: $Block_, arg1: $BlockStateResolver_): void;
         resolveModel(): $Event<$ModelResolver>;
         modifyModelOnLoad(): $Event<$ModelModifier$OnLoad>;
         modifyModelBeforeBake(): $Event<$ModelModifier$BeforeBake>;
         modifyModelAfterBake(): $Event<$ModelModifier$AfterBake>;
-        registerBlockStateResolver(arg0: $Block_, arg1: $BlockStateResolver_): void;
         addModels(arg0: $Collection_<$ResourceLocation_>): void;
         addModels(...arg0: $ResourceLocation_[]): void;
     }

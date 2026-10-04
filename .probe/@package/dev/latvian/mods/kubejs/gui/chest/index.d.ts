@@ -16,19 +16,20 @@ declare module "@package/dev/latvian/mods/kubejs/gui/chest" {
         button: number;
         type: $ClickType;
         constructor(slot: $Slot, type: $ClickType_, button: number);
+        get index(): number;
     }
     export class $ChestMenuClickHandler extends $Record {
         autoHandle(): boolean;
-        callback(): $ChestMenuClickEvent$Callback;
         type(): $ClickType;
         test(event: $ChestMenuClickEvent): boolean;
+        callback(): $ChestMenuClickEvent$Callback;
         button(): number;
         constructor(type: $ClickType_, button: number, callback: $ChestMenuClickEvent$Callback_, autoHandle: boolean);
     }
     /**
      * Values that may be interpreted as {@link $ChestMenuClickHandler}.
      */
-    export type $ChestMenuClickHandler_ = { callback?: $ChestMenuClickEvent$Callback_, autoHandle?: boolean, button?: number, type?: $ClickType_,  } | [callback?: $ChestMenuClickEvent$Callback_, autoHandle?: boolean, button?: number, type?: $ClickType_, ];
+    export type $ChestMenuClickHandler_ = { autoHandle?: boolean, callback?: $ChestMenuClickEvent$Callback_, type?: $ClickType_, button?: number,  } | [autoHandle?: boolean, callback?: $ChestMenuClickEvent$Callback_, type?: $ClickType_, button?: number, ];
     export class $ChestMenuInventoryClickEvent$Callback {
     }
     export interface $ChestMenuInventoryClickEvent$Callback {
@@ -50,16 +51,16 @@ declare module "@package/dev/latvian/mods/kubejs/gui/chest" {
     export class $ChestMenuSlot {
         setLeftClicked(callback: $ChestMenuClickEvent$Callback_): void;
         resetClickHandlers(): void;
+        setRightClicked(callback: $ChestMenuClickEvent$Callback_): void;
+        setMiddleClicked(callback: $ChestMenuClickEvent$Callback_): void;
+        setSwapped(callback: $ChestMenuClickEvent$Callback_): void;
         setShiftLeftClicked(callback: $ChestMenuClickEvent$Callback_): void;
         setShiftRightClicked(callback: $ChestMenuClickEvent$Callback_): void;
         setDoubleClicked(callback: $ChestMenuClickEvent$Callback_): void;
-        setRightClicked(callback: $ChestMenuClickEvent$Callback_): void;
-        setSwapped(callback: $ChestMenuClickEvent$Callback_): void;
-        setMiddleClicked(callback: $ChestMenuClickEvent$Callback_): void;
         clicked(type: $ClickType_, button: number, callback: $ChestMenuClickEvent$Callback_, autoHandle: boolean): void;
         setItem(stack: $ItemStack_): void;
-        setThrown(callback: $ChestMenuClickEvent$Callback_): void;
         getItem(): $ItemStack;
+        setThrown(callback: $ChestMenuClickEvent$Callback_): void;
         data: $Map<string, $Object>;
         clickHandlers: $List<$ChestMenuClickHandler>;
         x: number;
@@ -69,6 +70,14 @@ declare module "@package/dev/latvian/mods/kubejs/gui/chest" {
         gui: $ChestMenuData;
         inventory: $InventoryKJS;
         constructor(gui: $ChestMenuData, index: number);
+        set leftClicked(value: $ChestMenuClickEvent$Callback_);
+        set rightClicked(value: $ChestMenuClickEvent$Callback_);
+        set middleClicked(value: $ChestMenuClickEvent$Callback_);
+        set swapped(value: $ChestMenuClickEvent$Callback_);
+        set shiftLeftClicked(value: $ChestMenuClickEvent$Callback_);
+        set shiftRightClicked(value: $ChestMenuClickEvent$Callback_);
+        set doubleClicked(value: $ChestMenuClickEvent$Callback_);
+        set thrown(value: $ChestMenuClickEvent$Callback_);
     }
     export class $ChestMenuData {
         handleClick(index: number, type: $ClickType_, button: number): void;

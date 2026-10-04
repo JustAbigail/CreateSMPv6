@@ -9,22 +9,27 @@ declare module "@package/xaero/pac/common/server/claims/player/api" {
     export class $IServerPlayerClaimInfoAPI {
     }
     export interface $IServerPlayerClaimInfoAPI extends $IPlayerClaimInfoAPI {
-        getPlayerId(): $UUID;
+        getClaimsColor(): number;
+        getClaimsColor(arg0: string): number;
+        getClaimsColor(arg0: number): number;
+        getClaimCount(): number;
+        getForceloadCount(): number;
         getClaimsName(arg0: string): string;
         getClaimsName(arg0: number): string;
         getClaimsName(): string;
         getPlayerUsername(): string;
-        getClaimsColor(arg0: number): number;
-        getClaimsColor(arg0: string): number;
-        getClaimsColor(): number;
-        getForceloadCount(): number;
-        getClaimCount(): number;
         resyncPartyName(arg0: $IPlayerPartySystemAPI<never>): void;
         /**
          * @deprecated
          */
         resyncPartyName(arg0: $IPlayerPartySystemAPI$1<never>): void;
+        getPlayerId(): $UUID;
         getStream(): $Stream<$Map$Entry<$ResourceLocation, $IPlayerDimensionClaimsAPI>>;
         getDimension(arg0: $ResourceLocation_): $IPlayerDimensionClaimsAPI;
+        get claimCount(): number;
+        get forceloadCount(): number;
+        get playerUsername(): string;
+        get playerId(): $UUID;
+        get stream(): $Stream<$Map$Entry<$ResourceLocation, $IPlayerDimensionClaimsAPI>>;
     }
 }

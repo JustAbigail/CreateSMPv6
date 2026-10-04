@@ -7,6 +7,7 @@ declare module "@package/xaero/pac/common/claims/player/api" {
     }
     export interface $IPlayerDimensionClaimsAPI {
         getStream(): $Stream<$IPlayerClaimPosListAPI>;
+        get stream(): $Stream<$IPlayerClaimPosListAPI>;
     }
     /**
      * Values that may be interpreted as {@link $IPlayerDimensionClaimsAPI}.
@@ -15,23 +16,31 @@ declare module "@package/xaero/pac/common/claims/player/api" {
     export class $IPlayerChunkClaimAPI {
     }
     export interface $IPlayerChunkClaimAPI {
-        getPlayerId(): $UUID;
-        isSameClaimType(arg0: $IPlayerChunkClaimAPI | null): boolean;
-        isForceloadable(): boolean;
         getSubConfigIndex(): number;
+        isForceloadable(): boolean;
+        isSameClaimType(arg0: $IPlayerChunkClaimAPI | null): boolean;
+        getPlayerId(): $UUID;
+        get subConfigIndex(): number;
+        get forceloadable(): boolean;
+        get playerId(): $UUID;
     }
     export class $IPlayerClaimInfoAPI {
     }
     export interface $IPlayerClaimInfoAPI {
-        getPlayerId(): $UUID;
+        getClaimsColor(): number;
+        getClaimsColor(arg0: number): number;
+        isPartyOwned(): boolean;
+        getClaimCount(): number;
+        getForceloadCount(): number;
         getClaimsName(arg0: number): string;
         getClaimsName(): string;
         getPlayerUsername(): string;
-        getClaimsColor(arg0: number): number;
-        getClaimsColor(): number;
-        getForceloadCount(): number;
-        getClaimCount(): number;
-        isPartyOwned(): boolean;
+        getPlayerId(): $UUID;
         getDimension(arg0: $ResourceLocation_): $IPlayerDimensionClaimsAPI;
+        get partyOwned(): boolean;
+        get claimCount(): number;
+        get forceloadCount(): number;
+        get playerUsername(): string;
+        get playerId(): $UUID;
     }
 }

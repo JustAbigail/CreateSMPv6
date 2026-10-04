@@ -17,12 +17,14 @@ declare module "@package/kotlin/coroutines" {
         fold<R>(arg0: R, arg1: $Function2_<R, $CoroutineContext$Element, R>): R;
         minusKey(arg0: $CoroutineContext$Key<never>): $CoroutineContext;
         constructor(arg0: $CoroutineContext$Key<never>);
+        get key(): $CoroutineContext$Key<never>;
     }
     export class $Continuation<T> {
     }
     export interface $Continuation<T> {
         resumeWith(arg0: $Object): void;
         getContext(): $CoroutineContext;
+        get context(): $CoroutineContext;
     }
     export class $CoroutineContext$Key<E extends $CoroutineContext$Element> {
     }
@@ -49,6 +51,7 @@ declare module "@package/kotlin/coroutines" {
         getKey(): $CoroutineContext$Key<never>;
         fold<R>(arg0: R, arg1: $Function2_<R, $CoroutineContext$Element, R>): R;
         minusKey(arg0: $CoroutineContext$Key<never>): $CoroutineContext;
+        get key(): $CoroutineContext$Key<never>;
     }
     export class $ContinuationInterceptor$Key implements $CoroutineContext$Key<$ContinuationInterceptor> {
     }

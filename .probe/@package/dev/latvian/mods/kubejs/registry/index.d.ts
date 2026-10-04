@@ -67,6 +67,8 @@ declare module "@package/dev/latvian/mods/kubejs/registry" {
         sourceLine: $SourceLine;
         id: $ResourceLocation;
         constructor(id: $ResourceLocation_);
+        get translationKeyGroup(): string;
+        get builderTranslationKey(): string;
     }
     export class $CustomBuilderObject extends $BuilderBase<any> {
         registryKey: $ResourceKey<$Registry<$Object>>;

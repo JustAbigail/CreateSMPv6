@@ -12,6 +12,7 @@ declare module "@package/net/caffeinemc/mods/sodium/mixin/platform/neoforge" {
     }
     export interface $ChunkRenderTypeSetAccessor {
         getBits(): $BitSet;
+        get bits(): $BitSet;
     }
     /**
      * Values that may be interpreted as {@link $ChunkRenderTypeSetAccessor}.

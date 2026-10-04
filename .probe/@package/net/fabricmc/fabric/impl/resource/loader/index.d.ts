@@ -7,6 +7,7 @@ declare module "@package/net/fabricmc/fabric/impl/resource/loader" {
     }
     export interface $FabricResource {
         getFabricPackSource(): $PackSource;
+        get fabricPackSource(): $PackSource;
     }
     export class $FabricResourcePackProfile {
     }

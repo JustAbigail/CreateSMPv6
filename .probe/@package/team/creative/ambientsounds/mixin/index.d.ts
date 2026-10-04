@@ -5,6 +5,7 @@ declare module "@package/team/creative/ambientsounds/mixin" {
     }
     export interface $SoundBufferLibraryAccessor {
         getResourceManager(): $ResourceProvider;
+        get resourceManager(): $ResourceProvider;
     }
     /**
      * Values that may be interpreted as {@link $SoundBufferLibraryAccessor}.

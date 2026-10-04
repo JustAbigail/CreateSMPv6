@@ -16,7 +16,11 @@ declare module "@package/com/mojang/blaze3d/audio" {
         /**
          * Sets linear attenuation for the audio channel.
          */
-        setPitch(linearAttenuation: number): void;
+        setVolume(linearAttenuation: number): void;
+        /**
+         * Attaches a buffer stream to the audio channel.
+         */
+        attachBufferStream(stream: $AudioStream): void;
         /**
          * Attaches a static buffer to the audio channel.
          */
@@ -42,9 +46,9 @@ declare module "@package/com/mojang/blaze3d/audio" {
          */
         setRelative(looping: boolean): void;
         /**
-         * Attaches a buffer stream to the audio channel.
+         * Stops the audio channel and releases resources.
          */
-        attachBufferStream(stream: $AudioStream): void;
+        updateStream(): void;
         /**
          * @return `true` if the audio channel is currently playing, `false` otherwise
          */
@@ -52,15 +56,7 @@ declare module "@package/com/mojang/blaze3d/audio" {
         /**
          * Stops the audio channel and releases resources.
          */
-        updateStream(): void;
-        /**
-         * Stops the audio channel and releases resources.
-         */
         unpause(): void;
-        /**
-         * Sets linear attenuation for the audio channel.
-         */
-        setVolume(linearAttenuation: number): void;
         /**
          * Stops the audio channel and releases resources.
          */
@@ -78,6 +74,10 @@ declare module "@package/com/mojang/blaze3d/audio" {
          */
         pause(): void;
         /**
+         * Sets linear attenuation for the audio channel.
+         */
+        setPitch(linearAttenuation: number): void;
+        /**
          * Stops the audio channel and releases resources.
          */
         play(): void;
@@ -86,19 +86,25 @@ declare module "@package/com/mojang/blaze3d/audio" {
          */
         getSource(): number;
         static BUFFER_DURATION_SECONDS: number;
+        set volume(value: number);
+        set looping(value: boolean);
+        set selfPosition(value: $Vec3_);
+        set relative(value: boolean);
+        set pitch(value: number);
+        get source(): number;
     }
     export class $ListenerTransform extends $Record {
         up(): $Vec3;
-        forward(): $Vec3;
         position(): $Vec3;
         right(): $Vec3;
+        forward(): $Vec3;
         static INITIAL: $ListenerTransform;
         constructor(arg0: $Vec3_, arg1: $Vec3_, arg2: $Vec3_);
     }
     /**
      * Values that may be interpreted as {@link $ListenerTransform}.
      */
-    export type $ListenerTransform_ = { position?: $Vec3_, up?: $Vec3_, forward?: $Vec3_,  } | [position?: $Vec3_, up?: $Vec3_, forward?: $Vec3_, ];
+    export type $ListenerTransform_ = { position?: $Vec3_, forward?: $Vec3_, up?: $Vec3_,  } | [position?: $Vec3_, forward?: $Vec3_, up?: $Vec3_, ];
     /**
      * The SoundBuffer class represents an audio buffer containing audio data in a particular format.
      * 

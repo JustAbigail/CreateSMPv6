@@ -20,6 +20,22 @@ declare module "@package/gg/essential/lib/kotgl/matrix/matrices/mutables" {
         setM33(arg0: number): void;
         copyOf(): $MutableMat4;
         constructor();
+        set m03(value: number);
+        set m13(value: number);
+        set m23(value: number);
+        set m00(value: number);
+        set m01(value: number);
+        set m02(value: number);
+        set m10(value: number);
+        set m11(value: number);
+        set m12(value: number);
+        set m20(value: number);
+        set m21(value: number);
+        set m22(value: number);
+        set m30(value: number);
+        set m31(value: number);
+        set m32(value: number);
+        set m33(value: number);
     }
     export class $MutableMat3 extends $Mat3 implements $MutableMat {
         setM00(arg0: number): void;
@@ -33,5 +49,14 @@ declare module "@package/gg/essential/lib/kotgl/matrix/matrices/mutables" {
         setM22(arg0: number): void;
         copyOf(): $MutableMat3;
         constructor();
+        set m00(value: number);
+        set m01(value: number);
+        set m02(value: number);
+        set m10(value: number);
+        set m11(value: number);
+        set m12(value: number);
+        set m20(value: number);
+        set m21(value: number);
+        set m22(value: number);
     }
 }

@@ -31,21 +31,13 @@ declare module "@package/net/minecraft/core/component" {
     /**
      * Values that may be interpreted as {@link $DataComponentPatch$SplitResult}.
      */
-    export type $DataComponentPatch$SplitResult_ = { removed?: $Set_<$DataComponentType_<never>>, added?: $DataComponentMap_,  } | [removed?: $Set_<$DataComponentType_<never>>, added?: $DataComponentMap_, ];
+    export type $DataComponentPatch$SplitResult_ = { added?: $DataComponentMap_, removed?: $Set_<$DataComponentType_<never>>,  } | [added?: $DataComponentMap_, removed?: $Set_<$DataComponentType_<never>>, ];
     export class $DataComponentPatch$Builder implements $ComponentFunctions {
         kjs$get(type: $DataComponentType_<any>): $Object;
         kjs$remove(type: $DataComponentType_<any>): $ComponentFunctions;
         remove<T>(component: $DataComponentType_<T>): $DataComponentPatch$Builder;
         build(): $DataComponentPatch;
         getComponentMap(): $DataComponentMap;
-        setEntityData(tag: $CompoundTag_): void;
-        setProfile(name: string, uuid: $UUID_): void;
-        setProfile(profile: $GameProfile): void;
-        setBaseColor(color: $DyeColor_): void;
-        setBlockStateProperties(properties: $Map_<string, string>): void;
-        setLockCode(lock: string): void;
-        setContainerLootTable(lootTable: $ResourceKey_<$LootTable>, seed: number): void;
-        setContainerLootTable(lootTable: $ResourceKey_<$LootTable>): void;
         setAdditionalTooltipHidden(): void;
         setUnit(component: $DataComponentType_<$Unit_>): $ComponentFunctions;
         patch(components: $DataComponentPatch_): $ComponentFunctions;
@@ -65,22 +57,44 @@ declare module "@package/net/minecraft/core/component" {
         setDyedColorWithTooltip(color: $KubeColor_): void;
         setPotionContents(contents: $PotionContents_): void;
         setPotionId(potion: $Holder_<$Potion>): void;
+        setEntityData(tag: $CompoundTag_): void;
+        setProfile(name: string, uuid: $UUID_): void;
+        setProfile(profile: $GameProfile): void;
+        setBaseColor(color: $DyeColor_): void;
+        setBlockStateProperties(properties: $Map_<string, string>): void;
+        setLockCode(lock: string): void;
+        setContainerLootTable(lootTable: $ResourceKey_<$LootTable>, seed: number): void;
+        setContainerLootTable(lootTable: $ResourceKey_<$LootTable>): void;
         constructor();
         get<T extends keyof DataComponentTypes.OutputMap>(type: T): DataComponentTypes.OutputMap[T] | null;
         getOrDefault<T extends keyof DataComponentTypes.OutputMap>(type: T, _default: DataComponentTypes.OutputMap[T]): DataComponentTypes.OutputMap[T];
         set(components: $DataComponentMap_): this;
         set<T extends keyof DataComponentTypes.InputMap>(type: T, data: DataComponentTypes.InputMap[T]): this;
+        get componentMap(): $DataComponentMap;
+        set unit(value: $DataComponentType_<$Unit_>);
+        get componentString(): string;
+        set rarity(value: $Rarity_);
+        set customModelData(value: number);
+        set glintOverride(value: boolean);
+        set dyedColor(value: $KubeColor_);
+        set dyedColorWithTooltip(value: $KubeColor_);
+        set potionContents(value: $PotionContents_);
+        set potionId(value: $Holder_<$Potion>);
+        set entityData(value: $CompoundTag_);
+        set baseColor(value: $DyeColor_);
+        set blockStateProperties(value: $Map_<string, string>);
+        set lockCode(value: string);
     }
     export class $DataComponentPredicate implements $Predicate<$DataComponentMap> {
-        static allOf(expectedComponents: $DataComponentMap_): $DataComponentPredicate;
         asPatch(): $DataComponentPatch;
         alwaysMatches(): boolean;
         test(components: $DataComponentMap_): boolean;
         test(components: $DataComponentHolder_): boolean;
         static builder(): $DataComponentPredicate$Builder;
-        or(arg0: $Predicate_<$DataComponentMap>): $Predicate<$DataComponentMap>;
+        static allOf(expectedComponents: $DataComponentMap_): $DataComponentPredicate;
         negate(): $Predicate<$DataComponentMap>;
         and(arg0: $Predicate_<$DataComponentMap>): $Predicate<$DataComponentMap>;
+        or(arg0: $Predicate_<$DataComponentMap>): $Predicate<$DataComponentMap>;
         static CODEC: $Codec<$DataComponentPredicate>;
         static EMPTY: $DataComponentPredicate;
         static STREAM_CODEC: $StreamCodec<$RegistryFriendlyByteBuf, $DataComponentPredicate>;
@@ -100,6 +114,7 @@ declare module "@package/net/minecraft/core/component" {
         map: $Reference2ObjectMap<$DataComponentType<never>, (never) | undefined>;
         static STREAM_CODEC: $StreamCodec<$RegistryFriendlyByteBuf, $DataComponentPatch>;
         constructor(map: $Reference2ObjectMap<$DataComponentType_<never>, (never) | undefined>);
+        get empty(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $DataComponentPatch}.
@@ -112,14 +127,15 @@ declare module "@package/net/minecraft/core/component" {
         get<T>(component: $DataComponentType_<T>): T;
         getOrDefault<T>(component: $DataComponentType_<T>, defaultValue: T): T;
         getComponents(): $DataComponentMap;
+        get components(): $DataComponentMap;
     }
     /**
      * Values that may be interpreted as {@link $DataComponentHolder}.
      */
     export type $DataComponentHolder_ = (() => $DataComponentMap_);
     export class $DataComponentMap {
-        static makeCodecFromMap(codec: $Codec<$Map_<$DataComponentType_<never>, $Object>>): $Codec<$DataComponentMap>;
         static makeCodec(codec: $Codec<$DataComponentType_<never>>): $Codec<$DataComponentMap>;
+        static makeCodecFromMap(codec: $Codec<$Map_<$DataComponentType_<never>, $Object>>): $Codec<$DataComponentMap>;
         static builder(): $DataComponentMap$Builder;
         static composite(map1: $DataComponentMap_, map2: $DataComponentMap_): $DataComponentMap;
         static CODEC: $Codec<$DataComponentMap>;
@@ -138,6 +154,7 @@ declare module "@package/net/minecraft/core/component" {
         getOrDefault<T>(component: $DataComponentType_<T>, defaultValue: T): T;
         getTyped<T>(component: $DataComponentType_<T>): $TypedDataComponent<T>;
         [Symbol.iterator](): Iterator<$TypedDataComponent<never>>
+        get empty(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $DataComponentMap}.
@@ -148,7 +165,7 @@ declare module "@package/net/minecraft/core/component" {
         expect<T>(component: $DataComponentType_<T>, value: T): $DataComponentPredicate$Builder;
         constructor();
     }
-    export interface $DataComponentType<T> extends RegistryMarked<RegistryTypes.EnchantmentEffectComponentTypeTag, RegistryTypes.EnchantmentEffectComponentType> {}
+    export interface $DataComponentType<T> extends RegistryMarked<RegistryTypes.DataComponentTypeTag, RegistryTypes.DataComponentType> {}
     export class $TypedDataComponent<T> extends $Record {
         encodeValue<D>(ops: $DynamicOps<D>): $DataResult<D>;
         static fromEntryUnchecked(entry: $Map$Entry<$DataComponentType_<never>, $Object>): $TypedDataComponent<never>;
@@ -162,7 +179,7 @@ declare module "@package/net/minecraft/core/component" {
     /**
      * Values that may be interpreted as {@link $TypedDataComponent}.
      */
-    export type $TypedDataComponent_<T> = { value?: any, type?: $DataComponentType_<any>,  } | [value?: any, type?: $DataComponentType_<any>, ];
+    export type $TypedDataComponent_<T> = { type?: $DataComponentType_<any>, value?: any,  } | [type?: $DataComponentType_<any>, value?: any, ];
     export class $DataComponentType<T> {
         static builder<T>(): $DataComponentType$Builder<T>;
         static CODEC: $Codec<$DataComponentType<never>>;
@@ -175,11 +192,12 @@ declare module "@package/net/minecraft/core/component" {
         codecOrThrow(): $Codec<T>;
         isTransient(): boolean;
         codec(): $Codec<T>;
+        get transient(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $DataComponentType}.
      */
-    export type $DataComponentType_<T> = RegistryTypes.DataComponentType | RegistryTypes.EnchantmentEffectComponentType;
+    export type $DataComponentType_<T> = RegistryTypes.EnchantmentEffectComponentType | RegistryTypes.DataComponentType;
     export class $PatchedDataComponentMap implements $DataComponentMap {
         isPatchEmpty(): boolean;
         static fromPatch(prototype: $DataComponentMap_, patch: $DataComponentPatch_): $PatchedDataComponentMap;
@@ -205,24 +223,19 @@ declare module "@package/net/minecraft/core/component" {
         copyOnWrite: boolean;
         constructor(prototype: $DataComponentMap_);
         [Symbol.iterator](): Iterator<$TypedDataComponent<never>>
+        get patchEmpty(): boolean;
+        set all(value: $DataComponentMap_);
+        get empty(): boolean;
     }
     export class $DataComponentMap$Builder implements $IDataComponentMapBuilderExtensions, $FabricComponentMapBuilder, $ComponentFunctions {
         getOrEmpty(arg0: $DataComponentType_<any>): $List<any>;
-        getOrCreate(arg0: $DataComponentType_<any>, arg1: $Supplier_<any>): $Object;
+        setUnchecked<T>(component: $DataComponentType_<T>, value: $Object | null): void;
+        kjs$getComponentMap(): $DataComponentMap;
         kjs$get(type: $DataComponentType_<any>): $Object;
         kjs$remove(type: $DataComponentType_<any>): $ComponentFunctions;
-        kjs$getComponentMap(): $DataComponentMap;
-        setUnchecked<T>(component: $DataComponentType_<T>, value: $Object | null): void;
         addAll(components: $DataComponentMap_): $DataComponentMap$Builder;
         build(): $DataComponentMap;
-        setEntityData(tag: $CompoundTag_): void;
-        setProfile(name: string, uuid: $UUID_): void;
-        setProfile(profile: $GameProfile): void;
-        setBaseColor(color: $DyeColor_): void;
-        setBlockStateProperties(properties: $Map_<string, string>): void;
-        setLockCode(lock: string): void;
-        setContainerLootTable(lootTable: $ResourceKey_<$LootTable>, seed: number): void;
-        setContainerLootTable(lootTable: $ResourceKey_<$LootTable>): void;
+        getOrCreate(arg0: $DataComponentType_<any>, arg1: $Supplier_<any>): $Object;
         setAdditionalTooltipHidden(): void;
         setUnit(component: $DataComponentType_<$Unit_>): $ComponentFunctions;
         patch(components: $DataComponentPatch_): $ComponentFunctions;
@@ -242,16 +255,37 @@ declare module "@package/net/minecraft/core/component" {
         setDyedColorWithTooltip(color: $KubeColor_): void;
         setPotionContents(contents: $PotionContents_): void;
         setPotionId(potion: $Holder_<$Potion>): void;
+        setEntityData(tag: $CompoundTag_): void;
+        setProfile(name: string, uuid: $UUID_): void;
+        setProfile(profile: $GameProfile): void;
+        setBaseColor(color: $DyeColor_): void;
+        setBlockStateProperties(properties: $Map_<string, string>): void;
+        setLockCode(lock: string): void;
+        setContainerLootTable(lootTable: $ResourceKey_<$LootTable>, seed: number): void;
+        setContainerLootTable(lootTable: $ResourceKey_<$LootTable>): void;
         constructor();
         get<T extends keyof DataComponentTypes.OutputMap>(type: T): DataComponentTypes.OutputMap[T] | null;
         getOrDefault<T extends keyof DataComponentTypes.OutputMap>(type: T, _default: DataComponentTypes.OutputMap[T]): DataComponentTypes.OutputMap[T];
         set(components: $DataComponentMap_): this;
         set<T extends keyof DataComponentTypes.InputMap>(type: T, data: DataComponentTypes.InputMap[T]): this;
+        set unit(value: $DataComponentType_<$Unit_>);
+        get componentString(): string;
+        set rarity(value: $Rarity_);
+        set customModelData(value: number);
+        set glintOverride(value: boolean);
+        set dyedColor(value: $KubeColor_);
+        set dyedColorWithTooltip(value: $KubeColor_);
+        set potionContents(value: $PotionContents_);
+        set potionId(value: $Holder_<$Potion>);
+        set entityData(value: $CompoundTag_);
+        set baseColor(value: $DyeColor_);
+        set blockStateProperties(value: $Map_<string, string>);
+        set lockCode(value: string);
     }
     export class $DataComponentType$Builder<T> {
-        persistent(codec: $Codec<T>): $DataComponentType$Builder<T>;
         networkSynchronized(streamCodec: $StreamCodec<$RegistryFriendlyByteBuf, T>): $DataComponentType$Builder<T>;
         cacheEncoding(): $DataComponentType$Builder<T>;
+        persistent(codec: $Codec<T>): $DataComponentType$Builder<T>;
         build(): $DataComponentType<T>;
         constructor();
     }

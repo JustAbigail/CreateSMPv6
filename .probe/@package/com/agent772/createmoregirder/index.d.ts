@@ -1,4 +1,4 @@
-import { $Block, $Block_ } from "@package/net/minecraft/world/level/block";
+import { $Block_, $Block } from "@package/net/minecraft/world/level/block";
 
 declare module "@package/com/agent772/createmoregirder" {
     export class $CMGBezierData {

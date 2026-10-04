@@ -6,6 +6,7 @@ declare module "@package/dev/kosmx/playerAnim/mixin" {
     }
     export interface $PlayerModelAccessor {
         getCloak(): $ModelPart;
+        get cloak(): $ModelPart;
     }
     /**
      * Values that may be interpreted as {@link $PlayerModelAccessor}.

@@ -23,6 +23,7 @@ declare module "@package/kotlinx/serialization/encoding" {
         encodeFloatElement(arg0: $SerialDescriptor, arg1: number, arg2: number): void;
         encodeBooleanElement(arg0: $SerialDescriptor, arg1: number, arg2: boolean): void;
         endStructure(arg0: $SerialDescriptor): void;
+        get serializersModule(): $SerializersModule;
     }
     export class $Encoder {
         static access$encodeNotNullMark$jd(arg0: $Encoder): void;
@@ -44,10 +45,11 @@ declare module "@package/kotlinx/serialization/encoding" {
         encodeEnum(arg0: $SerialDescriptor, arg1: number): void;
         encodeSerializableValue<T>(arg0: $SerializationStrategy<T>, arg1: T): void;
         encodeNotNullMark(): void;
+        beginCollection(arg0: $SerialDescriptor, arg1: number): $CompositeEncoder;
         encodeNullableSerializableValue<T>(arg0: $SerializationStrategy<T>, arg1: T): void;
         getSerializersModule(): $SerializersModule;
         beginStructure(arg0: $SerialDescriptor): $CompositeEncoder;
         encodeBoolean(arg0: boolean): void;
-        beginCollection(arg0: $SerialDescriptor, arg1: number): $CompositeEncoder;
+        get serializersModule(): $SerializersModule;
     }
 }

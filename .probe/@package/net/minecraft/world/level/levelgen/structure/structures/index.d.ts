@@ -75,6 +75,8 @@ declare module "@package/net/minecraft/world/level/levelgen/structure/structures
         static PARTLY_BURIED: $RuinedPortalPiece$VerticalPlacement;
         static IN_NETHER: $RuinedPortalPiece$VerticalPlacement;
         static ON_OCEAN_FLOOR: $RuinedPortalPiece$VerticalPlacement;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $RuinedPortalPiece$VerticalPlacement}.
@@ -100,7 +102,7 @@ declare module "@package/net/minecraft/world/level/levelgen/structure/structures
     /**
      * Values that may be interpreted as {@link $RuinedPortalStructure$Setup}.
      */
-    export type $RuinedPortalStructure$Setup_ = { vines?: boolean, weight?: number, mossiness?: number, replaceWithBlackstone?: boolean, placement?: $RuinedPortalPiece$VerticalPlacement_, airPocketProbability?: number, overgrown?: boolean, canBeCold?: boolean,  } | [vines?: boolean, weight?: number, mossiness?: number, replaceWithBlackstone?: boolean, placement?: $RuinedPortalPiece$VerticalPlacement_, airPocketProbability?: number, overgrown?: boolean, canBeCold?: boolean, ];
+    export type $RuinedPortalStructure$Setup_ = { mossiness?: number, weight?: number, vines?: boolean, canBeCold?: boolean, overgrown?: boolean, airPocketProbability?: number, placement?: $RuinedPortalPiece$VerticalPlacement_, replaceWithBlackstone?: boolean,  } | [mossiness?: number, weight?: number, vines?: boolean, canBeCold?: boolean, overgrown?: boolean, airPocketProbability?: number, placement?: $RuinedPortalPiece$VerticalPlacement_, replaceWithBlackstone?: boolean, ];
     export class $MineshaftStructure$Type extends $Enum<$MineshaftStructure$Type> implements $StringRepresentable {
         getPlanksState(): $BlockState;
         getWoodState(): $BlockState;
@@ -114,6 +116,11 @@ declare module "@package/net/minecraft/world/level/levelgen/structure/structures
         static MESA: $MineshaftStructure$Type;
         static CODEC: $Codec<$MineshaftStructure$Type>;
         static NORMAL: $MineshaftStructure$Type;
+        get planksState(): $BlockState;
+        get woodState(): $BlockState;
+        get fenceState(): $BlockState;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $MineshaftStructure$Type}.
@@ -161,6 +168,8 @@ declare module "@package/net/minecraft/world/level/levelgen/structure/structures
         static CODEC: $Codec<$OceanRuinStructure$Type>;
         static COLD: $OceanRuinStructure$Type;
         static WARM: $OceanRuinStructure$Type;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $OceanRuinStructure$Type}.

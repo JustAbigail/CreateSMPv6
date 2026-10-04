@@ -24,9 +24,9 @@ import { $StreamCodec } from "@package/net/minecraft/network/codec";
 
 declare module "@package/net/minecraft/stats" {
     export class $RecipeBook {
+        copyOverData(other: $RecipeBook): void;
         willHighlight(recipe: $RecipeHolder_<never>): boolean;
         removeHighlight(recipe: $RecipeHolder_<never>): void;
-        copyOverData(other: $RecipeBook): void;
         setOpen(bookType: $RecipeBookType_, filtering: boolean): void;
         addHighlight(recipeId: $ResourceLocation_): void;
         addHighlight(recipe: $RecipeHolder_<never>): void;
@@ -72,13 +72,13 @@ declare module "@package/net/minecraft/stats" {
      * @see net.minecraft.stats.Stats
      */
     export class $Stat<T> extends $ObjectiveCriteria {
-        getValue(): T;
-        format(value: number): string;
-        getType(): $StatType<T>;
         /**
          * @return the name for the specified `type` and `value` in the form `.:.`
          */
         static buildName<T>(type: $StatType_<T>, value: T): string;
+        getValue(): T;
+        format(value: number): string;
+        getType(): $StatType<T>;
         static DEATH_COUNT: $ObjectiveCriteria;
         static ARMOR: $ObjectiveCriteria;
         static TRIGGER: $ObjectiveCriteria;
@@ -94,6 +94,8 @@ declare module "@package/net/minecraft/stats" {
         static KILLED_BY_TEAM: $ObjectiveCriteria[];
         static FOOD: $ObjectiveCriteria;
         constructor(type: $StatType_<T>, value: T, formatter: $StatFormatter_);
+        get value(): T;
+        get type(): $StatType<T>;
     }
     /**
      * Values that may be interpreted as {@link $Stat}.
@@ -168,6 +170,8 @@ declare module "@package/net/minecraft/stats" {
         forEach(arg0: $Consumer_<$Stat<T>>): void;
         constructor(registry: $Registry<$Stat_<T>>, displayName: $Component_);
         [Symbol.iterator](): Iterator<$Stat<$Stat<T>>>
+        get displayName(): $Component;
+        get registry(): $Registry<$Stat<T>>;
     }
     /**
      * Values that may be interpreted as {@link $StatType}.

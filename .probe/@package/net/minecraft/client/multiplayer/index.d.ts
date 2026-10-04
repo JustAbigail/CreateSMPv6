@@ -10,13 +10,13 @@ import { $ColorCache } from "@package/neoforge/fionathemortal/betterbiomeblend/c
 import { $BlockSnapshot } from "@package/net/neoforged/neoforge/common/util";
 import { $Operation_ } from "@package/com/llamalad7/mixinextras/injector/wrapoperation";
 import { $BlockState_ } from "@package/net/minecraft/world/level/block/state";
-import { $DisconnectionDetails_, $TickablePacketListener, $FriendlyByteBuf, $Connection, $DisconnectionDetails } from "@package/net/minecraft/network";
+import { $DisconnectionDetails_, $TickablePacketListener, $Connection, $DisconnectionDetails } from "@package/net/minecraft/network";
 import { $GameProfile } from "@package/com/mojang/authlib";
 import { $EquippedOutfitsManager } from "@package/gg/essential/network/connectionmanager/cosmetics";
 import { $ClientLevelAccess, $LevelRendererAccess } from "@package/org/betterx/bclib/interfaces";
 import { $KubeAnimatedParticle, $KubeSessionData } from "@package/dev/latvian/mods/kubejs/client";
 import { $PlayerChatMessage_, $RemoteChatSession, $RemoteChatSession_, $SignedMessageValidator, $Component_, $PlayerChatMessage, $Component } from "@package/net/minecraft/network/chat";
-import { $LevelChunk, $ChunkSource, $ChunkAccess } from "@package/net/minecraft/world/level/chunk";
+import { $LevelChunk } from "@package/net/minecraft/world/level/chunk";
 import { $VeilClientSuggestionProvider } from "@package/foundry/veil/ext";
 import { $WritableLevelData } from "@package/net/minecraft/world/level/storage";
 import { $SharedSuggestionProvider$ElementSuggestionType_, $SharedSuggestionProvider, $SharedSuggestionProvider$TextCoordinates } from "@package/net/minecraft/commands";
@@ -32,16 +32,15 @@ import { $UUID_, $Set_, $ArrayList, $Map, $List, $Map_, $List_, $Collection, $Se
 import { $ChunkTrackerHolder, $ChunkTracker } from "@package/net/caffeinemc/mods/sodium/client/render/chunk/map";
 import { $ClientboundCookieRequestPacket_ } from "@package/net/minecraft/network/protocol/cookie";
 import { $DisplayMode, $DisplayMode_, $ServerInfoExtension } from "@package/com/minenash/seamless_loading_screen";
-import { $BlockPos, $BlockPos_, $HolderLookup$Provider, $RegistryAccess$Frozen, $Direction_, $BlockPos$MutableBlockPos, $RegistryAccess, $Registry, $Holder_, $SectionPos } from "@package/net/minecraft/core";
+import { $BlockPos, $BlockPos_, $HolderLookup$Provider, $RegistryAccess$Frozen, $Direction_, $BlockPos$MutableBlockPos, $RegistryAccess, $Registry, $Holder_ } from "@package/net/minecraft/core";
 import { $FabricClientCommandSource } from "@package/net/fabricmc/fabric/api/client/command/v2";
 import { $PacketFlow, $Packet } from "@package/net/minecraft/network/protocol";
 import { $Exception, $Throwable, $Enum, $Iterable, $Record, $Runnable_, $Object } from "@package/java/lang";
 import { $BiomeSeedProvider } from "@package/net/caffeinemc/mods/sodium/client/world";
-import { $LightLayer_, $GameRules, $ChunkPos, $BlockGetter, $ColorResolver_, $GameType, $GameType_, $LevelHeightAccessor, $Level } from "@package/net/minecraft/world/level";
+import { $GameRules, $ChunkPos, $BlockGetter, $ColorResolver_, $GameType, $GameType_, $LevelHeightAccessor, $Level } from "@package/net/minecraft/world/level";
 import { $ClientWorldAccessor } from "@package/gg/essential/mixins/transformers/client";
 import { $ChatComponent$State } from "@package/net/minecraft/client/gui/components";
 import { $ParticleSystem } from "@package/gg/essential/model";
-import { $ClientChunkCacheStorageAccessor } from "@package/dev/ryanhcode/sable/mixin/loaded_chunk_debug";
 import { $ClientboundPongResponsePacket_ } from "@package/net/minecraft/network/protocol/ping";
 import { $WaterOcclusionContainerHolder } from "@package/dev/ryanhcode/sable/mixinterface/water_occlusion";
 import { $ClientPacketListenerAccessor } from "@package/net/createmod/ponder/mixin/client/accessor";
@@ -69,13 +68,11 @@ import { $NeighborUpdater } from "@package/net/minecraft/world/level/redstone";
 import { $NetworkPlayerInfoExt } from "@package/gg/essential/mixins/impl/client/network";
 import { $ParticleSystemHolder } from "@package/gg/essential/mixins/ext/client";
 import { $TooltipFlag, $Item$TooltipContext, $ItemStack_, $ItemStack } from "@package/net/minecraft/world/item";
-import { $DebugChunkProviderAttachments } from "@package/dev/ryanhcode/sable/mixinterface/loaded_chunk_debug";
 import { $SpriteSet, $Particle } from "@package/net/minecraft/client/particle";
 import { $ProfileKeyPair, $Player, $ProfileKeyPair_ } from "@package/net/minecraft/world/entity/player";
 import { $SubLevelContainerHolder } from "@package/dev/ryanhcode/sable/mixinterface/plot";
 import { $Function_ } from "@package/it/unimi/dsi/fastutil";
 import { $ClientLevelAccessor } from "@package/dev/ryanhcode/offroad/mixin/client/multimining_destruction_progress";
-import { $AtomicReferenceArray } from "@package/java/util/concurrent/atomic";
 import { $Block_ } from "@package/net/minecraft/world/level/block";
 import { $ClientPacketListenerKJS, $ClientLevelKJS } from "@package/dev/latvian/mods/kubejs/core";
 import { $SearchTree } from "@package/net/minecraft/client/searchtree";
@@ -83,19 +80,17 @@ import { $UserApiService } from "@package/com/mojang/authlib/minecraft";
 import { $EntityHitResult, $Vec3, $Vec2, $Vec3_, $BlockHitResult } from "@package/net/minecraft/world/phys";
 import { $SubLevelContainer } from "@package/dev/ryanhcode/sable/api/sublevel";
 import { $LevelPoseProviderExtension } from "@package/dev/ryanhcode/sable/mixinterface/clip_overwrite";
-import { $LevelLightEngine } from "@package/net/minecraft/world/level/lighting";
 import { $ClientboundResourcePackPopPacket_, $ClientboundCustomPayloadPacket_, $ClientboundPingPacket, $ClientboundTransferPacket_, $ClientboundDisconnectPacket_, $ClientboundKeepAlivePacket, $ClientCommonPacketListener, $ClientboundCustomReportDetailsPacket_, $ClientboundServerLinksPacket_, $ClientboundStoreCookiePacket_, $ClientboundResourcePackPushPacket_ } from "@package/net/minecraft/network/protocol/common";
-import { $Supplier_, $BooleanSupplier_, $Consumer_ } from "@package/java/util/function";
+import { $Supplier_, $BooleanSupplier_ } from "@package/java/util/function";
 import { $Path_ } from "@package/java/nio/file";
 import { $Suggestions, $SuggestionsBuilder } from "@package/com/mojang/brigadier/suggestion";
 import { $MapId_, $MapId, $MapItemSavedData } from "@package/net/minecraft/world/level/saveddata/maps";
 import { $Pose3dc } from "@package/dev/ryanhcode/sable/companion/math";
-import { $Logger } from "@package/org/slf4j";
 import { $ProfilerFiller } from "@package/net/minecraft/util/profiling";
 import { $LocalPlayer } from "@package/net/minecraft/client/player";
 import { $IngameEquippedOutfitsManager, $IngameEquippedOutfitsUpdateEncoder } from "@package/gg/essential/cosmetics";
 import { $ContraptionHeightMapProvider, $ContraptionHeightMap } from "@package/neoforge/fun/qu_an/minecraft/asyncparticles/client/compat/create/neoforge";
-import { $ClientboundSetBorderSizePacket, $ClientboundDamageEventPacket_, $ClientboundUpdateAttributesPacket, $ClientboundHurtAnimationPacket_, $ClientboundPlayerInfoRemovePacket_, $ClientboundSetSimulationDistancePacket_, $ClientboundSetTitleTextPacket_, $ClientboundSetActionBarTextPacket_, $ClientboundTickingStatePacket_, $ClientboundSetCarriedItemPacket, $ClientboundLevelChunkWithLightPacket, $ClientboundDisguisedChatPacket_, $ClientboundPlayerCombatEnterPacket, $ClientboundPlayerLookAtPacket, $ClientboundSetBorderCenterPacket, $ClientboundTickingStepPacket_, $ClientboundSetDisplayObjectivePacket, $ClientboundSectionBlocksUpdatePacket, $ClientboundSetPassengersPacket, $ClientboundUpdateMobEffectPacket, $ClientboundSetExperiencePacket, $ClientboundTakeItemEntityPacket, $ClientboundStartConfigurationPacket, $ClientboundLightUpdatePacket, $ClientboundUpdateRecipesPacket, $ClientboundPlayerInfoUpdatePacket, $ClientboundBlockDestructionPacket, $ClientboundPlayerCombatEndPacket, $ClientboundOpenBookPacket, $ClientboundBlockChangedAckPacket_, $ClientboundBlockUpdatePacket, $ClientboundStopSoundPacket, $ClientboundRemoveEntitiesPacket, $ClientboundLevelChunkPacketData$BlockEntityTagOutput, $ClientboundSetCameraPacket, $ClientboundLoginPacket_, $ClientboundSetEquipmentPacket, $ClientboundSetEntityLinkPacket, $ClientboundPlayerPositionPacket, $ClientboundRespawnPacket_, $ClientboundCustomChatCompletionsPacket$Action_, $ClientboundRecipePacket, $ClientboundAwardStatsPacket_, $ClientboundPlayerCombatKillPacket_, $ClientboundChunksBiomesPacket_, $ClientboundForgetLevelChunkPacket_, $ClientboundContainerClosePacket, $ClientboundAddEntityPacket, $ClientboundSetDefaultSpawnPositionPacket, $ClientboundSetEntityDataPacket_, $ClientboundSetObjectivePacket, $ClientboundPlaceGhostRecipePacket, $ClientboundSetTitlesAnimationPacket, $ClientboundSetChunkCacheCenterPacket, $ClientboundHorseScreenOpenPacket, $ClientboundCommandsPacket, $ClientboundLevelParticlesPacket, $ClientboundLevelEventPacket, $ClientboundSystemChatPacket_, $ClientboundPlayerChatPacket_, $ClientboundClearTitlesPacket, $ClientboundContainerSetSlotPacket, $ClientboundProjectilePowerPacket, $ClientboundTabListPacket_, $ClientboundMerchantOffersPacket, $ClientboundSetScorePacket_, $ClientboundTeleportEntityPacket, $ClientboundBossEventPacket, $ClientboundAddExperienceOrbPacket, $ClientboundGameEventPacket, $ClientboundSetSubtitleTextPacket_, $ClientboundRotateHeadPacket, $ClientboundUpdateAdvancementsPacket, $ClientboundChunkBatchStartPacket, $ClientboundMoveEntityPacket, $ClientboundChangeDifficultyPacket, $ClientboundSetEntityMotionPacket, $ClientboundSetHealthPacket, $ClientboundChunkBatchFinishedPacket_, $ClientboundSetPlayerTeamPacket, $ClientboundContainerSetDataPacket, $ClientboundSetBorderWarningDelayPacket, $ClientboundExplodePacket, $ClientboundRemoveMobEffectPacket_, $ClientboundSelectAdvancementsTabPacket, $ClientboundDebugSamplePacket_, $ClientboundSetTimePacket, $ClientboundResetScorePacket_, $ClientboundSetChunkCacheRadiusPacket, $ClientboundCooldownPacket_, $ClientboundSetBorderWarningDistancePacket, $ClientboundSetBorderLerpSizePacket, $ClientboundSoundEntityPacket, $ClientboundTagQueryPacket, $ClientboundMapItemDataPacket_, $ClientboundBlockEntityDataPacket, $ClientboundAnimatePacket, $ClientboundInitializeBorderPacket, $ClientboundEntityEventPacket, $ClientGamePacketListener, $ClientboundDeleteChatPacket_, $ClientboundServerDataPacket_, $ClientboundContainerSetContentPacket, $ClientboundSoundPacket, $ClientboundOpenScreenPacket, $ClientboundBundlePacket, $ClientboundCustomChatCompletionsPacket_, $ClientboundCommandSuggestionsPacket_, $ClientboundOpenSignEditorPacket, $ClientboundMoveVehiclePacket, $ClientboundPlayerAbilitiesPacket, $ClientboundBlockEventPacket } from "@package/net/minecraft/network/protocol/game";
+import { $ClientboundSetBorderSizePacket, $ClientboundDamageEventPacket_, $ClientboundUpdateAttributesPacket, $ClientboundHurtAnimationPacket_, $ClientboundPlayerInfoRemovePacket_, $ClientboundSetSimulationDistancePacket_, $ClientboundSetTitleTextPacket_, $ClientboundSetActionBarTextPacket_, $ClientboundTickingStatePacket_, $ClientboundSetCarriedItemPacket, $ClientboundLevelChunkWithLightPacket, $ClientboundDisguisedChatPacket_, $ClientboundPlayerCombatEnterPacket, $ClientboundPlayerLookAtPacket, $ClientboundSetBorderCenterPacket, $ClientboundTickingStepPacket_, $ClientboundSetDisplayObjectivePacket, $ClientboundSectionBlocksUpdatePacket, $ClientboundSetPassengersPacket, $ClientboundUpdateMobEffectPacket, $ClientboundTakeItemEntityPacket, $ClientboundSetExperiencePacket, $ClientboundStartConfigurationPacket, $ClientboundLightUpdatePacket, $ClientboundUpdateRecipesPacket, $ClientboundPlayerInfoUpdatePacket, $ClientboundBlockDestructionPacket, $ClientboundPlayerCombatEndPacket, $ClientboundOpenBookPacket, $ClientboundBlockUpdatePacket, $ClientboundBlockChangedAckPacket_, $ClientboundStopSoundPacket, $ClientboundRemoveEntitiesPacket, $ClientboundSetCameraPacket, $ClientboundSetEquipmentPacket, $ClientboundLoginPacket_, $ClientboundSetEntityLinkPacket, $ClientboundPlayerPositionPacket, $ClientboundRespawnPacket_, $ClientboundCustomChatCompletionsPacket$Action_, $ClientboundRecipePacket, $ClientboundAwardStatsPacket_, $ClientboundPlayerCombatKillPacket_, $ClientboundChunksBiomesPacket_, $ClientboundForgetLevelChunkPacket_, $ClientboundContainerClosePacket, $ClientboundAddEntityPacket, $ClientboundSetDefaultSpawnPositionPacket, $ClientboundSetObjectivePacket, $ClientboundSetEntityDataPacket_, $ClientboundPlaceGhostRecipePacket, $ClientboundSetTitlesAnimationPacket, $ClientboundSetChunkCacheCenterPacket, $ClientboundHorseScreenOpenPacket, $ClientboundCommandsPacket, $ClientboundLevelEventPacket, $ClientboundLevelParticlesPacket, $ClientboundSystemChatPacket_, $ClientboundPlayerChatPacket_, $ClientboundContainerSetSlotPacket, $ClientboundClearTitlesPacket, $ClientboundProjectilePowerPacket, $ClientboundTabListPacket_, $ClientboundMerchantOffersPacket, $ClientboundSetScorePacket_, $ClientboundTeleportEntityPacket, $ClientboundBossEventPacket, $ClientboundAddExperienceOrbPacket, $ClientboundGameEventPacket, $ClientboundSetSubtitleTextPacket_, $ClientboundRotateHeadPacket, $ClientboundUpdateAdvancementsPacket, $ClientboundChunkBatchStartPacket, $ClientboundMoveEntityPacket, $ClientboundChangeDifficultyPacket, $ClientboundSetHealthPacket, $ClientboundSetEntityMotionPacket, $ClientboundChunkBatchFinishedPacket_, $ClientboundSetPlayerTeamPacket, $ClientboundContainerSetDataPacket, $ClientboundSetBorderWarningDelayPacket, $ClientboundExplodePacket, $ClientboundRemoveMobEffectPacket_, $ClientboundSelectAdvancementsTabPacket, $ClientboundDebugSamplePacket_, $ClientboundSetTimePacket, $ClientboundResetScorePacket_, $ClientboundSetChunkCacheRadiusPacket, $ClientboundCooldownPacket_, $ClientboundSetBorderWarningDistancePacket, $ClientboundSetBorderLerpSizePacket, $ClientboundSoundEntityPacket, $ClientboundTagQueryPacket, $ClientboundMapItemDataPacket_, $ClientboundBlockEntityDataPacket, $ClientboundAnimatePacket, $ClientboundInitializeBorderPacket, $ClientboundEntityEventPacket, $ClientGamePacketListener, $ClientboundDeleteChatPacket_, $ClientboundServerDataPacket_, $ClientboundContainerSetContentPacket, $ClientboundSoundPacket, $ClientboundOpenScreenPacket, $ClientboundBundlePacket, $ClientboundCustomChatCompletionsPacket_, $ClientboundCommandSuggestionsPacket_, $ClientboundOpenSignEditorPacket, $ClientboundMoveVehiclePacket, $ClientboundPlayerAbilitiesPacket, $ClientboundBlockEventPacket } from "@package/net/minecraft/network/protocol/game";
 import { $SubLevel } from "@package/dev/ryanhcode/sable/sublevel";
 import { $CachingClientLevel, $ClonedClientLevel } from "@package/com/sonicether/soundphysics/world";
 import { $ICapabilityProvider, $ICapabilityProvider_, $ICapableObject } from "@package/xaero/pac/common/capability";
@@ -133,30 +128,17 @@ declare module "@package/net/minecraft/client/multiplayer" {
         onSelectedTabChanged(advancement: $AdvancementHolder_ | null): void;
     }
     export class $ClientLevel extends $Level implements $ICapableObject, $ClientLevelAccessor$1, $BiomeSeedProvider, $ChunkTrackerHolder, $ClientLevelAccessor, $ClientLevelAccess, $ClientLevelKJS, $ContraptionHeightMapProvider, $SubLevelContainerHolder, $WaterOcclusionContainerHolder, $LevelPoseProviderExtension, $CachingClientLevel, $ClientWorldAccessor, $ParticleSystemHolder {
-        unload(chunk: $LevelChunk): void;
         /**
          * Runs a single tick for the world
          */
         tick(hasTimeLeft: $BooleanSupplier_): void;
-        /**
-         * Gets the world's chunk provider
-         */
-        getChunkSource(): $ClientChunkCache;
+        unload(chunk: $LevelChunk): void;
         sable$getPlotContainer(): $SubLevelContainer;
-        effects(): $DimensionSpecialEffects;
-        /**
-         * Returns the world's WorldInfo object
-         */
-        getLevelData(): $ClientLevel$ClientLevelData;
         /**
          * If on MP, sends a quitting packet.
          */
         tickEntities(): void;
         animateTick(posX: number, posY: number, posZ: number): void;
-        handleBlockChangedAck(sequence: number): void;
-        setServerVerifiedBlockState(pos: $BlockPos_, state: $BlockState_, flags: number): void;
-        syncBlockState(pos: $BlockPos_, state: $BlockState_, playerPos: $Vec3_): void;
-        getBlockStatePredictionHandler(): $BlockStatePredictionHandler;
         setDefaultSpawnPos(spawnPos: $BlockPos_, spawnAngle: number): void;
         queueLightUpdate(task: $Runnable_): void;
         /**
@@ -217,10 +199,15 @@ declare module "@package/net/minecraft/client/multiplayer" {
          */
         setGameTime(time: number): void;
         sable$getPose(arg0: $SubLevel): $Pose3dc;
+        handleBlockChangedAck(sequence: number): void;
+        setServerVerifiedBlockState(pos: $BlockPos_, state: $BlockState_, flags: number): void;
+        syncBlockState(pos: $BlockPos_, state: $BlockState_, playerPos: $Vec3_): void;
+        getBlockStatePredictionHandler(): $BlockStatePredictionHandler;
+        effects(): $DimensionSpecialEffects;
         kubeParticle(x: number, y: number, z: number, spriteSet: $SpriteSet): $KubeAnimatedParticle;
         getConnection(): $ClientPacketListener;
+        getChunk(arg0: number, arg1: number): $LevelChunk;
         getLevelRenderer(): $LevelRenderer;
-        getChunk(arg0: number, arg1: number): $ChunkAccess;
         self(): $BlockGetter;
         restoringBlockSnapshots: boolean;
         neighborUpdater: $NeighborUpdater;
@@ -254,6 +241,14 @@ declare module "@package/net/minecraft/client/multiplayer" {
         blockEntityTickers: $List<$TickingBlockEntity>;
         captureBlockSnapshots: boolean;
         constructor(connection: $ClientPacketListener, clientLevelData: $ClientLevel$ClientLevelData, dimension: $ResourceKey_<$Level>, dimensionType: $Holder_<$DimensionType>, viewDistance: number, serverSimulationDistance: number, profiler: $Supplier_<$ProfilerFiller>, levelRenderer: $LevelRenderer, isDebug: boolean, biomeZoomSeed: number);
+        get lightUpdateQueueEmpty(): boolean;
+        get entityCount(): number;
+        get skyFlashTime(): number;
+        get allMapData(): $Map<$MapId, $MapItemSavedData>;
+        get particleSystem(): $ParticleSystem;
+        set gameTime(value: number);
+        get blockStatePredictionHandler(): $BlockStatePredictionHandler;
+        get connection(): $ClientPacketListener;
     }
     export class $ClientPacketListener extends $ClientCommonPacketListenerImpl implements $ClientGamePacketListener, $TickablePacketListener, $NeoListenableNetworkHandler, $ClientPacketListenerAccessor, $ClientPacketListenerKJS, $NetHandlerPlayClientExt {
         getEssential$maxPlayers(): number;
@@ -263,26 +258,13 @@ declare module "@package/net/minecraft/client/multiplayer" {
          */
         handleEntityEvent(packet: $ClientboundEntityEventPacket): void;
         getCommands(): $CommandDispatcher<$SharedSuggestionProvider>;
+        sendChat(message: string): void;
         handleDisconnect(): void;
+        serverLinks(): $ServerLinks;
+        getOnlinePlayerIds(): $Collection<$UUID>;
+        getOnlinePlayers(): $Collection<$PlayerInfo>;
         setKeyPair(keyPair: $ProfileKeyPair_): void;
         getDebugQueryHandler(): $DebugQueryHandler;
-        handleMoveVehicle(packet: $ClientboundMoveVehiclePacket): void;
-        handleMovePlayer(packet: $ClientboundPlayerPositionPacket): void;
-        /**
-         * Updates which hotbar slot of the player is currently selected
-         */
-        handleSetCarriedItem(packet: $ClientboundSetCarriedItemPacket): void;
-        /**
-         * Renders a specified animation: Waking up a player, a living entity swinging its currently held item, being hurt or receiving a critical hit by normal or magical means
-         */
-        handleAnimate(packet: $ClientboundAnimatePacket): void;
-        /**
-         * Resets the ItemStack held in hand and closes the window that is opened
-         */
-        handleContainerClose(packet: $ClientboundContainerClosePacket): void;
-        handlePlaceRecipe(packet: $ClientboundPlaceGhostRecipePacket): void;
-        handlePlayerAbilities(packet: $ClientboundPlayerAbilitiesPacket): void;
-        handleChangeDifficulty(packet: $ClientboundChangeDifficultyPacket): void;
         searchTrees(): $SessionSearchTrees;
         kjs$sessionData(): $KubeSessionData;
         getSuggestionsProvider(): $ClientSuggestionProvider;
@@ -328,6 +310,23 @@ declare module "@package/net/minecraft/client/multiplayer" {
         handleChunkBlocksUpdate(packet: $ClientboundSectionBlocksUpdatePacket): void;
         handleLevelChunkWithLight(packet: $ClientboundLevelChunkWithLightPacket): void;
         handleChunksBiomes(packet: $ClientboundChunksBiomesPacket_): void;
+        handleMoveVehicle(packet: $ClientboundMoveVehiclePacket): void;
+        handleMovePlayer(packet: $ClientboundPlayerPositionPacket): void;
+        /**
+         * Updates which hotbar slot of the player is currently selected
+         */
+        handleSetCarriedItem(packet: $ClientboundSetCarriedItemPacket): void;
+        /**
+         * Renders a specified animation: Waking up a player, a living entity swinging its currently held item, being hurt or receiving a critical hit by normal or magical means
+         */
+        handleAnimate(packet: $ClientboundAnimatePacket): void;
+        /**
+         * Resets the ItemStack held in hand and closes the window that is opened
+         */
+        handleContainerClose(packet: $ClientboundContainerClosePacket): void;
+        handlePlaceRecipe(packet: $ClientboundPlaceGhostRecipePacket): void;
+        handlePlayerAbilities(packet: $ClientboundPlayerAbilitiesPacket): void;
+        handleChangeDifficulty(packet: $ClientboundChangeDifficultyPacket): void;
         handleForgetLevelChunk(packet: $ClientboundForgetLevelChunkPacket_): void;
         /**
          * Updates the block and metadata and generates a blockupdate (and notify the clients)
@@ -477,32 +476,28 @@ declare module "@package/net/minecraft/client/multiplayer" {
         essential$getNameIdCache(): $Map<any, any>;
         handleGameEvent(packet: $ClientboundGameEventPacket): void;
         sendCommand(message: string): void;
-        getLocalGameProfile(): $GameProfile;
+        getPlayerInfo(uniqueId: $UUID_): $PlayerInfo;
         /**
          * Gets the client's description information about another player on the server.
          */
         getPlayerInfo(name: string): $PlayerInfo;
-        getPlayerInfo(uniqueId: $UUID_): $PlayerInfo;
-        getLevel(): $ClientLevel;
+        getLocalGameProfile(): $GameProfile;
         levels(): $Set<$ResourceKey<$Level>>;
+        getLevel(): $ClientLevel;
+        tick(): void;
         getId(): $UUID;
         close(): void;
-        tick(): void;
-        getRecipeManager(): $RecipeManager;
-        sendUnsignedCommand(command: string): boolean;
-        enabledFeatures(): $FeatureFlagSet;
-        getAdvancements(): $ClientAdvancements;
         clearLevel(): void;
         registryAccess(): $RegistryAccess$Frozen;
         getServerData(): $ServerData;
         updateSearchTrees(): void;
-        handleBlockChangedAck(packet: $ClientboundBlockChangedAckPacket_): void;
+        getRecipeManager(): $RecipeManager;
+        enabledFeatures(): $FeatureFlagSet;
+        getAdvancements(): $ClientAdvancements;
         scoreboard(): $Scoreboard;
         potionBrewing(): $PotionBrewing;
-        serverLinks(): $ServerLinks;
-        sendChat(message: string): void;
-        getOnlinePlayerIds(): $Collection<$UUID>;
-        getOnlinePlayers(): $Collection<$PlayerInfo>;
+        handleBlockChangedAck(packet: $ClientboundBlockChangedAckPacket_): void;
+        sendUnsignedCommand(command: string): boolean;
         catnip$getServerChunkRadius(): number;
         minecraft: $Minecraft;
         /**
@@ -520,6 +515,24 @@ declare module "@package/net/minecraft/client/multiplayer" {
         connection: $Connection;
         commands: $CommandDispatcher<$SharedSuggestionProvider>;
         constructor(minecraft: $Minecraft, connection: $Connection, commonListenerCookie: $CommonListenerCookie_);
+        get essential$maxPlayers(): number;
+        get onlinePlayerIds(): $Collection<$UUID>;
+        get onlinePlayers(): $Collection<$PlayerInfo>;
+        set keyPair(value: $ProfileKeyPair_);
+        get debugQueryHandler(): $DebugQueryHandler;
+        get suggestionsProvider(): $ClientSuggestionProvider;
+        set actionBarText(value: $ClientboundSetActionBarTextPacket_);
+        set titleText(value: $ClientboundSetTitleTextPacket_);
+        set subtitleText(value: $ClientboundSetSubtitleTextPacket_);
+        set titlesAnimation(value: $ClientboundSetTitlesAnimationPacket);
+        get listedOnlinePlayers(): $Collection<$PlayerInfo>;
+        get essential$ingameEquippedOutfitsManager(): $IngameEquippedOutfitsManager;
+        get essential$ingameEquippedOutfitsUpdateEncoder(): $IngameEquippedOutfitsUpdateEncoder;
+        get localGameProfile(): $GameProfile;
+        get level(): $ClientLevel;
+        get id(): $UUID;
+        get recipeManager(): $RecipeManager;
+        get advancements(): $ClientAdvancements;
     }
     export class $ServerData$ServerPackStatus extends $Enum<$ServerData$ServerPackStatus> {
         getName(): $Component;
@@ -536,6 +549,8 @@ declare module "@package/net/minecraft/client/multiplayer" {
     export class $ServerData implements $ServerInfoExtension, $ServerDataExt {
         setResourcePackStatus(packStatus: $ServerData$ServerPackStatus_): void;
         getResourcePackStatus(): $ServerData$ServerPackStatus;
+        static validateIcon(icon: number[] | null): number[];
+        setIconBytes(iconBytes: number[] | null): void;
         copyNameIconFrom(serverData: $ServerData): void;
         getDisplayMode(): $DisplayMode;
         getIconBytes(): number[];
@@ -563,8 +578,6 @@ declare module "@package/net/minecraft/client/multiplayer" {
         setEssential$showDownloadIcon(showDownloadIcon: boolean): void;
         getEssential$recommendedVersion(): string;
         setEssential$recommendedVersion(recommendedVersion: string): void;
-        static validateIcon(icon: number[] | null): number[];
-        setIconBytes(iconBytes: number[] | null): void;
         copyFrom(serverData: $ServerData): void;
         type(): $ServerData$Type;
         /**
@@ -596,8 +609,11 @@ declare module "@package/net/minecraft/client/multiplayer" {
         version: $Component;
         status: $Component;
         constructor(name: string, ip: string, type: $ServerData$Type_);
+        get realm(): boolean;
+        get lan(): boolean;
     }
     export class $ClientLevel$ClientLevelData implements $WritableLevelData {
+        getHorizonHeight(level: $LevelHeightAccessor): number;
         setDifficulty(difficulty: $Difficulty_): void;
         setDifficultyLocked(difficultyLocked: boolean): void;
         getClearColorScale(): number;
@@ -637,37 +653,13 @@ declare module "@package/net/minecraft/client/multiplayer" {
         getDayTime(): number;
         getDifficulty(): $Difficulty;
         setGameTime(dayTime: number): void;
-        getHorizonHeight(level: $LevelHeightAccessor): number;
         constructor(difficulty: $Difficulty_, hardcore: boolean, isFlat: boolean);
-    }
-    export class $ClientChunkCache extends $ChunkSource implements $DebugChunkProviderAttachments {
-        handler$fhh000$asyncparticles$onLightUpdateWrap(layer: $LightLayer_, pos: $SectionPos, ci: $CallbackInfo): void;
-        sable$loadedChunks(): $Collection<any>;
-        updateViewRadius(viewDistance: number): void;
-        updateViewCenter(x: number, z: number): void;
-        drop(chunkPos: $ChunkPos): void;
-        replaceWithPacketData(x: number, z: number, buffer: $FriendlyByteBuf, tag: $CompoundTag_, consumer: $Consumer_<$ClientboundLevelChunkPacketData$BlockEntityTagOutput>): $LevelChunk;
-        replaceBiomes(x: number, z: number, buffer: $FriendlyByteBuf): void;
-        lightEngine: $LevelLightEngine;
-        level: $ClientLevel;
-        static LOGGER: $Logger;
-        storage: $ClientChunkCache$Storage;
-        constructor(level: $ClientLevel, viewDistance: number);
-    }
-    export class $ClientChunkCache$Storage implements $ClientChunkCacheStorageAccessor {
-        inRange(x: number, z: number): boolean;
-        replace(chunkIndex: number, chunk: $LevelChunk, replaceWith: $LevelChunk | null): $LevelChunk;
-        replace(chunkIndex: number, chunk: $LevelChunk | null): void;
-        getIndex(x: number, z: number): number;
-        getChunk(chunkIndex: number): $LevelChunk;
-        getChunks(): $AtomicReferenceArray<$LevelChunk>;
-        chunkRadius: number;
-        viewCenterZ: number;
-        chunks: $AtomicReferenceArray<$LevelChunk>;
-        chunkCount: number;
-        this$0: $ClientChunkCache;
-        viewCenterX: number;
-        constructor(chunkRadius: $ClientChunkCache, arg1: number);
+        get clearColorScale(): number;
+        get hardcore(): boolean;
+        get gameRules(): $GameRules;
+        get spawnPos(): $BlockPos;
+        get spawnAngle(): number;
+        get thundering(): boolean;
     }
     export class $PlayerInfo implements $NetworkPlayerInfoExt {
         getTeam(): $PlayerTeam;
@@ -678,12 +670,12 @@ declare module "@package/net/minecraft/client/multiplayer" {
         setTabListDisplayName(displayName: $Component_ | null): void;
         clearChatSession(enforcesSecureChat: boolean): void;
         setEssential$equippedOutfitsManager(equippedOutfitsManager: $EquippedOutfitsManager): void;
-        getGameMode(): $GameType;
-        getSkin(): $PlayerSkin;
         setGameMode(gameMode: $GameType_): void;
         getTabListDisplayName(): $Component;
         setChatSession(chatSession: $RemoteChatSession_): void;
         getChatSession(): $RemoteChatSession;
+        getGameMode(): $GameType;
+        getSkin(): $PlayerSkin;
         /**
          * Returns the GameProfile for the player represented by this NetworkPlayerInfo instance
          */
@@ -691,6 +683,10 @@ declare module "@package/net/minecraft/client/multiplayer" {
         getLatency(): number;
         setLatency(latency: number): void;
         constructor(profile: $GameProfile, enforeSecureChat: boolean);
+        get team(): $PlayerTeam;
+        get messageValidator(): $SignedMessageValidator;
+        get skin(): $PlayerSkin;
+        get profile(): $GameProfile;
     }
     export class $ProfileKeyPairManager {
         static create(userApiService: $UserApiService, user: $User, gameDirectory: $Path_): $ProfileKeyPairManager;
@@ -701,13 +697,13 @@ declare module "@package/net/minecraft/client/multiplayer" {
         prepareKeyPair(): $CompletableFuture<($ProfileKeyPair) | undefined>;
     }
     export class $SessionSearchTrees {
-        recipes(): $SearchTree<$RecipeCollection>;
-        creativeTagSearch(): $SearchTree<$ItemStack>;
-        creativeTagSearch(arg0: $SessionSearchTrees$Key): $SearchTree<$ItemStack>;
-        creativeNameSearch(): $SearchTree<$ItemStack>;
-        creativeNameSearch(arg0: $SessionSearchTrees$Key): $SearchTree<$ItemStack>;
         updateCreativeTooltips(arg0: $HolderLookup$Provider, arg1: $List_<$ItemStack_>, arg2: $SessionSearchTrees$Key): void;
         updateCreativeTooltips(registries: $HolderLookup$Provider, items: $List_<$ItemStack_>): void;
+        creativeTagSearch(arg0: $SessionSearchTrees$Key): $SearchTree<$ItemStack>;
+        creativeTagSearch(): $SearchTree<$ItemStack>;
+        creativeNameSearch(): $SearchTree<$ItemStack>;
+        creativeNameSearch(arg0: $SessionSearchTrees$Key): $SearchTree<$ItemStack>;
+        recipes(): $SearchTree<$RecipeCollection>;
         updateRecipes(recipeBook: $ClientRecipeBook, registries: $RegistryAccess$Frozen): void;
         rebuildAfterLanguageChange(): void;
         updateCreativeTags(items: $List_<$ItemStack_>): void;
@@ -725,8 +721,11 @@ declare module "@package/net/minecraft/client/multiplayer" {
         update(packet: $ClientboundUpdateAdvancementsPacket): void;
         setListener(listener: $ClientAdvancements$Listener | null): void;
         constructor(minecraft: $Minecraft, telemetryManager: $WorldSessionTelemetryManager);
+        get tree(): $AdvancementTree;
+        set listener(value: $ClientAdvancements$Listener | null);
     }
     export class $CommonListenerCookie extends $Record {
+        serverLinks(): $ServerLinks;
         localGameProfile(): $GameProfile;
         receivedRegistries(): $RegistryAccess$Frozen;
         chatState(): $ChatComponent$State;
@@ -739,10 +738,9 @@ declare module "@package/net/minecraft/client/multiplayer" {
         customReportDetails(): $Map<string, string>;
         connectionType(): $ConnectionType;
         serverData(): $ServerData;
-        enabledFeatures(): $FeatureFlagSet;
         telemetryManager(): $WorldSessionTelemetryManager;
+        enabledFeatures(): $FeatureFlagSet;
         serverBrand(): string;
-        serverLinks(): $ServerLinks;
         /**
          * @deprecated
          */
@@ -752,14 +750,15 @@ declare module "@package/net/minecraft/client/multiplayer" {
     /**
      * Values that may be interpreted as {@link $CommonListenerCookie}.
      */
-    export type $CommonListenerCookie_ = { localGameProfile?: $GameProfile, telemetryManager?: $WorldSessionTelemetryManager, receivedRegistries?: $RegistryAccess$Frozen, serverLinks?: $ServerLinks_, serverCookies?: $Map_<$ResourceLocation_, number[]>, chatState?: $ChatComponent$State, enabledFeatures?: $FeatureFlagSet, postDisconnectScreen?: $Screen, connectionType?: $ConnectionType_, serverBrand?: string, customReportDetails?: $Map_<string, string>, strictErrorHandling?: boolean, serverData?: $ServerData,  } | [localGameProfile?: $GameProfile, telemetryManager?: $WorldSessionTelemetryManager, receivedRegistries?: $RegistryAccess$Frozen, serverLinks?: $ServerLinks_, serverCookies?: $Map_<$ResourceLocation_, number[]>, chatState?: $ChatComponent$State, enabledFeatures?: $FeatureFlagSet, postDisconnectScreen?: $Screen, connectionType?: $ConnectionType_, serverBrand?: string, customReportDetails?: $Map_<string, string>, strictErrorHandling?: boolean, serverData?: $ServerData, ];
+    export type $CommonListenerCookie_ = { chatState?: $ChatComponent$State, serverCookies?: $Map_<$ResourceLocation_, number[]>, serverLinks?: $ServerLinks_, receivedRegistries?: $RegistryAccess$Frozen, telemetryManager?: $WorldSessionTelemetryManager, localGameProfile?: $GameProfile, serverData?: $ServerData, strictErrorHandling?: boolean, customReportDetails?: $Map_<string, string>, serverBrand?: string, connectionType?: $ConnectionType_, postDisconnectScreen?: $Screen, enabledFeatures?: $FeatureFlagSet,  } | [chatState?: $ChatComponent$State, serverCookies?: $Map_<$ResourceLocation_, number[]>, serverLinks?: $ServerLinks_, receivedRegistries?: $RegistryAccess$Frozen, telemetryManager?: $WorldSessionTelemetryManager, localGameProfile?: $GameProfile, serverData?: $ServerData, strictErrorHandling?: boolean, customReportDetails?: $Map_<string, string>, serverBrand?: string, connectionType?: $ConnectionType_, postDisconnectScreen?: $Screen, enabledFeatures?: $FeatureFlagSet, ];
     export class $ClientCommonPacketListenerImpl implements $ClientCommonPacketListener {
+        handleDisconnect(packet: $ClientboundDisconnectPacket_): void;
+        handleRequestCookie(packet: $ClientboundCookieRequestPacket_): void;
+        onDisconnect(details: $DisconnectionDetails_): void;
         onPacketError(packet: $Packet<any>, exception: $Exception): void;
         createDisconnectionInfo(reason: $Component_, error: $Throwable): $DisconnectionDetails;
         shouldHandleMessage(packet: $Packet<never>): boolean;
         fillListenerSpecificCrashDetails(crashReport: $CrashReport, category: $CrashReportCategory): void;
-        handleDisconnect(packet: $ClientboundDisconnectPacket_): void;
-        handleRequestCookie(packet: $ClientboundCookieRequestPacket_): void;
         handleCustomPayload(packet: $ClientboundCustomPayloadPacket_): void;
         handleCustomPayload(payload: $CustomPacketPayload_): void;
         handleKeepAlive(packet: $ClientboundKeepAlivePacket): void;
@@ -779,15 +778,14 @@ declare module "@package/net/minecraft/client/multiplayer" {
         getConnection(): $Connection;
         send(packet: $Packet<never>): void;
         serverBrand(): string;
-        onDisconnect(details: $DisconnectionDetails_): void;
         flow(): $PacketFlow;
         getMainThreadEventLoop(): $ReentrantBlockableEventLoop<never>;
         disconnect(arg0: $Component_): void;
         send(payload: $CustomPacketPayload_): void;
         fillCrashReport(arg0: $CrashReport): void;
-        hasChannel(arg0: $CustomPacketPayload$Type_<never>): boolean;
-        hasChannel(arg0: $CustomPacketPayload_): boolean;
         hasChannel(arg0: $ResourceLocation_): boolean;
+        hasChannel(arg0: $CustomPacketPayload_): boolean;
+        hasChannel(arg0: $CustomPacketPayload$Type_<never>): boolean;
         minecraft: $Minecraft;
         /**
          * @deprecated
@@ -803,19 +801,18 @@ declare module "@package/net/minecraft/client/multiplayer" {
         serverLinks: $ServerLinks;
         serverCookies: $Map<$ResourceLocation, number[]>;
         constructor(minecraft: $Minecraft, connection: $Connection, commonListenerCookie: $CommonListenerCookie_);
+        get mainThreadEventLoop(): $ReentrantBlockableEventLoop<never>;
     }
     export class $ClientSuggestionProvider implements $SharedSuggestionProvider, $FabricClientCommandSource, $VeilClientSuggestionProvider {
-        getAvailableSounds(): $Stream<$ResourceLocation>;
-        getRecipeNames(): $Stream<$ResourceLocation>;
-        getCustomTabSugggestions(): $Collection<string>;
+        veil$getPostPipelineNames(): $Stream<any>;
         getWorld(): $ClientLevel;
         sendFeedback(arg0: $Component_): void;
         sendError(arg0: $Component_): void;
-        veil$getPostPipelineNames(): $Stream<any>;
         completeCustomSuggestions(transaction: number, result: $Suggestions): void;
         modifyCustomCompletions(action: $ClientboundCustomChatCompletionsPacket$Action_, entries: $List_<string>): void;
-        hasPermission(level: number): boolean;
-        getPlayer(): $LocalPlayer;
+        getAvailableSounds(): $Stream<$ResourceLocation>;
+        getRecipeNames(): $Stream<$ResourceLocation>;
+        getCustomTabSugggestions(): $Collection<string>;
         getOnlinePlayerNames(): $Collection<string>;
         getSelectedEntities(): $Collection<string>;
         getRelevantCoordinates(): $Collection<$SharedSuggestionProvider$TextCoordinates>;
@@ -823,21 +820,49 @@ declare module "@package/net/minecraft/client/multiplayer" {
         customSuggestion(context: $CommandContext<never>): $CompletableFuture<$Suggestions>;
         getAllTeams(): $Collection<string>;
         suggestRegistryElements(resourceKey: $ResourceKey_<$Registry<never>>, registryKey: $SharedSuggestionProvider$ElementSuggestionType_, builder: $SuggestionsBuilder, context: $CommandContext<never>): $CompletableFuture<$Suggestions>;
+        getPlayer(): $LocalPlayer;
+        hasPermission(level: number): boolean;
         levels(): $Set<$ResourceKey<$Level>>;
-        enabledFeatures(): $FeatureFlagSet;
-        registryAccess(): $RegistryAccess;
         getClient(): $Minecraft;
+        registryAccess(): $RegistryAccess;
+        enabledFeatures(): $FeatureFlagSet;
         suggestRegistryElements(arg0: $Registry<never>, arg1: $SharedSuggestionProvider$ElementSuggestionType_, arg2: $SuggestionsBuilder): void;
         getMeta(arg0: string): $Object;
-        getPosition(): $Vec3;
         getEntity(): $Entity;
+        getPosition(): $Vec3;
         getRotation(): $Vec2;
         constructor(connection: $ClientPacketListener, minecraft: $Minecraft);
+        get world(): $ClientLevel;
+        get availableSounds(): $Stream<$ResourceLocation>;
+        get recipeNames(): $Stream<$ResourceLocation>;
+        get customTabSugggestions(): $Collection<string>;
+        get onlinePlayerNames(): $Collection<string>;
+        get selectedEntities(): $Collection<string>;
+        get relevantCoordinates(): $Collection<$SharedSuggestionProvider$TextCoordinates>;
+        get absoluteCoordinates(): $Collection<$SharedSuggestionProvider$TextCoordinates>;
+        get allTeams(): $Collection<string>;
+        get player(): $LocalPlayer;
+        get client(): $Minecraft;
+        get entity(): $Entity;
+        get position(): $Vec3;
+        get rotation(): $Vec2;
     }
     export class $MultiPlayerGameMode {
         handleInventoryMouseClick(containerId: number, slotId: number, mouseButton: number, clickType: $ClickType_, player: $Player): void;
         handleSlotStateChanged(slotId: number, containerId: number, newState: boolean): void;
         getPreviousPlayerMode(): $GameType;
+        createPlayer(level: $ClientLevel, statsManager: $StatsCounter, recipes: $ClientRecipeBook, wasShiftKeyDown: boolean, wasSprinting: boolean): $LocalPlayer;
+        createPlayer(level: $ClientLevel, statsManager: $StatsCounter, recipes: $ClientRecipeBook): $LocalPlayer;
+        /**
+         * Sets player capabilities depending on current gametype.
+         */
+        adjustPlayer(player: $Player): void;
+        /**
+         * Sets the game type for the player.
+         */
+        setLocalMode(type: $GameType_): void;
+        setLocalMode(localPlayerMode: $GameType_, previousLocalPlayerMode: $GameType_ | null): void;
+        handlePlaceRecipe(containerId: number, recipe: $RecipeHolder_<never>, shiftDown: boolean): void;
         /**
          * Returns `true` if player is in creative mode.
          */
@@ -846,9 +871,6 @@ declare module "@package/net/minecraft/client/multiplayer" {
          * Returns `true` if player is in creative mode.
          */
         hasExperience(): boolean;
-        startPrediction(level: $ClientLevel, action: $PredictiveAction_): void;
-        sameDestroyTarget(pos: $BlockPos_): boolean;
-        getDestroyStage(): number;
         /**
          * GuiEnchantment uses this during multiplayer to tell PlayerControllerMP to send a packet indicating the enchantment action the player has taken.
          */
@@ -857,18 +879,9 @@ declare module "@package/net/minecraft/client/multiplayer" {
          * Sends a Packet107 to the server to drop the item on the ground
          */
         handleCreativeModeItemDrop(stack: $ItemStack_): void;
-        handlePlaceRecipe(containerId: number, recipe: $RecipeHolder_<never>, shiftDown: boolean): void;
-        createPlayer(level: $ClientLevel, statsManager: $StatsCounter, recipes: $ClientRecipeBook, wasShiftKeyDown: boolean, wasSprinting: boolean): $LocalPlayer;
-        createPlayer(level: $ClientLevel, statsManager: $StatsCounter, recipes: $ClientRecipeBook): $LocalPlayer;
-        /**
-         * Sets player capabilities depending on current gametype.
-         */
-        adjustPlayer(player: $Player): void;
-        setLocalMode(localPlayerMode: $GameType_, previousLocalPlayerMode: $GameType_ | null): void;
-        /**
-         * Sets the game type for the player.
-         */
-        setLocalMode(type: $GameType_): void;
+        startPrediction(level: $ClientLevel, action: $PredictiveAction_): void;
+        sameDestroyTarget(pos: $BlockPos_): boolean;
+        getDestroyStage(): number;
         /**
          * Returns `true` if player is in creative mode.
          */
@@ -877,6 +890,12 @@ declare module "@package/net/minecraft/client/multiplayer" {
          * Syncs the current player item with the server
          */
         tick(): void;
+        destroyBlock(pos: $BlockPos_): boolean;
+        /**
+         * Used in PlayerControllerMP to update the server with an ItemStack in a slot.
+         */
+        handleCreativeModeItemAdd(stack: $ItemStack_, slotId: number): void;
+        handlePickItem(index: number): void;
         continueDestroyBlock(posBlock: $BlockPos_, directionFacing: $Direction_): boolean;
         /**
          * Syncs the current player item with the server
@@ -917,19 +936,19 @@ declare module "@package/net/minecraft/client/multiplayer" {
          * Sets player capabilities depending on current gametype.
          */
         releaseUsingItem(player: $Player): void;
-        /**
-         * Used in PlayerControllerMP to update the server with an ItemStack in a slot.
-         */
-        handleCreativeModeItemAdd(stack: $ItemStack_, slotId: number): void;
-        handlePickItem(index: number): void;
         getPlayerMode(): $GameType;
-        destroyBlock(pos: $BlockPos_): boolean;
         destroyBlockPos: $BlockPos;
         destroyDelay: number;
         static $assertionsDisabled: boolean;
         connection: $ClientPacketListener;
         destroyProgress: number;
         constructor(minecraft: $Minecraft, connection: $ClientPacketListener);
+        get previousPlayerMode(): $GameType;
+        get destroyStage(): number;
+        get alwaysFlying(): boolean;
+        get destroying(): boolean;
+        get serverControlledInventory(): boolean;
+        get playerMode(): $GameType;
     }
     export class $ServerData$Type extends $Enum<$ServerData$Type> {
         static values(): $ServerData$Type[];

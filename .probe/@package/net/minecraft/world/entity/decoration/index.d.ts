@@ -111,8 +111,8 @@ declare module "@package/net/minecraft/world/entity/decoration" {
         wasTouchingWater: boolean;
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
-        constructor(arg0: $EntityType_<$ItemFrame>, arg1: $Level_);
         constructor(arg0: $Level_, arg1: $BlockPos_, arg2: $Direction_);
+        constructor(arg0: $EntityType_<$ItemFrame>, arg1: $Level_);
     }
     export class $HangingEntity extends $BlockAttachedEntity {
         /**
@@ -215,7 +215,7 @@ declare module "@package/net/minecraft/world/entity/decoration" {
     /**
      * Values that may be interpreted as {@link $PaintingVariant}.
      */
-    export type $PaintingVariant_ = RegistryTypes.PaintingVariant | { width?: number, height?: number, assetId?: $ResourceLocation_,  } | [width?: number, height?: number, assetId?: $ResourceLocation_, ];
+    export type $PaintingVariant_ = RegistryTypes.PaintingVariant | { height?: number, width?: number, assetId?: $ResourceLocation_,  } | [height?: number, width?: number, assetId?: $ResourceLocation_, ];
     export class $ArmorStand extends $LivingEntity {
         /**
          * Returns false if the entity is an armor stand. Returns `true` for all other entity living bases.
@@ -242,12 +242,12 @@ declare module "@package/net/minecraft/world/entity/decoration" {
         /**
          * Returns false if the entity is an armor stand. Returns `true` for all other entity living bases.
          */
-        isSmall(): boolean;
+        isMarker(): boolean;
         static createAttributes(): $AttributeSupplier$Builder;
         /**
          * Returns false if the entity is an armor stand. Returns `true` for all other entity living bases.
          */
-        isMarker(): boolean;
+        isSmall(): boolean;
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
         lastHurtByPlayerTime: number;
         autoSpinAttackItemStack: $ItemStack;
@@ -408,29 +408,31 @@ declare module "@package/net/minecraft/world/entity/decoration" {
         static BASE_SAFE_FALL_DISTANCE: number;
         constructor(entityType: $EntityType_<$ArmorStand>, level: $Level_);
         constructor(level: $Level_, x: number, arg2: number, y: number);
+        get marker(): boolean;
+        get small(): boolean;
     }
     export class $ItemFrame extends $HangingEntity implements $ItemFrameEntityKJS, $ItemFrameAccessor {
         setRotation(rotation: number): void;
         dropItem(entity: $Entity | null, dropSelf: boolean): void;
+        setItem(stack: $ItemStack_, updateNeighbours: boolean): void;
+        setItem(item: $ItemStack_): void;
+        /**
+         * Return the rotation of the item currently on this frame.
+         */
+        getAnalogOutput(): number;
         getPlaceSound(): $SoundEvent;
         getBreakSound(): $SoundEvent;
+        getRemoveItemSound(): $SoundEvent;
+        getAddItemSound(): $SoundEvent;
+        getRotateItemSound(): $SoundEvent;
+        getFrameItemStack(): $ItemStack;
+        modifyReturnValue$djm000$fastitemframes$survives(survives: boolean): boolean;
         getFramedMapId(stack: $ItemStack_): $MapId;
         /**
          * Checks to make sure the `HangingEntity` can be placed there.
          */
         hasFramedMap(): boolean;
         modifyReturnValue$djm001$fastitemframes$getFrameItemStack(itemStack: $ItemStack_): $ItemStack;
-        getAddItemSound(): $SoundEvent;
-        getRotateItemSound(): $SoundEvent;
-        getFrameItemStack(): $ItemStack;
-        modifyReturnValue$djm000$fastitemframes$survives(survives: boolean): boolean;
-        getRemoveItemSound(): $SoundEvent;
-        setItem(item: $ItemStack_): void;
-        setItem(stack: $ItemStack_, updateNeighbours: boolean): void;
-        /**
-         * Return the rotation of the item currently on this frame.
-         */
-        getAnalogOutput(): number;
         getItem(): $ItemStack;
         /**
          * Return the rotation of the item currently on this frame.
@@ -512,16 +514,23 @@ declare module "@package/net/minecraft/world/entity/decoration" {
         wasTouchingWater: boolean;
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
-        constructor(level: $Level_, pos: $BlockPos_, facingDirection: $Direction_);
         constructor(entityType: $EntityType_<$ItemFrame>, level: $Level_, pos: $BlockPos_, direction: $Direction_);
+        constructor(level: $Level_, pos: $BlockPos_, facingDirection: $Direction_);
         constructor(entityType: $EntityType_<$ItemFrame>, level: $Level_);
+        get analogOutput(): number;
+        get placeSound(): $SoundEvent;
+        get breakSound(): $SoundEvent;
+        get removeItemSound(): $SoundEvent;
+        get addItemSound(): $SoundEvent;
+        get rotateItemSound(): $SoundEvent;
+        get frameItemStack(): $ItemStack;
     }
     export class $LeashFenceKnotEntity extends $BlockAttachedEntity {
+        static getOrCreateKnot(level: $Level_, pos: $BlockPos_): $LeashFenceKnotEntity;
         /**
          * Updates the entity bounding box based on current facing
          */
         playPlacementSound(): void;
-        static getOrCreateKnot(level: $Level_, pos: $BlockPos_): $LeashFenceKnotEntity;
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
         firstTick: boolean;
         wasEyeInWater: boolean;
@@ -598,9 +607,9 @@ declare module "@package/net/minecraft/world/entity/decoration" {
         constructor(level: $Level_, pos: $BlockPos_);
     }
     export class $Painting extends $HangingEntity implements $VariantHolder<$Holder<$PaintingVariant>> {
+        static create(level: $Level_, pos: $BlockPos_, direction: $Direction_): ($Painting) | undefined;
         setVariant(variant: $Holder_<$PaintingVariant>): void;
         getVariant(): $Holder<$PaintingVariant>;
-        static create(level: $Level_, pos: $BlockPos_, direction: $Direction_): ($Painting) | undefined;
         serializeNBT(arg0: $HolderLookup$Provider): $Holder<$PaintingVariant>;
         firstTick: boolean;
         wasEyeInWater: boolean;
@@ -677,21 +686,21 @@ declare module "@package/net/minecraft/world/entity/decoration" {
         wasTouchingWater: boolean;
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
-        constructor(level: $Level_, pos: $BlockPos_, direction: $Direction_, variant: $Holder_<$PaintingVariant>);
         constructor(entityType: $EntityType_<$Painting>, level: $Level_);
+        constructor(level: $Level_, pos: $BlockPos_, direction: $Direction_, variant: $Holder_<$PaintingVariant>);
     }
     export interface $PaintingVariant extends RegistryMarked<RegistryTypes.PaintingVariantTag, RegistryTypes.PaintingVariant> {}
     export class $BlockAttachedEntity extends $Entity {
-        /**
-         * Returns `true` if other Entities should be prevented from moving through this Entity.
-         */
-        survives(): boolean;
         dropItem(entity: $Entity | null): void;
         /**
          * Called to update the entity's position/logic.
          */
         recalculateBoundingBox(): void;
         handler$zzf000$openpartiesandclaims$onMove(arg0: $MoverType_, arg1: $Vec3_, arg2: $CallbackInfo): void;
+        /**
+         * Returns `true` if other Entities should be prevented from moving through this Entity.
+         */
+        survives(): boolean;
         getPos(): $BlockPos;
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
         firstTick: boolean;

@@ -16,16 +16,19 @@ declare module "@package/com/simibubi/create/content/schematics/requirement" {
         getRequiredItems(): $List<$ItemRequirement$StackRequirement>;
         union(arg0: $ItemRequirement): $ItemRequirement;
         isEmpty(): boolean;
-        static of(arg0: $BlockState_, arg1: $BlockEntity): $ItemRequirement;
         static of(arg0: $Entity): $ItemRequirement;
+        static of(arg0: $BlockState_, arg1: $BlockEntity): $ItemRequirement;
         isInvalid(): boolean;
         static NONE: $ItemRequirement;
         static INVALID: $ItemRequirement;
         constructor(arg0: $List_<$ItemRequirement$StackRequirement>);
-        constructor(arg0: $ItemRequirement$ItemUseType_, arg1: $Item_);
-        constructor(arg0: $ItemRequirement$StackRequirement);
-        constructor(arg0: $ItemRequirement$ItemUseType_, arg1: $List_<$ItemStack_>);
         constructor(arg0: $ItemRequirement$ItemUseType_, arg1: $ItemStack_);
+        constructor(arg0: $ItemRequirement$ItemUseType_, arg1: $List_<$ItemStack_>);
+        constructor(arg0: $ItemRequirement$StackRequirement);
+        constructor(arg0: $ItemRequirement$ItemUseType_, arg1: $Item_);
+        get requiredItems(): $List<$ItemRequirement$StackRequirement>;
+        get empty(): boolean;
+        get invalid(): boolean;
     }
     export class $ItemRequirement$ItemUseType extends $Enum<$ItemRequirement$ItemUseType> {
         static values(): $ItemRequirement$ItemUseType[];

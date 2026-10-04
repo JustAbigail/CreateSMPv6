@@ -5,7 +5,7 @@ import { $SignalEdgeGroup, $SignalBoundary, $TrackEdgePoint } from "@package/com
 import { $FluidType } from "@package/net/neoforged/neoforge/fluids";
 import { $CallbackInfo, $CallbackInfoReturnable } from "@package/org/spongepowered/asm/mixin/injection/callback";
 import { $ScheduleRuntime } from "@package/com/simibubi/create/content/trains/schedule";
-import { $Queue, $UUID_, $ArrayList, $Map, $Map$Entry, $Set, $UUID, $List, $Map_, $List_, $PriorityQueue, $Optional } from "@package/java/util";
+import { $Queue, $UUID_, $ArrayList, $Map, $Map$Entry, $Set, $UUID, $List, $Map_, $List_, $Optional, $PriorityQueue } from "@package/java/util";
 import { $GlobalStation } from "@package/com/simibubi/create/content/trains/station";
 import { $WeakReference } from "@package/java/lang/ref";
 import { $RandomSource } from "@package/net/minecraft/util";
@@ -41,8 +41,8 @@ import { $StreamCodec } from "@package/net/minecraft/network/codec";
 
 declare module "@package/com/simibubi/create/content/trains/entity" {
     export class $CarriageContraptionEntity extends $OrientedContraptionEntity {
-        hasSchedule(): boolean;
         getCarriage(): $Carriage;
+        hasSchedule(): boolean;
         syncCarriage(): void;
         setServerSidePrevPosition(): void;
         isLocalCoordWithin(arg0: $BlockPos_, arg1: number, arg2: number): boolean;
@@ -138,6 +138,7 @@ declare module "@package/com/simibubi/create/content/trains/entity" {
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
         constructor(arg0: $EntityType_<never>, arg1: $Level_);
+        get carriageData(): $CarriageSyncData;
     }
     export class $Navigation$StationTest {
     }
@@ -195,16 +196,19 @@ declare module "@package/com/simibubi/create/content/trains/entity" {
         entity: $AbstractContraptionEntity;
         constructor(arg0: $Direction_);
         constructor();
+        set soundQueueOffset(value: number);
+        get secondBogeyPos(): $BlockPos;
+        get assemblyDirection(): $Direction;
     }
     export class $CarriageBogey {
-        getStress(): number;
         isUpsideDown(): boolean;
         updateAngles(arg0: $CarriageContraptionEntity, arg1: number): void;
         getAnchorPosition(arg0: boolean): $Vec3;
         getAnchorPosition(): $Vec3;
         updateCouplingAnchor(arg0: $Vec3_, arg1: number, arg2: number, arg3: number, arg4: number, arg5: boolean): void;
-        trailing(): $TravellingPoint;
+        getStress(): number;
         getDimension(): $ResourceKey<$Level>;
+        trailing(): $TravellingPoint;
         write(arg0: $DimensionPalette): $CompoundTag;
         static read(arg0: $CompoundTag_, arg1: $TrackGraph, arg2: $DimensionPalette): $CarriageBogey;
         getSize(): $BogeySizes$BogeySize;
@@ -215,8 +219,13 @@ declare module "@package/com/simibubi/create/content/trains/entity" {
         static UPSIDE_DOWN_KEY: string;
         couplingAnchors: $Couple<$Vec3>;
         static STREAM_CODEC: $StreamCodec<$RegistryFriendlyByteBuf, $CarriageBogey>;
-        constructor(arg0: $AbstractBogeyBlock<never>, arg1: boolean, arg2: $CompoundTag_, arg3: $TravellingPoint, arg4: $TravellingPoint);
         constructor(arg0: $AbstractBogeyBlock<never>, arg1: boolean, arg2: $CompoundTag_);
+        constructor(arg0: $AbstractBogeyBlock<never>, arg1: boolean, arg2: $CompoundTag_, arg3: $TravellingPoint, arg4: $TravellingPoint);
+        get upsideDown(): boolean;
+        get stress(): number;
+        get dimension(): $ResourceKey<$Level>;
+        get size(): $BogeySizes$BogeySize;
+        get style(): $BogeyStyle;
     }
     export class $TravellingPoint$IPortalListener {
     }
@@ -249,18 +258,15 @@ declare module "@package/com/simibubi/create/content/trains/entity" {
         constructor(arg0: $Carriage);
     }
     export class $Train {
+        canDisassemble(): boolean;
         maxSpeed(): number;
         acceleration(): number;
-        countPlayerPassengers(): number;
-        setCurrentStation(arg0: $GlobalStation): void;
-        collectInitiallyOccupiedSignalBlocks(): void;
-        canDisassemble(): boolean;
         cancelStall(): void;
+        shouldCarriageSyncThisTick(arg0: number, arg1: number): boolean;
         burnFuel(): void;
         getCurrentStation(): $GlobalStation;
         maxTurnSpeed(): number;
         approachTargetSpeed(arg0: number): void;
-        shouldCarriageSyncThisTick(arg0: number, arg1: number): boolean;
         hasForwardConductor(): boolean;
         hasBackwardConductor(): boolean;
         reattachToTracks(arg0: $Level_): void;
@@ -282,13 +288,16 @@ declare module "@package/com/simibubi/create/content/trains/entity" {
         getPresentDimensions(): $List<$ResourceKey<$Level>>;
         getPositionInDimension(arg0: $ResourceKey_<$Level>): ($BlockPos) | undefined;
         earlyTick(arg0: $Level_): void;
+        setCurrentStation(arg0: $GlobalStation): void;
+        collectInitiallyOccupiedSignalBlocks(): void;
+        tick(arg0: $Level_): void;
         write(arg0: $DimensionPalette, arg1: $HolderLookup$Provider): $CompoundTag;
         static read(arg0: $CompoundTag_, arg1: $HolderLookup$Provider, arg2: $Map_<$UUID_, $TrackGraph>, arg3: $DimensionPalette): $Train;
         self(): $Train;
         getOwner(arg0: $Level_): $LivingEntity;
-        tick(arg0: $Level_): void;
         crash(): void;
         disassemble(arg0: $Direction_, arg1: $BlockPos_): boolean;
+        countPlayerPassengers(): number;
         getTotalLength(): number;
         throttle: number;
         lowHonk: boolean;
@@ -329,6 +338,10 @@ declare module "@package/com/simibubi/create/content/trains/entity" {
         fuelTicks: number;
         constructor(arg0: $UUID_, arg1: $UUID_, arg2: $TrackGraph, arg3: $List_<$Carriage>, arg4: $List_<number>, arg5: boolean, arg6: $Component_, arg7: $TrainIconType, arg8: number);
         constructor(arg0: $UUID_, arg1: $UUID_, arg2: $TrackGraph, arg3: $List_<$Carriage>, arg4: $List_<number>, arg5: boolean, arg6: number);
+        get endpointEdges(): $Couple<$Couple<$TrackNode>>;
+        get navigationPenalty(): number;
+        get presentDimensions(): $List<$ResourceKey<$Level>>;
+        get totalLength(): number;
     }
     export class $TrainIconType {
         getIconOffset(arg0: number): number;
@@ -343,6 +356,8 @@ declare module "@package/com/simibubi/create/content/trains/entity" {
         static STREAM_CODEC: $StreamCodec<$ByteBuf, $TrainIconType>;
         static REGISTRY: $Map<$ResourceLocation, $TrainIconType>;
         constructor(arg0: $ResourceLocation_, arg1: $ResourceLocation_, arg2: number, arg3: number);
+        static get default(): $TrainIconType;
+        get id(): $ResourceLocation;
     }
     export class $TrainStatus implements $TrainStatusAccessor {
         displayInformation(arg0: string, arg1: boolean, ...arg2: $Object[]): void;
@@ -364,9 +379,9 @@ declare module "@package/com/simibubi/create/content/trains/entity" {
         tick(arg0: $Level_): void;
         crash(): void;
         addMessage(arg0: $TrainStatus$StatusMessage_): void;
-        crn$track(): boolean;
         crn$navigation(): boolean;
         crn$conductor(): boolean;
+        crn$track(): boolean;
         navigation: boolean;
         track: boolean;
         conductor: boolean;
@@ -374,19 +389,18 @@ declare module "@package/com/simibubi/create/content/trains/entity" {
     }
     export class $Carriage {
         travel(arg0: $Level_, arg1: $TrackGraph, arg2: number, arg3: $TravellingPoint, arg4: $TravellingPoint, arg5: number): number;
-        setContraption(arg0: $Level_, arg1: $CarriageContraption): void;
+        anyAvailableEntity(): $CarriageContraptionEntity;
         isOnIncompatibleTrack(): boolean;
         getLeadingPoint(): $TravellingPoint;
         getTrailingPoint(): $TravellingPoint;
         leadingBogey(): $CarriageBogey;
         trailingBogey(): $CarriageBogey;
-        anyAvailableEntity(): $CarriageContraptionEntity;
-        updateContraptionAnchors(): void;
-        alignEntity(arg0: $Level_): void;
-        isOnTwoBogeys(): boolean;
         forEachPresentEntity(arg0: $Consumer_<$CarriageContraptionEntity>): void;
         getDimensional(arg0: $Level_): $Carriage$DimensionalCarriageEntity;
         getDimensional(arg0: $ResourceKey_<$Level>): $Carriage$DimensionalCarriageEntity;
+        updateContraptionAnchors(): void;
+        alignEntity(arg0: $Level_): void;
+        isOnTwoBogeys(): boolean;
         updateConductors(): void;
         getDimensionalIfPresent(arg0: $ResourceKey_<$Level>): $Carriage$DimensionalCarriageEntity;
         getAnchorDiff(): number;
@@ -396,6 +410,7 @@ declare module "@package/com/simibubi/create/content/trains/entity" {
         getPositionInDimension(arg0: $ResourceKey_<$Level>): ($BlockPos) | undefined;
         manageEntities(arg0: $Level_): void;
         setTrain(arg0: $Train): void;
+        setContraption(arg0: $Level_, arg1: $CarriageContraption): void;
         write(arg0: $DimensionPalette, arg1: $HolderLookup$Provider): $CompoundTag;
         static read(arg0: $CompoundTag_, arg1: $HolderLookup$Provider, arg2: $TrackGraph, arg3: $DimensionPalette): $Carriage;
         presentConductors: $Couple<boolean>;
@@ -409,6 +424,12 @@ declare module "@package/com/simibubi/create/content/trains/entity" {
         static STREAM_CODEC: $StreamCodec<$RegistryFriendlyByteBuf, $Carriage>;
         train: $Train;
         constructor(arg0: $CarriageBogey, arg1: $CarriageBogey, arg2: number);
+        get onIncompatibleTrack(): boolean;
+        get leadingPoint(): $TravellingPoint;
+        get trailingPoint(): $TravellingPoint;
+        get onTwoBogeys(): boolean;
+        get anchorDiff(): number;
+        get presentDimensions(): $List<$ResourceKey<$Level>>;
     }
     export class $TravellingPoint$ITurnListener {
     }
@@ -420,15 +441,15 @@ declare module "@package/com/simibubi/create/content/trains/entity" {
     export type $TravellingPoint$ITurnListener_ = (() => void);
     export class $TravellingPoint {
         travel(arg0: $TrackGraph, arg1: number, arg2: $TravellingPoint$ITrackSelector_): number;
-        travel(arg0: $TrackGraph, arg1: number, arg2: $TravellingPoint$ITrackSelector_, arg3: $TravellingPoint$IEdgePointListener_): number;
-        travel(arg0: $TrackGraph, arg1: number, arg2: $TravellingPoint$ITrackSelector_, arg3: $TravellingPoint$IEdgePointListener_, arg4: $TravellingPoint$ITurnListener_): number;
         travel(arg0: $TrackGraph, arg1: number, arg2: $TravellingPoint$ITrackSelector_, arg3: $TravellingPoint$IEdgePointListener_, arg4: $TravellingPoint$ITurnListener_, arg5: $TravellingPoint$IPortalListener_): number;
+        travel(arg0: $TrackGraph, arg1: number, arg2: $TravellingPoint$ITrackSelector_, arg3: $TravellingPoint$IEdgePointListener_, arg4: $TravellingPoint$ITurnListener_): number;
+        travel(arg0: $TrackGraph, arg1: number, arg2: $TravellingPoint$ITrackSelector_, arg3: $TravellingPoint$IEdgePointListener_): number;
+        steer(arg0: $TravellingPoint$SteerDirection_, arg1: $Vec3_): $TravellingPoint$ITrackSelector;
         ignoreEdgePoints(): $TravellingPoint$IEdgePointListener;
         ignoreTurns(): $TravellingPoint$ITurnListener;
         ignorePortals(): $TravellingPoint$IPortalListener;
         getPositionWithOffset(arg0: $TrackGraph, arg1: number, arg2: boolean): $Vec3;
         migrateTo(arg0: $List_<$TrackGraphLocation>): void;
-        steer(arg0: $TravellingPoint$SteerDirection_, arg1: $Vec3_): $TravellingPoint$ITrackSelector;
         getPosition(arg0: $TrackGraph, arg1: boolean): $Vec3;
         getPosition(arg0: $TrackGraph): $Vec3;
         reverse(arg0: $TrackGraph): void;
@@ -443,11 +464,10 @@ declare module "@package/com/simibubi/create/content/trains/entity" {
         position: number;
         node1: $TrackNode;
         upsideDown: boolean;
-        constructor();
         constructor(arg0: $TrackNode, arg1: $TrackNode, arg2: $TrackEdge, arg3: number, arg4: boolean);
+        constructor();
     }
     export class $Navigation implements $INavigationExtension {
-        handler$bnk000$createrailwaysnavigator$selectDirection(destinations: $ArrayList<any>, maxCost: number, cir: $CallbackInfoReturnable<any>, graph: $TrackGraph, results: $Couple<any>): void;
         handler$bnk000$createrailwaysnavigator$onStartSearch(maxDistance: number, maxCosts: number, forward: boolean, destinations: $ArrayList<any>, stationTest: $Navigation$StationTest_, ci: $CallbackInfo): void;
         redirect$bnk000$createrailwaysnavigator$onGetPenaltyByEdge(map: $Map_<any, any>, edge: $Object, defaultValue: $Object): $Object;
         redirect$bnk000$createrailwaysnavigator$onForceRed(signal: $SignalBoundary, node: $TrackNode): boolean;
@@ -460,21 +480,22 @@ declare module "@package/com/simibubi/create/content/trains/entity" {
         handler$bnk001$createrailwaysnavigator$onTick(level: $Level_, ci: $CallbackInfo): void;
         handler$bnk000$createrailwaysnavigator$onStartNavigation(a: $Object, maxCost: number, cir: $CallbackInfoReturnable<any>): void;
         handler$bnk000$createrailwaysnavigator$onEndNavigation(a: $Object, maxCost: number, cir: $CallbackInfoReturnable<any>): void;
+        handler$bnk000$createrailwaysnavigator$selectDirection(destinations: $ArrayList<any>, maxCost: number, cir: $CallbackInfoReturnable<any>, graph: $TrackGraph, results: $Couple<any>): void;
         controlSignalScout(): $TravellingPoint$ITrackSelector;
         cancelNavigation(): void;
         findNearestApproachable(arg0: boolean): $GlobalStation;
-        findPathTo(arg0: $ArrayList<$GlobalStation>, arg1: number): $DiscoveredPath;
         findPathTo(arg0: $GlobalStation, arg1: number): $DiscoveredPath;
+        findPathTo(arg0: $ArrayList<$GlobalStation>, arg1: number): $DiscoveredPath;
         startNavigation(arg0: $DiscoveredPath): number;
         getPenaltiesByDirection(): $Optional<any>;
         addDelayedWaitCondition(pair: $Pair$1<any, any>): void;
         control(arg0: $TravellingPoint): $TravellingPoint$ITrackSelector;
+        tick(arg0: $Level_): void;
         write(arg0: $DimensionPalette): $CompoundTag;
         read(arg0: $CompoundTag_, arg1: $TrackGraph, arg2: $DimensionPalette): void;
         isActive(): boolean;
         search(arg0: number, arg1: boolean, arg2: $ArrayList<$GlobalStation>, arg3: $Navigation$StationTest_): void;
         search(arg0: number, arg1: number, arg2: boolean, arg3: $ArrayList<$GlobalStation>, arg4: $Navigation$StationTest_): void;
-        tick(arg0: $Level_): void;
         distanceToDestination: number;
         forward: boolean;
         destination: $GlobalStation;
@@ -489,6 +510,9 @@ declare module "@package/com/simibubi/create/content/trains/entity" {
         train: $Train;
         currentReasons: $PenaltyResult;
         constructor(arg0: $Train);
+        get delayedWaitConditionPending(): boolean;
+        get penaltiesByDirection(): $Optional<any>;
+        get active(): boolean;
     }
     export class $TravellingPoint$ITrackSelector {
     }

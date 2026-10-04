@@ -8,8 +8,8 @@ import { $StreamCodec } from "@package/net/minecraft/network/codec";
 declare module "@package/net/liukrast/deployer/lib/logistics/stockTicker" {
     export class $GenericOrderContained<V> extends $Record {
         orderedStacks(): $GenericOrder<V>;
-        static fromOrderCodec<V>(arg0: $Codec<$GenericOrder_<V>>, arg1: $Codec<V>, arg2: $Hash$Strategy<V>): $Codec<$GenericOrderContained<V>>;
         static fromOrderStreamCodec<V>(arg0: $StreamCodec<$RegistryFriendlyByteBuf, $GenericOrder_<V>>): $StreamCodec<$RegistryFriendlyByteBuf, $GenericOrderContained<V>>;
+        static fromOrderCodec<V>(arg0: $Codec<$GenericOrder_<V>>, arg1: $Codec<V>, arg2: $Hash$Strategy<V>): $Codec<$GenericOrderContained<V>>;
         isEmpty(): boolean;
         static empty<V>(): $GenericOrderContained<V>;
         static simple<V>(arg0: $List_<V>, arg1: $Hash$Strategy<V>): $GenericOrderContained<V>;

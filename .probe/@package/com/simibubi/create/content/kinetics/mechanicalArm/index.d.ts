@@ -17,10 +17,10 @@ import { $BlockEntityType, $BlockEntityType_, $BlockEntity } from "@package/net/
 
 declare module "@package/com/simibubi/create/content/kinetics/mechanicalArm" {
     export class $ArmBlockEntity extends $KineticBlockEntity implements $TransformableBlockEntity {
-        handler$zcg000$openpartiesandclaims$onSearchForItem(arg0: $CallbackInfo): void;
-        writeInteractionPoints(arg0: $CompoundTag_): void;
-        handler$zcg000$openpartiesandclaims$onSearchForDestination(arg0: $CallbackInfo): void;
         redstoneUpdate(): void;
+        handler$zcg000$openpartiesandclaims$onSearchForItem(arg0: $CallbackInfo): void;
+        handler$zcg000$openpartiesandclaims$onSearchForDestination(arg0: $CallbackInfo): void;
+        writeInteractionPoints(arg0: $CompoundTag_): void;
         static getRange(): number;
         transform(arg0: $BlockEntity, arg1: $StructureTransform): void;
         write(arg0: $CompoundTag_, arg1: $HolderLookup$Provider, arg2: boolean): void;
@@ -38,6 +38,7 @@ declare module "@package/com/simibubi/create/content/kinetics/mechanicalArm" {
         preventSpeedUpdate: number;
         network: number;
         constructor(arg0: $BlockEntityType_<never>, arg1: $BlockPos_, arg2: $BlockState_);
+        static get range(): number;
     }
     export class $ArmInteractionPoint$Mode extends $Enum<$ArmInteractionPoint$Mode> {
         getTranslationKey(): string;
@@ -46,6 +47,8 @@ declare module "@package/com/simibubi/create/content/kinetics/mechanicalArm" {
         getColor(): number;
         static TAKE: $ArmInteractionPoint$Mode;
         static DEPOSIT: $ArmInteractionPoint$Mode;
+        get translationKey(): string;
+        get color(): number;
     }
     /**
      * Values that may be interpreted as {@link $ArmInteractionPoint$Mode}.
@@ -59,8 +62,8 @@ declare module "@package/com/simibubi/create/content/kinetics/mechanicalArm" {
         static transformPos(arg0: $CompoundTag_, arg1: $StructureTransform): void;
         xaero_OPAC_getPos(): $BlockPos;
         static isInteractable(arg0: $Level_, arg1: $BlockPos_, arg2: $BlockState_): boolean;
-        keepAlive(): void;
         getMode(): $ArmInteractionPoint$Mode;
+        keepAlive(): void;
         getLevel(): $Level;
         setLevel(arg0: $Level_): void;
         isValid(): boolean;
@@ -73,19 +76,24 @@ declare module "@package/com/simibubi/create/content/kinetics/mechanicalArm" {
         serialize(arg0: $BlockPos_): $CompoundTag;
         getPos(): $BlockPos;
         constructor(arg0: $ArmInteractionPointType_, arg1: $Level_, arg2: $BlockPos_, arg3: $BlockState_);
+        get mode(): $ArmInteractionPoint$Mode;
+        get valid(): boolean;
+        get type(): $ArmInteractionPointType;
+        get pos(): $BlockPos;
     }
     export class $ArmAngleTarget {
         constructor(arg0: $BlockPos_, arg1: $Vec3_, arg2: $Direction_, arg3: boolean);
     }
     export interface $ArmInteractionPointType extends RegistryMarked<RegistryTypes.CreateArmInteractionPointTypeTag, RegistryTypes.CreateArmInteractionPointType> {}
     export class $ArmInteractionPointType {
+        canCreatePoint(arg0: $Level_, arg1: $BlockPos_, arg2: $BlockState_): boolean;
         static getPrimaryType(arg0: $Level_, arg1: $BlockPos_, arg2: $BlockState_): $ArmInteractionPointType;
         createPoint(arg0: $Level_, arg1: $BlockPos_, arg2: $BlockState_): $ArmInteractionPoint;
-        canCreatePoint(arg0: $Level_, arg1: $BlockPos_, arg2: $BlockState_): boolean;
         static init(): void;
         getPriority(): number;
         static SORTED_TYPES_VIEW: $List<$ArmInteractionPointType>;
         constructor();
+        get priority(): number;
     }
     /**
      * Values that may be interpreted as {@link $ArmInteractionPointType}.

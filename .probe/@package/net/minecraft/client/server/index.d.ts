@@ -8,6 +8,7 @@ import { $WorldData, $PlayerDataStorage, $LevelStorageSource$LevelStorageAccess 
 import { $ServerSubLevel } from "@package/dev/ryanhcode/sable/sublevel";
 import { $Queue, $UUID_ } from "@package/java/util";
 import { $McIntegratedServerManager } from "@package/gg/essential/sps";
+import { $LocalSampleLogger } from "@package/net/minecraft/util/debugchart";
 import { $ChunkProgressListenerFactory_ } from "@package/net/minecraft/server/level/progress";
 import { $PackRepository } from "@package/net/minecraft/server/packs/repository";
 import { $Proxy } from "@package/java/net";
@@ -19,7 +20,6 @@ import { $SableToastableServer } from "@package/dev/ryanhcode/sable/mixinterface
 
 declare module "@package/net/minecraft/client/server" {
     export class $IntegratedServer extends $MinecraftServer implements $IDeferrableIntegratedServer, $SableToastableServer, $IntegratedServerExt {
-        setUUID(uuid: $UUID_): void;
         /**
          * Saves all necessary data as preparation for stopping the server.
          */
@@ -28,11 +28,13 @@ declare module "@package/net/minecraft/client/server" {
         sable$reportSubLevelSaveFailure(arg0: $SubLevelData): void;
         sable$reportSubLevelPhysicsFailure(arg0: $ServerSubLevel): void;
         essential$undoLan(uuid: $UUID_): void;
+        getTickTimeLogger(): $LocalSampleLogger;
         handler$jlo00b$essential$tick(ci: $CallbackInfo): void;
         handler$zbo000$openpartiesandclaims$onTickPaused(arg0: $CallbackInfo): void;
         handler$jhn000$essential$disconnectPlayers(ci: $CallbackInfo): void;
         handler$jlk001$essential$runTasks(ci: $CallbackInfo): void;
         getEssential$manager(): $McIntegratedServerManager;
+        setUUID(uuid: $UUID_): void;
         static VANILLA_BRAND: string;
         proxy: $Proxy;
         static ANONYMOUS_PLAYER_PROFILE: $GameProfile;
@@ -46,5 +48,8 @@ declare module "@package/net/minecraft/client/server" {
         static DEMO_SETTINGS: $LevelSettings;
         playerDataStorage: $PlayerDataStorage;
         constructor(serverThread: $Thread, minecraft: $Minecraft, storageSource: $LevelStorageSource$LevelStorageAccess, packRepository: $PackRepository, worldStem: $WorldStem_, services: $Services_, progressListenerFactory: $ChunkProgressListenerFactory_);
+        get tickTimeLogger(): $LocalSampleLogger;
+        get essential$manager(): $McIntegratedServerManager;
+        set UUID(value: $UUID_);
     }
 }

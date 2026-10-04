@@ -32,10 +32,15 @@ declare module "@package/net/minecraft/data/loot" {
         run(output: $CachedOutput_): $CompletableFuture<never>;
         validate(arg0: $WritableRegistry<$LootTable>, arg1: $ValidationContext, arg2: $ProblemReporter$Collector): void;
         constructor(output: $PackOutput, requiredTables: $Set_<$ResourceKey_<$LootTable>>, subProviders: $List_<$LootTableProvider$SubProviderEntry_>, registries: $CompletableFuture<$HolderLookup$Provider>);
+        get tables(): $List<$LootTableProvider$SubProviderEntry>;
+        get name(): string;
     }
     export class $BlockLootSubProvider implements $LootTableSubProvider, $BlockLootSubProviderAccessor, $BlockLootTableGeneratorAccessor, $FabricBlockLootTableGenerator {
-        dropSelf(flowerPot: $Block_): void;
-        dropOther(block: $Block_, item: $ItemLike_): void;
+        /**
+         * If the block is mined with Shears, drops 1 `block`.
+         * Otherwise, drops loot specified by `builder`.
+         */
+        createSilkTouchDispatchTable(block: $Block_, builder: $LootPoolEntryContainer$Builder<never>): $LootTable$Builder;
         applyExplosionDecay<T extends $FunctionUserBuilder<T>>(item: $ItemLike_, functionBuilder: $FunctionUserBuilder<T>): T;
         applyExplosionCondition<T extends $ConditionUserBuilder<T>>(item: $ItemLike_, conditionBuilder: $ConditionUserBuilder<T>): T;
         /**
@@ -50,6 +55,8 @@ declare module "@package/net/minecraft/data/loot" {
         createSilkTouchOrShearsDispatchTable(block: $Block_, builder: $LootPoolEntryContainer$Builder<never>): $LootTable$Builder;
         createSingleItemTableWithSilkTouch(block: $Block_, item: $ItemLike_, count: $NumberProvider_): $LootTable$Builder;
         createSingleItemTableWithSilkTouch(block: $Block_, item: $ItemLike_): $LootTable$Builder;
+        dropOther(block: $Block_, item: $ItemLike_): void;
+        dropSelf(flowerPot: $Block_): void;
         createSingleItemTable(item: $ItemLike_, count: $NumberProvider_): $LootTable$Builder;
         createSingleItemTable(item: $ItemLike_): $LootTable$Builder;
         createSilkTouchOnlyTable(item: $ItemLike_): $LootTable$Builder;
@@ -95,11 +102,6 @@ declare module "@package/net/minecraft/data/loot" {
         dropWhenSilkTouch(flowerPot: $Block_): void;
         getKnownBlocks(): $Iterable<$Block>;
         static noDrop(): $LootTable$Builder;
-        /**
-         * If the block is mined with Shears, drops 1 `block`.
-         * Otherwise, drops loot specified by `builder`.
-         */
-        createSilkTouchDispatchTable(block: $Block_, builder: $LootPoolEntryContainer$Builder<never>): $LootTable$Builder;
         doesNotHaveSilkTouch(): $LootItemCondition$Builder;
         createAttachedStemDrops(block: $Block_, item: $Item_): $LootTable$Builder;
         createStemDrops(block: $Block_, item: $Item_): $LootTable$Builder;
@@ -128,6 +130,7 @@ declare module "@package/net/minecraft/data/loot" {
         static NORMAL_LEAVES_SAPLING_CHANCES: number[];
         constructor(explosionResistant: $Set_<$Item_>, enabledFeatures: $FeatureFlagSet, map: $Map_<$ResourceKey_<$LootTable>, $LootTable$Builder>, registries: $HolderLookup$Provider);
         constructor(explosionResistant: $Set_<$Item_>, enabledFeatures: $FeatureFlagSet, registries: $HolderLookup$Provider);
+        get knownBlocks(): $Iterable<$Block>;
     }
     export class $LootTableSubProvider {
     }

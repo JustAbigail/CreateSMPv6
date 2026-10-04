@@ -12,7 +12,7 @@ declare module "@package/net/caffeinemc/mods/sodium/client/render/chunk/compile/
     export class $SpriteContentsExtension {
     }
     export interface $SpriteContentsExtension {
-        sodium$hasTranslucentPixels(): boolean;
         sodium$hasTransparentPixels(): boolean;
+        sodium$hasTranslucentPixels(): boolean;
     }
 }

@@ -1,10 +1,10 @@
 import { $JsonElement } from "@package/com/google/gson";
-import { $ContextAwareReloadListenerAccessor as $ContextAwareReloadListenerAccessor$2 } from "@package/net/mehvahdjukaar/moonlight/core/mixins/platform";
+import { $ContextAwareReloadListenerAccessor as $ContextAwareReloadListenerAccessor$1 } from "@package/net/mehvahdjukaar/moonlight/core/mixins/platform";
 import { $HolderLookup$Provider } from "@package/net/minecraft/core";
 import { $ICondition$IContext_, $ConditionalOps, $ICondition$IContext } from "@package/net/neoforged/neoforge/common/conditions";
 import { $PreparableReloadListener } from "@package/net/minecraft/server/packs/resources";
 import { $ContextAwareReloadListenerAccessor } from "@package/rbasamoyai/createbigcannons/mixin";
-import { $ContextAwareReloadListenerAccessor as $ContextAwareReloadListenerAccessor$1 } from "@package/com/almostreliable/unified/mixin/neoforge";
+import { $ContextAwareReloadListenerAccessor as $ContextAwareReloadListenerAccessor$2 } from "@package/com/almostreliable/unified/mixin/neoforge";
 
 declare module "@package/net/neoforged/neoforge/resource" {
     /**
@@ -14,12 +14,13 @@ declare module "@package/net/neoforged/neoforge/resource" {
      * 
      * For children of `SimplePreparableReloadListener`, it will be available during both `SimplePreparableReloadListener#prepare` prepare()} and apply().
      */
-    export class $ContextAwareReloadListener implements $PreparableReloadListener, $ContextAwareReloadListenerAccessor, $ContextAwareReloadListenerAccessor$1, $ContextAwareReloadListenerAccessor$2 {
+    export class $ContextAwareReloadListener implements $PreparableReloadListener, $ContextAwareReloadListenerAccessor, $ContextAwareReloadListenerAccessor$2, $ContextAwareReloadListenerAccessor$1 {
         injectContext(context: $ICondition$IContext_, registryLookup: $HolderLookup$Provider): void;
         getName(): string;
         callMakeConditionalOps(): $ConditionalOps<$JsonElement>;
         au$makeConditionalOps(): $ConditionalOps<$JsonElement>;
         invokeGetContext(): $ICondition$IContext;
         constructor();
+        get name(): string;
     }
 }

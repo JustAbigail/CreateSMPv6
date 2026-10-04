@@ -23,5 +23,6 @@ declare module "@package/net/minecraft/client/gui/screens/inventory/tooltip" {
         getWidth(font: $Font): number;
         getHeight(): number;
         renderImage(font: $Font, x: number, y: number, guiGraphics: $GuiGraphics): void;
+        get height(): number;
     }
 }

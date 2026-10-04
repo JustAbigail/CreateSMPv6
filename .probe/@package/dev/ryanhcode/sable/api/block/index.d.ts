@@ -12,6 +12,7 @@ declare module "@package/dev/ryanhcode/sable/api/block" {
     export interface $BlockEntitySubLevelReactionWheel {
         sable$getAngularVelocity(arg0: $Vector3d): void;
         getBlockState(): $BlockState;
+        get blockState(): $BlockState;
     }
     export class $BlockSubLevelLiftProvider$LiftProviderContext extends $Record {
         state(): $BlockState;
@@ -22,13 +23,13 @@ declare module "@package/dev/ryanhcode/sable/api/block" {
     /**
      * Values that may be interpreted as {@link $BlockSubLevelLiftProvider$LiftProviderContext}.
      */
-    export type $BlockSubLevelLiftProvider$LiftProviderContext_ = { state?: $BlockState_, dir?: $Vec3_, pos?: $BlockPos_,  } | [state?: $BlockState_, dir?: $Vec3_, pos?: $BlockPos_, ];
+    export type $BlockSubLevelLiftProvider$LiftProviderContext_ = { state?: $BlockState_, pos?: $BlockPos_, dir?: $Vec3_,  } | [state?: $BlockState_, pos?: $BlockPos_, dir?: $Vec3_, ];
     export class $BlockEntitySubLevelActor {
     }
     export interface $BlockEntitySubLevelActor {
-        sable$physicsTick(arg0: $ServerSubLevel, arg1: $RigidBodyHandle, arg2: number): void;
         sable$getConnectionDependencies(): $Iterable<$SubLevel>;
         sable$tick(arg0: $ServerSubLevel): void;
         sable$getLoadingDependencies(): $Iterable<$SubLevel>;
+        sable$physicsTick(arg0: $ServerSubLevel, arg1: $RigidBodyHandle, arg2: number): void;
     }
 }

@@ -12,14 +12,15 @@ declare module "@package/foundry/veil/api/client/render/post" {
     export class $PostPipeline$Context {
     }
     export interface $PostPipeline$Context extends $ShaderTextureSource$Context {
-        getShader(arg0: $ResourceLocation_): $ShaderProgram;
+        setFramebuffer(arg0: $ResourceLocation_, arg1: $AdvancedFbo): void;
         getDrawFramebuffer(): $AdvancedFbo;
         applySamplers(arg0: $TextureUniformAccess): void;
         clearSamplers(arg0: $TextureUniformAccess): void;
         getFramebufferOrDraw(arg0: $ResourceLocation_): $AdvancedFbo;
         getPipeline(arg0: $ResourceLocation_): $PostPipeline;
-        setFramebuffer(arg0: $ResourceLocation_, arg1: $AdvancedFbo): void;
+        getShader(arg0: $ResourceLocation_): $ShaderProgram;
         setTexture(arg0: $CharSequence, arg1: number, arg2: number, arg3: number): void;
+        get drawFramebuffer(): $AdvancedFbo;
     }
     export class $PostPipeline {
         static CODEC: $Codec<$PostPipeline>;
@@ -36,7 +37,8 @@ declare module "@package/foundry/veil/api/client/render/post" {
         apply(arg0: $PostPipeline$Context): void;
         getType(): $PostPipelineStageRegistry$PipelineType<$PostPipeline>;
         free(): void;
-        getUniform(arg0: $CharSequence): $ShaderUniformAccess;
         hasUniform(arg0: $CharSequence): boolean;
+        getUniform(arg0: $CharSequence): $ShaderUniformAccess;
+        get type(): $PostPipelineStageRegistry$PipelineType<$PostPipeline>;
     }
 }

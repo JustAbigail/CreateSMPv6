@@ -5,6 +5,7 @@ declare module "@package/net/fabricmc/fabric/mixin/networking/client/accessor" {
     }
     export interface $MinecraftClientAccessor {
         getConnection(): $Connection;
+        get connection(): $Connection;
     }
     /**
      * Values that may be interpreted as {@link $MinecraftClientAccessor}.

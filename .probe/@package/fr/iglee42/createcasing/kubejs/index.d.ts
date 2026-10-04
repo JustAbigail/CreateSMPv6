@@ -7,8 +7,8 @@ export * as wrappers from "@package/fr/iglee42/createcasing/kubejs/wrappers";
 
 declare module "@package/fr/iglee42/createcasing/kubejs" {
     export class $RegisterSetsEvent implements $KubeStartupEvent {
-        createTransmission(arg1: string): $TransmissionSetBuilder;
         createCasing(arg1: string): $CasingSetBuilder;
+        createTransmission(arg1: string): $TransmissionSetBuilder;
         /**
          * Stops the event with the given exit value. Execution will be stopped **immediately**.
          * 

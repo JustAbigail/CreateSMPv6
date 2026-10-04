@@ -5,6 +5,7 @@ declare module "@package/net/fabricmc/fabric/mixin/client/particle" {
     }
     export interface $ParticleManagerAccessor {
         getParticleAtlasTexture(): $TextureAtlas;
+        get particleAtlasTexture(): $TextureAtlas;
     }
     /**
      * Values that may be interpreted as {@link $ParticleManagerAccessor}.

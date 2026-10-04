@@ -10,5 +10,6 @@ declare module "@package/net/minecraft/client/gui/components/tabs" {
         doLayout(rectangle: $ScreenRectangle_): void;
         getTabTitle(): $Component;
         visitChildren(consumer: $Consumer_<$AbstractWidget>): void;
+        get tabTitle(): $Component;
     }
 }

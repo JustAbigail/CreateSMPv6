@@ -41,6 +41,9 @@ declare module "@package/dev/emi/emi/api/stack" {
         render(draw: $GuiGraphics, x: number, y: number, delta: number): void;
         render(arg0: $GuiGraphics, arg1: number, arg2: number, arg3: number, arg4: number): void;
         getAmount(): number;
+        get tooltip(): $List<$ClientTooltipComponent>;
+        get emiStacks(): $List<$EmiStack>;
+        get empty(): boolean;
     }
     export class $EmiStackInteraction implements $GlobalMixin {
         getRecipeContext(): $EmiRecipe;
@@ -50,6 +53,10 @@ declare module "@package/dev/emi/emi/api/stack" {
         static EMPTY: $EmiStackInteraction;
         constructor(stack: $EmiIngredient);
         constructor(stack: $EmiIngredient, recipe: $EmiRecipe, clickable: boolean);
+        get recipeContext(): $EmiRecipe;
+        get clickable(): boolean;
+        get empty(): boolean;
+        get stack(): $EmiIngredient;
     }
     export class $Comparison implements $GlobalMixin {
         static compareComponents(): $Comparison;
@@ -70,42 +77,51 @@ declare module "@package/dev/emi/emi/api/stack" {
      */
     export type $Comparison$Predicate_ = ((arg0: $EmiStack, arg1: $EmiStack) => boolean);
     export class $EmiStack implements $EmiIngredient, $GlobalMixin {
-        getTooltip(): $List<$ClientTooltipComponent>;
-        getRemainder(): $EmiStack;
-        getEmiStacks(): $List<$EmiStack>;
-        setChance(chance: number): $EmiStack;
         setRemainder(stack: $EmiStack): $EmiStack;
         getComponentChanges(): $DataComponentPatch;
         getKeyOfType<T>(clazz: $Class<T>): T;
         getTooltipText(): $List<$Component>;
+        getTooltip(): $List<$ClientTooltipComponent>;
+        getRemainder(): $EmiStack;
+        getEmiStacks(): $List<$EmiStack>;
+        setChance(chance: number): $EmiStack;
+        setAmount(amount: number): $EmiStack;
         getChance(): number;
+        isEqual(stack: $EmiStack): boolean;
+        isEqual(stack: $EmiStack, comparison: $Comparison): boolean;
         getName(): $Component;
         get<T>(type: $DataComponentType_<T>): T;
         isEmpty(): boolean;
-        static of(item: $ItemLike_, componentChanges: $DataComponentPatch_): $EmiStack;
-        static of(item: $ItemLike_): $EmiStack;
         static of(item: $ItemLike_, amount: number): $EmiStack;
-        static of(stack: $ItemStack_): $EmiStack;
+        static of(item: $ItemLike_): $EmiStack;
+        static of(item: $ItemLike_, componentChanges: $DataComponentPatch_): $EmiStack;
         static of(fluid: $Fluid_, componentChanges: $DataComponentPatch_, amount: number): $EmiStack;
         static of(fluid: $Fluid_, componentChanges: $DataComponentPatch_): $EmiStack;
         static of(fluid: $Fluid_, amount: number): $EmiStack;
         static of(fluid: $Fluid_): $EmiStack;
         static of(item: $ItemLike_, componentChanges: $DataComponentPatch_, amount: number): $EmiStack;
         static of(stack: $ItemStack_, amount: number): $EmiStack;
+        static of(stack: $ItemStack_): $EmiStack;
         getKey(): $Object;
         getId(): $ResourceLocation;
         getOrDefault<T>(type: $DataComponentType_<T>, fallback: T): T;
-        copy(): $EmiStack;
-        isEqual(stack: $EmiStack, comparison: $Comparison): boolean;
-        isEqual(stack: $EmiStack): boolean;
-        comparison(comparison: $Comparison): $EmiStack;
         comparison(comparison: $Function_<$Comparison, $Comparison>): $EmiStack;
-        getItemStack(): $ItemStack;
+        comparison(comparison: $Comparison): $EmiStack;
         getAmount(): number;
+        getItemStack(): $ItemStack;
         render(draw: $GuiGraphics, x: number, y: number, delta: number): void;
-        setAmount(arg0: number): $EmiIngredient;
+        copy(): $EmiIngredient;
         static EMPTY: $EmiStack;
         constructor();
+        get componentChanges(): $DataComponentPatch;
+        get tooltipText(): $List<$Component>;
+        get tooltip(): $List<$ClientTooltipComponent>;
+        get emiStacks(): $List<$EmiStack>;
+        get name(): $Component;
+        get empty(): boolean;
+        get key(): $Object;
+        get id(): $ResourceLocation;
+        get itemStack(): $ItemStack;
     }
     export class $Comparison$HashFunction {
     }

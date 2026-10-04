@@ -18,6 +18,7 @@ declare module "@package/com/mojang/realmsclient/gui" {
         serverListUpdateTask: $DataFetcher$Task<$RealmsDataFetcher$ServerListData>;
         onlinePlayersTask: $DataFetcher$Task<$RealmsServerPlayerLists>;
         constructor(realmsClient: $RealmsClient);
+        get tasks(): $List<$DataFetcher$Task<never>>;
     }
     export class $RealmsDataFetcher$ServerListData extends $Record {
         serverList(): $List<$RealmsServer>;

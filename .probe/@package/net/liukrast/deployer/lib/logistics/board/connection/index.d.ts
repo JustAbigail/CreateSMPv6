@@ -36,6 +36,8 @@ declare module "@package/net/liukrast/deployer/lib/logistics/board/connection" {
         getOutputConnections(): $Set<$PanelConnection<never>>;
         overrideConnectionColor(arg0: number, arg1: $FactoryPanelConnection, arg2: number): number;
         getAllValues<T>(arg0: $PanelConnection_<T>): $List<T>;
+        get inputConnections(): $Set<$PanelConnection<never>>;
+        get outputConnections(): $Set<$PanelConnection<never>>;
     }
     export class $ConnectionExtra<T> {
     }
@@ -47,12 +49,12 @@ declare module "@package/net/liukrast/deployer/lib/logistics/board/connection" {
      */
     export type $ConnectionExtra_<T> = ((arg0: $Level, arg1: $BlockState, arg2: $BlockPos, arg3: $BlockEntity) => (T) | undefined);
     export class $PanelConnectionBuilder {
-        registerInput<T>(arg0: $DeferredHolder<$PanelConnection_<never>, $PanelConnection_<T>>): $PanelConnectionBuilder;
-        registerInput<T>(arg0: $PanelConnection_<T>): $PanelConnectionBuilder;
-        registerOutput<T>(arg0: $DeferredHolder<$PanelConnection_<never>, $PanelConnection_<T>>, arg1: $Supplier_<T>): $PanelConnectionBuilder;
-        registerOutput<T>(arg0: $PanelConnection_<T>, arg1: $Supplier_<T>): $PanelConnectionBuilder;
         registerBoth<T>(arg0: $PanelConnection_<T>, arg1: $Supplier_<T>): $PanelConnectionBuilder;
         registerBoth<T>(arg0: $DeferredHolder<$PanelConnection_<never>, $PanelConnection_<T>>, arg1: $Supplier_<T>): $PanelConnectionBuilder;
+        registerInput<T>(arg0: $PanelConnection_<T>): $PanelConnectionBuilder;
+        registerInput<T>(arg0: $DeferredHolder<$PanelConnection_<never>, $PanelConnection_<T>>): $PanelConnectionBuilder;
+        registerOutput<T>(arg0: $PanelConnection_<T>, arg1: $Supplier_<T>): $PanelConnectionBuilder;
+        registerOutput<T>(arg0: $DeferredHolder<$PanelConnection_<never>, $PanelConnection_<T>>, arg1: $Supplier_<T>): $PanelConnectionBuilder;
         /**
          * @deprecated
          */

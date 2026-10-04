@@ -10,9 +10,11 @@ export * as utils from "@package/com/electronwill/nightconfig/core/utils";
 
 declare module "@package/com/electronwill/nightconfig/core" {
     export class $UnmodifiableCommentedConfig$CommentNode {
-        getComment(): string;
         getChildren(): $Map<string, $UnmodifiableCommentedConfig$CommentNode>;
+        getComment(): string;
         constructor(arg0: string, arg1: $Map_<string, $UnmodifiableCommentedConfig$CommentNode>);
+        get children(): $Map<string, $UnmodifiableCommentedConfig$CommentNode>;
+        get comment(): string;
     }
     export class $Config {
         static wrap(arg0: $Map_<string, $Object>, arg1: $ConfigFormat<never>): $Config;
@@ -98,6 +100,18 @@ declare module "@package/com/electronwill/nightconfig/core" {
         getByteOrElse(arg0: number): number;
         getShortOrElse(arg0: number): number;
         getCharOrElse(arg0: string): string;
+        get byte(): number;
+        get short(): number;
+        get char(): string;
+        get int(): number;
+        get long(): number;
+        get value(): T;
+        get key(): string;
+        get null(): boolean;
+        get rawValue(): T;
+        get optional(): (T) | undefined;
+        get optionalInt(): $OptionalInt;
+        get optionalLong(): $OptionalLong;
     }
     export class $ConfigFormat<C extends $Config> {
     }
@@ -114,6 +128,7 @@ declare module "@package/com/electronwill/nightconfig/core" {
         initEmptyFile(arg0: $WriterSupplier_): void;
         initEmptyFile(arg0: $File_): void;
         initEmptyFile(arg0: $Path_): void;
+        get inMemory(): boolean;
     }
     export class $UnmodifiableConfig {
     }
@@ -186,11 +201,13 @@ declare module "@package/com/electronwill/nightconfig/core" {
         getCharOrElse(arg0: $List_<string>, arg1: string): string;
         getCharOrElse(arg0: string, arg1: string): string;
         configFormat(): $ConfigFormat<never>;
+        get empty(): boolean;
     }
     export class $UnmodifiableCommentedConfig$Entry {
     }
     export interface $UnmodifiableCommentedConfig$Entry extends $UnmodifiableConfig$Entry {
         getComment(): string;
+        get comment(): string;
     }
     export class $UnmodifiableCommentedConfig {
         static fake(arg0: $UnmodifiableConfig): $UnmodifiableCommentedConfig;
@@ -213,16 +230,16 @@ declare module "@package/com/electronwill/nightconfig/core" {
     export class $CommentedConfig {
         static fake(arg0: $Config): $CommentedConfig;
         static wrap(arg0: $Map_<string, $Object>, arg1: $ConfigFormat<never>): $CommentedConfig;
-        static of(arg0: $Supplier_<$Map<string, $Object>>, arg1: $ConfigFormat<$CommentedConfig>): $CommentedConfig;
         static of(arg0: $ConfigFormat<$CommentedConfig>): $CommentedConfig;
-        static copy(arg0: $UnmodifiableConfig): $CommentedConfig;
-        static copy(arg0: $UnmodifiableConfig, arg1: $ConfigFormat<never>): $CommentedConfig;
-        static copy(arg0: $UnmodifiableCommentedConfig): $CommentedConfig;
-        static copy(arg0: $UnmodifiableConfig, arg1: $Supplier_<$Map<string, $Object>>): $CommentedConfig;
-        static copy(arg0: $UnmodifiableCommentedConfig, arg1: $ConfigFormat<never>): $CommentedConfig;
+        static of(arg0: $Supplier_<$Map<string, $Object>>, arg1: $ConfigFormat<$CommentedConfig>): $CommentedConfig;
         static copy(arg0: $UnmodifiableCommentedConfig, arg1: $Supplier_<$Map<string, $Object>>): $CommentedConfig;
+        static copy(arg0: $UnmodifiableCommentedConfig, arg1: $ConfigFormat<never>): $CommentedConfig;
         static copy(arg0: $UnmodifiableCommentedConfig, arg1: $Supplier_<$Map<string, $Object>>, arg2: $ConfigFormat<$CommentedConfig>): $CommentedConfig;
         static copy(arg0: $UnmodifiableConfig, arg1: $Supplier_<$Map<string, $Object>>, arg2: $ConfigFormat<never>): $CommentedConfig;
+        static copy(arg0: $UnmodifiableConfig, arg1: $ConfigFormat<never>): $CommentedConfig;
+        static copy(arg0: $UnmodifiableCommentedConfig): $CommentedConfig;
+        static copy(arg0: $UnmodifiableConfig): $CommentedConfig;
+        static copy(arg0: $UnmodifiableConfig, arg1: $Supplier_<$Map<string, $Object>>): $CommentedConfig;
         static inMemory(): $CommentedConfig;
         /**
          * @deprecated
@@ -250,11 +267,9 @@ declare module "@package/com/electronwill/nightconfig/core" {
         static concurrentCopy(arg0: $UnmodifiableConfig): $CommentedConfig;
     }
     export interface $CommentedConfig extends $UnmodifiableCommentedConfig, $Config {
-        entrySet(): $Set<$CommentedConfig$Entry>;
-        checked(): $CommentedConfig;
         setComment(arg0: string, arg1: string): string;
         setComment(arg0: $List_<string>, arg1: string): string;
-        createSubConfig(): $CommentedConfig;
+        entrySet(): $Set<$CommentedConfig$Entry>;
         putAllComments(arg0: $UnmodifiableCommentedConfig): void;
         putAllComments(arg0: $Map_<string, $UnmodifiableCommentedConfig$CommentNode>): void;
         /**
@@ -264,12 +279,15 @@ declare module "@package/com/electronwill/nightconfig/core" {
         clearComments(): void;
         removeComment(arg0: $List_<string>): string;
         removeComment(arg0: string): string;
+        checked(): $Config;
+        createSubConfig(): $Config;
         unmodifiable(): $UnmodifiableConfig;
     }
     export class $Config$Entry {
     }
     export interface $Config$Entry extends $UnmodifiableConfig$Entry {
         setValue<T>(arg0: $Object): T;
+        set value(value: $Object);
     }
     export class $EnumGetMethod extends $Enum<$EnumGetMethod> {
         isOrdinalOk(): boolean;
@@ -282,6 +300,8 @@ declare module "@package/com/electronwill/nightconfig/core" {
         static ORDINAL_OR_NAME: $EnumGetMethod;
         static ORDINAL_OR_NAME_IGNORECASE: $EnumGetMethod;
         static NAME: $EnumGetMethod;
+        get ordinalOk(): boolean;
+        get caseSensitive(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $EnumGetMethod}.
@@ -292,5 +312,6 @@ declare module "@package/com/electronwill/nightconfig/core" {
     export interface $CommentedConfig$Entry extends $Config$Entry, $UnmodifiableCommentedConfig$Entry {
         setComment(arg0: string): string;
         removeComment(): string;
+        set comment(value: string);
     }
 }

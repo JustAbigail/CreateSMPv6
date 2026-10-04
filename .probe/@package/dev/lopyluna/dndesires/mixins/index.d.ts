@@ -5,6 +5,8 @@ declare module "@package/dev/lopyluna/dndesires/mixins" {
     export interface $FurnaceBEAccessor {
         getCookingProgress$D2D(): number;
         getCookingTotalTime$D2D(): number;
+        get cookingProgress$D2D(): number;
+        get cookingTotalTime$D2D(): number;
     }
     export class $PotatoProjectileEntityAccessor {
     }

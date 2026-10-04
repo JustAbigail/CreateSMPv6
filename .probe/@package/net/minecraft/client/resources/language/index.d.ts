@@ -15,16 +15,21 @@ import { $SortedMap, $List_, $Map_, $Locale, $Map, $Collection } from "@package/
 declare module "@package/net/minecraft/client/resources/language" {
     export class $LanguageManager implements $ResourceManagerReloadListener, $IdentifiableResourceReloadListener {
         getLanguages(): $SortedMap<string, $LanguageInfo>;
-        getSelected(): string;
         onResourceManagerReload(resourceManager: $ResourceManager): void;
+        getSelected(): string;
         getLanguage(code: string): $LanguageInfo;
-        setSelected(selected: string): void;
-        getJavaLocale(): $Locale;
         getFabricId(): $ResourceLocation;
         getFabricDependencies(): $Collection<any>;
+        getJavaLocale(): $Locale;
+        setSelected(selected: string): void;
         reload(arg0: $PreparableReloadListener$PreparationBarrier_, arg1: $ResourceManager, arg2: $ProfilerFiller, arg3: $ProfilerFiller, arg4: $Executor_, arg5: $Executor_): $CompletableFuture<void>;
         getName(): string;
         constructor(currentCode: string, reloadFallback: $Consumer_<$ClientLanguage>);
+        get languages(): $SortedMap<string, $LanguageInfo>;
+        get fabricId(): $ResourceLocation;
+        get fabricDependencies(): $Collection<any>;
+        get javaLocale(): $Locale;
+        get name(): string;
     }
     export class $ClientLanguage extends $Language implements $TranslationStorageAccessor, $TranslationStorage {
         static loadFrom(resourceManager: $ResourceManager, filenames: $List_<string>, defaultRightToLeft: boolean): $ClientLanguage;
@@ -37,13 +42,13 @@ declare module "@package/net/minecraft/client/resources/language" {
     export class $LanguageInfo extends $Record {
         bidirectional(): boolean;
         toComponent(): $Component;
-        region(): string;
         name(): string;
+        region(): string;
         static CODEC: $Codec<$LanguageInfo>;
         constructor(arg0: string, arg1: string, arg2: boolean);
     }
     /**
      * Values that may be interpreted as {@link $LanguageInfo}.
      */
-    export type $LanguageInfo_ = { region?: string, bidirectional?: boolean, name?: string,  } | [region?: string, bidirectional?: boolean, name?: string, ];
+    export type $LanguageInfo_ = { region?: string, name?: string, bidirectional?: boolean,  } | [region?: string, name?: string, bidirectional?: boolean, ];
 }

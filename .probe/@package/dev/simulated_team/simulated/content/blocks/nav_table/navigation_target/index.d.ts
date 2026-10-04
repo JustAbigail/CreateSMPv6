@@ -11,16 +11,19 @@ declare module "@package/dev/simulated_team/simulated/content/blocks/nav_table/n
         static ofStack(arg0: $ItemStack_): $NavigationTarget;
     }
     export interface $NavigationTarget {
+        getMaxRange(): number;
+        calculateSideStrength(arg0: $NavTableBlockEntity, arg1: $Direction_, arg2: $ItemStack_): number;
+        getModulatingRange(): number;
+        getDeadzone(): number;
+        calculateModulatingStrength(arg0: $NavTableBlockEntity, arg1: $ItemStack_): number;
         distanceToTarget(arg0: $NavTableBlockEntity): number;
         onExtract(arg0: $ItemStack_, arg1: $NavTableBlockEntity, arg2: $Player): void;
         onInsert(arg0: $ItemStack_, arg1: $NavTableBlockEntity, arg2: $Player): void;
-        getMaxRange(): number;
-        getModulatingRange(): number;
-        calculateSideStrength(arg0: $NavTableBlockEntity, arg1: $Direction_, arg2: $ItemStack_): number;
-        getDeadzone(): number;
-        calculateModulatingStrength(arg0: $NavTableBlockEntity, arg1: $ItemStack_): number;
         getRedstoneStrength(arg0: $NavTableBlockEntity, arg1: $Direction_, arg2: $ItemStack_): number;
         getTarget(arg0: $NavTableBlockEntity, arg1: $ItemStack_): $Vec3;
+        get maxRange(): number;
+        get modulatingRange(): number;
+        get deadzone(): number;
     }
     /**
      * Values that may be interpreted as {@link $NavigationTarget}.

@@ -21,5 +21,9 @@ declare module "@package/gg/essential/lib/kotgl/matrix/vectors" {
         getW(): number;
         getX(): number;
         getZ(): number;
+        get y(): number;
+        get w(): number;
+        get x(): number;
+        get z(): number;
     }
 }

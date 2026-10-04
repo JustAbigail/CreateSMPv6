@@ -32,6 +32,11 @@ import { $Vec3 } from "@package/net/minecraft/world/phys";
 
 declare module "@package/net/minecraft/world/entity/animal/goat" {
     export class $Goat extends $Animal {
+        hasLeftHorn(): boolean;
+        hasRightHorn(): boolean;
+        dropHorn(): boolean;
+        getRammingXHeadRot(): number;
+        static checkGoatSpawnRules(goat: $EntityType_<$Animal>, level: $LevelAccessor, spawnType: $MobSpawnType_, pos: $BlockPos_, random: $RandomSource): boolean;
         createHorn(): $ItemStack;
         isScreamingGoat(): boolean;
         /**
@@ -44,11 +49,6 @@ declare module "@package/net/minecraft/world/entity/animal/goat" {
         addHorns(): void;
         getMilkingSound(): $SoundEvent;
         setScreamingGoat(isScreamingGoat: boolean): void;
-        hasLeftHorn(): boolean;
-        hasRightHorn(): boolean;
-        dropHorn(): boolean;
-        getRammingXHeadRot(): number;
-        static checkGoatSpawnRules(goat: $EntityType_<$Animal>, level: $LevelAccessor, spawnType: $MobSpawnType_, pos: $BlockPos_, random: $RandomSource): boolean;
         static createAttributes(): $AttributeSupplier$Builder;
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
         static MAX_WEARING_ARMOR_CHANCE: number;
@@ -228,5 +228,7 @@ declare module "@package/net/minecraft/world/entity/animal/goat" {
         static BASE_SAFE_FALL_DISTANCE: number;
         age: number;
         constructor(entityType: $EntityType_<$Goat>, level: $Level_);
+        get rammingXHeadRot(): number;
+        get milkingSound(): $SoundEvent;
     }
 }

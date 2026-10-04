@@ -9,11 +9,13 @@ declare module "@package/net/minecraft/core/particles" {
         getLimit(): number;
         static SPORE_BLOSSOM: $ParticleGroup;
         constructor(limit: number);
+        get limit(): number;
     }
     export class $ParticleOptions {
     }
     export interface $ParticleOptions {
         getType(): $ParticleType<never>;
+        get type(): $ParticleType<never>;
     }
     /**
      * Values that may be interpreted as {@link $ParticleOptions}.
@@ -26,16 +28,19 @@ declare module "@package/net/minecraft/core/particles" {
         static SCALE: $Codec<number>;
         static MAX_SCALE: number;
         constructor(scale: number);
+        get scale(): number;
     }
     export class $SimpleParticleType extends $ParticleType<$SimpleParticleType> implements $ParticleOptions {
         getType(): $ParticleType<never>;
         constructor(overrideLimiter: boolean);
+        get type(): $ParticleType<never>;
     }
     export class $ParticleType<T extends $ParticleOptions> {
         streamCodec(): $StreamCodec<$RegistryFriendlyByteBuf, T>;
         codec(): $MapCodec<T>;
         getOverrideLimiter(): boolean;
         constructor(overrideLimitter: boolean);
+        get overrideLimiter(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $ParticleType}.
@@ -51,5 +56,6 @@ declare module "@package/net/minecraft/core/particles" {
         static MAX_SCALE: number;
         static STREAM_CODEC: $StreamCodec<$RegistryFriendlyByteBuf, $DustParticleOptions>;
         constructor(color: $Vector3f, scale: number);
+        get color(): $Vector3f;
     }
 }

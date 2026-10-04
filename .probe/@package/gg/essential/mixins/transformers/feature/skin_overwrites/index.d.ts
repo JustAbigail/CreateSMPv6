@@ -6,6 +6,7 @@ declare module "@package/gg/essential/mixins/transformers/feature/skin_overwrite
     }
     export interface $MinecraftAccessor {
         setGameProfileFuture(arg0: $CompletableFuture<$ProfileResult_>): void;
+        set gameProfileFuture(value: $CompletableFuture<$ProfileResult_>);
     }
     /**
      * Values that may be interpreted as {@link $MinecraftAccessor}.

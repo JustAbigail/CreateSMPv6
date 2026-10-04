@@ -7,6 +7,7 @@ declare module "@package/net/irisshaders/iris/mixinterface" {
     export interface $ShaderInstanceInterface {
         setShouldSkip(arg0: $MethodHandle): void;
         iris$createExtraShaders(arg0: $ResourceProvider_, arg1: string): void;
+        set shouldSkip(value: $MethodHandle);
     }
     export class $ItemInHandInterface {
     }
@@ -18,6 +19,7 @@ declare module "@package/net/irisshaders/iris/mixinterface" {
     }
     export interface $LocalPlayerInterface {
         getCurrentConstantMood(): number;
+        get currentConstantMood(): number;
     }
     /**
      * Values that may be interpreted as {@link $LocalPlayerInterface}.
@@ -29,5 +31,6 @@ declare module "@package/net/irisshaders/iris/mixinterface" {
         getBiomeCategory(): number;
         setBiomeCategory(arg0: number): void;
         getDownfall(): number;
+        get downfall(): number;
     }
 }

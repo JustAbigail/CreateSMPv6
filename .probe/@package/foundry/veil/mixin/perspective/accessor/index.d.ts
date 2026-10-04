@@ -5,6 +5,7 @@ declare module "@package/foundry/veil/mixin/perspective/accessor" {
     }
     export interface $GameRendererAccessor {
         setRenderDistance(arg0: number): void;
+        set renderDistance(value: number);
     }
     /**
      * Values that may be interpreted as {@link $GameRendererAccessor}.

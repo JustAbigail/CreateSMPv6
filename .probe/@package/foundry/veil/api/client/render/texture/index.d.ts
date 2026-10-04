@@ -16,24 +16,25 @@ declare module "@package/foundry/veil/api/client/render/texture" {
         static LESS: $TextureFilter$CompareFunction;
         static LEQUAL: $TextureFilter$CompareFunction;
         static ALWAYS: $TextureFilter$CompareFunction;
+        get id(): number;
     }
     /**
      * Values that may be interpreted as {@link $TextureFilter$CompareFunction}.
      */
     export type $TextureFilter$CompareFunction_ = "never" | "always" | "less" | "lequal" | "equal" | "not_equal" | "gequal" | "greater";
     export class $TextureFilter extends $Record {
-        applyToTexture(arg0: number): void;
-        anisotropy(): number;
+        seamless(): boolean;
         wrapZ(): $TextureFilter$Wrap;
         borderType(): $TextureFilter$EdgeType;
-        seamless(): boolean;
+        anisotropy(): number;
         applyToTextureTarget(arg0: number): void;
+        applyToTexture(arg0: number): void;
         wrapX(): $TextureFilter$Wrap;
         wrapY(): $TextureFilter$Wrap;
         borderColor(): number;
         compareFunction(): $TextureFilter$CompareFunction;
-        mipmap(): boolean;
         blur(): boolean;
+        mipmap(): boolean;
         minFilter(): number;
         magFilter(): number;
         static REPEAT_DEFAULT_CODEC: $Codec<$TextureFilter>;
@@ -45,7 +46,7 @@ declare module "@package/foundry/veil/api/client/render/texture" {
     /**
      * Values that may be interpreted as {@link $TextureFilter}.
      */
-    export type $TextureFilter_ = { wrapY?: $TextureFilter$Wrap_, wrapZ?: $TextureFilter$Wrap_, borderType?: $TextureFilter$EdgeType_, anisotropy?: number, borderColor?: number, seamless?: boolean, compareFunction?: $TextureFilter$CompareFunction_, blur?: boolean, mipmap?: boolean, wrapX?: $TextureFilter$Wrap_,  } | [wrapY?: $TextureFilter$Wrap_, wrapZ?: $TextureFilter$Wrap_, borderType?: $TextureFilter$EdgeType_, anisotropy?: number, borderColor?: number, seamless?: boolean, compareFunction?: $TextureFilter$CompareFunction_, blur?: boolean, mipmap?: boolean, wrapX?: $TextureFilter$Wrap_, ];
+    export type $TextureFilter_ = { borderColor?: number, anisotropy?: number, borderType?: $TextureFilter$EdgeType_, wrapZ?: $TextureFilter$Wrap_, wrapY?: $TextureFilter$Wrap_, wrapX?: $TextureFilter$Wrap_, mipmap?: boolean, blur?: boolean, compareFunction?: $TextureFilter$CompareFunction_, seamless?: boolean,  } | [borderColor?: number, anisotropy?: number, borderType?: $TextureFilter$EdgeType_, wrapZ?: $TextureFilter$Wrap_, wrapY?: $TextureFilter$Wrap_, wrapX?: $TextureFilter$Wrap_, mipmap?: boolean, blur?: boolean, compareFunction?: $TextureFilter$CompareFunction_, seamless?: boolean, ];
     export class $TextureFilter$EdgeType extends $Enum<$TextureFilter$EdgeType> {
         static values(): $TextureFilter$EdgeType[];
         static valueOf(arg0: string): $TextureFilter$EdgeType;
@@ -69,6 +70,7 @@ declare module "@package/foundry/veil/api/client/render/texture" {
         static MIRRORED_REPEAT: $TextureFilter$Wrap;
         static BY_GL_ID: $Int2ObjectMap<$TextureFilter$Wrap>;
         static CLAMP_TO_BORDER: $TextureFilter$Wrap;
+        get id(): number;
     }
     /**
      * Values that may be interpreted as {@link $TextureFilter$Wrap}.

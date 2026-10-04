@@ -16,6 +16,8 @@ declare module "@package/gg/essential/util" {
         getMc(): $GuiGraphics;
         getMatrixStack(): $UMatrixStack;
         constructor(mc: $GuiGraphics, matrixStack: $UMatrixStack);
+        get mc(): $GuiGraphics;
+        get matrixStack(): $UMatrixStack;
     }
     export class $UIdentifier {
         toLegacyString(): string;
@@ -29,5 +31,7 @@ declare module "@package/gg/essential/util" {
         static copy$default(arg0: $UIdentifier, arg1: string, arg2: string, arg3: number, arg4: $Object): $UIdentifier;
         static Companion: $UIdentifier$Companion;
         constructor(arg0: string, arg1: string);
+        get namespace(): string;
+        get path(): string;
     }
 }

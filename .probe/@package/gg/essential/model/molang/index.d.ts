@@ -1,7 +1,7 @@
 import { $DefaultConstructorMarker } from "@package/kotlin/jvm/internal";
 import { $KSerializer } from "@package/kotlinx/serialization";
-import { $ParticleSystem$Locator } from "@package/gg/essential/model";
 import { $UUID } from "@package/java/util";
+import { $ParticleSystem$Locator } from "@package/gg/essential/model";
 import { $Object } from "@package/java/lang";
 
 declare module "@package/gg/essential/model/molang" {
@@ -9,6 +9,7 @@ declare module "@package/gg/essential/model/molang" {
     }
     export interface $MolangQueryTime extends $MolangQuery {
         getTime(): number;
+        get time(): number;
     }
     /**
      * Values that may be interpreted as {@link $MolangQueryTime}.
@@ -17,12 +18,18 @@ declare module "@package/gg/essential/model/molang" {
     export class $MolangQueryEntity {
     }
     export interface $MolangQueryEntity extends $MolangQuery, $MolangQueryTime {
-        getUuid(): $UUID;
-        getModifiedMoveSpeed(): number;
         getModifiedDistanceMoved(): number;
-        getLocator(): $ParticleSystem$Locator;
+        getModifiedMoveSpeed(): number;
         getLifeTime(): number;
+        getLocator(): $ParticleSystem$Locator;
         getTime(): number;
+        getUuid(): $UUID;
+        get modifiedDistanceMoved(): number;
+        get modifiedMoveSpeed(): number;
+        get lifeTime(): number;
+        get locator(): $ParticleSystem$Locator;
+        get time(): number;
+        get uuid(): $UUID;
     }
     export class $Molang$Companion {
         getZERO(): $Molang;
@@ -30,6 +37,8 @@ declare module "@package/gg/essential/model/molang" {
         literal(arg0: number): $Molang;
         serializer(): $KSerializer<$Molang>;
         constructor(arg0: $DefaultConstructorMarker);
+        get ZERO(): $Molang;
+        get ONE(): $Molang;
     }
     export class $MolangExpression {
         static Companion: $MolangExpression$Companion;
@@ -54,11 +63,14 @@ declare module "@package/gg/essential/model/molang" {
         static copy$default(arg0: $Molang, arg1: $MolangExpression_, arg2: number, arg3: $Object): $Molang;
         static Companion: $Molang$Companion;
         constructor(arg0: $MolangExpression_);
+        get expression(): $MolangExpression;
     }
     export class $MolangContext {
         getQuery(): $MolangQuery;
         getVariables(): $Variables;
         constructor(arg0: $MolangQuery, arg1: $Variables);
         constructor(arg0: $MolangQuery, arg1: $Variables, arg2: number, arg3: $DefaultConstructorMarker);
+        get query(): $MolangQuery;
+        get variables(): $Variables;
     }
 }

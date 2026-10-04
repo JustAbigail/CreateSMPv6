@@ -34,12 +34,6 @@ declare module "@package/net/neoforged/neoforge/network/handling" {
          */
         reply(payload: $CustomPacketPayload_): void;
         /**
-         * Retrieves the packet listener associated with this context.
-         * 
-         * For usability, this is typed to `ICommonPacketListener`, but can be downcast to the vanilla packet listeners if necessary.
-         */
-        listener(): $ICommonPacketListener;
-        /**
          * @return the channel handler context
          */
         channelHandlerContext(): $ChannelHandlerContext;
@@ -48,15 +42,21 @@ declare module "@package/net/neoforged/neoforge/network/handling" {
          */
         finishCurrentTask(type: $ConfigurationTask$Type_): void;
         /**
+         * Retrieves the packet listener associated with this context.
+         * 
+         * For usability, this is typed to `ICommonPacketListener`, but can be downcast to the vanilla packet listeners if necessary.
+         */
+        listener(): $ICommonPacketListener;
+        /**
+         * Sends the given payload back to the sender.
+         */
+        handle(payload: $CustomPacketPayload_): void;
+        /**
          * Handles a packet using the current context.
          * 
          * Used to trigger vanilla handling when custom payloads may be transformed into a vanilla packet.
          */
         handle(packet: $Packet<never>): void;
-        /**
-         * Sends the given payload back to the sender.
-         */
-        handle(payload: $CustomPacketPayload_): void;
         /**
          * @return the protocol of the connection
          */

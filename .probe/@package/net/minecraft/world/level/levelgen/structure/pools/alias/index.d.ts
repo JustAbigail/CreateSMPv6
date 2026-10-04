@@ -14,19 +14,19 @@ declare module "@package/net/minecraft/world/level/levelgen/structure/pools/alia
     /**
      * Values that may be interpreted as {@link $Random}.
      */
-    export type $Random_ = { alias?: $ResourceKey_<$StructureTemplatePool>, targets?: $SimpleWeightedRandomList<$ResourceKey_<$StructureTemplatePool>>,  } | [alias?: $ResourceKey_<$StructureTemplatePool>, targets?: $SimpleWeightedRandomList<$ResourceKey_<$StructureTemplatePool>>, ];
+    export type $Random_ = { targets?: $SimpleWeightedRandomList<$ResourceKey_<$StructureTemplatePool>>, alias?: $ResourceKey_<$StructureTemplatePool>,  } | [targets?: $SimpleWeightedRandomList<$ResourceKey_<$StructureTemplatePool>>, alias?: $ResourceKey_<$StructureTemplatePool>, ];
     export class $Direct extends $Record implements $PoolAliasBinding {
     }
     /**
      * Values that may be interpreted as {@link $Direct}.
      */
-    export type $Direct_ = { alias?: $ResourceKey_<$StructureTemplatePool>, target?: $ResourceKey_<$StructureTemplatePool>,  } | [alias?: $ResourceKey_<$StructureTemplatePool>, target?: $ResourceKey_<$StructureTemplatePool>, ];
+    export type $Direct_ = { target?: $ResourceKey_<$StructureTemplatePool>, alias?: $ResourceKey_<$StructureTemplatePool>,  } | [target?: $ResourceKey_<$StructureTemplatePool>, alias?: $ResourceKey_<$StructureTemplatePool>, ];
     export class $PoolAliasBinding {
         static randomGroup(groups: $SimpleWeightedRandomList<$List_<$PoolAliasBinding>>): $RandomGroup;
-        static random(alias: $ResourceKey_<$StructureTemplatePool>, targets: $SimpleWeightedRandomList<$ResourceKey_<$StructureTemplatePool>>): $Random;
-        static random(alias: string, targets: $SimpleWeightedRandomList<string>): $Random;
         static direct(alias: $ResourceKey_<$StructureTemplatePool>, target: $ResourceKey_<$StructureTemplatePool>): $Direct;
         static direct(alias: string, target: string): $Direct;
+        static random(alias: $ResourceKey_<$StructureTemplatePool>, targets: $SimpleWeightedRandomList<$ResourceKey_<$StructureTemplatePool>>): $Random;
+        static random(alias: string, targets: $SimpleWeightedRandomList<string>): $Random;
         static CODEC: $Codec<$PoolAliasBinding>;
     }
     export interface $PoolAliasBinding {

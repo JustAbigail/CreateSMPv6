@@ -31,5 +31,5 @@ declare module "@package/dev/worldgen/lithostitched/api/worldgen/placementcondit
     /**
      * Values that may be interpreted as {@link $PlacementCondition$Context}.
      */
-    export type $PlacementCondition$Context_ = { seed?: number, randomState?: $RandomState, biomeSource?: $BiomeSource, registries?: $RegistryAccess, generator?: $ChunkGenerator, heightAccessor?: $LevelHeightAccessor,  } | [seed?: number, randomState?: $RandomState, biomeSource?: $BiomeSource, registries?: $RegistryAccess, generator?: $ChunkGenerator, heightAccessor?: $LevelHeightAccessor, ];
+    export type $PlacementCondition$Context_ = { biomeSource?: $BiomeSource, randomState?: $RandomState, seed?: number, heightAccessor?: $LevelHeightAccessor, generator?: $ChunkGenerator, registries?: $RegistryAccess,  } | [biomeSource?: $BiomeSource, randomState?: $RandomState, seed?: number, heightAccessor?: $LevelHeightAccessor, generator?: $ChunkGenerator, registries?: $RegistryAccess, ];
 }

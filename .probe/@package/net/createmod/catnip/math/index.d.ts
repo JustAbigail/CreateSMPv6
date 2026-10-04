@@ -13,10 +13,15 @@ declare module "@package/net/createmod/catnip/math" {
         getOppositeFace(): $Direction;
         getFace(): $Direction;
         isEquivalent(arg0: $BlockFace): boolean;
-        getOpposite(): $BlockFace;
         getPos(): $BlockPos;
+        getOpposite(): $BlockFace;
         static CODEC: $Codec<$BlockFace>;
         static STREAM_CODEC: $StreamCodec<$ByteBuf, $BlockFace>;
         constructor(arg0: $BlockPos_, arg1: $Direction_);
+        get connectedPos(): $BlockPos;
+        get oppositeFace(): $Direction;
+        get face(): $Direction;
+        get pos(): $BlockPos;
+        get opposite(): $BlockFace;
     }
 }

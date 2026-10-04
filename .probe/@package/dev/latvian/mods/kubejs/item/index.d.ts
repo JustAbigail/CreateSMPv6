@@ -100,34 +100,48 @@ declare module "@package/dev/latvian/mods/kubejs/item" {
         cancel(): $Object;
         getEntity(): $LivingEntity;
         constructor(player: $Player, hand: $InteractionHand_, item: $ItemStack_);
+        get hand(): $InteractionHand;
+        get item(): $ItemStack;
+        get target(): $KubeRayTraceResult;
+        get player(): $Player;
+        get level(): $Level;
+        get server(): $MinecraftServer;
+        get registries(): $RegistryAccess;
+        get entity(): $LivingEntity;
     }
     export class $ItemBuilder$HurtEnemyContext extends $Record {
         getAttacker(): $LivingEntity;
         getItem(): $ItemStack;
         getTarget(): $LivingEntity;
         constructor(getItem: $ItemStack_, getTarget: $LivingEntity, getAttacker: $LivingEntity);
+        get attacker(): $LivingEntity;
+        get item(): $ItemStack;
+        get target(): $LivingEntity;
     }
     /**
      * Values that may be interpreted as {@link $ItemBuilder$HurtEnemyContext}.
      */
-    export type $ItemBuilder$HurtEnemyContext_ = { getAttacker?: $LivingEntity, getItem?: $ItemStack_, getTarget?: $LivingEntity,  } | [getAttacker?: $LivingEntity, getItem?: $ItemStack_, getTarget?: $LivingEntity, ];
+    export type $ItemBuilder$HurtEnemyContext_ = { getAttacker?: $LivingEntity, getTarget?: $LivingEntity, getItem?: $ItemStack_,  } | [getAttacker?: $LivingEntity, getTarget?: $LivingEntity, getItem?: $ItemStack_, ];
     export class $MutableToolTier implements $Tier {
         setSpeed(f: number): void;
         getSpeed(): number;
-        setAttackDamageBonus(f: number): void;
-        setRepairIngredient(arg0: $Ingredient_): void;
-        setEnchantmentValue(i: number): void;
         setUses(i: number): void;
         setIncorrectBlocksForDropsTag(tag: $ResourceLocation_): void;
         getIncorrectBlocksForDropsTag(): $ResourceLocation;
+        setRepairIngredient(arg0: $Ingredient_): void;
+        setEnchantmentValue(i: number): void;
+        setAttackDamageBonus(f: number): void;
+        getEnchantmentValue(): number;
         getUses(): number;
         getIncorrectBlocksForDrops(): $TagKey<$Block>;
         getVanillaRepairIngredient(): $Ingredient;
-        getEnchantmentValue(): number;
         getAttackDamageBonus(): number;
         createToolProperties(arg0: $TagKey_<$Block>): $Tool;
         parent: $Tier;
         constructor(p: $Tier_);
+        set repairIngredient(value: $Ingredient_);
+        get incorrectBlocksForDrops(): $TagKey<$Block>;
+        get vanillaRepairIngredient(): $Ingredient;
     }
     export class $ItemBuilder$NameCallback {
     }
@@ -139,6 +153,10 @@ declare module "@package/dev/latvian/mods/kubejs/item" {
      */
     export type $ItemBuilder$NameCallback_ = ((itemStack: $ItemStack) => $Component_);
     export class $FoodBuilder {
+        /**
+         * Sets the food is fast to eat (having half of the eating time).
+         */
+        fastToEat(): $FoodBuilder;
         /**
          * Adds an effect to the food. Note that the effect duration is in ticks (20 ticks = 1 second).
          * 
@@ -160,10 +178,6 @@ declare module "@package/dev/latvian/mods/kubejs/item" {
          */
         eaten(e: $Consumer_<$FoodEatenKubeEvent>): $FoodBuilder;
         /**
-         * Sets the food is fast to eat (having half of the eating time).
-         */
-        fastToEat(): $FoodBuilder;
-        /**
          * Sets the saturation modifier. Note that the saturation restored is hunger * saturation.
          */
         saturation(s: number): $FoodBuilder;
@@ -172,17 +186,17 @@ declare module "@package/dev/latvian/mods/kubejs/item" {
          */
         eatSeconds(seconds: number): $FoodBuilder;
         /**
-         * Sets the food is always edible.
+         * Sets the hunger restored.
          */
-        alwaysEdible(): $FoodBuilder;
+        nutrition(h: number): $FoodBuilder;
         /**
          * Sets whether the food is always edible.
          */
         alwaysEdible(flag: boolean): $FoodBuilder;
         /**
-         * Sets the hunger restored.
+         * Sets the food is always edible.
          */
-        nutrition(h: number): $FoodBuilder;
+        alwaysEdible(): $FoodBuilder;
         build(): $FoodProperties;
         usingConvertsTo(stack: $ItemStack_): $FoodBuilder;
         constructor();
@@ -284,6 +298,13 @@ declare module "@package/dev/latvian/mods/kubejs/item" {
         cancel(): $Object;
         getEntity(): $LivingEntity;
         constructor(player: $Player, crafted: $ItemStack_, container: $Container);
+        get item(): $ItemStack;
+        get inventory(): $InventoryKJS;
+        get player(): $Player;
+        get level(): $Level;
+        get server(): $MinecraftServer;
+        get registries(): $RegistryAccess;
+        get entity(): $LivingEntity;
     }
     export class $ModifyItemTooltipsKubeEvent implements $KubeEvent {
         modifyAll(requirements: $TooltipRequirements_, consumer: $Consumer_<$TextActionBuilder>): void;
@@ -384,6 +405,13 @@ declare module "@package/dev/latvian/mods/kubejs/item" {
         cancel(): $Object;
         getEntity(): $LivingEntity;
         constructor(e: $PlayerDestroyItemEvent);
+        get hand(): $InteractionHand;
+        get item(): $ItemStack;
+        get player(): $Player;
+        get level(): $Level;
+        get server(): $MinecraftServer;
+        get registries(): $RegistryAccess;
+        get entity(): $LivingEntity;
     }
     export class $ItemEntityInteractedKubeEvent implements $KubePlayerEvent {
         /**
@@ -440,6 +468,14 @@ declare module "@package/dev/latvian/mods/kubejs/item" {
         cancel(): $Object;
         getEntity(): $LivingEntity;
         constructor(player: $Player, entity: $Entity, hand: $InteractionHand_, item: $ItemStack_);
+        get hand(): $InteractionHand;
+        get item(): $ItemStack;
+        get target(): $Entity;
+        get player(): $Player;
+        get level(): $Level;
+        get server(): $MinecraftServer;
+        get registries(): $RegistryAccess;
+        get entity(): $LivingEntity;
     }
     export class $DynamicItemTooltipsKubeEvent implements $KubeEvent {
         add(text: $List_<$Component_>): void;
@@ -547,6 +583,14 @@ declare module "@package/dev/latvian/mods/kubejs/item" {
     }
     export class $ItemBuilder extends $ModelledBuilderBase<$Item> {
         /**
+         * When players did not finish using the item but released the right mouse button halfway through.
+         * 
+         * An example is the bow, where the arrow is shot when the player releases the right mouse button.
+         * 
+         * To ensure the bow won't finish using, Minecraft sets the `useDuration` to a very high number (1h).
+         */
+        releaseUsing(releaseUsing: $ItemBuilder$ReleaseUsingCallback_): this;
+        /**
          * Sets the item's container item, e.g. a bucket for a milk bucket.
          */
         containerItem(id: $ResourceLocation_): this;
@@ -568,27 +612,12 @@ declare module "@package/dev/latvian/mods/kubejs/item" {
         useAnimation(animation: $UseAnim_): this;
         disableRepair(): this;
         /**
-         * When players did not finish using the item but released the right mouse button halfway through.
+         * The duration when the item is used.
          * 
-         * An example is the bow, where the arrow is shot when the player releases the right mouse button.
-         * 
-         * To ensure the bow won't finish using, Minecraft sets the `useDuration` to a very high number (1h).
+         * For example, when eating food, this is the time it takes to eat the food.
+         * This can change the eating speed, or be used for other things (like making a custom bow).
          */
-        releaseUsing(releaseUsing: $ItemBuilder$ReleaseUsingCallback_): this;
-        /**
-         * Makes the item fire resistant like netherite tools.
-         */
-        fireResistant(): this;
-        /**
-         * Makes the item fire resistant like netherite tools (or not).
-         */
-        fireResistant(isFireResistant: boolean): this;
-        jukeboxPlayable(song: $ResourceKey_<$JukeboxSong>, showInTooltip: boolean): this;
-        jukeboxPlayable(song: $ResourceKey_<$JukeboxSong>): this;
-        /**
-         * Sets the item's rarity.
-         */
-        rarity(v: $Rarity_): this;
+        useDuration(useDuration: $ToIntBiFunction_<$ItemStack, $LivingEntity>): this;
         /**
          * Makes the item glow like enchanted, even if it's not enchanted.
          */
@@ -620,12 +649,19 @@ declare module "@package/dev/latvian/mods/kubejs/item" {
          */
         maxDamage(v: number): this;
         /**
-         * The duration when the item is used.
-         * 
-         * For example, when eating food, this is the time it takes to eat the food.
-         * This can change the eating speed, or be used for other things (like making a custom bow).
+         * Sets the item's rarity.
          */
-        useDuration(useDuration: $ToIntBiFunction_<$ItemStack, $LivingEntity>): this;
+        rarity(v: $Rarity_): this;
+        /**
+         * Makes the item fire resistant like netherite tools (or not).
+         */
+        fireResistant(isFireResistant: boolean): this;
+        /**
+         * Makes the item fire resistant like netherite tools.
+         */
+        fireResistant(): this;
+        jukeboxPlayable(song: $ResourceKey_<$JukeboxSong>): this;
+        jukeboxPlayable(song: $ResourceKey_<$JukeboxSong>, showInTooltip: boolean): this;
         /**
          * Sets the item's max stack size. Default is 64.
          */
@@ -639,13 +675,13 @@ declare module "@package/dev/latvian/mods/kubejs/item" {
          */
         group(g: string): this;
         /**
-         * Colorizes item's texture of the given index. Index is used when you have multiple layers, e.g. a crushed ore (of rock + ore).
-         */
-        color(index: number, color: $ItemTintFunction_): this;
-        /**
          * Colorizes item's texture of the given index. Useful for coloring items, like GT ores ore dusts.
          */
         color(callback: $ItemTintFunction_): this;
+        /**
+         * Colorizes item's texture of the given index. Index is used when you have multiple layers, e.g. a crushed ore (of rock + ore).
+         */
+        color(index: number, color: $ItemTintFunction_): this;
         /**
          * Determines if player will start using the item.
          * 
@@ -653,15 +689,15 @@ declare module "@package/dev/latvian/mods/kubejs/item" {
          */
         use(use: $ItemBuilder$UseCallback_): this;
         /**
-         * Adds a tooltip to the item.
-         */
-        tooltip(text: $Component_): this;
-        /**
          * Gets called when the item is used to hurt an entity.
          * 
          * For example, when using a sword to hit a mob, this is called.
          */
         hurtEnemy(context: $Predicate_<$ItemBuilder$HurtEnemyContext>): this;
+        /**
+         * Adds a tooltip to the item.
+         */
+        tooltip(text: $Component_): this;
         /**
          * Set the food nutrition and saturation of the item.
          */
@@ -730,6 +766,13 @@ declare module "@package/dev/latvian/mods/kubejs/item" {
         cancel(): $Object;
         getEntity(): $LivingEntity;
         constructor(player: $Player, entity: $ItemEntity, stack: $ItemStack_);
+        get itemEntity(): $ItemEntity;
+        get item(): $ItemStack;
+        get player(): $Player;
+        get level(): $Level;
+        get server(): $MinecraftServer;
+        get registries(): $RegistryAccess;
+        get entity(): $LivingEntity;
     }
     export class $ItemBuilder$FinishUsingCallback {
     }
@@ -741,17 +784,15 @@ declare module "@package/dev/latvian/mods/kubejs/item" {
      */
     export type $ItemBuilder$FinishUsingCallback_ = ((itemStack: $ItemStack, level: $Level, livingEntity: $LivingEntity) => $ItemStack_);
     export class $ItemModificationKubeEvent$ItemModifications extends $Record implements $ItemComponentFunctions {
-        disableRepair(): void;
         setCraftingRemainder(item: $Item_): void;
         setNameKey(key: string): void;
-        setBurnTime(i: $TickDuration_): void;
         setTier(builder: $Consumer_<$MutableToolTier>): void;
+        disableRepair(): void;
+        setBurnTime(i: $TickDuration_): void;
         getComponentMap(): $DataComponentMap;
         item(): $Item;
-        setFood(nutrition: number, saturation: number): void;
-        setFood(foodProperties: $FoodProperties_): void;
-        modifyFood(foodBuilder: $Consumer_<$FoodBuilder>): void;
-        setMaxStackSize(size: number): void;
+        setNoteBlockSound(id: $ResourceLocation_): void;
+        getAttributeModifiers(): $ItemAttributeModifiers;
         setMaxDamage(maxDamage: number): void;
         setDamage(damage: number): void;
         setUnbreakable(): void;
@@ -768,17 +809,11 @@ declare module "@package/dev/latvian/mods/kubejs/item" {
         setInstrument(instrument: $Holder_<$Instrument>): void;
         setFireworkExplosion(explosion: $FireworkExplosion_): void;
         setFireworks(fireworks: $Fireworks_): void;
-        setNoteBlockSound(id: $ResourceLocation_): void;
-        getAttributeModifiers(): $ItemAttributeModifiers;
+        setFood(nutrition: number, saturation: number): void;
+        setFood(foodProperties: $FoodProperties_): void;
+        modifyFood(foodBuilder: $Consumer_<$FoodBuilder>): void;
+        setMaxStackSize(size: number): void;
         remove(type: $DataComponentType_<never>): $ComponentFunctions;
-        setEntityData(tag: $CompoundTag_): void;
-        setProfile(name: string, uuid: $UUID_): void;
-        setProfile(profile: $GameProfile): void;
-        setBaseColor(color: $DyeColor_): void;
-        setBlockStateProperties(properties: $Map_<string, string>): void;
-        setLockCode(lock: string): void;
-        setContainerLootTable(lootTable: $ResourceKey_<$LootTable>, seed: number): void;
-        setContainerLootTable(lootTable: $ResourceKey_<$LootTable>): void;
         setAdditionalTooltipHidden(): void;
         setUnit(component: $DataComponentType_<$Unit_>): $ComponentFunctions;
         patch(components: $DataComponentPatch_): $ComponentFunctions;
@@ -798,6 +833,14 @@ declare module "@package/dev/latvian/mods/kubejs/item" {
         setDyedColorWithTooltip(color: $KubeColor_): void;
         setPotionContents(contents: $PotionContents_): void;
         setPotionId(potion: $Holder_<$Potion>): void;
+        setEntityData(tag: $CompoundTag_): void;
+        setProfile(name: string, uuid: $UUID_): void;
+        setProfile(profile: $GameProfile): void;
+        setBaseColor(color: $DyeColor_): void;
+        setBlockStateProperties(properties: $Map_<string, string>): void;
+        setLockCode(lock: string): void;
+        setContainerLootTable(lootTable: $ResourceKey_<$LootTable>, seed: number): void;
+        setContainerLootTable(lootTable: $ResourceKey_<$LootTable>): void;
         setAttributeModifiers(modifiers: $List_<$ItemAttributeModifiers$Entry_>): void;
         getBaseAttackDamage(): number;
         getBaseAttackSpeed(): number;
@@ -834,6 +877,40 @@ declare module "@package/dev/latvian/mods/kubejs/item" {
         getOrDefault<T extends keyof DataComponentTypes.OutputMap>(type: T, _default: DataComponentTypes.OutputMap[T]): DataComponentTypes.OutputMap[T];
         set(components: $DataComponentMap_): this;
         set<T extends keyof DataComponentTypes.InputMap>(type: T, data: DataComponentTypes.InputMap[T]): this;
+        set craftingRemainder(value: $Item_);
+        set nameKey(value: string);
+        set tier(value: $Consumer_<$MutableToolTier>);
+        set burnTime(value: $TickDuration_);
+        get componentMap(): $DataComponentMap;
+        set noteBlockSound(value: $ResourceLocation_);
+        set maxDamage(value: number);
+        set damage(value: number);
+        set itemName(value: $Component_);
+        set repairCost(value: number);
+        set tool(value: $Tool_);
+        set mapItemColor(value: $KubeColor_);
+        set chargedProjectiles(value: $List_<$ItemStack_>);
+        set bundleContents(value: $List_<$ItemStack_>);
+        set bucketEntityData(value: $CompoundTag_);
+        set blockEntityData(value: $CompoundTag_);
+        set instrument(value: $Holder_<$Instrument>);
+        set fireworkExplosion(value: $FireworkExplosion_);
+        set fireworks(value: $Fireworks_);
+        set maxStackSize(value: number);
+        set unit(value: $DataComponentType_<$Unit_>);
+        get componentString(): string;
+        set rarity(value: $Rarity_);
+        set customModelData(value: number);
+        set glintOverride(value: boolean);
+        set dyedColor(value: $KubeColor_);
+        set dyedColorWithTooltip(value: $KubeColor_);
+        set potionContents(value: $PotionContents_);
+        set potionId(value: $Holder_<$Potion>);
+        set entityData(value: $CompoundTag_);
+        set baseColor(value: $DyeColor_);
+        set blockStateProperties(value: $Map_<string, string>);
+        set lockCode(value: string);
+        set attributeModifiersWithTooltip(value: $List_<$ItemAttributeModifiers$Entry_>);
     }
     /**
      * Values that may be interpreted as {@link $ItemModificationKubeEvent$ItemModifications}.
@@ -846,6 +923,7 @@ declare module "@package/dev/latvian/mods/kubejs/item" {
         static NONE: $ItemPredicate;
     }
     export interface $ItemPredicate extends $Predicate<$ItemStack>, $IngredientSupplierKJS {
+        asIngredient(): $Ingredient;
         canBeUsedForMatching(): boolean;
         getStacks(): $ItemStackSet;
         getStackArray(): $ItemStack[];
@@ -855,9 +933,16 @@ declare module "@package/dev/latvian/mods/kubejs/item" {
         getItemTypes(): $Set<$Item>;
         getItemIds(): $Set<string>;
         getFirst(): $ItemStack;
-        asIngredient(): $Ingredient;
         test(itemStack: $ItemStack_): boolean;
         isWildcard(): boolean;
+        get stacks(): $ItemStackSet;
+        get stackArray(): $ItemStack[];
+        get displayStacks(): $ItemStackSet;
+        get itemStream(): $Stream<$Item>;
+        get itemTypes(): $Set<$Item>;
+        get itemIds(): $Set<string>;
+        get first(): $ItemStack;
+        get wildcard(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $ItemPredicate}.
@@ -914,6 +999,13 @@ declare module "@package/dev/latvian/mods/kubejs/item" {
         cancel(): $Object;
         getEntity(): $LivingEntity;
         constructor(player: $Player, entity: $ItemEntity);
+        get itemEntity(): $ItemEntity;
+        get item(): $ItemStack;
+        get player(): $Player;
+        get level(): $Level;
+        get server(): $MinecraftServer;
+        get registries(): $RegistryAccess;
+        get entity(): $LivingEntity;
     }
     export class $ItemSmeltedKubeEvent implements $KubePlayerEvent {
         /**
@@ -962,6 +1054,12 @@ declare module "@package/dev/latvian/mods/kubejs/item" {
         cancel(): $Object;
         getEntity(): $LivingEntity;
         constructor(player: $Player, smelted: $ItemStack_);
+        get item(): $ItemStack;
+        get player(): $Player;
+        get level(): $Level;
+        get server(): $MinecraftServer;
+        get registries(): $RegistryAccess;
+        get entity(): $LivingEntity;
     }
     export class $ItemBuilder$UseCallback {
     }
@@ -973,12 +1071,12 @@ declare module "@package/dev/latvian/mods/kubejs/item" {
      */
     export type $ItemBuilder$UseCallback_ = ((level: $Level, player: $Player, interactionHand: $InteractionHand) => boolean);
     export class $ArmorMaterialBuilder extends $BuilderBase<$ArmorMaterial> {
+        defense(v: $Map_<$ArmorItem$Type_, number>): this;
         enchantmentValue(v: number): this;
         repairIngredient(v: $Supplier_<$Ingredient>): this;
         toughness(v: number): this;
         equipSound(sound: $Holder_<$SoundEvent>): this;
         knockbackResistance(v: number): this;
-        defense(v: $Map_<$ArmorItem$Type_, number>): this;
         layers(v: $ArmorMaterial$Layer[]): this;
         registryKey: $ResourceKey<$Registry<$ArmorMaterial>>;
         sourceLine: $SourceLine;
@@ -1005,6 +1103,8 @@ declare module "@package/dev/latvian/mods/kubejs/item" {
         constructor(...items: $ItemStack_[]);
         constructor();
         [Symbol.iterator](): Iterator<$ItemStack>
+        get empty(): boolean;
+        get first(): $ItemStack;
     }
     export class $ItemTintFunction {
         static wrap(o: $Object): $ItemTintFunction;
@@ -1023,13 +1123,13 @@ declare module "@package/dev/latvian/mods/kubejs/item" {
     export type $ItemTintFunction_ = $ItemTintFunction_[] | string | ((stack: $ItemStack, index: number) => $KubeColor_);
     export class $FoodEatenKubeEvent implements $KubeEntityEvent {
         /**
-         * The food that was eaten.
-         */
-        getItem(): $ItemStack;
-        /**
          * The entity that ate the food.
          */
         getEntity(): $Entity;
+        /**
+         * The food that was eaten.
+         */
+        getItem(): $ItemStack;
         getPlayer(): $Player;
         getLevel(): $Level;
         getServer(): $MinecraftServer;
@@ -1071,6 +1171,12 @@ declare module "@package/dev/latvian/mods/kubejs/item" {
          */
         cancel(): $Object;
         constructor(e: $LivingEntity, is: $ItemStack_);
+        get entity(): $Entity;
+        get item(): $ItemStack;
+        get player(): $Player;
+        get level(): $Level;
+        get server(): $MinecraftServer;
+        get registries(): $RegistryAccess;
     }
     export class $ItemBuilder$ReleaseUsingCallback {
     }

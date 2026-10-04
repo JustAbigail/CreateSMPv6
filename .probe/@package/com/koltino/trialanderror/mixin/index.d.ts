@@ -5,6 +5,7 @@ declare module "@package/com/koltino/trialanderror/mixin" {
     }
     export interface $VaultServerDataAccessor {
         getRewardedPlayers(): $Set<$UUID>;
+        get rewardedPlayers(): $Set<$UUID>;
     }
     /**
      * Values that may be interpreted as {@link $VaultServerDataAccessor}.
@@ -15,5 +16,7 @@ declare module "@package/com/koltino/trialanderror/mixin" {
     export interface $VaultSharedDataAccessor {
         getConnectedPlayers(): $Set<$UUID>;
         setIsDirty(arg0: boolean): void;
+        get connectedPlayers(): $Set<$UUID>;
+        set isDirty(value: boolean);
     }
 }

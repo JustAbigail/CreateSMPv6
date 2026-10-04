@@ -13,6 +13,7 @@ declare module "@package/net/minecraft/world/level/storage/loot/providers/number
         getInt(lootContext: $LootContext): number;
         getFloat(lootContext: $LootContext): number;
         getType(): $LootNumberProviderType;
+        get type(): $LootNumberProviderType;
     }
     /**
      * Values that may be interpreted as {@link $NumberProvider}.

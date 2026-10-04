@@ -25,6 +25,10 @@ declare module "@package/net/minecraft/client/tutorial" {
         onInput(input: $Input): void;
         onInventoryAction(carriedStack: $ItemStack_, slottedStack: $ItemStack_, action: $ClickAction_): void;
         isSurvival(): boolean;
+        /**
+         * Called when the player opens his inventory
+         */
+        tick(): void;
         static key(keybind: string): $Component;
         /**
          * Called when the player opens his inventory
@@ -35,10 +39,6 @@ declare module "@package/net/minecraft/client/tutorial" {
          */
         stop(): void;
         getMinecraft(): $Minecraft;
-        /**
-         * Called when the player opens his inventory
-         */
-        tick(): void;
         onLookAt(level: $ClientLevel | null, result: $HitResult | null): void;
         addTimedToast(toast: $TutorialToast, durationTicks: number): void;
         removeTimedToast(toast: $TutorialToast): void;
@@ -47,6 +47,9 @@ declare module "@package/net/minecraft/client/tutorial" {
          */
         onOpenInventory(): void;
         constructor(minecraft: $Minecraft, options: $Options);
+        set step(value: $TutorialSteps_);
+        get survival(): boolean;
+        get minecraft(): $Minecraft;
     }
     export class $TutorialStepInstance {
     }
@@ -67,11 +70,11 @@ declare module "@package/net/minecraft/client/tutorial" {
         /**
          * Called when the player opens his inventory
          */
-        clear(): void;
+        tick(): void;
         /**
          * Called when the player opens his inventory
          */
-        tick(): void;
+        clear(): void;
         /**
          * Handles blocks and entities hovering
          */

@@ -8,5 +8,7 @@ declare module "@package/gg/essential/mixins/ext/server" {
         getEssential$coroutineScope(): $CoroutineScope;
         getEssential$dispatcher(): $CoroutineDispatcher;
         essential$updateServerStatus(): void;
+        get essential$coroutineScope(): $CoroutineScope;
+        get essential$dispatcher(): $CoroutineDispatcher;
     }
 }

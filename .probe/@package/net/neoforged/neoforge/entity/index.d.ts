@@ -51,6 +51,8 @@ declare module "@package/net/neoforged/neoforge/entity" {
          */
         getScanDistance(): number;
         constructor(xpOrb: $ExperienceOrb, scanDistance: number);
+        get xpOrb(): $ExperienceOrb;
+        get scanDistance(): number;
     }
     export class $PartEntity<T extends $Entity> extends $Entity {
         getParent(): $CompoundTag;
@@ -125,6 +127,7 @@ declare module "@package/net/neoforged/neoforge/entity" {
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
         constructor(arg0: $CompoundTag_);
+        get parent(): $CompoundTag;
     }
     /**
      * An interface for Entities that need extra information to be communicated

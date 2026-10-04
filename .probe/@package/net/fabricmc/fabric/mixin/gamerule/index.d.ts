@@ -10,6 +10,7 @@ declare module "@package/net/fabricmc/fabric/mixin/gamerule" {
     }
     export class $GameRulesAccessor {
         static getRuleTypes(): $Map<$GameRules$Key<never>, $GameRules$Type<never>>;
+        static get ruleTypes(): $Map<$GameRules$Key<never>, $GameRules$Type<never>>;
     }
     export interface $GameRulesAccessor {
     }

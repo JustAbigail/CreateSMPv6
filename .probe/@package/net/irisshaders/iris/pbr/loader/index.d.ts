@@ -5,5 +5,6 @@ declare module "@package/net/irisshaders/iris/pbr/loader" {
         getBaseSprite(): $TextureAtlasSprite;
         x: number;
         y: number;
+        get baseSprite(): $TextureAtlasSprite;
     }
 }

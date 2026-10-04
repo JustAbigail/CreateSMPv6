@@ -41,12 +41,13 @@ declare module "@package/rbasamoyai/createbigcannons/crafting" {
         toNetwork(arg0: $FriendlyByteBuf): void;
         static of(arg0: $TagKey_<$Block>): $BlockRecipeIngredient;
         static of(arg0: $Block_): $BlockRecipeIngredient;
-        or(arg0: $Predicate_<$BlockState>): $Predicate<$BlockState>;
         negate(): $Predicate<$BlockState>;
         and(arg0: $Predicate_<$BlockState>): $Predicate<$BlockState>;
+        or(arg0: $Predicate_<$BlockState>): $Predicate<$BlockState>;
         static CODEC: $Codec<$BlockRecipeIngredient>;
         static STREAM_CODEC: $StreamCodec<$RegistryFriendlyByteBuf, $BlockRecipeIngredient>;
         constructor();
+        get blockItems(): $List<$ItemStack>;
     }
     export class $BlockRecipeSerializer<T extends $BlockRecipe> {
         static register(): void;
@@ -71,6 +72,8 @@ declare module "@package/rbasamoyai/createbigcannons/crafting" {
         static BLOCK: $BlockRecipeIngredient$Type;
         static TAG: $BlockRecipeIngredient$Type;
         static STREAM_CODEC: $StreamCodec<$RegistryFriendlyByteBuf, $BlockRecipeIngredient$Type>;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $BlockRecipeIngredient$Type}.
@@ -86,5 +89,8 @@ declare module "@package/rbasamoyai/createbigcannons/crafting" {
         getSerializer(): $BlockRecipeSerializer<never>;
         matches(arg0: $Level_, arg1: $BlockPos_): boolean;
         getType(): $BlockRecipeType<never>;
+        get resultBlock(): $Block;
+        get serializer(): $BlockRecipeSerializer<never>;
+        get type(): $BlockRecipeType<never>;
     }
 }

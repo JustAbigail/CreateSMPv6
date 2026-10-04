@@ -58,10 +58,10 @@ declare module "@package/dev/latvian/mods/kubejs/misc" {
         harmful(): this;
         beneficial(): this;
         effectTick(effectTick: $MobEffectBuilder$EffectEntityCallback_): this;
-        category(c: $MobEffectCategory_): this;
-        color(col: $KubeColor_): this;
-        instant(instant: boolean): this;
         instant(): this;
+        instant(instant: boolean): this;
+        color(col: $KubeColor_): this;
+        category(c: $MobEffectCategory_): this;
         registryKey: $ResourceKey<$Registry<$MobEffect>>;
         sourceLine: $SourceLine;
         id: $ResourceLocation;
@@ -77,8 +77,8 @@ declare module "@package/dev/latvian/mods/kubejs/misc" {
      */
     export type $MobEffectBuilder$EffectEntityCallback_ = ((entity: $LivingEntity, level: number) => void);
     export class $VillagerProfessionBuilder extends $BuilderBase<$VillagerProfession> {
-        poiTypeTag(t: $ResourceLocation_): this;
         poiType(t: $ResourceLocation_): this;
+        poiTypeTag(t: $ResourceLocation_): this;
         workSound(t: $SoundEvent_): this;
         secondaryPoi(t: $Block_[]): this;
         requestedItems(t: $Item_[]): this;
@@ -88,9 +88,9 @@ declare module "@package/dev/latvian/mods/kubejs/misc" {
         constructor(i: $ResourceLocation_);
     }
     export class $PoiTypeBuilder extends $BuilderBase<$PoiType> {
-        blocks(r: $BlockState_[]): this;
         maxTickets(i: number): this;
         validRange(i: number): this;
+        blocks(r: $BlockState_[]): this;
         block(r: $Block_): this;
         registryKey: $ResourceKey<$Registry<$PoiType>>;
         sourceLine: $SourceLine;

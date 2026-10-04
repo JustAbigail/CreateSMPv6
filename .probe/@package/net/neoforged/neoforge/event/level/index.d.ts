@@ -54,6 +54,8 @@ declare module "@package/net/neoforged/neoforge/event/level" {
          */
         setTimeAddition(newTimeIn: number): boolean;
         constructor(level: $ServerLevel, newTime: number, minTime: number);
+        get newTime(): number;
+        set timeAddition(value: number);
     }
     /**
      * This event is fired when `Context, BlockPos)` attempts to alter a ground block when generating a feature.
@@ -90,6 +92,8 @@ declare module "@package/net/neoforged/neoforge/event/level" {
          */
         getContext(): $TreeDecorator$Context;
         constructor(arg0: $TreeDecorator$Context, arg1: $List_<$BlockPos_>, arg2: $AlterGroundEvent$StateProvider_);
+        get positions(): $List<$BlockPos>;
+        get context(): $TreeDecorator$Context;
     }
     /**
      * This event is fired whenever a `ServerPlayer` begins watching a chunk and the chunk is queued up for
@@ -106,6 +110,7 @@ declare module "@package/net/neoforged/neoforge/event/level" {
     export class $ChunkWatchEvent$Watch extends $ChunkWatchEvent {
         getChunk(): $LevelChunk;
         constructor(player: $ServerPlayer, chunk: $LevelChunk, level: $ServerLevel);
+        get chunk(): $LevelChunk;
     }
     export class $NoteBlockEvent$Octave extends $Enum<$NoteBlockEvent$Octave> {
         static values(): $NoteBlockEvent$Octave[];
@@ -150,6 +155,8 @@ declare module "@package/net/neoforged/neoforge/event/level" {
          */
         getLevel(): $ServerLevel;
         constructor(serverLevel: $ServerLevel, customSpawners: $List_<$CustomSpawner_>);
+        get customSpawners(): $List<$CustomSpawner>;
+        get level(): $ServerLevel;
     }
     export class $NoteBlockEvent$Note extends $Enum<$NoteBlockEvent$Note> {
         static values(): $NoteBlockEvent$Note[];
@@ -197,18 +204,23 @@ declare module "@package/net/neoforged/neoforge/event/level" {
          */
         getNewTicketLevel(): number;
         /**
-         * @return the long representation of the chunk position the ticket level changed for
-         */
-        getChunkPos(): number;
-        /**
          * @return chunk that had its ticket level updated
          */
         getChunkHolder(): $ChunkHolder;
+        /**
+         * @return the long representation of the chunk position the ticket level changed for
+         */
+        getChunkPos(): number;
         /**
          * @return the server level containing the chunk
          */
         getLevel(): $ServerLevel;
         constructor(level: $ServerLevel, chunkPos: number, oldTicketLevel: number, newTicketLevel: number, chunkHolder: $ChunkHolder);
+        get oldTicketLevel(): number;
+        get newTicketLevel(): number;
+        get chunkHolder(): $ChunkHolder;
+        get chunkPos(): number;
+        get level(): $ServerLevel;
     }
     /**
      * Fires after the piston has moved and set surrounding states. This will not fire if `Pre` is cancelled.
@@ -246,15 +258,16 @@ declare module "@package/net/neoforged/neoforge/event/level" {
      */
     export class $BlockEvent$BreakEvent extends $BlockEvent implements $ICancellableEvent {
         /**
-         * @return the player who is attempting to break the block
-         */
-        getPlayer(): $Player;
-        /**
          * Cancelling this event will prevent the block from being broken, and notifies the client of the refusal.
          */
         setCanceled(canceled: boolean): void;
+        /**
+         * @return the player who is attempting to break the block
+         */
+        getPlayer(): $Player;
         isCanceled(): boolean;
         constructor(level: $Level_, pos: $BlockPos_, state: $BlockState_, player: $Player);
+        get player(): $Player;
     }
     /**
      * This event is fired whenever a block (like a sapling) grows into a feature (like a tree).
@@ -265,17 +278,17 @@ declare module "@package/net/neoforged/neoforge/event/level" {
      */
     export class $BlockGrowFeatureEvent extends $LevelEvent implements $ICancellableEvent {
         /**
-         * @return the random source which initiated the sapling growth
+         * Canceling this event will prevent the feature from growing. The original block will remain in place.
          */
-        getRandom(): $RandomSource;
+        setCanceled(canceled: boolean): void;
         /**
          * @return the holder of the feature which will be placed, possibly null
          */
         getFeature(): $Holder<$ConfiguredFeature<never, never>>;
         /**
-         * Canceling this event will prevent the feature from growing. The original block will remain in place.
+         * @return the random source which initiated the sapling growth
          */
-        setCanceled(canceled: boolean): void;
+        getRandom(): $RandomSource;
         /**
          * Changes the feature that will be grown. If the holder cannot be resolved, a null feature will be set.
          */
@@ -290,6 +303,8 @@ declare module "@package/net/neoforged/neoforge/event/level" {
         getPos(): $BlockPos;
         isCanceled(): boolean;
         constructor(level: $LevelAccessor, rand: $RandomSource, pos: $BlockPos_, feature: $Holder_<$ConfiguredFeature<never, never>>);
+        get random(): $RandomSource;
+        get pos(): $BlockPos;
     }
     /**
      * Fires before the piston has updated block states. Cancellation prevents movement.
@@ -322,6 +337,7 @@ declare module "@package/net/neoforged/neoforge/event/level" {
          */
         isNewChunk(): boolean;
         constructor(chunk: $ChunkAccess, newChunk: boolean);
+        get newChunk(): boolean;
     }
     /**
      * Fired when building a list of all possible entities that can spawn at the specified location.
@@ -358,6 +374,9 @@ declare module "@package/net/neoforged/neoforge/event/level" {
         setCanceled(arg0: boolean): void;
         isCanceled(): boolean;
         constructor(level: $LevelAccessor, category: $MobCategory_, pos: $BlockPos_, oldList: $WeightedRandomList<$MobSpawnSettings$SpawnerData>);
+        get spawnerDataList(): $List<$MobSpawnSettings$SpawnerData>;
+        get mobCategory(): $MobCategory;
+        get pos(): $BlockPos;
     }
     /**
      * This event is fired whenever a chunk has a watch-related action.
@@ -384,19 +403,26 @@ declare module "@package/net/neoforged/neoforge/event/level" {
          */
         getPos(): $ChunkPos;
         constructor(player: $ServerPlayer, pos: $ChunkPos, level: $ServerLevel);
+        get player(): $ServerPlayer;
+        get level(): $ServerLevel;
+        get pos(): $ChunkPos;
     }
     /**
      * Base piston event, use `Post` and `Pre`
      */
     export class $PistonEvent extends $BlockEvent {
+        getPistonMoveType(): $PistonEvent$PistonMoveType;
         /**
          * Helper method that gets the piston position offset by its facing
          */
         getFaceOffsetPos(): $BlockPos;
         getStructureHelper(): $PistonStructureResolver;
-        getPistonMoveType(): $PistonEvent$PistonMoveType;
         getDirection(): $Direction;
         constructor(arg0: $Level_, arg1: $BlockPos_, arg2: $Direction_, arg3: $PistonEvent$PistonMoveType_);
+        get pistonMoveType(): $PistonEvent$PistonMoveType;
+        get faceOffsetPos(): $BlockPos;
+        get structureHelper(): $PistonStructureResolver;
+        get direction(): $Direction;
     }
     /**
      * This event is fired whenever a chunk being watched by a `ServerPlayer` is transmitted to their client
@@ -412,6 +438,7 @@ declare module "@package/net/neoforged/neoforge/event/level" {
     export class $ChunkWatchEvent$Sent extends $ChunkWatchEvent {
         getChunk(): $LevelChunk;
         constructor(player: $ServerPlayer, chunk: $LevelChunk, level: $ServerLevel);
+        get chunk(): $LevelChunk;
     }
     /**
      * ChunkEvent is fired when an event involving a chunk occurs.
@@ -427,6 +454,7 @@ declare module "@package/net/neoforged/neoforge/event/level" {
         getChunk(): $ChunkAccess;
         constructor(chunk: $ChunkAccess);
         constructor(chunk: $ChunkAccess, level: $LevelAccessor);
+        get chunk(): $ChunkAccess;
     }
     /**
      * This event is fired whenever an event involving a `LevelAccessor` occurs.
@@ -434,16 +462,17 @@ declare module "@package/net/neoforged/neoforge/event/level" {
      * All children of this event are fired on the main Forge event bus.
      */
     export class $LevelEvent extends $Event implements $EventHandlerImplCommon$LevelEventAttachment {
-        /**
-         * @return the level this event is affecting
-         */
-        getLevel(): $LevelAccessor;
         architectury$attachLevel(level: $LevelAccessor): void;
         /**
          * @return the level this event is affecting
          */
         architectury$getAttachedLevel(): $LevelAccessor;
+        /**
+         * @return the level this event is affecting
+         */
+        getLevel(): $LevelAccessor;
         constructor(level: $LevelAccessor);
+        get level(): $LevelAccessor;
     }
     /**
      * This event fires whenever a level is saved.
@@ -475,13 +504,15 @@ declare module "@package/net/neoforged/neoforge/event/level" {
      * Base class for Noteblock Events
      */
     export class $NoteBlockEvent extends $BlockEvent {
-        getNote(): $NoteBlockEvent$Note;
-        getOctave(): $NoteBlockEvent$Octave;
-        setNote(arg0: $NoteBlockEvent$Note_, arg1: $NoteBlockEvent$Octave_): void;
         /**
          * get the vanilla note-id, which contains information about both Note and Octave. Most modders should not need this.
          */
         getVanillaNoteId(): number;
+        getNote(): $NoteBlockEvent$Note;
+        getOctave(): $NoteBlockEvent$Octave;
+        setNote(arg0: $NoteBlockEvent$Note_, arg1: $NoteBlockEvent$Octave_): void;
+        get vanillaNoteId(): number;
+        get octave(): $NoteBlockEvent$Octave;
     }
     /**
      * ExplosionKnockbackEvent is fired once the explosion has calculated the knockback velocity to add to the entity caught in blast.
@@ -494,9 +525,9 @@ declare module "@package/net/neoforged/neoforge/event/level" {
      */
     export class $ExplosionKnockbackEvent extends $ExplosionEvent {
         /**
-         * return the list of blocks affected by the explosion.
+         * return the explosion knockback velocity to apply to entity.
          */
-        getAffectedBlocks(): $List<$BlockPos>;
+        getKnockbackVelocity(): $Vec3;
         /**
          * return the entity affected by the explosion knockback.
          */
@@ -506,16 +537,21 @@ declare module "@package/net/neoforged/neoforge/event/level" {
          */
         setKnockbackVelocity(newKnockbackVelocity: $Vec3_): void;
         /**
-         * return the explosion knockback velocity to apply to entity.
+         * return the list of blocks affected by the explosion.
          */
-        getKnockbackVelocity(): $Vec3;
+        getAffectedBlocks(): $List<$BlockPos>;
         constructor(level: $Level_, explosion: $Explosion, entity: $Entity, knockbackVelocity: $Vec3_);
+        get affectedEntity(): $Entity;
+        get affectedBlocks(): $List<$BlockPos>;
     }
     export class $BlockEvent extends $Event {
         getLevel(): $LevelAccessor;
         getState(): $BlockState;
         getPos(): $BlockPos;
         constructor(level: $LevelAccessor, pos: $BlockPos_, state: $BlockState_);
+        get level(): $LevelAccessor;
+        get state(): $BlockState;
+        get pos(): $BlockPos;
     }
     /**
      * Fired when a block is right-clicked by a tool to change its state.
@@ -557,6 +593,11 @@ declare module "@package/net/neoforged/neoforge/event/level" {
          */
         isCanceled(): boolean;
         constructor(originalState: $BlockState_, context: $UseOnContext, itemAbility: $ItemAbility_, simulate: boolean);
+        get itemAbility(): $ItemAbility;
+        get heldItemStack(): $ItemStack;
+        get simulated(): boolean;
+        get player(): $Player;
+        get context(): $UseOnContext;
     }
     /**
      * ExplosionEvent triggers when an explosion happens in the level.
@@ -577,6 +618,8 @@ declare module "@package/net/neoforged/neoforge/event/level" {
         getExplosion(): $Explosion;
         getLevel(): $Level;
         constructor(level: $Level_, explosion: $Explosion);
+        get explosion(): $Explosion;
+        get level(): $Level;
     }
     /**
      * This event is fired whenever a level unloads.
@@ -604,6 +647,7 @@ declare module "@package/net/neoforged/neoforge/event/level" {
         setCanceled(arg0: boolean): void;
         isCanceled(): boolean;
         constructor(level: $LevelAccessor, pos: $BlockPos_, state: $BlockState_, size: $PortalShape);
+        get portalSize(): $PortalShape;
     }
     /**
      * Fired when a Noteblock is changed. You can adjust the note it will change to via `#setNote(Note, Octave)`.
@@ -615,6 +659,8 @@ declare module "@package/net/neoforged/neoforge/event/level" {
         setCanceled(arg0: boolean): void;
         isCanceled(): boolean;
         constructor(world: $Level_, pos: $BlockPos_, state: $BlockState_, oldNote: number, newNote: number);
+        get oldNote(): $NoteBlockEvent$Note;
+        get oldOctave(): $NoteBlockEvent$Octave;
     }
     /**
      * Fired when a block is broken and the drops have been determined, but before they have been added to the world. This event can be used to manipulate the dropped items and experience.
@@ -625,6 +671,16 @@ declare module "@package/net/neoforged/neoforge/event/level" {
      */
     export class $BlockDropsEvent extends $BlockEvent implements $ICancellableEvent {
         /**
+         * Cancels this event, preventing any drops from being spawned and preventing `Block#spawnAfterBreak` from being called.
+         * 
+         * Also prevents experience from being spawned.
+         */
+        setCanceled(canceled: boolean): void;
+        /**
+         * Set the amount of experience points that will be dropped by the block. This is the true value, after enchantments have been applied.
+         */
+        setDroppedExperience(experience: number): void;
+        /**
          * @return the entity that broke the block, or null if unknown
          */
         getBreaker(): $Entity;
@@ -633,19 +689,9 @@ declare module "@package/net/neoforged/neoforge/event/level" {
          */
         getTool(): $ItemStack;
         /**
-         * Set the amount of experience points that will be dropped by the block. This is the true value, after enchantments have been applied.
-         */
-        setDroppedExperience(experience: number): void;
-        /**
          * @return the amount of experience points that will be dropped by the block
          */
         getDroppedExperience(): number;
-        /**
-         * Cancels this event, preventing any drops from being spawned and preventing `Block#spawnAfterBreak` from being called.
-         * 
-         * Also prevents experience from being spawned.
-         */
-        setCanceled(canceled: boolean): void;
         /**
          * Returns a mutable list of item entities that will be dropped by this block.
          * 
@@ -662,6 +708,11 @@ declare module "@package/net/neoforged/neoforge/event/level" {
          * Constructs a new BlockDropsEvent
          */
         constructor(level: $ServerLevel, pos: $BlockPos_, state: $BlockState_, blockEntity: $BlockEntity, drops: $List_<$ItemEntity>, breaker: $Entity, tool: $ItemStack_);
+        get breaker(): $Entity;
+        get tool(): $ItemStack;
+        get drops(): $List<$ItemEntity>;
+        get level(): $ServerLevel;
+        get blockEntity(): $BlockEntity;
     }
     /**
      * Fired when a physics update occurs on a block. This event acts as
@@ -683,6 +734,8 @@ declare module "@package/net/neoforged/neoforge/event/level" {
          */
         isCanceled(): boolean;
         constructor(level: $Level_, pos: $BlockPos_, state: $BlockState_, notifiedSides: $EnumSet<$Direction_>, forceRedstoneUpdate: boolean);
+        get notifiedSides(): $EnumSet<$Direction>;
+        get forceRedstoneUpdate(): boolean;
     }
     /**
      * This event fires whenever a `ServerLevel` is initialized for the first time
@@ -699,17 +752,20 @@ declare module "@package/net/neoforged/neoforge/event/level" {
         setCanceled(arg0: boolean): void;
         isCanceled(): boolean;
         constructor(level: $LevelAccessor, settings: $ServerLevelData);
+        get settings(): $ServerLevelData;
     }
     /**
      * Fired when when farmland gets trampled
      * This event is `ICancellableEvent`
      */
     export class $BlockEvent$FarmlandTrampleEvent extends $BlockEvent implements $ICancellableEvent {
-        getFallDistance(): number;
         getEntity(): $Entity;
+        getFallDistance(): number;
         setCanceled(arg0: boolean): void;
         isCanceled(): boolean;
         constructor(level: $Level_, pos: $BlockPos_, state: $BlockState_, fallDistance: number, entity: $Entity);
+        get entity(): $Entity;
+        get fallDistance(): number;
     }
     /**
      * Called when a block is placed.
@@ -717,13 +773,17 @@ declare module "@package/net/neoforged/neoforge/event/level" {
      * If a Block Place event is cancelled, the block will not be placed.
      */
     export class $BlockEvent$EntityPlaceEvent extends $BlockEvent implements $ICancellableEvent {
-        getPlacedAgainst(): $BlockState;
         getPlacedBlock(): $BlockState;
         getBlockSnapshot(): $BlockSnapshot;
         getEntity(): $Entity;
+        getPlacedAgainst(): $BlockState;
         setCanceled(arg0: boolean): void;
         isCanceled(): boolean;
         constructor(blockSnapshot: $BlockSnapshot, placedAgainst: $BlockState_, entity: $Entity);
+        get placedBlock(): $BlockState;
+        get blockSnapshot(): $BlockSnapshot;
+        get entity(): $Entity;
+        get placedAgainst(): $BlockState;
     }
     export class $AlterGroundEvent$StateProvider {
     }
@@ -742,8 +802,8 @@ declare module "@package/net/neoforged/neoforge/event/level" {
      * Canceling this event will stop the note from playing.
      */
     export class $NoteBlockEvent$Play extends $NoteBlockEvent implements $ICancellableEvent {
-        getInstrument(): $NoteBlockInstrument;
         setInstrument(instrument: $NoteBlockInstrument_): void;
+        getInstrument(): $NoteBlockInstrument;
         setCanceled(arg0: boolean): void;
         isCanceled(): boolean;
         constructor(world: $Level_, pos: $BlockPos_, state: $BlockState_, note: number, instrument: $NoteBlockInstrument_);
@@ -782,6 +842,8 @@ declare module "@package/net/neoforged/neoforge/event/level" {
          */
         getAffectedBlocks(): $List<$BlockPos>;
         constructor(level: $Level_, explosion: $Explosion, entityList: $List_<$Entity>);
+        get affectedEntities(): $List<$Entity>;
+        get affectedBlocks(): $List<$BlockPos>;
     }
     /**
      * Fired when a liquid places a block. Use `#setNewState(BlockState)` to change the result of
@@ -792,13 +854,15 @@ declare module "@package/net/neoforged/neoforge/event/level" {
      * `#getPos()` will return the position of the block to be changed.
      */
     export class $BlockEvent$FluidPlaceBlockEvent extends $BlockEvent implements $ICancellableEvent {
-        getNewState(): $BlockState;
         getLiquidPos(): $BlockPos;
         setNewState(state: $BlockState_): void;
+        getNewState(): $BlockState;
         getOriginalState(): $BlockState;
         setCanceled(arg0: boolean): void;
         isCanceled(): boolean;
         constructor(level: $LevelAccessor, pos: $BlockPos_, liquidPos: $BlockPos_, state: $BlockState_);
+        get liquidPos(): $BlockPos;
+        get originalState(): $BlockState;
     }
     /**
      * ChunkDataEvent is fired when an event involving chunk data occurs.
@@ -812,8 +876,9 @@ declare module "@package/net/neoforged/neoforge/event/level" {
      */
     export class $ChunkDataEvent extends $ChunkEvent {
         getData(): $CompoundTag;
-        constructor(chunk: $ChunkAccess, data: $CompoundTag_);
         constructor(chunk: $ChunkAccess, world: $LevelAccessor, data: $CompoundTag_);
+        constructor(chunk: $ChunkAccess, data: $CompoundTag_);
+        get data(): $CompoundTag;
     }
     /**
      * Fired when a single block placement triggers the
@@ -829,6 +894,7 @@ declare module "@package/net/neoforged/neoforge/event/level" {
          */
         getReplacedBlockSnapshots(): $List<$BlockSnapshot>;
         constructor(blockSnapshots: $List_<$BlockSnapshot>, placedAgainst: $BlockState_, entity: $Entity);
+        get replacedBlockSnapshots(): $List<$BlockSnapshot>;
     }
     /**
      * ChunkEvent.Unload is fired when vanilla Minecraft attempts to unload a Chunk from the level.
@@ -861,5 +927,6 @@ declare module "@package/net/neoforged/neoforge/event/level" {
     export class $ChunkDataEvent$Load extends $ChunkDataEvent {
         getType(): $ChunkType;
         constructor(chunk: $ChunkAccess, data: $CompoundTag_, type: $ChunkType_);
+        get type(): $ChunkType;
     }
 }

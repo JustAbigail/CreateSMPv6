@@ -19,8 +19,10 @@ declare module "@package/plus/dragons/createenchantmentindustry/common/fluids/pr
         getRequiredItemCount(arg0: $Level_, arg1: $ItemStack_): number;
         getRequiredFluidAmount(arg0: $Level_, arg1: $ItemStack_, arg2: $FluidStack_): number;
         isSafeNBT(): boolean;
-        isValid(): boolean;
         getResult(arg0: $Level_, arg1: $ItemStack_, arg2: $FluidStack_): $ItemStack;
+        isValid(): boolean;
+        get safeNBT(): boolean;
+        get valid(): boolean;
     }
     export class $PrintingBehaviour$Provider {
     }
@@ -42,6 +44,6 @@ declare module "@package/plus/dragons/createenchantmentindustry/common/fluids/pr
     /**
      * Values that may be interpreted as {@link $PrintingBehaviourProvider}.
      */
-    export type $PrintingBehaviourProvider_ = RegistryTypes.CreateEnchantmentIndustryPrintingBehaviour | { priority?: number, provider?: $PrintingBehaviour$Provider_,  } | [priority?: number, provider?: $PrintingBehaviour$Provider_, ];
+    export type $PrintingBehaviourProvider_ = RegistryTypes.CreateEnchantmentIndustryPrintingBehaviour | { provider?: $PrintingBehaviour$Provider_, priority?: number,  } | [provider?: $PrintingBehaviour$Provider_, priority?: number, ];
     export interface $PrintingBehaviourProvider extends RegistryMarked<RegistryTypes.CreateEnchantmentIndustryPrintingBehaviourTag, RegistryTypes.CreateEnchantmentIndustryPrintingBehaviour> {}
 }

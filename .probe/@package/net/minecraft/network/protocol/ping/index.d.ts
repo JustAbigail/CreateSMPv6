@@ -22,6 +22,8 @@ declare module "@package/net/minecraft/network/protocol/ping" {
         isSkippable(): boolean;
         static STREAM_CODEC: $StreamCodec<$FriendlyByteBuf, $ClientboundPongResponsePacket>;
         constructor(arg0: number);
+        get terminal(): boolean;
+        get skippable(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $ClientboundPongResponsePacket}.
@@ -48,5 +50,8 @@ declare module "@package/net/minecraft/network/protocol/ping" {
         isSkippable(): boolean;
         static STREAM_CODEC: $StreamCodec<$ByteBuf, $ServerboundPingRequestPacket>;
         constructor(time: number);
+        get time(): number;
+        get terminal(): boolean;
+        get skippable(): boolean;
     }
 }

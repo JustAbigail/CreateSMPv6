@@ -11,6 +11,7 @@ declare module "@package/java/lang/ref" {
          * @deprecated
          */
         isEnqueued(): boolean;
+        get enqueued(): boolean;
     }
     export class $ReferenceQueue<T> {
         remove(): $Reference<T>;

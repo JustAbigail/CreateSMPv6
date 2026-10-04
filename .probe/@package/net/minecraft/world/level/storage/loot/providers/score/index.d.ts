@@ -16,6 +16,8 @@ declare module "@package/net/minecraft/world/level/storage/loot/providers/score"
         getReferencedContextParams(): $Set<$LootContextParam<never>>;
         getScoreHolder(context: $LootContext): $ScoreHolder;
         getType(): $LootScoreProviderType;
+        get referencedContextParams(): $Set<$LootContextParam<never>>;
+        get type(): $LootScoreProviderType;
     }
     /**
      * The SerializerType for `ScoreboardNameProvider`.

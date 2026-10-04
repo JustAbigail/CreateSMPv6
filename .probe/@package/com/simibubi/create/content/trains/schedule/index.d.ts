@@ -47,24 +47,24 @@ declare module "@package/com/simibubi/create/content/trains/schedule" {
     export class $ScheduleRuntime implements $ScheduleRuntimeAccessor {
         setSchedulePresentClientside(arg0: boolean): void;
         handler$bnm000$createrailwaysnavigator$onReset(ci: $CallbackInfo): void;
-        transitInterrupted(): void;
         handler$bnm000$createrailwaysnavigator$onResetWhileInit(ci: $CallbackInfo): void;
         tickConditions(arg0: $Level_): void;
         handler$bnm000$createrailwaysnavigator$onStartCurrentInstructionRetForge(level: $Level_, cir: $CallbackInfoReturnable<any>, entry: $ScheduleEntry, instruction: $ScheduleInstruction): void;
         discardSchedule(): void;
+        transitInterrupted(): void;
         handler$bnm000$createrailwaysnavigator$onSubmitPredictions(cir: $CallbackInfoReturnable<any>, predictions: $Collection_<any>, entryCount: number, accumulatedTime: number, current: number): void;
-        startCurrentInstruction(arg0: $Level_): $DiscoveredPath;
-        getWaitingStatus(arg0: $Level_): $MutableComponent;
         returnSchedule(arg0: $HolderLookup$Provider): $ItemStack;
+        getWaitingStatus(arg0: $Level_): $MutableComponent;
         startCooldown(): void;
         destinationReached(): void;
         submitPredictions(): $Collection<$GlobalTrainDisplayData$TrainDeparturePrediction>;
         setSchedule(arg0: $Schedule, arg1: boolean): void;
+        startCurrentInstruction(arg0: $Level_): $DiscoveredPath;
+        tick(arg0: $Level_): void;
         write(arg0: $HolderLookup$Provider): $CompoundTag;
         read(arg0: $HolderLookup$Provider, arg1: $CompoundTag_): void;
         accessor(): $ScheduleRuntimeAccessor;
         self(): $ScheduleRuntime;
-        tick(arg0: $Level_): void;
         getSchedule(): $Schedule;
         crn$getTrain(): $Train;
         crn$runEstimateStayDuration(arg0: number): number;
@@ -87,6 +87,7 @@ declare module "@package/com/simibubi/create/content/trains/schedule" {
         train: $Train;
         ticksInTransit: number;
         constructor(arg0: $Train);
+        set schedulePresentClientside(value: boolean);
     }
     export class $ScheduleEntry {
         clone(arg0: $HolderLookup$Provider): $ScheduleEntry;

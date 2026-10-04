@@ -13,6 +13,7 @@ declare module "@package/gg/essential/cosmetics/skinmask" {
         applyTo(arg0: $MutableBitmap): void;
         static Companion: $SkinMask$Companion;
         constructor(arg0: $Map_<$EnumPart_, $Mask>);
+        get parts(): $Map<$EnumPart, $Mask>;
     }
     export class $SkinMask$Companion {
         merge(arg0: $List_<$SkinMask>): $SkinMask;

@@ -5,6 +5,7 @@ declare module "@package/gg/essential/mixins/transformers/network" {
     }
     export interface $NetworkManagerAccessor {
         getChannel(): $Channel;
+        get channel(): $Channel;
     }
     /**
      * Values that may be interpreted as {@link $NetworkManagerAccessor}.

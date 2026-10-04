@@ -11,7 +11,12 @@ declare module "@package/xaero/pac/client/player/config/api" {
     export class $IPlayerConfigClientStorageAPI {
     }
     export interface $IPlayerConfigClientStorageAPI {
-        getMain(): $IPlayerConfigClientStorageAPI;
+        getPlayerGroups(): $IClientPlayerConfigGroupManagerAPI;
+        subConfigExists(arg0: string): boolean;
+        getEffectiveSubConfig(arg0: string): $IPlayerConfigClientStorageAPI;
+        getSubCount(): number;
+        getSubConfigLimit(): number;
+        getSubConfig(arg0: string): $IPlayerConfigClientStorageAPI;
         getSubConfigIds(): $List<string>;
         getSubConfigAPIStream(): $Stream<$IPlayerConfigClientStorageAPI>;
         isBeingDeleted(): boolean;
@@ -23,16 +28,21 @@ declare module "@package/xaero/pac/client/player/config/api" {
          * @deprecated
          */
         optionStream(): $Stream<$IPlayerConfigStringableOptionClientStorageAPI<never>>;
-        getPlayerGroups(): $IClientPlayerConfigGroupManagerAPI;
-        subConfigExists(arg0: string): boolean;
-        getEffectiveSubConfig(arg0: string): $IPlayerConfigClientStorageAPI;
-        getSubCount(): number;
-        getSubConfigLimit(): number;
-        getSubConfig(arg0: string): $IPlayerConfigClientStorageAPI;
+        getMain(): $IPlayerConfigClientStorageAPI;
         getOption<T>(arg0: $IPlayerConfigOptionSpecAPI<T>): $IPlayerConfigStringableOptionClientStorageAPI$1<T>;
         getPermissions(): $IPlayerConfigPermissionAPI;
         getType(): $PlayerConfigType;
         options(): $Stream<$IPlayerConfigStringableOptionClientStorageAPI$1<never>>;
         getOwner(): $UUID;
+        get playerGroups(): $IClientPlayerConfigGroupManagerAPI;
+        get subCount(): number;
+        get subConfigLimit(): number;
+        get subConfigIds(): $List<string>;
+        get subConfigAPIStream(): $Stream<$IPlayerConfigClientStorageAPI>;
+        get beingDeleted(): boolean;
+        get main(): $IPlayerConfigClientStorageAPI;
+        get permissions(): $IPlayerConfigPermissionAPI;
+        get type(): $PlayerConfigType;
+        get owner(): $UUID;
     }
 }

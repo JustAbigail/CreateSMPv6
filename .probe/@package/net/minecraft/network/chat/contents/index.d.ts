@@ -10,8 +10,8 @@ declare module "@package/net/minecraft/network/chat/contents" {
         static CODEC: $MapCodec<$DataSource>;
     }
     export interface $DataSource {
-        type(): $DataSource$Type<never>;
         getData(source: $CommandSourceStack): $Stream<$CompoundTag>;
+        type(): $DataSource$Type<never>;
     }
     export class $DataSource$Type<T extends $DataSource> extends $Record implements $StringRepresentable {
         id(): string;
@@ -19,6 +19,8 @@ declare module "@package/net/minecraft/network/chat/contents" {
         getSerializedName(): string;
         getRemappedEnumConstantName(): string;
         constructor(arg0: $MapCodec_<T>, arg1: string);
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $DataSource$Type}.

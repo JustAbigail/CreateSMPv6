@@ -9,5 +9,7 @@ declare module "@package/de/mrjulsen/crn/data/schedule" {
         isDelayedWaitConditionPending(): boolean;
         getPenaltiesByDirection(): ($PenaltyResult) | undefined;
         addDelayedWaitCondition(arg0: $Pair<$IDelayedWaitCondition, $IDelayedWaitCondition$DelayedWaitConditionContext_>): void;
+        get delayedWaitConditionPending(): boolean;
+        get penaltiesByDirection(): ($PenaltyResult) | undefined;
     }
 }

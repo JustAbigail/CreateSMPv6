@@ -20,13 +20,15 @@ declare module "@package/com/simibubi/create/foundation/advancement" {
         blockEntity: $SmartBlockEntity;
         static TYPE: $BehaviourType<$AdvancementBehaviour>;
         constructor(arg0: $SmartBlockEntity, ...arg1: $CreateAdvancement[]);
+        get ownerPresent(): boolean;
+        set player(value: $UUID_);
     }
     export class $CreateAdvancement$Builder {
     }
     export class $CreateAdvancement implements $CreateAdvancementIdAccessor {
-        awardTo(arg0: $Player): void;
         azimuth$getId(): string;
         isAlreadyAwardedTo(arg0: $Player): boolean;
+        awardTo(arg0: $Player): void;
         constructor(arg0: string, arg1: $UnaryOperator_<$CreateAdvancement$Builder>);
     }
 }

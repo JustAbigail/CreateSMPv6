@@ -26,10 +26,10 @@ declare module "@package/net/minecraft/world/item/armortrim" {
     /**
      * Values that may be interpreted as {@link $TrimMaterial}.
      */
-    export type $TrimMaterial_ = RegistryTypes.TrimMaterial | { ingredient?: $Holder_<$Item>, description?: $Component_, assetName?: string, itemModelIndex?: number, overrideArmorMaterials?: $Map_<$Holder_<$ArmorMaterial>, string>,  } | [ingredient?: $Holder_<$Item>, description?: $Component_, assetName?: string, itemModelIndex?: number, overrideArmorMaterials?: $Map_<$Holder_<$ArmorMaterial>, string>, ];
+    export type $TrimMaterial_ = RegistryTypes.TrimMaterial | { description?: $Component_, ingredient?: $Holder_<$Item>, overrideArmorMaterials?: $Map_<$Holder_<$ArmorMaterial>, string>, itemModelIndex?: number, assetName?: string,  } | [description?: $Component_, ingredient?: $Holder_<$Item>, overrideArmorMaterials?: $Map_<$Holder_<$ArmorMaterial>, string>, itemModelIndex?: number, assetName?: string, ];
     export class $TrimPattern extends $Record {
-        templateItem(): $Holder<$Item>;
         decal(): boolean;
+        templateItem(): $Holder<$Item>;
         copyWithStyle(trimMaterial: $Holder_<$TrimMaterial>): $Component;
         assetId(): $ResourceLocation;
         description(): $Component;
@@ -42,7 +42,7 @@ declare module "@package/net/minecraft/world/item/armortrim" {
     /**
      * Values that may be interpreted as {@link $TrimPattern}.
      */
-    export type $TrimPattern_ = RegistryTypes.TrimPattern | { templateItem?: $Holder_<$Item>, decal?: boolean, assetId?: $ResourceLocation_, description?: $Component_,  } | [templateItem?: $Holder_<$Item>, decal?: boolean, assetId?: $ResourceLocation_, description?: $Component_, ];
+    export type $TrimPattern_ = RegistryTypes.TrimPattern | { decal?: boolean, templateItem?: $Holder_<$Item>, description?: $Component_, assetId?: $ResourceLocation_,  } | [decal?: boolean, templateItem?: $Holder_<$Item>, description?: $Component_, assetId?: $ResourceLocation_, ];
     export interface $TrimMaterial extends RegistryMarked<RegistryTypes.TrimMaterialTag, RegistryTypes.TrimMaterial> {}
     export interface $TrimPattern extends RegistryMarked<RegistryTypes.TrimPatternTag, RegistryTypes.TrimPattern> {}
 }

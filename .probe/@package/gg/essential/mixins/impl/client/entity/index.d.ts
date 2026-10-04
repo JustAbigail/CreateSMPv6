@@ -12,6 +12,13 @@ declare module "@package/gg/essential/mixins/impl/client/entity" {
     export class $AbstractClientPlayerExt {
     }
     export interface $AbstractClientPlayerExt {
+        getCosmeticsSourceUuid(): $UUID;
+        getCosmeticsSource(): $State<$Map<$CosmeticSlot, $EquippedCosmetic>>;
+        setCosmeticsSource(arg0: $State_<$Map<$CosmeticSlot, $EquippedCosmetic>>): void;
+        getWearablesManager(): $WearablesManager;
+        getCosmeticsState(): $CosmeticsState;
+        setEssentialCosmeticsCape(arg0: string, arg1: $Pair<$List_<$UIdentifier>, $List_<$UIdentifier>>): void;
+        applyEssentialCosmeticsMask(arg0: $ResourceLocation_): $ResourceLocation;
         getEmissiveCapeTexture(): $UIdentifier;
         wasArmorRenderingSuppressed(): boolean[];
         getPoseManager(): $PlayerPoseManager;
@@ -21,12 +28,10 @@ declare module "@package/gg/essential/mixins/impl/client/entity" {
         setRenderedPose(arg0: $PlayerPose): void;
         essential$getCosmeticFrozenYaw(): number;
         essential$setCosmeticFrozenYaw(arg0: number): void;
-        getCosmeticsSourceUuid(): $UUID;
-        getCosmeticsSource(): $State<$Map<$CosmeticSlot, $EquippedCosmetic>>;
-        setCosmeticsSource(arg0: $State_<$Map<$CosmeticSlot, $EquippedCosmetic>>): void;
-        getWearablesManager(): $WearablesManager;
-        getCosmeticsState(): $CosmeticsState;
-        setEssentialCosmeticsCape(arg0: string, arg1: $Pair<$List_<$UIdentifier>, $List_<$UIdentifier>>): void;
-        applyEssentialCosmeticsMask(arg0: $ResourceLocation_): $ResourceLocation;
+        get cosmeticsSourceUuid(): $UUID;
+        get wearablesManager(): $WearablesManager;
+        get cosmeticsState(): $CosmeticsState;
+        get emissiveCapeTexture(): $UIdentifier;
+        get poseManager(): $PlayerPoseManager;
     }
 }

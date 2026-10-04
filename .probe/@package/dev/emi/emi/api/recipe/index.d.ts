@@ -14,19 +14,21 @@ export * as handler from "@package/dev/emi/emi/api/recipe/handler";
 
 declare module "@package/dev/emi/emi/api/recipe" {
     export class $EmiPlayerInventory implements $GlobalMixin {
-        getCraftAvailability(recipe: $EmiRecipe): $List<boolean>;
-        getCraftables(): $List<$EmiIngredient>;
         canCraft(recipe: $EmiRecipe): boolean;
         canCraft(recipe: $EmiRecipe, amount: number): boolean;
-        static of(entity: $Player): $EmiPlayerInventory;
+        getCraftables(): $List<$EmiIngredient>;
+        getCraftAvailability(recipe: $EmiRecipe): $List<boolean>;
         isEqual(other: $EmiPlayerInventory): boolean;
+        static of(entity: $Player): $EmiPlayerInventory;
         getPredicate(): $Predicate<$EmiRecipe>;
         inventory: $Map<$EmiStack, $EmiStack>;
-        constructor(stacks: $List_<$EmiStack>);
         /**
          * @deprecated
          */
         constructor(entity: $Player);
+        constructor(stacks: $List_<$EmiStack>);
+        get craftables(): $List<$EmiIngredient>;
+        get predicate(): $Predicate<$EmiRecipe>;
     }
     export class $EmiRecipe {
     }
@@ -42,10 +44,18 @@ declare module "@package/dev/emi/emi/api/recipe" {
         getOutputs(): $List<$EmiStack>;
         getCategory(): $EmiRecipeCategory;
         addWidgets(arg0: $WidgetHolder): void;
+        get catalysts(): $List<$EmiIngredient>;
+        get displayHeight(): number;
+        get backingRecipe(): $RecipeHolder<never>;
+        get displayWidth(): number;
+        get inputs(): $List<$EmiIngredient>;
+        get id(): $ResourceLocation;
+        get outputs(): $List<$EmiStack>;
+        get category(): $EmiRecipeCategory;
     }
     export class $EmiRecipeCategory implements $EmiRenderable, $GlobalMixin {
-        getTooltip(): $List<$ClientTooltipComponent>;
         renderSimplified(draw: $GuiGraphics, x: number, y: number, delta: number): void;
+        getTooltip(): $List<$ClientTooltipComponent>;
         getSort(): $Comparator<$EmiRecipe>;
         getName(): $Component;
         getId(): $ResourceLocation;
@@ -57,6 +67,9 @@ declare module "@package/dev/emi/emi/api/recipe" {
         constructor(id: $ResourceLocation_, icon: $EmiRenderable_);
         constructor(id: $ResourceLocation_, icon: $EmiRenderable_, simplified: $EmiRenderable_);
         constructor(id: $ResourceLocation_, icon: $EmiRenderable_, simplified: $EmiRenderable_, sorter: $Comparator<$EmiRecipe>);
+        get tooltip(): $List<$ClientTooltipComponent>;
+        get sort(): $Comparator<$EmiRecipe>;
+        get name(): $Component;
     }
     export class $EmiRecipeDecorator {
     }

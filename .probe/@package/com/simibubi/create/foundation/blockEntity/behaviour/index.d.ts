@@ -30,33 +30,42 @@ declare module "@package/com/simibubi/create/foundation/blockEntity/behaviour" {
         writeSafe(arg0: $CompoundTag_, arg1: $HolderLookup$Provider): void;
         setLazyTickRate(arg0: number): void;
         isSafeNBT(): boolean;
-        static get<T extends $BlockEntityBehaviour>(arg0: $BlockEntity, arg1: $BehaviourType<T>): T;
+        tick(): void;
         static get<T extends $BlockEntityBehaviour>(arg0: $BlockGetter, arg1: $BlockPos_, arg2: $BehaviourType<T>): T;
+        static get<T extends $BlockEntityBehaviour>(arg0: $BlockEntity, arg1: $BehaviourType<T>): T;
         initialize(): void;
         write(arg0: $CompoundTag_, arg1: $HolderLookup$Provider, arg2: boolean): void;
         read(arg0: $CompoundTag_, arg1: $HolderLookup$Provider, arg2: boolean): void;
         destroy(): void;
         getType(): $BehaviourType<never>;
         unload(): void;
-        tick(): void;
         getPos(): $BlockPos;
         blockEntity: $SmartBlockEntity;
         constructor(arg0: $SmartBlockEntity);
+        get world(): $Level;
+        get requiredItems(): $ItemRequirement;
+        set lazyTickRate(value: number);
+        get safeNBT(): boolean;
+        get type(): $BehaviourType<never>;
+        get pos(): $BlockPos;
     }
     export class $ValueSettingsFormatter {
         format(arg0: $ValueSettingsBehaviour$ValueSettings_): $MutableComponent;
         constructor(arg0: $Function_<$ValueSettingsBehaviour$ValueSettings, $MutableComponent>);
     }
     export class $ValueBoxTransform {
-        shouldRender(arg0: $LevelAccessor, arg1: $BlockPos_, arg2: $BlockState_): boolean;
         getLocalOffset(arg0: $LevelAccessor, arg1: $BlockPos_, arg2: $BlockState_): $Vec3;
         testHit(arg0: $LevelAccessor, arg1: $BlockPos_, arg2: $BlockState_, arg3: $Vec3_): boolean;
         getOverrideColor(): number;
         getFontScale(): number;
         transform(arg0: $LevelAccessor, arg1: $BlockPos_, arg2: $BlockState_, arg3: $PoseStack): void;
         rotate(arg0: $LevelAccessor, arg1: $BlockPos_, arg2: $BlockState_, arg3: $PoseStack): void;
+        shouldRender(arg0: $LevelAccessor, arg1: $BlockPos_, arg2: $BlockState_): boolean;
         getScale(): number;
         constructor();
+        get overrideColor(): number;
+        get fontScale(): number;
+        get scale(): number;
     }
     export class $ValueSettingsBehaviour$ValueSettings extends $Record {
         row(): number;
@@ -67,43 +76,47 @@ declare module "@package/com/simibubi/create/foundation/blockEntity/behaviour" {
     /**
      * Values that may be interpreted as {@link $ValueSettingsBehaviour$ValueSettings}.
      */
-    export type $ValueSettingsBehaviour$ValueSettings_ = { value?: number, row?: number,  } | [value?: number, row?: number, ];
+    export type $ValueSettingsBehaviour$ValueSettings_ = { row?: number, value?: number,  } | [row?: number, value?: number, ];
     export class $ValueSettingsBehaviour {
     }
     export interface $ValueSettingsBehaviour extends $ClipboardCloneable {
+        getClipboardKey(): string;
+        writeToClipboard(arg0: $HolderLookup$Provider, arg1: $CompoundTag_, arg2: $Direction_): boolean;
+        readFromClipboard(arg0: $HolderLookup$Provider, arg1: $CompoundTag_, arg2: $Player, arg3: $Direction_, arg4: boolean): boolean;
+        getValueSettings(): $ValueSettingsBehaviour$ValueSettings;
+        playFeedbackSound(arg0: $BlockEntityBehaviour): void;
         getSlotPositioning(): $ValueBoxTransform;
         createBoard(arg0: $Player, arg1: $BlockHitResult): $ValueSettingsBoard;
         setValueSettings(arg0: $Player, arg1: $ValueSettingsBehaviour$ValueSettings_, arg2: boolean): void;
         onlyVisibleWithWrench(): boolean;
         onShortInteract(arg0: $Player, arg1: $InteractionHand_, arg2: $Direction_, arg3: $BlockHitResult): void;
+        acceptsValueSettings(): boolean;
         newSettingHovered(arg0: $ValueSettingsBehaviour$ValueSettings_): void;
         bypassesInput(arg0: $ItemStack_): boolean;
-        acceptsValueSettings(): boolean;
-        getValueSettings(): $ValueSettingsBehaviour$ValueSettings;
-        playFeedbackSound(arg0: $BlockEntityBehaviour): void;
         testHit(arg0: $Vec3_): boolean;
-        getClipboardKey(): string;
-        writeToClipboard(arg0: $HolderLookup$Provider, arg1: $CompoundTag_, arg2: $Direction_): boolean;
-        readFromClipboard(arg0: $HolderLookup$Provider, arg1: $CompoundTag_, arg2: $Player, arg3: $Direction_, arg4: boolean): boolean;
         netId(): number;
         isActive(): boolean;
         mayInteract(arg0: $Player): boolean;
+        get clipboardKey(): string;
+        get slotPositioning(): $ValueBoxTransform;
+        get active(): boolean;
     }
     export class $BehaviourType<T extends $BlockEntityBehaviour> {
         getName(): string;
         constructor(arg0: string);
         constructor();
+        get name(): string;
     }
     export class $ValueSettingsBoard extends $Record {
         milestoneInterval(): number;
         rows(): $List<$Component>;
-        formatter(): $ValueSettingsFormatter;
         maxValue(): number;
+        formatter(): $ValueSettingsFormatter;
         title(): $Component;
         constructor(title: $Component_, maxValue: number, milestoneInterval: number, rows: $List_<$Component_>, formatter: $ValueSettingsFormatter);
     }
     /**
      * Values that may be interpreted as {@link $ValueSettingsBoard}.
      */
-    export type $ValueSettingsBoard_ = { title?: $Component_, rows?: $List_<$Component_>, formatter?: $ValueSettingsFormatter, maxValue?: number, milestoneInterval?: number,  } | [title?: $Component_, rows?: $List_<$Component_>, formatter?: $ValueSettingsFormatter, maxValue?: number, milestoneInterval?: number, ];
+    export type $ValueSettingsBoard_ = { rows?: $List_<$Component_>, title?: $Component_, milestoneInterval?: number, maxValue?: number, formatter?: $ValueSettingsFormatter,  } | [rows?: $List_<$Component_>, title?: $Component_, milestoneInterval?: number, maxValue?: number, formatter?: $ValueSettingsFormatter, ];
 }

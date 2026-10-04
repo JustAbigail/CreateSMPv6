@@ -9,10 +9,12 @@ declare module "@package/dev/architectury/utils" {
         toOptional(): (T) | undefined;
         ifPresentOrElse(action: $Consumer_<T>, emptyAction: $Runnable_): void;
         orElseGet(supplier: $Supplier_<T>): T;
+        ifPresent(action: $Consumer_<T>): void;
         stream(): $Stream<T>;
         isPresent(): boolean;
         orElse(other: T): T;
-        ifPresent(action: $Consumer_<T>): void;
         getOrNull(): T;
+        get present(): boolean;
+        get orNull(): T;
     }
 }

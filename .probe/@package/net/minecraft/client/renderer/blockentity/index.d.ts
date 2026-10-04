@@ -17,6 +17,7 @@ import { $BlockEntity } from "@package/net/minecraft/world/level/block/entity";
 
 declare module "@package/net/minecraft/client/renderer/blockentity" {
     export class $BlockEntityRenderDispatcher implements $ResourceManagerReloadListener, $BlockEntityRenderDispatcherExtension {
+        sable$setCameraPosition(arg0: $Vec3_): void;
         modify$hlo000$sable$moveCameraPosForCheck(arg0: $Vec3_): $Vec3;
         onResourceManagerReload(resourceManager: $ResourceManager): void;
         setLevel(level: $Level_ | null): void;
@@ -27,13 +28,13 @@ declare module "@package/net/minecraft/client/renderer/blockentity" {
          */
         renderItem<E extends $BlockEntity>(blockEntity: E, poseStack: $PoseStack, bufferSource: $MultiBufferSource_, packedLight: number, packedOverlay: number): boolean;
         getRenderer(blockEntity: $BlockEntity): $BlockEntityRenderer<any>;
-        sable$setCameraPosition(arg0: $Vec3_): void;
         reload(preparationBarrier: $PreparableReloadListener$PreparationBarrier_, resourceManager: $ResourceManager, preparationsProfiler: $ProfilerFiller, reloadProfiler: $ProfilerFiller, backgroundExecutor: $Executor_, gameExecutor: $Executor_): $CompletableFuture<void>;
         getName(): string;
         cameraHitResult: $HitResult;
         level: $Level;
         camera: $Camera;
         constructor(font: $Font, entityModelSet: $EntityModelSet, blockRenderDispatcher: $Supplier_<$BlockRenderDispatcher>, itemRenderer: $Supplier_<$ItemRenderer>, entityRenderer: $Supplier_<$EntityRenderDispatcher>);
+        get name(): string;
     }
     export class $BlockEntityRendererProvider<T extends $BlockEntity> {
     }
@@ -45,22 +46,29 @@ declare module "@package/net/minecraft/client/renderer/blockentity" {
      */
     export type $BlockEntityRendererProvider_<T> = ((arg0: $BlockEntityRendererProvider$Context) => $BlockEntityRenderer<T>);
     export class $BlockEntityRendererProvider$Context {
-        getBlockRenderDispatcher(): $BlockRenderDispatcher;
-        getEntityRenderer(): $EntityRenderDispatcher;
-        getModelSet(): $EntityModelSet;
         bakeLayer(layerLocation: $ModelLayerLocation): $ModelPart;
+        getBlockRenderDispatcher(): $BlockRenderDispatcher;
+        getModelSet(): $EntityModelSet;
+        getEntityRenderer(): $EntityRenderDispatcher;
         getFont(): $Font;
         getItemRenderer(): $ItemRenderer;
         getBlockEntityRenderDispatcher(): $BlockEntityRenderDispatcher;
         constructor(blockEntityRenderDispatcher: $BlockEntityRenderDispatcher, blockRenderDispatcher: $BlockRenderDispatcher, itemRenderer: $ItemRenderer, entityRenderer: $EntityRenderDispatcher, modelSet: $EntityModelSet, font: $Font);
+        get blockRenderDispatcher(): $BlockRenderDispatcher;
+        get modelSet(): $EntityModelSet;
+        get entityRenderer(): $EntityRenderDispatcher;
+        get font(): $Font;
+        get itemRenderer(): $ItemRenderer;
+        get blockEntityRenderDispatcher(): $BlockEntityRenderDispatcher;
     }
     export class $BlockEntityRenderer<T extends $BlockEntity> {
     }
     export interface $BlockEntityRenderer<T extends $BlockEntity> extends $IBlockEntityRendererExtension<T> {
-        shouldRender(blockEntity: T, cameraPos: $Vec3_): boolean;
         getViewDistance(): number;
         render(blockEntity: T, partialTick: number, poseStack: $PoseStack, bufferSource: $MultiBufferSource_, packedLight: number, packedOverlay: number): void;
         shouldRenderOffScreen(blockEntity: T): boolean;
+        shouldRender(blockEntity: T, cameraPos: $Vec3_): boolean;
+        get viewDistance(): number;
     }
     /**
      * Values that may be interpreted as {@link $BlockEntityRenderer}.

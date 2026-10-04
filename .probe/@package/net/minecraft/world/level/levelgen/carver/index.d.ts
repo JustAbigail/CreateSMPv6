@@ -42,6 +42,11 @@ declare module "@package/net/minecraft/world/level/levelgen/carver" {
         static of(debugMode: boolean, airState: $BlockState_): $CarverDebugSettings;
         static CODEC: $Codec<$CarverDebugSettings>;
         static DEFAULT: $CarverDebugSettings;
+        get barrierState(): $BlockState;
+        get airState(): $BlockState;
+        get waterState(): $BlockState;
+        get lavaState(): $BlockState;
+        get debugMode(): boolean;
     }
     export class $CarverConfiguration extends $ProbabilityFeatureConfiguration {
         lavaLevel: $VerticalAnchor;
@@ -95,7 +100,6 @@ declare module "@package/net/minecraft/world/level/levelgen/carver" {
         constructor(probability: number, y: $HeightProvider, yScale: $FloatProvider, lavaLevel: $VerticalAnchor_, debugSettings: $CarverDebugSettings, replaceable: $HolderSet_<$Block>, horizontalRadiusMultiplier: $FloatProvider, verticalRadiusMultiplier: $FloatProvider, floorLevel: $FloatProvider);
     }
     export class $WorldCarver<C extends $CarverConfiguration> {
-        getRange(): number;
         static canReach(chunkPos: $ChunkPos, x: number, arg2: number, z: number, arg4: number, branchIndex: number): boolean;
         configuredCodec(): $MapCodec<$ConfiguredWorldCarver<C>>;
         /**
@@ -115,6 +119,7 @@ declare module "@package/net/minecraft/world/level/levelgen/carver" {
          */
         carve(context: $CarvingContext, config: C, chunk: $ChunkAccess, biomeAccessor: $Function_<$BlockPos, $Holder<$Biome>>, random: $RandomSource, aquifer: $Aquifer, chunkPos: $ChunkPos, carvingMask: $CarvingMask): boolean;
         isStartChunk(config: C, random: $RandomSource): boolean;
+        getRange(): number;
         configured(config: C): $ConfiguredWorldCarver<C>;
         static CAVE: $WorldCarver<$CaveCarverConfiguration>;
         static LAVA: $FluidState;
@@ -125,6 +130,7 @@ declare module "@package/net/minecraft/world/level/levelgen/carver" {
         static NETHER_CAVE: $WorldCarver<$CaveCarverConfiguration>;
         static WATER: $FluidState;
         constructor(codec: $Codec<C>);
+        get range(): number;
     }
     /**
      * Values that may be interpreted as {@link $WorldCarver}.
@@ -153,5 +159,5 @@ declare module "@package/net/minecraft/world/level/levelgen/carver" {
     /**
      * Values that may be interpreted as {@link $ConfiguredWorldCarver}.
      */
-    export type $ConfiguredWorldCarver_<WC> = RegistryTypes.WorldgenConfiguredCarver | { worldCarver?: $WorldCarver_<$CarverConfiguration>, config?: $CarverConfiguration,  } | [worldCarver?: $WorldCarver_<$CarverConfiguration>, config?: $CarverConfiguration, ];
+    export type $ConfiguredWorldCarver_<WC> = RegistryTypes.WorldgenConfiguredCarver | { config?: $CarverConfiguration, worldCarver?: $WorldCarver_<$CarverConfiguration>,  } | [config?: $CarverConfiguration, worldCarver?: $WorldCarver_<$CarverConfiguration>, ];
 }

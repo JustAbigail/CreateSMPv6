@@ -9,5 +9,6 @@ declare module "@package/foundry/veil/api/flare" {
         update(arg0: number): void;
         getValue(arg0: string): number;
         close(): void;
+        get name(): string;
     }
 }

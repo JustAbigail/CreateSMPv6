@@ -22,6 +22,6 @@ declare module "@package/dev/worldgen/lithostitched/impl/worldgen/biomeinjector/
     /**
      * Values that may be interpreted as {@link $Region}.
      */
-    export type $Region_ = RegistryTypes.LithostitchedRegion | { dimension?: $ResourceKey_<$LevelStem>, weight?: number, biomes?: $HolderSet_<$Biome>, name?: ($ResourceKey_<$Region>) | undefined,  } | [dimension?: $ResourceKey_<$LevelStem>, weight?: number, biomes?: $HolderSet_<$Biome>, name?: ($ResourceKey_<$Region>) | undefined, ];
+    export type $Region_ = RegistryTypes.LithostitchedRegion | { dimension?: $ResourceKey_<$LevelStem>, name?: ($ResourceKey_<$Region>) | undefined, biomes?: $HolderSet_<$Biome>, weight?: number,  } | [dimension?: $ResourceKey_<$LevelStem>, name?: ($ResourceKey_<$Region>) | undefined, biomes?: $HolderSet_<$Biome>, weight?: number, ];
     export interface $Region extends RegistryMarked<RegistryTypes.LithostitchedRegionTag, RegistryTypes.LithostitchedRegion> {}
 }

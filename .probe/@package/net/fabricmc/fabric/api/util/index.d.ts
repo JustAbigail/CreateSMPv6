@@ -16,6 +16,7 @@ declare module "@package/net/fabricmc/fabric/api/util" {
         static TRUE: $TriState;
         static FALSE: $TriState;
         static DEFAULT: $TriState;
+        get boxed(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $TriState}.

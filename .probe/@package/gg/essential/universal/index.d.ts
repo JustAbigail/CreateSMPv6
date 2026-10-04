@@ -16,6 +16,9 @@ declare module "@package/gg/essential/universal" {
         component2(): $Matrix3f;
         static copy$default(arg0: $UMatrixStack$Entry, arg1: $Matrix4f, arg2: $Matrix3f, arg3: number, arg4: $Object): $UMatrixStack$Entry;
         constructor(model: $Matrix4f, normal: $Matrix3f);
+        get modelAsArray(): number[];
+        get model(): $Matrix4f;
+        get normal(): $Matrix3f;
     }
     export class $UMatrixStack {
         applyToGlobalState(): void;
@@ -26,9 +29,9 @@ declare module "@package/gg/essential/universal" {
         runWithGlobalState<R>(block: $Function0_<R>): R;
         runWithGlobalState(block: $Runnable_): void;
         toMC(): $PoseStack;
+        fork(): $UMatrixStack;
         push(): void;
         pop(): void;
-        fork(): $UMatrixStack;
         scale(x: number, y: number, z: number): void;
         scale(x: number, y: number, z: number): void;
         isEmpty(): boolean;
@@ -43,6 +46,7 @@ declare module "@package/gg/essential/universal" {
         constructor(mc: $PoseStack);
         constructor();
         constructor(mc: $PoseStack$Pose);
+        get empty(): boolean;
     }
     export class $UMatrixStack$Companion {
         constructor($constructor_marker: $DefaultConstructorMarker);

@@ -21,6 +21,7 @@ declare module "@package/net/minecraft/world/level/border" {
         static GROWING: $BorderStatus;
         static SHRINKING: $BorderStatus;
         static STATIONARY: $BorderStatus;
+        get color(): number;
     }
     /**
      * Values that may be interpreted as {@link $BorderStatus}.
@@ -51,13 +52,21 @@ declare module "@package/net/minecraft/world/level/border" {
         getCenterZ(): number;
         constructor(centerX: number, arg1: number, centerZ: number, arg3: number, damagePerBlock: number, arg5: number, safeZone: number, arg7: number, warningBlocks: number);
         constructor(border: $WorldBorder);
+        get damagePerBlock(): number;
+        get warningTime(): number;
+        get warningBlocks(): number;
+        get safeZone(): number;
+        get sizeLerpTime(): number;
+        get sizeLerpTarget(): number;
+        get size(): number;
+        get centerX(): number;
+        get centerZ(): number;
     }
     export class $WorldBorder implements $WorldBorderExtension {
         getDistanceToBorder(x: number, arg1: number): number;
         getDistanceToBorder(entity: $Entity): number;
         getDamageSafeZone(): number;
         getDamagePerBlock(): number;
-        getMinX(): number;
         handler$hio000$sable$isWithinBounds(arg0: number, arg1: number, arg2: number, arg3: $CallbackInfoReturnable<any>): void;
         getMaxX(): number;
         getMinZ(): number;
@@ -79,11 +88,12 @@ declare module "@package/net/minecraft/world/level/border" {
         applySettings(serializer: $WorldBorder$Settings): void;
         setAbsoluteMaxSize(size: number): void;
         clampToBounds(x: number, arg1: number, y: number): $BlockPos;
-        clampToBounds(pos: $BlockPos_): $BlockPos;
         clampToBounds(pos: $Vec3_): $BlockPos;
-        getSize(): number;
-        setSize(damagePerBlock: number): void;
+        clampToBounds(pos: $BlockPos_): $BlockPos;
         tick(): void;
+        setSize(damagePerBlock: number): void;
+        getMinX(): number;
+        getSize(): number;
         removeListener(listener: $BorderChangeListener): void;
         getListeners(): $List<$BorderChangeListener>;
         addListener(listener: $BorderChangeListener): void;
@@ -104,5 +114,17 @@ declare module "@package/net/minecraft/world/level/border" {
         static MAX_SIZE: number;
         static MAX_CENTER_COORDINATE: number;
         constructor();
+        get maxX(): number;
+        get minZ(): number;
+        get maxZ(): number;
+        get lerpRemainingTime(): number;
+        get lerpTarget(): number;
+        get lerpSpeed(): number;
+        get minX(): number;
+        get listeners(): $List<$BorderChangeListener>;
+        get status(): $BorderStatus;
+        get centerX(): number;
+        get centerZ(): number;
+        get collisionShape(): $VoxelShape;
     }
 }

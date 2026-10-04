@@ -12,11 +12,13 @@ declare module "@package/gg/essential/util/image/bitmap" {
         getWidth(): number;
         getHeight(): number;
         mutableCopy(): $MutableBitmap;
+        get width(): number;
+        get height(): number;
     }
     export class $MutableBitmap {
-        static set$default(arg0: $MutableBitmap, arg1: number, arg2: number, arg3: number, arg4: number, arg5: $Bitmap, arg6: number, arg7: number, arg8: boolean, arg9: boolean, arg10: number, arg11: $Object): void;
         static "access$set-YpvzPaY$jd"(arg0: $MutableBitmap, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number): void;
         static access$set$jd(arg0: $MutableBitmap, arg1: number, arg2: number, arg3: number, arg4: number, arg5: $Bitmap, arg6: number, arg7: number, arg8: boolean, arg9: boolean): void;
+        static set$default(arg0: $MutableBitmap, arg1: number, arg2: number, arg3: number, arg4: number, arg5: $Bitmap, arg6: number, arg7: number, arg8: boolean, arg9: boolean, arg10: number, arg11: $Object): void;
     }
     export interface $MutableBitmap extends $Bitmap {
         "set-gk-R20I"(arg0: number, arg1: number, arg2: number): void;

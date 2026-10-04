@@ -14,5 +14,9 @@ declare module "@package/com/yungnickyoung/minecraft/betterendisland/mixin/acces
         getDragonEvent(): $ServerBossEvent;
         getGateways(): $ObjectArrayList<number>;
         setDragonKilled(arg0: boolean): void;
+        get previouslyKilled(): boolean;
+        get dragonEvent(): $ServerBossEvent;
+        get gateways(): $ObjectArrayList<number>;
+        set dragonKilled(value: boolean);
     }
 }

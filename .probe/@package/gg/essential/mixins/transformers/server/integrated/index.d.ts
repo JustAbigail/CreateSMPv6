@@ -7,6 +7,7 @@ declare module "@package/gg/essential/mixins/transformers/server/integrated" {
     }
     export interface $LanConnectionsAccessor {
         getPlayerEntityList(): $List<$ServerPlayer>;
+        get playerEntityList(): $List<$ServerPlayer>;
     }
     /**
      * Values that may be interpreted as {@link $LanConnectionsAccessor}.
@@ -16,6 +17,7 @@ declare module "@package/gg/essential/mixins/transformers/server/integrated" {
     }
     export interface $ServerWorldAccessor {
         getServerWorldInfo(): $ServerLevelData;
+        get serverWorldInfo(): $ServerLevelData;
     }
     /**
      * Values that may be interpreted as {@link $ServerWorldAccessor}.
@@ -25,6 +27,7 @@ declare module "@package/gg/essential/mixins/transformers/server/integrated" {
     }
     export interface $Mixin_SetWorldName {
         setWorldName(arg0: string): void;
+        set worldName(value: string);
     }
     /**
      * Values that may be interpreted as {@link $Mixin_SetWorldName}.

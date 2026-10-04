@@ -1,7 +1,7 @@
 import { $BlazeBurnerBlock$HeatLevel, $BlazeBurnerBlock$HeatLevel_ } from "@package/com/simibubi/create/content/processing/burner";
 import { $Item_, $ItemStack_, $ItemStack } from "@package/net/minecraft/world/item";
 import { $MapCodec_, $MapCodec, $Codec } from "@package/com/mojang/serialization";
-import { $RecipeSerializer, $Ingredient, $Recipe, $RecipeType, $RecipeInput } from "@package/net/minecraft/world/item/crafting";
+import { $RecipeSerializer, $Ingredient, $Recipe, $RecipeInput, $RecipeType } from "@package/net/minecraft/world/item/crafting";
 import { $ProcessingRecipeAccessor } from "@package/com/drmangotea/tfmg/mixin/accessor";
 import { $FluidStack } from "@package/net/neoforged/neoforge/fluids";
 import { $KubeCreateOutput } from "@package/dev/latvian/mods/kubejs/create/wrapper";
@@ -50,6 +50,8 @@ declare module "@package/com/simibubi/create/content/processing/recipe" {
         constructor(arg0: $Item_, arg1: number, arg2: $DataComponentPatch_, arg3: number);
         constructor(arg0: $ResourceLocation_, arg1: number, arg2: number);
         constructor(arg0: $ResourceLocation_, arg1: number, arg2: $DataComponentPatch_, arg3: number);
+        get chance(): number;
+        get stack(): $ItemStack;
     }
     export class $ProcessingRecipe<I extends $RecipeInput, P extends $ProcessingRecipeParams> implements $Recipe<I>, $ProcessingRecipeAccessor {
         getProcessingDuration(): number;
@@ -61,23 +63,23 @@ declare module "@package/com/simibubi/create/content/processing/recipe" {
         getRollableResultsAsItemStacks(): $List<$ItemStack>;
         enforceNextResult(arg0: $Supplier_<$ItemStack>): void;
         getRequiredHeat(): $HeatCondition;
-        getTypeInfo(): $IRecipeTypeInfo;
         getResultItem(arg0: $HolderLookup$Provider): $ItemStack;
         getIngredients(): $NonNullList<$Ingredient>;
         canCraftInDimensions(arg0: number, arg1: number): boolean;
-        static streamCodec<P extends $ProcessingRecipeParams, R extends $ProcessingRecipe<never, P>>(arg0: $ProcessingRecipe$Factory_<P, R>, arg1: $StreamCodec<$RegistryFriendlyByteBuf, P>): $StreamCodec<$RegistryFriendlyByteBuf, R>;
         getSerializer(): $RecipeSerializer<never>;
+        static streamCodec<P extends $ProcessingRecipeParams, R extends $ProcessingRecipe<never, P>>(arg0: $ProcessingRecipe$Factory_<P, R>, arg1: $StreamCodec<$RegistryFriendlyByteBuf, P>): $StreamCodec<$RegistryFriendlyByteBuf, R>;
         assemble(arg0: I, arg1: $HolderLookup$Provider): $ItemStack;
+        getTypeInfo(): $IRecipeTypeInfo;
         validate(): $List<string>;
         getType(): $RecipeType<never>;
         getParams(): P;
         static codec<P extends $ProcessingRecipeParams, R extends $ProcessingRecipe<never, P>>(arg0: $ProcessingRecipe$Factory_<P, R>, arg1: $MapCodec_<P>): $MapCodec<R>;
         getGroup(): string;
         isSpecial(): boolean;
-        handler$ejk000$bclib$bcl_getRemainingItems(arg0: $RecipeInput, arg1: $CallbackInfoReturnable<any>): void;
-        getToastSymbol(): $ItemStack;
         isIncomplete(): boolean;
         showNotification(): boolean;
+        handler$ejk000$bclib$bcl_getRemainingItems(arg0: $RecipeInput, arg1: $CallbackInfoReturnable<any>): void;
+        getToastSymbol(): $ItemStack;
         getRemainingItems(arg0: I): $NonNullList<$ItemStack>;
         tfmg$ingredients(): $NonNullList<$Ingredient>;
         tfmg$fluidIngredients(): $NonNullList<$SizedFluidIngredient>;
@@ -85,10 +87,25 @@ declare module "@package/com/simibubi/create/content/processing/recipe" {
         tfmg$fluidResults(): $NonNullList<$FluidStack>;
         tfmg$typeInfo(): $IRecipeTypeInfo;
         constructor(arg0: $IRecipeTypeInfo, arg1: P);
+        get processingDuration(): number;
+        get fluidIngredients(): $NonNullList<$SizedFluidIngredient>;
+        get rollableResults(): $List<$ProcessingOutput>;
+        get fluidResults(): $NonNullList<$FluidStack>;
+        get rollableResultsAsItemStacks(): $List<$ItemStack>;
+        get requiredHeat(): $HeatCondition;
+        get ingredients(): $NonNullList<$Ingredient>;
+        get serializer(): $RecipeSerializer<never>;
+        get typeInfo(): $IRecipeTypeInfo;
+        get type(): $RecipeType<never>;
+        get params(): P;
+        get group(): string;
+        get special(): boolean;
+        get incomplete(): boolean;
+        get toastSymbol(): $ItemStack;
     }
     export class $HeatCondition extends $Enum<$HeatCondition> implements $StringRepresentable {
-        testBlazeBurner(arg0: $BlazeBurnerBlock$HeatLevel_): boolean;
         visualizeAsBlazeBurner(): $BlazeBurnerBlock$HeatLevel;
+        testBlazeBurner(arg0: $BlazeBurnerBlock$HeatLevel_): boolean;
         getTranslationKey(): string;
         static values(): $HeatCondition[];
         static valueOf(arg0: string): $HeatCondition;
@@ -100,6 +117,10 @@ declare module "@package/com/simibubi/create/content/processing/recipe" {
         static SUPERHEATED: $HeatCondition;
         static NONE: $HeatCondition;
         static STREAM_CODEC: $StreamCodec<$ByteBuf, $HeatCondition>;
+        get translationKey(): string;
+        get color(): number;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $HeatCondition}.

@@ -16,6 +16,7 @@ declare module "@package/net/irisshaders/iris/shaderpack/loading" {
         static Setup: $ProgramGroup;
         static Final: $ProgramGroup;
         static ShadowComposite: $ProgramGroup;
+        get baseName(): string;
     }
     /**
      * Values that may be interpreted as {@link $ProgramGroup}.
@@ -33,6 +34,9 @@ declare module "@package/net/irisshaders/iris/shaderpack/loading" {
         static Prepare: $ProgramArrayId;
         static Setup: $ProgramArrayId;
         static ShadowComposite: $ProgramArrayId;
+        get numPrograms(): number;
+        get sourcePrefix(): string;
+        get group(): $ProgramGroup;
     }
     /**
      * Values that may be interpreted as {@link $ProgramArrayId}.
@@ -84,6 +88,10 @@ declare module "@package/net/irisshaders/iris/shaderpack/loading" {
         static DhTerrain: $ProgramId;
         static TerrainSolid: $ProgramId;
         static ArmorGlint: $ProgramId;
+        get blendModeOverride(): $BlendModeOverride;
+        get sourceName(): string;
+        get group(): $ProgramGroup;
+        get fallback(): ($ProgramId) | undefined;
     }
     /**
      * Values that may be interpreted as {@link $ProgramId}.

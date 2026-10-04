@@ -12,16 +12,19 @@ declare module "@package/net/minecraft/commands/arguments/selector" {
         usesSelector(): boolean;
         isWorldLimited(): boolean;
         static joinNames(names: $List_<$Entity>): $Component;
-        includesEntities(): boolean;
         findSingleEntity(source: $CommandSourceStack): $Entity;
         findEntities(source: $CommandSourceStack): $List<$Entity>;
         findPlayers(source: $CommandSourceStack): $List<$ServerPlayer>;
         findSinglePlayer(source: $CommandSourceStack): $ServerPlayer;
         getMaxResults(): number;
         isSelfSelector(): boolean;
+        includesEntities(): boolean;
         static ORDER_ARBITRARY: $BiConsumer<$Vec3, $List<$Entity>>;
         contextFreePredicates: $List<$Predicate<$Entity>>;
         static INFINITE: number;
         constructor(maxResults: number, includesEntities: boolean, worldLimited: boolean, contextFreePredicates: $List_<$Predicate_<$Entity>>, range: $MinMaxBounds$Doubles_, position: $Function_<$Vec3, $Vec3>, aabb: $AABB_ | null, order: $BiConsumer_<$Vec3, $List<$Entity>>, currentEntity: boolean, playerName: string | null, entityUUID: $UUID_ | null, type: $EntityType_<never> | null, usesSelector: boolean);
+        get worldLimited(): boolean;
+        get maxResults(): number;
+        get selfSelector(): boolean;
     }
 }

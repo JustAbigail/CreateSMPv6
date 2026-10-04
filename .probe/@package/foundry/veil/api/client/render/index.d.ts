@@ -75,30 +75,32 @@ declare module "@package/foundry/veil/api/client/render" {
     export class $MatrixStack {
     }
     export interface $MatrixStack {
-        applyScale(arg0: number, arg1: number, arg2: number): void;
+        matrixPush(): void;
+        matrixPop(): void;
         applyScale(arg0: number): void;
+        applyScale(arg0: number, arg1: number, arg2: number): void;
         applyScale(arg0: number): void;
         applyScale(arg0: $Vector3dc): void;
         applyScale(arg0: $Vector3fc): void;
         applyScale(arg0: number, arg1: number, arg2: number): void;
         setIdentity(): void;
         toPoseStack(): $PoseStack;
+        normal(): $Matrix3f;
         clear(): void;
         position(): $Matrix4f;
         isEmpty(): boolean;
-        copy(arg0: $PoseStack): void;
-        copy(arg0: $MatrixStack): void;
         copy(arg0: $PoseStack$Pose): void;
+        copy(arg0: $MatrixStack): void;
+        copy(arg0: $PoseStack): void;
         isIdentity(): boolean;
-        rotate(arg0: $Quaterniondc): void;
         rotate(arg0: number, arg1: number, arg2: number, arg3: number): void;
         rotate(arg0: number, arg1: number, arg2: number, arg3: number): void;
         rotate(arg0: $Quaternionfc): void;
-        normal(): $Matrix3f;
+        rotate(arg0: $Quaterniondc): void;
         pose(): $PoseStack$Pose;
+        translate(arg0: number, arg1: number, arg2: number): void;
         translate(arg0: $Vector3fc): void;
         translate(arg0: $Vector3dc): void;
-        translate(arg0: number, arg1: number, arg2: number): void;
         translate(arg0: number, arg1: number, arg2: number): void;
         rotateXYZ(arg0: number, arg1: number, arg2: number): void;
         rotateXYZ(arg0: number, arg1: number, arg2: number): void;
@@ -106,8 +108,7 @@ declare module "@package/foundry/veil/api/client/render" {
         rotateZYX(arg0: number, arg1: number, arg2: number): void;
         rotateAround(arg0: $Quaternionfc, arg1: number, arg2: number, arg3: number): void;
         rotateAround(arg0: $Quaterniondc, arg1: number, arg2: number, arg3: number): void;
-        matrixPush(): void;
-        matrixPop(): void;
+        get empty(): boolean;
     }
     export class $VeilShaderBufferLayout<T> extends $Record {
         memoryLayout(): $ShaderBlock$MemoryLayout;
@@ -123,15 +124,14 @@ declare module "@package/foundry/veil/api/client/render" {
     /**
      * Values that may be interpreted as {@link $VeilShaderBufferLayout}.
      */
-    export type $VeilShaderBufferLayout_<T> = RegistryTypes.VeilShaderBuffer | { name?: string, memoryLayout?: $ShaderBlock$MemoryLayout_, requestedBinding?: $ShaderBlock$BufferBinding_, structSpecifier?: $GlslStructSpecifier, fields?: $Map_<string, $VeilShaderBufferLayout$FieldSerializer_<any>>,  } | [name?: string, memoryLayout?: $ShaderBlock$MemoryLayout_, requestedBinding?: $ShaderBlock$BufferBinding_, structSpecifier?: $GlslStructSpecifier, fields?: $Map_<string, $VeilShaderBufferLayout$FieldSerializer_<any>>, ];
+    export type $VeilShaderBufferLayout_<T> = RegistryTypes.VeilShaderBuffer | { requestedBinding?: $ShaderBlock$BufferBinding_, memoryLayout?: $ShaderBlock$MemoryLayout_, name?: string, fields?: $Map_<string, $VeilShaderBufferLayout$FieldSerializer_<any>>, structSpecifier?: $GlslStructSpecifier,  } | [requestedBinding?: $ShaderBlock$BufferBinding_, memoryLayout?: $ShaderBlock$MemoryLayout_, name?: string, fields?: $Map_<string, $VeilShaderBufferLayout$FieldSerializer_<any>>, structSpecifier?: $GlslStructSpecifier, ];
     export interface $VeilShaderBufferLayout<T> extends RegistryMarked<RegistryTypes.VeilShaderBufferTag, RegistryTypes.VeilShaderBuffer> {}
     export class $CullFrustum {
     }
     export interface $CullFrustum {
         getViewVector(): $Vector3fc;
-        getPosition(): $Vector3dc;
-        testPlaneXY(arg0: $Vector2fc, arg1: $Vector2fc): boolean;
         testPlaneXY(arg0: number, arg1: number, arg2: number, arg3: number): boolean;
+        testPlaneXY(arg0: $Vector2fc, arg1: $Vector2fc): boolean;
         testPlaneXY(arg0: $Vector2dc, arg1: $Vector2dc): boolean;
         testPlaneXZ(arg0: number, arg1: number, arg2: number, arg3: number): boolean;
         testPlaneXZ(arg0: $Vector2fc, arg1: $Vector2fc): boolean;
@@ -144,8 +144,9 @@ declare module "@package/foundry/veil/api/client/render" {
         toFrustum(): $Frustum;
         testBlock(arg0: $BlockPos_): boolean;
         testSection(arg0: $SectionPos): boolean;
-        testPoint(arg0: $Vector3dc): boolean;
+        getPosition(): $Vector3dc;
         testPoint(arg0: $Vector3fc): boolean;
+        testPoint(arg0: $Vector3dc): boolean;
         testPoint(arg0: number, arg1: number, arg2: number): boolean;
         testPoint(arg0: $Vector3ic): boolean;
         testPoint(arg0: $Position): boolean;
@@ -156,6 +157,10 @@ declare module "@package/foundry/veil/api/client/render" {
         testAab(arg0: $Vector3fc, arg1: $Vector3fc): boolean;
         testAab(arg0: $Vector3dc, arg1: $Vector3dc): boolean;
         testAab(arg0: $AABB_): boolean;
+        get viewVector(): $Vector3fc;
+        get planes(): $Vector4fc[];
+        get modelViewProjectionMatrix(): $Matrix4fc;
+        get position(): $Vector3dc;
     }
     export class $VeilShaderBufferLayout$Builder$FloatSerializer<T> {
     }

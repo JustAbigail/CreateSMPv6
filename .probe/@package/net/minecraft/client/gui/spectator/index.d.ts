@@ -11,8 +11,8 @@ declare module "@package/net/minecraft/client/gui/spectator" {
         selectSlot(slot: number): void;
         getCurrentPage(): $SpectatorPage;
         getSelectedCategory(): $SpectatorMenuCategory;
-        getSelectedSlot(): number;
         selectCategory(category: $SpectatorMenuCategory): void;
+        getSelectedSlot(): number;
         getItems(): $List<$SpectatorMenuItem>;
         getItem(index: number): $SpectatorMenuItem;
         exit(): void;
@@ -25,6 +25,11 @@ declare module "@package/net/minecraft/client/gui/spectator" {
         static CLOSE_MENU_TEXT: $Component;
         static SCROLL_LEFT_SPRITE: $ResourceLocation;
         constructor(listener: $SpectatorMenuListener_);
+        get selectedItem(): $SpectatorMenuItem;
+        get currentPage(): $SpectatorPage;
+        get selectedCategory(): $SpectatorMenuCategory;
+        get selectedSlot(): number;
+        get items(): $List<$SpectatorMenuItem>;
     }
     export class $SpectatorMenuItem {
     }
@@ -33,12 +38,16 @@ declare module "@package/net/minecraft/client/gui/spectator" {
         selectItem(menu: $SpectatorMenu): void;
         getName(): $Component;
         isEnabled(): boolean;
+        get name(): $Component;
+        get enabled(): boolean;
     }
     export class $SpectatorMenuCategory {
     }
     export interface $SpectatorMenuCategory {
         getPrompt(): $Component;
         getItems(): $List<$SpectatorMenuItem>;
+        get prompt(): $Component;
+        get items(): $List<$SpectatorMenuItem>;
     }
     export class $SpectatorMenuListener {
     }

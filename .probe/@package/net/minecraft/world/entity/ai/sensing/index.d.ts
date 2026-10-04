@@ -45,6 +45,7 @@ declare module "@package/net/minecraft/world/entity/ai/sensing" {
         getVisibleEntities(entity: $LivingEntity): ($NearestVisibleLivingEntities) | undefined;
         static TARGETING_RANGE: number;
         constructor();
+        get memory(): $MemoryModuleType<$LivingEntity>;
     }
     export class $FrogAttackablesSensor extends $NearestVisibleLivingEntitySensor {
         static TARGETING_RANGE: number;
@@ -163,8 +164,8 @@ declare module "@package/net/minecraft/world/entity/ai/sensing" {
          * @return if entity is remembered as an attack target and is valid to attack
          */
         static isEntityAttackableIgnoringLineOfSight(attacker: $LivingEntity, target: $LivingEntity): boolean;
-        requires(): $Set<$MemoryModuleType<never>>;
         tick(level: $ServerLevel, entity: E): void;
+        requires(): $Set<$MemoryModuleType<never>>;
         static TARGETING_RANGE: number;
         constructor();
         constructor(scanRate: number);

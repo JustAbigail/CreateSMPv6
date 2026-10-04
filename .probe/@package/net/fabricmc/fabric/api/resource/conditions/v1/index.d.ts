@@ -11,5 +11,6 @@ declare module "@package/net/fabricmc/fabric/api/resource/conditions/v1" {
     export interface $ResourceCondition {
         test(arg0: $HolderLookup$Provider): boolean;
         getType(): $ResourceConditionType<never>;
+        get type(): $ResourceConditionType<never>;
     }
 }

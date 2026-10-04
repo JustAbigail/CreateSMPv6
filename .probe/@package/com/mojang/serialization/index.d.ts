@@ -1,6 +1,6 @@
 import { $Supplier_, $Consumer_, $BiFunction, $Function, $BiConsumer, $Consumer, $Function_, $UnaryOperator_, $BiFunction_, $Supplier } from "@package/java/util/function";
 import { $LongStream, $Stream, $IntStream } from "@package/java/util/stream";
-import { $Function4_, $Function13_, $Function3_, $Unit, $Function14_, $Function6_, $Function11_, $Function5_, $Either, $Function12_, $Function3, $Function4, $Function5, $Pair, $Function6, $Function7, $Function8_, $Function8, $Function9, $Function10_, $Function7_, $Function15_, $Function16_, $Function9_ } from "@package/com/mojang/datafixers/util";
+import { $Function4_, $Function13_, $Function3_, $Unit, $Function14_, $Function11_, $Function6_, $Function5_, $Either, $Function12_, $Function3, $Function4, $Function5, $Pair, $Function6, $Function8_, $Function7, $Function8, $Function9, $Function10_, $Function7_, $Function15_, $Function16_, $Function9_ } from "@package/com/mojang/datafixers/util";
 import { RegistryMarked, RegistryTypes } from "@special/types";
 import { $SimpleMapCodec, $PrimitiveCodec, $RecordCodecBuilder, $UnboundedMapCodec } from "@package/com/mojang/serialization/codecs";
 import { $Map, $List, $Map_, $List_ } from "@package/java/util";
@@ -28,13 +28,13 @@ declare module "@package/com/mojang/serialization" {
      */
     export type $Encoder_<A> = ((arg0: A, arg1: $DynamicOps<any>, arg2: any) => $DataResult<any>);
     export class $DataResult<R> {
+        static unbox<R>(arg0: $App<$DataResult$Mu, R>): $DataResult<R>;
         static success<R>(arg0: R, arg1: $Lifecycle): $DataResult<R>;
         static success<R>(arg0: R): $DataResult<R>;
-        static unbox<R>(arg0: $App<$DataResult$Mu, R>): $DataResult<R>;
         static error<R>(arg0: $Supplier_<string>, arg1: R): $DataResult<R>;
         static error<R>(arg0: $Supplier_<string>): $DataResult<R>;
-        static error<R>(arg0: $Supplier_<string>, arg1: $Lifecycle): $DataResult<R>;
         static error<R>(arg0: $Supplier_<string>, arg1: R, arg2: $Lifecycle): $DataResult<R>;
+        static error<R>(arg0: $Supplier_<string>, arg1: $Lifecycle): $DataResult<R>;
         static instance(): $DataResult$Instance;
         static partialGet<K, V>(arg0: $Function_<K, V>, arg1: $Supplier_<string>): $Function<K, $DataResult<V>>;
         static appendMessages(arg0: string, arg1: string): string;
@@ -46,21 +46,21 @@ declare module "@package/com/mojang/serialization" {
         error(): ($DataResult$Error<R>) | undefined;
         isError(): boolean;
         ap<R2>(arg0: $DataResult<$Function_<R, R2>>): $DataResult<R2>;
-        getOrThrow(): R;
         getOrThrow<E extends $Throwable>(arg0: $Function_<string, E>): R;
+        getOrThrow(): R;
+        isSuccess(): boolean;
         promotePartial(arg0: $Consumer_<string>): $DataResult<R>;
         lifecycle(): $Lifecycle;
-        isSuccess(): boolean;
         apply2<R2, S>(arg0: $BiFunction_<R, R2, S>, arg1: $DataResult<R2>): $DataResult<S>;
         apply3<R2, R3, S>(arg0: $Function3_<R, R2, R3, S>, arg1: $DataResult<R2>, arg2: $DataResult<R3>): $DataResult<S>;
-        setLifecycle(arg0: $Lifecycle): $DataResult<R>;
-        resultOrPartial(): (R) | undefined;
         resultOrPartial(arg0: $Consumer_<string>): (R) | undefined;
-        setPartial(arg0: $Supplier_<R>): $DataResult<R>;
+        resultOrPartial(): (R) | undefined;
         setPartial(arg0: R): $DataResult<R>;
+        setPartial(arg0: $Supplier_<R>): $DataResult<R>;
+        setLifecycle(arg0: $Lifecycle): $DataResult<R>;
         mapError(arg0: $UnaryOperator_<string>): $DataResult<R>;
-        getPartialOrThrow<E extends $Throwable>(arg0: $Function_<string, E>): R;
         getPartialOrThrow(): R;
+        getPartialOrThrow<E extends $Throwable>(arg0: $Function_<string, E>): R;
         hasResultOrPartial(): boolean;
         mapOrElse<T>(arg0: $Function_<R, T>, arg1: $Function_<$DataResult$Error<R>, T>): T;
         ifSuccess(arg0: $Consumer_<R>): $DataResult<R>;
@@ -103,26 +103,27 @@ declare module "@package/com/mojang/serialization" {
         flatComap<B>(arg0: $Function_<B, $DataResult<A>>): $MapEncoder<B>;
         compressedBuilder<T>(arg0: $DynamicOps<T>): $RecordBuilder<T>;
         constructor();
+        set partial(value: $Supplier_<A>);
     }
     /**
      * Values that may be interpreted as {@link $MapCodec}.
      */
-    export type $MapCodec_<A> = RegistryTypes.CreatePotatoProjectileEntityHitAction | RegistryTypes.LithostitchedModifierType | RegistryTypes.EnchantmentLocationBasedEffectType | RegistryTypes.LithostitchedProcessorConditionType | RegistryTypes.WorldgenMaterialCondition | RegistryTypes.EnchantmentLevelBasedValueType | RegistryTypes.MoonlightVillagerTrades | RegistryTypes.WorldgenDensityFunctionType | RegistryTypes.EnchantmentProviderType | RegistryTypes.LithostitchedFastNoiseConfigType | RegistryTypes.BlockType | RegistryTypes.EntitySubPredicateType | RegistryTypes.WorldgenMaterialRule | RegistryTypes.CreatePotatoProjectileRenderMode | RegistryTypes.LithostitchedBiomeInjectorType | RegistryTypes.NeoforgeGlobalLootModifierSerializers | RegistryTypes.LithostitchedBandlandsBandType | RegistryTypes.NeoforgeBiomeModifierSerializers | RegistryTypes.WorldgenBiomeSource | RegistryTypes.WorldgenChunkGenerator | RegistryTypes.NeoforgeStructureModifierSerializers | RegistryTypes.CreatePotatoProjectileBlockHitAction | RegistryTypes.WorldgenPoolAliasBinding | RegistryTypes.NeoforgeConditionCodecs | RegistryTypes.EnchantmentEntityEffectType | RegistryTypes.EnchantmentValueEffectType | RegistryTypes.LithostitchedLoadPredicateType | RegistryTypes.LithostitchedPlacementConditionType;
+    export type $MapCodec_<A> = RegistryTypes.EnchantmentProviderType | RegistryTypes.LithostitchedProcessorConditionType | RegistryTypes.NeoforgeStructureModifierSerializers | RegistryTypes.WorldgenPoolAliasBinding | RegistryTypes.EnchantmentLocationBasedEffectType | RegistryTypes.WorldgenMaterialRule | RegistryTypes.EnchantmentLevelBasedValueType | RegistryTypes.NeoforgeBiomeModifierSerializers | RegistryTypes.LithostitchedLoadPredicateType | RegistryTypes.WorldgenDensityFunctionType | RegistryTypes.NeoforgeGlobalLootModifierSerializers | RegistryTypes.WorldgenBiomeSource | RegistryTypes.WorldgenMaterialCondition | RegistryTypes.LithostitchedFastNoiseConfigType | RegistryTypes.CreatePotatoProjectileEntityHitAction | RegistryTypes.LithostitchedBiomeInjectorType | RegistryTypes.LithostitchedModifierType | RegistryTypes.CreatePotatoProjectileRenderMode | RegistryTypes.CreatePotatoProjectileBlockHitAction | RegistryTypes.EnchantmentEntityEffectType | RegistryTypes.LithostitchedBandlandsBandType | RegistryTypes.BlockType | RegistryTypes.WorldgenChunkGenerator | RegistryTypes.EntitySubPredicateType | RegistryTypes.MoonlightVillagerTrades | RegistryTypes.LithostitchedPlacementConditionType | RegistryTypes.NeoforgeConditionCodecs | RegistryTypes.EnchantmentValueEffectType;
     export class $DynamicLike<T> {
-        asInt(arg0: number): number;
-        asLongStream(): $LongStream;
         getElement(arg0: string, arg1: T): T;
         getElement(arg0: string): $DataResult<T>;
         asByteBuffer(): $ByteBuffer;
+        asInt(arg0: number): number;
+        asLongStream(): $LongStream;
+        createMap(arg0: $Map_<$Dynamic<never>, $Dynamic<never>>): $Dynamic<T>;
+        createLong(arg0: number): $Dynamic<T>;
+        createString(arg0: string): $Dynamic<T>;
         get(arg0: string): $OptionalDynamic<T>;
         decode<A>(arg0: $Decoder_<A>): $DataResult<$Pair<A, T>>;
         emptyList(): $Dynamic<T>;
         read<A>(arg0: $Decoder_<A>): $DataResult<A>;
         asList<U>(arg0: $Function_<$Dynamic<T>, U>): $List<U>;
         emptyMap(): $Dynamic<T>;
-        createMap(arg0: $Map_<$Dynamic<never>, $Dynamic<never>>): $Dynamic<T>;
-        createLong(arg0: number): $Dynamic<T>;
-        createString(arg0: string): $Dynamic<T>;
         asDouble(arg0: number): number;
         asMap<K, V>(arg0: $Function_<$Dynamic<T>, K>, arg1: $Function_<$Dynamic<T>, V>): $Map<K, V>;
         asString(arg0: string): string;
@@ -140,31 +141,32 @@ declare module "@package/com/mojang/serialization" {
         createIntList(arg0: $IntStream): $Dynamic<never>;
         createLongList(arg0: $LongStream): $Dynamic<never>;
         getOps(): $DynamicOps<T>;
-        asNumber(arg0: $Number): $Number;
         asNumber(): $DataResult<$Number>;
-        asBoolean(arg0: boolean): boolean;
+        asNumber(arg0: $Number): $Number;
         asBoolean(): $DataResult<boolean>;
+        asBoolean(arg0: boolean): boolean;
         asLong(arg0: number): number;
         asIntStream(): $IntStream;
         getElementGeneric(arg0: T, arg1: T): T;
         getElementGeneric(arg0: T): $DataResult<T>;
         asStreamOpt(): $DataResult<$Stream<$Dynamic<T>>>;
+        asMapOpt<K, V>(arg0: $Function_<$Dynamic<T>, K>, arg1: $Function_<$Dynamic<T>, V>): $DataResult<$Map<K, V>>;
+        asMapOpt(): $DataResult<$Stream<$Pair<$Dynamic<T>, $Dynamic<T>>>>;
         asByteBufferOpt(): $DataResult<$ByteBuffer>;
         asIntStreamOpt(): $DataResult<$IntStream>;
         asLongStreamOpt(): $DataResult<$LongStream>;
-        asMapOpt<K, V>(arg0: $Function_<$Dynamic<T>, K>, arg1: $Function_<$Dynamic<T>, V>): $DataResult<$Map<K, V>>;
-        asMapOpt(): $DataResult<$Stream<$Pair<$Dynamic<T>, $Dynamic<T>>>>;
         asListOpt<U>(arg0: $Function_<$Dynamic<T>, U>): $DataResult<$List<U>>;
         readList<E>(arg0: $Function_<$Dynamic<never>, $DataResult<E>>): $DataResult<$List<E>>;
         readList<E>(arg0: $Decoder_<E>): $DataResult<$List<E>>;
+        readMap<R>(arg0: $DataResult<R>, arg1: $Function3_<R, $Dynamic<T>, $Dynamic<T>, $DataResult<R>>): $DataResult<R>;
         readMap<K, V>(arg0: $Decoder_<K>, arg1: $Decoder_<V>): $DataResult<$List<$Pair<K, V>>>;
         readMap<K, V>(arg0: $Decoder_<K>, arg1: $Function_<K, $Decoder<V>>): $DataResult<$List<$Pair<K, V>>>;
-        readMap<R>(arg0: $DataResult<R>, arg1: $Function3_<R, $Dynamic<T>, $Dynamic<T>, $DataResult<R>>): $DataResult<R>;
         asFloat(arg0: number): number;
         asByte(arg0: number): number;
         asShort(arg0: number): number;
         asStream(): $Stream<$Dynamic<T>>;
         constructor(arg0: $DynamicOps<T>);
+        get ops(): $DynamicOps<T>;
     }
     export class $Keyable {
         static forStrings(arg0: $Supplier_<$Stream<string>>): $Keyable;
@@ -210,7 +212,6 @@ declare module "@package/com/mojang/serialization" {
         ap16<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, R>(arg0: $App<$DataResult$Mu, $Function16_<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, R>>, arg1: $App<$DataResult$Mu, T1>, arg2: $App<$DataResult$Mu, T2>, arg3: $App<$DataResult$Mu, T3>, arg4: $App<$DataResult$Mu, T4>, arg5: $App<$DataResult$Mu, T5>, arg6: $App<$DataResult$Mu, T6>, arg7: $App<$DataResult$Mu, T7>, arg8: $App<$DataResult$Mu, T8>, arg9: $App<$DataResult$Mu, T9>, arg10: $App<$DataResult$Mu, T10>, arg11: $App<$DataResult$Mu, T11>, arg12: $App<$DataResult$Mu, T12>, arg13: $App<$DataResult$Mu, T13>, arg14: $App<$DataResult$Mu, T14>, arg15: $App<$DataResult$Mu, T15>, arg16: $App<$DataResult$Mu, T16>): $App<$DataResult$Mu, R>;
         apply2<A, B, R>(arg0: $BiFunction_<A, B, R>, arg1: $App<$DataResult$Mu, A>, arg2: $App<$DataResult$Mu, B>): $App<$DataResult$Mu, R>;
         apply3<T1, T2, T3, R>(arg0: $Function3_<T1, T2, T3, R>, arg1: $App<$DataResult$Mu, T1>, arg2: $App<$DataResult$Mu, T2>, arg3: $App<$DataResult$Mu, T3>): $App<$DataResult$Mu, R>;
-        apply4<T1, T2, T3, T4, R>(arg0: $Function4_<T1, T2, T3, T4, R>, arg1: $App<$DataResult$Mu, T1>, arg2: $App<$DataResult$Mu, T2>, arg3: $App<$DataResult$Mu, T3>, arg4: $App<$DataResult$Mu, T4>): $App<$DataResult$Mu, R>;
         ap4<T1, T2, T3, T4, R>(arg0: $App<$DataResult$Mu, $Function4_<T1, T2, T3, T4, R>>, arg1: $App<$DataResult$Mu, T1>, arg2: $App<$DataResult$Mu, T2>, arg3: $App<$DataResult$Mu, T3>, arg4: $App<$DataResult$Mu, T4>): $App<$DataResult$Mu, R>;
         ap5<T1, T2, T3, T4, T5, R>(arg0: $App<$DataResult$Mu, $Function5_<T1, T2, T3, T4, T5, R>>, arg1: $App<$DataResult$Mu, T1>, arg2: $App<$DataResult$Mu, T2>, arg3: $App<$DataResult$Mu, T3>, arg4: $App<$DataResult$Mu, T4>, arg5: $App<$DataResult$Mu, T5>): $App<$DataResult$Mu, R>;
         ap6<T1, T2, T3, T4, T5, T6, R>(arg0: $App<$DataResult$Mu, $Function6_<T1, T2, T3, T4, T5, T6, R>>, arg1: $App<$DataResult$Mu, T1>, arg2: $App<$DataResult$Mu, T2>, arg3: $App<$DataResult$Mu, T3>, arg4: $App<$DataResult$Mu, T4>, arg5: $App<$DataResult$Mu, T5>, arg6: $App<$DataResult$Mu, T6>): $App<$DataResult$Mu, R>;
@@ -218,6 +219,7 @@ declare module "@package/com/mojang/serialization" {
         ap8<T1, T2, T3, T4, T5, T6, T7, T8, R>(arg0: $App<$DataResult$Mu, $Function8_<T1, T2, T3, T4, T5, T6, T7, T8, R>>, arg1: $App<$DataResult$Mu, T1>, arg2: $App<$DataResult$Mu, T2>, arg3: $App<$DataResult$Mu, T3>, arg4: $App<$DataResult$Mu, T4>, arg5: $App<$DataResult$Mu, T5>, arg6: $App<$DataResult$Mu, T6>, arg7: $App<$DataResult$Mu, T7>, arg8: $App<$DataResult$Mu, T8>): $App<$DataResult$Mu, R>;
         ap9<T1, T2, T3, T4, T5, T6, T7, T8, T9, R>(arg0: $App<$DataResult$Mu, $Function9_<T1, T2, T3, T4, T5, T6, T7, T8, T9, R>>, arg1: $App<$DataResult$Mu, T1>, arg2: $App<$DataResult$Mu, T2>, arg3: $App<$DataResult$Mu, T3>, arg4: $App<$DataResult$Mu, T4>, arg5: $App<$DataResult$Mu, T5>, arg6: $App<$DataResult$Mu, T6>, arg7: $App<$DataResult$Mu, T7>, arg8: $App<$DataResult$Mu, T8>, arg9: $App<$DataResult$Mu, T9>): $App<$DataResult$Mu, R>;
         lift2<A, B, R>(arg0: $App<$DataResult$Mu, $BiFunction_<A, B, R>>): $BiFunction<$App<$DataResult$Mu, A>, $App<$DataResult$Mu, B>, $App<$DataResult$Mu, R>>;
+        apply4<T1, T2, T3, T4, R>(arg0: $Function4_<T1, T2, T3, T4, R>, arg1: $App<$DataResult$Mu, T1>, arg2: $App<$DataResult$Mu, T2>, arg3: $App<$DataResult$Mu, T3>, arg4: $App<$DataResult$Mu, T4>): $App<$DataResult$Mu, R>;
         apply5<T1, T2, T3, T4, T5, R>(arg0: $Function5_<T1, T2, T3, T4, T5, R>, arg1: $App<$DataResult$Mu, T1>, arg2: $App<$DataResult$Mu, T2>, arg3: $App<$DataResult$Mu, T3>, arg4: $App<$DataResult$Mu, T4>, arg5: $App<$DataResult$Mu, T5>): $App<$DataResult$Mu, R>;
         apply6<T1, T2, T3, T4, T5, T6, R>(arg0: $Function6_<T1, T2, T3, T4, T5, T6, R>, arg1: $App<$DataResult$Mu, T1>, arg2: $App<$DataResult$Mu, T2>, arg3: $App<$DataResult$Mu, T3>, arg4: $App<$DataResult$Mu, T4>, arg5: $App<$DataResult$Mu, T5>, arg6: $App<$DataResult$Mu, T6>): $App<$DataResult$Mu, R>;
         apply7<T1, T2, T3, T4, T5, T6, T7, R>(arg0: $Function7_<T1, T2, T3, T4, T5, T6, T7, R>, arg1: $App<$DataResult$Mu, T1>, arg2: $App<$DataResult$Mu, T2>, arg3: $App<$DataResult$Mu, T3>, arg4: $App<$DataResult$Mu, T4>, arg5: $App<$DataResult$Mu, T5>, arg6: $App<$DataResult$Mu, T6>, arg7: $App<$DataResult$Mu, T7>): $App<$DataResult$Mu, R>;
@@ -291,6 +293,8 @@ declare module "@package/com/mojang/serialization" {
         into<V>(arg0: $Function_<$Dynamic<T>, V>): V;
         constructor(arg0: $DynamicOps<T>);
         constructor(arg0: $DynamicOps<T>, arg1: T | null);
+        get value(): T;
+        get mapValues(): $DataResult<$Map<$Dynamic<T>, $Dynamic<T>>>;
     }
     export class $CompressorHolder implements $Compressable {
         compressor<T>(arg0: $DynamicOps<T>): $KeyCompressor<T>;
@@ -300,15 +304,18 @@ declare module "@package/com/mojang/serialization" {
         map<T>(arg0: $Function_<R, T>): $DataResult$Error<T>;
         result(): (R) | undefined;
         message(): string;
+        flatMap<R2>(arg0: $Function_<R, $DataResult<R2>>): $DataResult$Error<R2>;
         messageSupplier(): $Supplier<string>;
         error(): ($DataResult$Error<R>) | undefined;
+        ap<R2>(arg0: $DataResult<$Function_<R, R2>>): $DataResult$Error<R2>;
         getOrThrow<E extends $Throwable>(arg0: $Function_<string, E>): R;
+        isSuccess(): boolean;
         promotePartial(arg0: $Consumer_<string>): $DataResult<R>;
         lifecycle(): $Lifecycle;
-        isSuccess(): boolean;
-        resultOrPartial(arg0: $Consumer_<string>): (R) | undefined;
         resultOrPartial(): (R) | undefined;
-        mapError(arg0: $UnaryOperator_<string>): $DataResult$Error<R>;
+        resultOrPartial(arg0: $Consumer_<string>): (R) | undefined;
+        setPartial(arg0: $Supplier_<R>): $DataResult$Error<R>;
+        setPartial(arg0: R): $DataResult$Error<R>;
         getPartialOrThrow<E extends $Throwable>(arg0: $Function_<string, E>): R;
         hasResultOrPartial(): boolean;
         mapOrElse<T>(arg0: $Function_<R, T>, arg1: $Function_<$DataResult$Error<R>, T>): T;
@@ -322,17 +329,14 @@ declare module "@package/com/mojang/serialization" {
         getPartialOrThrow(): R;
         apply2stable<R2, S>(arg0: $BiFunction_<R, R2, S>, arg1: $DataResult<R2>): $DataResult<S>;
         addLifecycle(arg0: $Lifecycle): $DataResult<R>;
-        flatMap<R2>(arg0: $Function_<R, $DataResult<R2>>): $DataResult<R2>;
-        ap<R2>(arg0: $DataResult<$Function_<R, R2>>): $DataResult<R2>;
         setLifecycle(arg0: $Lifecycle): $DataResult<R>;
-        setPartial(arg0: $Supplier_<R>): $DataResult<R>;
-        setPartial(arg0: $Supplier_<R>): $DataResult<R>;
+        mapError(arg0: $UnaryOperator_<string>): $DataResult<R>;
         constructor(messageSupplier: $Supplier_<string>, partialValue: (R) | undefined, lifecycle: $Lifecycle);
     }
     /**
      * Values that may be interpreted as {@link $DataResult$Error}.
      */
-    export type $DataResult$Error_<R> = { lifecycle?: $Lifecycle, partialValue?: (R) | undefined, messageSupplier?: $Supplier_<string>,  } | [lifecycle?: $Lifecycle, partialValue?: (R) | undefined, messageSupplier?: $Supplier_<string>, ];
+    export type $DataResult$Error_<R> = { lifecycle?: $Lifecycle, messageSupplier?: $Supplier_<string>, partialValue?: (R) | undefined,  } | [lifecycle?: $Lifecycle, messageSupplier?: $Supplier_<string>, partialValue?: (R) | undefined, ];
     export class $Codec$ResultFunction<A> {
     }
     export interface $Codec$ResultFunction<A> {
@@ -366,23 +370,23 @@ declare module "@package/com/mojang/serialization" {
      */
     export type $Decoder_<A> = ((arg0: $DynamicOps<any>, arg1: any) => $DataResult<$Pair<A, any>>);
     export class $KeyCompressor<T> {
+        decompress(arg0: number): T;
         size(): number;
         compress(arg0: T): number;
         compress(arg0: string): number;
-        decompress(arg0: number): T;
         constructor(arg0: $DynamicOps<T>, arg1: $Stream<T>);
     }
     export class $OptionalDynamic<T> extends $DynamicLike<T> {
-        orElseEmptyMap(): $Dynamic<T>;
-        orElseEmptyList(): $Dynamic<T>;
         get(): $DataResult<$Dynamic<T>>;
         map<U>(arg0: $Function_<$Dynamic<T>, U>): $DataResult<U>;
         result(): ($Dynamic<T>) | undefined;
         flatMap<U>(arg0: $Function_<$Dynamic<T>, $DataResult<U>>): $DataResult<U>;
         into<V>(arg0: $Function_<$Dynamic<T>, V>): $DataResult<V>;
+        orElseEmptyMap(): $Dynamic<T>;
+        orElseEmptyList(): $Dynamic<T>;
         constructor(arg0: $DynamicOps<T>, arg1: $DataResult<$Dynamic<T>>);
     }
-    export interface $MapCodec<A> extends RegistryMarked<RegistryTypes.LithostitchedPlacementConditionTypeTag, RegistryTypes.LithostitchedPlacementConditionType> {}
+    export interface $MapCodec<A> extends RegistryMarked<RegistryTypes.EnchantmentValueEffectTypeTag, RegistryTypes.EnchantmentValueEffectType> {}
     export class $MapCodec$ResultFunction<A> {
     }
     export interface $MapCodec$ResultFunction<A> {
@@ -446,9 +450,13 @@ declare module "@package/com/mojang/serialization" {
     export class $DynamicOps<T> {
     }
     export interface $DynamicOps<T> {
-        getStringValue(arg0: T): $DataResult<string>;
         getStream(arg0: T): $DataResult<$Stream<T>>;
+        getStringValue(arg0: T): $DataResult<string>;
         getMap(arg0: T): $DataResult<$MapLike<T>>;
+        createMap(arg0: $Map_<T, T>): T;
+        createMap(arg0: $Stream<$Pair<T, T>>): T;
+        createLong(arg0: number): T;
+        createString(arg0: string): T;
         remove(arg0: T, arg1: string): T;
         get(arg0: T, arg1: string): $DataResult<T>;
         update(arg0: T, arg1: string, arg2: $Function_<T, T>): T;
@@ -457,22 +465,18 @@ declare module "@package/com/mojang/serialization" {
         emptyList(): T;
         getByteBuffer(arg0: T): $DataResult<$ByteBuffer>;
         emptyMap(): T;
-        createMap(arg0: $Map_<T, T>): T;
-        createMap(arg0: $Stream<$Pair<T, T>>): T;
-        createLong(arg0: number): T;
-        createString(arg0: string): T;
         getList(arg0: T): $DataResult<$Consumer<$Consumer<T>>>;
         createList(arg0: $Stream<T>): T;
         getBooleanValue(arg0: T): $DataResult<boolean>;
         createFloat(arg0: number): T;
         createDouble(arg0: number): T;
-        getNumberValue(arg0: T): $DataResult<$Number>;
         getNumberValue(arg0: T, arg1: $Number): $Number;
+        getNumberValue(arg0: T): $DataResult<$Number>;
         createNumeric(arg0: $Number): T;
         createByte(arg0: number): T;
+        mergeToMap(arg0: T, arg1: $Map_<T, T>): $DataResult<T>;
         mergeToMap(arg0: T, arg1: $MapLike<T>): $DataResult<T>;
         mergeToMap(arg0: T, arg1: T, arg2: T): $DataResult<T>;
-        mergeToMap(arg0: T, arg1: $Map_<T, T>): $DataResult<T>;
         getMapValues(arg0: T): $DataResult<$Stream<$Pair<T, T>>>;
         getGeneric(arg0: T, arg1: T): $DataResult<T>;
         convertTo<U>(arg0: $DynamicOps<U>, arg1: T): U;
@@ -509,9 +513,9 @@ declare module "@package/com/mojang/serialization" {
         static of<A>(arg0: $Encoder_<A>, arg1: $Decoder_<A>, arg2: string): $Codec<A>;
         static list<E>(arg0: $Codec<E>, arg1: number, arg2: number): $Codec<$List<E>>;
         static list<E>(arg0: $Codec<E>): $Codec<$List<E>>;
-        static unit<A>(arg0: A): $Codec<A>;
-        static unit<A>(arg0: $Supplier_<A>): $Codec<A>;
         static string(arg0: number, arg1: number): $Codec<string>;
+        static unit<A>(arg0: $Supplier_<A>): $Codec<A>;
+        static unit<A>(arg0: A): $Codec<A>;
         static either<F, S>(arg0: $Codec<F>, arg1: $Codec<S>): $Codec<$Either<F, S>>;
         static unboundedMap<K, V>(arg0: $Codec<K>, arg1: $Codec<V>): $UnboundedMapCodec<K, V>;
         static optionalField<F>(arg0: string, arg1: $Codec<F>, arg2: boolean): $MapCodec<(F) | undefined>;
@@ -553,14 +557,14 @@ declare module "@package/com/mojang/serialization" {
         orElse(arg0: $Consumer_<string>, arg1: A): $Codec<A>;
         orElse(arg0: A): $Codec<A>;
         stable(): $Codec<A>;
-        optionalFieldOf(arg0: string, arg1: $Lifecycle, arg2: A, arg3: $Lifecycle): $MapCodec<A>;
-        optionalFieldOf(arg0: string, arg1: A): $MapCodec<A>;
-        optionalFieldOf(arg0: string, arg1: A, arg2: $Lifecycle): $MapCodec<A>;
-        optionalFieldOf(arg0: string): $MapCodec<(A) | undefined>;
-        listOf(): $Codec<$List<A>>;
-        listOf(arg0: number, arg1: number): $Codec<$List<A>>;
-        xmap<S>(arg0: $Function_<A, S>, arg1: $Function_<S, A>): $Codec<S>;
         comapFlatMap<S>(arg0: $Function_<A, $DataResult<S>>, arg1: $Function_<S, A>): $Codec<S>;
+        optionalFieldOf(arg0: string, arg1: A): $MapCodec<A>;
+        optionalFieldOf(arg0: string): $MapCodec<(A) | undefined>;
+        optionalFieldOf(arg0: string, arg1: $Lifecycle, arg2: A, arg3: $Lifecycle): $MapCodec<A>;
+        optionalFieldOf(arg0: string, arg1: A, arg2: $Lifecycle): $MapCodec<A>;
+        listOf(arg0: number, arg1: number): $Codec<$List<A>>;
+        listOf(): $Codec<$List<A>>;
+        xmap<S>(arg0: $Function_<A, S>, arg1: $Function_<S, A>): $Codec<S>;
         deprecated(arg0: number): $Codec<A>;
         flatXmap<S>(arg0: $Function_<A, $DataResult<S>>, arg1: $Function_<S, $DataResult<A>>): $Codec<S>;
         lenientOptionalFieldOf(arg0: string): $MapCodec<(A) | undefined>;
@@ -593,13 +597,14 @@ declare module "@package/com/mojang/serialization" {
         add<E>(arg0: string, arg1: E, arg2: $Encoder_<E>): $RecordBuilder<T>;
         add(arg0: string, arg1: T): $RecordBuilder<T>;
         add(arg0: string, arg1: $DataResult<T>): $RecordBuilder<T>;
+        add(arg0: T, arg1: $DataResult<T>): $RecordBuilder<T>;
         add(arg0: T, arg1: T): $RecordBuilder<T>;
         add(arg0: $DataResult<T>, arg1: $DataResult<T>): $RecordBuilder<T>;
-        add(arg0: T, arg1: $DataResult<T>): $RecordBuilder<T>;
-        build(arg0: $DataResult<T>): $DataResult<T>;
         build(arg0: T): $DataResult<T>;
-        setLifecycle(arg0: $Lifecycle): $RecordBuilder<T>;
+        build(arg0: $DataResult<T>): $DataResult<T>;
         withErrorsFrom(arg0: $DataResult<never>): $RecordBuilder<T>;
+        setLifecycle(arg0: $Lifecycle): $RecordBuilder<T>;
         mapError(arg0: $UnaryOperator_<string>): $RecordBuilder<T>;
+        set lifecycle(value: $Lifecycle);
     }
 }

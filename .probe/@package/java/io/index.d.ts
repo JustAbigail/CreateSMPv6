@@ -19,18 +19,18 @@ declare module "@package/java/io" {
         available(): number;
     }
     export class $Reader implements $Readable, $Closeable {
+        static nullReader(): $Reader;
+        ready(): boolean;
         reset(): void;
-        read(arg0: string[]): number;
         read(arg0: string[], arg1: number, arg2: number): number;
         read(arg0: $CharBuffer): number;
         read(): number;
+        read(arg0: string[]): number;
         close(): void;
         mark(arg0: number): void;
         transferTo(arg0: $Writer): number;
         skip(arg0: number): number;
         markSupported(): boolean;
-        static nullReader(): $Reader;
-        ready(): boolean;
     }
     export class $InputStream implements $Closeable {
         reset(): void;
@@ -153,18 +153,18 @@ declare module "@package/java/io" {
         constructor(arg0: $OutputStream);
     }
     export class $DataOutputStream extends $FilterOutputStream implements $DataOutput {
-        size(): number;
-        writeInt(arg0: number): void;
-        writeUTF(arg0: string): void;
-        writeBytes(arg0: string): void;
+        writeChar(arg0: number): void;
+        writeFloat(arg0: number): void;
         writeShort(arg0: number): void;
         writeBoolean(arg0: boolean): void;
         writeByte(arg0: number): void;
         writeLong(arg0: number): void;
         writeDouble(arg0: number): void;
         writeChars(arg0: string): void;
-        writeChar(arg0: number): void;
-        writeFloat(arg0: number): void;
+        size(): number;
+        writeInt(arg0: number): void;
+        writeUTF(arg0: string): void;
+        writeBytes(arg0: string): void;
         constructor(arg0: $OutputStream);
     }
     export class $ObjectOutput {
@@ -234,11 +234,10 @@ declare module "@package/java/io" {
     export class $DataInput {
     }
     export interface $DataInput {
+        readChar(): string;
+        readFloat(): number;
         readFully(arg0: number[]): void;
         readFully(arg0: number[], arg1: number, arg2: number): void;
-        readLine(): string;
-        readInt(): number;
-        readUTF(): string;
         readUnsignedByte(): number;
         readUnsignedShort(): number;
         skipBytes(arg0: number): number;
@@ -247,34 +246,63 @@ declare module "@package/java/io" {
         readShort(): number;
         readLong(): number;
         readDouble(): number;
-        readChar(): string;
-        readFloat(): number;
+        readLine(): string;
+        readInt(): number;
+        readUTF(): string;
     }
     export class $DataOutput {
     }
     export interface $DataOutput {
-        write(arg0: number[], arg1: number, arg2: number): void;
-        write(arg0: number[]): void;
-        write(arg0: number): void;
-        writeInt(arg0: number): void;
-        writeUTF(arg0: string): void;
-        writeBytes(arg0: string): void;
+        writeChar(arg0: number): void;
+        writeFloat(arg0: number): void;
         writeShort(arg0: number): void;
         writeBoolean(arg0: boolean): void;
         writeByte(arg0: number): void;
         writeLong(arg0: number): void;
         writeDouble(arg0: number): void;
         writeChars(arg0: string): void;
-        writeChar(arg0: number): void;
-        writeFloat(arg0: number): void;
+        write(arg0: number[]): void;
+        write(arg0: number): void;
+        write(arg0: number[], arg1: number, arg2: number): void;
+        writeInt(arg0: number): void;
+        writeUTF(arg0: string): void;
+        writeBytes(arg0: string): void;
     }
     export class $File implements $Serializable, $Comparable<$File> {
+        getCanonicalPath(): string;
+        getAbsoluteFile(): $File;
+        mkdir(): boolean;
+        getCanonicalFile(): $File;
+        getParentFile(): $File;
+        mkdirs(): boolean;
+        setWritable(arg0: boolean, arg1: boolean): boolean;
+        setWritable(arg0: boolean): boolean;
+        setReadable(arg0: boolean): boolean;
+        setReadable(arg0: boolean, arg1: boolean): boolean;
+        setExecutable(arg0: boolean, arg1: boolean): boolean;
+        setExecutable(arg0: boolean): boolean;
+        static listRoots(): $File[];
+        static createTempFile(arg0: string, arg1: string): $File;
+        static createTempFile(arg0: string, arg1: string, arg2: $File_): $File;
+        canWrite(): boolean;
+        isFile(): boolean;
+        lastModified(): number;
+        deleteOnExit(): void;
+        listFiles(arg0: $FileFilter_): $File[];
+        listFiles(): $File[];
+        listFiles(arg0: $FilenameFilter_): $File[];
+        setLastModified(arg0: number): boolean;
+        canExecute(): boolean;
+        getTotalSpace(): number;
+        getFreeSpace(): number;
+        getUsableSpace(): number;
+        toPath(): $Path;
         getName(): string;
         length(): number;
         isHidden(): boolean;
         compareTo(arg0: $File_): number;
-        list(): string[];
         list(arg0: $FilenameFilter_): string[];
+        list(): string[];
         isAbsolute(): boolean;
         getParent(): string;
         "delete"(): boolean;
@@ -291,42 +319,29 @@ declare module "@package/java/io" {
         createNewFile(): boolean;
         renameTo(arg0: $File_): boolean;
         isDirectory(): boolean;
-        getCanonicalPath(): string;
-        getAbsoluteFile(): $File;
-        mkdir(): boolean;
-        getCanonicalFile(): $File;
-        getParentFile(): $File;
-        mkdirs(): boolean;
-        setWritable(arg0: boolean): boolean;
-        setWritable(arg0: boolean, arg1: boolean): boolean;
-        setReadable(arg0: boolean, arg1: boolean): boolean;
-        setReadable(arg0: boolean): boolean;
-        setExecutable(arg0: boolean, arg1: boolean): boolean;
-        setExecutable(arg0: boolean): boolean;
-        static listRoots(): $File[];
-        static createTempFile(arg0: string, arg1: string): $File;
-        static createTempFile(arg0: string, arg1: string, arg2: $File_): $File;
-        canWrite(): boolean;
-        isFile(): boolean;
-        lastModified(): number;
-        deleteOnExit(): void;
-        listFiles(arg0: $FileFilter_): $File[];
-        listFiles(arg0: $FilenameFilter_): $File[];
-        listFiles(): $File[];
-        setLastModified(arg0: number): boolean;
-        canExecute(): boolean;
-        getTotalSpace(): number;
-        getFreeSpace(): number;
-        getUsableSpace(): number;
-        toPath(): $Path;
         static pathSeparator: string;
         static pathSeparatorChar: string;
         static separatorChar: string;
         static separator: string;
-        constructor(arg0: string);
-        constructor(arg0: string, arg1: string);
         constructor(arg0: $URI);
         constructor(arg0: $File_, arg1: string);
+        constructor(arg0: string, arg1: string);
+        constructor(arg0: string);
+        get canonicalPath(): string;
+        get absoluteFile(): $File;
+        get canonicalFile(): $File;
+        get parentFile(): $File;
+        get file(): boolean;
+        get totalSpace(): number;
+        get freeSpace(): number;
+        get usableSpace(): number;
+        get name(): string;
+        get hidden(): boolean;
+        get absolute(): boolean;
+        get parent(): string;
+        get path(): string;
+        get absolutePath(): string;
+        get directory(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $File}.

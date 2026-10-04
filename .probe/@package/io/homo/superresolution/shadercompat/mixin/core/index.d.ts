@@ -7,6 +7,7 @@ declare module "@package/io/homo/superresolution/shadercompat/mixin/core" {
     }
     export interface $ShaderPackAccessor {
         getDimensionMap(): $Map<$NamespacedId, string>;
+        get dimensionMap(): $Map<$NamespacedId, string>;
     }
     /**
      * Values that may be interpreted as {@link $ShaderPackAccessor}.
@@ -21,6 +22,7 @@ declare module "@package/io/homo/superresolution/shadercompat/mixin/core" {
     }
     export interface $RenderTargetsAccessor {
         isDestroyed(): boolean;
+        get destroyed(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $RenderTargetsAccessor}.
@@ -30,6 +32,7 @@ declare module "@package/io/homo/superresolution/shadercompat/mixin/core" {
     }
     export interface $IrisRenderingPipelineAccessor {
         getCompositeRenderer(): $CompositeRenderer;
+        get compositeRenderer(): $CompositeRenderer;
     }
     /**
      * Values that may be interpreted as {@link $IrisRenderingPipelineAccessor}.

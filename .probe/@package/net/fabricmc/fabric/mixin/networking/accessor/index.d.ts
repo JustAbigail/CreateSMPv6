@@ -10,11 +10,14 @@ declare module "@package/net/fabricmc/fabric/mixin/networking/accessor" {
     export interface $ServerCommonNetworkHandlerAccessor {
         getConnection(): $Connection;
         getServer(): $MinecraftServer;
+        get connection(): $Connection;
+        get server(): $MinecraftServer;
     }
     export class $EntityTrackerAccessor {
     }
     export interface $EntityTrackerAccessor {
         getPlayersTracking(): $Set<$ServerPlayerConnection>;
+        get playersTracking(): $Set<$ServerPlayerConnection>;
     }
     /**
      * Values that may be interpreted as {@link $EntityTrackerAccessor}.
@@ -24,6 +27,7 @@ declare module "@package/net/fabricmc/fabric/mixin/networking/accessor" {
     }
     export interface $ServerChunkLoadingManagerAccessor {
         getEntityMap(): $Int2ObjectMap<$EntityTrackerAccessor>;
+        get entityMap(): $Int2ObjectMap<$EntityTrackerAccessor>;
     }
     /**
      * Values that may be interpreted as {@link $ServerChunkLoadingManagerAccessor}.

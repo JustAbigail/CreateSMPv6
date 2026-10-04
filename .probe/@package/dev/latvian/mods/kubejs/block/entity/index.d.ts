@@ -22,9 +22,9 @@ declare module "@package/dev/latvian/mods/kubejs/block/entity" {
     export class $BlockEntityAttachmentHandler {
     }
     export interface $BlockEntityAttachmentHandler {
+        energyStorage(id: string, directions: $Set_<$Direction_>, capacity: number, maxReceive: number, maxExtract: number, autoOutput: number): void;
         fluidTank(id: string, directions: $Set_<$Direction_>, capacity: number): void;
         fluidTank(id: string, directions: $Set_<$Direction_>, capacity: number, inputFilter: $FluidIngredient_): void;
-        energyStorage(id: string, directions: $Set_<$Direction_>, capacity: number, maxReceive: number, maxExtract: number, autoOutput: number): void;
         attachCustomCapability(id: string, directions: $Set_<$Direction_>, capability: $BlockCapability<never, never>, dataFactory: $Supplier_<never>): void;
         attach(id: string, type: $ResourceLocation_, directions: $Set_<$Direction_>, args: $Object): void;
         inventory(id: string, directions: $Set_<$Direction_>, width: number, height: number, inputFilter: $ItemPredicate_): void;
@@ -45,9 +45,9 @@ declare module "@package/dev/latvian/mods/kubejs/block/entity" {
         enableSync(): void;
         rightClickOpensInventory(id: string): void;
         rightClickFillsTank(id: string): void;
+        energyStorage(id: string, directions: $Set_<$Direction_>, capacity: number, maxReceive: number, maxExtract: number, autoOutput: number): void;
         fluidTank(id: string, directions: $Set_<$Direction_>, capacity: number): void;
         fluidTank(id: string, directions: $Set_<$Direction_>, capacity: number, inputFilter: $FluidIngredient_): void;
-        energyStorage(id: string, directions: $Set_<$Direction_>, capacity: number, maxReceive: number, maxExtract: number, autoOutput: number): void;
         attachCustomCapability(id: string, directions: $Set_<$Direction_>, capability: $BlockCapability<never, never>, dataFactory: $Supplier_<never>): void;
         attach(id: string, type: $ResourceLocation_, directions: $Set_<$Direction_>, args: $Object): void;
         inventory(id: string, directions: $Set_<$Direction_>, width: number, height: number, inputFilter: $ItemPredicate_): void;
@@ -55,8 +55,8 @@ declare module "@package/dev/latvian/mods/kubejs/block/entity" {
         constructor(blockBuilder: $BlockBuilder);
     }
     export class $KubeBlockEntity extends $BlockEntity {
-        sendEvent(eventId: number, data: number): void;
         getPlacer(): $Entity;
+        sendEvent(eventId: number, data: number): void;
         getBlock(): $LevelBlock;
         save(): void;
         sync(): void;
@@ -80,6 +80,8 @@ declare module "@package/dev/latvian/mods/kubejs/block/entity" {
         z: number;
         info: $BlockEntityInfo;
         constructor(blockPos: $BlockPos_, blockState: $BlockState_, entityInfo: $BlockEntityInfo);
+        get placer(): $Entity;
+        get block(): $LevelBlock;
     }
     export class $BlockEntityBuilder extends $BuilderBase<$BlockEntityType<never>> {
         registryKey: $ResourceKey<$Registry<$BlockEntityType<never>>>;
@@ -100,8 +102,8 @@ declare module "@package/dev/latvian/mods/kubejs/block/entity" {
     export class $BlockEntityTickKubeEvent implements $KubeLevelEvent {
         getTick(): number;
         getCycle(): number;
-        getLevel(): $Level;
         getBlock(): $LevelBlock;
+        getLevel(): $Level;
         getServer(): $MinecraftServer;
         getRegistries(): $RegistryAccess;
         /**
@@ -141,5 +143,11 @@ declare module "@package/dev/latvian/mods/kubejs/block/entity" {
          */
         cancel(): $Object;
         constructor(entity: $KubeBlockEntity);
+        get tick(): number;
+        get cycle(): number;
+        get block(): $LevelBlock;
+        get level(): $Level;
+        get server(): $MinecraftServer;
+        get registries(): $RegistryAccess;
     }
 }

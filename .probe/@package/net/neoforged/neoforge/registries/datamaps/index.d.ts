@@ -46,6 +46,10 @@ declare module "@package/net/neoforged/neoforge/registries/datamaps" {
          */
         getRegistries(): $RegistryAccess;
         constructor(arg0: $RegistryAccess, arg1: $Registry<never>, arg2: $DataMapsUpdatedEvent$UpdateCause_);
+        get registryKey(): $ResourceKey<$Registry<never>>;
+        get cause(): $DataMapsUpdatedEvent$UpdateCause;
+        get registry(): $Registry<never>;
+        get registries(): $RegistryAccess;
     }
     export class $DataMapType$Builder<T, R> {
         synced(arg0: $Codec<T>, arg1: boolean): $DataMapType$Builder<T, R>;

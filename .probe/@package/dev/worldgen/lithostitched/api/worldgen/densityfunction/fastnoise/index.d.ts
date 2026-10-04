@@ -3,12 +3,13 @@ import { RegistryTypes, RegistryMarked } from "@special/types";
 
 declare module "@package/dev/worldgen/lithostitched/api/worldgen/densityfunction/fastnoise" {
     export class $FastNoiseConfig {
-        sample(x: number, y: number, z: number): number;
         salt(): number;
         frequency(): number;
         bind(seed: number): void;
         getCodec(): $MapCodec<$FastNoiseConfig>;
+        sample(x: number, y: number, z: number): number;
         static CODEC: $Codec<$FastNoiseConfig>;
+        get codec(): $MapCodec<$FastNoiseConfig>;
     }
     /**
      * Values that may be interpreted as {@link $FastNoiseConfig}.

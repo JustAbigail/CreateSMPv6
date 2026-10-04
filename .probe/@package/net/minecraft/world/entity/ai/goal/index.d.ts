@@ -26,9 +26,16 @@ declare module "@package/net/minecraft/world/entity/ai/goal" {
          */
         isRunning(): boolean;
         constructor(priority: number, goal: $Goal);
+        get goal(): $Goal;
+        get priority(): number;
+        get running(): boolean;
     }
     export class $GoalSelector {
         tickRunningGoals(tickAllRunning: boolean): void;
+        disableControlFlag(flag: $Goal$Flag_): void;
+        removeAllGoals(filter: $Predicate_<$Goal>): void;
+        getAvailableGoals(): $Set<$WrappedGoal>;
+        enableControlFlag(flag: $Goal$Flag_): void;
         /**
          * Add a goal to the GoalSelector with a certain priority. Lower numbers are higher priority.
          */
@@ -37,10 +44,6 @@ declare module "@package/net/minecraft/world/entity/ai/goal" {
          * Remove the goal from the GoalSelector. This must be the same object as the goal you are trying to remove, which may not always be accessible.
          */
         removeGoal(goal: $Goal): void;
-        getAvailableGoals(): $Set<$WrappedGoal>;
-        enableControlFlag(flag: $Goal$Flag_): void;
-        disableControlFlag(flag: $Goal$Flag_): void;
-        removeAllGoals(filter: $Predicate_<$Goal>): void;
         /**
          * Ticks every goal in the selector.
          * Attempts to start each goal based on if it can be used, or stop it if it can't.
@@ -48,6 +51,7 @@ declare module "@package/net/minecraft/world/entity/ai/goal" {
         tick(): void;
         setControlFlag(flag: $Goal$Flag_, enabled: boolean): void;
         constructor(profiler: $Supplier_<$ProfilerFiller>);
+        get availableGoals(): $Set<$WrappedGoal>;
     }
     export class $Goal {
         /**
@@ -64,6 +68,11 @@ declare module "@package/net/minecraft/world/entity/ai/goal" {
         requiresUpdateEveryTick(): boolean;
         adjustedTickDelay(adjustment: number): number;
         static reducedTickDelay(adjustment: number): number;
+        getFlags(): $EnumSet<$Goal$Flag>;
+        /**
+         * Called when the goal is about to start executing
+         */
+        tick(): void;
         /**
          * Called when the goal is about to start executing
          */
@@ -76,13 +85,9 @@ declare module "@package/net/minecraft/world/entity/ai/goal" {
          * @return whether the goal should continue executing
          */
         canUse(): boolean;
-        getFlags(): $EnumSet<$Goal$Flag>;
-        /**
-         * Called when the goal is about to start executing
-         */
-        tick(): void;
         setFlags(flagSet: $EnumSet<$Goal$Flag_>): void;
         constructor();
+        get interruptable(): boolean;
     }
     export class $RandomStrollGoal extends $Goal {
         /**
@@ -105,6 +110,7 @@ declare module "@package/net/minecraft/world/entity/ai/goal" {
         constructor(mob: $PathfinderMob, speedModifier: number, arg2: number);
         constructor(mob: $PathfinderMob, speedModifier: number);
         constructor(mob: $PathfinderMob, speedModifier: number, arg2: number, interval: boolean);
+        get position(): $Vec3;
     }
     export class $LookAtPlayerGoal extends $Goal {
         mob: $Mob;

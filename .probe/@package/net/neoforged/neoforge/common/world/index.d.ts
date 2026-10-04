@@ -1,14 +1,19 @@
 import { $Codec, $MapCodec } from "@package/com/mojang/serialization";
+import { $ListTag, $ListTag_ } from "@package/net/minecraft/nbt";
 import { $AmbientParticleSettings, $Biome$ClimateSettings, $MobSpawnSettings$Builder, $AmbientAdditionsSettings, $BiomeGenerationSettings$PlainBuilder, $BiomeGenerationSettings, $BiomeSpecialEffects, $BiomeSpecialEffects$Builder, $Biome, $Biome$TemperatureModifier_, $AmbientMoodSettings, $MobSpawnSettings$MobSpawnCost, $Biome$TemperatureModifier, $MobSpawnSettings$SpawnerData, $MobSpawnSettings, $BiomeSpecialEffects$GrassColorModifier, $Biome$ClimateSettings_ } from "@package/net/minecraft/world/level/biome";
 import { $EntityType_, $MobCategory_, $EntityType, $MobCategory } from "@package/net/minecraft/world/entity";
-import { $List, $List_, $Map, $Set } from "@package/java/util";
+import { $LevelChunk } from "@package/net/minecraft/world/level/chunk";
+import { $ClientboundLevelChunkWithLightPacket } from "@package/net/minecraft/network/protocol/game";
+import { $List, $Map_, $List_, $Map, $Set } from "@package/java/util";
 import { $PlacedFeature } from "@package/net/minecraft/world/level/levelgen/placement";
 import { $Predicate_ } from "@package/java/util/function";
 import { $AuxiliaryLightManagerMixin } from "@package/net/caffeinemc/mods/sodium/mixin/platform/neoforge";
 import { $SoundEvent, $Music } from "@package/net/minecraft/sounds";
-import { $Holder_, $HolderSet, $HolderSet_, $Holder, $BlockPos_, $RegistryAccess } from "@package/net/minecraft/core";
+import { $INBTSerializable } from "@package/net/neoforged/neoforge/common/util";
+import { $HolderLookup$Provider, $Holder_, $HolderSet, $HolderSet_, $Holder, $BlockPos_, $RegistryAccess } from "@package/net/minecraft/core";
 import { RegistryMarked, RegistryTypes } from "@special/types";
 import { $ConfiguredWorldCarver } from "@package/net/minecraft/world/level/levelgen/carver";
+import { $Packet } from "@package/net/minecraft/network/protocol";
 import { $Enum, $Record } from "@package/java/lang";
 import { $Structure$StructureSettings_, $TerrainAdjustment, $Structure$StructureSettings, $StructureSpawnOverride$BoundingBoxType_, $TerrainAdjustment_, $StructureSpawnOverride_, $Structure, $StructureSpawnOverride, $StructureSpawnOverride$BoundingBoxType } from "@package/net/minecraft/world/level/levelgen/structure";
 import { $GenerationStep$Carving, $GenerationStep$Decoration, $GenerationStep$Decoration_, $GenerationStep$Carving_ } from "@package/net/minecraft/world/level/levelgen";
@@ -23,10 +28,6 @@ declare module "@package/net/neoforged/neoforge/common/world" {
          */
         removeSpawn(spawn: $MobSpawnSettings$SpawnerData): void;
         /**
-         * Sets the way the structure checks for spawn overrides. Whether it is on a piece by piece basis or within the bounds of the overall structure.
-         */
-        setBoundingBox(boundingBox: $StructureSpawnOverride$BoundingBoxType_): void;
-        /**
          * Unmodifiable view of the possible spawns.
          */
         getSpawns(): $List<$MobSpawnSettings$SpawnerData>;
@@ -38,9 +39,14 @@ declare module "@package/net/neoforged/neoforge/common/world" {
         static copyOf(arg0: $StructureSpawnOverride_): $StructureSettingsBuilder$StructureSpawnOverrideBuilder;
         build(): $StructureSpawnOverride;
         /**
+         * Sets the way the structure checks for spawn overrides. Whether it is on a piece by piece basis or within the bounds of the overall structure.
+         */
+        setBoundingBox(boundingBox: $StructureSpawnOverride$BoundingBoxType_): void;
+        /**
          * Gets the type of bounding box for this structures spawn overrides.
          */
         getBoundingBox(): $StructureSpawnOverride$BoundingBoxType;
+        get spawns(): $List<$MobSpawnSettings$SpawnerData>;
     }
     /**
      * JSON-serializable structure modifier.
@@ -140,6 +146,7 @@ declare module "@package/net/neoforged/neoforge/common/world" {
         getStructureSettings(): $StructureSettingsBuilder;
         static copyOf(arg0: $ModifiableStructureInfo$StructureInfo_): $ModifiableStructureInfo$StructureInfo$Builder;
         build(): $ModifiableStructureInfo$StructureInfo;
+        get structureSettings(): $StructureSettingsBuilder;
     }
     export class $BiomeGenerationSettingsBuilder extends $BiomeGenerationSettings$PlainBuilder {
         getFeatures(stage: $GenerationStep$Decoration_): $List<$Holder<$PlacedFeature>>;
@@ -147,6 +154,17 @@ declare module "@package/net/neoforged/neoforge/common/world" {
         features: $List<$List<$Holder<$PlacedFeature>>>;
         carvers: $Map<$GenerationStep$Carving, $List<$Holder<$ConfiguredWorldCarver<never>>>>;
         constructor(orig: $BiomeGenerationSettings);
+    }
+    export class $LevelChunkAuxiliaryLightManager implements $AuxiliaryLightManager, $INBTSerializable<$ListTag> {
+        sendLightDataTo(chunkPacket: $ClientboundLevelChunkWithLightPacket): $Packet<never>;
+        deserializeNBT(provider: $HolderLookup$Provider, list: $ListTag_): void;
+        serializeNBT(provider: $HolderLookup$Provider): $ListTag;
+        handleLightDataSync(lights: $Map_<$BlockPos_, number>): void;
+        setLightAt(pos: $BlockPos_, value: number): void;
+        getLightAt(pos: $BlockPos_): number;
+        removeLightAt(arg0: $BlockPos_): void;
+        static LIGHT_NBT_KEY: string;
+        constructor(owner: $LevelChunk);
     }
     /**
      * Manager for light values controlled by dynamic data in `BlockEntity`s.
@@ -182,18 +200,23 @@ declare module "@package/net/neoforged/neoforge/common/world" {
         getOriginalStructureInfo(): $ModifiableStructureInfo$StructureInfo;
         get(): $ModifiableStructureInfo$StructureInfo;
         constructor(arg0: $ModifiableStructureInfo$StructureInfo_);
+        get modifiedStructureInfo(): $ModifiableStructureInfo$StructureInfo;
+        get originalStructureInfo(): $ModifiableStructureInfo$StructureInfo;
     }
     export class $MobSpawnSettingsBuilder extends $MobSpawnSettings$Builder {
         disablePlayerSpawn(): $MobSpawnSettingsBuilder;
         removeSpawnCost(...arg0: $EntityType_<never>[]): $MobSpawnSettingsBuilder;
-        getSpawner(type: $MobCategory_): $List<$MobSpawnSettings$SpawnerData>;
         getProbability(): number;
         getCost(type: $EntityType_<never>): $MobSpawnSettings$MobSpawnCost;
+        getSpawner(type: $MobCategory_): $List<$MobSpawnSettings$SpawnerData>;
         getSpawnerTypes(): $Set<$MobCategory>;
         getEntityTypes(): $Set<$EntityType<never>>;
         mobSpawnCosts: $Map<$EntityType<never>, $MobSpawnSettings$MobSpawnCost>;
         spawners: $Map<$MobCategory, $List<$MobSpawnSettings$SpawnerData>>;
         constructor(orig: $MobSpawnSettings);
+        get probability(): number;
+        get spawnerTypes(): $Set<$MobCategory>;
+        get entityTypes(): $Set<$EntityType<never>>;
     }
     /**
      * Extension of the vanilla builder but also provides read access and a copy-from-existing-data helper.
@@ -203,11 +226,11 @@ declare module "@package/net/neoforged/neoforge/common/world" {
         getAmbientLoopSound(): ($Holder<$SoundEvent>) | undefined;
         getAmbientMoodSound(): ($AmbientMoodSettings) | undefined;
         getAmbientAdditionsSound(): ($AmbientAdditionsSettings) | undefined;
+        getFogColor(): number;
+        getWaterFogColor(): number;
         getGrassColorOverride(): (number) | undefined;
         getFoliageColorOverride(): (number) | undefined;
         getGrassColorModifier(): $BiomeSpecialEffects$GrassColorModifier;
-        getFogColor(): number;
-        getWaterFogColor(): number;
         waterColor(): number;
         static copyOf(baseEffects: $BiomeSpecialEffects): $BiomeSpecialEffectsBuilder;
         static create(fogColor: number, waterColor: number, waterFogColor: number, skyColor: number): $BiomeSpecialEffectsBuilder;
@@ -219,8 +242,8 @@ declare module "@package/net/neoforged/neoforge/common/world" {
         ambientMoodSettings: ($AmbientMoodSettings) | undefined;
     }
     export class $ModifiableBiomeInfo$BiomeInfo extends $Record {
-        generationSettings(): $BiomeGenerationSettings;
         mobSpawnSettings(): $MobSpawnSettings;
+        generationSettings(): $BiomeGenerationSettings;
         climateSettings(): $Biome$ClimateSettings;
         effects(): $BiomeSpecialEffects;
         constructor(climateSettings: $Biome$ClimateSettings_, effects: $BiomeSpecialEffects, generationSettings: $BiomeGenerationSettings, mobSpawnSettings: $MobSpawnSettings);
@@ -228,7 +251,7 @@ declare module "@package/net/neoforged/neoforge/common/world" {
     /**
      * Values that may be interpreted as {@link $ModifiableBiomeInfo$BiomeInfo}.
      */
-    export type $ModifiableBiomeInfo$BiomeInfo_ = { mobSpawnSettings?: $MobSpawnSettings, climateSettings?: $Biome$ClimateSettings_, effects?: $BiomeSpecialEffects, generationSettings?: $BiomeGenerationSettings,  } | [mobSpawnSettings?: $MobSpawnSettings, climateSettings?: $Biome$ClimateSettings_, effects?: $BiomeSpecialEffects, generationSettings?: $BiomeGenerationSettings, ];
+    export type $ModifiableBiomeInfo$BiomeInfo_ = { mobSpawnSettings?: $MobSpawnSettings, generationSettings?: $BiomeGenerationSettings, effects?: $BiomeSpecialEffects, climateSettings?: $Biome$ClimateSettings_,  } | [mobSpawnSettings?: $MobSpawnSettings, generationSettings?: $BiomeGenerationSettings, effects?: $BiomeSpecialEffects, climateSettings?: $Biome$ClimateSettings_, ];
     export class $ModifiableStructureInfo$StructureInfo extends $Record {
         structureSettings(): $Structure$StructureSettings;
         constructor(structureSettings: $Structure$StructureSettings_);
@@ -239,11 +262,15 @@ declare module "@package/net/neoforged/neoforge/common/world" {
     export type $ModifiableStructureInfo$StructureInfo_ = { structureSettings?: $Structure$StructureSettings_,  } | [structureSettings?: $Structure$StructureSettings_, ];
     export class $ModifiableBiomeInfo$BiomeInfo$Builder {
         getMobSpawnSettings(): $MobSpawnSettingsBuilder;
+        getGenerationSettings(): $BiomeGenerationSettingsBuilder;
         getClimateSettings(): $ClimateSettingsBuilder;
         getSpecialEffects(): $BiomeSpecialEffectsBuilder;
-        getGenerationSettings(): $BiomeGenerationSettingsBuilder;
         static copyOf(arg0: $ModifiableBiomeInfo$BiomeInfo_): $ModifiableBiomeInfo$BiomeInfo$Builder;
         build(): $ModifiableBiomeInfo$BiomeInfo;
+        get mobSpawnSettings(): $MobSpawnSettingsBuilder;
+        get generationSettings(): $BiomeGenerationSettingsBuilder;
+        get climateSettings(): $ClimateSettingsBuilder;
+        get specialEffects(): $BiomeSpecialEffectsBuilder;
     }
     /**
      * Holds lazy-evaluable modified biome info.
@@ -260,6 +287,8 @@ declare module "@package/net/neoforged/neoforge/common/world" {
         getOriginalBiomeInfo(): $ModifiableBiomeInfo$BiomeInfo;
         get(): $ModifiableBiomeInfo$BiomeInfo;
         constructor(arg0: $ModifiableBiomeInfo$BiomeInfo_);
+        get modifiedBiomeInfo(): $ModifiableBiomeInfo$BiomeInfo;
+        get originalBiomeInfo(): $ModifiableBiomeInfo$BiomeInfo;
     }
     export class $StructureModifier$Phase extends $Enum<$StructureModifier$Phase> {
         static values(): $StructureModifier$Phase[];
@@ -280,8 +309,8 @@ declare module "@package/net/neoforged/neoforge/common/world" {
      */
     export class $ClimateSettingsBuilder {
         getTemperatureModifier(): $Biome$TemperatureModifier;
-        setTemperatureModifier(arg0: $Biome$TemperatureModifier_): void;
         setTemperature(temperature: number): void;
+        setTemperatureModifier(arg0: $Biome$TemperatureModifier_): void;
         setHasPrecipitation(hasPrecipitation: boolean): void;
         setDownfall(temperature: number): void;
         /**

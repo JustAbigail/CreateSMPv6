@@ -6,8 +6,8 @@ import { $TimeSource_ } from "@package/net/minecraft/util";
 declare module "@package/com/mojang/realmsclient/gui/task" {
     export class $DataFetcher$Subscription {
         forceUpdate(): void;
-        reset(): void;
         tick(): void;
+        reset(): void;
         subscribe<T>(task: $DataFetcher$Task<T>, output: $Consumer_<T>): void;
         constructor(arg0: $DataFetcher);
     }

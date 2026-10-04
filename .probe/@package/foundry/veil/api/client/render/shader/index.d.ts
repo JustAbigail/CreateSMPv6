@@ -21,6 +21,8 @@ declare module "@package/foundry/veil/api/client/render/shader" {
         addListener(arg0: $Consumer_<string>): void;
         getDefinitions(): $Map<string, string>;
         constructor();
+        get staticDefinitions(): $Map<string, string>;
+        get definitions(): $Map<string, string>;
     }
     export class $ShaderFeature extends $Enum<$ShaderFeature> {
         modifyShader(arg0: number, arg1: $GlslTree): void;
@@ -39,6 +41,8 @@ declare module "@package/foundry/veil/api/client/render/shader" {
         static SHADER_STORAGE: $ShaderFeature;
         static ATOMIC_COUNTER: $ShaderFeature;
         static FEATURES: $ShaderFeature[];
+        get definitionName(): string;
+        get supported(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $ShaderFeature}.

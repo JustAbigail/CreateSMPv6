@@ -1,7 +1,7 @@
 import { $TabOrderedElement } from "@package/net/minecraft/client/gui/components";
 import { $ScreenRectangle, $FocusNavigationEvent_ } from "@package/net/minecraft/client/gui/navigation";
-import { $List } from "@package/java/util";
 import { $ComponentPath } from "@package/net/minecraft/client/gui";
+import { $List } from "@package/java/util";
 
 declare module "@package/net/minecraft/client/gui/components/events" {
     export class $ContainerEventHandler {
@@ -11,16 +11,6 @@ declare module "@package/net/minecraft/client/gui/components/events" {
          * @return a List containing all GUI element children of this GUI element
          */
         children(): $List<$GuiEventListener>;
-        /**
-         * Called when a character is typed within the GUI element.
-         * 
-         * @return `true` if the event is consumed, `false` otherwise.
-         */
-        charTyped(codePoint: string, modifiers: number): boolean;
-        /**
-         * @return `true` if the GUI element is dragging, `false` otherwise
-         */
-        isFocused(): boolean;
         /**
          * Called when a keyboard key is pressed within the GUI element.
          * 
@@ -50,13 +40,13 @@ declare module "@package/net/minecraft/client/gui/components/events" {
          */
         getFocused(): $GuiEventListener;
         /**
-         * Sets if the GUI element is dragging or not.
-         */
-        setFocused(isDragging: boolean): void;
-        /**
          * Sets the focus state of the GUI element.
          */
         setFocused(focused: $GuiEventListener | null): void;
+        /**
+         * Sets if the GUI element is dragging or not.
+         */
+        setFocused(isDragging: boolean): void;
         /**
          * Returns the first event listener that intersects with the mouse coordinates.
          */
@@ -86,6 +76,17 @@ declare module "@package/net/minecraft/client/gui/components/events" {
          * @return `true` if the event is consumed, `false` otherwise.
          */
         keyReleased(keyCode: number, scanCode: number, modifiers: number): boolean;
+        /**
+         * Called when a character is typed within the GUI element.
+         * 
+         * @return `true` if the event is consumed, `false` otherwise.
+         */
+        charTyped(codePoint: string, modifiers: number): boolean;
+        /**
+         * @return `true` if the GUI element is dragging, `false` otherwise
+         */
+        isFocused(): boolean;
+        get currentFocusPath(): $ComponentPath;
     }
     /**
      * Represents a listener for GUI events.
@@ -96,20 +97,6 @@ declare module "@package/net/minecraft/client/gui/components/events" {
         static DOUBLE_CLICK_THRESHOLD_MS: number;
     }
     export interface $GuiEventListener extends $TabOrderedElement {
-        /**
-         * Called when a character is typed within the GUI element.
-         * 
-         * @return `true` if the event is consumed, `false` otherwise.
-         */
-        charTyped(codePoint: string, modifiers: number): boolean;
-        /**
-         * @return `true` if the GUI element is focused, `false` otherwise
-         */
-        isFocused(): boolean;
-        /**
-         * Called when the mouse is moved within the GUI element.
-         */
-        mouseMoved(mouseX: number, arg1: number): void;
         /**
          * Called when a keyboard key is pressed within the GUI element.
          * 
@@ -165,6 +152,22 @@ declare module "@package/net/minecraft/client/gui/components/events" {
          * @return `true` if the event is consumed, `false` otherwise.
          */
         keyReleased(keyCode: number, scanCode: number, modifiers: number): boolean;
+        /**
+         * Called when a character is typed within the GUI element.
+         * 
+         * @return `true` if the event is consumed, `false` otherwise.
+         */
+        charTyped(codePoint: string, modifiers: number): boolean;
+        /**
+         * @return `true` if the GUI element is focused, `false` otherwise
+         */
+        isFocused(): boolean;
+        /**
+         * Called when the mouse is moved within the GUI element.
+         */
+        mouseMoved(mouseX: number, arg1: number): void;
+        get currentFocusPath(): $ComponentPath;
+        get rectangle(): $ScreenRectangle;
     }
     export class $AbstractContainerEventHandler implements $ContainerEventHandler {
         /**
@@ -183,11 +186,6 @@ declare module "@package/net/minecraft/client/gui/components/events" {
          * Sets the focus state of the GUI element.
          */
         setFocused(listener: $GuiEventListener | null): void;
-        charTyped(arg0: string, arg1: number): boolean;
-        /**
-         * @return `true` if the GUI element is dragging, `false` otherwise
-         */
-        isFocused(): boolean;
         keyPressed(arg0: number, arg1: number, arg2: number): boolean;
         nextFocusPath(arg0: $FocusNavigationEvent_): $ComponentPath;
         getCurrentFocusPath(): $ComponentPath;
@@ -201,10 +199,18 @@ declare module "@package/net/minecraft/client/gui/components/events" {
         mouseDragged(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number): boolean;
         mouseScrolled(arg0: number, arg1: number, arg2: number, arg3: number): boolean;
         keyReleased(arg0: number, arg1: number, arg2: number): boolean;
-        mouseMoved(arg0: number, arg1: number): void;
+        charTyped(arg0: string, arg1: number): boolean;
+        /**
+         * @return `true` if the GUI element is dragging, `false` otherwise
+         */
+        isFocused(): boolean;
         isMouseOver(arg0: number, arg1: number): boolean;
         getRectangle(): $ScreenRectangle;
+        mouseMoved(arg0: number, arg1: number): void;
         getTabOrderGroup(): number;
         constructor();
+        get currentFocusPath(): $ComponentPath;
+        get rectangle(): $ScreenRectangle;
+        get tabOrderGroup(): number;
     }
 }

@@ -83,20 +83,26 @@ declare module "@package/net/minecraft/client/gui/screens" {
      */
     export type $Screen$DeferredTooltipRendering_ = { tooltip?: $List_<$FormattedCharSequence_>, positioner?: $ClientTooltipPositioner_,  } | [tooltip?: $List_<$FormattedCharSequence_>, positioner?: $ClientTooltipPositioner_, ];
     export class $Screen extends $AbstractContainerEventHandler implements $Renderable, $ScreenExtensions, $ScreenAccessor, $ScreenAccessor$1, $ScreenAccessor$2, $GuiScreenAccessor, $EssentialGuiScreenBeforeClose, $EssentialPostScreenDrawHook {
+        onClose(): void;
+        tick(): void;
         init(): void;
         init(minecraft: $Minecraft, width: number, height: number): void;
         resize(minecraft: $Minecraft, width: number, height: number): void;
         added(): void;
         removed(): void;
-        onClose(): void;
-        tick(): void;
         getTitle(): $Component;
         /**
          * Renders the graphical user interface (GUI) element.
          */
         render(guiGraphics: $GuiGraphics, mouseX: number, mouseY: number, partialTick: number): void;
         static isCopy(keyCode: number): boolean;
+        isPauseScreen(): boolean;
+        static hasShiftDown(): boolean;
+        static hasAltDown(): boolean;
         static getTooltipFromItem(minecraft: $Minecraft, item: $ItemStack_): $List<$Component>;
+        getBackgroundMusic(): $Music;
+        static wrapScreenError(action: $Runnable_, errorDesc: string, screenName: string): void;
+        static hasControlDown(): boolean;
         getNarrationMessage(): $Component;
         /**
          * Renders the graphical user interface (GUI) element.
@@ -109,10 +115,9 @@ declare module "@package/net/minecraft/client/gui/screens" {
         shouldCloseOnEsc(): boolean;
         clearFocus(): void;
         changeFocus(path: $ComponentPath): void;
-        setInitialFocus(): void;
         setInitialFocus(listener: $GuiEventListener): void;
+        setInitialFocus(): void;
         addRenderableWidget<T extends $GuiEventListener>(widget: T): T;
-        isPauseScreen(): boolean;
         addWidget<T extends $GuiEventListener>(widget: T): T;
         addRenderableOnly<T extends $Renderable>(renderable: T): T;
         removeWidget(listener: $GuiEventListener): void;
@@ -125,8 +130,8 @@ declare module "@package/net/minecraft/client/gui/screens" {
         handler$jee001$essential$onGuiClosed(ci: $CallbackInfo): void;
         renderPanorama(guiGraphics: $GuiGraphics, partialTick: number): void;
         renderBlurredBackground(partialTick: number): void;
-        renderMenuBackground(partialTick: $GuiGraphics): void;
         renderMenuBackground(guiGraphics: $GuiGraphics, x: number, y: number, width: number, height: number): void;
+        renderMenuBackground(partialTick: $GuiGraphics): void;
         static renderMenuBackgroundTexture(guiGraphics: $GuiGraphics, texture: $ResourceLocation_, x: number, y: number, uOffset: number, vOffset: number, width: number, height: number): void;
         renderTransparentBackground(partialTick: $GuiGraphics): void;
         static isCut(keyCode: number): boolean;
@@ -145,10 +150,10 @@ declare module "@package/net/minecraft/client/gui/screens" {
         getUsageNarration(): $Component;
         updateNarratorStatus(onlyNarrateNew: boolean): void;
         clearTooltipForNextRenderPass(): void;
-        setTooltipForNextRenderPass(packs: $List_<$FormattedCharSequence_>): void;
         setTooltipForNextRenderPass(tooltip: $List_<$FormattedCharSequence_>, positioner: $ClientTooltipPositioner_, override: boolean): void;
         setTooltipForNextRenderPass(title: $Component_): void;
         setTooltipForNextRenderPass(tooltip: $Tooltip, positioner: $ClientTooltipPositioner_, override: boolean): void;
+        setTooltipForNextRenderPass(packs: $List_<$FormattedCharSequence_>): void;
         /**
          * @return a List containing all GUI element children of this GUI element
          */
@@ -175,11 +180,6 @@ declare module "@package/net/minecraft/client/gui/screens" {
         fabric_getAfterMouseScrollEvent(): $Event<any>;
         essential$afterDraw(drawContext: $UDrawContext, mouseX: number, mouseY: number, partialTicks: number): void;
         essential$beforeClose(): void;
-        static wrapScreenError(action: $Runnable_, errorDesc: string, screenName: string): void;
-        static hasControlDown(): boolean;
-        getBackgroundMusic(): $Music;
-        static hasShiftDown(): boolean;
-        static hasAltDown(): boolean;
         getMinecraft(): $Minecraft;
         getFont(): $Font;
         /**
@@ -220,10 +220,17 @@ declare module "@package/net/minecraft/client/gui/screens" {
         height: number;
         font: $Font;
         constructor(title: $Component_);
+        get pauseScreen(): boolean;
+        get backgroundMusic(): $Music;
+        get narrationMessage(): $Component;
+        get usageNarration(): $Component;
+        get drawables(): $List<$Renderable>;
+        get selectables(): $List<$NarratableEntry>;
     }
     export class $Overlay implements $Renderable {
         isPauseScreen(): boolean;
         constructor();
+        get pauseScreen(): boolean;
     }
     export class $Screen$NarratableSearchResult {
         entry: $NarratableEntry;

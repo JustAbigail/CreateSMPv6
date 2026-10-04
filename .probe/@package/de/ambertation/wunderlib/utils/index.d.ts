@@ -23,9 +23,12 @@ declare module "@package/de/ambertation/wunderlib/utils" {
     export class $Version$ModVersionProvider {
     }
     export interface $Version$ModVersionProvider {
-        getModID(): string;
         getNamespace(): string;
+        getModID(): string;
         mk(arg0: string): $ResourceLocation;
         getModVersion(): $Version;
+        get namespace(): string;
+        get modID(): string;
+        get modVersion(): $Version;
     }
 }

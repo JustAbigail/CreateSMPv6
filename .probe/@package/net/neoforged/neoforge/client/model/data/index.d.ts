@@ -20,12 +20,12 @@ declare module "@package/net/neoforged/neoforge/client/model/data" {
          * The snapshot will return `ModelData#EMPTY` for nonexistent keys.
          */
         snapshotSectionRegion(sectionMinX: number, sectionMinY: number, sectionMinZ: number, sectionMaxX: number, sectionMaxY: number, sectionMaxZ: number): $Long2ObjectFunction<$ModelData>;
+        static onChunkUnload(event: $ChunkEvent$Unload): void;
         /**
          * Request a refresh of the stored data for the given `BlockEntity`. The given `BlockEntity`
          * must be in the level owning this manager
          */
         requestRefresh(blockEntity: $BlockEntity): void;
-        static onChunkUnload(event: $ChunkEvent$Unload): void;
         /**
          * Retrieves model data for a block at the given position.
          */
@@ -59,6 +59,7 @@ declare module "@package/net/neoforged/neoforge/client/model/data" {
         static builder(): $ModelData$Builder;
         getProperties(): $Set<$ModelProperty<never>>;
         static EMPTY: $ModelData;
+        get properties(): $Set<$ModelProperty<never>>;
     }
     /**
      * A property to be used in `ModelData`.
@@ -67,9 +68,9 @@ declare module "@package/net/neoforged/neoforge/client/model/data" {
      */
     export class $ModelProperty<T> implements $Predicate<T> {
         test(arg0: T): boolean;
-        or(arg0: $Predicate_<T>): $Predicate<T>;
         negate(): $Predicate<T>;
         and(arg0: $Predicate_<T>): $Predicate<T>;
+        or(arg0: $Predicate_<T>): $Predicate<T>;
         constructor();
         constructor(predicate: $Predicate_<T>);
     }

@@ -14,6 +14,8 @@ declare module "@package/foundry/veil/api/client/render/light/renderer" {
         getLightData(): T;
         markDirty(): void;
         isValid(): boolean;
+        get lightData(): T;
+        get valid(): boolean;
     }
     export class $LightRenderer implements $NativeResource {
         getRenderers(): $Map<$LightTypeRegistry$LightType<never>, $LightTypeRenderer<never>>;
@@ -25,6 +27,7 @@ declare module "@package/foundry/veil/api/client/render/light/renderer" {
         render(arg0: $CullFrustum, arg1: $AdvancedFbo): boolean;
         close(): void;
         constructor();
+        get renderers(): $Map<$LightTypeRegistry$LightType<never>, $LightTypeRenderer<never>>;
     }
     export class $LightTypeRenderer<T extends $LightData> {
         static createQuad(arg0: $VertexConsumer): void;
@@ -37,5 +40,7 @@ declare module "@package/foundry/veil/api/client/render/light/renderer" {
         renderLights(arg0: $LightRenderer): void;
         getLights(): $Collection<$LightRenderHandle<T>>;
         getVisibleLights(): number;
+        get lights(): $Collection<$LightRenderHandle<T>>;
+        get visibleLights(): number;
     }
 }

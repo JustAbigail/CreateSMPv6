@@ -7,5 +7,6 @@ declare module "@package/dev/eriksonn/aeronautics/mixin/custom_situational_music
         getNextSongDelay(): number;
         setNextSongDelay(arg0: number): void;
         getCurrentMusic(): $SoundInstance;
+        get currentMusic(): $SoundInstance;
     }
 }

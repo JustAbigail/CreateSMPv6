@@ -21,6 +21,9 @@ declare module "@package/cpw/mods/jarhandling" {
         verifyPath(arg0: $Path_): $SecureJar$Status;
         getTrustedManifestEntries(arg0: string): $Attributes;
         getRootPath(): $Path;
+        get primaryPath(): $Path;
+        get manifestSigners(): $CodeSigner[];
+        get rootPath(): $Path;
     }
     export class $SecureJar$Status extends $Enum<$SecureJar$Status> {
         static values(): $SecureJar$Status[];

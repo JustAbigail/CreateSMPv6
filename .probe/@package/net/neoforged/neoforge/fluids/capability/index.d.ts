@@ -38,6 +38,7 @@ declare module "@package/net/neoforged/neoforge/fluids/capability" {
         drain(arg0: number, arg1: $IFluidHandler$FluidAction_): $FluidStack;
         drain(arg0: $FluidStack_, arg1: $IFluidHandler$FluidAction_): $FluidStack;
         fill(arg0: $FluidStack_, arg1: $IFluidHandler$FluidAction_): number;
+        get tanks(): number;
     }
     export class $IFluidHandler$FluidAction extends $Enum<$IFluidHandler$FluidAction> {
         static values(): $IFluidHandler$FluidAction[];

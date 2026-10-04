@@ -43,6 +43,8 @@ declare module "@package/com/tterrag/registrate/providers" {
         existingFileHelper: $ExistingFileHelper;
         modId: string;
         constructor(arg0: $AbstractRegistrate<never>, arg1: $ProviderType_<$RegistrateTagsProvider$IntrinsicImpl<T>>, arg2: string, arg3: $PackOutput, arg4: $ResourceKey_<$Registry<T>>, arg5: $CompletableFuture<$HolderLookup$Provider>, arg6: $Function_<T, $ResourceKey<T>>, arg7: $ExistingFileHelper);
+        get filledProvider(): $CompletableFuture<$HolderLookup$Provider>;
+        get side(): $LogicalSide;
     }
     export class $RegistrateBlockstateProvider extends $BlockStateProvider implements $RegistrateProvider {
         getExistingMultipartBuilder(arg0: $Block_): ($MultiPartBlockStateBuilder) | undefined;
@@ -50,12 +52,15 @@ declare module "@package/com/tterrag/registrate/providers" {
         getSide(): $LogicalSide;
         static WALL_PROPS: $ImmutableMap<$Direction, $Property<$WallSide>>;
         constructor(arg0: $AbstractRegistrate<never>, arg1: $PackOutput, arg2: $ExistingFileHelper);
+        get side(): $LogicalSide;
     }
     export class $RegistrateGenericProvider implements $RegistrateProvider {
         getName(): string;
         run(arg0: $CachedOutput_): $CompletableFuture<never>;
         add(arg0: $RegistrateGenericProvider$Generator_): $RegistrateGenericProvider;
         getSide(): $LogicalSide;
+        get name(): string;
+        get side(): $LogicalSide;
     }
     export class $RegistrateGenericProvider$Generator {
     }
@@ -67,7 +72,6 @@ declare module "@package/com/tterrag/registrate/providers" {
      */
     export type $RegistrateGenericProvider$Generator_ = ((arg0: $RegistrateGenericProvider$GeneratorData) => $DataProvider);
     export class $ProviderType<T extends $RegistrateProvider> {
-        static registerTag<T, R extends $RegistrateTagsProvider<T>>(arg0: string, arg1: $ResourceKey_<$Registry<T>>, arg2: $ProviderType$DependencyAwareProviderType_<R>): $ProviderType<R>;
         static registerServerData<T extends $RegistrateProvider>(arg0: string, arg1: $ProviderType$SimpleServerDataFactory_<T>): $ProviderType<T>;
         static registerIntrinsicTag<T>(arg0: string, arg1: string, arg2: $ResourceKey_<$Registry<T>>, arg3: $Function_<T, $ResourceKey<T>>): $ProviderType<$RegistrateTagsProvider$IntrinsicImpl<T>>;
         static registerDynamicTag<T>(arg0: string, arg1: string, arg2: $ResourceKey_<$Registry<T>>): $ProviderType<$RegistrateTagsProvider$Impl<T>>;
@@ -75,6 +79,7 @@ declare module "@package/com/tterrag/registrate/providers" {
          * @deprecated
          */
         static registerDelegate<T extends $RegistrateProvider>(arg0: string, arg1: $NonNullUnaryOperator_<$ProviderType<T>>): $ProviderType<T>;
+        static registerTag<T, R extends $RegistrateTagsProvider<T>>(arg0: string, arg1: $ResourceKey_<$Registry<T>>, arg2: $ProviderType$DependencyAwareProviderType_<R>): $ProviderType<R>;
         static registerProvider<T extends $RegistrateProvider>(arg0: string, arg1: $ProviderType$DependencyAwareProviderType_<T>): $ProviderType<T>;
         /**
          * @deprecated
@@ -121,14 +126,18 @@ declare module "@package/com/tterrag/registrate/providers" {
         getSide(): $LogicalSide;
         registries: $CompletableFuture<$HolderLookup$Provider>;
         constructor(arg0: $AbstractRegistrate<never>, arg1: $PackOutput, arg2: $CompletableFuture<$HolderLookup$Provider>);
+        get filledProvider(): $CompletableFuture<$HolderLookup$Provider>;
+        get side(): $LogicalSide;
     }
     export class $RegistrateDataMapProvider extends $DataMapProvider implements $RegistrateProvider {
         getSide(): $LogicalSide;
+        get side(): $LogicalSide;
     }
     export class $RegistrateProvider {
     }
     export interface $RegistrateProvider extends $DataProvider {
         getSide(): $LogicalSide;
+        get side(): $LogicalSide;
     }
     export class $RegistrateAdvancementProvider implements $RegistrateProvider, $Consumer<$AdvancementHolder> {
         withConditions(arg0: $AdvancementHolder_ | null, arg1: $List_<$ICondition>): void;
@@ -142,6 +151,9 @@ declare module "@package/com/tterrag/registrate/providers" {
         getSide(): $LogicalSide;
         andThen(arg0: $Consumer_<$AdvancementHolder>): $Consumer<$AdvancementHolder>;
         constructor(arg0: $AbstractRegistrate<never>, arg1: $PackOutput, arg2: $CompletableFuture<$HolderLookup$Provider>);
+        get provider(): $HolderLookup$Provider;
+        get name(): string;
+        get side(): $LogicalSide;
     }
     export class $RegistrateItemTagsProvider extends $RegistrateTagsProvider$IntrinsicImpl<$Item> {
         copy(arg0: $TagKey_<$Block>, arg1: $TagKey_<$Item>): void;
@@ -155,21 +167,23 @@ declare module "@package/com/tterrag/registrate/providers" {
     export class $RegistrateTagsProvider<T> {
     }
     export interface $RegistrateTagsProvider<T> extends $RegistrateLookupFillerProvider {
-        addTag(arg0: $TagKey_<T>): $TagsProvider$TagAppender<T>;
         contentsGetter(): $CompletableFuture<$TagsProvider$TagLookup<T>>;
         registry(): $ResourceKey<$Registry<T>>;
+        addTag(arg0: $TagKey_<T>): $TagsProvider$TagAppender<T>;
     }
     export class $RegistrateTagsProvider$Impl<T> extends $TagsProvider<T> implements $RegistrateTagsProvider<T> {
-        addTag(arg0: $TagKey_<T>): $TagsProvider$TagAppender<T>;
         getFilledProvider(): $CompletableFuture<$HolderLookup$Provider>;
         registry(): $ResourceKey<$Registry<T>>;
         getSide(): $LogicalSide;
+        addTag(arg0: $TagKey_<T>): $TagsProvider$TagAppender<T>;
         registryKey: $ResourceKey<$Registry<T>>;
         builders: $Map<$ResourceLocation, $TagBuilder>;
         pathProvider: $PackOutput$PathProvider;
         existingFileHelper: $ExistingFileHelper;
         modId: string;
         constructor(arg0: $AbstractRegistrate<never>, arg1: $ProviderType_<$RegistrateTagsProvider$Impl<T>>, arg2: string, arg3: $PackOutput, arg4: $ResourceKey_<$Registry<T>>, arg5: $CompletableFuture<$HolderLookup$Provider>, arg6: $ExistingFileHelper);
+        get filledProvider(): $CompletableFuture<$HolderLookup$Provider>;
+        get side(): $LogicalSide;
     }
     export class $ProviderType$DependencyAwareProviderType<T extends $RegistrateProvider> {
     }
@@ -195,19 +209,23 @@ declare module "@package/com/tterrag/registrate/providers" {
         add(arg0: $CreativeModeTab_, arg1: string): void;
         getSide(): $LogicalSide;
         constructor(arg0: $AbstractRegistrate<never>, arg1: $PackOutput);
+        get side(): $LogicalSide;
     }
     export class $DataGenContext<R, E extends R> implements $NonNullSupplier<E> {
+        getEntry(): E;
         lazy(): $NonNullSupplier<E>;
         getName(): string;
         get(): E;
+        static from<R, E extends R>(arg0: $Builder<R, E, never, never>): $DataGenContext<R, E>;
         /**
          * @deprecated
          */
         static from<R, E extends R>(arg0: $Builder<R, E, never, never>, arg1: $ResourceKey_<$Registry<R>>): $DataGenContext<R, E>;
-        static from<R, E extends R>(arg0: $Builder<R, E, never, never>): $DataGenContext<R, E>;
         getId(): $ResourceLocation;
-        getEntry(): E;
         constructor(arg0: $NonNullSupplier_<E>, arg1: string, arg2: $ResourceLocation_);
+        get entry(): E;
+        get name(): string;
+        get id(): $ResourceLocation;
     }
     export class $ProviderType$SimpleServerDataFactory<T extends $RegistrateProvider> {
     }
@@ -240,6 +258,7 @@ declare module "@package/com/tterrag/registrate/providers" {
         existingFileHelper: $ExistingFileHelper;
         static BLOCK_FOLDER: string;
         constructor(arg0: $AbstractRegistrate<never>, arg1: $PackOutput, arg2: $ExistingFileHelper);
+        get side(): $LogicalSide;
     }
     export class $DataProviderInitializer {
         add<T>(arg0: $ResourceKey_<$Registry<T>>, arg1: $RegistrySetBuilder$RegistryBootstrap_<T>): void;
@@ -250,10 +269,12 @@ declare module "@package/com/tterrag/registrate/providers" {
     }
     export interface $RegistrateLookupFillerProvider extends $RegistrateProvider {
         getFilledProvider(): $CompletableFuture<$HolderLookup$Provider>;
+        get filledProvider(): $CompletableFuture<$HolderLookup$Provider>;
     }
     export class $ProviderType$Context<T extends $RegistrateProvider> extends $Record {
         fileHelper(): $ExistingFileHelper;
         existing(): $Map<$ProviderType<never>, $RegistrateProvider>;
+        output(): $PackOutput;
         parent(): $AbstractRegistrate<never>;
         get<R extends $RegistrateProvider>(arg0: $ProviderType_<R>): R;
         type(): $ProviderType<T>;
@@ -262,45 +283,44 @@ declare module "@package/com/tterrag/registrate/providers" {
          * @deprecated
          */
         event(): $GatherDataEvent;
-        output(): $PackOutput;
         constructor(type: $ProviderType_<T>, parent: $AbstractRegistrate<never>, event: $GatherDataEvent, existing: $Map_<$ProviderType_<never>, $RegistrateProvider>, output: $PackOutput, fileHelper: $ExistingFileHelper, provider: $CompletableFuture<$HolderLookup$Provider>);
     }
     /**
      * Values that may be interpreted as {@link $ProviderType$Context}.
      */
-    export type $ProviderType$Context_<T> = { parent?: $AbstractRegistrate<never>, fileHelper?: $ExistingFileHelper, type?: $ProviderType_<$RegistrateProvider>, event?: $GatherDataEvent, existing?: $Map_<$ProviderType_<never>, $RegistrateProvider>, provider?: $CompletableFuture<$HolderLookup$Provider>, output?: $PackOutput,  } | [parent?: $AbstractRegistrate<never>, fileHelper?: $ExistingFileHelper, type?: $ProviderType_<$RegistrateProvider>, event?: $GatherDataEvent, existing?: $Map_<$ProviderType_<never>, $RegistrateProvider>, provider?: $CompletableFuture<$HolderLookup$Provider>, output?: $PackOutput, ];
+    export type $ProviderType$Context_<T> = { existing?: $Map_<$ProviderType_<never>, $RegistrateProvider>, event?: $GatherDataEvent, type?: $ProviderType_<$RegistrateProvider>, fileHelper?: $ExistingFileHelper, parent?: $AbstractRegistrate<never>, output?: $PackOutput, provider?: $CompletableFuture<$HolderLookup$Provider>,  } | [existing?: $Map_<$ProviderType_<never>, $RegistrateProvider>, event?: $GatherDataEvent, type?: $ProviderType_<$RegistrateProvider>, fileHelper?: $ExistingFileHelper, parent?: $AbstractRegistrate<never>, output?: $PackOutput, provider?: $CompletableFuture<$HolderLookup$Provider>, ];
     export class $RegistrateRecipeProvider extends $RecipeProvider implements $RegistrateProvider, $RecipeOutput {
-        square<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: boolean): void;
-        wall<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>): void;
-        advancement(): $Advancement$Builder;
         campfire<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: number, arg4: number): void;
         campfire<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: number): void;
         door<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: string | null): void;
+        slab<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: string | null, arg4: boolean): void;
+        smelting<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: number, arg4: number): void;
+        smelting<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: number): void;
+        blasting<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: number): void;
+        blasting<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: number, arg4: number): void;
+        smoking<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: number): void;
+        smoking<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: number, arg4: number): void;
+        stonecutting<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: number): void;
+        stonecutting<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>): void;
+        singleItemUnfinished<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: number, arg4: number): $ShapelessRecipeBuilder;
+        planks<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>): void;
         safeName(arg0: $DataIngredient): string;
         safeName(arg0: $ResourceLocation_): string;
         safeName(arg0: $ItemLike_): string;
+        safeId(arg0: $ItemLike_): $ResourceLocation;
         safeId(arg0: $DataIngredient): $ResourceLocation;
         safeId(arg0: $ResourceLocation_): $ResourceLocation;
-        safeId(arg0: $ItemLike_): $ResourceLocation;
-        cooking<T extends $ItemLike, S extends $AbstractCookingRecipe>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: number, arg4: number, arg5: $RecipeSerializer_<S>, arg6: $AbstractCookingRecipe$Factory_<S>): void;
         cooking<T extends $ItemLike, S extends $AbstractCookingRecipe>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: number, arg4: number, arg5: string, arg6: $RecipeSerializer_<S>, arg7: $AbstractCookingRecipe$Factory_<S>): void;
-        smelting<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: number, arg4: number): void;
-        smelting<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: number): void;
-        blasting<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: number, arg4: number): void;
-        blasting<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: number): void;
-        smoking<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: number, arg4: number): void;
-        smoking<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: number): void;
-        stonecutting<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>): void;
-        stonecutting<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: number): void;
-        singleItemUnfinished<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: number, arg4: number): $ShapelessRecipeBuilder;
-        planks<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>): void;
+        cooking<T extends $ItemLike, S extends $AbstractCookingRecipe>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: number, arg4: number, arg5: $RecipeSerializer_<S>, arg6: $AbstractCookingRecipe$Factory_<S>): void;
         smeltingAndBlasting<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: number): void;
         singleItem<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: number, arg4: number): void;
         stairs<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: string | null, arg4: boolean): void;
         fenceGate<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: string | null): void;
         trapDoor<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: string | null): void;
-        slab<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: string | null, arg4: boolean): void;
+        advancement(): $Advancement$Builder;
+        square<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: boolean): void;
         getProvider(): $HolderLookup$Provider;
+        wall<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>): void;
         resolve<T>(arg0: $ResourceKey_<T>): $Holder<T>;
         accept(arg0: $ResourceLocation_, arg1: $Recipe<never>, arg2: $AdvancementHolder_, ...arg3: $ICondition[]): void;
         fence<T extends $ItemLike>(arg0: $DataIngredient, arg1: $RecipeCategory_, arg2: $Supplier_<T>, arg3: string | null): void;
@@ -322,5 +342,7 @@ declare module "@package/com/tterrag/registrate/providers" {
         static DEFAULT_BLAST_TIME: number;
         recipePathProvider: $PackOutput$PathProvider;
         constructor(arg0: $AbstractRegistrate<never>, arg1: $PackOutput, arg2: $CompletableFuture<$HolderLookup$Provider>);
+        get provider(): $HolderLookup$Provider;
+        get side(): $LogicalSide;
     }
 }

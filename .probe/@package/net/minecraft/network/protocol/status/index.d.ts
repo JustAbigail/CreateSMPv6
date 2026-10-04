@@ -42,11 +42,13 @@ declare module "@package/net/minecraft/network/protocol/status" {
         static STREAM_CODEC: $StreamCodec<$FriendlyByteBuf, $ClientboundStatusResponsePacket>;
         constructor(status: $ServerStatus_, cachedStatus: string);
         constructor(status: $ServerStatus_);
+        get terminal(): boolean;
+        get skippable(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $ClientboundStatusResponsePacket}.
      */
-    export type $ClientboundStatusResponsePacket_ = { cachedStatus?: string, status?: $ServerStatus_,  } | [cachedStatus?: string, status?: $ServerStatus_, ];
+    export type $ClientboundStatusResponsePacket_ = { status?: $ServerStatus_, cachedStatus?: string,  } | [status?: $ServerStatus_, cachedStatus?: string, ];
     export class $ServerStatus$Favicon extends $Record {
         iconBytes(): number[];
         static CODEC: $Codec<$ServerStatus$Favicon>;
@@ -57,20 +59,20 @@ declare module "@package/net/minecraft/network/protocol/status" {
      */
     export type $ServerStatus$Favicon_ = { iconBytes?: number[],  } | [iconBytes?: number[], ];
     export class $ServerStatus$Players extends $Record {
-        sample(): $List<$GameProfile>;
         online(): number;
         max(): number;
+        sample(): $List<$GameProfile>;
         static CODEC: $Codec<$ServerStatus$Players>;
         constructor(max: number, online: number, sample: $List_<$GameProfile>);
     }
     /**
      * Values that may be interpreted as {@link $ServerStatus$Players}.
      */
-    export type $ServerStatus$Players_ = { online?: number, max?: number, sample?: $List_<$GameProfile>,  } | [online?: number, max?: number, sample?: $List_<$GameProfile>, ];
+    export type $ServerStatus$Players_ = { online?: number, sample?: $List_<$GameProfile>, max?: number,  } | [online?: number, sample?: $List_<$GameProfile>, max?: number, ];
     export class $ServerStatus extends $Record {
         enforcesSecureChat(): boolean;
-        isModded(): boolean;
         favicon(): ($ServerStatus$Favicon) | undefined;
+        isModded(): boolean;
         version(): ($ServerStatus$Version) | undefined;
         description(): $Component;
         players(): ($ServerStatus$Players) | undefined;
@@ -80,9 +82,10 @@ declare module "@package/net/minecraft/network/protocol/status" {
          */
         constructor(arg0: $Component_, arg1: ($ServerStatus$Players_) | undefined, arg2: ($ServerStatus$Version_) | undefined, arg3: ($ServerStatus$Favicon_) | undefined, arg4: boolean);
         constructor(description: $Component_, players: ($ServerStatus$Players_) | undefined, version: ($ServerStatus$Version_) | undefined, favicon: ($ServerStatus$Favicon_) | undefined, enforcesSecureChat: boolean, isModded: boolean);
+        get modded(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $ServerStatus}.
      */
-    export type $ServerStatus_ = { isModded?: boolean, version?: ($ServerStatus$Version_) | undefined, favicon?: ($ServerStatus$Favicon_) | undefined, description?: $Component_, enforcesSecureChat?: boolean, players?: ($ServerStatus$Players_) | undefined,  } | [isModded?: boolean, version?: ($ServerStatus$Version_) | undefined, favicon?: ($ServerStatus$Favicon_) | undefined, description?: $Component_, enforcesSecureChat?: boolean, players?: ($ServerStatus$Players_) | undefined, ];
+    export type $ServerStatus_ = { version?: ($ServerStatus$Version_) | undefined, isModded?: boolean, players?: ($ServerStatus$Players_) | undefined, enforcesSecureChat?: boolean, description?: $Component_, favicon?: ($ServerStatus$Favicon_) | undefined,  } | [version?: ($ServerStatus$Version_) | undefined, isModded?: boolean, players?: ($ServerStatus$Players_) | undefined, enforcesSecureChat?: boolean, description?: $Component_, favicon?: ($ServerStatus$Favicon_) | undefined, ];
 }

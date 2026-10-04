@@ -1,7 +1,7 @@
+export * as mod from "@package/gg/essential/mod";
 export * as model from "@package/gg/essential/model";
 export * as mixins from "@package/gg/essential/mixins";
 export * as util from "@package/gg/essential/util";
-export * as mod from "@package/gg/essential/mod";
 export * as sps from "@package/gg/essential/sps";
 export * as cosmetics from "@package/gg/essential/cosmetics";
 export * as lib from "@package/gg/essential/lib";

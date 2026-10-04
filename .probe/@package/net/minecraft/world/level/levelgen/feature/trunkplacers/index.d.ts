@@ -89,8 +89,8 @@ declare module "@package/net/minecraft/world/level/levelgen/feature/trunkplacers
     }
     export class $TrunkPlacer {
         isFree(level: $LevelSimulatedReader, pos: $BlockPos_): boolean;
-        placeLog(level: $LevelSimulatedReader, blockSetter: $BiConsumer_<$BlockPos, $BlockState>, random: $RandomSource, pos: $BlockPos_, config: $TreeConfiguration): boolean;
         placeLog(level: $LevelSimulatedReader, blockSetter: $BiConsumer_<$BlockPos, $BlockState>, random: $RandomSource, pos: $BlockPos_, config: $TreeConfiguration, propertySetter: $Function_<$BlockState, $BlockState>): boolean;
+        placeLog(level: $LevelSimulatedReader, blockSetter: $BiConsumer_<$BlockPos, $BlockState>, random: $RandomSource, pos: $BlockPos_, config: $TreeConfiguration): boolean;
         placeLogIfFree(level: $LevelSimulatedReader, blockSetter: $BiConsumer_<$BlockPos, $BlockState>, random: $RandomSource, pos: $BlockPos$MutableBlockPos, config: $TreeConfiguration): void;
         static trunkPlacerParts<P extends $TrunkPlacer>(instance: $RecordCodecBuilder$Instance<P>): $Products$P3<$RecordCodecBuilder$Mu<P>, number, number, number>;
         placeTrunk(level: $LevelSimulatedReader, blockSetter: $BiConsumer_<$BlockPos, $BlockState>, random: $RandomSource, freeTreeHeight: number, pos: $BlockPos_, config: $TreeConfiguration): $List<$FoliagePlacer$FoliageAttachment>;

@@ -12,13 +12,16 @@ declare module "@package/dev/latvian/mods/kubejs/color" {
         static STREAM_CODEC: $StreamCodec<$ByteBuf, $KubeColor>;
     }
     export interface $KubeColor extends $SpecialEquality {
+        getRgb(): number;
         getArgb(): number;
         getFireworkRGB(): number;
         toHexString(): string;
         serialize(): string;
-        getRgb(): number;
         createTextColor(): $TextColor;
         specialEquals(o: $Object, shallow: boolean): boolean;
+        get rgb(): number;
+        get argb(): number;
+        get fireworkRGB(): number;
     }
     /**
      * Values that may be interpreted as {@link $KubeColor}.

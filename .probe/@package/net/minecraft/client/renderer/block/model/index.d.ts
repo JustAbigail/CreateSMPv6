@@ -39,16 +39,18 @@ declare module "@package/net/minecraft/client/renderer/block/model" {
         constructor(arg0: $Vector3f, arg1: $Vector3f, arg2: $Vector3f, arg3: $Vector3f);
     }
     export class $BlockModelDefinition {
-        static fromJsonElement(context: $BlockModelDefinition$Context, json: $JsonElement_): $BlockModelDefinition;
         isMultiPart(): boolean;
         getMultiPart(): $MultiPart;
-        hasVariant(key: string): boolean;
+        static fromJsonElement(context: $BlockModelDefinition$Context, json: $JsonElement_): $BlockModelDefinition;
         getMultiVariants(): $Set<$MultiVariant>;
+        hasVariant(key: string): boolean;
+        static fromStream(context: $BlockModelDefinition$Context, reader: $Reader): $BlockModelDefinition;
         getVariant(key: string): $MultiVariant;
         getVariants(): $Map<string, $MultiVariant>;
-        static fromStream(context: $BlockModelDefinition$Context, reader: $Reader): $BlockModelDefinition;
         constructor(modelDefinitions: $List_<$BlockModelDefinition>);
         constructor(variants: $Map_<string, $MultiVariant>, multiPart: $MultiPart);
+        get multiVariants(): $Set<$MultiVariant>;
+        get variants(): $Map<string, $MultiVariant>;
     }
     export class $ItemModelGenerator {
         generateBlockModel(spriteGetter: $Function_<$Material, $TextureAtlasSprite>, model: $BlockModel): $BlockModel;
@@ -65,8 +67,8 @@ declare module "@package/net/minecraft/client/renderer/block/model" {
         from: $Vector3f;
         to: $Vector3f;
         faces: $Map<$Direction, $BlockElementFace>;
-        constructor(from: $Vector3f, to: $Vector3f, faces: $Map_<$Direction_, $BlockElementFace_>, rotation: $BlockElementRotation_ | null, shade: boolean);
         constructor(arg0: $Vector3f, arg1: $Vector3f, arg2: $Map_<$Direction_, $BlockElementFace_>, arg3: $BlockElementRotation_ | null, arg4: boolean, arg5: $ExtraFaceData_);
+        constructor(from: $Vector3f, to: $Vector3f, faces: $Map_<$Direction_, $BlockElementFace_>, rotation: $BlockElementRotation_ | null, shade: boolean);
     }
     export class $BlockFaceUV {
         setMissingUv(uvs: number[]): void;
@@ -76,6 +78,7 @@ declare module "@package/net/minecraft/client/renderer/block/model" {
         uvs: number[];
         rotation: number;
         constructor(uvs: number[] | null, rotation: number);
+        set missingUv(value: number[]);
     }
     export class $BlockElementFace extends $Record {
         texture(): string;
@@ -91,13 +94,15 @@ declare module "@package/net/minecraft/client/renderer/block/model" {
     /**
      * Values that may be interpreted as {@link $BlockElementFace}.
      */
-    export type $BlockElementFace_ = { faceData?: $ExtraFaceData_, cullForDirection?: $Direction_, texture?: string, parent?: $MutableObject<$BlockElement>, tintIndex?: number, uv?: $BlockFaceUV,  } | [faceData?: $ExtraFaceData_, cullForDirection?: $Direction_, texture?: string, parent?: $MutableObject<$BlockElement>, tintIndex?: number, uv?: $BlockFaceUV, ];
+    export type $BlockElementFace_ = { tintIndex?: number, parent?: $MutableObject<$BlockElement>, texture?: string, cullForDirection?: $Direction_, faceData?: $ExtraFaceData_, uv?: $BlockFaceUV,  } | [tintIndex?: number, parent?: $MutableObject<$BlockElement>, texture?: string, cullForDirection?: $Direction_, faceData?: $ExtraFaceData_, uv?: $BlockFaceUV, ];
     export class $MultiVariant implements $UnbakedModel {
         bake(baker: $ModelBaker, spriteGetter: $Function_<$Material, $TextureAtlasSprite>, state: $ModelState): $BakedModel;
         resolveParents(resolver: $Function_<any, any>): void;
         getVariants(): $List<$Variant>;
         getDependencies(): $Collection<$ResourceLocation>;
         constructor(variants: $List_<$Variant>);
+        get variants(): $List<$Variant>;
+        get dependencies(): $Collection<$ResourceLocation>;
     }
     export class $ItemOverrides$BakedOverride {
         test(properties: number[]): boolean;
@@ -108,6 +113,8 @@ declare module "@package/net/minecraft/client/renderer/block/model" {
         getProperty(): $ResourceLocation;
         getValue(): number;
         constructor(property: $ResourceLocation_, value: number);
+        get property(): $ResourceLocation;
+        get value(): number;
     }
     export class $BlockModel$GuiLight extends $Enum<$BlockModel$GuiLight> {
         lightLikeBlock(): boolean;
@@ -117,44 +124,52 @@ declare module "@package/net/minecraft/client/renderer/block/model" {
         getSerializedName(): string;
         static SIDE: $BlockModel$GuiLight;
         static FRONT: $BlockModel$GuiLight;
+        get serializedName(): string;
     }
     /**
      * Values that may be interpreted as {@link $BlockModel$GuiLight}.
      */
     export type $BlockModel$GuiLight_ = "front" | "side";
     export class $BakedQuad implements $BakedQuadView, $BakedQuadAccess {
+        getNormalFace(): $ModelQuadFacing;
+        hasAO(): boolean;
         hasShade(): boolean;
         isShade(): boolean;
         hasAmbientOcclusion(): boolean;
-        getNormalFace(): $ModelQuadFacing;
-        hasAO(): boolean;
-        getDirection(): $Direction;
         getY(arg0: number): number;
         getLight(arg0: number): number;
         getFlags(): number;
         getX(arg0: number): number;
         getZ(arg0: number): number;
         getColor(arg0: number): number;
-        getSprite(): $TextureAtlasSprite;
-        getVertices(): number[];
-        isTinted(): boolean;
-        getTintIndex(): number;
         getColorIndex(): number;
         getVertexNormal(arg0: number): number;
         getFaceNormal(): number;
         getTexU(arg0: number): number;
         getTexV(arg0: number): number;
         getLightFace(): $Direction;
-        hasColor(): boolean;
+        getDirection(): $Direction;
+        getSprite(): $TextureAtlasSprite;
+        getVertices(): number[];
+        isTinted(): boolean;
+        getTintIndex(): number;
         calculateNormal(): number;
         getAccurateNormal(arg0: number): number;
+        hasColor(): boolean;
         setVertices(arg0: number[]): void;
         tintIndex: number;
         vertices: number[];
         sprite: $TextureAtlasSprite;
         direction: $Direction;
-        constructor(vertices: number[], tintIndex: number, direction: $Direction_, sprite: $TextureAtlasSprite, shade: boolean);
         constructor(arg0: number[], arg1: number, arg2: $Direction_, arg3: $TextureAtlasSprite, arg4: boolean, arg5: boolean);
+        constructor(vertices: number[], tintIndex: number, direction: $Direction_, sprite: $TextureAtlasSprite, shade: boolean);
+        get normalFace(): $ModelQuadFacing;
+        get shade(): boolean;
+        get flags(): number;
+        get colorIndex(): number;
+        get faceNormal(): number;
+        get lightFace(): $Direction;
+        get tinted(): boolean;
     }
     export class $ItemOverrides$PropertyMatcher {
     }
@@ -164,11 +179,12 @@ declare module "@package/net/minecraft/client/renderer/block/model" {
         static NO_OVERRIDE: number;
         static EMPTY: $ItemOverrides;
         constructor();
-        constructor(arg0: $ModelBaker, arg1: $UnbakedModel, arg2: $List_<$ItemOverride>, arg3: $Function_<$Material, $TextureAtlasSprite>);
         /**
          * @deprecated
          */
         constructor(baker: $ModelBaker, model: $BlockModel, overrides: $List_<$ItemOverride>);
+        constructor(arg0: $ModelBaker, arg1: $UnbakedModel, arg2: $List_<$ItemOverride>, arg3: $Function_<$Material, $TextureAtlasSprite>);
+        get overrides(): $ImmutableList<$ItemOverrides$BakedOverride>;
     }
     export class $ItemTransforms {
         hasTransform(displayContext: $ItemDisplayContext_): boolean;
@@ -191,8 +207,8 @@ declare module "@package/net/minecraft/client/renderer/block/model" {
         constructor(thirdPersonLeftHand: $ItemTransform, thirdPersonRightHand: $ItemTransform, firstPersonLeftHand: $ItemTransform, firstPersonRightHand: $ItemTransform, head: $ItemTransform, gui: $ItemTransform, ground: $ItemTransform, fixed: $ItemTransform);
     }
     export class $BlockElementRotation extends $Record {
-        origin(): $Vector3f;
         rescale(): boolean;
+        origin(): $Vector3f;
         angle(): number;
         axis(): $Direction$Axis;
         constructor(arg0: $Vector3f, arg1: $Direction$Axis_, arg2: number, arg3: boolean);
@@ -200,7 +216,7 @@ declare module "@package/net/minecraft/client/renderer/block/model" {
     /**
      * Values that may be interpreted as {@link $BlockElementRotation}.
      */
-    export type $BlockElementRotation_ = { origin?: $Vector3f, rescale?: boolean, axis?: $Direction$Axis_, angle?: number,  } | [origin?: $Vector3f, rescale?: boolean, axis?: $Direction$Axis_, angle?: number, ];
+    export type $BlockElementRotation_ = { rescale?: boolean, origin?: $Vector3f, angle?: number, axis?: $Direction$Axis_,  } | [rescale?: boolean, origin?: $Vector3f, angle?: number, axis?: $Direction$Axis_, ];
     export class $ItemOverride {
         getPredicates(): $Stream<$ItemOverride$Predicate>;
         /**
@@ -208,6 +224,8 @@ declare module "@package/net/minecraft/client/renderer/block/model" {
          */
         getModel(): $ResourceLocation;
         constructor(model: $ResourceLocation_, predicates: $List_<$ItemOverride$Predicate>);
+        get predicates(): $Stream<$ItemOverride$Predicate>;
+        get model(): $ResourceLocation;
     }
     export class $BlockModelDefinition$Context {
         setDefinition(stateContainer: $StateDefinition<$Block_, $BlockState_>): void;
@@ -218,25 +236,25 @@ declare module "@package/net/minecraft/client/renderer/block/model" {
     export class $BlockModel implements $UnbakedModel {
         bake(baker: $ModelBaker, spriteGetter: $Function_<$Material, $TextureAtlasSprite>, state: $ModelState): $BakedModel;
         bake(baker: $ModelBaker, model: $BlockModel, spriteGetter: $Function_<$Material, $TextureAtlasSprite>, state: $ModelState, guiLight3d: boolean): $BakedModel;
+        hasTexture(textureName: string): boolean;
         getParentLocation(): $ResourceLocation;
         getGuiLight(): $BlockModel$GuiLight;
         bakeVanilla(baker: $ModelBaker, model: $BlockModel, spriteGetter: $Function_<$Material, $TextureAtlasSprite>, state: $ModelState, guiLight3d: boolean): $BakedModel;
         getRootModel(): $BlockModel;
         static bakeFace(element: $BlockElement, face: $BlockElementFace_, sprite: $TextureAtlasSprite, facing: $Direction_, state: $ModelState): $BakedQuad;
         static isTextureReference(textureName: string): boolean;
-        hasTexture(textureName: string): boolean;
-        hasAmbientOcclusion(): boolean;
         resolveParents(resolver: $Function_<$ResourceLocation, $UnbakedModel>): void;
+        hasAmbientOcclusion(): boolean;
+        getTransforms(): $ItemTransforms;
         /**
          * @deprecated
          */
         getElements(): $List<$BlockElement>;
-        getTransforms(): $ItemTransforms;
         static fromStream(reader: $Reader): $BlockModel;
         isResolved(): boolean;
         static fromString(jsonString: string): $BlockModel;
-        getOverrides(arg0: $ModelBaker, arg1: $BlockModel, arg2: $Function_<$Material, $TextureAtlasSprite>): $ItemOverrides;
         getOverrides(): $List<$ItemOverride>;
+        getOverrides(arg0: $ModelBaker, arg1: $BlockModel, arg2: $Function_<$Material, $TextureAtlasSprite>): $ItemOverrides;
         getDependencies(): $Collection<$ResourceLocation>;
         getMaterial(name: string): $Material;
         parent: $BlockModel;
@@ -247,13 +265,23 @@ declare module "@package/net/minecraft/client/renderer/block/model" {
         static GSON: $Gson;
         customData: $BlockGeometryBakingContext;
         constructor(parentLocation: $ResourceLocation_ | null, elements: $List_<$BlockElement>, textureMap: $Map_<string, $Either<$Material, string>>, hasAmbientOcclusion: boolean | null, guiLight: $BlockModel$GuiLight_ | null, transforms: $ItemTransforms, overrides: $List_<$ItemOverride>);
+        get guiLight(): $BlockModel$GuiLight;
+        get rootModel(): $BlockModel;
+        get transforms(): $ItemTransforms;
+        get elements(): $List<$BlockElement>;
+        get resolved(): boolean;
+        get dependencies(): $Collection<$ResourceLocation>;
     }
     export class $Variant implements $ModelState {
-        isUvLocked(): boolean;
         getModelLocation(): $ResourceLocation;
+        isUvLocked(): boolean;
         getWeight(): number;
         getRotation(): $Transformation;
         mayApplyArbitraryRotation(): boolean;
         constructor(modelLocation: $ResourceLocation_, rotation: $Transformation, uvLock: boolean, weight: number);
+        get modelLocation(): $ResourceLocation;
+        get uvLocked(): boolean;
+        get weight(): number;
+        get rotation(): $Transformation;
     }
 }

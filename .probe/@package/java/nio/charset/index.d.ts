@@ -27,8 +27,10 @@ declare module "@package/java/nio/charset" {
         static availableCharsets(): $SortedMap<string, $Charset>;
         displayName(arg0: $Locale): string;
         displayName(): string;
+        get registered(): boolean;
     }
     export class $CoderResult {
+        static unmappableForLength(arg0: number): $CoderResult;
         length(): number;
         isUnderflow(): boolean;
         throwException(): void;
@@ -37,11 +39,19 @@ declare module "@package/java/nio/charset" {
         static malformedForLength(arg0: number): $CoderResult;
         isMalformed(): boolean;
         isUnmappable(): boolean;
-        static unmappableForLength(arg0: number): $CoderResult;
         static OVERFLOW: $CoderResult;
         static UNDERFLOW: $CoderResult;
+        get underflow(): boolean;
+        get overflow(): boolean;
+        get error(): boolean;
+        get malformed(): boolean;
+        get unmappable(): boolean;
     }
     export class $CharsetDecoder {
+        averageCharsPerByte(): number;
+        isAutoDetecting(): boolean;
+        isCharsetDetected(): boolean;
+        detectedCharset(): $Charset;
         reset(): $CharsetDecoder;
         maxCharsPerByte(): number;
         onMalformedInput(arg0: $CodingErrorAction): $CharsetDecoder;
@@ -54,10 +64,8 @@ declare module "@package/java/nio/charset" {
         malformedInputAction(): $CodingErrorAction;
         unmappableCharacterAction(): $CodingErrorAction;
         replaceWith(arg0: string): $CharsetDecoder;
-        averageCharsPerByte(): number;
-        isAutoDetecting(): boolean;
-        isCharsetDetected(): boolean;
-        detectedCharset(): $Charset;
+        get autoDetecting(): boolean;
+        get charsetDetected(): boolean;
     }
     export class $CharsetEncoder {
         reset(): $CharsetEncoder;

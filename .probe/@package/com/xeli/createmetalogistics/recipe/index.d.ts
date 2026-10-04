@@ -37,20 +37,30 @@ declare module "@package/com/xeli/createmetalogistics/recipe" {
         find(filter: $SlotFilter_): $ItemStack;
         self(): $RecipeInput;
         constructor(arg0: $ItemStack_, arg1: $ItemStack_, arg2: $DeployerBlockEntity, arg3: ($Function0_<$PackagerLinkBlockEntity>) | undefined, arg4: ($Function0_<string>) | undefined);
+        get realInputStack(): $ItemStack;
+        get realItemInHand(): $ItemStack;
+        get targetDeployer(): $DeployerBlockEntity;
+        get contextStockLink(): ($Function0<$PackagerLinkBlockEntity>) | undefined;
+        get contextSign(): ($Function0<string>) | undefined;
+        get empty(): boolean;
     }
     export interface $PresetCustomDeployerRecipe extends RegistryMarked<RegistryTypes.CreatemetalogisticsFakeDeployingTag, RegistryTypes.CreatemetalogisticsFakeDeploying> {}
     export class $DeployingWithDataPresetTransformation$Companion {
-        getStockNetwork(arg0: $PresetCustomDeployerRecipe$MyRecipeInput): $UUID;
-        getHeldNetwork(arg0: $PresetCustomDeployerRecipe$MyRecipeInput): $UUID;
+        onManifestData(arg0: $ItemStack_, arg1: $Function1_<$List<$BigItemStack>, $Pair<$List<$BigItemStack>, $List<$BigItemStack>>>): $Pair<$ItemStack, $List<$ItemStack>>;
         getBY_ID(): $IntFunction<$DeployingWithDataPresetTransformation>;
         getID_STREAM_CODEC(): $StreamCodec<$ByteBuf, $DeployingWithDataPresetTransformation>;
         getSignContentsOrBlank(arg0: $PresetCustomDeployerRecipe$MyRecipeInput): string;
         onTicketData(arg0: $ItemStack_, arg1: $Function1_<$List<$BigItemStack>, $Pair<$List<$BigItemStack>, $List<$BigItemStack>>>): $Pair<$ItemStack, $List<$ItemStack>>;
-        onManifestData(arg0: $ItemStack_, arg1: $Function1_<$List<$BigItemStack>, $Pair<$List<$BigItemStack>, $List<$BigItemStack>>>): $Pair<$ItemStack, $List<$ItemStack>>;
+        getHeldNetwork(arg0: $PresetCustomDeployerRecipe$MyRecipeInput): $UUID;
         onBothManifestsAndTicketData(arg0: $ItemStack_, arg1: $Function1_<$List<$BigItemStack>, $Pair<$List<$BigItemStack>, $List<$BigItemStack>>>): $Pair<$ItemStack, $List<$ItemStack>>;
+        getStockNetwork(arg0: $PresetCustomDeployerRecipe$MyRecipeInput): $UUID;
         constructor(arg0: $DefaultConstructorMarker);
+        get BY_ID(): $IntFunction<$DeployingWithDataPresetTransformation>;
+        get ID_STREAM_CODEC(): $StreamCodec<$ByteBuf, $DeployingWithDataPresetTransformation>;
     }
     export class $PresetCustomDeployerRecipe implements $Recipe<$PresetCustomDeployerRecipe$MyRecipeInput>, $CustomDeployerRecipeCanBeDisplayed {
+        getHeldItem(): $Ingredient;
+        getTransformation(): $DeployingWithDataPresetTransformation;
         getTargetItem(): $Ingredient;
         getMainOutput(): $List<$ItemStack>;
         getSideOutputs(): $List<$List<$ItemStack>>;
@@ -62,24 +72,42 @@ declare module "@package/com/xeli/createmetalogistics/recipe" {
         getPossibleSideOutputs(): $List<$List<$ItemStack>>;
         getRequiresStockLink(): boolean;
         getCanUseConnectedSign(): boolean;
-        getHeldItem(): $Ingredient;
-        getDescription(): $List<$Component>;
         getResultItem(arg0: $HolderLookup$Provider): $ItemStack;
         canCraftInDimensions(arg0: number, arg1: number): boolean;
         getSerializer(): $RecipeSerializer<never>;
         assemble(arg0: $PresetCustomDeployerRecipe$MyRecipeInput, arg1: $HolderLookup$Provider): $ItemStack;
+        getDescription(): $List<$Component>;
         matches(arg0: $PresetCustomDeployerRecipe$MyRecipeInput, arg1: $Level_): boolean;
         getType(): $RecipeType<never>;
         isSpecial(): boolean;
-        getTransformation(): $DeployingWithDataPresetTransformation;
-        handler$ejk000$bclib$bcl_getRemainingItems(arg0: $RecipeInput, arg1: $CallbackInfoReturnable<any>): void;
-        getToastSymbol(): $ItemStack;
         isIncomplete(): boolean;
         getIngredients(): $NonNullList<$Ingredient>;
         showNotification(): boolean;
+        handler$ejk000$bclib$bcl_getRemainingItems(arg0: $RecipeInput, arg1: $CallbackInfoReturnable<any>): void;
+        getToastSymbol(): $ItemStack;
         getRemainingItems(arg0: $PresetCustomDeployerRecipe$MyRecipeInput): $NonNullList<$ItemStack>;
         getGroup(): string;
         constructor(arg0: $Ingredient_, arg1: $Ingredient_, arg2: $List_<$ItemStack_>, arg3: $List_<$List_<$ItemStack_>>, arg4: ($List_<string>) | undefined, arg5: $DeployingWithDataPresetTransformation_, arg6: (boolean) | undefined, arg7: (boolean) | undefined);
+        get heldItem(): $Ingredient;
+        get transformation(): $DeployingWithDataPresetTransformation;
+        get targetItem(): $Ingredient;
+        get mainOutput(): $List<$ItemStack>;
+        get sideOutputs(): $List<$List<$ItemStack>>;
+        get descriptionAsKeys(): ($List<string>) | undefined;
+        get requiresStockLinkOpt(): (boolean) | undefined;
+        get canUseConnectedSignOpt(): (boolean) | undefined;
+        get possibleResultItems(): $List<$ItemStack>;
+        get possibleSideOutputs(): $List<$List<$ItemStack>>;
+        get requiresStockLink(): boolean;
+        get canUseConnectedSign(): boolean;
+        get serializer(): $RecipeSerializer<never>;
+        get description(): $List<$Component>;
+        get type(): $RecipeType<never>;
+        get special(): boolean;
+        get incomplete(): boolean;
+        get ingredients(): $NonNullList<$Ingredient>;
+        get toastSymbol(): $ItemStack;
+        get group(): string;
     }
     /**
      * Values that may be interpreted as {@link $PresetCustomDeployerRecipe}.
@@ -105,6 +133,9 @@ declare module "@package/com/xeli/createmetalogistics/recipe" {
         static EDIT_TICKET_ADDRESS: $DeployingWithDataPresetTransformation;
         static FILTER_HAS_IN_NETWORK: $DeployingWithDataPresetTransformation;
         constructor(arg0: string, arg1: number, arg2: $DefaultConstructorMarker);
+        static get entries(): $EnumEntries<$DeployingWithDataPresetTransformation>;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $DeployingWithDataPresetTransformation}.

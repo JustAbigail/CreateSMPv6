@@ -8,6 +8,7 @@ declare module "@package/xaero/pac/common/server/core/accessor" {
     }
     export interface $ICreateContraptionEntity {
         getXaero_OPAC_contraption(): $ICreateContraption;
+        get xaero_OPAC_contraption(): $ICreateContraption;
     }
     /**
      * Values that may be interpreted as {@link $ICreateContraptionEntity}.
@@ -17,6 +18,7 @@ declare module "@package/xaero/pac/common/server/core/accessor" {
     }
     export interface $IServerCommonPacketListenerImpl {
         getXaero_OPAC_connection(): $Connection;
+        get xaero_OPAC_connection(): $Connection;
     }
     /**
      * Values that may be interpreted as {@link $IServerCommonPacketListenerImpl}.
@@ -29,6 +31,8 @@ declare module "@package/xaero/pac/common/server/core/accessor" {
         getXaero_OPAC_placementPos(): $BlockPos;
         setXaero_OPAC_placementPos(arg0: $BlockPos_): void;
         getBlocks(): $Map<$BlockPos, $StructureTemplate$StructureBlockInfo>;
+        get xaero_OPAC_anchor(): $BlockPos;
+        get blocks(): $Map<$BlockPos, $StructureTemplate$StructureBlockInfo>;
     }
     export class $ICreateArmInteractionPoint {
     }

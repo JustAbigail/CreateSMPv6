@@ -24,5 +24,6 @@ declare module "@package/neoforge/fun/qu_an/minecraft/asyncparticles/client/util
         static DEFAULT_HEIGHT: number;
         constructor();
         constructor(defaultHeight: number);
+        get state(): $HeightMap$State;
     }
 }

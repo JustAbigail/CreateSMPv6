@@ -1,7 +1,7 @@
 import { $TagKey, $TagKey_ } from "@package/net/minecraft/tags";
 import { $Holder } from "@package/net/minecraft/core";
 import { $MapCodec, $Codec } from "@package/com/mojang/serialization";
-import { $Function4_, $Function13_, $Function15_, $Function8_, $Function6_, $Function11_, $Function5_, $Function3_, $Function14_, $Function16_, $Function10_, $Function9_, $Function7_, $Function12_ } from "@package/com/mojang/datafixers/util";
+import { $Function4_, $Function13_, $Function15_, $Function8_, $Function11_, $Function6_, $Function5_, $Function3_, $Function14_, $Function16_, $Function10_, $Function9_, $Function7_, $Function12_ } from "@package/com/mojang/datafixers/util";
 import { RegistryMarked, RegistryTypes } from "@special/types";
 import { $ResourceKey_, $ResourceKey } from "@package/net/minecraft/resources";
 import { $Climate$ParameterPoint_, $Climate$ParameterPoint, $Biome } from "@package/net/minecraft/world/level/biome";
@@ -19,10 +19,10 @@ declare module "@package/org/betterx/wover/biome/api/data" {
         biomeHolder(): $Holder<$Biome>;
         isTemp(): boolean;
         isIntendedFor(arg0: $TagKey_<$Biome>): boolean;
-        networkCodec(): $KeyDispatchDataCodec<$BiomeData>;
-        static isSame(arg0: $ResourceKey_<$Biome>, arg1: $ResourceKey_<$Biome>): boolean;
         isSame(arg0: $BiomeData_): boolean;
+        static isSame(arg0: $ResourceKey_<$Biome>, arg1: $ResourceKey_<$Biome>): boolean;
         isSame(arg0: $ResourceKey_<$Biome>): boolean;
+        networkCodec(): $KeyDispatchDataCodec<$BiomeData>;
         static of(arg0: $ResourceKey_<$Biome>): $BiomeData;
         isEnabled(): boolean;
         static codec<T extends $BiomeData, P4, P5, P6>(arg0: $RecordCodecBuilder<T, P4>, arg1: $RecordCodecBuilder<T, P5>, arg2: $RecordCodecBuilder<T, P6>, arg3: $Function6_<number, $ResourceKey<$Biome>, $BiomeGenerationDataContainer, P4, P5, P6, T>): $MapCodec<T>;
@@ -47,6 +47,9 @@ declare module "@package/org/betterx/wover/biome/api/data" {
         generationData: $BiomeGenerationDataContainer;
         static KEY_CODEC: $KeyDispatchDataCodec<$BiomeData>;
         constructor(arg0: number, arg1: $ResourceKey_<$Biome>, arg2: $BiomeGenerationDataContainer_);
+        get pickable(): boolean;
+        get temp(): boolean;
+        get enabled(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $BiomeData}.
@@ -62,5 +65,5 @@ declare module "@package/org/betterx/wover/biome/api/data" {
     /**
      * Values that may be interpreted as {@link $BiomeGenerationDataContainer}.
      */
-    export type $BiomeGenerationDataContainer_ = { parameterPoints?: $List_<$Climate$ParameterPoint_>, intendedPlacement?: $TagKey_<$Biome>,  } | [parameterPoints?: $List_<$Climate$ParameterPoint_>, intendedPlacement?: $TagKey_<$Biome>, ];
+    export type $BiomeGenerationDataContainer_ = { intendedPlacement?: $TagKey_<$Biome>, parameterPoints?: $List_<$Climate$ParameterPoint_>,  } | [intendedPlacement?: $TagKey_<$Biome>, parameterPoints?: $List_<$Climate$ParameterPoint_>, ];
 }

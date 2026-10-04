@@ -16,11 +16,15 @@ declare module "@package/net/fabricmc/fabric/mixin/item" {
         getEffectMap(): $DataComponentMap$Builder;
         invokeGetEffectsList<E>(arg0: $DataComponentType_<$List_<E>>): $List<E>;
         getDefinition(): $Enchantment$EnchantmentDefinition;
+        get exclusiveSet(): $HolderSet<$Enchantment>;
+        get effectMap(): $DataComponentMap$Builder;
+        get definition(): $Enchantment$EnchantmentDefinition;
     }
     export class $ItemAccessor {
     }
     export interface $ItemAccessor {
         setComponents(arg0: $DataComponentMap_): void;
+        set components(value: $DataComponentMap_);
     }
     /**
      * Values that may be interpreted as {@link $ItemAccessor}.

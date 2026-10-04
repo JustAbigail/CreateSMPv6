@@ -6,9 +6,9 @@ import { $Map } from "@package/java/util";
 
 declare module "@package/com/yungnickyoung/minecraft/yungsapi/world/structure/terrainadaptation/aquiferoverride" {
     export class $AquiferOverrideMask {
+        getAquiferOverride(): $AquiferOverride;
         setAquiferOverride(arg0: $AquiferOverride): void;
         getBlockStateForPos(arg0: number, arg1: number, arg2: number, arg3: $BlockState_): $BlockState;
-        getAquiferOverride(): $AquiferOverride;
         get(arg0: number, arg1: number, arg2: number): boolean;
         set(arg0: number, arg1: number, arg2: number): void;
         constructor(arg0: number, arg1: number);

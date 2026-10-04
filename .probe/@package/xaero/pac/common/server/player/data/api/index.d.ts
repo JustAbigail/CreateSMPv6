@@ -14,5 +14,11 @@ declare module "@package/xaero/pac/common/server/player/data/api" {
         isPartiesAdminMode(): boolean;
         static from(arg0: $ServerPlayer): $ServerPlayerDataAPI;
         constructor();
+        get claimsAdminMode(): boolean;
+        get claimsNonallyMode(): boolean;
+        get claimsServerMode(): boolean;
+        get claimingMode(): $IClaimingModeAPI;
+        get rawClaimingMode(): $IClaimingModeAPI;
+        get partiesAdminMode(): boolean;
     }
 }

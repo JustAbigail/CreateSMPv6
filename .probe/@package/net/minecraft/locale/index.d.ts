@@ -23,5 +23,8 @@ declare module "@package/net/minecraft/locale" {
         getLanguageData(): $Map<string, string>;
         static DEFAULT: string;
         constructor();
+        static get instance(): $Language;
+        get defaultRightToLeft(): boolean;
+        get languageData(): $Map<string, string>;
     }
 }

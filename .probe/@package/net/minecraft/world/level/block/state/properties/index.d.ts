@@ -28,6 +28,8 @@ declare module "@package/net/minecraft/world/level/block/state/properties" {
         getRemappedEnumConstantName(): string;
         static LEFT: $DoorHingeSide;
         static RIGHT: $DoorHingeSide;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $DoorHingeSide}.
@@ -55,6 +57,8 @@ declare module "@package/net/minecraft/world/level/block/state/properties" {
         static DOUBLE_WALL: $BellAttachType;
         static CEILING: $BellAttachType;
         static SINGLE_WALL: $BellAttachType;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $BellAttachType}.
@@ -211,6 +215,9 @@ declare module "@package/net/minecraft/world/level/block/state/properties" {
         static ASCENDING_EAST: $RailShape;
         static ASCENDING_SOUTH: $RailShape;
         static ASCENDING_NORTH: $RailShape;
+        get ascending(): boolean;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $RailShape}.
@@ -248,6 +255,10 @@ declare module "@package/net/minecraft/world/level/block/state/properties" {
         static BELL: $NoteBlockInstrument;
         static COW_BELL: $NoteBlockInstrument;
         static FLUTE: $NoteBlockInstrument;
+        get soundEvent(): $Holder<$SoundEvent>;
+        get tunable(): boolean;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $NoteBlockInstrument}.
@@ -261,6 +272,8 @@ declare module "@package/net/minecraft/world/level/block/state/properties" {
         static LOW: $WallSide;
         static TALL: $WallSide;
         static NONE: $WallSide;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $WallSide}.
@@ -297,20 +310,20 @@ declare module "@package/net/minecraft/world/level/block/state/properties" {
     /**
      * Values that may be interpreted as {@link $Property$Value}.
      */
-    export type $Property$Value_<T> = { property?: $Property<$Comparable_<T>>, value?: $Comparable_<T>,  } | [property?: $Property<$Comparable_<T>>, value?: $Comparable_<T>, ];
+    export type $Property$Value_<T> = { value?: $Comparable_<T>, property?: $Property<$Comparable_<T>>,  } | [value?: $Comparable_<T>, property?: $Property<$Comparable_<T>>, ];
     export class $BlockSetType extends $Record {
-        soundType(): $SoundType;
         trapdoorOpen(): $SoundEvent;
         buttonClickOn(): $SoundEvent;
         buttonClickOff(): $SoundEvent;
         canButtonBeActivatedByArrows(): boolean;
+        soundType(): $SoundType;
         canOpenByWindCharge(): boolean;
         canOpenByHand(): boolean;
         doorOpen(): $SoundEvent;
         doorClose(): $SoundEvent;
-        pressurePlateSensitivity(): $BlockSetType$PressurePlateSensitivity;
         pressurePlateClickOff(): $SoundEvent;
         pressurePlateClickOn(): $SoundEvent;
+        pressurePlateSensitivity(): $BlockSetType$PressurePlateSensitivity;
         trapdoorClose(): $SoundEvent;
         name(): string;
         static values(): $Stream<$BlockSetType>;
@@ -338,7 +351,7 @@ declare module "@package/net/minecraft/world/level/block/state/properties" {
     /**
      * Values that may be interpreted as {@link $BlockSetType}.
      */
-    export type $BlockSetType_ = { name?: string, doorOpen?: $SoundEvent_, buttonClickOn?: $SoundEvent_, soundType?: $SoundType_, canOpenByHand?: boolean, pressurePlateClickOff?: $SoundEvent_, doorClose?: $SoundEvent_, trapdoorClose?: $SoundEvent_, canOpenByWindCharge?: boolean, pressurePlateClickOn?: $SoundEvent_, canButtonBeActivatedByArrows?: boolean, buttonClickOff?: $SoundEvent_, pressurePlateSensitivity?: $BlockSetType$PressurePlateSensitivity_, trapdoorOpen?: $SoundEvent_,  } | [name?: string, doorOpen?: $SoundEvent_, buttonClickOn?: $SoundEvent_, soundType?: $SoundType_, canOpenByHand?: boolean, pressurePlateClickOff?: $SoundEvent_, doorClose?: $SoundEvent_, trapdoorClose?: $SoundEvent_, canOpenByWindCharge?: boolean, pressurePlateClickOn?: $SoundEvent_, canButtonBeActivatedByArrows?: boolean, buttonClickOff?: $SoundEvent_, pressurePlateSensitivity?: $BlockSetType$PressurePlateSensitivity_, trapdoorOpen?: $SoundEvent_, ];
+    export type $BlockSetType_ = { soundType?: $SoundType_, buttonClickOn?: $SoundEvent_, doorOpen?: $SoundEvent_, name?: string, trapdoorOpen?: $SoundEvent_, pressurePlateSensitivity?: $BlockSetType$PressurePlateSensitivity_, buttonClickOff?: $SoundEvent_, canButtonBeActivatedByArrows?: boolean, pressurePlateClickOn?: $SoundEvent_, canOpenByWindCharge?: boolean, trapdoorClose?: $SoundEvent_, doorClose?: $SoundEvent_, pressurePlateClickOff?: $SoundEvent_, canOpenByHand?: boolean,  } | [soundType?: $SoundType_, buttonClickOn?: $SoundEvent_, doorOpen?: $SoundEvent_, name?: string, trapdoorOpen?: $SoundEvent_, pressurePlateSensitivity?: $BlockSetType$PressurePlateSensitivity_, buttonClickOff?: $SoundEvent_, canButtonBeActivatedByArrows?: boolean, pressurePlateClickOn?: $SoundEvent_, canOpenByWindCharge?: boolean, trapdoorClose?: $SoundEvent_, doorClose?: $SoundEvent_, pressurePlateClickOff?: $SoundEvent_, canOpenByHand?: boolean, ];
     export class $ComparatorMode extends $Enum<$ComparatorMode> implements $StringRepresentable {
         static values(): $ComparatorMode[];
         static valueOf(arg0: string): $ComparatorMode;
@@ -346,6 +359,8 @@ declare module "@package/net/minecraft/world/level/block/state/properties" {
         getRemappedEnumConstantName(): string;
         static COMPARE: $ComparatorMode;
         static SUBTRACT: $ComparatorMode;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $ComparatorMode}.
@@ -361,6 +376,8 @@ declare module "@package/net/minecraft/world/level/block/state/properties" {
         static OUTER_LEFT: $StairsShape;
         static OUTER_RIGHT: $StairsShape;
         static STRAIGHT: $StairsShape;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $StairsShape}.
@@ -374,6 +391,8 @@ declare module "@package/net/minecraft/world/level/block/state/properties" {
         static FLOOR: $AttachFace;
         static WALL: $AttachFace;
         static CEILING: $AttachFace;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $AttachFace}.
@@ -386,6 +405,8 @@ declare module "@package/net/minecraft/world/level/block/state/properties" {
         getRemappedEnumConstantName(): string;
         static STICKY: $PistonType;
         static DEFAULT: $PistonType;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $PistonType}.
@@ -401,6 +422,9 @@ declare module "@package/net/minecraft/world/level/block/state/properties" {
         static LOAD: $StructureMode;
         static DATA: $StructureMode;
         static SAVE: $StructureMode;
+        get displayName(): $Component;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $StructureMode}.
@@ -415,6 +439,9 @@ declare module "@package/net/minecraft/world/level/block/state/properties" {
         static SIDE: $RedstoneSide;
         static UP: $RedstoneSide;
         static NONE: $RedstoneSide;
+        get connected(): boolean;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $RedstoneSide}.
@@ -430,6 +457,8 @@ declare module "@package/net/minecraft/world/level/block/state/properties" {
         static NONE: $Tilt;
         static UNSTABLE: $Tilt;
         static FULL: $Tilt;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $Tilt}.
@@ -444,6 +473,9 @@ declare module "@package/net/minecraft/world/level/block/state/properties" {
         static SINGLE: $ChestType;
         static LEFT: $ChestType;
         static RIGHT: $ChestType;
+        get opposite(): $ChestType;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $ChestType}.
@@ -465,6 +497,8 @@ declare module "@package/net/minecraft/world/level/block/state/properties" {
         static COOLDOWN: $SculkSensorPhase;
         static ACTIVE: $SculkSensorPhase;
         static INACTIVE: $SculkSensorPhase;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $SculkSensorPhase}.
@@ -479,6 +513,10 @@ declare module "@package/net/minecraft/world/level/block/state/properties" {
         getRemappedEnumConstantName(): string;
         static UPPER: $DoubleBlockHalf;
         static LOWER: $DoubleBlockHalf;
+        get directionToOther(): $Direction;
+        get otherHalf(): $DoubleBlockHalf;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $DoubleBlockHalf}.
@@ -494,17 +532,18 @@ declare module "@package/net/minecraft/world/level/block/state/properties" {
         static TIP: $DripstoneThickness;
         static MIDDLE: $DripstoneThickness;
         static BASE: $DripstoneThickness;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $DripstoneThickness}.
      */
     export type $DripstoneThickness_ = "tip_merge" | "tip" | "frustum" | "middle" | "base";
     export class $Property<T extends $Comparable<T>> {
-        valueCodec(): $Codec<$Property$Value<T>>;
-        parseValue<U, S extends $StateHolder<never, S>>(ops: $DynamicOps<U>, stateHolder: S, unparsedValue: U): $DataResult<S>;
         getAllValues(): $Stream<$Property$Value<T>>;
         getPossibleValues(): $Collection<T>;
         generateHashCode(): number;
+        parseValue<U, S extends $StateHolder<never, S>>(ops: $DynamicOps<U>, stateHolder: S, unparsedValue: U): $DataResult<S>;
         /**
          * @return the name for the given value.
          */
@@ -518,7 +557,11 @@ declare module "@package/net/minecraft/world/level/block/state/properties" {
          * @return the class of the values of this property
          */
         getValueClass(): $Class<T>;
+        valueCodec(): $Codec<$Property$Value<T>>;
         constructor(name: string, clazz: $Class<T>);
+        get allValues(): $Stream<$Property$Value<T>>;
+        get possibleValues(): $Collection<T>;
+        get valueClass(): $Class<T>;
     }
     export class $BlockSetType$PressurePlateSensitivity extends $Enum<$BlockSetType$PressurePlateSensitivity> {
         static values(): $BlockSetType$PressurePlateSensitivity[];
@@ -538,6 +581,8 @@ declare module "@package/net/minecraft/world/level/block/state/properties" {
         static SMALL: $BambooLeaves;
         static LARGE: $BambooLeaves;
         static NONE: $BambooLeaves;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $BambooLeaves}.
@@ -550,6 +595,8 @@ declare module "@package/net/minecraft/world/level/block/state/properties" {
         getRemappedEnumConstantName(): string;
         static HEAD: $BedPart;
         static FOOT: $BedPart;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $BedPart}.
@@ -563,6 +610,8 @@ declare module "@package/net/minecraft/world/level/block/state/properties" {
         static TOP: $SlabType;
         static BOTTOM: $SlabType;
         static DOUBLE: $SlabType;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $SlabType}.
@@ -575,17 +624,19 @@ declare module "@package/net/minecraft/world/level/block/state/properties" {
         getRemappedEnumConstantName(): string;
         static TOP: $Half;
         static BOTTOM: $Half;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $Half}.
      */
     export type $Half_ = "top" | "bottom";
     export class $WoodType extends $Record {
-        setType(): $BlockSetType;
-        soundType(): $SoundType;
         fenceGateOpen(): $SoundEvent;
+        soundType(): $SoundType;
         hangingSignSoundType(): $SoundType;
         fenceGateClose(): $SoundEvent;
+        setType(): $BlockSetType;
         name(): string;
         static values(): $Stream<$WoodType>;
         static register(woodType: $WoodType): $WoodType;

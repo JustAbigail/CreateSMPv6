@@ -13,5 +13,9 @@ declare module "@package/net/createmod/catnip/render" {
         set(arg0: $ResourceLocation_, arg1: $ResourceLocation_): void;
         getTarget(): $TextureAtlasSprite;
         constructor();
+        get original(): $TextureAtlasSprite;
+        get targetResourceLocation(): $ResourceLocation;
+        get originalResourceLocation(): $ResourceLocation;
+        get target(): $TextureAtlasSprite;
     }
 }

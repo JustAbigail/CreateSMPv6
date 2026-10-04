@@ -38,16 +38,16 @@ declare module "@package/com/simibubi/create/foundation/gui/widget" {
         constructor(arg0: number, arg1: number, arg2: $Component_);
     }
     export class $ScrollInput extends $AbstractSimiWidget {
+        addHint(arg0: $MutableComponent_): $ScrollInput;
+        withShiftStep(arg0: number): $ScrollInput;
+        onChanged(): void;
         removeCallback(): $ScrollInput;
         withStepFunction(arg0: $Function_<$ScrollValueBehaviour$StepContext, number>): $ScrollInput;
         standardStep(): $Function<$ScrollValueBehaviour$StepContext, number>;
-        onChanged(): void;
         titled(arg0: $MutableComponent_): $ScrollInput;
         calling(arg0: $Consumer_<number>): $ScrollInput;
         writingTo(arg0: $Label): $ScrollInput;
         withRange(arg0: number, arg1: number): $ScrollInput;
-        addHint(arg0: $MutableComponent_): $ScrollInput;
-        withShiftStep(arg0: number): $ScrollInput;
         format(arg0: $Function_<number, $Component>): $ScrollInput;
         getState(): number;
         setState(arg0: number): $ScrollInput;

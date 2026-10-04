@@ -31,8 +31,6 @@ declare module "@package/net/minecraft/client/model" {
      */
     export type $ArmedModel_ = ((arg0: $HumanoidArm, arg1: $PoseStack) => void);
     export class $HumanoidModel<T extends $LivingEntity> extends $AgeableListModel<T> implements $ArmedModel, $HeadedModel, $IMutableModel, $ModelBipedExt {
-        getArm(side: $HumanoidArm_): $ModelPart;
-        translateToHand(side: $HumanoidArm_, poseStack: $PoseStack): void;
         wrapMethod$cap000$createbigcannons$setupAnimHead(arg0: $LivingEntity, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number, arg6: $Operation_<any>): void;
         handler$gdi000$moonlight$poseRightArm(arg0: $LivingEntity, arg1: $CallbackInfo): void;
         handler$gdi000$moonlight$poseLeftArm(arg0: $LivingEntity, arg1: $CallbackInfo): void;
@@ -43,9 +41,11 @@ declare module "@package/net/minecraft/client/model" {
         handler$gdi000$moonlight$setupAnim(arg0: $LivingEntity, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number, arg6: $CallbackInfo): void;
         getResetPose(): $PlayerPose;
         setResetPose(pose: $PlayerPose): void;
-        setAllVisible(visible: boolean): void;
+        getArm(side: $HumanoidArm_): $ModelPart;
+        translateToHand(side: $HumanoidArm_, poseStack: $PoseStack): void;
         copyPropertiesTo(model: $HumanoidModel<T>): void;
         prepareMobModel(entity: T, limbSwing: number, limbSwingAmount: number, partialTick: number): void;
+        setAllVisible(visible: boolean): void;
         static createMesh(cubeDeformation: $CubeDeformation, yOffset: number): $MeshDefinition;
         getHead(): $ModelPart;
         /**
@@ -77,13 +77,15 @@ declare module "@package/net/minecraft/client/model" {
         rightLeg: $ModelPart;
         babyBodyScale: number;
         rightArmPose: $HumanoidModel$ArmPose;
-        constructor(root: $ModelPart, renderType: $Function_<$ResourceLocation, $RenderType>);
         constructor(root: $ModelPart);
+        constructor(root: $ModelPart, renderType: $Function_<$ResourceLocation, $RenderType>);
+        set allVisible(value: boolean);
     }
     export class $HeadedModel {
     }
     export interface $HeadedModel {
         getHead(): $ModelPart;
+        get head(): $ModelPart;
     }
     /**
      * Values that may be interpreted as {@link $HeadedModel}.
@@ -130,6 +132,9 @@ declare module "@package/net/minecraft/client/model" {
         babyBodyScale: number;
         rightArmPose: $HumanoidModel$ArmPose;
         constructor(root: $ModelPart, slim: boolean);
+        get cape(): $ModelPart;
+        get cloak(): $ModelPart;
+        get ears(): $ModelPart;
     }
     export class $AgeableListModel<E extends $Entity> extends $EntityModel<E> implements $AgeableListModelAccessor$1, $AgeableListModelAccessor {
         headParts(): $Iterable<$ModelPart>;
@@ -192,6 +197,8 @@ declare module "@package/net/minecraft/client/model" {
         static THROW_SPEAR: $HumanoidModel$ArmPose;
         static EMPTY: $HumanoidModel$ArmPose;
         static SPYGLASS: $HumanoidModel$ArmPose;
+        get twoHanded(): boolean;
+        static get extensionInfo(): $ExtensionInfo;
     }
     /**
      * Values that may be interpreted as {@link $HumanoidModel$ArmPose}.

@@ -30,6 +30,12 @@ import { $RegisterCapabilitiesEvent } from "@package/net/neoforged/neoforge/capa
 declare module "@package/com/simibubi/create/content/logistics/packager" {
     export class $PackagerBlockEntity extends $SmartBlockEntity implements $Clearable, $PackagerBlockEntityAccessor$1, $PackagerBlockEntityAccessor {
         static registerCapabilities(arg0: $RegisterCapabilitiesEvent): void;
+        triggerStockCheck(): void;
+        unwrapBox(arg0: $ItemStack_, arg1: boolean): boolean;
+        isTargetingSameInventory(arg0: $IdentifiedInventory_): boolean;
+        getAvailableItems(): $InventorySummary;
+        recheckIfLinksPresent(): void;
+        clearContent(): void;
         handler$fba000$createmetalogistics$getAvailableItems(arg0: $CallbackInfoReturnable<any>, arg1: $InventorySummary): void;
         redstoneModeActive(): boolean;
         updateSignAddress(): void;
@@ -38,18 +44,12 @@ declare module "@package/com/simibubi/create/content/logistics/packager" {
         attemptToSend(arg0: $List_<$PackagingRequest_>): void;
         getTrayOffset(arg0: number): number;
         getRenderedBox(): $ItemStack;
-        isTargetingSameInventory(arg0: $IdentifiedInventory_): boolean;
-        getAvailableItems(): $InventorySummary;
-        recheckIfLinksPresent(): void;
-        triggerStockCheck(): void;
-        unwrapBox(arg0: $ItemStack_, arg1: boolean): boolean;
-        clearContent(): void;
         activate(): void;
+        getAdvancement(): $AdvancementBehaviour;
         getInvVersionTracker(): $VersionedInventoryTrackerBehaviour;
         invokeGetLinkPos(): $BlockPos;
         invokeSupportsBlockEntity(arg0: $BlockEntity): boolean;
         createVibrantVaults$getInventory(): $PackagerItemHandler;
-        getAdvancement(): $AdvancementBehaviour;
         targetInventory: $InvManipulationBehaviour;
         level: $Level;
         previouslyUnwrapped: $ItemStack;
@@ -72,27 +72,30 @@ declare module "@package/com/simibubi/create/content/logistics/packager" {
         animationInward: boolean;
         static CYCLE: number;
         constructor(arg0: $BlockEntityType_<never>, arg1: $BlockPos_, arg2: $BlockState_);
+        get availableItems(): $InventorySummary;
+        get renderedBox(): $ItemStack;
+        get advancement(): $AdvancementBehaviour;
+        get invVersionTracker(): $VersionedInventoryTrackerBehaviour;
     }
     export class $PackagerItemHandler implements $IItemHandlerModifiable {
         getSlots(): number;
-        getStackInSlot(arg0: number): $ItemStack;
         insertItem(arg0: number, arg1: $ItemStack_, arg2: boolean): $ItemStack;
         extractItem(arg0: number, arg1: number, arg2: boolean): $ItemStack;
         getSlotLimit(arg0: number): number;
         isItemValid(arg0: number, arg1: $ItemStack_): boolean;
         setStackInSlot(arg0: number, arg1: $ItemStack_): void;
-        kjs$self(): $IItemHandler;
-        kjs$getBlock(level: $Level_): $LevelBlock;
+        getStackInSlot(arg0: number): $ItemStack;
         kjs$isMutable(): boolean;
         kjs$setStackInSlot(slot: number, stack: $ItemStack_): void;
-        isEmpty(): boolean;
+        kjs$self(): $IItemHandler;
+        kjs$getBlock(level: $Level_): $LevelBlock;
         insertItem(stack: $ItemStack_, simulate: boolean): $ItemStack;
         clear(match: $ItemPredicate_): void;
         clear(): void;
-        find(match: $ItemPredicate_): number;
         find(): number;
-        count(match: $ItemPredicate_): number;
+        find(match: $ItemPredicate_): number;
         count(): number;
+        count(match: $ItemPredicate_): number;
         countNonEmpty(match: $ItemPredicate_): number;
         countNonEmpty(): number;
         getWidth(): number;
@@ -100,6 +103,7 @@ declare module "@package/com/simibubi/create/content/logistics/packager" {
         setChanged(): void;
         getAllItems(): $List<$ItemStack>;
         asContainer(): $Container;
+        isEmpty(): boolean;
         getSlots(): number;
         getStackInSlot(slot: number): $ItemStack;
         insertItem(slot: number, stack: $ItemStack_, simulate: boolean): $ItemStack;
@@ -107,6 +111,10 @@ declare module "@package/com/simibubi/create/content/logistics/packager" {
         getSlotLimit(slot: number): number;
         isItemValid(slot: number, stack: $ItemStack_): boolean;
         constructor(arg0: $PackagerBlockEntity);
+        get width(): number;
+        get height(): number;
+        get allItems(): $List<$ItemStack>;
+        get empty(): boolean;
     }
     export class $IdentifiedInventory extends $Record {
         identifier(): $InventoryIdentifier;
@@ -116,15 +124,15 @@ declare module "@package/com/simibubi/create/content/logistics/packager" {
     /**
      * Values that may be interpreted as {@link $IdentifiedInventory}.
      */
-    export type $IdentifiedInventory_ = { identifier?: $InventoryIdentifier_, handler?: $IItemHandler,  } | [identifier?: $InventoryIdentifier_, handler?: $IItemHandler, ];
+    export type $IdentifiedInventory_ = { handler?: $IItemHandler, identifier?: $InventoryIdentifier_,  } | [handler?: $IItemHandler, identifier?: $InventoryIdentifier_, ];
     export class $InventorySummary {
-        getItemMap(): $Map<$Item, $List<$BigItemStack>>;
-        getStacksByCount(): $List<$BigItemStack>;
-        addAllBigItemStacks(arg0: $List_<$BigItemStack>): void;
-        getCountOf(arg0: $ItemStack_): number;
         divideAndSendTo(arg0: $ServerPlayer, arg1: $BlockPos_): void;
-        addAllItemStacks(arg0: $List_<$ItemStack_>): void;
         getTotalOfMatching(arg0: $Predicate_<$ItemStack>): number;
+        addAllItemStacks(arg0: $List_<$ItemStack_>): void;
+        getItemMap(): $Map<$Item, $List<$BigItemStack>>;
+        getCountOf(arg0: $ItemStack_): number;
+        addAllBigItemStacks(arg0: $List_<$BigItemStack>): void;
+        getStacksByCount(): $List<$BigItemStack>;
         getStacks(): $List<$BigItemStack>;
         isEmpty(): boolean;
         add(arg0: $BigItemStack): void;
@@ -138,26 +146,32 @@ declare module "@package/com/simibubi/create/content/logistics/packager" {
         contributingLinks: number;
         static EMPTY: $InventorySummary;
         constructor();
+        get itemMap(): $Map<$Item, $List<$BigItemStack>>;
+        get stacksByCount(): $List<$BigItemStack>;
+        get stacks(): $List<$BigItemStack>;
+        get empty(): boolean;
+        get totalCount(): number;
     }
     export class $PackagingRequest extends $Record implements $PRExtension {
+        finalLink(): $MutableBoolean;
+        packageCounter(): $MutableInt;
+        deployer$flag(): void;
         orderId(): number;
         linkIndex(): number;
-        packageCounter(): $MutableInt;
         deployer$isFlagged(): boolean;
-        deployer$flag(): void;
-        finalLink(): $MutableBoolean;
         subtract(arg0: number): void;
+        item(): $ItemStack;
         context(): $PackageOrderWithCrafts;
         isEmpty(): boolean;
         count(): $MutableInt;
         getCount(): number;
         static create(arg0: $ItemStack_, arg1: number, arg2: string, arg3: number, arg4: $MutableBoolean, arg5: number, arg6: number, arg7: $PackageOrderWithCrafts_): $PackagingRequest;
         address(): string;
-        item(): $ItemStack;
         constructor(item: $ItemStack_, count: $MutableInt, address: string, linkIndex: number, finalLink: $MutableBoolean, packageCounter: $MutableInt, orderId: number, context: $PackageOrderWithCrafts_);
+        get empty(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $PackagingRequest}.
      */
-    export type $PackagingRequest_ = { orderId?: number, count?: $MutableInt, context?: $PackageOrderWithCrafts_, finalLink?: $MutableBoolean, item?: $ItemStack_, address?: string, packageCounter?: $MutableInt, linkIndex?: number,  } | [orderId?: number, count?: $MutableInt, context?: $PackageOrderWithCrafts_, finalLink?: $MutableBoolean, item?: $ItemStack_, address?: string, packageCounter?: $MutableInt, linkIndex?: number, ];
+    export type $PackagingRequest_ = { count?: $MutableInt, orderId?: number, linkIndex?: number, packageCounter?: $MutableInt, address?: string, item?: $ItemStack_, finalLink?: $MutableBoolean, context?: $PackageOrderWithCrafts_,  } | [count?: $MutableInt, orderId?: number, linkIndex?: number, packageCounter?: $MutableInt, address?: string, item?: $ItemStack_, finalLink?: $MutableBoolean, context?: $PackageOrderWithCrafts_, ];
 }

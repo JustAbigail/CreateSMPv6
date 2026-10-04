@@ -17,6 +17,10 @@ declare module "@package/net/mehvahdjukaar/amendments/reg" {
         static WALL: $ModBlockProperties$PostType;
         static PALISADE: $ModBlockProperties$PostType;
         static POST: $ModBlockProperties$PostType;
+        get width(): number;
+        get offset(): number;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $ModBlockProperties$PostType}.

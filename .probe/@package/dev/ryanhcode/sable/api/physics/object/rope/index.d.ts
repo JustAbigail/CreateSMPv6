@@ -20,22 +20,27 @@ declare module "@package/dev/ryanhcode/sable/api/physics/object/rope" {
         readPose(arg0: $List_<$Vector3d>): void;
         wakeUp(): void;
         remove(): void;
+        set firstSegmentLength(value: number);
     }
     export class $RopePhysicsObject implements $ArbitraryPhysicsObject {
+        getCollisionRadius(): number;
         setFirstSegmentLength(arg0: number): void;
+        onUnloaded(arg0: $SubLevelHoldingChunkMap, arg1: $ChunkPos): void;
+        updatePose(): void;
+        onAddition(arg0: $SubLevelPhysicsSystem): void;
+        onRemoved(): void;
         setAttachment(arg0: $RopeHandle$AttachmentPoint_, arg1: $Vector3dc, arg2: $ServerSubLevel): void;
         removeFirstPoint(): void;
         addPoint(arg0: $Vector3dc): void;
-        onAddition(arg0: $SubLevelPhysicsSystem): void;
-        onRemoved(): void;
-        updatePose(): void;
-        onUnloaded(arg0: $SubLevelHoldingChunkMap, arg1: $ChunkPos): void;
-        getCollisionRadius(): number;
         getPoints(): $ObjectList<$Vector3d>;
         wakeUp(): void;
         isActive(): boolean;
         getBoundingBox(arg0: $BoundingBox3d): void;
         constructor(arg0: $Collection_<$Vector3d>, arg1: number);
+        get collisionRadius(): number;
+        set firstSegmentLength(value: number);
+        get points(): $ObjectList<$Vector3d>;
+        get active(): boolean;
     }
     export class $RopeHandle$AttachmentPoint extends $Enum<$RopeHandle$AttachmentPoint> {
         static values(): $RopeHandle$AttachmentPoint[];

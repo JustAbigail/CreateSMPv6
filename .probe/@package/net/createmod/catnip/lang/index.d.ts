@@ -7,27 +7,27 @@ import { $Color } from "@package/net/createmod/catnip/theme";
 
 declare module "@package/net/createmod/catnip/lang" {
     export class $LangBuilder {
+        sendChat(arg0: $Player): void;
         forGoggles(arg0: $List_<$MutableComponent_>): void;
         forGoggles(arg0: $List_<$MutableComponent_>, arg1: number): void;
-        addTo(arg0: $List_<$MutableComponent_>): void;
         sendStatus(arg0: $Player): void;
+        space(): $LangBuilder;
+        addTo(arg0: $List_<$MutableComponent_>): void;
+        add(arg0: $Component_): $LangBuilder;
         add(arg0: $MutableComponent_): $LangBuilder;
         add(arg0: $LangBuilder): $LangBuilder;
-        add(arg0: $Component_): $LangBuilder;
         component(): $MutableComponent;
         newLine(): $LangBuilder;
-        color(arg0: number): $LangBuilder;
         color(arg0: $Color): $LangBuilder;
+        color(arg0: number): $LangBuilder;
         string(): string;
         text(arg0: $ChatFormatting_, arg1: string): $LangBuilder;
         text(arg0: string): $LangBuilder;
         text(arg0: number, arg1: string): $LangBuilder;
-        space(): $LangBuilder;
         json(): string;
         style(arg0: $ChatFormatting_): $LangBuilder;
         static resolveBuilders(arg0: $Object[]): $Object[];
         translate(arg0: string, ...arg1: $Object[]): $LangBuilder;
-        sendChat(arg0: $Player): void;
         static DEFAULT_SPACE_WIDTH: number;
         constructor(arg0: string);
     }

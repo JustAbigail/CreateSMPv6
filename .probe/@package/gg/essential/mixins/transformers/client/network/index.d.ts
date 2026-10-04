@@ -4,6 +4,7 @@ declare module "@package/gg/essential/mixins/transformers/client/network" {
     }
     export interface $CPacketChatMessageAccessor {
         setMessage(arg0: string): void;
+        set message(value: string);
     }
     /**
      * Values that may be interpreted as {@link $CPacketChatMessageAccessor}.
@@ -13,6 +14,7 @@ declare module "@package/gg/essential/mixins/transformers/client/network" {
     }
     export interface $SJoinGamePacketAccessor {
         getMaxPlayers(): number;
+        get maxPlayers(): number;
     }
     /**
      * Values that may be interpreted as {@link $SJoinGamePacketAccessor}.

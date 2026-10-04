@@ -27,8 +27,8 @@ export * as critereon from "@package/net/minecraft/advancements/critereon";
 declare module "@package/net/minecraft/advancements" {
     export class $DisplayInfo {
         getBackground(): ($ResourceLocation) | undefined;
-        shouldShowToast(): boolean;
         shouldAnnounceChat(): boolean;
+        shouldShowToast(): boolean;
         getY(): number;
         getDescription(): $Component;
         isHidden(): boolean;
@@ -40,16 +40,24 @@ declare module "@package/net/minecraft/advancements" {
         static CODEC: $Codec<$DisplayInfo>;
         static STREAM_CODEC: $StreamCodec<$RegistryFriendlyByteBuf, $DisplayInfo>;
         constructor(icon: $ItemStack_, title: $Component_, description: $Component_, background: ($ResourceLocation_) | undefined, type: $AdvancementType_, showToast: boolean, announceChat: boolean, hidden: boolean);
+        get background(): ($ResourceLocation) | undefined;
+        get y(): number;
+        get description(): $Component;
+        get hidden(): boolean;
+        get type(): $AdvancementType;
+        get icon(): $ItemStack;
+        get title(): $Component;
+        get x(): number;
     }
     export class $Advancement$Builder implements $IAdvancementBuilderExtension {
+        requirements(requirementsStrategy: $AdvancementRequirements$Strategy_): $Advancement$Builder;
+        requirements(requirements: $AdvancementRequirements_): $Advancement$Builder;
+        static advancement(): $Advancement$Builder;
+        sendsTelemetryEvent(): $Advancement$Builder;
         addCriterion(key: string, criterion: $Criterion_<never>): $Advancement$Builder;
         rewards(rewards: $AdvancementRewards_): $Advancement$Builder;
         rewards(rewardsBuilder: $AdvancementRewards$Builder): $Advancement$Builder;
-        sendsTelemetryEvent(): $Advancement$Builder;
         static recipeAdvancement(): $Advancement$Builder;
-        static advancement(): $Advancement$Builder;
-        requirements(requirementsStrategy: $AdvancementRequirements$Strategy_): $Advancement$Builder;
-        requirements(requirements: $AdvancementRequirements_): $Advancement$Builder;
         /**
          * @deprecated
          */
@@ -92,9 +100,9 @@ declare module "@package/net/minecraft/advancements" {
      */
     export type $CriterionTrigger_<T> = RegistryTypes.TriggerType;
     export class $AdvancementNode implements $AdvancementNodeKJS {
+        advancement(): $Advancement;
         addChild(child: $AdvancementNode): void;
         children(): $Iterable<$AdvancementNode>;
-        advancement(): $Advancement;
         parent(): $AdvancementNode;
         root(): $AdvancementNode;
         holder(): $AdvancementHolder;
@@ -110,33 +118,37 @@ declare module "@package/net/minecraft/advancements" {
         self(): $AdvancementNode;
         getTitle(): $Component;
         constructor(holder: $AdvancementHolder_, parent: $AdvancementNode | null);
+        get id(): $ResourceLocation;
+        get displayText(): $Component;
+        get description(): $Component;
+        get display(): $DisplayInfo;
+        get title(): $Component;
     }
     export class $AdvancementTree {
+        nodes(): $Collection<$AdvancementNode>;
         remove(advancements: $Set_<$ResourceLocation_>): void;
-        get(id: $ResourceLocation_): $AdvancementNode;
         get(advancement: $AdvancementHolder_): $AdvancementNode;
+        get(id: $ResourceLocation_): $AdvancementNode;
         clear(): void;
         addAll(advancements: $Collection_<$AdvancementHolder_>): void;
         roots(): $Iterable<$AdvancementNode>;
-        nodes(): $Collection<$AdvancementNode>;
         setListener(listener: $AdvancementTree$Listener | null): void;
         constructor();
+        set listener(value: $AdvancementTree$Listener | null);
     }
     export class $CriterionProgress {
         getObtained(): $Instant;
-        grant(): void;
-        static fromNetwork(buffer: $FriendlyByteBuf): $CriterionProgress;
         serializeToNetwork(buffer: $FriendlyByteBuf): void;
+        static fromNetwork(buffer: $FriendlyByteBuf): $CriterionProgress;
         revoke(): void;
+        grant(): void;
         isDone(): boolean;
-        constructor();
         constructor(obtained: $Instant);
+        constructor();
+        get obtained(): $Instant;
+        get done(): boolean;
     }
     export class $AdvancementRewards$Builder {
-        /**
-         * Adds the given recipe to the rewards.
-         */
-        addRecipe(recipeId: $ResourceLocation_): $AdvancementRewards$Builder;
         addLootTable(lootTable: $ResourceKey_<$LootTable>): $AdvancementRewards$Builder;
         /**
          * Adds the given amount of experience. (Not a direct setter)
@@ -145,7 +157,7 @@ declare module "@package/net/minecraft/advancements" {
         /**
          * Adds the given recipe to the rewards.
          */
-        runs(recipeId: $ResourceLocation_): $AdvancementRewards$Builder;
+        addRecipe(recipeId: $ResourceLocation_): $AdvancementRewards$Builder;
         static loot(lootTable: $ResourceKey_<$LootTable>): $AdvancementRewards$Builder;
         /**
          * Adds the given amount of experience. (Not a direct setter)
@@ -155,6 +167,10 @@ declare module "@package/net/minecraft/advancements" {
          * Adds the given recipe to the rewards.
          */
         static recipe(recipeId: $ResourceLocation_): $AdvancementRewards$Builder;
+        /**
+         * Adds the given recipe to the rewards.
+         */
+        runs(recipeId: $ResourceLocation_): $AdvancementRewards$Builder;
         /**
          * Adds the given recipe to the rewards.
          */
@@ -180,32 +196,32 @@ declare module "@package/net/minecraft/advancements" {
     /**
      * Values that may be interpreted as {@link $Criterion}.
      */
-    export type $Criterion_<T> = { trigger?: $CriterionTrigger_<$CriterionTriggerInstance_>, triggerInstance?: $CriterionTriggerInstance_,  } | [trigger?: $CriterionTrigger_<$CriterionTriggerInstance_>, triggerInstance?: $CriterionTriggerInstance_, ];
+    export type $Criterion_<T> = { triggerInstance?: $CriterionTriggerInstance_, trigger?: $CriterionTrigger_<$CriterionTriggerInstance_>,  } | [triggerInstance?: $CriterionTriggerInstance_, trigger?: $CriterionTrigger_<$CriterionTriggerInstance_>, ];
     export class $Advancement extends $Record {
-        criteria(): $Map<string, $Criterion<never>>;
-        rewards(): $AdvancementRewards;
-        sendsTelemetryEvent(): boolean;
         requirements(): $AdvancementRequirements;
+        sendsTelemetryEvent(): boolean;
+        rewards(): $AdvancementRewards;
         isRoot(): boolean;
-        name(): ($Component) | undefined;
         static name(advancement: $AdvancementHolder_): $Component;
+        name(): ($Component) | undefined;
         parent(): ($ResourceLocation) | undefined;
         validate(reporter: $ProblemReporter, lootData: $HolderGetter$Provider_): void;
         display(): ($DisplayInfo) | undefined;
+        criteria(): $Map<string, $Criterion<never>>;
         static CODEC: $Codec<$Advancement>;
         static CONDITIONAL_CODEC: $Codec<($WithConditions<$Advancement>) | undefined>;
         static STREAM_CODEC: $StreamCodec<$RegistryFriendlyByteBuf, $Advancement>;
         constructor(parent: ($ResourceLocation_) | undefined, display: ($DisplayInfo) | undefined, rewards: $AdvancementRewards_, criteria: $Map_<string, $Criterion_<never>>, requirements: $AdvancementRequirements_, sendsTelemetryEvent: boolean);
         constructor(parent: ($ResourceLocation_) | undefined, display: ($DisplayInfo) | undefined, rewards: $AdvancementRewards_, criteria: $Map_<string, $Criterion_<never>>, requirements: $AdvancementRequirements_, sendsTelemetryEvent: boolean, name: ($Component_) | undefined);
+        get root(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $Advancement}.
      */
-    export type $Advancement_ = { parent?: ($ResourceLocation_) | undefined, display?: ($DisplayInfo) | undefined, rewards?: $AdvancementRewards_, name?: ($Component_) | undefined, requirements?: $AdvancementRequirements_, sendsTelemetryEvent?: boolean, criteria?: $Map_<string, $Criterion_<never>>,  } | [parent?: ($ResourceLocation_) | undefined, display?: ($DisplayInfo) | undefined, rewards?: $AdvancementRewards_, name?: ($Component_) | undefined, requirements?: $AdvancementRequirements_, sendsTelemetryEvent?: boolean, criteria?: $Map_<string, $Criterion_<never>>, ];
+    export type $Advancement_ = { rewards?: $AdvancementRewards_, display?: ($DisplayInfo) | undefined, parent?: ($ResourceLocation_) | undefined, criteria?: $Map_<string, $Criterion_<never>>, sendsTelemetryEvent?: boolean, requirements?: $AdvancementRequirements_, name?: ($Component_) | undefined,  } | [rewards?: $AdvancementRewards_, display?: ($DisplayInfo) | undefined, parent?: ($ResourceLocation_) | undefined, criteria?: $Map_<string, $Criterion_<never>>, sendsTelemetryEvent?: boolean, requirements?: $AdvancementRequirements_, name?: ($Component_) | undefined, ];
     export class $AdvancementRequirements extends $Record {
-        static anyOf(requirements: $Collection_<string>): $AdvancementRequirements;
-        static allOf(requirements: $Collection_<string>): $AdvancementRequirements;
         requirements(): $List<$List<string>>;
+        static anyOf(requirements: $Collection_<string>): $AdvancementRequirements;
         size(): number;
         test(predicate: $Predicate_<string>): boolean;
         isEmpty(): boolean;
@@ -213,10 +229,12 @@ declare module "@package/net/minecraft/advancements" {
         validate(requirements: $Set_<string>): $DataResult<$AdvancementRequirements>;
         write(buffer: $FriendlyByteBuf): void;
         names(): $Set<string>;
+        static allOf(requirements: $Collection_<string>): $AdvancementRequirements;
         static CODEC: $Codec<$AdvancementRequirements>;
         static EMPTY: $AdvancementRequirements;
         constructor(buffer: $FriendlyByteBuf);
         constructor(arg0: $List_<$List_<string>>);
+        get empty(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $AdvancementRequirements}.
@@ -224,9 +242,9 @@ declare module "@package/net/minecraft/advancements" {
     export type $AdvancementRequirements_ = { requirements?: $List_<$List_<string>>,  } | [requirements?: $List_<$List_<string>>, ];
     export class $AdvancementRewards extends $Record {
         recipes(): $List<$ResourceLocation>;
-        grant(player: $ServerPlayer): void;
         loot(): $List<$ResourceKey<$LootTable>>;
         experience(): number;
+        grant(player: $ServerPlayer): void;
         "function"(): ($CacheableFunction) | undefined;
         static CODEC: $Codec<$AdvancementRewards>;
         static EMPTY: $AdvancementRewards;
@@ -235,7 +253,7 @@ declare module "@package/net/minecraft/advancements" {
     /**
      * Values that may be interpreted as {@link $AdvancementRewards}.
      */
-    export type $AdvancementRewards_ = { recipes?: $List_<$ResourceLocation_>, function?: ($CacheableFunction) | undefined, loot?: $List_<$ResourceKey_<$LootTable>>, experience?: number,  } | [recipes?: $List_<$ResourceLocation_>, function?: ($CacheableFunction) | undefined, loot?: $List_<$ResourceKey_<$LootTable>>, experience?: number, ];
+    export type $AdvancementRewards_ = { recipes?: $List_<$ResourceLocation_>, experience?: number, loot?: $List_<$ResourceKey_<$LootTable>>, function?: ($CacheableFunction) | undefined,  } | [recipes?: $List_<$ResourceLocation_>, experience?: number, loot?: $List_<$ResourceKey_<$LootTable>>, function?: ($CacheableFunction) | undefined, ];
     export class $AdvancementHolder extends $Record {
         value(): $Advancement;
         id(): $ResourceLocation;
@@ -257,7 +275,7 @@ declare module "@package/net/minecraft/advancements" {
     /**
      * Values that may be interpreted as {@link $CriterionTrigger$Listener}.
      */
-    export type $CriterionTrigger$Listener_<T> = { trigger?: $CriterionTriggerInstance_, advancement?: $AdvancementHolder_, criterion?: string,  } | [trigger?: $CriterionTriggerInstance_, advancement?: $AdvancementHolder_, criterion?: string, ];
+    export type $CriterionTrigger$Listener_<T> = { trigger?: $CriterionTriggerInstance_, criterion?: string, advancement?: $AdvancementHolder_,  } | [trigger?: $CriterionTriggerInstance_, criterion?: string, advancement?: $AdvancementHolder_, ];
     export class $CriterionTriggerInstance {
     }
     export interface $CriterionTriggerInstance {
@@ -279,6 +297,10 @@ declare module "@package/net/minecraft/advancements" {
         static TASK: $AdvancementType;
         static GOAL: $AdvancementType;
         static CODEC: $Codec<$AdvancementType>;
+        get chatColor(): $ChatFormatting;
+        get displayName(): $Component;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $AdvancementType}.
@@ -289,17 +311,23 @@ declare module "@package/net/minecraft/advancements" {
         getFirstProgressDate(): $Instant;
         grantProgress(criterionName: string): boolean;
         revokeProgress(criterionName: string): boolean;
-        static fromNetwork(buffer: $FriendlyByteBuf): $AdvancementProgress;
         serializeToNetwork(buffer: $FriendlyByteBuf): void;
+        static fromNetwork(buffer: $FriendlyByteBuf): $AdvancementProgress;
+        getCriterion(criterionName: string): $CriterionProgress;
         getRemainingCriteria(): $Iterable<string>;
         hasProgress(): boolean;
         getCompletedCriteria(): $Iterable<string>;
-        getCriterion(criterionName: string): $CriterionProgress;
         getPercent(): number;
         compareTo(other: $AdvancementProgress): number;
         update(requirements: $AdvancementRequirements_): void;
         isDone(): boolean;
         static CODEC: $Codec<$AdvancementProgress>;
         constructor();
+        get progressText(): $Component;
+        get firstProgressDate(): $Instant;
+        get remainingCriteria(): $Iterable<string>;
+        get completedCriteria(): $Iterable<string>;
+        get percent(): number;
+        get done(): boolean;
     }
 }

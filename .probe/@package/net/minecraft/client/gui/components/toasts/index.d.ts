@@ -15,6 +15,7 @@ declare module "@package/net/minecraft/client/gui/components/toasts" {
         freeSlots(): number;
         minecraft: $Minecraft;
         constructor(minecraft: $Minecraft);
+        get notificationDisplayTimeMultiplier(): number;
     }
     export class $Toast$Visibility extends $Enum<$Toast$Visibility> {
         static values(): $Toast$Visibility[];
@@ -37,6 +38,7 @@ declare module "@package/net/minecraft/client/gui/components/toasts" {
         width(): number;
         height(): number;
         render(guiGraphics: $GuiGraphics, toastComponent: $ToastComponent, timeSinceLastVisible: number): $Toast$Visibility;
+        get token(): $Object;
     }
     /**
      * Values that may be interpreted as {@link $Toast}.
@@ -60,8 +62,8 @@ declare module "@package/net/minecraft/client/gui/components/toasts" {
     export type $TutorialToast$Icons_ = "movement_keys" | "mouse" | "tree" | "recipe_book" | "wooden_planks" | "social_interactions" | "right_click";
     export class $TutorialToast implements $Toast {
         hide(): void;
-        render(guiGraphics: $GuiGraphics, toastComponent: $ToastComponent, timeSinceLastVisible: number): $Toast$Visibility;
         updateProgress(progress: number): void;
+        render(guiGraphics: $GuiGraphics, toastComponent: $ToastComponent, timeSinceLastVisible: number): $Toast$Visibility;
         getToken(): $Object;
         slotCount(): number;
         width(): number;
@@ -71,5 +73,6 @@ declare module "@package/net/minecraft/client/gui/components/toasts" {
         static PROGRESS_BAR_WIDTH: number;
         static PROGRESS_BAR_Y: number;
         constructor(icon: $TutorialToast$Icons_, title: $Component_, message: $Component_ | null, progressable: boolean);
+        get token(): $Object;
     }
 }

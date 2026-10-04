@@ -18,8 +18,8 @@ import { $BlockCapability } from "@package/net/neoforged/neoforge/capabilities";
 
 declare module "@package/com/simibubi/create/foundation/blockEntity/behaviour/inventory" {
     export class $CapManipulationBehaviourBase$InterfaceProvider {
-        static oppositeOfBlockFacing(): $CapManipulationBehaviourBase$InterfaceProvider;
         static towardBlockFacing(): $CapManipulationBehaviourBase$InterfaceProvider;
+        static oppositeOfBlockFacing(): $CapManipulationBehaviourBase$InterfaceProvider;
     }
     export interface $CapManipulationBehaviourBase$InterfaceProvider {
         getTarget(arg0: $Level_, arg1: $BlockPos_, arg2: $BlockState_): $BlockFace;
@@ -33,30 +33,35 @@ declare module "@package/com/simibubi/create/foundation/blockEntity/behaviour/in
         static forInsertion(arg0: $SmartBlockEntity, arg1: $CapManipulationBehaviourBase$InterfaceProvider_): $InvManipulationBehaviour;
         getIdentifiedInventory(): $IdentifiedInventory;
         extract(): $ItemStack;
-        extract(arg0: $ItemHelper$ExtractionCountMode_, arg1: number): $ItemStack;
         extract(arg0: $ItemHelper$ExtractionCountMode_, arg1: number, arg2: $Predicate_<$ItemStack>): $ItemStack;
+        extract(arg0: $ItemHelper$ExtractionCountMode_, arg1: number): $ItemStack;
         insert(arg0: $ItemStack_): $ItemStack;
         blockEntity: $SmartBlockEntity;
         static INSERT: $BehaviourType<$InvManipulationBehaviour>;
         static TYPE: $BehaviourType<$InvManipulationBehaviour>;
         static EXTRACT: $BehaviourType<$InvManipulationBehaviour>;
         constructor(arg0: $SmartBlockEntity, arg1: $CapManipulationBehaviourBase$InterfaceProvider_);
+        get identifiedInventory(): $IdentifiedInventory;
     }
     export class $CapManipulationBehaviourBase<T, S extends $CapManipulationBehaviourBase<never, never>> extends $BlockEntityBehaviour {
-        redirect$hpb000$sable$redirectPos$mixinextras$bridge$19(arg0: $Level_, arg1: $BlockCapability<any, any>, arg2: $BlockPos_, arg3: $Object, arg4: $LocalRef<any>): $Object;
-        getModeFromFilter(): $ItemHelper$ExtractionCountMode;
-        getAmountFromFilter(): number;
-        redirect$hpb000$sable$findNewCapOnSubLevel(arg0: $Level_, arg1: $BlockPos_): $BlockEntity;
-        redirect$hpb000$sable$redirectPos(arg0: $Level_, arg1: $BlockCapability<any, any>, arg2: $BlockPos_, arg3: $Object, arg4: $BlockFace): $Object;
+        bypassSidedness(): S;
         hasInventory(): boolean;
         findNewCapability(): void;
-        bypassSidedness(): S;
+        redirect$hpb000$sable$findNewCapOnSubLevel(arg0: $Level_, arg1: $BlockPos_): $BlockEntity;
+        redirect$hpb000$sable$redirectPos(arg0: $Level_, arg1: $BlockCapability<any, any>, arg2: $BlockPos_, arg3: $Object, arg4: $BlockFace): $Object;
+        getModeFromFilter(): $ItemHelper$ExtractionCountMode;
+        getAmountFromFilter(): number;
+        redirect$hpb000$sable$redirectPos$mixinextras$bridge$19(arg0: $Level_, arg1: $BlockCapability<any, any>, arg2: $BlockPos_, arg3: $Object, arg4: $LocalRef<any>): $Object;
         getTarget(): $BlockFace;
         withFilter(arg0: $Predicate<$BlockEntity>): S;
-        getInventory(): T;
         simulate(): S;
+        getInventory(): T;
         blockEntity: $SmartBlockEntity;
         constructor(arg0: $SmartBlockEntity, arg1: $CapManipulationBehaviourBase$InterfaceProvider_);
+        get modeFromFilter(): $ItemHelper$ExtractionCountMode;
+        get amountFromFilter(): number;
+        get target(): $BlockFace;
+        get inventory(): T;
     }
     export class $VersionedInventoryTrackerBehaviour extends $BlockEntityBehaviour implements $VITBExtension {
         stillWaiting(arg0: $IItemHandler): boolean;

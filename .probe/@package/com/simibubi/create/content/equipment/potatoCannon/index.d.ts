@@ -22,12 +22,12 @@ import { $EntityInLevelCallback } from "@package/net/minecraft/world/level/entit
 
 declare module "@package/com/simibubi/create/content/equipment/potatoCannon" {
     export class $PotatoProjectileEntity extends $AbstractHurtingProjectile implements $IEntityWithComplexSpawn, $PotatoProjectileEntityExtension, $PotatoProjectileEntityAccessor {
+        setEnchantmentEffectsFromCannon(arg0: $ItemStack_): void;
         getProjectileType(): $PotatoCannonProjectileType;
         getStuckEntity(): $Entity;
         setStuckEntity(arg0: $Entity): void;
         getRenderMode(): $PotatoProjectileRenderMode;
         static playHitSound(arg0: $Level_, arg1: $Vec3_): void;
-        setEnchantmentEffectsFromCannon(arg0: $ItemStack_): void;
         static playLaunchSound(arg0: $Level_, arg1: $Vec3_, arg2: number): void;
         aeronautics$setIsFromMountedPotatoCannon(arg0: boolean): void;
         aeronautics$setDamageMultiplier(arg0: number): void;
@@ -115,5 +115,8 @@ declare module "@package/com/simibubi/create/content/equipment/potatoCannon" {
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
         constructor(arg0: $EntityType_<$AbstractHurtingProjectile>, arg1: $Level_);
+        set enchantmentEffectsFromCannon(value: $ItemStack_);
+        get projectileType(): $PotatoCannonProjectileType;
+        get renderMode(): $PotatoProjectileRenderMode;
     }
 }

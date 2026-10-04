@@ -47,6 +47,7 @@ declare module "@package/net/minecraft/client/model/geom/builders" {
         mirror(mirror: boolean): $CubeListBuilder;
         mirror(): $CubeListBuilder;
         constructor();
+        get cubes(): $List<$CubeDefinition>;
     }
     export class $MaterialDefinition {
         xTexSize: number;
@@ -56,6 +57,7 @@ declare module "@package/net/minecraft/client/model/geom/builders" {
     export class $MeshDefinition {
         getRoot(): $PartDefinition;
         constructor();
+        get root(): $PartDefinition;
     }
     export class $CubeDefinition {
         bake(texWidth: number, texHeight: number): $ModelPart$Cube;

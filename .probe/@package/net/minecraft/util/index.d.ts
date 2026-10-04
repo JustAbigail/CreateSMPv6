@@ -81,9 +81,9 @@ declare module "@package/net/minecraft/util" {
         consumeCount(count: number): void;
         nextIntBetweenInclusive(origin: number, bound: number): number;
         triangle(min: number, arg1: number): number;
+        set seed(value: number);
     }
     export class $ArrayListDeque<T> extends $AbstractList<T> implements $ListAndDeque<T> {
-        capacity(): number;
         pollFirst(): T;
         pollLast(): T;
         offerLast(element: T): boolean;
@@ -93,13 +93,14 @@ declare module "@package/net/minecraft/util" {
         peekLast(): T;
         removeLastOccurrence(element: $Object): boolean;
         descendingIterator(): $Iterator<T>;
+        capacity(): number;
         push(element: T): void;
         pop(): T;
+        offer(element: T): boolean;
         remove(): T;
         peek(): T;
         element(): T;
         poll(): T;
-        offer(element: T): boolean;
         reversed(): $ListAndDeque<T>;
         constructor();
         constructor(size: number);
@@ -107,8 +108,8 @@ declare module "@package/net/minecraft/util" {
     export class $BitStorage {
     }
     export interface $BitStorage {
-        getBits(): number;
         getAll(consumer: $IntConsumer_): void;
+        getBits(): number;
         /**
          * Gets the entry at the given index
          */
@@ -125,6 +126,9 @@ declare module "@package/net/minecraft/util" {
          * Gets the long array that is used to store the data in this BitArray. This is useful for sending packet data.
          */
         getRaw(): number[];
+        get bits(): number;
+        get size(): number;
+        get raw(): number[];
     }
     /**
      * @deprecated
@@ -158,12 +162,13 @@ declare module "@package/net/minecraft/util" {
         static create(path: $Path_): $DirectoryLock;
         static isLocked(path: $Path_): boolean;
         static LOCK_FILE: string;
+        get valid(): boolean;
     }
     export class $Brightness extends $Record {
+        sky(): number;
         pack(): number;
         block(): number;
         static unpack(packedBrightness: number): $Brightness;
-        sky(): number;
         static FULL_BRIGHT: $Brightness;
         static CODEC: $Codec<$Brightness>;
         static LIGHT_VALUE_CODEC: $Codec<number>;
@@ -172,7 +177,7 @@ declare module "@package/net/minecraft/util" {
     /**
      * Values that may be interpreted as {@link $Brightness}.
      */
-    export type $Brightness_ = { sky?: number, block?: number,  } | [sky?: number, block?: number, ];
+    export type $Brightness_ = { block?: number, sky?: number,  } | [block?: number, sky?: number, ];
     export class $ModCheck$Confidence extends $Enum<$ModCheck$Confidence> {
         static values(): $ModCheck$Confidence[];
         static valueOf(arg0: string): $ModCheck$Confidence;
@@ -200,14 +205,14 @@ declare module "@package/net/minecraft/util" {
     export class $ProgressListener {
     }
     export interface $ProgressListener {
-        progressStartNoAbort(stage: $Component_): void;
-        progressStage(stage: $Component_): void;
-        stop(): void;
-        progressStart(stage: $Component_): void;
         /**
          * Updates the progress bar on the loading screen to the specified amount.
          */
         progressStagePercentage(progress: number): void;
+        progressStart(stage: $Component_): void;
+        progressStartNoAbort(stage: $Component_): void;
+        progressStage(stage: $Component_): void;
+        stop(): void;
     }
     export class $OptionEnum {
     }
@@ -215,6 +220,9 @@ declare module "@package/net/minecraft/util" {
         getCaption(): $Component;
         getKey(): string;
         getId(): number;
+        get caption(): $Component;
+        get key(): string;
+        get id(): number;
     }
     export class $KeyDispatchDataCodec<A> extends $Record {
         static of<A>(codec: $MapCodec_<A>): $KeyDispatchDataCodec<A>;
@@ -227,15 +235,17 @@ declare module "@package/net/minecraft/util" {
     export type $KeyDispatchDataCodec_<A> = { codec?: $MapCodec_<any>,  } | [codec?: $MapCodec_<any>, ];
     export class $StringRepresentable {
         static keys(serializables: $StringRepresentable_[]): $Keyable;
+        static fromEnum<E extends $Enum<E>>(elementsSupplier: $Supplier_<E[]>): $StringRepresentable$EnumCodec<E>;
         static fromEnumWithMapping<E extends $Enum<E>>(enumValues: $Supplier_<E[]>, keyFunction: $Function_<string, string>): $StringRepresentable$EnumCodec<E>;
         static createNameLookup<T extends $StringRepresentable>(values: T[], keyFunction: $Function_<string, string>): $Function<string, T>;
         static fromValues<T extends $StringRepresentable>(valuesSupplier: $Supplier_<T[]>): $Codec<T>;
-        static fromEnum<E extends $Enum<E>>(elementsSupplier: $Supplier_<E[]>): $StringRepresentable$EnumCodec<E>;
         static PRE_BUILT_MAP_THRESHOLD: number;
     }
     export interface $StringRepresentable extends $RemappedEnumConstant {
-        getRemappedEnumConstantName(): string;
         getSerializedName(): string;
+        getRemappedEnumConstantName(): string;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $StringRepresentable}.
@@ -264,8 +274,8 @@ declare module "@package/net/minecraft/util" {
         static create<T>(centerX: number, centerZ: number, size: number, initializer: $StaticCache2D$Initializer_<T>): $StaticCache2D<T>;
     }
     export class $Tuple<A, B> {
-        setA(a: A): void;
         setB(a: B): void;
+        setA(a: A): void;
         getA(): A;
         getB(): B;
         constructor(a: A, b: B);
@@ -294,10 +304,10 @@ declare module "@package/net/minecraft/util" {
     export class $HttpUtil$DownloadProgressListener {
     }
     export interface $HttpUtil$DownloadProgressListener {
-        requestFinished(success: boolean): void;
         requestStart(): void;
         downloadStart(totalSize: $OptionalLong): void;
         downloadedBytes(progress: number): void;
+        requestFinished(success: boolean): void;
     }
     export class $StaticCache2D$Initializer<T> {
     }
@@ -320,7 +330,7 @@ declare module "@package/net/minecraft/util" {
     /**
      * Values that may be interpreted as {@link $ModCheck}.
      */
-    export type $ModCheck_ = { description?: string, confidence?: $ModCheck$Confidence_,  } | [description?: string, confidence?: $ModCheck$Confidence_, ];
+    export type $ModCheck_ = { confidence?: $ModCheck$Confidence_, description?: string,  } | [confidence?: $ModCheck$Confidence_, description?: string, ];
     export class $SignatureUpdater$Output {
     }
     export interface $SignatureUpdater$Output {
@@ -333,14 +343,15 @@ declare module "@package/net/minecraft/util" {
     export class $ProblemReporter {
     }
     export interface $ProblemReporter {
-        report(message: string): void;
         forChild(name: string): $ProblemReporter;
+        report(message: string): void;
     }
     export class $ListAndDeque<T> {
     }
     export interface $ListAndDeque<T> extends $Serializable, $Cloneable, $Deque<T>, $List<T>, $RandomAccess {
         push(element: T): void;
         pop(): T;
+        offer(element: T): boolean;
         remove(): T;
         peek(): T;
         reversed(): $ListAndDeque<T>;
@@ -352,22 +363,23 @@ declare module "@package/net/minecraft/util" {
         removeFirst(): T;
         removeLast(): T;
         poll(): T;
-        offer(element: T): boolean;
+        get first(): T;
+        get last(): T;
     }
     export class $FormattedCharSequence {
-        static forward(text: string, style: $Style): $FormattedCharSequence;
-        static forward(text: string, style: $Style, codePointMapper: $Int2IntFunction_): $FormattedCharSequence;
-        static fromList(parts: $List_<$FormattedCharSequence_>): $FormattedCharSequence;
         static codepoint(codePoint: number, style: $Style): $FormattedCharSequence;
-        static composite(...parts: $FormattedCharSequence_[]): $FormattedCharSequence;
-        static composite(first: $FormattedCharSequence_, second: $FormattedCharSequence_): $FormattedCharSequence;
-        static composite(parts: $List_<$FormattedCharSequence_>): $FormattedCharSequence;
+        static fromList(parts: $List_<$FormattedCharSequence_>): $FormattedCharSequence;
         static composite(sequence: $FormattedCharSequence_): $FormattedCharSequence;
+        static composite(...parts: $FormattedCharSequence_[]): $FormattedCharSequence;
+        static composite(parts: $List_<$FormattedCharSequence_>): $FormattedCharSequence;
+        static composite(first: $FormattedCharSequence_, second: $FormattedCharSequence_): $FormattedCharSequence;
         static composite(): $FormattedCharSequence;
-        static backward(text: string, style: $Style, codePointMapper: $Int2IntFunction_): $FormattedCharSequence;
+        static forward(text: string, style: $Style, codePointMapper: $Int2IntFunction_): $FormattedCharSequence;
+        static forward(text: string, style: $Style): $FormattedCharSequence;
         static backward(text: string, style: $Style): $FormattedCharSequence;
-        static decorateOutput(sink: $FormattedCharSink_, codePointMapper: $Int2IntFunction_): $FormattedCharSink;
+        static backward(text: string, style: $Style, codePointMapper: $Int2IntFunction_): $FormattedCharSequence;
         static fromPair(first: $FormattedCharSequence_, second: $FormattedCharSequence_): $FormattedCharSequence;
+        static decorateOutput(sink: $FormattedCharSink_, codePointMapper: $Int2IntFunction_): $FormattedCharSink;
         static EMPTY: $FormattedCharSequence;
     }
     export interface $FormattedCharSequence {
@@ -402,7 +414,7 @@ declare module "@package/net/minecraft/util" {
     /**
      * Values that may be interpreted as {@link $InclusiveRange}.
      */
-    export type $InclusiveRange_<T> = { maxInclusive?: $Comparable_<T>, minInclusive?: $Comparable_<T>,  } | [maxInclusive?: $Comparable_<T>, minInclusive?: $Comparable_<T>, ];
+    export type $InclusiveRange_<T> = { minInclusive?: $Comparable_<T>, maxInclusive?: $Comparable_<T>,  } | [minInclusive?: $Comparable_<T>, maxInclusive?: $Comparable_<T>, ];
     export class $FormattedCharSink {
     }
     export interface $FormattedCharSink {
@@ -457,14 +469,14 @@ declare module "@package/net/minecraft/util" {
         orElse(arg0: $Consumer_<string>, arg1: S): $Codec<S>;
         orElse(arg0: S): $Codec<S>;
         stable(): $Codec<S>;
-        optionalFieldOf(arg0: string, arg1: $Lifecycle, arg2: S, arg3: $Lifecycle): $MapCodec<S>;
-        optionalFieldOf(arg0: string, arg1: S): $MapCodec<S>;
-        optionalFieldOf(arg0: string, arg1: S, arg2: $Lifecycle): $MapCodec<S>;
-        optionalFieldOf(arg0: string): $MapCodec<(S) | undefined>;
-        listOf(): $Codec<$List<S>>;
-        listOf(arg0: number, arg1: number): $Codec<$List<S>>;
-        xmap<S>(arg0: $Function_<S, S>, arg1: $Function_<S, S>): $Codec<S>;
         comapFlatMap<S>(arg0: $Function_<S, $DataResult<S>>, arg1: $Function_<S, S>): $Codec<S>;
+        optionalFieldOf(arg0: string, arg1: S): $MapCodec<S>;
+        optionalFieldOf(arg0: string): $MapCodec<(S) | undefined>;
+        optionalFieldOf(arg0: string, arg1: $Lifecycle, arg2: S, arg3: $Lifecycle): $MapCodec<S>;
+        optionalFieldOf(arg0: string, arg1: S, arg2: $Lifecycle): $MapCodec<S>;
+        listOf(arg0: number, arg1: number): $Codec<$List<S>>;
+        listOf(): $Codec<$List<S>>;
+        xmap<S>(arg0: $Function_<S, S>, arg1: $Function_<S, S>): $Codec<S>;
         deprecated(arg0: number): $Codec<S>;
         flatXmap<S>(arg0: $Function_<S, $DataResult<S>>, arg1: $Function_<S, $DataResult<S>>): $Codec<S>;
         lenientOptionalFieldOf(arg0: string): $MapCodec<(S) | undefined>;

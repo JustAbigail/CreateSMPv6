@@ -33,33 +33,34 @@ import { $TriFunction_ } from "@package/org/apache/commons/lang3/function";
 
 declare module "@package/net/liukrast/deployer/lib/logistics/packager" {
     export class $GenericPackagingRequest<V> extends $Record {
+        finalLink(): $MutableBoolean;
+        packageCounter(): $MutableInt;
         orderId(): number;
         linkIndex(): number;
-        packageCounter(): $MutableInt;
-        finalLink(): $MutableBoolean;
         subtract(arg0: number): void;
+        item(): V;
         context(): $GenericOrderContained<V>;
         isEmpty(): boolean;
         count(): $MutableInt;
         getCount(): number;
         static create<V>(arg0: V, arg1: number, arg2: string, arg3: number, arg4: $MutableBoolean, arg5: number, arg6: number, arg7: $GenericOrderContained_<V> | null): $GenericPackagingRequest<V>;
         address(): string;
-        item(): V;
         constructor(item: V, count: $MutableInt, address: string, linkIndex: number, finalLink: $MutableBoolean, packageCounter: $MutableInt, orderId: number, context: $GenericOrderContained_<V> | null);
+        get empty(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $GenericPackagingRequest}.
      */
-    export type $GenericPackagingRequest_<V> = { orderId?: number, count?: $MutableInt, context?: $GenericOrderContained_<any>, finalLink?: $MutableBoolean, item?: any, address?: string, packageCounter?: $MutableInt, linkIndex?: number,  } | [orderId?: number, count?: $MutableInt, context?: $GenericOrderContained_<any>, finalLink?: $MutableBoolean, item?: any, address?: string, packageCounter?: $MutableInt, linkIndex?: number, ];
+    export type $GenericPackagingRequest_<V> = { count?: $MutableInt, orderId?: number, linkIndex?: number, packageCounter?: $MutableInt, address?: string, item?: any, finalLink?: $MutableBoolean, context?: $GenericOrderContained_<any>,  } | [count?: $MutableInt, orderId?: number, linkIndex?: number, packageCounter?: $MutableInt, address?: string, item?: any, finalLink?: $MutableBoolean, context?: $GenericOrderContained_<any>, ];
     export class $AbstractInventorySummary<K, V> {
-        getItemMap(): $Map<K, $List<V>>;
-        getStacksByCount(): $List<V>;
-        getCountOf(arg0: V): number;
         divideAndSendTo(arg0: $ServerPlayer, arg1: $BlockPos_): void;
         addAllStacks(arg0: $List_<V>): void;
         getTotalOfMatching(arg0: $Predicate_<V>): number;
-        keyFrom(arg0: V): K;
         isSameKeySameComponents(arg0: V, arg1: V): boolean;
+        keyFrom(arg0: V): K;
+        getItemMap(): $Map<K, $List<V>>;
+        getCountOf(arg0: V): number;
+        getStacksByCount(): $List<V>;
         getStacks(): $List<V>;
         isEmpty(): boolean;
         add(arg0: $AbstractInventorySummary<K, V>): void;
@@ -72,11 +73,15 @@ declare module "@package/net/liukrast/deployer/lib/logistics/packager" {
         getTotalCount(): number;
         contributingLinks: number;
         constructor(arg0: $StockInventoryType_<K, V, never>);
+        get itemMap(): $Map<K, $List<V>>;
+        get stacksByCount(): $List<V>;
+        get stacks(): $List<V>;
+        get empty(): boolean;
+        get totalCount(): number;
     }
     export class $StockInventoryType$IStorageHandler<K, V, H> {
     }
     export interface $StockInventoryType$IStorageHandler<K, V, H> {
-        setInSlot(arg0: H, arg1: number, arg2: V, arg3: boolean): V;
         maxCountPerSlot(): number;
         isBulky(arg0: K): boolean;
         getMaxPackageSlots(): number;
@@ -84,22 +89,24 @@ declare module "@package/net/liukrast/deployer/lib/logistics/packager" {
         fill(arg0: H, arg1: V, arg2: boolean, arg3: $AbstractPackagerBlockEntity<K, V, H>): number;
         create(arg0: number): H;
         getSlots(arg0: H): number;
-        getStackInSlot(arg0: H, arg1: number): V;
+        setInSlot(arg0: H, arg1: number, arg2: V, arg3: boolean): V;
         insertItem(arg0: H, arg1: number, arg2: V, arg3: boolean): V;
+        getStackInSlot(arg0: H, arg1: number): V;
+        get maxPackageSlots(): number;
     }
     export class $AbstractPackagerBlockEntity<K, V, H> extends $PackagerBlockEntity {
-        supportsBlockEntity(arg0: $BlockEntity): boolean;
-        attemptToSendSpecial(arg0: $List_<$GenericPackagingRequest_<V>>): void;
-        attemptToSendSpecial(arg0: $List_<$GenericPackagingRequest_<V>>, arg1: number, arg2: boolean): void;
-        getStockOf(arg0: $UUID_, arg1: V): number;
+        getHatchModel(arg0: boolean, arg1: $PartialModel): $PartialModel;
+        safeUnwrapBox(arg0: $ItemStack_, arg1: boolean): boolean;
+        pleaseBroadcast(arg0: $UUID_, arg1: $LogisticallyLinkedBehaviour$RequestType_, arg2: $GenericOrderContained_<V>, arg3: string): boolean;
+        isValidPackage(arg0: $ItemStack_): boolean;
         isTargetingSameContainer(arg0: $IdentifiedContainer_<H>): boolean;
         getAvailableStacks(): $AbstractInventorySummary<K, V>;
         getStockType(): $StockInventoryType<K, V, H>;
         createItemHandler(): $PackagerItemHandler;
-        isValidPackage(arg0: $ItemStack_): boolean;
-        safeUnwrapBox(arg0: $ItemStack_, arg1: boolean): boolean;
-        pleaseBroadcast(arg0: $UUID_, arg1: $LogisticallyLinkedBehaviour$RequestType_, arg2: $GenericOrderContained_<V>, arg3: string): boolean;
-        getHatchModel(arg0: boolean, arg1: $PartialModel): $PartialModel;
+        supportsBlockEntity(arg0: $BlockEntity): boolean;
+        getStockOf(arg0: $UUID_, arg1: V): number;
+        attemptToSendSpecial(arg0: $List_<$GenericPackagingRequest_<V>>): void;
+        attemptToSendSpecial(arg0: $List_<$GenericPackagingRequest_<V>>, arg1: number, arg2: boolean): void;
         targetInventory: $CapManipulationBehaviourBase<H, $CapManipulationBehaviourBase<never, never>>;
         level: $Level;
         previouslyUnwrapped: $ItemStack;
@@ -122,16 +129,19 @@ declare module "@package/net/liukrast/deployer/lib/logistics/packager" {
         animationInward: boolean;
         static CYCLE: number;
         constructor(arg0: $BlockEntityType_<never>, arg1: $BlockPos_, arg2: $BlockState_);
+        get availableStacks(): $AbstractInventorySummary<K, V>;
+        get stockType(): $StockInventoryType<K, V, H>;
     }
     export interface $StockInventoryType<K, V, H> extends RegistryMarked<RegistryTypes.DeployerStockInventoryTag, RegistryTypes.DeployerStockInventory> {}
     export class $StockInventoryType<K, V, H> {
+        valueHandler(): $StockInventoryType$IValueHandler<K, V, H>;
+        packageHandler(): $StockInventoryType$IPackageHandler<K, V, H>;
         storageHandler(): $StockInventoryType$IStorageHandler<K, V, H>;
         getBlockCapability(): $BlockCapability<H, $Direction>;
-        packageHandler(): $StockInventoryType$IPackageHandler<K, V, H>;
-        valueHandler(): $StockInventoryType$IValueHandler<K, V, H>;
         networkHandler(): $StockInventoryType$INetworkHandler<K, V, H>;
         registry: $SimpleRegistry<$Block, $GenericUnpackingHandler<K, V, H>>;
         defaultUnpackProcedure: $GenericUnpackingHandler<K, V, H>;
+        get blockCapability(): $BlockCapability<H, $Direction>;
     }
     /**
      * Values that may be interpreted as {@link $StockInventoryType}.
@@ -140,10 +150,11 @@ declare module "@package/net/liukrast/deployer/lib/logistics/packager" {
     export class $StockInventoryType$INetworkHandler<K, V, H> {
     }
     export interface $StockInventoryType$INetworkHandler<K, V, H> {
-        createSummary(): $AbstractInventorySummary<K, V>;
         requestCodec(): $Codec<$GenericRequestPromise<V>>;
+        createSummary(): $AbstractInventorySummary<K, V>;
         empty(): $AbstractInventorySummary<K, V>;
         getComponent(): $DataComponentType<$GenericPackageOrderData<V>>;
+        get component(): $DataComponentType<$GenericPackageOrderData<V>>;
     }
     export class $IdentifiedContainer<H> extends $Record {
         identifier(): $InventoryIdentifier;
@@ -153,7 +164,7 @@ declare module "@package/net/liukrast/deployer/lib/logistics/packager" {
     /**
      * Values that may be interpreted as {@link $IdentifiedContainer}.
      */
-    export type $IdentifiedContainer_<H> = { identifier?: $InventoryIdentifier_, handler?: any,  } | [identifier?: $InventoryIdentifier_, handler?: any, ];
+    export type $IdentifiedContainer_<H> = { handler?: any, identifier?: $InventoryIdentifier_,  } | [handler?: any, identifier?: $InventoryIdentifier_, ];
     export class $StockInventoryType$IPackageHandler<K, V, H> {
     }
     export interface $StockInventoryType$IPackageHandler<K, V, H> {
@@ -161,21 +172,22 @@ declare module "@package/net/liukrast/deployer/lib/logistics/packager" {
         getRandomBox(): $ItemStack;
         setBoxContent(arg0: $ItemStack_, arg1: H): void;
         packageOrderContext(): $DataComponentType<$GenericOrderContained<V>>;
-        getContents(arg0: $ItemStack_): H;
         appendHoverText(arg0: $ItemStack_, arg1: $Item$TooltipContext, arg2: $List_<$Component_>, arg3: $TooltipFlag, arg4: H): void;
+        getContents(arg0: $ItemStack_): H;
         setOrder(arg0: $ItemStack_, arg1: number, arg2: number, arg3: boolean, arg4: number, arg5: boolean, arg6: $GenericOrderContained_<V>): void;
         containing(arg0: H): $ItemStack;
+        get randomBox(): $ItemStack;
     }
     export class $StockInventoryType$IValueHandler<K, V, H> {
-        hashStrategy(): $Hash$Strategy<V>;
-        orderContainedCodec(): $Codec<$GenericOrderContained<V>>;
-        createContained(arg0: $List_<V>): $GenericOrderContained<V>;
         orderContainedStreamCodec(): $StreamCodec<$RegistryFriendlyByteBuf, $GenericOrderContained<V>>;
+        hashStrategy(): $Hash$Strategy<V>;
         orderCodec(): $Codec<$GenericOrder<V>>;
         orderStreamCodec(): $StreamCodec<$RegistryFriendlyByteBuf, $GenericOrder<V>>;
+        createContained(arg0: $List_<V>): $GenericOrderContained<V>;
         isStackable(arg0: V): boolean;
-        streamCodec(): $StreamCodec<$RegistryFriendlyByteBuf, V>;
         copyWithCount(arg0: V, arg1: number): V;
+        streamCodec(): $StreamCodec<$RegistryFriendlyByteBuf, V>;
+        orderContainedCodec(): $Codec<$GenericOrderContained<V>>;
         test(arg0: $FilterItemStack, arg1: $Level_, arg2: V): boolean;
         isEmpty(arg0: V): boolean;
         empty(): V;

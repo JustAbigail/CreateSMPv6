@@ -11,5 +11,6 @@ declare module "@package/dev/bluephs/createvintageneoforged/compat/kubejs/item" 
         id: $ResourceLocation;
         registryKey: $ResourceKey<$Registry<$Item>>;
         constructor(arg0: $ResourceLocation_);
+        set stiffness(value: number);
     }
 }

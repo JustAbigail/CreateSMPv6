@@ -1,4 +1,4 @@
-import { $Command_, $CommandDispatcher, $Command, $RedirectModifier, $RedirectModifier_, $ImmutableStringReader, $ResultConsumer_ } from "@package/com/mojang/brigadier";
+import { $Command_, $Command, $CommandDispatcher, $RedirectModifier, $RedirectModifier_, $ImmutableStringReader, $ResultConsumer_ } from "@package/com/mojang/brigadier";
 import { $Enum, $Class } from "@package/java/lang";
 import { $List, $List_, $Map_, $Map, $Collection } from "@package/java/util";
 import { $CommandNode } from "@package/com/mojang/brigadier/tree";
@@ -15,16 +15,16 @@ declare module "@package/com/mojang/brigadier/context" {
      */
     export type $ContextChain$Stage_ = "modify" | "execute";
     export class $CommandContextBuilder<S> {
+        withArgument(arg0: string, arg1: $ParsedArgument<S, never>): $CommandContextBuilder<S>;
+        withSource(arg0: S): $CommandContextBuilder<S>;
+        getNodes(): $List<$ParsedCommandNode<S>>;
+        getCommand(): $Command<S>;
         withCommand(arg0: $Command_<S>): $CommandContextBuilder<S>;
         withChild(arg0: $CommandContextBuilder<S>): $CommandContextBuilder<S>;
         findSuggestionContext(arg0: number): $SuggestionContext<S>;
-        getNodes(): $List<$ParsedCommandNode<S>>;
-        withSource(arg0: S): $CommandContextBuilder<S>;
-        withArgument(arg0: string, arg1: $ParsedArgument<S, never>): $CommandContextBuilder<S>;
-        getLastChild(): $CommandContextBuilder<S>;
         getRange(): $StringRange;
         getChild(): $CommandContextBuilder<S>;
-        getCommand(): $Command<S>;
+        getLastChild(): $CommandContextBuilder<S>;
         getSource(): S;
         copy(): $CommandContextBuilder<S>;
         build(arg0: string): $CommandContext<S>;
@@ -33,21 +33,34 @@ declare module "@package/com/mojang/brigadier/context" {
         withNode(arg0: $CommandNode<S>, arg1: $StringRange): $CommandContextBuilder<S>;
         getDispatcher(): $CommandDispatcher<S>;
         constructor(arg0: $CommandDispatcher<S>, arg1: S, arg2: $CommandNode<S>, arg3: number);
+        get nodes(): $List<$ParsedCommandNode<S>>;
+        get command(): $Command<S>;
+        get range(): $StringRange;
+        get child(): $CommandContextBuilder<S>;
+        get lastChild(): $CommandContextBuilder<S>;
+        get source(): S;
+        get arguments(): $Map<string, $ParsedArgument<S, never>>;
+        get rootNode(): $CommandNode<S>;
+        get dispatcher(): $CommandDispatcher<S>;
     }
     export class $ContextChain<S> {
+        getTopContext(): $CommandContext<S>;
+        static runExecutable<S>(arg0: $CommandContext<S>, arg1: S, arg2: $ResultConsumer_<S>, arg3: boolean): number;
+        static runModifier<S>(arg0: $CommandContext<S>, arg1: S, arg2: $ResultConsumer_<S>, arg3: boolean): $Collection<S>;
+        getStage(): $ContextChain$Stage;
         static tryFlatten<S>(arg0: $CommandContext<S>): ($ContextChain<S>) | undefined;
         executeAll(arg0: S, arg1: $ResultConsumer_<S>): number;
-        static runModifier<S>(arg0: $CommandContext<S>, arg1: S, arg2: $ResultConsumer_<S>, arg3: boolean): $Collection<S>;
-        static runExecutable<S>(arg0: $CommandContext<S>, arg1: S, arg2: $ResultConsumer_<S>, arg3: boolean): number;
-        getTopContext(): $CommandContext<S>;
         nextStage(): $ContextChain<S>;
-        getStage(): $ContextChain$Stage;
         constructor(arg0: $List_<$CommandContext<S>>, arg1: $CommandContext<S>);
+        get topContext(): $CommandContext<S>;
+        get stage(): $ContextChain$Stage;
     }
     export class $ParsedArgument<S, T> {
         getRange(): $StringRange;
         getResult(): T;
         constructor(arg0: number, arg1: number, arg2: T);
+        get range(): $StringRange;
+        get result(): T;
     }
     export class $SuggestionContext<S> {
         parent: $CommandNode<S>;
@@ -56,24 +69,36 @@ declare module "@package/com/mojang/brigadier/context" {
     }
     export class $CommandContext<S> {
         getNodes(): $List<$ParsedCommandNode<S>>;
+        getRedirectModifier(): $RedirectModifier<S>;
         hasNodes(): boolean;
         isForked(): boolean;
-        getRedirectModifier(): $RedirectModifier<S>;
-        getLastChild(): $CommandContext<S>;
-        getRange(): $StringRange;
-        getInput(): string;
-        getChild(): $CommandContext<S>;
         getCommand(): $Command<S>;
+        getRange(): $StringRange;
+        getChild(): $CommandContext<S>;
+        getLastChild(): $CommandContext<S>;
         getSource(): S;
+        getInput(): string;
         getRootNode(): $CommandNode<S>;
         getArgument<V>(arg0: string, arg1: $Class<V>): V;
         copyFor(arg0: S): $CommandContext<S>;
         constructor(arg0: S, arg1: string, arg2: $Map_<string, $ParsedArgument<S, never>>, arg3: $Command_<S>, arg4: $CommandNode<S>, arg5: $List_<$ParsedCommandNode<S>>, arg6: $StringRange, arg7: $CommandContext<S>, arg8: $RedirectModifier_<S>, arg9: boolean);
+        get nodes(): $List<$ParsedCommandNode<S>>;
+        get redirectModifier(): $RedirectModifier<S>;
+        get forked(): boolean;
+        get command(): $Command<S>;
+        get range(): $StringRange;
+        get child(): $CommandContext<S>;
+        get lastChild(): $CommandContext<S>;
+        get source(): S;
+        get input(): string;
+        get rootNode(): $CommandNode<S>;
     }
     export class $ParsedCommandNode<S> {
         getRange(): $StringRange;
         getNode(): $CommandNode<S>;
         constructor(arg0: $CommandNode<S>, arg1: $StringRange);
+        get range(): $StringRange;
+        get node(): $CommandNode<S>;
     }
     export class $StringRange {
         getEnd(): number;
@@ -86,5 +111,9 @@ declare module "@package/com/mojang/brigadier/context" {
         static between(arg0: number, arg1: number): $StringRange;
         getStart(): number;
         constructor(arg0: number, arg1: number);
+        get end(): number;
+        get length(): number;
+        get empty(): boolean;
+        get start(): number;
     }
 }

@@ -8,6 +8,7 @@ declare module "@package/dev/ryanhcode/offroad/mixin" {
     }
     export interface $MountedStorageAccessor {
         getItemsBuilder(): $Map<$BlockPos, $MountedItemStorage>;
+        get itemsBuilder(): $Map<$BlockPos, $MountedItemStorage>;
     }
     /**
      * Values that may be interpreted as {@link $MountedStorageAccessor}.

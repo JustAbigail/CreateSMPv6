@@ -41,36 +41,42 @@ declare module "@package/java/nio/file" {
         [Symbol.iterator](): Iterator<$Path>
     }
     export interface $Path extends $Comparable<$Path>, $Iterable<$Path>, $Watchable {
+        normalize(): $Path;
+        getFileSystem(): $FileSystem;
+        relativize(arg0: $Path_): $Path;
         getNameCount(): number;
         subpath(arg0: number, arg1: number): $Path;
         toAbsolutePath(): $Path;
         toUri(): $URI;
-        resolveSibling(arg0: string): $Path;
         resolveSibling(arg0: $Path_): $Path;
+        resolveSibling(arg0: string): $Path;
         getName(arg0: number): $Path;
         equals(arg0: $Object): boolean;
         toString(): string;
         hashCode(): number;
         compareTo(arg0: $Path_): number;
-        startsWith(arg0: string): boolean;
         startsWith(arg0: $Path_): boolean;
+        startsWith(arg0: string): boolean;
         iterator(): $Iterator<$Path>;
-        endsWith(arg0: string): boolean;
         endsWith(arg0: $Path_): boolean;
+        endsWith(arg0: string): boolean;
         register(arg0: $WatchService, ...arg1: $WatchEvent$Kind<never>[]): $WatchKey;
         register(arg0: $WatchService, arg1: $WatchEvent$Kind<never>[], ...arg2: $WatchEvent$Modifier_[]): $WatchKey;
         isAbsolute(): boolean;
-        resolve(arg0: string): $Path;
         resolve(arg0: $Path_): $Path;
+        resolve(arg0: string): $Path;
         getParent(): $Path;
         getRoot(): $Path;
         toRealPath(...arg0: $LinkOption_[]): $Path;
         toFile(): $File;
         getFileName(): $Path;
-        normalize(): $Path;
-        getFileSystem(): $FileSystem;
-        relativize(arg0: $Path_): $Path;
         [Symbol.iterator](): Iterator<$Path>
+        get fileSystem(): $FileSystem;
+        get nameCount(): number;
+        get absolute(): boolean;
+        get parent(): $Path;
+        get root(): $Path;
+        get fileName(): $Path;
     }
     /**
      * Values that may be interpreted as {@link $Path}.
@@ -90,6 +96,7 @@ declare module "@package/java/nio/file" {
         [Symbol.iterator](): Iterator<T>
     }
     export class $FileSystem implements $Closeable {
+        getSeparator(): string;
         supportedFileAttributeViews(): $Set<string>;
         newWatchService(): $WatchService;
         getRootDirectories(): $Iterable<$Path>;
@@ -101,7 +108,12 @@ declare module "@package/java/nio/file" {
         close(): void;
         getPath(arg0: string, ...arg1: string[]): $Path;
         isReadOnly(): boolean;
-        getSeparator(): string;
+        get separator(): string;
+        get rootDirectories(): $Iterable<$Path>;
+        get fileStores(): $Iterable<$FileStore>;
+        get userPrincipalLookupService(): $UserPrincipalLookupService;
+        get open(): boolean;
+        get readOnly(): boolean;
     }
     export class $DirectoryStream$Filter<T> {
     }
@@ -124,17 +136,22 @@ declare module "@package/java/nio/file" {
         kind(): $WatchEvent$Kind<T>;
     }
     export class $FileStore {
+        getTotalSpace(): number;
+        getUsableSpace(): number;
+        getAttribute(arg0: string): $Object;
         getUnallocatedSpace(): number;
         getBlockSize(): number;
-        supportsFileAttributeView(arg0: $Class<$FileAttributeView_>): boolean;
         supportsFileAttributeView(arg0: string): boolean;
+        supportsFileAttributeView(arg0: $Class<$FileAttributeView_>): boolean;
         getFileStoreAttributeView<V extends $FileStoreAttributeView>(arg0: $Class<V>): V;
         name(): string;
         type(): string;
         isReadOnly(): boolean;
-        getTotalSpace(): number;
-        getUsableSpace(): number;
-        getAttribute(arg0: string): $Object;
+        get totalSpace(): number;
+        get usableSpace(): number;
+        get unallocatedSpace(): number;
+        get blockSize(): number;
+        get readOnly(): boolean;
     }
     export class $WatchEvent$Kind<T> {
     }
@@ -174,5 +191,6 @@ declare module "@package/java/nio/file" {
         reset(): boolean;
         cancel(): void;
         pollEvents(): $List<$WatchEvent<never>>;
+        get valid(): boolean;
     }
 }

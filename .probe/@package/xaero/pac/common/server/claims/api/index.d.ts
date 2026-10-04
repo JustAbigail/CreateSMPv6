@@ -7,7 +7,7 @@ import { $AreaClaimResult, $ClaimResult } from "@package/xaero/pac/common/claims
 import { $ResourceLocation_, $ResourceLocation } from "@package/net/minecraft/resources";
 import { $IClaimsManagerTrackerAPI } from "@package/xaero/pac/common/claims/tracker/api";
 import { $UUID_ } from "@package/java/util";
-import { $IPlayerChunkClaimAPI } from "@package/xaero/pac/common/claims/player/api";
+import { $IPlayerClaimInfoAPI, $IPlayerChunkClaimAPI } from "@package/xaero/pac/common/claims/player/api";
 import { $IServerPlayerClaimInfoAPI } from "@package/xaero/pac/common/server/claims/player/api";
 
 declare module "@package/xaero/pac/common/server/claims/api" {
@@ -15,24 +15,26 @@ declare module "@package/xaero/pac/common/server/claims/api" {
     }
     export interface $IServerDimensionClaimsManagerAPI extends $IDimensionClaimsManagerAPI {
         getRegionStream(): $Stream<$IServerRegionClaimsAPI>;
-        getRegion(arg0: number, arg1: number): $IServerRegionClaimsAPI;
         getDimension(): $ResourceLocation;
         getCount(): number;
+        getRegion(arg0: number, arg1: number): $IServerRegionClaimsAPI;
+        get regionStream(): $Stream<$IServerRegionClaimsAPI>;
+        get dimension(): $ResourceLocation;
+        get count(): number;
     }
     export class $IServerClaimsManagerAPI {
     }
     export interface $IServerClaimsManagerAPI extends $IClaimsManagerAPI {
-        getTracker(): $IClaimsManagerTrackerAPI;
-        hasPlayerInfo(arg0: $UUID_): boolean;
+        getPlayerInfoStream(): $Stream<$IServerPlayerClaimInfoAPI>;
         getPlayerFullClaimLimit(arg0: $UUID_): number;
         getPlayerFullClaimLimit(arg0: $ServerPlayer): number;
         getPlayerFullForceloadLimit(arg0: $UUID_): number;
         getPlayerFullForceloadLimit(arg0: $ServerPlayer): number;
         getDimensionStream(): $Stream<$IServerDimensionClaimsManagerAPI>;
-        getPlayerInfoStream(): $Stream<$IServerPlayerClaimInfoAPI>;
+        hasPlayerInfo(arg0: $UUID_): boolean;
         unclaim(arg0: $ResourceLocation_, arg1: number, arg2: number): void;
-        getPlayerBaseForceloadLimit(arg0: $ServerPlayer): number;
         getPlayerBaseForceloadLimit(arg0: $UUID_): number;
+        getPlayerBaseForceloadLimit(arg0: $ServerPlayer): number;
         tryToClaim(arg0: $ResourceLocation_, arg1: $UUID_, arg2: number, arg3: number, arg4: number, arg5: number, arg6: number, arg7: boolean): $ClaimResult<$IPlayerChunkClaimAPI>;
         tryToUnclaim(arg0: $ResourceLocation_, arg1: $UUID_, arg2: number, arg3: number, arg4: number, arg5: number, arg6: boolean): $ClaimResult<$IPlayerChunkClaimAPI>;
         tryToForceload(arg0: $ResourceLocation_, arg1: $UUID_, arg2: number, arg3: number, arg4: number, arg5: number, arg6: boolean, arg7: boolean): $ClaimResult<$IPlayerChunkClaimAPI>;
@@ -42,12 +44,16 @@ declare module "@package/xaero/pac/common/server/claims/api" {
         tryToForceloadArea(arg0: $ResourceLocation_, arg1: $UUID_, arg2: number, arg3: number, arg4: number, arg5: number, arg6: number, arg7: number, arg8: boolean, arg9: boolean): $AreaClaimResult;
         getPlayerBaseClaimLimit(arg0: $ServerPlayer): number;
         getPlayerBaseClaimLimit(arg0: $UUID_): number;
+        getTracker(): $IClaimsManagerTrackerAPI;
         claim(arg0: $ResourceLocation_, arg1: $UUID_, arg2: number, arg3: number, arg4: number, arg5: boolean): $IPlayerChunkClaimAPI;
-        getPlayerInfo(arg0: $UUID_): $IServerPlayerClaimInfoAPI;
-        get(arg0: $ResourceLocation_, arg1: number, arg2: number): $IPlayerChunkClaimAPI;
+        getDimension(arg0: $ResourceLocation_): $IServerDimensionClaimsManagerAPI;
         get(arg0: $ResourceLocation_, arg1: $ChunkPos): $IPlayerChunkClaimAPI;
         get(arg0: $ResourceLocation_, arg1: $BlockPos_): $IPlayerChunkClaimAPI;
-        getDimension(arg0: $ResourceLocation_): $IDimensionClaimsManagerAPI;
+        get(arg0: $ResourceLocation_, arg1: number, arg2: number): $IPlayerChunkClaimAPI;
+        getPlayerInfo(arg0: $UUID_): $IPlayerClaimInfoAPI;
+        get playerInfoStream(): $Stream<$IServerPlayerClaimInfoAPI>;
+        get dimensionStream(): $Stream<$IServerDimensionClaimsManagerAPI>;
+        get tracker(): $IClaimsManagerTrackerAPI;
     }
     export class $IServerRegionClaimsAPI {
     }
@@ -55,5 +61,7 @@ declare module "@package/xaero/pac/common/server/claims/api" {
         get(arg0: number, arg1: number): $IPlayerChunkClaimAPI;
         getX(): number;
         getZ(): number;
+        get x(): number;
+        get z(): number;
     }
 }

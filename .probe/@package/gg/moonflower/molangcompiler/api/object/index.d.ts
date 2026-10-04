@@ -5,12 +5,15 @@ declare module "@package/gg/moonflower/molangcompiler/api/object" {
     export class $MolangObject {
     }
     export interface $MolangObject {
-        getKeys(): $Collection<string>;
         has(arg0: string): boolean;
         remove(arg0: string): void;
         get(arg0: string): $MolangExpression;
         set(arg0: string, arg1: $MolangExpression_): void;
+        getKeys(): $Collection<string>;
         getCopy(): $MolangObject;
         isMutable(): boolean;
+        get keys(): $Collection<string>;
+        get copy(): $MolangObject;
+        get mutable(): boolean;
     }
 }

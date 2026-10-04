@@ -17,7 +17,7 @@ declare module "@package/net/neoforged/neoforge/common/world/chunk" {
     /**
      * Values that may be interpreted as {@link $TicketSet}.
      */
-    export type $TicketSet_ = { nonTicking?: $LongSet, ticking?: $LongSet,  } | [nonTicking?: $LongSet, ticking?: $LongSet, ];
+    export type $TicketSet_ = { ticking?: $LongSet, nonTicking?: $LongSet,  } | [ticking?: $LongSet, nonTicking?: $LongSet, ];
     /**
      * Class to help mods remove no longer valid tickets.
      */
@@ -46,13 +46,15 @@ declare module "@package/net/neoforged/neoforge/common/world/chunk" {
          * @return all "BLOCK" tickets this controller had registered and which block positions are forcing which chunks
          */
         getEntityTickets(): $Map<$UUID, $TicketSet>;
+        get blockTickets(): $Map<$BlockPos, $TicketSet>;
+        get entityTickets(): $Map<$UUID, $TicketSet>;
     }
     export class $TicketController extends $Record {
-        forceChunk(arg0: $ServerLevel, arg1: $Entity, arg2: number, arg3: number, arg4: boolean, arg5: boolean): boolean;
-        forceChunk(arg0: $ServerLevel, arg1: $UUID_, arg2: number, arg3: number, arg4: boolean, arg5: boolean): boolean;
         forceChunk(arg0: $ServerLevel, arg1: $BlockPos_, arg2: number, arg3: number, arg4: boolean, arg5: boolean): boolean;
-        callback(): $LoadingValidationCallback;
+        forceChunk(arg0: $ServerLevel, arg1: $UUID_, arg2: number, arg3: number, arg4: boolean, arg5: boolean): boolean;
+        forceChunk(arg0: $ServerLevel, arg1: $Entity, arg2: number, arg3: number, arg4: boolean, arg5: boolean): boolean;
         id(): $ResourceLocation;
+        callback(): $LoadingValidationCallback;
         constructor(id: $ResourceLocation_, callback: $LoadingValidationCallback_);
         constructor(arg0: $ResourceLocation_);
     }

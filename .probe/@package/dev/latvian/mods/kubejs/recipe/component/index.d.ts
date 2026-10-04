@@ -21,18 +21,20 @@ declare module "@package/dev/latvian/mods/kubejs/recipe/component" {
         static builder(keys: $List_<$CustomObjectRecipeComponent$Key_>): $CustomObjectRecipeComponent;
     }
     export interface $RecipeComponent<T> {
-        hasPriority(cx: $RecipeMatchContext, from: $Object): boolean;
+        writeToJson(recipe: $KubeRecipe, cv: $RecipeComponentValue<T>, json: $JsonObject_): void;
+        inputKey(name: string): $RecipeKey<T>;
+        outputKey(name: string): $RecipeKey<T>;
+        buildUniqueId(builder: $UniqueIdBuilder_, value: T): void;
         asListOrSelf(): $ListRecipeComponent<T>;
         asConditionalList(): $ListRecipeComponent<T>;
+        asConditionalListOrSelf(): $ListRecipeComponent<T>;
         asPatternKey(): $RecipeComponent<$TinyMap<string, T>>;
         withCodec(codec: $Codec<T>): $RecipeComponent<T>;
+        hasPriority(cx: $RecipeMatchContext, from: $Object): boolean;
         readFromJson(recipe: $KubeRecipe, cv: $RecipeComponentValue<T>, json: $JsonObject_): void;
-        asConditionalListOrSelf(): $ListRecipeComponent<T>;
-        writeToJson(recipe: $KubeRecipe, cv: $RecipeComponentValue<T>, json: $JsonObject_): void;
-        buildUniqueId(builder: $UniqueIdBuilder_, value: T): void;
         orSelf(): $RecipeComponent<T>;
-        inputKey(name: string): $RecipeKey<T>;
         or<O>(other: $RecipeComponent<O>): $EitherRecipeComponent<T, O>;
+        isIgnored(): boolean;
         type(): $RecipeComponentType<never>;
         toString(ops: $OpsContainer, value: T): string;
         wrap(cx: $RecipeScriptContext, from: $Object): T;
@@ -44,13 +46,12 @@ declare module "@package/dev/latvian/mods/kubejs/recipe/component" {
         key(name: string, role: $ComponentRole_): $RecipeKey<T>;
         asList(): $ListRecipeComponent<T>;
         spread(value: T): $List<never>;
-        isIgnored(): boolean;
         createBuilder(): $RecipeComponentBuilder;
         asMap<K>(key: $RecipeComponent<K>): $RecipeComponent<$TinyMap<K, T>>;
-        outputKey(name: string): $RecipeKey<T>;
         allowEmpty(): boolean;
         codec(): $Codec<T>;
         otherKey(name: string): $RecipeKey<T>;
+        get ignored(): boolean;
     }
     export class $UniqueIdBuilder extends $Record {
         append(string: string): void;
@@ -68,9 +69,9 @@ declare module "@package/dev/latvian/mods/kubejs/recipe/component" {
      */
     export type $UniqueIdBuilder_ = { builder?: $StringBuilder,  } | [builder?: $StringBuilder, ];
     export class $CustomObjectRecipeComponent implements $RecipeComponent<$List<$CustomObjectRecipeComponent$Value>> {
-        hasPriority(cx: $RecipeMatchContext, from: $Object): boolean;
-        hasPriority(hasPriority: $Predicate_<$Set<string>>): $CustomObjectRecipeComponent;
         buildUniqueId(builder: $UniqueIdBuilder_, list: $List_<$CustomObjectRecipeComponent$Value_>): void;
+        hasPriority(hasPriority: $Predicate_<$Set<string>>): $CustomObjectRecipeComponent;
+        hasPriority(cx: $RecipeMatchContext, from: $Object): boolean;
         createCopy(): $CustomObjectRecipeComponent;
         type(): $RecipeComponentType<never>;
         isEmpty(value: $List_<$CustomObjectRecipeComponent$Value_>): boolean;
@@ -81,29 +82,30 @@ declare module "@package/dev/latvian/mods/kubejs/recipe/component" {
         keys(): $List<$CustomObjectRecipeComponent$Key>;
         codec(): $Codec<$List<$CustomObjectRecipeComponent$Value>>;
         mapCodec(): $MapCodec<$List<$CustomObjectRecipeComponent$Value>>;
+        writeToJson(recipe: $KubeRecipe, cv: $RecipeComponentValue<$List_<$CustomObjectRecipeComponent$Value_>>, json: $JsonObject_): void;
+        inputKey(name: string): $RecipeKey<$List<$CustomObjectRecipeComponent$Value>>;
+        outputKey(name: string): $RecipeKey<$List<$CustomObjectRecipeComponent$Value>>;
         asListOrSelf(): $ListRecipeComponent<$List<$CustomObjectRecipeComponent$Value>>;
         asConditionalList(): $ListRecipeComponent<$List<$CustomObjectRecipeComponent$Value>>;
+        asConditionalListOrSelf(): $ListRecipeComponent<$List<$CustomObjectRecipeComponent$Value>>;
         asPatternKey(): $RecipeComponent<$TinyMap<string, $List<$CustomObjectRecipeComponent$Value>>>;
         withCodec(codec: $Codec<$List_<$CustomObjectRecipeComponent$Value_>>): $RecipeComponent<$List<$CustomObjectRecipeComponent$Value>>;
         readFromJson(recipe: $KubeRecipe, cv: $RecipeComponentValue<$List_<$CustomObjectRecipeComponent$Value_>>, json: $JsonObject_): void;
-        asConditionalListOrSelf(): $ListRecipeComponent<$List<$CustomObjectRecipeComponent$Value>>;
-        writeToJson(recipe: $KubeRecipe, cv: $RecipeComponentValue<$List_<$CustomObjectRecipeComponent$Value_>>, json: $JsonObject_): void;
         orSelf(): $RecipeComponent<$List<$CustomObjectRecipeComponent$Value>>;
-        inputKey(name: string): $RecipeKey<$List<$CustomObjectRecipeComponent$Value>>;
         or<O>(other: $RecipeComponent<O>): $EitherRecipeComponent<$List<$CustomObjectRecipeComponent$Value>, O>;
+        isIgnored(): boolean;
         toString(ops: $OpsContainer, value: $List_<$CustomObjectRecipeComponent$Value_>): string;
         key(name: string, role: $ComponentRole_): $RecipeKey<$List<$CustomObjectRecipeComponent$Value>>;
         asList(): $ListRecipeComponent<$List<$CustomObjectRecipeComponent$Value>>;
         spread(value: $List_<$CustomObjectRecipeComponent$Value_>): $List<never>;
-        isIgnored(): boolean;
         createBuilder(): $RecipeComponentBuilder;
         asMap<K>(key: $RecipeComponent<K>): $RecipeComponent<$TinyMap<K, $List<$CustomObjectRecipeComponent$Value>>>;
-        outputKey(name: string): $RecipeKey<$List<$CustomObjectRecipeComponent$Value>>;
         allowEmpty(): boolean;
         otherKey(name: string): $RecipeKey<$List<$CustomObjectRecipeComponent$Value>>;
         wrap(cx: $RecipeScriptContext, from: $Object): $List<$CustomObjectRecipeComponent$Value>;
         static TYPE: $RecipeComponentType<never>;
         constructor(keys: $List_<$CustomObjectRecipeComponent$Key_>);
+        get ignored(): boolean;
     }
     export class $RecipeValidationContext {
     }
@@ -126,47 +128,53 @@ declare module "@package/dev/latvian/mods/kubejs/recipe/component" {
         left(): $RecipeComponent<H>;
         right(): $RecipeComponent<L>;
         codec(): $Codec<$Either<H, L>>;
-        hasPriority(cx: $RecipeMatchContext, from: $Object): boolean;
+        writeToJson(recipe: $KubeRecipe, cv: $RecipeComponentValue<$Either<H, L>>, json: $JsonObject_): void;
+        inputKey(name: string): $RecipeKey<$Either<H, L>>;
+        outputKey(name: string): $RecipeKey<$Either<H, L>>;
         asListOrSelf(): $ListRecipeComponent<$Either<H, L>>;
         asConditionalList(): $ListRecipeComponent<$Either<H, L>>;
+        asConditionalListOrSelf(): $ListRecipeComponent<$Either<H, L>>;
         asPatternKey(): $RecipeComponent<$TinyMap<string, $Either<H, L>>>;
         withCodec(codec: $Codec<$Either<H, L>>): $RecipeComponent<$Either<H, L>>;
+        hasPriority(cx: $RecipeMatchContext, from: $Object): boolean;
         readFromJson(recipe: $KubeRecipe, cv: $RecipeComponentValue<$Either<H, L>>, json: $JsonObject_): void;
-        asConditionalListOrSelf(): $ListRecipeComponent<$Either<H, L>>;
-        writeToJson(recipe: $KubeRecipe, cv: $RecipeComponentValue<$Either<H, L>>, json: $JsonObject_): void;
         orSelf(): $RecipeComponent<$Either<H, L>>;
-        inputKey(name: string): $RecipeKey<$Either<H, L>>;
         or<O>(other: $RecipeComponent<O>): $EitherRecipeComponent<$Either<H, L>, O>;
+        isIgnored(): boolean;
         isEmpty(value: $Either<H, L>): boolean;
         key(name: string, role: $ComponentRole_): $RecipeKey<$Either<H, L>>;
         asList(): $ListRecipeComponent<$Either<H, L>>;
-        isIgnored(): boolean;
         createBuilder(): $RecipeComponentBuilder;
         asMap<K>(key: $RecipeComponent<K>): $RecipeComponent<$TinyMap<K, $Either<H, L>>>;
-        outputKey(name: string): $RecipeKey<$Either<H, L>>;
         allowEmpty(): boolean;
         otherKey(name: string): $RecipeKey<$Either<H, L>>;
         wrap(cx: $RecipeScriptContext, from: $Object): $Either<H, L>;
         static TYPE: $RecipeComponentType<never>;
         constructor(left: $RecipeComponent<H>, right: $RecipeComponent<L>);
         constructor(left: $RecipeComponent<H>, right: $RecipeComponent<L>, codec: $Codec<$Either<H, L>>, typeInfo: $TypeInfo_);
+        get ignored(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $EitherRecipeComponent}.
      */
-    export type $EitherRecipeComponent_<H, L> = { codec?: $Codec<$Either<any, any>>, left?: $RecipeComponent<any>, typeInfo?: $TypeInfo_, right?: $RecipeComponent<any>,  } | [codec?: $Codec<$Either<any, any>>, left?: $RecipeComponent<any>, typeInfo?: $TypeInfo_, right?: $RecipeComponent<any>, ];
+    export type $EitherRecipeComponent_<H, L> = { left?: $RecipeComponent<any>, codec?: $Codec<$Either<any, any>>, right?: $RecipeComponent<any>, typeInfo?: $TypeInfo_,  } | [left?: $RecipeComponent<any>, codec?: $Codec<$Either<any, any>>, right?: $RecipeComponent<any>, typeInfo?: $TypeInfo_, ];
     export class $ComponentRole extends $Enum<$ComponentRole> implements $StringRepresentable {
         isOutput(): boolean;
         isInput(): boolean;
+        isOther(): boolean;
         static values(): $ComponentRole[];
         static valueOf(name: string): $ComponentRole;
-        isOther(): boolean;
         getSerializedName(): string;
         getRemappedEnumConstantName(): string;
         static OTHER: $ComponentRole;
         static INPUT: $ComponentRole;
         static CODEC: $Codec<$ComponentRole>;
         static OUTPUT: $ComponentRole;
+        get output(): boolean;
+        get input(): boolean;
+        get other(): boolean;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $ComponentRole}.
@@ -185,7 +193,7 @@ declare module "@package/dev/latvian/mods/kubejs/recipe/component" {
     /**
      * Values that may be interpreted as {@link $CustomObjectRecipeComponent$Value}.
      */
-    export type $CustomObjectRecipeComponent$Value_ = { key?: $CustomObjectRecipeComponent$Key_, value?: $Object, index?: number,  } | [key?: $CustomObjectRecipeComponent$Key_, value?: $Object, index?: number, ];
+    export type $CustomObjectRecipeComponent$Value_ = { key?: $CustomObjectRecipeComponent$Key_, index?: number, value?: $Object,  } | [key?: $CustomObjectRecipeComponent$Key_, index?: number, value?: $Object, ];
     export class $RecipeComponentCodecFactory<CT extends $RecipeComponent<never>> {
     }
     export interface $RecipeComponentCodecFactory<CT extends $RecipeComponent<never>> {
@@ -231,16 +239,16 @@ declare module "@package/dev/latvian/mods/kubejs/recipe/component" {
     /**
      * Values that may be interpreted as {@link $CustomObjectRecipeComponent$Key}.
      */
-    export type $CustomObjectRecipeComponent$Key_ = { component?: $RecipeComponent<never>, alwaysWrite?: boolean, optional?: boolean, name?: string,  } | [component?: $RecipeComponent<never>, alwaysWrite?: boolean, optional?: boolean, name?: string, ];
+    export type $CustomObjectRecipeComponent$Key_ = { component?: $RecipeComponent<never>, name?: string, optional?: boolean, alwaysWrite?: boolean,  } | [component?: $RecipeComponent<never>, name?: string, optional?: boolean, alwaysWrite?: boolean, ];
     export class $ListRecipeComponent<T> extends $Record implements $RecipeComponent<$List<T>> {
-        hasPriority(cx: $RecipeMatchContext, from: $Object): boolean;
-        canWriteSelf(): boolean;
-        listTypeInfo(): $TypeInfo;
-        spreadWrap(): ($RecipeComponent<never>) | undefined;
-        static wrap0<T>(cx: $RecipeScriptContext, component: $RecipeComponent<T>, from: $Object): $List<T>;
         asConditional(): $ListRecipeComponent<$List<T>>;
-        withSpread(spread: ($RecipeComponent<never>) | undefined): $ListRecipeComponent<$List<T>>;
+        listTypeInfo(): $TypeInfo;
+        canWriteSelf(): boolean;
+        spreadWrap(): ($RecipeComponent<never>) | undefined;
         buildUniqueId(builder: $UniqueIdBuilder_, value: $List_<$List_<T>>): void;
+        static wrap0<T>(cx: $RecipeScriptContext, component: $RecipeComponent<T>, from: $Object): $List<T>;
+        withSpread(spread: ($RecipeComponent<never>) | undefined): $ListRecipeComponent<$List<T>>;
+        hasPriority(cx: $RecipeMatchContext, from: $Object): boolean;
         withBounds(bounds: $IntBounds_): $ListRecipeComponent<$List<T>>;
         listCodec(): $Codec<$List<$List<T>>>;
         type(): $RecipeComponentType<never>;
@@ -258,43 +266,44 @@ declare module "@package/dev/latvian/mods/kubejs/recipe/component" {
         allowEmpty(): boolean;
         codec(): $Codec<$List<$List<T>>>;
         conditional(): boolean;
+        writeToJson(recipe: $KubeRecipe, cv: $RecipeComponentValue<$List_<T>>, json: $JsonObject_): void;
+        inputKey(name: string): $RecipeKey<$List<T>>;
+        outputKey(name: string): $RecipeKey<$List<T>>;
         asListOrSelf(): $ListRecipeComponent<$List<T>>;
         asConditionalList(): $ListRecipeComponent<$List<T>>;
+        asConditionalListOrSelf(): $ListRecipeComponent<$List<T>>;
         asPatternKey(): $RecipeComponent<$TinyMap<string, $List<T>>>;
         withCodec(codec: $Codec<$List_<T>>): $RecipeComponent<$List<T>>;
         readFromJson(recipe: $KubeRecipe, cv: $RecipeComponentValue<$List_<T>>, json: $JsonObject_): void;
-        asConditionalListOrSelf(): $ListRecipeComponent<$List<T>>;
-        writeToJson(recipe: $KubeRecipe, cv: $RecipeComponentValue<$List_<T>>, json: $JsonObject_): void;
-        inputKey(name: string): $RecipeKey<$List<T>>;
         or<O>(other: $RecipeComponent<O>): $EitherRecipeComponent<$List<T>, O>;
+        isIgnored(): boolean;
         toString(ops: $OpsContainer, value: $List_<T>): string;
         key(name: string, role: $ComponentRole_): $RecipeKey<$List<T>>;
         asList(): $ListRecipeComponent<$List<T>>;
-        isIgnored(): boolean;
         createBuilder(): $RecipeComponentBuilder;
         asMap<K>(key: $RecipeComponent<K>): $RecipeComponent<$TinyMap<K, $List<T>>>;
-        outputKey(name: string): $RecipeKey<$List<T>>;
         otherKey(name: string): $RecipeKey<$List<T>>;
         orSelf(): $RecipeComponent<$List<T>>;
         wrap(cx: $RecipeScriptContext, from: $Object): $List<T>;
         static TYPE: $RecipeComponentType<never>;
         constructor(component: $RecipeComponent<$List_<T>>, canWriteSelf: boolean, listTypeInfo: $TypeInfo_, listCodec: $Codec<$List_<$List_<T>>>, conditional: boolean, bounds: $IntBounds_, spread: ($RecipeComponent<never>) | undefined, spreadWrap: ($RecipeComponent<never>) | undefined);
+        get ignored(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $ListRecipeComponent}.
      */
-    export type $ListRecipeComponent_<T> = { canWriteSelf?: boolean, component?: $RecipeComponent<any>, spreadWrap?: ($RecipeComponent<never>) | undefined, spread?: ($RecipeComponent<never>) | undefined, bounds?: $IntBounds_, listTypeInfo?: $TypeInfo_, conditional?: boolean, listCodec?: $Codec<$List_<any>>,  } | [canWriteSelf?: boolean, component?: $RecipeComponent<any>, spreadWrap?: ($RecipeComponent<never>) | undefined, spread?: ($RecipeComponent<never>) | undefined, bounds?: $IntBounds_, listTypeInfo?: $TypeInfo_, conditional?: boolean, listCodec?: $Codec<$List_<any>>, ];
+    export type $ListRecipeComponent_<T> = { spreadWrap?: ($RecipeComponent<never>) | undefined, component?: $RecipeComponent<any>, canWriteSelf?: boolean, listCodec?: $Codec<$List_<any>>, conditional?: boolean, listTypeInfo?: $TypeInfo_, bounds?: $IntBounds_, spread?: ($RecipeComponent<never>) | undefined,  } | [spreadWrap?: ($RecipeComponent<never>) | undefined, component?: $RecipeComponent<any>, canWriteSelf?: boolean, listCodec?: $Codec<$List_<any>>, conditional?: boolean, listTypeInfo?: $TypeInfo_, bounds?: $IntBounds_, spread?: ($RecipeComponent<never>) | undefined, ];
     export class $RecipeComponentType<T> {
-        isUnit(): boolean;
         inputKey(name: string): $RecipeKey<T>;
+        outputKey(name: string): $RecipeKey<T>;
+        isUnit(): boolean;
         id(): $ResourceLocation;
         key(name: string, role: $ComponentRole_): $RecipeKey<T>;
         instance(): $RecipeComponent<T>;
-        static dynamic<CT extends $RecipeComponent<never>>(id: $ResourceLocation_, codecFactory: $RecipeComponentCodecFactory_<CT>): $RecipeComponentType<never>;
         static dynamic<CT extends $RecipeComponent<never>>(id: $ResourceLocation_, mapCodec: $MapCodec_<CT>): $RecipeComponentType<never>;
+        static dynamic<CT extends $RecipeComponent<never>>(id: $ResourceLocation_, codecFactory: $RecipeComponentCodecFactory_<CT>): $RecipeComponentType<never>;
         static unit<T>(id: $ResourceLocation_, instance: $RecipeComponent<T>): $RecipeComponentType$Unit<T>;
         static unit<T>(id: $ResourceLocation_, instanceGetter: $Function_<$RecipeComponentType<T>, $RecipeComponent<T>>): $RecipeComponentType$Unit<T>;
-        outputKey(name: string): $RecipeKey<T>;
         mapCodec(ctx: $RecipeTypeRegistryContext_): $MapCodec<$RecipeComponent<never>>;
         otherKey(name: string): $RecipeKey<T>;
         constructor(id: $ResourceLocation_);

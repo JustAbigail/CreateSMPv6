@@ -22,7 +22,7 @@ declare module "@package/dev/latvian/mods/kubejs/recipe/schema/postprocessing" {
     export class $RecipePostProcessor {
     }
     export interface $RecipePostProcessor {
-        type(): $RecipePostProcessorType<never>;
         process(ctx: $RecipeValidationContext, recipe: $KubeRecipe): void;
+        type(): $RecipePostProcessorType<never>;
     }
 }

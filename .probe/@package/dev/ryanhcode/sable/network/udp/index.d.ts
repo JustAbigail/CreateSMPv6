@@ -12,10 +12,10 @@ declare module "@package/dev/ryanhcode/sable/network/udp" {
     export class $SableUDPServer {
         receiveAuthenticationPacket(arg0: $UUID_, arg1: $InetSocketAddress): void;
         receiveAlivePacket(arg0: $InetSocketAddress): void;
+        sendUDPPacket(arg0: $ServerPlayer, arg1: $SableUDPPacket_, arg2: boolean): boolean;
         sendPings(): void;
         beginAuthentication(arg0: $ServerPlayer): void;
         isConnectedTo(arg0: $ServerPlayer): boolean;
-        sendUDPPacket(arg0: $ServerPlayer, arg1: $SableUDPPacket_, arg2: boolean): boolean;
         static getServer(arg0: $MinecraftServer): $SableUDPServer;
         static PING_INTERVAL: number;
         constructor(arg0: $MinecraftServer, arg1: $Channel);
@@ -42,9 +42,10 @@ declare module "@package/dev/ryanhcode/sable/network/udp" {
         static configureInMemoryPipeline(arg0: $ChannelPipeline, arg1: $PacketFlow_): void;
     }
     export interface $SableUDPPacket {
-        handleClient(arg0: $Level_): void;
         handleServer(arg0: $MinecraftServer, arg1: $InetSocketAddress): void;
+        handleClient(arg0: $Level_): void;
         getType(): $SableUDPPacketType;
+        get type(): $SableUDPPacketType;
     }
     /**
      * Values that may be interpreted as {@link $SableUDPPacket}.

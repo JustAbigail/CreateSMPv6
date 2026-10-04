@@ -22,38 +22,39 @@ export * as predicates from "@package/org/betterx/wover/biome/api/modification/p
 
 declare module "@package/org/betterx/wover/biome/api/modification" {
     export class $BiomeModification$Builder {
-        hasConfig<T, R extends $AbstractConfig$Value<T, R>>(arg0: $AbstractConfig$Value<T, R>, arg1: T): $BiomeModification$Builder;
-        isVanilla(): $BiomeModification$Builder;
         inBiomes(...arg0: $ResourceKey_<$Biome>[]): $BiomeModification$Builder;
-        directHolder(): $Holder<$BiomeModification>;
         notInBiomes(...arg0: $ResourceKey_<$Biome>[]): $BiomeModification$Builder;
         inDimension(arg0: $ResourceKey_<$LevelStem>): $BiomeModification$Builder;
         inOverworld(): $BiomeModification$Builder;
+        inEnd(): $BiomeModification$Builder;
+        inNether(): $BiomeModification$Builder;
         hasStructure(arg0: $ResourceKey_<$Structure>): $BiomeModification$Builder;
         hasPlacedFeature(arg0: $ResourceKey_<$PlacedFeature>): $BiomeModification$Builder;
         hasConfiguredFeature(arg0: $ResourceKey_<$ConfiguredFeature<never, never>>): $BiomeModification$Builder;
         inNamespace(arg0: string): $BiomeModification$Builder;
         inNamespace(arg0: $ModCore): $BiomeModification$Builder;
-        notInNamespace(arg0: string): $BiomeModification$Builder;
         notInNamespace(arg0: $ModCore): $BiomeModification$Builder;
-        inEnd(): $BiomeModification$Builder;
-        inNether(): $BiomeModification$Builder;
+        notInNamespace(arg0: string): $BiomeModification$Builder;
         addStructureSet(arg0: $TagKey_<$Biome>): $BiomeModification$Builder;
         addStructureSet(arg0: $StructureKey<never, never, never>): $BiomeModification$Builder;
-        anyOf(...arg0: $BiomePredicate[]): $BiomeModification$Builder;
-        allOf(...arg0: $BiomePredicate[]): $BiomeModification$Builder;
+        hasConfig<T, R extends $AbstractConfig$Value<T, R>>(arg0: $AbstractConfig$Value<T, R>, arg1: T): $BiomeModification$Builder;
+        directHolder(): $Holder<$BiomeModification>;
         addToTag(arg0: $TagKey_<$Biome>): $BiomeModification$Builder;
         hasTag(arg0: $TagKey_<$Biome>): $BiomeModification$Builder;
         spawns(arg0: $EntityType_<never>): $BiomeModification$Builder;
         addSpawn<M extends $Mob>(arg0: $EntityType_<M>, arg1: number, arg2: number, arg3: number): $BiomeModification$Builder;
         addSpawn<M extends $Mob>(arg0: $MobSpawnSettings$SpawnerData): $BiomeModification$Builder;
         isBiome(arg0: $ResourceKey_<$Biome>): $BiomeModification$Builder;
-        addFeature(arg0: $GenerationStep$Decoration_, arg1: $ResourceKey_<$PlacedFeature>): $BiomeModification$Builder;
         addFeature(arg0: $GenerationStep$Decoration_, arg1: $Holder_<$PlacedFeature>): $BiomeModification$Builder;
         addFeature(arg0: $BasePlacedFeatureKey<never>): $BiomeModification$Builder;
+        addFeature(arg0: $GenerationStep$Decoration_, arg1: $ResourceKey_<$PlacedFeature>): $BiomeModification$Builder;
         predicate(arg0: $BiomePredicate): $BiomeModification$Builder;
         not(arg0: $BiomePredicate): $BiomeModification$Builder;
+        anyOf(...arg0: $BiomePredicate[]): $BiomeModification$Builder;
         register(): $Holder<$BiomeModification>;
+        allOf(...arg0: $BiomePredicate[]): $BiomeModification$Builder;
+        isVanilla(): $BiomeModification$Builder;
+        get vanilla(): $BiomeModification$Builder;
     }
     export class $BiomeModification {
         static build(arg0: $BootstrapContext<$BiomeModification_>, arg1: $ResourceLocation_): $BiomeModification$Builder;
@@ -62,10 +63,10 @@ declare module "@package/org/betterx/wover/biome/api/modification" {
         static NETWORK_CODEC: $Codec<$BiomeModification>;
     }
     export interface $BiomeModification {
-        biomeTags(): $List<$TagKey<$Biome>>;
         featureKeys(): $List<$List<$ResourceKey<$PlacedFeature>>>;
-        features(): $List<$List<$Holder<$PlacedFeature>>>;
+        biomeTags(): $List<$TagKey<$Biome>>;
         spawns(): $List<$MobSpawnSettings$SpawnerData>;
+        features(): $List<$List<$Holder<$PlacedFeature>>>;
         predicate(): $BiomePredicate;
         apply(arg0: $GenerationSettingsWorker, arg1: $MobSettingsWorker): void;
     }

@@ -6,6 +6,7 @@ declare module "@package/dev/ryanhcode/sable/mixin/config" {
     }
     export interface $GameRendererAccessor {
         getShaders(): $Map<string, $ShaderInstance>;
+        get shaders(): $Map<string, $ShaderInstance>;
     }
     /**
      * Values that may be interpreted as {@link $GameRendererAccessor}.

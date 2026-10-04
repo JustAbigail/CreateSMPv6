@@ -14,9 +14,9 @@ declare module "@package/net/minecraft/commands/functions" {
         entries(): $List<$UnboundEntryAction<T>>;
     }
     export class $CommandFunction<T> {
-        static parseCommand<T extends $ExecutionCommandSource<T>>(dispatcher: $CommandDispatcher<T>, source: T, command: $StringReader): $UnboundEntryAction<T>;
         static fromLines<T extends $ExecutionCommandSource<T>>(id: $ResourceLocation_, dispatcher: $CommandDispatcher<T>, source: T, lines: $List_<string>): $CommandFunction<T>;
         static checkCommandLineLength(command: $CharSequence): void;
+        static parseCommand<T extends $ExecutionCommandSource<T>>(dispatcher: $CommandDispatcher<T>, source: T, command: $StringReader): $UnboundEntryAction<T>;
     }
     export interface $CommandFunction<T> {
         id(): $ResourceLocation;

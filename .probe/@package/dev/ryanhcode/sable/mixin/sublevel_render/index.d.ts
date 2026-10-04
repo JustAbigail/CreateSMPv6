@@ -6,6 +6,7 @@ declare module "@package/dev/ryanhcode/sable/mixin/sublevel_render" {
     }
     export interface $RenderSectionAccessor {
         getGlobalBlockEntities(): $Set<$BlockEntity>;
+        get globalBlockEntities(): $Set<$BlockEntity>;
     }
     /**
      * Values that may be interpreted as {@link $RenderSectionAccessor}.

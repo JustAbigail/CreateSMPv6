@@ -27,30 +27,31 @@ declare module "@package/net/minecraft/data/recipes" {
         /**
          * Adds a key to the recipe pattern.
          */
+        define(symbol: string, tag: $TagKey_<$Item>): $ShapedRecipeBuilder;
+        /**
+         * Adds a key to the recipe pattern.
+         */
         define(symbol: string, item: $ItemLike_): $ShapedRecipeBuilder;
         /**
          * Adds a key to the recipe pattern.
          */
         define(symbol: string, ingredient: $Ingredient_): $ShapedRecipeBuilder;
-        /**
-         * Adds a key to the recipe pattern.
-         */
-        define(symbol: string, tag: $TagKey_<$Item>): $ShapedRecipeBuilder;
-        /**
-         * Creates a new builder for a shaped recipe.
-         */
-        static shaped(category: $RecipeCategory_, result: $ItemLike_, count: number): $ShapedRecipeBuilder;
+        static shaped(arg0: $RecipeCategory_, arg1: $ItemStack_): $ShapedRecipeBuilder;
         /**
          * Creates a new builder for a shaped recipe.
          */
         static shaped(category: $RecipeCategory_, result: $ItemLike_): $ShapedRecipeBuilder;
-        static shaped(arg0: $RecipeCategory_, arg1: $ItemStack_): $ShapedRecipeBuilder;
+        /**
+         * Creates a new builder for a shaped recipe.
+         */
+        static shaped(category: $RecipeCategory_, result: $ItemLike_, count: number): $ShapedRecipeBuilder;
         save(recipeOutput: $RecipeOutput): void;
         save(recipeOutput: $RecipeOutput, id: string): void;
         unlockedBy(name: string, criterion: $Criterion_<never>): $RecipeBuilder;
         group(groupName: string | null): $RecipeBuilder;
-        constructor(category: $RecipeCategory_, result: $ItemLike_, count: number);
         constructor(arg0: $RecipeCategory_, arg1: $ItemStack_);
+        constructor(category: $RecipeCategory_, result: $ItemLike_, count: number);
+        get result(): $Item;
     }
     export class $RecipeBuilder {
         static getDefaultRecipeId(itemLike: $ItemLike_): $ResourceLocation;
@@ -64,6 +65,7 @@ declare module "@package/net/minecraft/data/recipes" {
         save(recipeOutput: $RecipeOutput): void;
         save(recipeOutput: $RecipeOutput, id: string): void;
         save(recipeOutput: $RecipeOutput, id: $ResourceLocation_): void;
+        get result(): $Item;
     }
     export class $RecipeCategory extends $Enum<$RecipeCategory> {
         getFolderName(): string;
@@ -78,6 +80,7 @@ declare module "@package/net/minecraft/data/recipes" {
         static DECORATIONS: $RecipeCategory;
         static TOOLS: $RecipeCategory;
         static FOOD: $RecipeCategory;
+        get folderName(): string;
     }
     /**
      * Values that may be interpreted as {@link $RecipeCategory}.
@@ -86,18 +89,24 @@ declare module "@package/net/minecraft/data/recipes" {
     export class $RecipeOutput {
     }
     export interface $RecipeOutput extends $IRecipeOutputExtension, $RecipeOutputMixin, $FabricRecipeExporter, $RecipeExporterMixin {
-        advancement(): $Advancement$Builder;
         getRecipeIdentifier(arg0: $ResourceLocation_): $ResourceLocation;
+        advancement(): $Advancement$Builder;
         accept(location: $ResourceLocation_, recipe: $Recipe<never>, advancement: $AdvancementHolder_ | null): void;
     }
     export class $RecipeProvider implements $DataProvider {
         static grate(recipeOutput: $RecipeOutput, bulbBlock: $Block_, material: $Block_): void;
-        static wall(recipeOutput: $RecipeOutput, category: $RecipeCategory_, chiseledResult: $ItemLike_, material: $ItemLike_): void;
+        static banner(recipeOutput: $RecipeOutput, banner: $ItemLike_, material: $ItemLike_): void;
+        static candle(recipeOutput: $RecipeOutput, banner: $ItemLike_, material: $ItemLike_): void;
+        static carpet(recipeOutput: $RecipeOutput, banner: $ItemLike_, material: $ItemLike_): void;
+        static slab(recipeOutput: $RecipeOutput, category: $RecipeCategory_, chiseledResult: $ItemLike_, material: $ItemLike_): void;
+        buildAdvancement(arg0: $CachedOutput_, arg1: $HolderLookup$Provider, arg2: $AdvancementHolder_, ...arg3: $ICondition[]): $CompletableFuture<never>;
+        buildAdvancement(output: $CachedOutput_, registries: $HolderLookup$Provider, advancement: $AdvancementHolder_): $CompletableFuture<never>;
         static netheriteSmithing(recipeOutput: $RecipeOutput, ingredientItem: $Item_, category: $RecipeCategory_, resultItem: $Item_): void;
+        generateForEnabledBlockFamilies(recipeOutput: $RecipeOutput, enabledFeatures: $FeatureFlagSet): void;
         static trimSmithing(recipeOutput: $RecipeOutput, ingredientItem: $Item_, location: $ResourceLocation_): void;
         static twoByTwoPacker(recipeOutput: $RecipeOutput, category: $RecipeCategory_, chiseledResult: $ItemLike_, material: $ItemLike_): void;
-        static threeByThreePacker(recipeOutput: $RecipeOutput, category: $RecipeCategory_, chiseledResult: $ItemLike_, material: $ItemLike_): void;
         static threeByThreePacker(recipeOutput: $RecipeOutput, category: $RecipeCategory_, packed: $ItemLike_, unpacked: $ItemLike_, criterionName: string): void;
+        static threeByThreePacker(recipeOutput: $RecipeOutput, category: $RecipeCategory_, chiseledResult: $ItemLike_, material: $ItemLike_): void;
         static planksFromLog(recipeOutput: $RecipeOutput, planks: $ItemLike_, logs: $TagKey_<$Item>, resultCount: number): void;
         static planksFromLogs(recipeOutput: $RecipeOutput, planks: $ItemLike_, logs: $TagKey_<$Item>, resultCount: number): void;
         static woodFromLogs(recipeOutput: $RecipeOutput, banner: $ItemLike_, material: $ItemLike_): void;
@@ -132,9 +141,9 @@ declare module "@package/net/minecraft/data/recipes" {
         static stonecutterResultFromBase(recipeOutput: $RecipeOutput, category: $RecipeCategory_, chiseledResult: $ItemLike_, material: $ItemLike_): void;
         static stonecutterResultFromBase(recipeOutput: $RecipeOutput, category: $RecipeCategory_, result: $ItemLike_, material: $ItemLike_, resultCount: number): void;
         static smeltingResultFromBase(recipeOutput: $RecipeOutput, banner: $ItemLike_, material: $ItemLike_): void;
+        static copySmithingTemplate(recipeOutput: $RecipeOutput, banner: $ItemLike_, material: $ItemLike_): void;
         static copySmithingTemplate(recipeOutput: $RecipeOutput, template: $ItemLike_, baseMaterial: $TagKey_<$Item>): void;
         static copySmithingTemplate(recipeOutput: $RecipeOutput, template: $ItemLike_, baseItem: $Ingredient_): void;
-        static copySmithingTemplate(recipeOutput: $RecipeOutput, banner: $ItemLike_, material: $ItemLike_): void;
         static waxRecipes(recipeOutput: $RecipeOutput, enabledFeatures: $FeatureFlagSet): void;
         static copperBulb(recipeOutput: $RecipeOutput, bulbBlock: $Block_, material: $Block_): void;
         static generateRecipes(recipeOutput: $RecipeOutput, blockFamily: $BlockFamily, requiredFeatures: $FeatureFlagSet): void;
@@ -148,14 +157,8 @@ declare module "@package/net/minecraft/data/recipes" {
         static getConversionRecipeName(result: $ItemLike_, ingredient: $ItemLike_): string;
         static getSmeltingRecipeName(itemLike: $ItemLike_): string;
         static getBlastingRecipeName(itemLike: $ItemLike_): string;
-        buildRecipes(recipeOutput: $RecipeOutput): void;
         buildRecipes(arg0: $RecipeOutput, arg1: $HolderLookup$Provider): void;
-        static banner(recipeOutput: $RecipeOutput, banner: $ItemLike_, material: $ItemLike_): void;
-        static candle(recipeOutput: $RecipeOutput, banner: $ItemLike_, material: $ItemLike_): void;
-        static carpet(recipeOutput: $RecipeOutput, banner: $ItemLike_, material: $ItemLike_): void;
-        generateForEnabledBlockFamilies(recipeOutput: $RecipeOutput, enabledFeatures: $FeatureFlagSet): void;
-        buildAdvancement(output: $CachedOutput_, registries: $HolderLookup$Provider, advancement: $AdvancementHolder_): $CompletableFuture<never>;
-        buildAdvancement(arg0: $CachedOutput_, arg1: $HolderLookup$Provider, arg2: $AdvancementHolder_, ...arg3: $ICondition[]): $CompletableFuture<never>;
+        buildRecipes(recipeOutput: $RecipeOutput): void;
         handler$fpk000$tfmg$getName(arg0: $CallbackInfoReturnable<any>): void;
         static oneToOneConversionRecipe(recipeOutput: $RecipeOutput, result: $ItemLike_, ingredient: $ItemLike_, group: string | null, resultCount: number): void;
         static oneToOneConversionRecipe(recipeOutput: $RecipeOutput, result: $ItemLike_, ingredient: $ItemLike_, group: string | null): void;
@@ -168,10 +171,10 @@ declare module "@package/net/minecraft/data/recipes" {
         static nineBlockStorageRecipesRecipesWithCustomUnpacking(recipeOutput: $RecipeOutput, unpackedCategory: $RecipeCategory_, unpacked: $ItemLike_, packedCategory: $RecipeCategory_, packed: $ItemLike_, unpackedName: string, unpackedGroup: string): void;
         static cookRecipes<T extends $AbstractCookingRecipe>(recipeOutput: $RecipeOutput, cookingMethod: string, cookingSerializer: $RecipeSerializer_<T>, recipeFactory: $AbstractCookingRecipe$Factory_<T>, cookingTime: number): void;
         static simpleCookingRecipe<T extends $AbstractCookingRecipe>(recipeOutput: $RecipeOutput, cookingMethod: string, cookingSerializer: $RecipeSerializer_<T>, recipeFactory: $AbstractCookingRecipe$Factory_<T>, cookingTime: number, material: $ItemLike_, result: $ItemLike_, experience: number): void;
-        static slab(recipeOutput: $RecipeOutput, category: $RecipeCategory_, chiseledResult: $ItemLike_, material: $ItemLike_): void;
-        static has(count: $MinMaxBounds$Ints_, item: $ItemLike_): $Criterion<$InventoryChangeTrigger$TriggerInstance>;
         static has(itemLike: $ItemLike_): $Criterion<$InventoryChangeTrigger$TriggerInstance>;
         static has(tag: $TagKey_<$Item>): $Criterion<$InventoryChangeTrigger$TriggerInstance>;
+        static has(count: $MinMaxBounds$Ints_, item: $ItemLike_): $Criterion<$InventoryChangeTrigger$TriggerInstance>;
+        static wall(recipeOutput: $RecipeOutput, category: $RecipeCategory_, chiseledResult: $ItemLike_, material: $ItemLike_): void;
         /**
          * Gets a name for this provider, to use in logging.
          */
@@ -181,6 +184,7 @@ declare module "@package/net/minecraft/data/recipes" {
         advancementPathProvider: $PackOutput$PathProvider;
         recipePathProvider: $PackOutput$PathProvider;
         constructor(output: $PackOutput, registries: $CompletableFuture<$HolderLookup$Provider>);
+        get name(): string;
     }
     export class $ShapelessRecipeBuilder implements $RecipeBuilder {
         unlockedBy(name: string, criterion: $Criterion_<never>): $ShapelessRecipeBuilder;
@@ -188,11 +192,11 @@ declare module "@package/net/minecraft/data/recipes" {
         /**
          * Creates a new builder for a shapeless recipe.
          */
-        static shapeless(category: $RecipeCategory_, result: $ItemLike_): $ShapelessRecipeBuilder;
+        static shapeless(category: $RecipeCategory_, result: $ItemLike_, count: number): $ShapelessRecipeBuilder;
         /**
          * Creates a new builder for a shapeless recipe.
          */
-        static shapeless(category: $RecipeCategory_, result: $ItemLike_, count: number): $ShapelessRecipeBuilder;
+        static shapeless(category: $RecipeCategory_, result: $ItemLike_): $ShapelessRecipeBuilder;
         getResult(): $Item;
         group(groupName: string | null): $ShapelessRecipeBuilder;
         save(recipeOutput: $RecipeOutput, id: $ResourceLocation_): void;
@@ -220,5 +224,6 @@ declare module "@package/net/minecraft/data/recipes" {
         save(arg0: $RecipeOutput, arg1: string): void;
         constructor(category: $RecipeCategory_, result: $ItemLike_, count: number);
         constructor(arg0: $RecipeCategory_, arg1: $ItemStack_);
+        get result(): $Item;
     }
 }

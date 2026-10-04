@@ -1,14 +1,13 @@
 import { $GoalSelector } from "@package/net/minecraft/world/entity/ai/goal";
 import { $JumpControl, $MoveControl, $LookControl } from "@package/net/minecraft/world/entity/ai/control";
 import { $CompoundTag } from "@package/net/minecraft/nbt";
-import { $AnimationState, $EntityDimensions, $EntityType_, $Entity$RemovalReason, $Saddleable, $Pose, $PortalProcessor, $AgeableMob, $WalkAnimationState, $PlayerRideableJumping } from "@package/net/minecraft/world/entity";
+import { $AnimationState, $EntityDimensions, $EntityType_, $Entity$RemovalReason, $Saddleable, $Pose, $PortalProcessor, $WalkAnimationState, $PlayerRideableJumping } from "@package/net/minecraft/world/entity";
 import { $FluidType } from "@package/net/neoforged/neoforge/fluids";
 import { $AttributeSupplier$Builder } from "@package/net/minecraft/world/entity/ai/attributes";
 import { $UUID, $Stack } from "@package/java/util";
 import { $RandomSource } from "@package/net/minecraft/util";
 import { $AbstractHorse } from "@package/net/minecraft/world/entity/animal/horse";
 import { $InteractionHand, $SimpleContainer } from "@package/net/minecraft/world";
-import { $ServerLevel } from "@package/net/minecraft/server/level";
 import { $Object2DoubleMap } from "@package/it/unimi/dsi/fastutil/objects";
 import { $HolderLookup$Provider, $BlockPos } from "@package/net/minecraft/core";
 import { $Brain } from "@package/net/minecraft/world/entity/ai";
@@ -29,7 +28,6 @@ import { $Vec3 } from "@package/net/minecraft/world/phys";
 
 declare module "@package/net/minecraft/world/entity/animal/camel" {
     export class $Camel extends $AbstractHorse implements $PlayerRideableJumping, $Saddleable {
-        getBreedOffspring(level: $ServerLevel, otherParent: $AgeableMob): $Camel;
         resetLastPoseChangeTick(lastPoseChangeTick: number): void;
         isDashing(): boolean;
         setDashing(dashing: boolean): void;
@@ -249,5 +247,9 @@ declare module "@package/net/minecraft/world/entity/animal/camel" {
         invulnerableDuration: number;
         removeStingerTime: number;
         constructor(entityType: $EntityType_<$Camel>, level: $Level_);
+        get camelSitting(): boolean;
+        get camelVisuallySitting(): boolean;
+        get inPoseTransition(): boolean;
+        get poseTime(): number;
     }
 }

@@ -26,10 +26,10 @@ declare module "@package/net/mehvahdjukaar/amendments/common" {
     export type $ISwingingTile_ = (() => $SwingAnimation);
     export class $SwingAnimation {
         setAngle(arg0: number): void;
-        hitByEntity(arg0: $Entity, arg1: $BlockState_, arg2: $BlockPos_): boolean;
         getAngle(arg0: number): number;
-        reset(): void;
+        hitByEntity(arg0: $Entity, arg1: $BlockState_, arg2: $BlockPos_): boolean;
         tick(arg0: $Level_, arg1: $BlockPos_, arg2: $BlockState_): void;
+        reset(): void;
         static EMPTY: $SwingAnimation;
     }
     export class $IBetterJukebox {
@@ -59,6 +59,11 @@ declare module "@package/net/mehvahdjukaar/amendments/common" {
         static CHAIN: $IBellConnection$Type;
         static ROPE: $IBellConnection$Type;
         static NONE: $IBellConnection$Type;
+        get chain(): boolean;
+        get rope(): boolean;
+        get empty(): boolean;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $IBellConnection$Type}.

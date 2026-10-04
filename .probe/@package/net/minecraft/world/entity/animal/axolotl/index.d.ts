@@ -3,7 +3,7 @@ import { $MoveControl, $LookControl, $JumpControl } from "@package/net/minecraft
 import { $SensorType, $Sensor } from "@package/net/minecraft/world/entity/ai/sensing";
 import { $Codec } from "@package/com/mojang/serialization";
 import { $CompoundTag_ } from "@package/net/minecraft/nbt";
-import { $EntityType_, $Pose, $VariantHolder, $PortalProcessor, $LerpingModel, $EntityDimensions, $Entity$RemovalReason, $LivingEntity, $WalkAnimationState, $MobSpawnType_ } from "@package/net/minecraft/world/entity";
+import { $EntityType_, $Pose, $PortalProcessor, $VariantHolder, $LerpingModel, $EntityDimensions, $Entity$RemovalReason, $LivingEntity, $WalkAnimationState, $MobSpawnType_ } from "@package/net/minecraft/world/entity";
 import { $FluidType } from "@package/net/neoforged/neoforge/fluids";
 import { $AttributeSupplier$Builder } from "@package/net/minecraft/world/entity/ai/attributes";
 import { $UUID, $Stack, $Map } from "@package/java/util";
@@ -35,7 +35,6 @@ import { $Vector3f } from "@package/org/joml";
 
 declare module "@package/net/minecraft/world/entity/animal/axolotl" {
     export class $Axolotl extends $Animal implements $LerpingModel, $VariantHolder<$Axolotl$Variant>, $Bucketable {
-        setVariant(variant: $Axolotl$Variant_): void;
         fromBucket(): boolean;
         setFromBucket(fromBucket: boolean): void;
         saveToBucketTag(stack: $ItemStack_): void;
@@ -53,8 +52,9 @@ declare module "@package/net/minecraft/world/entity/animal/axolotl" {
         static onStopAttacking(axolotl: $Axolotl, target: $LivingEntity): void;
         applySupportingEffects(player: $Player): void;
         static checkAxolotlSpawnRules(axolotl: $EntityType_<$LivingEntity>, level: $ServerLevelAccessor, spawnType: $MobSpawnType_, pos: $BlockPos_, random: $RandomSource): boolean;
-        static createAttributes(): $AttributeSupplier$Builder;
         getVariant(): $Axolotl$Variant;
+        setVariant(variant: $Axolotl$Variant_): void;
+        static createAttributes(): $AttributeSupplier$Builder;
         serializeNBT(arg0: $HolderLookup$Provider): $Axolotl$Variant;
         static MAX_WEARING_ARMOR_CHANCE: number;
         lastHurtByPlayerTime: number;
@@ -233,6 +233,9 @@ declare module "@package/net/minecraft/world/entity/animal/axolotl" {
         static BASE_SAFE_FALL_DISTANCE: number;
         age: number;
         constructor(entityType: $EntityType_<$Axolotl>, level: $Level_);
+        get bucketItemStack(): $ItemStack;
+        get pickupSound(): $SoundEvent;
+        get modelRotationValues(): $Map<string, $Vector3f>;
     }
     export class $Axolotl$Variant extends $Enum<$Axolotl$Variant> implements $StringRepresentable {
         static getCommonSpawnVariant(random: $RandomSource): $Axolotl$Variant;
@@ -250,6 +253,9 @@ declare module "@package/net/minecraft/world/entity/animal/axolotl" {
         static BLUE: $Axolotl$Variant;
         static LUCY: $Axolotl$Variant;
         static CYAN: $Axolotl$Variant;
+        get id(): number;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $Axolotl$Variant}.

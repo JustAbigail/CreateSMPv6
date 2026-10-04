@@ -5,5 +5,6 @@ declare module "@package/net/caffeinemc/mods/sodium/client/gl/util" {
         getBitField(): number;
         static of<T extends $Enum<T>>(...arg0: T[]): $EnumBitField<T>;
         contains(arg0: T): boolean;
+        get bitField(): number;
     }
 }

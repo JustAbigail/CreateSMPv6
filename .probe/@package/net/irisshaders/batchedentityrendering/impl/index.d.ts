@@ -10,9 +10,11 @@ declare module "@package/net/irisshaders/batchedentityrendering/impl" {
     export class $DrawCallTrackingRenderBuffers {
     }
     export interface $DrawCallTrackingRenderBuffers {
+        resetDrawCounts(): void;
         getDrawCalls(): number;
         getRenderTypes(): number;
-        resetDrawCounts(): void;
+        get drawCalls(): number;
+        get renderTypes(): number;
     }
     export class $MemoryTrackingRenderBuffers {
     }
@@ -21,6 +23,9 @@ declare module "@package/net/irisshaders/batchedentityrendering/impl" {
         getMaxBegins(): number;
         freeAndDeleteBuffers(): void;
         getEntityBufferAllocatedSize(): number;
+        get miscBufferAllocatedSize(): number;
+        get maxBegins(): number;
+        get entityBufferAllocatedSize(): number;
     }
     export class $TransparencyType extends $Enum<$TransparencyType> {
         static values(): $TransparencyType[];
@@ -42,12 +47,14 @@ declare module "@package/net/irisshaders/batchedentityrendering/impl" {
         getAllocatedSize(): number;
         getUsedSize(): number;
         freeAndDeleteBuffer(): void;
+        get allocatedSize(): number;
+        get usedSize(): number;
     }
     export class $RenderBuffersExt {
     }
     export interface $RenderBuffersExt {
-        beginLevelRendering(): void;
         endLevelRendering(): void;
+        beginLevelRendering(): void;
     }
     export class $BufferBuilderExt {
     }

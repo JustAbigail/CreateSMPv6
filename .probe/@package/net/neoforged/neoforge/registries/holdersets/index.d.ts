@@ -23,8 +23,8 @@ declare module "@package/net/neoforged/neoforge/registries/holdersets" {
     export class $HolderSetType {
     }
     export interface $HolderSetType {
-        makeStreamCodec<T>(registryKey: $ResourceKey_<$Registry<T>>): $StreamCodec<$RegistryFriendlyByteBuf, $ICustomHolderSet<T>>;
         makeCodec<T>(registryKey: $ResourceKey_<$Registry<T>>, holderCodec: $Codec<$Holder_<T>>, forceList: boolean): $MapCodec<$ICustomHolderSet<T>>;
+        makeStreamCodec<T>(registryKey: $ResourceKey_<$Registry<T>>): $StreamCodec<$RegistryFriendlyByteBuf, $ICustomHolderSet<T>>;
     }
     /**
      * Values that may be interpreted as {@link $HolderSetType}.

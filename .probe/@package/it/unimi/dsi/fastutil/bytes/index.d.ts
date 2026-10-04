@@ -1,16 +1,14 @@
-import { $Int2ByteFunction_, $IntSpliterator, $Int2ShortFunction, $IntIterator, $Int2ObjectFunction_, $Int2CharFunction, $Int2DoubleFunction_, $Int2ReferenceFunction_, $Int2IntFunction_, $Int2LongFunction_, $Int2CharFunction_, $Int2FloatFunction_, $Int2LongFunction, $Int2IntFunction, $Int2DoubleFunction, $Int2FloatFunction, $Int2ByteFunction, $Int2ObjectFunction, $Int2ReferenceFunction, $Int2BooleanFunction, $Int2ShortFunction_ } from "@package/it/unimi/dsi/fastutil/ints";
-import { $Long2ReferenceFunction_, $Long2LongFunction, $Long2FloatFunction, $Long2ShortFunction, $Long2BooleanFunction, $Long2ObjectFunction, $Long2CharFunction_, $Long2ReferenceFunction, $Long2FloatFunction_, $Long2ByteFunction_, $Long2CharFunction, $Long2ObjectFunction_, $Long2ShortFunction_, $Long2IntFunction, $Long2LongFunction_, $Long2ByteFunction, $Long2IntFunction_, $Long2DoubleFunction, $Long2DoubleFunction_ } from "@package/it/unimi/dsi/fastutil/longs";
-import { $Function } from "@package/it/unimi/dsi/fastutil";
-import { $Spliterator, $Collection } from "@package/java/util";
-import { $Float2LongFunction_, $Float2FloatFunction_, $Float2ShortFunction, $Float2BooleanFunction, $Float2ObjectFunction_, $Float2IntFunction, $Float2ObjectFunction, $Float2ShortFunction_, $Float2CharFunction, $Float2DoubleFunction, $Float2ReferenceFunction_, $Float2FloatFunction, $Float2IntFunction_, $Float2ReferenceFunction, $Float2CharFunction_, $Float2ByteFunction_, $Float2LongFunction, $Float2DoubleFunction_, $Float2ByteFunction } from "@package/it/unimi/dsi/fastutil/floats";
-import { $IntPredicate, $IntBinaryOperator, $IntToDoubleFunction, $Function as $Function$1, $IntToLongFunction, $IntUnaryOperator, $IntFunction, $BinaryOperator, $Predicate_, $IntPredicate_, $Function_ } from "@package/java/util/function";
-import { $Object2LongFunction_, $Reference2ShortFunction, $Reference2FloatFunction_, $Object2ShortFunction, $Object2ObjectFunction_, $Reference2IntFunction_, $Object2ShortFunction_, $Object2ByteFunction_, $Reference2ByteFunction_, $Object2BooleanFunction, $Object2ReferenceFunction_, $Reference2ReferenceFunction, $Reference2ObjectFunction_, $Object2CharFunction_, $Object2FloatFunction, $Reference2CharFunction, $Reference2FloatFunction, $Object2CharFunction, $Reference2DoubleFunction_, $Object2DoubleFunction, $Reference2IntFunction, $Object2IntFunction, $Object2IntFunction_, $Reference2CharFunction_, $Reference2BooleanFunction, $Object2DoubleFunction_, $Object2ReferenceFunction, $Reference2DoubleFunction, $Object2LongFunction, $Reference2LongFunction, $Reference2ShortFunction_, $Reference2ObjectFunction, $Object2FloatFunction_, $Object2ByteFunction, $Reference2ByteFunction, $Reference2ReferenceFunction_, $Reference2LongFunction_, $Object2ObjectFunction } from "@package/it/unimi/dsi/fastutil/objects";
-import { $Stream, $IntStream } from "@package/java/util/stream";
-import { $Double2FloatFunction, $Double2IntFunction, $Double2IntFunction_, $Double2ByteFunction_, $Double2ByteFunction, $Double2ReferenceFunction, $Double2ObjectFunction_, $Double2ShortFunction, $Double2FloatFunction_, $Double2LongFunction_, $Double2DoubleFunction_, $Double2LongFunction, $Double2DoubleFunction, $Double2ObjectFunction, $Double2BooleanFunction, $Double2CharFunction_, $Double2CharFunction, $Double2ReferenceFunction_, $Double2ShortFunction_ } from "@package/it/unimi/dsi/fastutil/doubles";
-import { $Char2BooleanFunction, $Char2ObjectFunction_, $Char2LongFunction, $Char2ShortFunction_, $Char2FloatFunction, $Char2IntFunction_, $Char2DoubleFunction_, $Char2ObjectFunction, $Char2CharFunction_, $Char2IntFunction, $Char2FloatFunction_, $Char2ByteFunction_, $Char2CharFunction, $Char2ShortFunction, $Char2LongFunction_, $Char2ReferenceFunction_, $Char2ByteFunction, $Char2DoubleFunction, $Char2ReferenceFunction } from "@package/it/unimi/dsi/fastutil/chars";
-import { $Boolean2FloatFunction_, $Boolean2ReferenceFunction_, $Boolean2LongFunction_, $Boolean2ShortFunction_, $Boolean2CharFunction_, $Boolean2IntFunction_, $Boolean2ObjectFunction_, $Boolean2ByteFunction_, $Boolean2DoubleFunction_ } from "@package/it/unimi/dsi/fastutil/booleans";
+import { $Float2LongFunction_, $Float2FloatFunction_, $Float2ShortFunction, $Float2BooleanFunction, $Float2FloatFunction, $Float2ObjectFunction_, $Float2IntFunction_, $Float2IntFunction, $Float2ObjectFunction, $Float2ReferenceFunction, $Float2ShortFunction_, $Float2CharFunction, $Float2CharFunction_, $Float2ByteFunction_, $Float2LongFunction, $Float2DoubleFunction, $Float2DoubleFunction_, $Float2ReferenceFunction_, $Float2ByteFunction } from "@package/it/unimi/dsi/fastutil/floats";
+import { $Int2ByteFunction_, $Int2CharFunction_, $Int2FloatFunction_, $Int2LongFunction, $Int2IntFunction, $Int2ShortFunction, $Int2ObjectFunction_, $Int2CharFunction, $Int2DoubleFunction, $Int2DoubleFunction_, $Int2FloatFunction, $Int2ByteFunction, $Int2ObjectFunction, $Int2ReferenceFunction, $Int2BooleanFunction, $Int2ReferenceFunction_, $Int2IntFunction_, $Int2LongFunction_, $Int2ShortFunction_ } from "@package/it/unimi/dsi/fastutil/ints";
+import { $IntPredicate, $IntBinaryOperator, $IntFunction, $BinaryOperator, $IntToDoubleFunction, $Function as $Function$1, $Function_, $IntToLongFunction, $IntUnaryOperator } from "@package/java/util/function";
+import { $Long2ReferenceFunction_, $Long2CharFunction, $Long2LongFunction, $Long2ObjectFunction_, $Long2ShortFunction_, $Long2IntFunction, $Long2FloatFunction, $Long2LongFunction_, $Long2ByteFunction, $Long2ShortFunction, $Long2BooleanFunction, $Long2IntFunction_, $Long2ObjectFunction, $Long2CharFunction_, $Long2DoubleFunction, $Long2ReferenceFunction, $Long2DoubleFunction_, $Long2FloatFunction_, $Long2ByteFunction_ } from "@package/it/unimi/dsi/fastutil/longs";
+import { $Object2LongFunction_, $Reference2DoubleFunction_, $Reference2ShortFunction, $Reference2FloatFunction_, $Object2DoubleFunction, $Reference2IntFunction, $Object2IntFunction, $Object2ShortFunction, $Object2ObjectFunction_, $Reference2IntFunction_, $Object2ShortFunction_, $Object2IntFunction_, $Reference2CharFunction_, $Reference2BooleanFunction, $Object2ByteFunction_, $Object2DoubleFunction_, $Reference2ByteFunction_, $Object2ReferenceFunction, $Reference2DoubleFunction, $Object2BooleanFunction, $Object2LongFunction, $Object2ReferenceFunction_, $Reference2ReferenceFunction, $Reference2LongFunction, $Reference2ShortFunction_, $Reference2ObjectFunction_, $Reference2ObjectFunction, $Object2CharFunction_, $Object2FloatFunction_, $Object2ByteFunction, $Object2FloatFunction, $Reference2ByteFunction, $Reference2ReferenceFunction_, $Reference2LongFunction_, $Reference2CharFunction, $Reference2FloatFunction, $Object2ObjectFunction, $Object2CharFunction } from "@package/it/unimi/dsi/fastutil/objects";
+import { $Double2FloatFunction, $Double2IntFunction, $Double2IntFunction_, $Double2LongFunction, $Double2DoubleFunction, $Double2ObjectFunction, $Double2ByteFunction_, $Double2ByteFunction, $Double2ReferenceFunction, $Double2BooleanFunction, $Double2CharFunction_, $Double2ObjectFunction_, $Double2CharFunction, $Double2ReferenceFunction_, $Double2ShortFunction, $Double2FloatFunction_, $Double2LongFunction_, $Double2ShortFunction_, $Double2DoubleFunction_ } from "@package/it/unimi/dsi/fastutil/doubles";
+import { $Char2IntFunction, $Char2FloatFunction_, $Char2ByteFunction_, $Char2BooleanFunction, $Char2CharFunction, $Char2ObjectFunction_, $Char2LongFunction, $Char2ShortFunction, $Char2ShortFunction_, $Char2LongFunction_, $Char2FloatFunction, $Char2IntFunction_, $Char2DoubleFunction_, $Char2ReferenceFunction_, $Char2ByteFunction, $Char2DoubleFunction, $Char2ReferenceFunction, $Char2ObjectFunction, $Char2CharFunction_ } from "@package/it/unimi/dsi/fastutil/chars";
+import { $Boolean2LongFunction_, $Boolean2FloatFunction_, $Boolean2ReferenceFunction_, $Boolean2ShortFunction_, $Boolean2CharFunction_, $Boolean2IntFunction_, $Boolean2ObjectFunction_, $Boolean2ByteFunction_, $Boolean2DoubleFunction_ } from "@package/it/unimi/dsi/fastutil/booleans";
 import { $Object } from "@package/java/lang";
-import { $Short2IntFunction_, $Short2ReferenceFunction_, $Short2FloatFunction, $Short2ShortFunction, $Short2BooleanFunction, $Short2ByteFunction, $Short2ByteFunction_, $Short2CharFunction_, $Short2ObjectFunction, $Short2IntFunction, $Short2LongFunction, $Short2LongFunction_, $Short2FloatFunction_, $Short2DoubleFunction, $Short2ObjectFunction_, $Short2ReferenceFunction, $Short2ShortFunction_, $Short2DoubleFunction_, $Short2CharFunction } from "@package/it/unimi/dsi/fastutil/shorts";
+import { $Function } from "@package/it/unimi/dsi/fastutil";
+import { $Short2IntFunction_, $Short2ObjectFunction, $Short2IntFunction, $Short2LongFunction, $Short2LongFunction_, $Short2FloatFunction_, $Short2DoubleFunction, $Short2ReferenceFunction_, $Short2FloatFunction, $Short2ShortFunction, $Short2BooleanFunction, $Short2ByteFunction, $Short2ObjectFunction_, $Short2ReferenceFunction, $Short2ShortFunction_, $Short2DoubleFunction_, $Short2ByteFunction_, $Short2CharFunction_, $Short2CharFunction } from "@package/it/unimi/dsi/fastutil/shorts";
 
 declare module "@package/it/unimi/dsi/fastutil/bytes" {
     export class $Byte2ShortFunction {
@@ -649,53 +647,4 @@ declare module "@package/it/unimi/dsi/fastutil/bytes" {
      * Values that may be interpreted as {@link $Byte2DoubleFunction}.
      */
     export type $Byte2DoubleFunction_ = ((arg0: number) => number);
-    export class $ByteCollection {
-    }
-    export interface $ByteCollection extends $Collection<number>, $ByteIterable {
-        /**
-         * @deprecated
-         */
-        toByteArray(arg0: number[]): number[];
-        toByteArray(): number[];
-        /**
-         * @deprecated
-         */
-        remove(arg0: $Object): boolean;
-        /**
-         * @deprecated
-         */
-        add(arg0: number): boolean;
-        add(arg0: number): boolean;
-        toArray(arg0: number[]): number[];
-        iterator(): $ByteIterator;
-        /**
-         * @deprecated
-         */
-        stream(): $Stream<number>;
-        intStream(): $IntStream;
-        /**
-         * @deprecated
-         */
-        contains(arg0: $Object): boolean;
-        contains(arg0: number): boolean;
-        addAll(arg0: $ByteCollection): boolean;
-        removeAll(arg0: $ByteCollection): boolean;
-        retainAll(arg0: $ByteCollection): boolean;
-        containsAll(arg0: $ByteCollection): boolean;
-        /**
-         * @deprecated
-         */
-        parallelStream(): $Stream<number>;
-        rem(arg0: number): boolean;
-        /**
-         * @deprecated
-         */
-        removeIf(arg0: $Predicate_<number>): boolean;
-        removeIf(arg0: $BytePredicate): boolean;
-        removeIf(arg0: $IntPredicate_): boolean;
-        intSpliterator(): $IntSpliterator;
-        intIterator(): $IntIterator;
-        intParallelStream(): $IntStream;
-        spliterator(): $Spliterator<number>;
-    }
 }

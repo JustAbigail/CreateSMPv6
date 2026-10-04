@@ -12,6 +12,7 @@ declare module "@package/net/irisshaders/iris/shaderpack/include" {
         parent(): ($AbsolutePackPath) | undefined;
         resolve(arg0: string): $AbsolutePackPath;
         resolved(arg0: $Path_): $Path;
+        get pathString(): string;
     }
     export class $IncludeGraph {
         getNodes(): $ImmutableMap<$AbsolutePackPath, $FileNode>;
@@ -19,6 +20,8 @@ declare module "@package/net/irisshaders/iris/shaderpack/include" {
         computeWeaklyConnectedComponents(): $List<$IncludeGraph>;
         map(arg0: $Function_<$AbsolutePackPath, $LineTransform>): $IncludeGraph;
         constructor(arg0: $Path_, arg1: $ImmutableList<$AbsolutePackPath>, arg2: boolean);
+        get nodes(): $ImmutableMap<$AbsolutePackPath, $FileNode>;
+        get failures(): $ImmutableMap<$AbsolutePackPath, $RusticError>;
     }
     export class $FileNode {
         getIncludes(): $ImmutableMap<number, $AbsolutePackPath>;
@@ -26,5 +29,8 @@ declare module "@package/net/irisshaders/iris/shaderpack/include" {
         getPath(): $AbsolutePackPath;
         getLines(): $ImmutableList<string>;
         constructor(arg0: $AbsolutePackPath, arg1: $ImmutableList<string>);
+        get includes(): $ImmutableMap<number, $AbsolutePackPath>;
+        get path(): $AbsolutePackPath;
+        get lines(): $ImmutableList<string>;
     }
 }

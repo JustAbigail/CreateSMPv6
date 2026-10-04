@@ -27,16 +27,8 @@ declare module "@package/dev/latvian/mods/kubejs/component" {
         set<T extends keyof DataComponentTypes.InputMap>(type: T, data: DataComponentTypes.InputMap[T]): this;
     }
     export interface $ComponentFunctions {
-        remove(type: $DataComponentType_<never>): this;
         getComponentMap(): $DataComponentMap;
-        setEntityData(tag: $CompoundTag_): void;
-        setProfile(name: string, uuid: $UUID_): void;
-        setProfile(profile: $GameProfile): void;
-        setBaseColor(color: $DyeColor_): void;
-        setBlockStateProperties(properties: $Map_<string, string>): void;
-        setLockCode(lock: string): void;
-        setContainerLootTable(lootTable: $ResourceKey_<$LootTable>, seed: number): void;
-        setContainerLootTable(lootTable: $ResourceKey_<$LootTable>): void;
+        remove(type: $DataComponentType_<never>): this;
         setAdditionalTooltipHidden(): void;
         setUnit(component: $DataComponentType_<$Unit_>): this;
         patch(components: $DataComponentPatch_): this;
@@ -56,10 +48,32 @@ declare module "@package/dev/latvian/mods/kubejs/component" {
         setDyedColorWithTooltip(color: $KubeColor_): void;
         setPotionContents(contents: $PotionContents_): void;
         setPotionId(potion: $Holder_<$Potion>): void;
+        setEntityData(tag: $CompoundTag_): void;
+        setProfile(name: string, uuid: $UUID_): void;
+        setProfile(profile: $GameProfile): void;
+        setBaseColor(color: $DyeColor_): void;
+        setBlockStateProperties(properties: $Map_<string, string>): void;
+        setLockCode(lock: string): void;
+        setContainerLootTable(lootTable: $ResourceKey_<$LootTable>, seed: number): void;
+        setContainerLootTable(lootTable: $ResourceKey_<$LootTable>): void;
         get<T extends keyof DataComponentTypes.OutputMap>(type: T): DataComponentTypes.OutputMap[T] | null;
         getOrDefault<T extends keyof DataComponentTypes.OutputMap>(type: T, _default: DataComponentTypes.OutputMap[T]): DataComponentTypes.OutputMap[T];
         set(components: $DataComponentMap_): this;
         set<T extends keyof DataComponentTypes.InputMap>(type: T, data: DataComponentTypes.InputMap[T]): this;
+        get componentMap(): $DataComponentMap;
+        set unit(value: $DataComponentType_<$Unit_>);
+        get componentString(): string;
+        set rarity(value: $Rarity_);
+        set customModelData(value: number);
+        set glintOverride(value: boolean);
+        set dyedColor(value: $KubeColor_);
+        set dyedColorWithTooltip(value: $KubeColor_);
+        set potionContents(value: $PotionContents_);
+        set potionId(value: $Holder_<$Potion>);
+        set entityData(value: $CompoundTag_);
+        set baseColor(value: $DyeColor_);
+        set blockStateProperties(value: $Map_<string, string>);
+        set lockCode(value: string);
     }
     /**
      * Values that may be interpreted as {@link $ComponentFunctions}.
@@ -72,10 +86,8 @@ declare module "@package/dev/latvian/mods/kubejs/component" {
         set<T extends keyof DataComponentTypes.InputMap>(type: T, data: DataComponentTypes.InputMap[T]): this;
     }
     export interface $ItemComponentFunctions extends $ComponentFunctions, $AttributeModifierFunctions {
-        setFood(nutrition: number, saturation: number): void;
-        setFood(foodProperties: $FoodProperties_): void;
-        modifyFood(foodBuilder: $Consumer_<$FoodBuilder>): void;
-        setMaxStackSize(size: number): void;
+        setNoteBlockSound(id: $ResourceLocation_): void;
+        getAttributeModifiers(): $ItemAttributeModifiers;
         setMaxDamage(maxDamage: number): void;
         setDamage(damage: number): void;
         setUnbreakable(): void;
@@ -92,12 +104,30 @@ declare module "@package/dev/latvian/mods/kubejs/component" {
         setInstrument(instrument: $Holder_<$Instrument>): void;
         setFireworkExplosion(explosion: $FireworkExplosion_): void;
         setFireworks(fireworks: $Fireworks_): void;
-        setNoteBlockSound(id: $ResourceLocation_): void;
-        getAttributeModifiers(): $ItemAttributeModifiers;
+        setFood(nutrition: number, saturation: number): void;
+        setFood(foodProperties: $FoodProperties_): void;
+        modifyFood(foodBuilder: $Consumer_<$FoodBuilder>): void;
+        setMaxStackSize(size: number): void;
         get<T extends keyof DataComponentTypes.OutputMap>(type: T): DataComponentTypes.OutputMap[T] | null;
         getOrDefault<T extends keyof DataComponentTypes.OutputMap>(type: T, _default: DataComponentTypes.OutputMap[T]): DataComponentTypes.OutputMap[T];
         set(components: $DataComponentMap_): this;
         set<T extends keyof DataComponentTypes.InputMap>(type: T, data: DataComponentTypes.InputMap[T]): this;
+        set noteBlockSound(value: $ResourceLocation_);
+        get attributeModifiers(): $ItemAttributeModifiers;
+        set maxDamage(value: number);
+        set damage(value: number);
+        set itemName(value: $Component_);
+        set repairCost(value: number);
+        set tool(value: $Tool_);
+        set mapItemColor(value: $KubeColor_);
+        set chargedProjectiles(value: $List_<$ItemStack_>);
+        set bundleContents(value: $List_<$ItemStack_>);
+        set bucketEntityData(value: $CompoundTag_);
+        set blockEntityData(value: $CompoundTag_);
+        set instrument(value: $Holder_<$Instrument>);
+        set fireworkExplosion(value: $FireworkExplosion_);
+        set fireworks(value: $Fireworks_);
+        set maxStackSize(value: number);
     }
     /**
      * Values that may be interpreted as {@link $ItemComponentFunctions}.
@@ -110,13 +140,15 @@ declare module "@package/dev/latvian/mods/kubejs/component" {
         set<T extends keyof DataComponentTypes.InputMap>(type: T, data: DataComponentTypes.InputMap[T]): this;
     }
     export interface $MutableDataComponentHolderFunctions extends $ComponentFunctions {
-        getComponentMap(): $DataComponentMap;
-        patch(components: $DataComponentPatch_): $ComponentFunctions;
         getComponentHolder(): $MutableDataComponentHolder;
+        getComponentMap(): $DataComponentMap;
+        patch(components: $DataComponentPatch_): this;
         get<T extends keyof DataComponentTypes.OutputMap>(type: T): DataComponentTypes.OutputMap[T] | null;
         getOrDefault<T extends keyof DataComponentTypes.OutputMap>(type: T, _default: DataComponentTypes.OutputMap[T]): DataComponentTypes.OutputMap[T];
         set(components: $DataComponentMap_): this;
         set<T extends keyof DataComponentTypes.InputMap>(type: T, data: DataComponentTypes.InputMap[T]): this;
+        get componentHolder(): $MutableDataComponentHolder;
+        get componentMap(): $DataComponentMap;
     }
     export class $AttributeModifierFunctions {
     }
@@ -153,5 +185,6 @@ declare module "@package/dev/latvian/mods/kubejs/component" {
          * Note that since players have a default attack damage of 1.0, total damage will be (dmg + 1.0) before other modifiers.
          */
         setBaseAttackDamage(dmg: number): void;
+        set attributeModifiersWithTooltip(value: $List_<$ItemAttributeModifiers$Entry_>);
     }
 }

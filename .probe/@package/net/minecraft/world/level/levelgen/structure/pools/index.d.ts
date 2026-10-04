@@ -24,12 +24,12 @@ export * as alias from "@package/net/minecraft/world/level/levelgen/structure/po
 
 declare module "@package/net/minecraft/world/level/levelgen/structure/pools" {
     export class $SinglePoolElement extends $StructurePoolElement implements $SinglePoolElementAccessor$1, $SinglePoolElementAccessor {
+        getSettings(rotation: $Rotation_, boundingBox: $BoundingBox, liquidSettings: $LiquidSettings_, offset: boolean): $StructurePlaceSettings;
         static overrideLiquidSettingsCodec<E extends $SinglePoolElement>(): $RecordCodecBuilder<E, ($LiquidSettings) | undefined>;
         static processorsCodec<E extends $SinglePoolElement>(): $RecordCodecBuilder<E, $Holder<$StructureProcessorList>>;
         static templateCodec<E extends $SinglePoolElement>(): $RecordCodecBuilder<E, $Either<$ResourceLocation, $StructureTemplate>>;
         getDataMarkers(structureTemplateManager: $StructureTemplateManager, pos: $BlockPos_, rotation: $Rotation_, relativePosition: boolean): $List<$StructureTemplate$StructureBlockInfo>;
         static sortBySelectionPriority(structureBlockInfos: $List_<$StructureTemplate$StructureBlockInfo_>): void;
-        getSettings(rotation: $Rotation_, boundingBox: $BoundingBox, liquidSettings: $LiquidSettings_, offset: boolean): $StructurePlaceSettings;
         getTemplate(structureTemplateManager: $StructureTemplateManager): $StructureTemplate;
         setProcessors(holder: $Holder_<$StructureProcessorList>): void;
         callGetTemplate(structureTemplateManager: $StructureTemplateManager): $StructureTemplate;
@@ -42,13 +42,13 @@ declare module "@package/net/minecraft/world/level/levelgen/structure/pools" {
         constructor(template: $Either<$ResourceLocation_, $StructureTemplate>, processors: $Holder_<$StructureProcessorList>, projection: $StructureTemplatePool$Projection_, overrideLiquidSettings: ($LiquidSettings_) | undefined);
     }
     export class $StructurePoolElement {
-        place(structureTemplateManager: $StructureTemplateManager, level: $WorldGenLevel, structureManager: $StructureManager, generator: $ChunkGenerator, offset: $BlockPos_, pos: $BlockPos_, rotation: $Rotation_, box: $BoundingBox, random: $RandomSource, liquidSettings: $LiquidSettings_, keepJigsaws: boolean): boolean;
         handleDataMarker(level: $LevelAccessor, blockInfo: $StructureTemplate$StructureBlockInfo_, pos: $BlockPos_, rotation: $Rotation_, random: $RandomSource, box: $BoundingBox): void;
         getGroundLevelDelta(): number;
         static projectionCodec<E extends $StructurePoolElement>(): $RecordCodecBuilder<E, $StructureTemplatePool$Projection>;
         getProjection(): $StructureTemplatePool$Projection;
         getShuffledJigsawBlocks(structureTemplateManager: $StructureTemplateManager, pos: $BlockPos_, rotation: $Rotation_, random: $RandomSource): $List<$StructureTemplate$StructureBlockInfo>;
         setProjection(projection: $StructureTemplatePool$Projection_): $StructurePoolElement;
+        place(structureTemplateManager: $StructureTemplateManager, level: $WorldGenLevel, structureManager: $StructureManager, generator: $ChunkGenerator, offset: $BlockPos_, pos: $BlockPos_, rotation: $Rotation_, box: $BoundingBox, random: $RandomSource, liquidSettings: $LiquidSettings_, keepJigsaws: boolean): boolean;
         static list(elements: $List_<$Function_<$StructureTemplatePool$Projection, $StructurePoolElement>>): $Function<$StructureTemplatePool$Projection, $ListPoolElement>;
         static single(id: string, liquidSettings: $LiquidSettings_): $Function<$StructureTemplatePool$Projection, $SinglePoolElement>;
         static single(id: string): $Function<$StructureTemplatePool$Projection, $SinglePoolElement>;
@@ -63,6 +63,8 @@ declare module "@package/net/minecraft/world/level/levelgen/structure/pools" {
         getBoundingBox(structureTemplateManager: $StructureTemplateManager, pos: $BlockPos_, rotation: $Rotation_): $BoundingBox;
         static CODEC: $Codec<$StructurePoolElement>;
         constructor(projection: $StructureTemplatePool$Projection_);
+        get groundLevelDelta(): number;
+        get type(): $StructurePoolElementType<never>;
     }
     export class $ListPoolElement extends $StructurePoolElement implements $ListPoolElementAccessor {
         getElements(): $List<$StructurePoolElement>;
@@ -117,11 +119,11 @@ declare module "@package/net/minecraft/world/level/levelgen/structure/pools" {
     }
     export interface $StructurePoolElementType<P> extends RegistryMarked<RegistryTypes.WorldgenStructurePoolElementTag, RegistryTypes.WorldgenStructurePoolElement> {}
     export class $StructureTemplatePool implements $StructureTemplatePoolAccessor$1, $StructureTemplatePoolAccessor, $StructurePoolAccess {
-        getMaxSize(structureTemplateManager: $StructureTemplateManager): number;
         getRandomTemplate(random: $RandomSource): $StructurePoolElement;
         getShuffledTemplates(random: $RandomSource): $List<$StructurePoolElement>;
         getLithostitchedTemplates(): $LithostitchedTemplates;
         compileRawTemplates(): void;
+        getMaxSize(structureTemplateManager: $StructureTemplateManager): number;
         size(): number;
         getFallback(): $Holder<$StructureTemplatePool>;
         getRawTemplates(): $List<$Pair<$StructurePoolElement, number>>;
@@ -132,6 +134,8 @@ declare module "@package/net/minecraft/world/level/levelgen/structure/pools" {
         static DIRECT_CODEC: $Codec<$StructureTemplatePool>;
         constructor(fallback: $Holder_<$StructureTemplatePool>, rawTemplateFactories: $List_<$Pair<$Function_<$StructureTemplatePool$Projection, $StructurePoolElement>, number>>, projection: $StructureTemplatePool$Projection_);
         constructor(fallback: $Holder_<$StructureTemplatePool>, rawTemplates: $List_<$Pair<$StructurePoolElement, number>>);
+        get lithostitchedTemplates(): $LithostitchedTemplates;
+        get fallback(): $Holder<$StructureTemplatePool>;
     }
     /**
      * Values that may be interpreted as {@link $StructureTemplatePool}.
@@ -148,6 +152,9 @@ declare module "@package/net/minecraft/world/level/levelgen/structure/pools" {
         static CODEC: $StringRepresentable$EnumCodec<$StructureTemplatePool$Projection>;
         static TERRAIN_MATCHING: $StructureTemplatePool$Projection;
         static RIGID: $StructureTemplatePool$Projection;
+        get processors(): $ImmutableList<$StructureProcessor>;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $StructureTemplatePool$Projection}.

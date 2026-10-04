@@ -33,6 +33,7 @@ declare module "@package/dev/latvian/mods/kubejs/script" {
         toJson(): $JsonObject;
         static UNKNOWN: $SourceLine;
         constructor(source: string, line: number);
+        get unknown(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $SourceLine}.
@@ -52,6 +53,7 @@ declare module "@package/dev/latvian/mods/kubejs/script" {
         packs: $Map<string, $ScriptPack>;
         contextFactory: $KubeJSContextFactory;
         constructor(t: $ScriptType_);
+        get registries(): $RegistryAccessContainer;
     }
     export class $ScriptPackInfo {
         displayName: $Component;
@@ -97,6 +99,7 @@ declare module "@package/dev/latvian/mods/kubejs/script" {
         timestamp: number;
         group: string;
         constructor(console: $ConsoleJS, timestamp: number, message: string);
+        get text(): string;
     }
     export class $PlatformWrapper$ModInfo {
         getCustomName(): string;
@@ -105,6 +108,9 @@ declare module "@package/dev/latvian/mods/kubejs/script" {
         setName(n: string): void;
         getId(): string;
         constructor(i: string);
+        get customName(): string;
+        get version(): string;
+        get id(): string;
     }
     export class $ScriptFile implements $Comparable<$ScriptFile> {
         skipLoading(): string;
@@ -118,16 +124,17 @@ declare module "@package/dev/latvian/mods/kubejs/script" {
         pack: $ScriptPack;
         info: $ScriptFileInfo;
         constructor(pack: $ScriptPack, info: $ScriptFileInfo);
+        get priority(): number;
     }
     export class $PlatformWrapper {
         static getMcVersion(): string;
         static breakpoint(...args: $Object[]): void;
-        static setModName(modId: string, name: string): void;
-        static getMinecraftVersionString(): string;
-        static getCurrentThreadName(): string;
         static getPackMode(): string;
-        static getInfo(modID: string): $PlatformWrapper$ModInfo;
+        static setModName(modId: string, name: string): void;
+        static getCurrentThreadName(): string;
+        static getMinecraftVersionString(): string;
         static isGeneratingData(): boolean;
+        static getInfo(modID: string): $PlatformWrapper$ModInfo;
         /**
          * @deprecated
          */
@@ -141,13 +148,27 @@ declare module "@package/dev/latvian/mods/kubejs/script" {
         /**
          * @deprecated
          */
-        static isForge(): boolean;
+        static isFabric(): boolean;
+        static getMinecraftVersion(): number;
         /**
          * @deprecated
          */
-        static isFabric(): boolean;
-        static getMinecraftVersion(): number;
+        static isForge(): boolean;
         constructor();
+        static get mcVersion(): string;
+        static get packMode(): string;
+        static get currentThreadName(): string;
+        static get minecraftVersionString(): string;
+        static get generatingData(): boolean;
+        static get name(): string;
+        static get list(): $Set<string>;
+        static get mods(): $Map<string, $PlatformWrapper$ModInfo>;
+        static get developmentEnvironment(): boolean;
+        static get clientEnvironment(): boolean;
+        static get modVersion(): string;
+        static get fabric(): boolean;
+        static get minecraftVersion(): number;
+        static get forge(): boolean;
     }
     export class $ScriptPack {
         manager: $ScriptManager;
@@ -159,15 +180,15 @@ declare module "@package/dev/latvian/mods/kubejs/script" {
         getLogFile(): $Path;
         isStartup(): boolean;
         getValidTypes(): $List<$ScriptType>;
+        negate(): $ScriptTypePredicate;
         static values(): $ScriptType[];
         test(type: $ScriptType_): boolean;
         static valueOf(name: string): $ScriptType;
         isClient(): boolean;
         isServer(): boolean;
         kjs$getScriptType(): $ScriptType;
-        or(arg0: $Predicate_<$ScriptType>): $Predicate<$ScriptType>;
         and(arg0: $Predicate_<$ScriptType>): $Predicate<$ScriptType>;
-        negate(): $Predicate<$ScriptType>;
+        or(arg0: $Predicate_<$ScriptType>): $Predicate<$ScriptType>;
         console: $ConsoleJS;
         path: $Path;
         nativeEventListeners: $Map<$NativeEventWrapper$Listeners$Key, $NativeEventWrapper$Listeners>;
@@ -178,6 +199,11 @@ declare module "@package/dev/latvian/mods/kubejs/script" {
         classFilter: $Lazy<$ClassFilter>;
         static CLIENT: $ScriptType;
         nameStrip: string;
+        get logFile(): $Path;
+        get startup(): boolean;
+        get validTypes(): $List<$ScriptType>;
+        get client(): boolean;
+        get server(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $ScriptType}.
@@ -192,6 +218,7 @@ declare module "@package/dev/latvian/mods/kubejs/script" {
     export interface $ScriptTypePredicate extends $Predicate<$ScriptType> {
         getValidTypes(): $List<$ScriptType>;
         test(type: $ScriptType_): boolean;
+        get validTypes(): $List<$ScriptType>;
     }
     /**
      * Values that may be interpreted as {@link $ScriptTypePredicate}.
@@ -204,6 +231,8 @@ declare module "@package/dev/latvian/mods/kubejs/script" {
     export class $ConsoleJS {
         static getCurrent(): $ConsoleJS;
         shouldPrintDebug(): boolean;
+        printClass(className: string, tree: boolean): void;
+        printClass(className: string): void;
         static methodPattern(c: $Class<never>, method: string): $Pattern;
         setMuted(m: boolean): void;
         getMuted(): boolean;
@@ -219,8 +248,6 @@ declare module "@package/dev/latvian/mods/kubejs/script" {
         getErrorsResponse(ctx: $KJSHTTPRequest): $HTTPResponse;
         getWarningsResponse(ctx: $KJSHTTPRequest): $HTTPResponse;
         resetFile(): void;
-        printClass(className: string, tree: boolean): void;
-        printClass(className: string): void;
         startCapturingErrors(): void;
         groupEnd(): void;
         group(): void;
@@ -243,8 +270,8 @@ declare module "@package/dev/latvian/mods/kubejs/script" {
         printObject(o: $Object): void;
         printObject(o: $Object, tree: boolean): void;
         handleError(line: $ConsoleLine, error: $Throwable, exitPattern: $Pattern, print: boolean): void;
-        setDebugEnabled(m: boolean): void;
         stopCapturingErrors(): void;
+        setDebugEnabled(m: boolean): void;
         static SERVER: $ConsoleJS;
         scriptType: $ScriptType;
         static STARTUP: $ConsoleJS;
@@ -252,6 +279,9 @@ declare module "@package/dev/latvian/mods/kubejs/script" {
         static CLIENT: $ConsoleJS;
         contextFactory: $WeakReference<$ContextFactory>;
         constructor(m: $ScriptType_, log: $Logger);
+        static get current(): $ConsoleJS;
+        get scriptLine(): number;
+        get logger(): $Logger;
     }
     export class $ScriptFileInfo {
         path: $Path;

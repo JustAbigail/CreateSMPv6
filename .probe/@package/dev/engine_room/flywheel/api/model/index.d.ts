@@ -16,7 +16,7 @@ declare module "@package/dev/engine_room/flywheel/api/model" {
     export class $Model {
     }
     export interface $Model {
-        meshes(): $List<$Model$ConfiguredMesh>;
         boundingSphere(): $Vector4fc;
+        meshes(): $List<$Model$ConfiguredMesh>;
     }
 }

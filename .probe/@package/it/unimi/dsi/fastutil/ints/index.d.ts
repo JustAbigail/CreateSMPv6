@@ -2,7 +2,7 @@ import { $Serializable } from "@package/java/io";
 import { $Long2ReferenceFunction_, $Long2LongFunction, $Long2FloatFunction, $Long2ShortFunction, $Long2BooleanFunction, $Long2ObjectFunction, $Long2CharFunction_, $Long2ReferenceFunction, $Long2FloatFunction_, $Long2ByteFunction_, $Long2CharFunction, $Long2ObjectFunction_, $Long2ShortFunction_, $Long2IntFunction, $Long2LongFunction_, $Long2ByteFunction, $Long2IntFunction_, $Long2DoubleFunction, $Long2DoubleFunction_ } from "@package/it/unimi/dsi/fastutil/longs";
 import { $Byte2ReferenceFunction, $Byte2LongFunction_, $Byte2DoubleFunction, $Byte2ShortFunction, $Byte2LongFunction, $Byte2ShortFunction_, $Byte2BooleanFunction, $Byte2ByteFunction, $Byte2IntFunction_, $Byte2ObjectFunction_, $Byte2FloatFunction, $Byte2DoubleFunction_, $Byte2CharFunction, $Byte2ObjectFunction, $Byte2ByteFunction_, $Byte2CharFunction_, $Byte2ReferenceFunction_, $Byte2IntFunction, $Byte2FloatFunction_ } from "@package/it/unimi/dsi/fastutil/bytes";
 import { $Hash, $Function } from "@package/it/unimi/dsi/fastutil";
-import { $Spliterator$OfInt, $SortedMap, $Map, $Map$Entry, $ListIterator, $Spliterator, $List, $SequencedCollection, $Map_, $Collection_, $Collection, $SequencedSet, $Comparator, $Set, $Iterator, $PrimitiveIterator$OfInt, $AbstractCollection } from "@package/java/util";
+import { $Spliterator$OfInt, $SortedMap, $Map, $Map$Entry, $ListIterator, $Spliterator, $List, $SequencedCollection, $Map_, $Collection_, $Collection, $SequencedSet, $SortedSet, $Comparator, $Set, $Iterator, $PrimitiveIterator$OfInt, $AbstractCollection } from "@package/java/util";
 import { $Float2LongFunction_, $Float2FloatFunction_, $Float2ShortFunction, $Float2BooleanFunction, $Float2ObjectFunction_, $Float2IntFunction, $Float2ObjectFunction, $Float2ShortFunction_, $Float2CharFunction, $Float2DoubleFunction, $Float2ReferenceFunction_, $Float2FloatFunction, $Float2IntFunction_, $Float2ReferenceFunction, $Float2CharFunction_, $Float2ByteFunction_, $Float2LongFunction, $Float2DoubleFunction_, $Float2ByteFunction } from "@package/it/unimi/dsi/fastutil/floats";
 import { $IntPredicate as $IntPredicate$1, $IntFunction_, $IntBinaryOperator as $IntBinaryOperator$1, $IntToDoubleFunction, $Function as $Function$1, $UnaryOperator, $BiConsumer_, $IntConsumer_ as $IntConsumer_$1, $IntToLongFunction, $IntUnaryOperator as $IntUnaryOperator$1, $UnaryOperator_, $IntToDoubleFunction_, $IntFunction, $Consumer_, $BinaryOperator, $Predicate_, $Predicate, $Consumer, $IntConsumer as $IntConsumer$1, $IntPredicate_ as $IntPredicate_$1, $Function_, $IntUnaryOperator_ as $IntUnaryOperator_$1, $DoubleBinaryOperator_ as $DoubleBinaryOperator_$1, $IntBinaryOperator_ as $IntBinaryOperator_$1, $BiFunction_ } from "@package/java/util/function";
 import { $Object2LongFunction_, $Reference2ShortFunction, $Reference2FloatFunction_, $Object2ShortFunction, $Object2ObjectFunction_, $Reference2IntFunction_, $Object2ShortFunction_, $ObjectCollection, $Object2ByteFunction_, $Reference2ByteFunction_, $Object2BooleanFunction, $Object2ReferenceFunction_, $Reference2ReferenceFunction, $Reference2ObjectFunction_, $Object2CharFunction_, $Object2FloatFunction, $Reference2CharFunction, $Reference2FloatFunction, $Object2CharFunction, $Reference2DoubleFunction_, $Object2DoubleFunction, $Reference2IntFunction, $Object2IntFunction, $Object2IntFunction_, $Reference2CharFunction_, $Reference2BooleanFunction, $ObjectSortedSet, $Object2DoubleFunction_, $Object2ReferenceFunction, $Reference2DoubleFunction, $ObjectIterator, $Object2LongFunction, $Reference2LongFunction, $Reference2ShortFunction_, $Reference2ObjectFunction, $Object2FloatFunction_, $Object2ByteFunction, $Reference2ByteFunction, $Reference2ReferenceFunction_, $Reference2LongFunction_, $Object2ObjectFunction, $ObjectBidirectionalIterator, $ObjectSet } from "@package/it/unimi/dsi/fastutil/objects";
@@ -36,32 +36,29 @@ declare module "@package/it/unimi/dsi/fastutil/ints" {
     export class $Int2ObjectSortedMap<V> {
     }
     export interface $Int2ObjectSortedMap<V> extends $Int2ObjectMap<V>, $SortedMap<number, V> {
+        /**
+         * @deprecated
+         */
+        subMap(arg0: number, arg1: number): $Int2ObjectSortedMap<V>;
+        subMap(arg0: number, arg1: number): $Int2ObjectSortedMap<V>;
+        /**
+         * @deprecated
+         */
+        headMap(arg0: number): $Int2ObjectSortedMap<V>;
+        headMap(arg0: number): $Int2ObjectSortedMap<V>;
+        /**
+         * @deprecated
+         */
+        tailMap(arg0: number): $Int2ObjectSortedMap<V>;
+        tailMap(arg0: number): $Int2ObjectSortedMap<V>;
+        keySet(): $IntSortedSet;
         firstIntKey(): number;
         lastIntKey(): number;
-        values(): $ObjectCollection<V>;
-        /**
-         * @deprecated
-         */
-        entrySet(): $ObjectSortedSet<$Map$Entry<number, V>>;
-        comparator(): $IntComparator;
-        /**
-         * @deprecated
-         */
-        subMap(arg0: number, arg1: number): $Int2ObjectSortedMap<V>;
-        subMap(arg0: number, arg1: number): $Int2ObjectSortedMap<V>;
-        headMap(arg0: number): $Int2ObjectSortedMap<V>;
-        /**
-         * @deprecated
-         */
-        headMap(arg0: number): $Int2ObjectSortedMap<V>;
-        /**
-         * @deprecated
-         */
-        tailMap(arg0: number): $Int2ObjectSortedMap<V>;
-        tailMap(arg0: number): $Int2ObjectSortedMap<V>;
-        keySet(): $Set<number>;
-        firstKey(): number;
         lastKey(): number;
+        firstKey(): number;
+        values(): $ObjectCollection<V>;
+        entrySet(): $Set<$Map$Entry<number, V>>;
+        comparator(): $Comparator<number>;
         int2ObjectEntrySet(): $ObjectSet<$Int2ObjectMap$Entry<V>>;
     }
     export class $IntIterable {
@@ -204,6 +201,12 @@ declare module "@package/it/unimi/dsi/fastutil/ints" {
      * Values that may be interpreted as {@link $Int2BooleanFunction}.
      */
     export type $Int2BooleanFunction_ = ((arg0: number) => boolean);
+    export class $Int2ObjectSortedMap$FastSortedEntrySet<V> {
+    }
+    export interface $Int2ObjectSortedMap$FastSortedEntrySet<V> extends $ObjectSortedSet<$Int2ObjectMap$Entry<V>>, $Int2ObjectMap$FastEntrySet<V> {
+        fastIterator(): $ObjectBidirectionalIterator<$Int2ObjectMap$Entry<V>>;
+        fastIterator(arg0: $Int2ObjectMap$Entry<V>): $ObjectBidirectionalIterator<$Int2ObjectMap$Entry<V>>;
+    }
     export class $Int2FloatFunction {
     }
     export interface $Int2FloatFunction extends $Function<number, number>, $IntToDoubleFunction {
@@ -266,6 +269,7 @@ declare module "@package/it/unimi/dsi/fastutil/ints" {
     }
     export interface $Int2DoubleMap extends $Int2DoubleFunction, $Map<number, number> {
         int2DoubleEntrySet(): $ObjectSet<$Int2DoubleMap$Entry>;
+        computeIfAbsentNullable(arg0: number, arg1: $IntFunction_<number>): number;
         mergeDouble(arg0: number, arg1: number, arg2: $DoubleBinaryOperator_): number;
         mergeDouble(arg0: number, arg1: number, arg2: $DoubleBinaryOperator_$1): number;
         remove(arg0: number, arg1: number): boolean;
@@ -280,20 +284,20 @@ declare module "@package/it/unimi/dsi/fastutil/ints" {
         put(arg0: number, arg1: number): number;
         values(): $DoubleCollection;
         clear(): void;
-        replace(arg0: number, arg1: number): number;
         replace(arg0: number, arg1: number, arg2: number): boolean;
-        /**
-         * @deprecated
-         */
         replace(arg0: number, arg1: number): number;
         /**
          * @deprecated
          */
-        replace(arg0: number, arg1: number, arg2: number): boolean;
+        replace(arg0: number, arg1: number): number;
         /**
          * @deprecated
          */
+        replace(arg0: number, arg1: number, arg2: number): boolean;
         merge(arg0: number, arg1: number, arg2: $BiFunction_<number, number, number>): number;
+        /**
+         * @deprecated
+         */
         merge(arg0: number, arg1: number, arg2: $BiFunction_<number, number, number>): number;
         putIfAbsent(arg0: number, arg1: number): number;
         /**
@@ -312,37 +316,36 @@ declare module "@package/it/unimi/dsi/fastutil/ints" {
         containsKey(arg0: $Object): boolean;
         containsKey(arg0: number): boolean;
         computeIfAbsent(arg0: number, arg1: $IntToDoubleFunction_): number;
+        computeIfAbsent(arg0: number, arg1: $Int2DoubleFunction_): number;
         /**
          * @deprecated
          */
         computeIfAbsent(arg0: number, arg1: $Function_<number, number>): number;
-        computeIfAbsent(arg0: number, arg1: $Int2DoubleFunction_): number;
-        keySet(): $IntSet;
-        containsValue(arg0: number): boolean;
         /**
          * @deprecated
          */
         containsValue(arg0: $Object): boolean;
+        containsValue(arg0: number): boolean;
         /**
          * @deprecated
          */
         getOrDefault(arg0: $Object, arg1: number): number;
         getOrDefault(arg0: number, arg1: number): number;
+        computeIfPresent(arg0: number, arg1: $BiFunction_<number, number, number>): number;
         /**
          * @deprecated
          */
         computeIfPresent(arg0: number, arg1: $BiFunction_<number, number, number>): number;
-        computeIfPresent(arg0: number, arg1: $BiFunction_<number, number, number>): number;
-        defaultReturnValue(arg0: number): void;
         defaultReturnValue(): number;
+        defaultReturnValue(arg0: number): void;
         /**
          * @deprecated
          */
         computeIfAbsentPartial(arg0: number, arg1: $Int2DoubleFunction_): number;
-        computeIfAbsentNullable(arg0: number, arg1: $IntFunction_<number>): number;
         remove(arg0: number): number;
         get(arg0: number): number;
         entrySet(): $Set<$Map$Entry<number, number>>;
+        keySet(): $Set<number>;
     }
     export class $Int2ShortFunction {
     }
@@ -419,14 +422,43 @@ declare module "@package/it/unimi/dsi/fastutil/ints" {
      * Values that may be interpreted as {@link $IntBinaryOperator}.
      */
     export type $IntBinaryOperator_ = ((arg0: number, arg1: number) => number);
+    export class $IntSortedSet {
+    }
+    export interface $IntSortedSet extends $IntSet, $SortedSet<number>, $IntBidirectionalIterable {
+        /**
+         * @deprecated
+         */
+        subSet(arg0: number, arg1: number): $IntSortedSet;
+        subSet(arg0: number, arg1: number): $IntSortedSet;
+        headSet(arg0: number): $IntSortedSet;
+        /**
+         * @deprecated
+         */
+        headSet(arg0: number): $IntSortedSet;
+        tailSet(arg0: number): $IntSortedSet;
+        /**
+         * @deprecated
+         */
+        tailSet(arg0: number): $IntSortedSet;
+        iterator(arg0: number): $IntBidirectionalIterator;
+        spliterator(): $IntSpliterator;
+        firstInt(): number;
+        lastInt(): number;
+        iterator(): $IntIterator;
+        last(): number;
+        first(): number;
+        comparator(): $Comparator<number>;
+    }
     export class $Int2IntMap {
     }
     export interface $Int2IntMap extends $Int2IntFunction, $Map<number, number> {
+        int2IntEntrySet(): $ObjectSet<$Int2IntMap$Entry>;
+        computeIfAbsentNullable(arg0: number, arg1: $IntFunction_<number>): number;
+        remove(arg0: number, arg1: number): boolean;
         /**
          * @deprecated
          */
         remove(arg0: $Object): number;
-        remove(arg0: number, arg1: number): boolean;
         /**
          * @deprecated
          */
@@ -435,19 +467,14 @@ declare module "@package/it/unimi/dsi/fastutil/ints" {
         /**
          * @deprecated
          */
-        get(arg0: $Object): number;
-        /**
-         * @deprecated
-         */
         put(arg0: number, arg1: number): number;
-        values(): $IntCollection;
         clear(): void;
         replace(arg0: number, arg1: number): number;
+        replace(arg0: number, arg1: number, arg2: number): boolean;
         /**
          * @deprecated
          */
         replace(arg0: number, arg1: number): number;
-        replace(arg0: number, arg1: number, arg2: number): boolean;
         /**
          * @deprecated
          */
@@ -461,10 +488,10 @@ declare module "@package/it/unimi/dsi/fastutil/ints" {
          * @deprecated
          */
         entrySet(): $ObjectSet<$Map$Entry<number, number>>;
+        putIfAbsent(arg0: number, arg1: number): number;
         /**
          * @deprecated
          */
-        putIfAbsent(arg0: number, arg1: number): number;
         putIfAbsent(arg0: number, arg1: number): number;
         /**
          * @deprecated
@@ -477,22 +504,22 @@ declare module "@package/it/unimi/dsi/fastutil/ints" {
          * @deprecated
          */
         containsKey(arg0: $Object): boolean;
-        computeIfAbsent(arg0: number, arg1: $IntUnaryOperator_$1): number;
+        computeIfAbsent(arg0: number, arg1: $Int2IntFunction_): number;
         /**
          * @deprecated
          */
         computeIfAbsent(arg0: number, arg1: $Function_<number, number>): number;
-        computeIfAbsent(arg0: number, arg1: $Int2IntFunction_): number;
-        containsValue(arg0: number): boolean;
+        computeIfAbsent(arg0: number, arg1: $IntUnaryOperator_$1): number;
         /**
          * @deprecated
          */
         containsValue(arg0: $Object): boolean;
-        getOrDefault(arg0: number, arg1: number): number;
+        containsValue(arg0: number): boolean;
         /**
          * @deprecated
          */
         getOrDefault(arg0: $Object, arg1: number): number;
+        getOrDefault(arg0: number, arg1: number): number;
         computeIfPresent(arg0: number, arg1: $BiFunction_<number, number, number>): number;
         /**
          * @deprecated
@@ -500,14 +527,14 @@ declare module "@package/it/unimi/dsi/fastutil/ints" {
         computeIfPresent(arg0: number, arg1: $BiFunction_<number, number, number>): number;
         defaultReturnValue(arg0: number): void;
         defaultReturnValue(): number;
-        mergeInt(arg0: number, arg1: number, arg2: $IntBinaryOperator_): number;
         mergeInt(arg0: number, arg1: number, arg2: $IntBinaryOperator_$1): number;
+        mergeInt(arg0: number, arg1: number, arg2: $IntBinaryOperator_): number;
         /**
          * @deprecated
          */
         computeIfAbsentPartial(arg0: number, arg1: $Int2IntFunction_): number;
-        int2IntEntrySet(): $ObjectSet<$Int2IntMap$Entry>;
-        computeIfAbsentNullable(arg0: number, arg1: $IntFunction_<number>): number;
+        get(arg0: number): number;
+        values(): $Collection<number>;
         keySet(): $Set<number>;
     }
     export class $AbstractIntSet extends $AbstractIntCollection implements $Cloneable, $IntSet {
@@ -531,34 +558,38 @@ declare module "@package/it/unimi/dsi/fastutil/ints" {
         previous(): number;
     }
     export class $Int2ObjectLinkedOpenHashMap<V> extends $AbstractInt2ObjectSortedMap<V> implements $Serializable, $Cloneable, $Hash {
-        getAndMoveToFirst(arg0: number): V;
-        putAndMoveToFirst(arg0: number, arg1: V): V;
         getAndMoveToLast(arg0: number): V;
         putAndMoveToLast(arg0: number, arg1: V): V;
-        clone(): $Int2ObjectLinkedOpenHashMap<V>;
-        trim(arg0: number): boolean;
+        getAndMoveToFirst(arg0: number): V;
+        putAndMoveToFirst(arg0: number, arg1: V): V;
+        clone(): $Object;
         trim(): boolean;
+        trim(arg0: number): boolean;
         ensureCapacity(arg0: number): void;
         removeFirst(): V;
         removeLast(): V;
-        firstKey(): number;
+        int2ObjectEntrySet(): $Int2ObjectSortedMap$FastSortedEntrySet<V>;
+        values(): $ObjectCollection<V>;
+        keySet(): $IntSortedSet;
         lastKey(): number;
+        firstKey(): number;
+        entrySet(): $Set<$Map$Entry<number, V>>;
         constructor(arg0: number, arg1: number);
-        constructor(arg0: $Map_<number, V>, arg1: number);
-        constructor(arg0: number);
-        constructor();
+        constructor(arg0: $Map_<number, V>);
+        constructor(arg0: $Int2ObjectMap<V>);
         constructor(arg0: number[], arg1: V[], arg2: number);
         constructor(arg0: number[], arg1: V[]);
-        constructor(arg0: $Int2ObjectMap<V>);
+        constructor(arg0: $Map_<number, V>, arg1: number);
+        constructor();
+        constructor(arg0: number);
         constructor(arg0: $Int2ObjectMap<V>, arg1: number);
-        constructor(arg0: $Map_<number, V>);
     }
     export class $IntBidirectionalIterator {
     }
     export interface $IntBidirectionalIterator extends $IntIterator, $ObjectBidirectionalIterator<number> {
-        previousInt(): number;
-        skip(arg0: number): number;
         back(arg0: number): number;
+        skip(arg0: number): number;
+        previousInt(): number;
         previous(): number;
     }
     export class $IntList {
@@ -654,6 +685,15 @@ declare module "@package/it/unimi/dsi/fastutil/ints" {
         nextInt(): number;
         next(): number;
     }
+    export class $IntBidirectionalIterable {
+    }
+    export interface $IntBidirectionalIterable extends $IntIterable {
+        iterator(): $IntBidirectionalIterator;
+    }
+    /**
+     * Values that may be interpreted as {@link $IntBidirectionalIterable}.
+     */
+    export type $IntBidirectionalIterable_ = (() => $IntBidirectionalIterator);
     export class $Int2IntMap$Entry {
     }
     export interface $Int2IntMap$Entry extends $Map$Entry<number, number> {
@@ -669,6 +709,9 @@ declare module "@package/it/unimi/dsi/fastutil/ints" {
         getIntValue(): number;
         getIntKey(): number;
         getKey(): number;
+        get intValue(): number;
+        get intKey(): number;
+        get key(): number;
     }
     export class $Int2CharFunction {
     }
@@ -1010,10 +1053,6 @@ declare module "@package/it/unimi/dsi/fastutil/ints" {
         /**
          * @deprecated
          */
-        entrySet(): $ObjectSortedSet<$Map$Entry<number, V>>;
-        /**
-         * @deprecated
-         */
         subMap(arg0: number, arg1: number): $Int2ObjectSortedMap<V>;
         /**
          * @deprecated
@@ -1034,9 +1073,11 @@ declare module "@package/it/unimi/dsi/fastutil/ints" {
         pollFirstEntry(): $Map$Entry<number, V>;
         pollLastEntry(): $Map$Entry<number, V>;
         values(): $ObjectCollection<V>;
-        keySet(): $Set<number>;
-        firstKey(): number;
+        keySet(): $IntSortedSet;
         lastKey(): number;
+        firstKey(): number;
+        entrySet(): $Set<$Map$Entry<number, V>>;
+        comparator(): $Comparator<number>;
     }
     export class $Int2LongFunction {
     }
@@ -1170,6 +1211,7 @@ declare module "@package/it/unimi/dsi/fastutil/ints" {
         skip(arg0: number): number;
         trySplit(): $Spliterator<number>;
         getComparator(): $Comparator<number>;
+        get comparator(): $Comparator<number>;
     }
     export class $IntComparator {
     }
@@ -1186,18 +1228,17 @@ declare module "@package/it/unimi/dsi/fastutil/ints" {
     export class $IntPredicate {
     }
     export interface $IntPredicate extends $Predicate<number>, $IntPredicate$1 {
+        and(arg0: $IntPredicate_): $IntPredicate;
+        /**
+         * @deprecated
+         */
+        and(arg0: $Predicate_<number>): $Predicate<number>;
         or(arg0: $IntPredicate_$1): $IntPredicate;
         or(arg0: $IntPredicate_): $IntPredicate;
         /**
          * @deprecated
          */
         or(arg0: $Predicate_<number>): $Predicate<number>;
-        and(arg0: $IntPredicate_): $IntPredicate;
-        and(arg0: $IntPredicate_$1): $IntPredicate;
-        /**
-         * @deprecated
-         */
-        and(arg0: $Predicate_<number>): $Predicate<number>;
         /**
          * @deprecated
          */
@@ -1348,6 +1389,8 @@ declare module "@package/it/unimi/dsi/fastutil/ints" {
          */
         getKey(): number;
         getIntKey(): number;
+        get key(): number;
+        get intKey(): number;
     }
     export class $AbstractIntCollection extends $AbstractCollection<number> implements $IntCollection {
         toIntArray(): number[];
@@ -1418,5 +1461,6 @@ declare module "@package/it/unimi/dsi/fastutil/ints" {
         computeIfPresent(arg0: number, arg1: $BiFunction_<number, V, V>): V;
         keySet(): $Set<number>;
         entrySet(): $Set<$Map$Entry<number, V>>;
+        get empty(): boolean;
     }
 }

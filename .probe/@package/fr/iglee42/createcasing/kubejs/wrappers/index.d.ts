@@ -13,11 +13,11 @@ declare module "@package/fr/iglee42/createcasing/kubejs/wrappers" {
     }
     export class $KJSSpriteShiftWrapper {
         static horizontal(arg0: $ResourceLocation_): $CTSpriteShiftEntry;
+        static omni(arg0: $ResourceLocation_): $CTSpriteShiftEntry;
         static getCT(arg0: $CTType, arg1: $ResourceLocation_, arg2: $ResourceLocation_): $CTSpriteShiftEntry;
         static getCT(arg0: $CTType, arg1: $ResourceLocation_): $CTSpriteShiftEntry;
         static getFromCreate(arg0: string, arg1: string): $SpriteShiftEntry;
         static getFromCreate(arg0: string): $SpriteShiftEntry;
-        static omni(arg0: $ResourceLocation_): $CTSpriteShiftEntry;
         static vertical(arg0: $ResourceLocation_): $CTSpriteShiftEntry;
         static get(arg0: string, arg1: string): $SpriteShiftEntry;
     }

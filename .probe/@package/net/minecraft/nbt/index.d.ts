@@ -10,7 +10,7 @@ import { $Scriptable } from "@package/dev/latvian/mods/rhino";
 
 declare module "@package/net/minecraft/nbt" {
     export class $LongArrayTag extends $CollectionTag<$LongTag> {
-        get(index: number): $LongTag;
+        remove(index: number): $LongTag;
         add(index: number, tag: $LongTag): void;
         set(index: number, tag: $LongTag): $LongTag;
         /**
@@ -20,16 +20,16 @@ declare module "@package/net/minecraft/nbt" {
         getAsLongArray(): number[];
         reversed(): $SequencedCollection<$LongTag>;
         static TYPE: $TagType<$LongArrayTag>;
-        constructor(data: number[]);
         constructor(dataList: $List_<number>);
         constructor(dataSet: $LongSet);
+        constructor(data: number[]);
+        get asLongArray(): number[];
     }
     export class $NbtAccounter implements $NbtAccounterAccessor {
         getUsage(): number;
         static create(quota: number): $NbtAccounter;
         readUTF(arg0: string): string;
         getDepth(): number;
-        static unlimitedHeap(): $NbtAccounter;
         /**
          * Adds the bytes to the current number of read bytes. If the number of bytes is greater than the stored quota, an exception will occur.
          * @throws RuntimeException if the number of `usage` bytes exceed the number of `quota` bytes
@@ -38,8 +38,11 @@ declare module "@package/net/minecraft/nbt" {
         accountBytes(bytesPerItem: number, arg1: number): void;
         pushDepth(): void;
         popDepth(): void;
+        static unlimitedHeap(): $NbtAccounter;
         create$getUsage(): number;
         constructor(quota: number, arg1: number);
+        get usage(): number;
+        get depth(): number;
     }
     export class $IntTag extends $NumericTag {
         static valueOf(data: number): $IntTag;
@@ -80,8 +83,8 @@ declare module "@package/net/minecraft/nbt" {
         merge(other: $CompoundTag_): $CompoundTag;
         entrySet(): $Set<$Map$Entry<string, $Tag>>;
         write(output: $DataOutput): void;
-        accept(visitor: $TagVisitor): void;
         accept(visitor: $StreamTagVisitor): $StreamTagVisitor$ValueResult;
+        accept(visitor: $TagVisitor): void;
         getId(): number;
         getType(): $TagType<$CompoundTag>;
         /**
@@ -91,13 +94,13 @@ declare module "@package/net/minecraft/nbt" {
         getList(key: string, tagType: number): $ListTag;
         getAllKeys(): $Set<string>;
         getUUID(key: string): $UUID;
-        sizeInBytes(): number;
         putUUID(key: string, value: $UUID_): void;
         hasUUID(key: string): boolean;
         putString(key: string, value: string): void;
         putIntArray(key: string, value: number[]): void;
         putLongArray(key: string, value: number[]): void;
         getTagType(key: string): number;
+        sizeInBytes(): number;
         getByteArray(key: string): number[];
         getIntArray(key: string): number[];
         getLongArray(key: string): number[];
@@ -116,6 +119,11 @@ declare module "@package/net/minecraft/nbt" {
         constructor(tags: $Map_<string, $Tag_>);
         constructor();
         constructor(arg0: number);
+        get empty(): boolean;
+        get id(): number;
+        get type(): $TagType<$CompoundTag>;
+        get allKeys(): $Set<string>;
+        get asString(): string;
     }
     /**
      * Values that may be interpreted as {@link $CompoundTag}.
@@ -147,6 +155,7 @@ declare module "@package/net/minecraft/nbt" {
     }
     export class $ListTag extends $CollectionTag<$Tag> {
         getString(index: number): string;
+        get(index: number): $Tag;
         getShort(index: number): number;
         getInt(index: number): number;
         getFloat(index: number): number;
@@ -175,7 +184,6 @@ declare module "@package/net/minecraft/nbt" {
         static TYPE: $TagType<$DoubleTag>;
     }
     export class $ByteArrayTag extends $CollectionTag<$ByteTag> {
-        get(index: number): $ByteTag;
         add(index: number, tag: $ByteTag): void;
         set(index: number, tag: $ByteTag): $ByteTag;
         getAsByteArray(): number[];
@@ -183,6 +191,7 @@ declare module "@package/net/minecraft/nbt" {
         static TYPE: $TagType<$ByteArrayTag>;
         constructor(data: number[]);
         constructor(dataList: $List_<number>);
+        get asByteArray(): number[];
     }
     export class $FloatTag extends $NumericTag {
         static valueOf(data: number): $FloatTag;
@@ -201,6 +210,9 @@ declare module "@package/net/minecraft/nbt" {
         copy(): $Tag;
         static INSTANCE: $EndTag;
         static TYPE: $TagType<$EndTag>;
+        get id(): number;
+        get type(): $TagType<$EndTag>;
+        get asString(): string;
     }
     export class $ShortTag extends $NumericTag {
         static valueOf(data: number): $ShortTag;
@@ -280,6 +292,9 @@ declare module "@package/net/minecraft/nbt" {
         getAsString(): string;
         sizeInBytes(): number;
         acceptAsRoot(visitor: $StreamTagVisitor): void;
+        get id(): number;
+        get type(): $TagType<never>;
+        get asString(): string;
     }
     /**
      * Values that may be interpreted as {@link $Tag}.
@@ -302,13 +317,21 @@ declare module "@package/net/minecraft/nbt" {
         getAsDouble(): number;
         getAsLong(): number;
         getAsNumber(): $Number;
+        getAsFloat(): number;
         getAsByte(): number;
         getAsShort(): number;
-        getAsFloat(): number;
         specialEquals(o: $Object, shallow: boolean): boolean;
         getAsString(): string;
         acceptAsRoot(arg0: $StreamTagVisitor): void;
         constructor();
+        get asInt(): number;
+        get asDouble(): number;
+        get asLong(): number;
+        get asNumber(): $Number;
+        get asFloat(): number;
+        get asByte(): number;
+        get asShort(): number;
+        get asString(): string;
     }
     export class $TagType<T extends $Tag> {
         static createInvalid(id: number): $TagType<$EndTag>;
@@ -322,19 +345,23 @@ declare module "@package/net/minecraft/nbt" {
         parse(input: $DataInput, visitor: $StreamTagVisitor, accounter: $NbtAccounter): $StreamTagVisitor$ValueResult;
         skip(input: $DataInput, entries: number, accounter: $NbtAccounter): void;
         skip(input: $DataInput, accounter: $NbtAccounter): void;
+        get prettyName(): string;
+        get value(): boolean;
+        get name(): string;
     }
     export class $CollectionTag<T extends $Tag> extends $AbstractList<T> implements $Tag, $CustomJavaToJsWrapper {
-        addTag(index: number, tag: $Tag_): boolean;
         getElementType(): number;
-        remove(index: number): T;
         add(index: number, tag: T): void;
         set(index: number, tag: T): T;
         setTag(index: number, tag: $Tag_): boolean;
+        addTag(index: number, tag: $Tag_): boolean;
         convertJavaToJs(scope: $Scriptable, target: $TypeInfo_): $Scriptable;
         getAsString(): string;
         acceptAsRoot(arg0: $StreamTagVisitor): void;
         reversed(): $SequencedCollection<T>;
         constructor();
+        get elementType(): number;
+        get asString(): string;
     }
     /**
      * Values that may be interpreted as {@link $CollectionTag}.
@@ -358,9 +385,11 @@ declare module "@package/net/minecraft/nbt" {
         sizeInBytes(): number;
         acceptAsRoot(arg0: $StreamTagVisitor): void;
         static TYPE: $TagType<$StringTag>;
+        get id(): number;
+        get type(): $TagType<$StringTag>;
+        get asString(): string;
     }
     export class $IntArrayTag extends $CollectionTag<$IntTag> {
-        get(index: number): $IntTag;
         add(index: number, tag: $IntTag): void;
         set(index: number, tag: $IntTag): $IntTag;
         /**
@@ -372,5 +401,6 @@ declare module "@package/net/minecraft/nbt" {
         static TYPE: $TagType<$IntArrayTag>;
         constructor(data: number[]);
         constructor(dataList: $List_<number>);
+        get asIntArray(): number[];
     }
 }

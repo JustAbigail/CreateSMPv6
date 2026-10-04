@@ -43,5 +43,7 @@ declare module "@package/net/irisshaders/iris/shaderpack/materialmap" {
         getName(): string;
         constructor(arg0: string);
         constructor(arg0: string, arg1: string);
+        get namespace(): string;
+        get name(): string;
     }
 }

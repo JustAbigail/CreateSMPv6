@@ -4,7 +4,7 @@ import { $BootstrapContext } from "@package/net/minecraft/data/worldgen";
 import { $HolderLookup$Provider, $Holder, $RegistryAccess, $HolderGetter } from "@package/net/minecraft/core";
 import { $Biome } from "@package/net/minecraft/world/level/biome";
 import { $ResourceKey } from "@package/net/minecraft/resources";
-import { $StructureType, $Structure, $Structure_ } from "@package/net/minecraft/world/level/levelgen/structure";
+import { $StructureType, $Structure_, $Structure } from "@package/net/minecraft/world/level/levelgen/structure";
 import { $GenerationStep$Decoration_, $GenerationStep$Decoration } from "@package/net/minecraft/world/level/levelgen";
 export * as builders from "@package/org/betterx/wover/structure/api/builders";
 

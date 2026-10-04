@@ -83,6 +83,7 @@ declare module "@package/net/neoforged/neoforge/common" {
          */
         static getActions(): $Collection<$ItemAbility>;
         static CODEC: $Codec<$ItemAbility>;
+        static get actions(): $Collection<$ItemAbility>;
     }
     /**
      * Values that may be interpreted as {@link $ItemAbility}.
@@ -160,5 +161,6 @@ declare module "@package/net/neoforged/neoforge/common" {
         static get(name: string): $EffectCure;
         static CODEC: $Codec<$EffectCure>;
         static STREAM_CODEC: $StreamCodec<$ByteBuf, $EffectCure>;
+        static get allCures(): $Collection<$EffectCure>;
     }
 }

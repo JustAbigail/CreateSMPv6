@@ -77,18 +77,26 @@ declare module "@package/top/theillusivec4/curios/api/type/capability" {
         getFortuneBonus(): number;
         reset(): void;
         getModifiers(): $Multimap<string, $AttributeModifier>;
-        getSlots(): number;
-        findFirstCurio(arg0: $Item_): ($SlotResult) | undefined;
-        findFirstCurio(arg0: $Predicate_<$ItemStack>): ($SlotResult) | undefined;
-        findFirstCurio(arg0: $Predicate_<$ItemStack>, arg1: boolean, arg2: string): ($SlotResult) | undefined;
-        findFirstCurio(arg0: $Predicate_<$ItemStack>, arg1: string): ($SlotResult) | undefined;
         isEquipped(arg0: $Predicate_<$ItemStack>): boolean;
         isEquipped(arg0: $Item_): boolean;
+        getSlots(): number;
+        getCurios(): $Map<string, $ICurioStacksHandler>;
         /**
          * @deprecated
          */
         processSlots(): void;
-        getCurios(): $Map<string, $ICurioStacksHandler>;
+        findFirstCurio(arg0: $Item_): ($SlotResult) | undefined;
+        findFirstCurio(arg0: $Predicate_<$ItemStack>, arg1: boolean, arg2: string): ($SlotResult) | undefined;
+        findFirstCurio(arg0: $Predicate_<$ItemStack>): ($SlotResult) | undefined;
+        findFirstCurio(arg0: $Predicate_<$ItemStack>, arg1: string): ($SlotResult) | undefined;
+        get equippedCurios(): $IItemHandlerModifiable;
+        get visibleSlots(): number;
+        get wearer(): $LivingEntity;
+        get updatingInventories(): $Set<$ICurioStacksHandler>;
+        get lockedSlots(): $Set<string>;
+        get fortuneBonus(): number;
+        get modifiers(): $Multimap<string, $AttributeModifier>;
+        get slots(): number;
     }
     export class $ICurio$DropRule extends $Enum<$ICurio$DropRule> {
         static values(): $ICurio$DropRule[];

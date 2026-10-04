@@ -1,8 +1,12 @@
+import { $SimpleBlockEntityVisualizer$Factory } from "@package/dev/engine_room/flywheel/lib/visualization";
+import { $Predicate } from "@package/java/util/function";
 import { $PoseStack, $VertexConsumer } from "@package/com/mojang/blaze3d/vertex";
 import { $VoxelShape } from "@package/net/minecraft/world/phys/shapes";
 import { $InputConstants$Key } from "@package/com/mojang/blaze3d/platform";
 import { $List_, $List } from "@package/java/util";
+import { $NonNullSupplier } from "@package/com/tterrag/registrate/util/nullness";
 import { $AABB, $AABB_ } from "@package/net/minecraft/world/phys";
+import { $BlockEntity } from "@package/net/minecraft/world/level/block/entity";
 
 declare module "@package/dev/simulated_team/simulated/mixin/accessor" {
     export class $LevelRendererAccessor {
@@ -14,15 +18,25 @@ declare module "@package/dev/simulated_team/simulated/mixin/accessor" {
     }
     export interface $ContraptionAccessor {
         getSuperGlue(): $List<$AABB>;
+        get superGlue(): $List<$AABB>;
     }
     /**
      * Values that may be interpreted as {@link $ContraptionAccessor}.
      */
     export type $ContraptionAccessor_ = (() => $List_<$AABB_>);
+    export class $CreateBlockEntityBuilderAccessor<T extends $BlockEntity, P> {
+    }
+    export interface $CreateBlockEntityBuilderAccessor<T extends $BlockEntity, P> {
+        getVisualFactory(): $NonNullSupplier<$SimpleBlockEntityVisualizer$Factory<T>>;
+        getRenderNormally(): $Predicate<T>;
+        get visualFactory(): $NonNullSupplier<$SimpleBlockEntityVisualizer$Factory<T>>;
+        get renderNormally(): $Predicate<T>;
+    }
     export class $KeyMappingsAccessor {
     }
     export interface $KeyMappingsAccessor {
         getKey(): $InputConstants$Key;
+        get key(): $InputConstants$Key;
     }
     /**
      * Values that may be interpreted as {@link $KeyMappingsAccessor}.
@@ -32,6 +46,7 @@ declare module "@package/dev/simulated_team/simulated/mixin/accessor" {
     }
     export interface $BlockBehaviourAccessor {
         getHasCollision(): boolean;
+        get hasCollision(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $BlockBehaviourAccessor}.
@@ -42,5 +57,7 @@ declare module "@package/dev/simulated_team/simulated/mixin/accessor" {
     export interface $CreativeModeInventoryScreenAccessor {
         getLeftPos(): number;
         getTopPos(): number;
+        get leftPos(): number;
+        get topPos(): number;
     }
 }

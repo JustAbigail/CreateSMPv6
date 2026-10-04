@@ -8,17 +8,24 @@ declare module "@package/io/homo/superresolution/api/event" {
         constructor();
     }
     export class $AlgorithmResizeEvent extends $Event {
+        getRenderWidth(): number;
+        getRenderHeight(): number;
         getAlgorithm(): $AbstractAlgorithm;
         getScreenWidth(): number;
         getScreenHeight(): number;
-        getRenderWidth(): number;
-        getRenderHeight(): number;
         constructor(arg0: $AbstractAlgorithm, arg1: number, arg2: number, arg3: number, arg4: number);
+        get renderWidth(): number;
+        get renderHeight(): number;
+        get algorithm(): $AbstractAlgorithm;
+        get screenWidth(): number;
+        get screenHeight(): number;
     }
     export class $AlgorithmDispatchFinishEvent extends $Event {
         getOutput(): $IFrameBuffer;
         getAlgorithm(): $AbstractAlgorithm;
         constructor(arg0: $AbstractAlgorithm, arg1: $IFrameBuffer);
+        get output(): $IFrameBuffer;
+        get algorithm(): $AbstractAlgorithm;
     }
     export class $LevelRenderEndEvent extends $Event {
         constructor();
@@ -30,6 +37,8 @@ declare module "@package/io/homo/superresolution/api/event" {
         getDispatchResource(): $DispatchResource;
         getAlgorithm(): $AbstractAlgorithm;
         constructor(arg0: $AbstractAlgorithm, arg1: $DispatchResource_);
+        get dispatchResource(): $DispatchResource;
+        get algorithm(): $AbstractAlgorithm;
     }
     export class $ConfigChangedEvent extends $Event {
         constructor();

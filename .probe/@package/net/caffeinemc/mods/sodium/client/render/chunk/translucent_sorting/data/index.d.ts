@@ -21,9 +21,13 @@ declare module "@package/net/caffeinemc/mods/sodium/client/render/chunk/transluc
         static BYTES_PER_INDEX: number;
         static INDICES_PER_QUAD: number;
         sectionPos: $SectionPos;
+        get updatedQuads(): $UpdatedQuadsList;
+        get sortType(): $SortType;
     }
     export class $DynamicSorter extends $PresentSorter {
-        getQuadCount(): number;
         getResultSize(): number;
+        getQuadCount(): number;
+        get resultSize(): number;
+        get quadCount(): number;
     }
 }

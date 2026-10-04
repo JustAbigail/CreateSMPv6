@@ -20,6 +20,12 @@ declare module "@package/kotlinx/serialization/descriptors" {
         getElementName(arg0: number): string;
         getKind(): $SerialKind;
         getElementDescriptor(arg0: number): $SerialDescriptor;
+        get inline(): boolean;
+        get serialName(): string;
+        get elementsCount(): number;
+        get nullable(): boolean;
+        get annotations(): $List<$Annotation>;
+        get kind(): $SerialKind;
     }
     export class $SerialKind {
         constructor(arg0: $DefaultConstructorMarker);

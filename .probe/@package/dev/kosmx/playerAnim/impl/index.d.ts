@@ -16,13 +16,14 @@ declare module "@package/dev/kosmx/playerAnim/impl" {
     export class $IAnimatedPlayer {
     }
     export interface $IAnimatedPlayer extends $IPlayer {
-        playerAnimator_setAnimation(arg0: $ResourceLocation_, arg1: $IAnimation): $IAnimation;
         /**
          * @deprecated
          */
         getAnimation(): $AnimationApplier;
-        playerAnimator_getAnimation(): $AnimationApplier;
         playerAnimator_getAnimation(arg0: $ResourceLocation_): $IAnimation;
+        playerAnimator_getAnimation(): $AnimationApplier;
+        playerAnimator_setAnimation(arg0: $ResourceLocation_, arg1: $IAnimation): $IAnimation;
+        get animation(): $AnimationApplier;
     }
     export class $IPlayerModel {
     }

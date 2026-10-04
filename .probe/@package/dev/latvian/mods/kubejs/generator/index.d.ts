@@ -21,17 +21,17 @@ declare module "@package/dev/latvian/mods/kubejs/generator" {
     export class $KubeDataGenerator {
     }
     export interface $KubeDataGenerator extends $KubeResourceGenerator {
-        setWaxable(from: $Block_, to: $Block_): void;
+        setCompostable(items: $ItemPredicate_, chance: number, canVillagerCompost: boolean): void;
         removeCompostable(items: $ItemPredicate_): void;
         setFurnaceFuel(items: $ItemPredicate_, ticks: $TickDuration_): void;
         removeFurnaceFuel(items: $ItemPredicate_): void;
         setMonsterRoomMobs(entityType: $EntityType_<never>, weight: number): void;
+        setVibrationFrequency(gameEvent: $GameEvent_, frequency: number): void;
         setOxidizable(from: $Block_, to: $Block_): void;
         setParrotImitation(type: $EntityType_<never>, sound: $SoundEvent_): void;
         setRaidHeroGifts(profession: $VillagerProfession_, lootTable: $ResourceKey_<$LootTable>): void;
-        setVibrationFrequency(gameEvent: $GameEvent_, frequency: number): void;
         setVillagerType(biome: $ResourceKey_<$Biome>, villagerType: $VillagerType_): void;
-        setCompostable(items: $ItemPredicate_, chance: number, canVillagerCompost: boolean): void;
+        setWaxable(from: $Block_, to: $Block_): void;
         dataMap<R, T>(type: $DataMapType<R, T>, consumer: $Consumer_<$VirtualDataMapFile<R, T>>): void;
     }
     export class $KubeResourceGenerator {
@@ -43,6 +43,7 @@ declare module "@package/dev/latvian/mods/kubejs/generator" {
         text(id: $ResourceLocation_, content: string): void;
         json(id: $ResourceLocation_, json: $JsonElement_): void;
         getRegistries(): $RegistryAccessContainer;
+        get registries(): $RegistryAccessContainer;
     }
     export class $KubeAssetGenerator {
         static HANDHELD_ITEM_MODEL: $ResourceLocation;

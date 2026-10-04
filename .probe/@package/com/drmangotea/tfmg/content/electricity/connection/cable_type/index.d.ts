@@ -20,6 +20,13 @@ declare module "@package/com/drmangotea/tfmg/content/electricity/connection/cabl
         getColor(): number;
         getDescriptionId(): string;
         constructor(arg0: $CableType$Properties);
+        get spool(): $ItemEntry<never>;
+        get wire(): $ItemEntry<never>;
+        get orCreateDescriptionId(): string;
+        get displayName(): $Component;
+        get key(): $ResourceLocation;
+        get color(): number;
+        get descriptionId(): string;
     }
     /**
      * Values that may be interpreted as {@link $CableType}.

@@ -35,14 +35,14 @@ export * as spectator from "@package/net/minecraft/client/gui/components/spectat
 
 declare module "@package/net/minecraft/client/gui/components" {
     export class $DebugScreenOverlay implements $DebugHudAccesor {
-        clearChunkCache(): void;
         getTickTimeLogger(): $LocalSampleLogger;
         toggleOverlay(): void;
-        toggleFpsCharts(): void;
         toggleProfilerChart(): void;
+        toggleFpsCharts(): void;
         toggleNetworkCharts(): void;
-        showFpsCharts(): boolean;
-        getBandwidthLogger(): $LocalSampleLogger;
+        getPingLogger(): $LocalSampleLogger;
+        logRemoteSample(sample: number[], sampleType: $RemoteDebugSampleType_): void;
+        showNetworkCharts(): boolean;
         collectSystemInformationText(): $List<string>;
         collectGameInformationText(): $List<string>;
         getGameInformation(): $List<string>;
@@ -52,9 +52,9 @@ declare module "@package/net/minecraft/client/gui/components" {
         handler$dfh000$fabric_renderer_api_v1$getLeftText(arg0: $CallbackInfoReturnable<any>): void;
         localvar$bhc000$veil$modifyGameInformation(arg0: $List_<any>): $List<any>;
         localvar$hjh000$sable$addDebugInfo(arg0: $List_<any>): $List<any>;
-        getPingLogger(): $LocalSampleLogger;
-        logRemoteSample(sample: number[], sampleType: $RemoteDebugSampleType_): void;
-        showNetworkCharts(): boolean;
+        showFpsCharts(): boolean;
+        getBandwidthLogger(): $LocalSampleLogger;
+        clearChunkCache(): void;
         reset(): void;
         render(guiGraphics: $GuiGraphics): void;
         showProfilerChart(): boolean;
@@ -64,6 +64,11 @@ declare module "@package/net/minecraft/client/gui/components" {
         seamless$renderingChartVisible(arg0: boolean): void;
         seamless$renderingAndTickChartsVisible(arg0: boolean): void;
         constructor(minecraft: $Minecraft);
+        get tickTimeLogger(): $LocalSampleLogger;
+        get pingLogger(): $LocalSampleLogger;
+        get gameInformation(): $List<string>;
+        get systemInformation(): $List<string>;
+        get bandwidthLogger(): $LocalSampleLogger;
     }
     export class $Tooltip implements $NarrationSupplier {
         static create(message: $Component_): $Tooltip;
@@ -86,6 +91,7 @@ declare module "@package/net/minecraft/client/gui/components" {
         setDelay(delay: $Duration_): void;
         updateNarration(output: $NarrationElementOutput): void;
         constructor();
+        set delay(value: $Duration_);
     }
     export class $EditBox extends $AbstractWidget implements $Renderable, $AccessEditBox {
         /**
@@ -100,11 +106,38 @@ declare module "@package/net/minecraft/client/gui/components" {
          * Deletes the given number of characters from the current cursor's position, unless there is currently a selection, in which case the selection is deleted instead.
          */
         setMaxLength(num: number): void;
+        setBordered(select: boolean): void;
+        setResponder(responder: $Consumer_<string>): void;
+        setCanLoseFocus(select: boolean): void;
+        setHint(hint: $Component_): void;
         /**
          * Gets whether the background and outline of this text box should be drawn (true if so).
          */
         canConsumeInput(): boolean;
-        setEditable(select: boolean): void;
+        moveCursor(delta: number, select: boolean): void;
+        moveCursorToStart(select: boolean): void;
+        /**
+         * Returns the current position of the cursor.
+         */
+        getInnerWidth(): number;
+        /**
+         * Gets whether the background and outline of this text box should be drawn (true if so).
+         */
+        isBordered(): boolean;
+        /**
+         * Deletes the given number of characters from the current cursor's position, unless there is currently a selection, in which case the selection is deleted instead.
+         */
+        setTextColorUneditable(num: number): void;
+        /**
+         * Adds the given text after the cursor, or replaces the currently selected text if there is a selection.
+         */
+        setSuggestion(textToWrite: string | null): void;
+        getScreenX(delta: number): number;
+        setTextShadow(select: boolean): void;
+        /**
+         * Gets whether the background and outline of this text box should be drawn (true if so).
+         */
+        getTextShadow(): boolean;
         moveCursorToEnd(select: boolean): void;
         /**
          * Deletes the given number of characters from the current cursor's position, unless there is currently a selection, in which case the selection is deleted instead.
@@ -132,30 +165,7 @@ declare module "@package/net/minecraft/client/gui/components" {
          */
         deleteCharsToPos(num: number): void;
         moveCursorTo(delta: number, select: boolean): void;
-        moveCursor(delta: number, select: boolean): void;
-        moveCursorToStart(select: boolean): void;
-        /**
-         * Returns the current position of the cursor.
-         */
-        getInnerWidth(): number;
-        /**
-         * Gets whether the background and outline of this text box should be drawn (true if so).
-         */
-        isBordered(): boolean;
-        /**
-         * Deletes the given number of characters from the current cursor's position, unless there is currently a selection, in which case the selection is deleted instead.
-         */
-        setTextColorUneditable(num: number): void;
-        /**
-         * Adds the given text after the cursor, or replaces the currently selected text if there is a selection.
-         */
-        setSuggestion(textToWrite: string | null): void;
-        getScreenX(delta: number): number;
-        setTextShadow(select: boolean): void;
-        /**
-         * Gets whether the background and outline of this text box should be drawn (true if so).
-         */
-        getTextShadow(): boolean;
+        setEditable(select: boolean): void;
         setFilter(validator: $Predicate_<string>): void;
         setFormatter(textFormatter: $BiFunction_<string, number, $FormattedCharSequence>): void;
         /**
@@ -168,17 +178,13 @@ declare module "@package/net/minecraft/client/gui/components" {
         setValue(textToWrite: string): void;
         setVisible(select: boolean): void;
         /**
-         * Adds the given text after the cursor, or replaces the currently selected text if there is a selection.
-         */
-        insertText(textToWrite: string): void;
-        /**
          * Returns the current position of the cursor.
          */
         getCursorPosition(): number;
-        setBordered(select: boolean): void;
-        setResponder(responder: $Consumer_<string>): void;
-        setCanLoseFocus(select: boolean): void;
-        setHint(hint: $Component_): void;
+        /**
+         * Adds the given text after the cursor, or replaces the currently selected text if there is a selection.
+         */
+        insertText(textToWrite: string): void;
         searchables$getFilter(): $Predicate<string>;
         searchables$getResponder(): $Consumer<string>;
         static SPRITES: $WidgetSprites;
@@ -195,9 +201,22 @@ declare module "@package/net/minecraft/client/gui/components" {
         y: number;
         static FORWARDS: number;
         height: number;
-        constructor(font: $Font, width: number, height: number, message: $Component_);
         constructor(font: $Font, x: number, y: number, width: number, height: number, editBox: $EditBox | null, message: $Component_);
         constructor(font: $Font, x: number, y: number, width: number, height: number, message: $Component_);
+        constructor(font: $Font, width: number, height: number, message: $Component_);
+        set textColor(value: number);
+        set maxLength(value: number);
+        set responder(value: $Consumer_<string>);
+        set canLoseFocus(value: boolean);
+        set hint(value: $Component_);
+        get innerWidth(): number;
+        set textColorUneditable(value: number);
+        set suggestion(value: string | null);
+        set highlightPos(value: number);
+        get highlighted(): string;
+        set editable(value: boolean);
+        set filter(value: $Predicate_<string>);
+        set formatter(value: $BiFunction_<string, number, $FormattedCharSequence>);
     }
     export class $SplashRenderer {
         render(guiGraphics: $GuiGraphics, screenWidth: number, font: $Font, color: number): void;
@@ -241,8 +260,8 @@ declare module "@package/net/minecraft/client/gui/components" {
         withCustomNarration(narrationProvider: $Function_<$CycleButton<T>, $MutableComponent>): $CycleButton$Builder<T>;
         withTooltip(tooltipSupplier: $OptionInstance$TooltipSupplier_<T>): $CycleButton$Builder<T>;
         create(x: number, y: number, width: number, height: number, name: $Component_, onValueChange: $CycleButton$OnValueChange_<T>): $CycleButton<T>;
-        create(x: number, y: number, width: number, height: number, name: $Component_): $CycleButton<T>;
         create(message: $Component_, onValueChange: $CycleButton$OnValueChange_<T>): $CycleButton<T>;
+        create(x: number, y: number, width: number, height: number, name: $Component_): $CycleButton<T>;
         constructor(valueStringifier: $Function_<T, $Component>);
     }
     export class $CycleButton<T> extends $AbstractButton {
@@ -290,12 +309,12 @@ declare module "@package/net/minecraft/client/gui/components" {
      */
     export type $Button$OnPress_ = ((arg0: $Button) => void);
     export class $BossHealthOverlay {
-        shouldDarkenScreen(): boolean;
+        shouldCreateWorldFog(): boolean;
         reset(): void;
         update(packet: $ClientboundBossEventPacket): void;
         render(guiGraphics: $GuiGraphics): void;
+        shouldDarkenScreen(): boolean;
         shouldPlayMusic(): boolean;
-        shouldCreateWorldFog(): boolean;
         events: $Map<$UUID, $LerpingBossEvent>;
         constructor(minecraft: $Minecraft);
     }
@@ -306,6 +325,8 @@ declare module "@package/net/minecraft/client/gui/components" {
     export interface $CycleButton$ValueListSupplier<T> {
         getSelectedList(): $List<T>;
         getDefaultList(): $List<T>;
+        get selectedList(): $List<T>;
+        get defaultList(): $List<T>;
     }
     export class $CycleButton$OnValueChange<T> {
     }
@@ -321,7 +342,7 @@ declare module "@package/net/minecraft/client/gui/components" {
     /**
      * Values that may be interpreted as {@link $ChatComponent$DelayedMessageDeletion}.
      */
-    export type $ChatComponent$DelayedMessageDeletion_ = { signature?: $MessageSignature_, deletableAfter?: number,  } | [signature?: $MessageSignature_, deletableAfter?: number, ];
+    export type $ChatComponent$DelayedMessageDeletion_ = { deletableAfter?: number, signature?: $MessageSignature_,  } | [deletableAfter?: number, signature?: $MessageSignature_, ];
     export class $LerpingBossEvent extends $BossEvent {
         darkenScreen: boolean;
         playBossMusic: boolean;
@@ -370,8 +391,22 @@ declare module "@package/net/minecraft/client/gui/components" {
     /**
      * Values that may be interpreted as {@link $WidgetSprites}.
      */
-    export type $WidgetSprites_ = { enabledFocused?: $ResourceLocation_, enabled?: $ResourceLocation_, disabledFocused?: $ResourceLocation_, disabled?: $ResourceLocation_,  } | [enabledFocused?: $ResourceLocation_, enabled?: $ResourceLocation_, disabledFocused?: $ResourceLocation_, disabled?: $ResourceLocation_, ];
+    export type $WidgetSprites_ = { enabledFocused?: $ResourceLocation_, disabled?: $ResourceLocation_, disabledFocused?: $ResourceLocation_, enabled?: $ResourceLocation_,  } | [enabledFocused?: $ResourceLocation_, disabled?: $ResourceLocation_, disabledFocused?: $ResourceLocation_, enabled?: $ResourceLocation_, ];
     export class $ChatComponent {
+        getLinesPerPage(): number;
+        scrollChat(posInc: number): void;
+        handleChatQueueClicked(mouseX: number, arg1: number): boolean;
+        getMessageTagAt(mouseX: number, arg1: number): $GuiMessageTag;
+        getClickedComponentStyleAt(mouseX: number, arg1: number): $Style;
+        /**
+         * Adds this string to the list of sent messages, for recall using the up/down arrow keys
+         */
+        addRecentChat(message: string): void;
+        /**
+         * Resets the chat scroll (executed when the GUI is closed, among others)
+         */
+        resetChatScroll(): void;
+        getRecentChat(): $ArrayListDeque<string>;
         static defaultUnfocusedPct(): number;
         /**
          * Resets the chat scroll (executed when the GUI is closed, among others)
@@ -394,34 +429,24 @@ declare module "@package/net/minecraft/client/gui/components" {
         deleteMessage(messageSignature: $MessageSignature_): void;
         modify$bjn000$chat_heads$chatheads$correctClickPosition(x: number, guiMessage: $GuiMessage$Line_): number;
         storeState(): $ChatComponent$State;
-        static getWidth(height: number): number;
-        getWidth(): number;
-        getHeight(): number;
-        static getHeight(height: number): number;
         /**
          * Resets the chat scroll (executed when the GUI is closed, among others)
          */
         tick(): void;
+        static getWidth(height: number): number;
+        getWidth(): number;
+        static getHeight(height: number): number;
+        getHeight(): number;
         render(guiGraphics: $GuiGraphics, tickCount: number, mouseX: number, mouseY: number, focused: boolean): void;
         addMessage(chatComponent: $Component_, headerSignature: $MessageSignature_ | null, tag: $GuiMessageTag_ | null): void;
         addMessage(chatComponent: $Component_): void;
         restoreState(state: $ChatComponent$State): void;
-        /**
-         * Resets the chat scroll (executed when the GUI is closed, among others)
-         */
-        resetChatScroll(): void;
-        getRecentChat(): $ArrayListDeque<string>;
-        getLinesPerPage(): number;
-        scrollChat(posInc: number): void;
-        handleChatQueueClicked(mouseX: number, arg1: number): boolean;
-        getMessageTagAt(mouseX: number, arg1: number): $GuiMessageTag;
-        getClickedComponentStyleAt(mouseX: number, arg1: number): $Style;
-        /**
-         * Adds this string to the list of sent messages, for recall using the up/down arrow keys
-         */
-        addRecentChat(message: string): void;
         getScale(): number;
         constructor(minecraft: $Minecraft);
+        get linesPerPage(): number;
+        get recentChat(): $ArrayListDeque<string>;
+        get chatFocused(): boolean;
+        get scale(): number;
     }
     export class $PlayerTabOverlay {
         getNameForDisplay(playerInfo: $PlayerInfo): $Component;
@@ -437,6 +462,8 @@ declare module "@package/net/minecraft/client/gui/components" {
         static MAX_ROWS_PER_COL: number;
         visible: boolean;
         constructor(minecraft: $Minecraft, gui: $Gui);
+        set header(value: $Component_ | null);
+        set footer(value: $Component_ | null);
     }
     export class $TabOrderedElement {
     }
@@ -448,6 +475,7 @@ declare module "@package/net/minecraft/client/gui/components" {
          * @return The tab order group of the GUI component.
          */
         getTabOrderGroup(): number;
+        get tabOrderGroup(): number;
     }
     export class $Renderable {
     }
@@ -518,6 +546,10 @@ declare module "@package/net/minecraft/client/gui/components" {
          * @return The tab order group of the GUI component.
          */
         getY(): number;
+        setX(height: number): void;
+        setY(height: number): void;
+        clicked(mouseX: number, arg1: number): boolean;
+        setSize(width: number, height: number): void;
         /**
          * Returns the tab order group of the GUI component.
          * Tab order group determines the order in which the components are traversed when using keyboard navigation.
@@ -532,15 +564,11 @@ declare module "@package/net/minecraft/client/gui/components" {
          * @return The tab order group of the GUI component.
          */
         getHeight(): number;
-        clicked(mouseX: number, arg1: number): boolean;
-        setX(height: number): void;
-        setY(height: number): void;
         getMessage(): $Component;
         /**
          * @return `true` if the element is active, `false` otherwise
          */
         isActive(): boolean;
-        setSize(width: number, height: number): void;
         setMessage(message: $Component_): void;
         /**
          * Renders the graphical user interface (GUI) element.
@@ -552,29 +580,18 @@ declare module "@package/net/minecraft/client/gui/components" {
          * 
          * @return The tab order group of the GUI component.
          */
-        getX(): number;
+        getRight(): number;
         /**
          * Returns the tab order group of the GUI component.
          * Tab order group determines the order in which the components are traversed when using keyboard navigation.
          * 
          * @return The tab order group of the GUI component.
          */
-        getRight(): number;
-        visitWidgets(consumer: $Consumer_<$AbstractWidget>): void;
-        /**
-         * @return `true` if the element is active, `false` otherwise
-         */
-        isFocused(): boolean;
-        renderScrollingString(guiGraphics: $GuiGraphics, font: $Font, width: number, color: number): void;
+        getX(): number;
         static renderScrollingString(guiGraphics: $GuiGraphics, font: $Font, text: $Component_, minX: number, minY: number, maxX: number, maxY: number, color: number): void;
+        renderScrollingString(guiGraphics: $GuiGraphics, font: $Font, width: number, color: number): void;
         static renderScrollingString(guiGraphics: $GuiGraphics, font: $Font, text: $Component_, centerX: number, minX: number, minY: number, maxX: number, maxY: number, color: number): void;
-        /**
-         * Retrieves the next focus path based on the given focus navigation event.
-         * 
-         * @return the next focus path as a ComponentPath, or `null` if there is no next focus path.
-         */
-        nextFocusPath(event: $FocusNavigationEvent_): $ComponentPath;
-        isMouseOver(mouseX: number, arg1: number): boolean;
+        setWidth(height: number): void;
         /**
          * Returns the tab order group of the GUI component.
          * Tab order group determines the order in which the components are traversed when using keyboard navigation.
@@ -582,6 +599,13 @@ declare module "@package/net/minecraft/client/gui/components" {
          * @return The tab order group of the GUI component.
          */
         getTabOrderGroup(): number;
+        /**
+         * Retrieves the next focus path based on the given focus navigation event.
+         * 
+         * @return the next focus path as a ComponentPath, or `null` if there is no next focus path.
+         */
+        nextFocusPath(event: $FocusNavigationEvent_): $ComponentPath;
+        isMouseOver(mouseX: number, arg1: number): boolean;
         updateNarration(narrationElementOutput: $NarrationElementOutput): void;
         /**
          * @return the narration priority
@@ -607,21 +631,25 @@ declare module "@package/net/minecraft/client/gui/components" {
          * @return `true` if the event is consumed, `false` otherwise.
          */
         mouseReleased(mouseX: number, arg1: number, mouseY: number): boolean;
+        visitWidgets(consumer: $Consumer_<$AbstractWidget>): void;
+        setTooltip(tooltip: $Tooltip | null): void;
+        setTooltipDelay(tooltipDelay: $Duration_): void;
         /**
          * Called when the mouse is dragged within the GUI element.
          * 
          * @return `true` if the event is consumed, `false` otherwise.
          */
         mouseDragged(mouseX: number, arg1: number, mouseY: number, arg3: number, button: number): boolean;
-        setTooltip(tooltip: $Tooltip | null): void;
-        setTooltipDelay(tooltipDelay: $Duration_): void;
-        setWidth(height: number): void;
-        charTyped(arg0: string, arg1: number): boolean;
-        mouseMoved(mouseX: number, arg1: number): void;
+        /**
+         * @return `true` if the element is active, `false` otherwise
+         */
+        isFocused(): boolean;
         keyPressed(arg0: number, arg1: number, arg2: number): boolean;
         getCurrentFocusPath(): $ComponentPath;
         mouseScrolled(arg0: number, arg1: number, arg2: number, arg3: number): boolean;
         keyReleased(arg0: number, arg1: number, arg2: number): boolean;
+        charTyped(arg0: string, arg1: number): boolean;
+        mouseMoved(mouseX: number, arg1: number): void;
         setPosition(width: number, height: number): void;
         onClick(arg0: number, arg1: number, arg2: number): void;
         setHeight_(height: number): void;
@@ -638,6 +666,13 @@ declare module "@package/net/minecraft/client/gui/components" {
         active: boolean;
         height: number;
         constructor(x: number, y: number, width: number, height: number, message: $Component_);
+        get hovered(): boolean;
+        get hoveredOrFocused(): boolean;
+        get bottom(): number;
+        get right(): number;
+        set tooltipDelay(value: $Duration_);
+        get currentFocusPath(): $ComponentPath;
+        set height_(value: number);
     }
     export class $Button$CreateNarration {
     }

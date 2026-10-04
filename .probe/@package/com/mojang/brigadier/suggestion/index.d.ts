@@ -15,23 +15,30 @@ declare module "@package/com/mojang/brigadier/suggestion" {
         getText(): string;
         constructor(arg0: $StringRange, arg1: string, arg2: $Message_);
         constructor(arg0: $StringRange, arg1: string);
+        get tooltip(): $Message;
+        get range(): $StringRange;
+        get text(): string;
     }
     export class $SuggestionsBuilder {
         restart(): $SuggestionsBuilder;
-        getInput(): string;
-        suggest(arg0: string): $SuggestionsBuilder;
+        getRemainingLowerCase(): string;
         suggest(arg0: string, arg1: $Message_): $SuggestionsBuilder;
+        suggest(arg0: string): $SuggestionsBuilder;
         suggest(arg0: number): $SuggestionsBuilder;
         suggest(arg0: number, arg1: $Message_): $SuggestionsBuilder;
         buildFuture(): $CompletableFuture<$Suggestions>;
         createOffset(arg0: number): $SuggestionsBuilder;
-        getRemainingLowerCase(): string;
+        getRemaining(): string;
         add(arg0: $SuggestionsBuilder): $SuggestionsBuilder;
         build(): $Suggestions;
-        getRemaining(): string;
+        getInput(): string;
         getStart(): number;
         constructor(arg0: string, arg1: string, arg2: number);
         constructor(arg0: string, arg1: number);
+        get remainingLowerCase(): string;
+        get remaining(): string;
+        get input(): string;
+        get start(): number;
     }
     export class $Suggestions {
         getRange(): $StringRange;
@@ -41,6 +48,8 @@ declare module "@package/com/mojang/brigadier/suggestion" {
         static create(arg0: string, arg1: $Collection_<$Suggestion>): $Suggestions;
         getList(): $List<$Suggestion>;
         constructor(arg0: $StringRange, arg1: $List_<$Suggestion>);
+        get range(): $StringRange;
+        get list(): $List<$Suggestion>;
     }
     export class $SuggestionProvider<S> {
     }

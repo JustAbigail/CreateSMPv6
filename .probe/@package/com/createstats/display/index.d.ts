@@ -6,13 +6,13 @@ declare module "@package/com/createstats/display" {
     export class $DisplayLinkDimensionExtension {
     }
     export interface $DisplayLinkDimensionExtension {
-        createStats$getTargetAntennaTier(): $AntennaTier;
-        createStats$getStoredTargetPos(): $BlockPos;
+        createStats$getTargetDimension(): $ResourceLocation;
+        createStats$getTargetTypeId(): $ResourceLocation;
         createStats$setTargetDimension(arg0: $ResourceLocation_): void;
         createStats$setTargetTypeId(arg0: $ResourceLocation_): void;
         createStats$setTargetAntennaTier(arg0: $AntennaTier_): void;
         createStats$setStoredTargetPos(arg0: $BlockPos_): void;
-        createStats$getTargetDimension(): $ResourceLocation;
-        createStats$getTargetTypeId(): $ResourceLocation;
+        createStats$getTargetAntennaTier(): $AntennaTier;
+        createStats$getStoredTargetPos(): $BlockPos;
     }
 }

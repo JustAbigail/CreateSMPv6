@@ -18,6 +18,8 @@ declare module "@package/net/minecraft/client/multiplayer/chat" {
         getRemappedEnumConstantName(): string;
         static PLAYER: $LoggedChatEvent$Type;
         static SYSTEM: $LoggedChatEvent$Type;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $LoggedChatEvent$Type}.
@@ -26,18 +28,19 @@ declare module "@package/net/minecraft/client/multiplayer/chat" {
     export class $ChatListener {
         clearQueue(): void;
         acceptNextDelayedMessage(): void;
-        modify$bki000$chat_heads$chatheads$handleAddedDisguisedMessage(original: $BooleanSupplier_, undecoratedMessage: $Component_, bound: $ChatType$Bound_): $BooleanSupplier;
-        handler$bjp000$chat_heads$chatheads$handleAddedPlayerMessage(bound: $ChatType$Bound_, playerChatMessage: $PlayerChatMessage_, message: $Component_, gameProfile: $GameProfile, bl: boolean, instant: $Instant, cir: $CallbackInfoReturnable<any>): void;
-        handler$bjp000$chat_heads$chatheads$handleAddedSystemMessage(message: $Component_, bl: boolean, ci: $CallbackInfo): void;
         handleChatMessageError(sender: $UUID_, boundChatType: $ChatType$Bound_): void;
         handlePlayerChatMessage(chatMessage: $PlayerChatMessage_, gameProfile: $GameProfile, boundChatType: $ChatType$Bound_): void;
         handleDisguisedChatMessage(message: $Component_, boundChatType: $ChatType$Bound_): void;
         removeFromDelayedMessageQueue(signature: $MessageSignature_): boolean;
+        modify$bki000$chat_heads$chatheads$handleAddedDisguisedMessage(original: $BooleanSupplier_, undecoratedMessage: $Component_, bound: $ChatType$Bound_): $BooleanSupplier;
+        handler$bjp000$chat_heads$chatheads$handleAddedPlayerMessage(bound: $ChatType$Bound_, playerChatMessage: $PlayerChatMessage_, message: $Component_, gameProfile: $GameProfile, bl: boolean, instant: $Instant, cir: $CallbackInfoReturnable<any>): void;
+        handler$bjp000$chat_heads$chatheads$handleAddedSystemMessage(message: $Component_, bl: boolean, ci: $CallbackInfo): void;
         handleSystemMessage(message: $Component_, isOverlay: boolean): void;
-        queueSize(): number;
         tick(): void;
+        queueSize(): number;
         setMessageDelay(delaySeconds: number): void;
         constructor(minecraft: $Minecraft);
+        set messageDelay(value: number);
     }
     export class $LoggedChatEvent {
         static CODEC: $Codec<$LoggedChatEvent>;

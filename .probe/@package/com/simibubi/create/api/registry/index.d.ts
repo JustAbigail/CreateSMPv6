@@ -41,8 +41,8 @@ declare module "@package/com/simibubi/create/api/registry" {
         static create<K, V>(): $SimpleRegistry<K, V>;
     }
     export interface $SimpleRegistry<K, V> {
-        registerProvider(arg0: $SimpleRegistry$Provider_<K, V>): void;
         invalidate(): void;
+        registerProvider(arg0: $SimpleRegistry$Provider_<K, V>): void;
         get(arg0: $StateHolder<K, never>): V;
         get(arg0: K): V;
         register(arg0: K, arg1: V): void;

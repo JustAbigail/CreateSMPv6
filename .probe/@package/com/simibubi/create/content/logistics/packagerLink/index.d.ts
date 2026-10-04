@@ -46,21 +46,21 @@ declare module "@package/com/simibubi/create/content/logistics/packagerLink" {
      */
     export type $LogisticallyLinkedBehaviour$RequestType_ = "restock" | "redstone" | "player";
     export class $LogisticallyLinkedBehaviour extends $BlockEntityBehaviour implements $LLBExtension {
-        mayInteractMessage(arg0: $Player): boolean;
         getSummary(arg0: $IdentifiedInventory_): $InventorySummary;
-        deductFromAccurateSummary(arg0: $ItemStackHandler): void;
-        processRequest(arg0: $ItemStack_, arg1: number, arg2: string, arg3: number, arg4: $MutableBoolean, arg5: number, arg6: $PackageOrderWithCrafts_, arg7: $IdentifiedInventory_): $Pair<$PackagerBlockEntity, $PackagingRequest>;
-        redstonePowerChanged(arg0: number): void;
         deployer$deductFromAccurateSummary(arg0: $StockInventoryType_<any, any, any>, arg1: $Object): void;
-        handler$fap000$createmetalogistics$processRequest(arg0: $ItemStack_, arg1: number, arg2: string, arg3: number, arg4: $MutableBoolean, arg5: number, arg6: $PackageOrderWithCrafts_ | null, arg7: $IdentifiedInventory_ | null, arg8: $CallbackInfoReturnable<any>): void;
         deployer$getSummary(arg0: $StockInventoryType_<any, any, any>, arg1: $IdentifiedContainer_<any>): $AbstractInventorySummary<any, any>;
         deployer$processRequests(arg0: $StockInventoryType_<any, any, any>, arg1: $Object, arg2: number, arg3: string, arg4: number, arg5: $MutableBoolean, arg6: number, arg7: $GenericOrderContained_<any>, arg8: $IdentifiedContainer_<any>): $Pair<any, any>;
         static isValidLink(arg0: $LogisticallyLinkedBehaviour): boolean;
+        handler$fap000$createmetalogistics$processRequest(arg0: $ItemStack_, arg1: number, arg2: string, arg3: number, arg4: $MutableBoolean, arg5: number, arg6: $PackageOrderWithCrafts_ | null, arg7: $IdentifiedInventory_ | null, arg8: $CallbackInfoReturnable<any>): void;
         handler$fap000$createmetalogistics$getSummary(arg0: $IdentifiedInventory_, arg1: $CallbackInfoReturnable<any>): void;
-        static keepAlive(arg0: $LogisticallyLinkedBehaviour): void;
-        mayAdministrate(arg0: $Player): boolean;
-        static getAllPresent(arg0: $UUID_, arg1: boolean, arg2: boolean): $Collection<$LogisticallyLinkedBehaviour>;
+        processRequest(arg0: $ItemStack_, arg1: number, arg2: string, arg3: number, arg4: $MutableBoolean, arg5: number, arg6: $PackageOrderWithCrafts_, arg7: $IdentifiedInventory_): $Pair<$PackagerBlockEntity, $PackagingRequest>;
+        redstonePowerChanged(arg0: number): void;
         static getAllPresent(arg0: $UUID_, arg1: boolean): $Collection<$LogisticallyLinkedBehaviour>;
+        static getAllPresent(arg0: $UUID_, arg1: boolean, arg2: boolean): $Collection<$LogisticallyLinkedBehaviour>;
+        mayAdministrate(arg0: $Player): boolean;
+        mayInteractMessage(arg0: $Player): boolean;
+        deductFromAccurateSummary(arg0: $ItemStackHandler): void;
+        static keepAlive(arg0: $LogisticallyLinkedBehaviour): void;
         static remove(arg0: $LogisticallyLinkedBehaviour): void;
         mayInteract(arg0: $Player): boolean;
         static LINK_ID_GENERATOR: $AtomicInteger;
@@ -72,27 +72,29 @@ declare module "@package/com/simibubi/create/content/logistics/packagerLink" {
         constructor(arg0: $SmartBlockEntity, arg1: boolean);
     }
     export class $RequestPromiseQueue implements $RPQExtension {
-        setOnChanged(arg0: $Runnable_): void;
-        itemEnteredSystem(arg0: $ItemStack_, arg1: number): void;
-        forceClear(arg0: $ItemStack_): void;
-        getTotalPromisedAndRemoveExpired(arg0: $ItemStack_, arg1: number): number;
         deployer$genericEnteredSystem(arg0: $StockInventoryType_<any, any, any>, arg1: $Object, arg2: number): void;
         deployer$forceClear(arg0: $StockInventoryType_<any, any, any>, arg1: $Object): void;
         deployer$getTotalPromisedAndRemoveExpired(arg0: $StockInventoryType_<any, any, any>, arg1: $Object, arg2: number): number;
         deployer$add(arg0: $StockInventoryType_<any, any, any>, arg1: $GenericRequestPromise<any>): void;
         deployer$flatten(arg0: $StockInventoryType_<any, any, any>, arg1: boolean): $List<any>;
+        itemEnteredSystem(arg0: $ItemStack_, arg1: number): void;
+        setOnChanged(arg0: $Runnable_): void;
+        forceClear(arg0: $ItemStack_): void;
+        getTotalPromisedAndRemoveExpired(arg0: $ItemStack_, arg1: number): number;
+        tick(): void;
         flatten(arg0: boolean): $List<$RequestPromise>;
         isEmpty(): boolean;
         add(arg0: $RequestPromise): void;
         write(arg0: $HolderLookup$Provider): $CompoundTag;
         static read(arg0: $CompoundTag_, arg1: $HolderLookup$Provider, arg2: $Runnable_): $RequestPromiseQueue;
-        tick(): void;
         constructor(arg0: $Runnable_);
+        set onChanged(value: $Runnable_);
+        get empty(): boolean;
     }
     export class $PackagerLinkBlockEntity extends $LinkWithBulbBlockEntity implements $PLBEExtension {
+        playEffect(): void;
         fetchSummaryFromPackager(arg0: $IdentifiedInventory_): $InventorySummary;
         getPackager(): $PackagerBlockEntity;
-        playEffect(): void;
         processRequest(arg0: $ItemStack_, arg1: number, arg2: string, arg3: number, arg4: $MutableBoolean, arg5: number, arg6: $PackageOrderWithCrafts_, arg7: $IdentifiedInventory_): $Pair<$PackagerBlockEntity, $PackagingRequest>;
         deployer$fetchSummaryFromPackager(arg0: $StockInventoryType_<any, any, any>, arg1: $IdentifiedContainer_<any>): $AbstractInventorySummary<any, any>;
         deployer$getPackager(arg0: $StockInventoryType_<any, any, any>): $AbstractPackagerBlockEntity<any, any, any>;
@@ -107,5 +109,6 @@ declare module "@package/com/simibubi/create/content/logistics/packagerLink" {
          */
         type: $BlockEntityType<never>;
         constructor(arg0: $BlockEntityType_<never>, arg1: $BlockPos_, arg2: $BlockState_);
+        get packager(): $PackagerBlockEntity;
     }
 }

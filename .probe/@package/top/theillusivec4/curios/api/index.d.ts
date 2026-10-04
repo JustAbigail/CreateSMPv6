@@ -7,17 +7,17 @@ export * as extensions from "@package/top/theillusivec4/curios/api/extensions";
 
 declare module "@package/top/theillusivec4/curios/api" {
     export class $SlotContext extends $Record {
-        entity(): $LivingEntity;
-        identifier(): string;
         cosmetic(): boolean;
+        entity(): $LivingEntity;
         visible(): boolean;
+        identifier(): string;
         index(): number;
         constructor(identifier: string, entity: $LivingEntity, index: number, cosmetic: boolean, visible: boolean);
     }
     /**
      * Values that may be interpreted as {@link $SlotContext}.
      */
-    export type $SlotContext_ = { index?: number, cosmetic?: boolean, visible?: boolean, entity?: $LivingEntity, identifier?: string,  } | [index?: number, cosmetic?: boolean, visible?: boolean, entity?: $LivingEntity, identifier?: string, ];
+    export type $SlotContext_ = { cosmetic?: boolean, index?: number, identifier?: string, entity?: $LivingEntity, visible?: boolean,  } | [cosmetic?: boolean, index?: number, identifier?: string, entity?: $LivingEntity, visible?: boolean, ];
     export class $SlotResult extends $Record {
         slotContext(): $SlotContext;
         stack(): $ItemStack;
@@ -26,5 +26,5 @@ declare module "@package/top/theillusivec4/curios/api" {
     /**
      * Values that may be interpreted as {@link $SlotResult}.
      */
-    export type $SlotResult_ = { stack?: $ItemStack_, slotContext?: $SlotContext_,  } | [stack?: $ItemStack_, slotContext?: $SlotContext_, ];
+    export type $SlotResult_ = { slotContext?: $SlotContext_, stack?: $ItemStack_,  } | [slotContext?: $SlotContext_, stack?: $ItemStack_, ];
 }

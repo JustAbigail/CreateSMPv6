@@ -76,6 +76,13 @@ declare module "@package/dev/latvian/mods/kubejs/player" {
         cancel(): $Object;
         getEntity(): $LivingEntity;
         constructor(p: $Player, is: $ItemStack_, s: number);
+        get item(): $ItemStack;
+        get slot(): number;
+        get player(): $Player;
+        get level(): $Level;
+        get server(): $MinecraftServer;
+        get registries(): $RegistryAccess;
+        get entity(): $LivingEntity;
     }
     export class $PlayerChatReceivedKubeEvent implements $KubePlayerEvent {
         getUsername(): string;
@@ -124,12 +131,18 @@ declare module "@package/dev/latvian/mods/kubejs/player" {
         cancel(): $Object;
         getEntity(): $LivingEntity;
         constructor(event: $ServerChatEvent);
+        get username(): string;
+        get message(): string;
+        get player(): $Player;
+        get level(): $Level;
+        get server(): $MinecraftServer;
+        get registries(): $RegistryAccess;
+        get entity(): $LivingEntity;
     }
     export class $StageChangedEvent implements $KubePlayerEvent {
         getPlayerStages(): $Stages;
-        getPlayer(): $Player;
-        getEntity(): $Player;
         getStage(): string;
+        getPlayer(): $Player;
         getLevel(): $Level;
         getServer(): $MinecraftServer;
         getRegistries(): $RegistryAccess;
@@ -169,13 +182,17 @@ declare module "@package/dev/latvian/mods/kubejs/player" {
          * `cancel` denotes a `false` outcome.
          */
         cancel(): $Object;
+        getEntity(): $LivingEntity;
         constructor(player: $Player, stages: $Stages, stage: string);
+        get playerStages(): $Stages;
+        get stage(): string;
+        get player(): $Player;
+        get level(): $Level;
+        get server(): $MinecraftServer;
+        get registries(): $RegistryAccess;
+        get entity(): $LivingEntity;
     }
     export class $EntityArrayList extends $ArrayList<$Entity> implements $MessageSenderKJS, $DataSenderKJS {
-        /**
-         * Results in an entity list containing only item entities.
-         */
-        filterItems(): $EntityArrayList;
         addAllIterable(entities: $Iterable_<$Entity>): void;
         /**
          * Filters the entity list based on distance to the given block position.
@@ -206,6 +223,10 @@ declare module "@package/dev/latvian/mods/kubejs/player" {
          */
         filterPlayers(): $EntityArrayList;
         /**
+         * Results in an entity list containing only item entities.
+         */
+        filterItems(): $EntityArrayList;
+        /**
          * Kills every entity in the list.
          */
         kill(): void;
@@ -229,8 +250,22 @@ declare module "@package/dev/latvian/mods/kubejs/player" {
          * @param filterList The list of predicates - functions that take one argument of `Entity` and return boolean values.
          */
         filterList(filterList: $List_<$Predicate_<$Entity>>): $EntityArrayList;
-        getDisplayName(): $Component;
-        getName(): $Component;
+        /**
+         * Plays a sound from each entity in the list, unless the entity is silent.
+         */
+        playSound(id: $SoundEvent_): void;
+        /**
+         * Plays a sound from each entity in the list, unless the entity is silent.
+         */
+        playSound(id: $SoundEvent_, volume: number, pitch: number): void;
+        /**
+         * Sends NBT data to every player in the list.
+         * 
+         * @param channel String. Represents the network channel.
+         * @param data The NBT compound tag containing data to send. May be `null`.
+         * It may be a JS object containing data or string representing stringified NBT.
+         */
+        sendData(channel: string, data: $CompoundTag_): void;
         /**
          * Sends a message in chat to every entity in the list.
          * 
@@ -251,22 +286,8 @@ declare module "@package/dev/latvian/mods/kubejs/player" {
          */
         runCommandSilent(command: string): void;
         setActivePostShader(id: $ResourceLocation_): void;
-        /**
-         * Plays a sound from each entity in the list, unless the entity is silent.
-         */
-        playSound(id: $SoundEvent_): void;
-        /**
-         * Plays a sound from each entity in the list, unless the entity is silent.
-         */
-        playSound(id: $SoundEvent_, volume: number, pitch: number): void;
-        /**
-         * Sends NBT data to every player in the list.
-         * 
-         * @param channel String. Represents the network channel.
-         * @param data The NBT compound tag containing data to send. May be `null`.
-         * It may be a JS object containing data or string representing stringified NBT.
-         */
-        sendData(channel: string, data: $CompoundTag_): void;
+        getName(): $Component;
+        getDisplayName(): $Component;
         sendData(channel: string): void;
         reversed(): $SequencedCollection<$Entity>;
         static ALWAYS_TRUE_PREDICATE: $Predicate<$Entity>;
@@ -276,20 +297,26 @@ declare module "@package/dev/latvian/mods/kubejs/player" {
          */
         constructor(level: $Level_, entities: $Iterable_<$Entity>);
         constructor(size: number);
+        set statusMessage(value: $Component_);
+        set activePostShader(value: $ResourceLocation_);
+        get name(): $Component;
+        get displayName(): $Component;
     }
     export class $KubePlayerEvent {
     }
     export interface $KubePlayerEvent extends $KubeLivingEntityEvent {
         getPlayer(): $Player;
         getEntity(): $LivingEntity;
+        get player(): $Player;
+        get entity(): $LivingEntity;
     }
     /**
      * Values that may be interpreted as {@link $KubePlayerEvent}.
      */
     export type $KubePlayerEvent_ = (() => $LivingEntity);
     export class $KubeJSInventoryListener implements $ContainerListener {
-        dataChanged(container: $AbstractContainerMenu, id: number, value: number): void;
         slotChanged(container: $AbstractContainerMenu, index: number, stack: $ItemStack_): void;
+        dataChanged(container: $AbstractContainerMenu, id: number, value: number): void;
         player: $Player;
         constructor(p: $Player);
     }
@@ -336,16 +363,21 @@ declare module "@package/dev/latvian/mods/kubejs/player" {
         cancel(): $Object;
         getEntity(): $LivingEntity;
         constructor(p: $Player);
+        get player(): $Player;
+        get level(): $Level;
+        get server(): $MinecraftServer;
+        get registries(): $RegistryAccess;
+        get entity(): $LivingEntity;
     }
     export class $PlayerClonedKubeEvent implements $KubePlayerEvent {
-        /**
-         * Gets the player that was before respawn. Note that this entity is already removed from the world.
-         */
-        getOldPlayer(): $ServerPlayer;
         /**
          * Gets whether the player's data was kept, e.g. when returning from the end.
          */
         getKeepData(): boolean;
+        /**
+         * Gets the player that was before respawn. Note that this entity is already removed from the world.
+         */
+        getOldPlayer(): $ServerPlayer;
         getPlayer(): $Player;
         getLevel(): $Level;
         getServer(): $MinecraftServer;
@@ -388,6 +420,13 @@ declare module "@package/dev/latvian/mods/kubejs/player" {
         cancel(): $Object;
         getEntity(): $LivingEntity;
         constructor(player: $ServerPlayer, oldPlayer: $ServerPlayer, keepData: boolean);
+        get keepData(): boolean;
+        get oldPlayer(): $ServerPlayer;
+        get player(): $Player;
+        get level(): $Level;
+        get server(): $MinecraftServer;
+        get registries(): $RegistryAccess;
+        get entity(): $LivingEntity;
     }
     export class $ChestKubeEvent extends $InventoryKubeEvent {
         /**
@@ -399,6 +438,8 @@ declare module "@package/dev/latvian/mods/kubejs/player" {
          */
         getInventory(): $Container;
         constructor(player: $Player, menu: $AbstractContainerMenu);
+        get block(): $LevelBlock;
+        get inventory(): $Container;
     }
     export class $PlayerAdvancementKubeEvent implements $KubePlayerEvent {
         /**
@@ -447,6 +488,12 @@ declare module "@package/dev/latvian/mods/kubejs/player" {
         cancel(): $Object;
         getEntity(): $LivingEntity;
         constructor(player: $ServerPlayer, advancementNode: $AdvancementNode);
+        get advancement(): $AdvancementNode;
+        get player(): $Player;
+        get level(): $Level;
+        get server(): $MinecraftServer;
+        get registries(): $RegistryAccess;
+        get entity(): $LivingEntity;
     }
     export class $PlayerRespawnedKubeEvent implements $KubePlayerEvent {
         isEndConquered(): boolean;
@@ -492,6 +539,12 @@ declare module "@package/dev/latvian/mods/kubejs/player" {
         cancel(): $Object;
         getEntity(): $LivingEntity;
         constructor(player: $ServerPlayer, endConquered: boolean);
+        get endConquered(): boolean;
+        get player(): $Player;
+        get level(): $Level;
+        get server(): $MinecraftServer;
+        get registries(): $RegistryAccess;
+        get entity(): $LivingEntity;
     }
     export class $InventoryKubeEvent implements $KubePlayerEvent {
         /**
@@ -540,6 +593,12 @@ declare module "@package/dev/latvian/mods/kubejs/player" {
         cancel(): $Object;
         getEntity(): $LivingEntity;
         constructor(player: $Player, menu: $AbstractContainerMenu);
+        get inventoryContainer(): $AbstractContainerMenu;
+        get player(): $Player;
+        get level(): $Level;
+        get server(): $MinecraftServer;
+        get registries(): $RegistryAccess;
+        get entity(): $LivingEntity;
     }
     export class $PlayerStatsJS {
         static wrapStat(o: $Object): $Stat<never>;
@@ -551,6 +610,7 @@ declare module "@package/dev/latvian/mods/kubejs/player" {
         getWalkDistance(): number;
         getSprintDistance(): number;
         getSwimDistance(): number;
+        getDeaths(): number;
         getCrouchDistance(): number;
         getDamageDealt(): number;
         getDamageDealt_absorbed(): number;
@@ -559,7 +619,6 @@ declare module "@package/dev/latvian/mods/kubejs/player" {
         getDamageBlocked_by_shield(): number;
         getDamageAbsorbed(): number;
         getDamageResisted(): number;
-        getDeaths(): number;
         getMobKills(): number;
         getAnimalsBred(): number;
         getPlayerKills(): number;
@@ -577,5 +636,26 @@ declare module "@package/dev/latvian/mods/kubejs/player" {
         set(stat: $Stat_<never>, value: number): void;
         player: $Player;
         constructor(p: $Player, s: $StatsCounter);
+        get playTime(): number;
+        get timeSinceDeath(): number;
+        get timeSinceRest(): number;
+        get timeCrouchTime(): number;
+        get jumps(): number;
+        get walkDistance(): number;
+        get sprintDistance(): number;
+        get swimDistance(): number;
+        get deaths(): number;
+        get crouchDistance(): number;
+        get damageDealt(): number;
+        get damageDealt_absorbed(): number;
+        get damageDealt_resisted(): number;
+        get damageTaken(): number;
+        get damageBlocked_by_shield(): number;
+        get damageAbsorbed(): number;
+        get damageResisted(): number;
+        get mobKills(): number;
+        get animalsBred(): number;
+        get playerKills(): number;
+        get fishCaught(): number;
     }
 }

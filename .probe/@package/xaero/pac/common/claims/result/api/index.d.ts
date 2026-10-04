@@ -6,14 +6,21 @@ import { $IPlayerChunkClaimAPI } from "@package/xaero/pac/common/claims/player/a
 
 declare module "@package/xaero/pac/common/claims/result/api" {
     export class $AreaClaimResult {
+        getResultTypesIterable(): $Iterable<$ClaimResult$Type>;
         getBottom(): number;
         getTop(): number;
         getResultTypesStream(): $Stream<$ClaimResult$Type>;
-        getResultTypesIterable(): $Iterable<$ClaimResult$Type>;
         getSize(): number;
         getLeft(): number;
         getRight(): number;
         constructor(arg0: $Set_<$ClaimResult$Type_>, arg1: number, arg2: number, arg3: number, arg4: number);
+        get resultTypesIterable(): $Iterable<$ClaimResult$Type>;
+        get bottom(): number;
+        get top(): number;
+        get resultTypesStream(): $Stream<$ClaimResult$Type>;
+        get size(): number;
+        get left(): number;
+        get right(): number;
     }
     export class $ClaimResult$Type extends $Enum<$ClaimResult$Type> {
         static values(): $ClaimResult$Type[];
@@ -50,5 +57,7 @@ declare module "@package/xaero/pac/common/claims/result/api" {
         getResultType(): $ClaimResult$Type;
         getClaimResult(): C;
         constructor(arg0: C | null, arg1: $ClaimResult$Type_);
+        get resultType(): $ClaimResult$Type;
+        get claimResult(): C;
     }
 }

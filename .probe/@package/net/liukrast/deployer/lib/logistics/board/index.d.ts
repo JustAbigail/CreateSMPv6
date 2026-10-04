@@ -35,15 +35,15 @@ declare module "@package/net/liukrast/deployer/lib/logistics/board" {
     export type $AbstractPanelBehaviour$BulbState_ = "disabled" | "red" | "green";
     export interface $PanelType<T> extends RegistryMarked<RegistryTypes.DeployerPanelsTag, RegistryTypes.DeployerPanels> {}
     export class $AbstractPanelBehaviour$AttachedBlock extends $Record {
+        level(): $Level;
         state(): $BlockState;
         pos(): $BlockPos;
-        level(): $Level;
         constructor(level: $Level_, pos: $BlockPos_, state: $BlockState_);
     }
     /**
      * Values that may be interpreted as {@link $AbstractPanelBehaviour$AttachedBlock}.
      */
-    export type $AbstractPanelBehaviour$AttachedBlock_ = { state?: $BlockState_, level?: $Level_, pos?: $BlockPos_,  } | [state?: $BlockState_, level?: $Level_, pos?: $BlockPos_, ];
+    export type $AbstractPanelBehaviour$AttachedBlock_ = { state?: $BlockState_, pos?: $BlockPos_, level?: $Level_,  } | [state?: $BlockState_, pos?: $BlockPos_, level?: $Level_, ];
     export class $AbstractPanelBehaviour$ConnectionValue<T> extends $Record {
         value(): T;
         connection(): $FactoryPanelConnection;
@@ -52,9 +52,12 @@ declare module "@package/net/liukrast/deployer/lib/logistics/board" {
     /**
      * Values that may be interpreted as {@link $AbstractPanelBehaviour$ConnectionValue}.
      */
-    export type $AbstractPanelBehaviour$ConnectionValue_<T> = { value?: any, connection?: $FactoryPanelConnection,  } | [value?: any, connection?: $FactoryPanelConnection, ];
+    export type $AbstractPanelBehaviour$ConnectionValue_<T> = { connection?: $FactoryPanelConnection, value?: any,  } | [connection?: $FactoryPanelConnection, value?: any, ];
     export class $AbstractPanelBehaviour extends $FactoryPanelBehaviour implements $ProvidesConnection {
-        hasInteraction(arg0: string): boolean;
+        getItemDrops(): $List<$ItemStack>;
+        canConnect(arg0: $FactoryPanelBehaviour): string;
+        getDisplayLinkComponent(arg0: boolean): $MutableComponent;
+        onShortInteract(arg0: $Player, arg1: $InteractionHand_, arg2: $Direction_, arg3: $BlockHitResult, arg4: boolean): void;
         addInteractions(arg0: $PanelInteractionBuilder): void;
         getTargetedByExtra(): $Map<$BlockPos, $FactoryPanelConnection>;
         notifiedFromInput(): void;
@@ -72,10 +75,7 @@ declare module "@package/net/liukrast/deployer/lib/logistics/board" {
         getInteractionBlockEntity(arg0: string): $BlockEntity;
         getDefaultConnectionAmount(): number;
         onConnectionAdded(arg0: $FactoryPanelConnection): void;
-        onShortInteract(arg0: $Player, arg1: $InteractionHand_, arg2: $Direction_, arg3: $BlockHitResult, arg4: boolean): void;
-        getItemDrops(): $List<$ItemStack>;
-        canConnect(arg0: $FactoryPanelBehaviour): string;
-        getDisplayLinkComponent(arg0: boolean): $MutableComponent;
+        hasInteraction(arg0: string): boolean;
         getItem(): $Item;
         reset(): void;
         static getValue<T>(arg0: $FactoryPanelConnection, arg1: $PanelConnection_<T>, arg2: $FactoryPanelBehaviour): $PanelValue<T>;
@@ -108,6 +108,13 @@ declare module "@package/net/liukrast/deployer/lib/logistics/board" {
         promiseClearingInterval: number;
         constructor(arg0: $ValueBoxTransform, arg1: $PanelType_<never>, arg2: $FactoryPanelBlockEntity, arg3: $FactoryPanelBlock$PanelSlot_);
         constructor(arg0: $PanelType_<never>, arg1: $FactoryPanelBlockEntity, arg2: $FactoryPanelBlock$PanelSlot_);
+        get itemDrops(): $List<$ItemStack>;
+        get targetedByExtra(): $Map<$BlockPos, $FactoryPanelConnection>;
+        get bulbState(): $AbstractPanelBehaviour$BulbState;
+        get panelType(): $PanelType<never>;
+        get inInteraction(): boolean;
+        get defaultConnectionAmount(): number;
+        get item(): $Item;
     }
     export class $PanelType<T extends $AbstractPanelBehaviour> {
         asClass(): $Class<T>;

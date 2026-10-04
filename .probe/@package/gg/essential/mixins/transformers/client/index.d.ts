@@ -11,11 +11,14 @@ declare module "@package/gg/essential/mixins/transformers/client" {
     export interface $MouseHelperAccessor {
         setMouseX(arg0: number): void;
         setMouseY(arg0: number): void;
+        set mouseX(value: number);
+        set mouseY(value: number);
     }
     export class $ClientWorldAccessor {
     }
     export interface $ClientWorldAccessor {
         getConnection(): $ClientPacketListener;
+        get connection(): $ClientPacketListener;
     }
     /**
      * Values that may be interpreted as {@link $ClientWorldAccessor}.

@@ -24,7 +24,7 @@ declare module "@package/net/irisshaders/iris/helpers" {
     /**
      * Values that may be interpreted as {@link $Tri}.
      */
-    export type $Tri_<X, Y, Z> = { third?: any, first?: any, second?: any,  } | [third?: any, first?: any, second?: any, ];
+    export type $Tri_<X, Y, Z> = { third?: any, second?: any, first?: any,  } | [third?: any, second?: any, first?: any, ];
     export class $VertexBufferHelper {
     }
     export interface $VertexBufferHelper {

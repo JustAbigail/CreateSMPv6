@@ -116,14 +116,6 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          * Returns whether this `BlockEntity` has custom outline rendering behavior.
          */
         hasCustomOutlineRendering(player: $Player): boolean;
-        requestModelDataUpdate(): void;
-        /**
-         * Called when the chunk's TE update tag, gotten from `Provider)`, is received on the client.
-         * 
-         * Used to handle this tag in a special way. By default this simply calls `Provider)`.
-         */
-        handleUpdateTag(tag: $CompoundTag_, lookupProvider: $HolderLookup$Provider): void;
-        onChunkUnloaded(): void;
         /**
          * Called when you receive a TileEntityData packet for the location this
          * TileEntity is currently in. On the client, the NetworkManager will always
@@ -131,6 +123,14 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          * sending the packet.
          */
         onDataPacket(net: $Connection, pkt: $ClientboundBlockEntityDataPacket, lookupProvider: $HolderLookup$Provider): void;
+        /**
+         * Called when the chunk's TE update tag, gotten from `Provider)`, is received on the client.
+         * 
+         * Used to handle this tag in a special way. By default this simply calls `Provider)`.
+         */
+        handleUpdateTag(tag: $CompoundTag_, lookupProvider: $HolderLookup$Provider): void;
+        requestModelDataUpdate(): void;
+        onChunkUnloaded(): void;
         onLoad(): void;
         invalidateCapabilities(): void;
         /**
@@ -141,6 +141,8 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          * This method is always called on the main client thread.
          */
         getModelData(): $ModelData;
+        get persistentData(): $CompoundTag;
+        get modelData(): $ModelData;
     }
     /**
      * Values that may be interpreted as {@link $IBlockEntityExtension}.
@@ -202,20 +204,13 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          */
         canDisableShield(shield: $ItemStack_, entity: $LivingEntity, attacker: $LivingEntity): boolean;
         /**
+         * ItemStack sensitive version of `Item#getEnchantmentValue()`.
+         */
+        getEnchantmentValue(): number;
+        /**
          * ItemStack sensitive version of `Item#hasCraftingRemainingItem()`.
          */
         isRepairable(): boolean;
-        /**
-         * Computes the gameplay attribute modifiers for this item stack. Used in place of direct access to `ATTRIBUTE_MODIFIERS`
-         * or `Item#getDefaultAttributeModifiers(ItemStack)` when querying attributes for gameplay purposes.
-         * 
-         * This method first computes the default modifiers, using `ATTRIBUTE_MODIFIERS` if present, otherwise
-         * falling back to `Item#getDefaultAttributeModifiers(ItemStack)`.
-         * 
-         * The `ItemAttributeModifiersEvent` is then fired to allow external adjustments.
-         */
-        getAttributeModifiers(): $ItemAttributeModifiers;
-        doesSneakBypassUse(arg0: $LevelReader, arg1: $BlockPos_, arg2: $Player): boolean;
         /**
          * ItemStack sensitive version of `Item#hasCraftingRemainingItem()`.
          */
@@ -304,27 +299,41 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          * ItemStack sensitive version of `Item#hasCraftingRemainingItem()`.
          */
         canGrindstoneRepair(): boolean;
+        doesSneakBypassUse(arg0: $LevelReader, arg1: $BlockPos_, arg2: $Player): boolean;
+        /**
+         * Computes the gameplay attribute modifiers for this item stack. Used in place of direct access to `ATTRIBUTE_MODIFIERS`
+         * or `Item#getDefaultAttributeModifiers(ItemStack)` when querying attributes for gameplay purposes.
+         * 
+         * This method first computes the default modifiers, using `ATTRIBUTE_MODIFIERS` if present, otherwise
+         * falling back to `Item#getDefaultAttributeModifiers(ItemStack)`.
+         * 
+         * The `ItemAttributeModifiersEvent` is then fired to allow external adjustments.
+         */
+        getAttributeModifiers(): $ItemAttributeModifiers;
         /**
          * Called when an item entity for this stack is destroyed. Note: The `ItemStack` can be retrieved from the item entity.
          */
         onDestroyed(itemEntity: $ItemEntity, damageSource: $DamageSource_): void;
+        handler$bne000$fabric_entity_events_v1$canElytraFly(arg0: $LivingEntity, arg1: $CallbackInfoReturnable<any>): void;
+        getCraftingRemainingItem(): $ItemStack;
         /**
          * ItemStack sensitive version of `Item#hasCraftingRemainingItem()`.
          */
         hasCraftingRemainingItem(): boolean;
-        /**
-         * ItemStack sensitive version of `Item#getEnchantmentValue()`.
-         */
-        getEnchantmentValue(): number;
-        handler$bne000$fabric_entity_events_v1$canElytraFly(arg0: $LivingEntity, arg1: $CallbackInfoReturnable<any>): void;
-        getCraftingRemainingItem(): $ItemStack;
+        getSweepHitBox(player: $Player, target: $Entity): $AABB;
         /**
          * Called when a entity tries to play the 'swing' animation.
          */
         canElytraFly(entity: $LivingEntity): boolean;
-        getCapability<T>(arg0: $ItemCapability<T, void>): T;
         getCapability<T, C>(arg0: $ItemCapability<T, C>, arg1: C): T;
-        getSweepHitBox(player: $Player, target: $Entity): $AABB;
+        getCapability<T>(arg0: $ItemCapability<T, void>): T;
+        get equipmentSlot(): $EquipmentSlot;
+        get enchantmentValue(): number;
+        get repairable(): boolean;
+        get piglinCurrency(): boolean;
+        get xpRepairRatio(): number;
+        get attributeModifiers(): $ItemAttributeModifiers;
+        get craftingRemainingItem(): $ItemStack;
     }
     export class $ILevelExtension {
         static TRANSLATION_PREFIX: string;
@@ -335,10 +344,6 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          * falling back to the registry name if no translation exists.
          */
         getDescription(): $Component;
-        getCapability<T>(arg0: $BlockCapability<T, void>, arg1: $BlockPos_, arg2: $BlockState_, arg3: $BlockEntity): T;
-        getCapability<T, C>(arg0: $BlockCapability<T, C>, arg1: $BlockPos_, arg2: $BlockState_, arg3: $BlockEntity, arg4: C): T;
-        getCapability<T, C>(arg0: $BlockCapability<T, C>, arg1: $BlockPos_, arg2: C): T;
-        getCapability<T>(arg0: $BlockCapability<T, void>, arg1: $BlockPos_): T;
         /**
          * All part entities in this world. Used when collecting entities in an AABB to fix parts being
          * ignored whose parent entity is in a chunk that does not intersect with the AABB.
@@ -385,6 +390,15 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          * If you already have a block entity at that position, you can call `BlockEntity#invalidateCapabilities()` instead.
          */
         invalidateCapabilities(pos: $BlockPos_): void;
+        getCapability<T, C>(arg0: $BlockCapability<T, C>, arg1: $BlockPos_, arg2: $BlockState_, arg3: $BlockEntity, arg4: C): T;
+        getCapability<T>(arg0: $BlockCapability<T, void>, arg1: $BlockPos_, arg2: $BlockState_, arg3: $BlockEntity): T;
+        getCapability<T>(arg0: $BlockCapability<T, void>, arg1: $BlockPos_): T;
+        getCapability<T, C>(arg0: $BlockCapability<T, C>, arg1: $BlockPos_, arg2: C): T;
+        get description(): $Component;
+        get partEntities(): $Collection<$PartEntity<never>>;
+        get maxEntityRadius(): number;
+        get descriptionKey(): string;
+        get modelDataManager(): $ModelDataManager;
     }
     export class $IPackResourcesExtension {
     }
@@ -393,12 +407,23 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          * @return `true` if the pack should be hidden from any user interfaces
          */
         isHidden(): boolean;
+        get hidden(): boolean;
     }
     export class $IAttributeExtension {
         static isNullOrAddition(arg0: $AttributeModifier$Operation_): boolean;
         static FORMAT: $DecimalFormat;
     }
     export interface $IAttributeExtension {
+        /**
+         * Gets the specific ID that represents a "base" (green) modifier for this attribute.
+         */
+        getBaseId(): $ResourceLocation;
+        /**
+         * Converts a "base" attribute modifier (as dictated by `#getBaseId()`) into a text component.
+         * 
+         * Similar to `#toComponent`, this method is responsible for adding debug information when the tooltip flag is advanced.
+         */
+        toBaseComponent(value: number, entityBase: number, merged: boolean, flag: $TooltipFlag): $MutableComponent;
         /**
          * Returns the color used by merged attribute modifiers. Only used when `NeoForgeMod#enableMergedAttributeTooltips()` is active.
          * 
@@ -419,16 +444,7 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          * The returned component may append additional debug information based on the tooltip flag.
          */
         toComponent(modif: $AttributeModifier_, flag: $TooltipFlag): $MutableComponent;
-        /**
-         * Gets the specific ID that represents a "base" (green) modifier for this attribute.
-         */
-        getBaseId(): $ResourceLocation;
-        /**
-         * Converts a "base" attribute modifier (as dictated by `#getBaseId()`) into a text component.
-         * 
-         * Similar to `#toComponent`, this method is responsible for adding debug information when the tooltip flag is advanced.
-         */
-        toBaseComponent(value: number, entityBase: number, merged: boolean, flag: $TooltipFlag): $MutableComponent;
+        get baseId(): $ResourceLocation;
     }
     /**
      * Values that may be interpreted as {@link $IAttributeExtension}.
@@ -516,22 +532,6 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          */
         canHydrate(getter: $BlockGetter, pos: $BlockPos_, source: $BlockState_, sourcePos: $BlockPos_): boolean;
         /**
-         * Returns the explosion resistance of the fluid.
-         */
-        getExplosionResistance(level: $BlockGetter, pos: $BlockPos_, explosion: $Explosion): number;
-        /**
-         * Gets the path type of this fluid when an entity is pathfinding. When
-         * `null`, uses vanilla behavior.
-         */
-        getBlockPathType(level: $BlockGetter, pos: $BlockPos_, mob: $Mob, canFluidLog: boolean): $PathType;
-        /**
-         * Gets the path type of the adjacent fluid to a pathfinding entity.
-         * Path types with a negative malus are not traversable for the entity.
-         * Pathfinding entities will favor paths consisting of a lower malus.
-         * When `null`, uses vanilla behavior.
-         */
-        getAdjacentBlockPathType(level: $BlockGetter, pos: $BlockPos_, mob: $Mob, originalType: $PathType_): $PathType;
-        /**
          * Returns whether the fluid can create a source.
          */
         canConvertToSource(level: $Level_, pos: $BlockPos_): boolean;
@@ -540,11 +540,28 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          */
         supportsBoating(boat: $Boat): boolean;
         /**
+         * Gets the path type of the adjacent fluid to a pathfinding entity.
+         * Path types with a negative malus are not traversable for the entity.
+         * Pathfinding entities will favor paths consisting of a lower malus.
+         * When `null`, uses vanilla behavior.
+         */
+        getAdjacentBlockPathType(level: $BlockGetter, pos: $BlockPos_, mob: $Mob, originalType: $PathType_): $PathType;
+        /**
+         * Gets the path type of this fluid when an entity is pathfinding. When
+         * `null`, uses vanilla behavior.
+         */
+        getBlockPathType(level: $BlockGetter, pos: $BlockPos_, mob: $Mob, canFluidLog: boolean): $PathType;
+        /**
+         * Returns the explosion resistance of the fluid.
+         */
+        getExplosionResistance(level: $BlockGetter, pos: $BlockPos_, explosion: $Explosion): number;
+        /**
          * Performs how an entity moves when within the fluid. If using custom
          * movement logic, the method should return `true`. Otherwise, the
          * movement logic will default to water.
          */
         move(entity: $LivingEntity, movementVector: $Vec3_, gravity: number): boolean;
+        get fluidType(): $FluidType;
     }
     export class $IItemPropertiesExtensions {
     }
@@ -636,89 +653,6 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          */
         addRunningEffects(state: $BlockState_, level: $Level_, pos: $BlockPos_, entity: $Entity): boolean;
         /**
-         * Returns the reaction of the block when pushed or pulled by a piston. This method should be not called directly, instead via `BlockState#getPistonPushReaction()`.
-         * 
-         * - NORMAL: is pushable and pullable by sticky pistons
-         * - DESTROY: is being destroyed on pushing and pulling
-         * - BLOCK: is not being able to be moved
-         * - IGNORE: only usable by entities
-         * - PUSH_ONLY: can only be pushed, blocks on trying to be pulled
-         * - `null`: use the PistonPushReaction from the BlockBehaviour.Properties passed into the Block Constructor
-         */
-        getPistonPushReaction(state: $BlockState_): $PushReaction;
-        getBeaconColorMultiplier(state: $BlockState_, level: $LevelReader, pos: $BlockPos_, beaconPos: $BlockPos_): number;
-        /**
-         * Used to determine the state 'viewed' by an entity (see
-         * `Camera#getBlockAtCamera()`).
-         * Can be used by fluid blocks to determine if the viewpoint is within the fluid or not.
-         */
-        getStateAtViewpoint(state: $BlockState_, level: $BlockGetter, pos: $BlockPos_, viewpoint: $Vec3_): $BlockState;
-        /**
-         * Whether this block has dynamic light emission which is not solely based on the `BlockState` and instead
-         * uses the `BlockPos`, the `AuxiliaryLightManager` or another external data source to determine its
-         * light value in `#getLightEmission(BlockState, BlockGetter, BlockPos)`
-         */
-        isSlimeBlock(state: $BlockState_): boolean;
-        /**
-         * Whether this block has dynamic light emission which is not solely based on the `BlockState` and instead
-         * uses the `BlockPos`, the `AuxiliaryLightManager` or another external data source to determine its
-         * light value in `#getLightEmission(BlockState, BlockGetter, BlockPos)`
-         */
-        isStickyBlock(state: $BlockState_): boolean;
-        /**
-         * Determines if this block can stick to another block when pushed by a piston.
-         */
-        canStickTo(state: $BlockState_, other: $BlockState_): boolean;
-        /**
-         * Chance that fire will spread and consume this block.
-         * 300 being a 100% chance, 0, being a 0% chance.
-         */
-        getFlammability(state: $BlockState_, level: $BlockGetter, pos: $BlockPos_, direction: $Direction_): number;
-        /**
-         * Called when fire is updating, checks if a block face can catch fire.
-         */
-        isFlammable(state: $BlockState_, level: $BlockGetter, pos: $BlockPos_, direction: $Direction_): boolean;
-        /**
-         * If the block is flammable, this is called when it gets lit on fire.
-         */
-        onCaughtFire(state: $BlockState_, level: $Level_, pos: $BlockPos_, direction: $Direction_, igniter: $LivingEntity): void;
-        /**
-         * Chance that fire will spread and consume this block.
-         * 300 being a 100% chance, 0, being a 0% chance.
-         */
-        getFireSpreadSpeed(state: $BlockState_, level: $BlockGetter, pos: $BlockPos_, direction: $Direction_): number;
-        /**
-         * Currently only called by fire when it is on top of this block.
-         * Returning true will prevent the fire from naturally dying during updating.
-         * Also prevents firing from dying from rain.
-         */
-        isFireSource(state: $BlockState_, level: $LevelReader, pos: $BlockPos_, direction: $Direction_): boolean;
-        /**
-         * Determines if this block is can be destroyed by the specified entities normal behavior.
-         */
-        canEntityDestroy(state: $BlockState_, level: $BlockGetter, pos: $BlockPos_, entity: $Entity): boolean;
-        /**
-         * Determines if this block should drop loot when exploded.
-         */
-        canDropFromExplosion(state: $BlockState_, level: $BlockGetter, pos: $BlockPos_, explosion: $Explosion): boolean;
-        /**
-         * Called when the block is destroyed by an explosion.
-         * Useful for allowing the block to take into account tile entities,
-         * state, etc. when exploded, before it is removed.
-         */
-        onBlockExploded(state: $BlockState_, level: $Level_, pos: $BlockPos_, explosion: $Explosion): void;
-        /**
-         * Called to determine whether this block should use the fluid overlay texture or flowing texture when it is placed under the fluid.
-         */
-        shouldDisplayFluidOverlay(state: $BlockState_, level: $BlockAndTintGetter, pos: $BlockPos_, fluidState: $FluidState): boolean;
-        /**
-         * Returns the state that this block should transform into when right-clicked by a tool.
-         * For example: Used to determine if an axe can strip,
-         * a shovel can path, or a hoe can till.
-         * Returns `null` if nothing should happen.
-         */
-        getToolModifiedState(state: $BlockState_, context: $UseOnContext, itemAbility: $ItemAbility_, simulate: boolean): $BlockState;
-        /**
          * Called when fire is updating, checks if a block face can catch fire.
          */
         canConnectRedstone(state: $BlockState_, level: $BlockGetter, pos: $BlockPos_, direction: $Direction_): boolean;
@@ -764,6 +698,18 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          * Determines if a fluid adjacent to the block on the given side should not be rendered.
          */
         shouldHideAdjacentFluidFace(state: $BlockState_, selfFace: $Direction_, adjacentFluid: $FluidState): boolean;
+        /**
+         * Gets the path type of the adjacent block to a pathfinding entity.
+         * Path types with a negative malus are not traversable for the entity.
+         * Pathfinding entities will favor paths consisting of a lower malus.
+         * When `null`, uses vanilla behavior.
+         */
+        getAdjacentBlockPathType(state: $BlockState_, level: $BlockGetter, pos: $BlockPos_, mob: $Mob, originalType: $PathType_): $PathType;
+        /**
+         * Gets the path type of this block when an entity is pathfinding. When
+         * `null`, uses vanilla behavior.
+         */
+        getBlockPathType(state: $BlockState_, level: $BlockGetter, pos: $BlockPos_, mob: $Mob): $PathType;
         /**
          * Whether this block hides the neighbors face pointed towards by the given direction.
          * 
@@ -880,18 +826,78 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          * Determines the amount of enchanting power this block can provide to an enchanting table.
          */
         getEnchantPowerBonus(state: $BlockState_, level: $LevelReader, pos: $BlockPos_): number;
+        getBeaconColorMultiplier(state: $BlockState_, level: $LevelReader, pos: $BlockPos_, beaconPos: $BlockPos_): number;
         /**
-         * Gets the path type of this block when an entity is pathfinding. When
-         * `null`, uses vanilla behavior.
+         * Used to determine the state 'viewed' by an entity (see
+         * `Camera#getBlockAtCamera()`).
+         * Can be used by fluid blocks to determine if the viewpoint is within the fluid or not.
          */
-        getBlockPathType(state: $BlockState_, level: $BlockGetter, pos: $BlockPos_, mob: $Mob): $PathType;
+        getStateAtViewpoint(state: $BlockState_, level: $BlockGetter, pos: $BlockPos_, viewpoint: $Vec3_): $BlockState;
         /**
-         * Gets the path type of the adjacent block to a pathfinding entity.
-         * Path types with a negative malus are not traversable for the entity.
-         * Pathfinding entities will favor paths consisting of a lower malus.
-         * When `null`, uses vanilla behavior.
+         * Whether this block has dynamic light emission which is not solely based on the `BlockState` and instead
+         * uses the `BlockPos`, the `AuxiliaryLightManager` or another external data source to determine its
+         * light value in `#getLightEmission(BlockState, BlockGetter, BlockPos)`
          */
-        getAdjacentBlockPathType(state: $BlockState_, level: $BlockGetter, pos: $BlockPos_, mob: $Mob, originalType: $PathType_): $PathType;
+        isSlimeBlock(state: $BlockState_): boolean;
+        /**
+         * Whether this block has dynamic light emission which is not solely based on the `BlockState` and instead
+         * uses the `BlockPos`, the `AuxiliaryLightManager` or another external data source to determine its
+         * light value in `#getLightEmission(BlockState, BlockGetter, BlockPos)`
+         */
+        isStickyBlock(state: $BlockState_): boolean;
+        /**
+         * Determines if this block can stick to another block when pushed by a piston.
+         */
+        canStickTo(state: $BlockState_, other: $BlockState_): boolean;
+        /**
+         * Chance that fire will spread and consume this block.
+         * 300 being a 100% chance, 0, being a 0% chance.
+         */
+        getFlammability(state: $BlockState_, level: $BlockGetter, pos: $BlockPos_, direction: $Direction_): number;
+        /**
+         * Called when fire is updating, checks if a block face can catch fire.
+         */
+        isFlammable(state: $BlockState_, level: $BlockGetter, pos: $BlockPos_, direction: $Direction_): boolean;
+        /**
+         * If the block is flammable, this is called when it gets lit on fire.
+         */
+        onCaughtFire(state: $BlockState_, level: $Level_, pos: $BlockPos_, direction: $Direction_, igniter: $LivingEntity): void;
+        /**
+         * Chance that fire will spread and consume this block.
+         * 300 being a 100% chance, 0, being a 0% chance.
+         */
+        getFireSpreadSpeed(state: $BlockState_, level: $BlockGetter, pos: $BlockPos_, direction: $Direction_): number;
+        /**
+         * Currently only called by fire when it is on top of this block.
+         * Returning true will prevent the fire from naturally dying during updating.
+         * Also prevents firing from dying from rain.
+         */
+        isFireSource(state: $BlockState_, level: $LevelReader, pos: $BlockPos_, direction: $Direction_): boolean;
+        /**
+         * Determines if this block is can be destroyed by the specified entities normal behavior.
+         */
+        canEntityDestroy(state: $BlockState_, level: $BlockGetter, pos: $BlockPos_, entity: $Entity): boolean;
+        /**
+         * Determines if this block should drop loot when exploded.
+         */
+        canDropFromExplosion(state: $BlockState_, level: $BlockGetter, pos: $BlockPos_, explosion: $Explosion): boolean;
+        /**
+         * Called when the block is destroyed by an explosion.
+         * Useful for allowing the block to take into account tile entities,
+         * state, etc. when exploded, before it is removed.
+         */
+        onBlockExploded(state: $BlockState_, level: $Level_, pos: $BlockPos_, explosion: $Explosion): void;
+        /**
+         * Called to determine whether this block should use the fluid overlay texture or flowing texture when it is placed under the fluid.
+         */
+        shouldDisplayFluidOverlay(state: $BlockState_, level: $BlockAndTintGetter, pos: $BlockPos_, fluidState: $FluidState): boolean;
+        /**
+         * Returns the state that this block should transform into when right-clicked by a tool.
+         * For example: Used to determine if an axe can strip,
+         * a shovel can path, or a hoe can till.
+         * Returns `null` if nothing should happen.
+         */
+        getToolModifiedState(state: $BlockState_, context: $UseOnContext, itemAbility: $ItemAbility_, simulate: boolean): $BlockState;
         /**
          * Whether this block has dynamic light emission which is not solely based on the `BlockState` and instead
          * uses the `BlockPos`, the `AuxiliaryLightManager` or another external data source to determine its
@@ -900,9 +906,16 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
         isEmpty(state: $BlockState_): boolean;
         rotate(state: $BlockState_, level: $LevelAccessor, pos: $BlockPos_, direction: $Rotation_): $BlockState;
         /**
-         * Called when A user uses the creative pick block button on this block
+         * Returns the reaction of the block when pushed or pulled by a piston. This method should be not called directly, instead via `BlockState#getPistonPushReaction()`.
+         * 
+         * - NORMAL: is pushable and pullable by sticky pistons
+         * - DESTROY: is being destroyed on pushing and pulling
+         * - BLOCK: is not being able to be moved
+         * - IGNORE: only usable by entities
+         * - PUSH_ONLY: can only be pushed, blocks on trying to be pulled
+         * - `null`: use the PistonPushReaction from the BlockBehaviour.Properties passed into the Block Constructor
          */
-        getCloneItemStack(state: $BlockState_, target: $HitResult, level: $LevelReader, pos: $BlockPos_, player: $Player): $ItemStack;
+        getPistonPushReaction(state: $BlockState_): $PushReaction;
         /**
          * Get a light value for this block, taking into account the given state and coordinates, normal ranges are between 0 and 15
          */
@@ -914,6 +927,10 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          * Useful for calculating additional data based on the new state and the neighbor's reactions to the state change.
          */
         onBlockStateChange(level: $LevelReader, pos: $BlockPos_, oldState: $BlockState_, newState: $BlockState_): void;
+        /**
+         * Called when A user uses the creative pick block button on this block
+         */
+        getCloneItemStack(state: $BlockState_, target: $HitResult, level: $LevelReader, pos: $BlockPos_, player: $Player): $ItemStack;
         /**
          * Called when a block entity on a side of this block changes, is created, or is destroyed.
          * 
@@ -969,6 +986,7 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          * Modders are discouraged from setting `Abilities#mayfly` directly.
          */
         mayFly(): boolean;
+        get fakePlayer(): boolean;
     }
     /**
      * Extension for `Holder`
@@ -993,6 +1011,8 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          * Used by `Registry#safeCastToReference` to resolve the underlying `Reference` for delegating holders.
          */
         getDelegate(): $Holder<T>;
+        get key(): $ResourceKey<T>;
+        get delegate(): $Holder<T>;
     }
     export class $IAbstractMinecartExtension {
         static DEFAULT_AIR_DRAG: number;
@@ -1000,6 +1020,10 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
         static DEFAULT_MAX_SPEED_AIR_LATERAL: number;
     }
     export interface $IAbstractMinecartExtension {
+        /**
+         * Called from Detector Rails to retrieve a redstone power level for comparators.
+         */
+        getComparatorLevel(): number;
         /**
          * Returns true if this cart can currently use rails.
          * This function is mainly used to gracefully detach a minecart from a rail.
@@ -1073,10 +1097,12 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
         setMaxSpeedAirLateral(value: number): void;
         setMaxSpeedAirVertical(value: number): void;
         setDragAir(value: number): void;
-        /**
-         * Called from Detector Rails to retrieve a redstone power level for comparators.
-         */
-        getComparatorLevel(): number;
+        get comparatorLevel(): number;
+        get maxCartSpeedOnRail(): number;
+        get slopeAdjustment(): number;
+        get poweredCart(): boolean;
+        get maxSpeedWithRail(): number;
+        get currentRailPosition(): $BlockPos;
     }
     /**
      * Extension class for `ServerGamePacketListener`
@@ -1112,6 +1138,9 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          * @return the `PacketFlow` this extension is applied to
          */
         self(): $PacketFlow;
+        get serverbound(): boolean;
+        get clientbound(): boolean;
+        get receptionSide(): $LogicalSide;
     }
     export class $IHolderSetExtension<T> {
     }
@@ -1137,30 +1166,31 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
     export class $ITagBuilderExtension {
     }
     export interface $ITagBuilderExtension {
-        /**
-         * Adds a single-element entry to the remove list.
-         */
-        removeTag(elementID: $ResourceLocation_): $TagBuilder;
-        /**
-         * @deprecated
-         * Adds a single-element entry to the remove list.
-         */
-        removeTag(elementID: $ResourceLocation_, source: string): $TagBuilder;
         getRawBuilder(): $TagBuilder;
-        /**
-         * @deprecated
-         * Adds a single-element entry to the remove list.
-         */
-        removeElement(elementID: $ResourceLocation_, source: string): $TagBuilder;
         /**
          * Adds a single-element entry to the remove list.
          */
         removeElement(elementID: $ResourceLocation_): $TagBuilder;
         /**
          * @deprecated
+         * Adds a single-element entry to the remove list.
+         */
+        removeElement(elementID: $ResourceLocation_, source: string): $TagBuilder;
+        /**
+         * @deprecated
          * Adds a tag entry to the remove list.
          */
         remove(tagEntry: $TagEntry, source: string): $TagBuilder;
+        /**
+         * @deprecated
+         * Adds a single-element entry to the remove list.
+         */
+        removeTag(elementID: $ResourceLocation_, source: string): $TagBuilder;
+        /**
+         * Adds a single-element entry to the remove list.
+         */
+        removeTag(elementID: $ResourceLocation_): $TagBuilder;
+        get rawBuilder(): $TagBuilder;
     }
     export class $IEntityExtension {
     }
@@ -1332,6 +1362,11 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          */
         onAddedToLevel(): void;
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
+        get maxHeightFluidType(): $FluidType;
+        get persistentData(): $CompoundTag;
+        get addedToLevel(): boolean;
+        get multipartEntity(): boolean;
+        get parts(): $PartEntity<never>[];
     }
     /**
      * Extension interface for `ClientCommonPacketListener`
@@ -1351,6 +1386,7 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          * {@inheritDoc}
          */
         send(payload: $CustomPacketPayload_): void;
+        get mainThreadEventLoop(): $ReentrantBlockableEventLoop<never>;
     }
     export class $IAdvancementBuilderExtension {
     }
@@ -1371,6 +1407,7 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          * For a `TrialSpawner`, this is the `TrialSpawnerBlockEntity`.
          */
         getOwner(): $Either<$BlockEntity, $Entity>;
+        get owner(): $Either<$BlockEntity, $Entity>;
     }
     /**
      * Values that may be interpreted as {@link $IOwnedSpawner}.
@@ -1401,13 +1438,13 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          */
         getMainThreadEventLoop(): $ReentrantBlockableEventLoop<never>;
         /**
-         * @return the connection this listener is attached to
-         */
-        getConnection(): $Connection;
-        /**
          * @return the connection type of this packet listener
          */
         getConnectionType(): $ConnectionType;
+        /**
+         * @return the connection this listener is attached to
+         */
+        getConnection(): $Connection;
         /**
          * Triggers a disconnection with the given reason.
          */
@@ -1420,12 +1457,15 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          * Sends a payload to the target of this listener.
          */
         send(payload: $CustomPacketPayload_): void;
-        hasChannel(type: $CustomPacketPayload$Type_<never>): boolean;
-        hasChannel(payload: $CustomPacketPayload_): boolean;
         /**
          * Checks if the connection has negotiated and opened a channel for the payload.
          */
         hasChannel(payloadId: $ResourceLocation_): boolean;
+        hasChannel(payload: $CustomPacketPayload_): boolean;
+        hasChannel(type: $CustomPacketPayload$Type_<never>): boolean;
+        get mainThreadEventLoop(): $ReentrantBlockableEventLoop<never>;
+        get connectionType(): $ConnectionType;
+        get connection(): $Connection;
     }
     export class $IBlockGetterExtension {
     }
@@ -1476,22 +1516,6 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          */
         canHydrate(state: $FluidState, getter: $BlockGetter, pos: $BlockPos_, source: $BlockState_, sourcePos: $BlockPos_): boolean;
         /**
-         * Returns the explosion resistance of the fluid.
-         */
-        getExplosionResistance(state: $FluidState, level: $BlockGetter, pos: $BlockPos_, explosion: $Explosion): number;
-        /**
-         * Gets the path type of this fluid when an entity is pathfinding. When
-         * `null`, uses vanilla behavior.
-         */
-        getBlockPathType(state: $FluidState, level: $BlockGetter, pos: $BlockPos_, mob: $Mob, canFluidLog: boolean): $PathType;
-        /**
-         * Gets the path type of the adjacent fluid to a pathfinding entity.
-         * Path types with a negative malus are not traversable for the entity.
-         * Pathfinding entities will favor paths consisting of a lower malus.
-         * When `null`, uses vanilla behavior.
-         */
-        getAdjacentBlockPathType(state: $FluidState, level: $BlockGetter, pos: $BlockPos_, mob: $Mob, originalType: $PathType_): $PathType;
-        /**
          * Returns whether the fluid can create a source.
          */
         canConvertToSource(state: $FluidState, level: $Level_, pos: $BlockPos_): boolean;
@@ -1500,11 +1524,28 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          */
         supportsBoating(state: $FluidState, boat: $Boat): boolean;
         /**
+         * Gets the path type of the adjacent fluid to a pathfinding entity.
+         * Path types with a negative malus are not traversable for the entity.
+         * Pathfinding entities will favor paths consisting of a lower malus.
+         * When `null`, uses vanilla behavior.
+         */
+        getAdjacentBlockPathType(state: $FluidState, level: $BlockGetter, pos: $BlockPos_, mob: $Mob, originalType: $PathType_): $PathType;
+        /**
+         * Gets the path type of this fluid when an entity is pathfinding. When
+         * `null`, uses vanilla behavior.
+         */
+        getBlockPathType(state: $FluidState, level: $BlockGetter, pos: $BlockPos_, mob: $Mob, canFluidLog: boolean): $PathType;
+        /**
+         * Returns the explosion resistance of the fluid.
+         */
+        getExplosionResistance(state: $FluidState, level: $BlockGetter, pos: $BlockPos_, explosion: $Explosion): number;
+        /**
          * Performs how an entity moves when within the fluid. If using custom
          * movement logic, the method should return `true`. Otherwise, the
          * movement logic will default to water.
          */
         move(state: $FluidState, entity: $LivingEntity, movementVector: $Vec3_, gravity: number): boolean;
+        get fluidType(): $FluidType;
     }
     /**
      * Values that may be interpreted as {@link $IFluidExtension}.
@@ -1564,78 +1605,6 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          * By default vanilla spawns particles only on the client and the server methods no-op.
          */
         addRunningEffects(level: $Level_, pos: $BlockPos_, entity: $Entity): boolean;
-        getBeaconColorMultiplier(level: $LevelReader, pos: $BlockPos_, beacon: $BlockPos_): number;
-        /**
-         * Used to determine the state 'viewed' by an entity (see
-         * `Camera#getBlockAtCamera()`).
-         * Can be used by fluid blocks to determine if the viewpoint is within the fluid or not.
-         */
-        getStateAtViewpoint(level: $BlockGetter, pos: $BlockPos_, viewpoint: $Vec3_): $BlockState;
-        /**
-         * Whether this block state has dynamic light emission which is not solely based on its underlying block or its
-         * state properties and instead uses the `BlockPos`, the `AuxiliaryLightManager` or another external
-         * data source to determine its light value in `#getLightEmission(BlockGetter, BlockPos)`
-         */
-        isSlimeBlock(): boolean;
-        /**
-         * Whether this block state has dynamic light emission which is not solely based on its underlying block or its
-         * state properties and instead uses the `BlockPos`, the `AuxiliaryLightManager` or another external
-         * data source to determine its light value in `#getLightEmission(BlockGetter, BlockPos)`
-         */
-        isStickyBlock(): boolean;
-        /**
-         * Determines if this block can stick to another block when pushed by a piston.
-         */
-        canStickTo(other: $BlockState_): boolean;
-        /**
-         * Chance that fire will spread and consume this block.
-         * 300 being a 100% chance, 0, being a 0% chance.
-         */
-        getFlammability(level: $BlockGetter, pos: $BlockPos_, face: $Direction_): number;
-        /**
-         * Called when fire is updating, checks if a block face can catch fire.
-         */
-        isFlammable(level: $BlockGetter, pos: $BlockPos_, face: $Direction_): boolean;
-        /**
-         * If the block is flammable, this is called when it gets lit on fire.
-         */
-        onCaughtFire(level: $Level_, pos: $BlockPos_, face: $Direction_, igniter: $LivingEntity): void;
-        /**
-         * Chance that fire will spread and consume this block.
-         * 300 being a 100% chance, 0, being a 0% chance.
-         */
-        getFireSpreadSpeed(level: $BlockGetter, pos: $BlockPos_, face: $Direction_): number;
-        /**
-         * Currently only called by fire when it is on top of this block.
-         * Returning true will prevent the fire from naturally dying during updating.
-         * Also prevents firing from dying from rain.
-         */
-        isFireSource(level: $LevelReader, pos: $BlockPos_, side: $Direction_): boolean;
-        /**
-         * Determines if this block is can be destroyed by the specified entities normal behavior.
-         */
-        canEntityDestroy(level: $BlockGetter, pos: $BlockPos_, entity: $Entity): boolean;
-        /**
-         * Determines if this block should drop loot when exploded.
-         */
-        canDropFromExplosion(level: $BlockGetter, pos: $BlockPos_, explosion: $Explosion): boolean;
-        /**
-         * Called when the block is destroyed by an explosion.
-         * Useful for allowing the block to take into account tile entities,
-         * state, etc. when exploded, before it is removed.
-         */
-        onBlockExploded(level: $Level_, pos: $BlockPos_, explosion: $Explosion): void;
-        /**
-         * Called to determine whether this block should use the fluid overlay texture or flowing texture when it is placed under the fluid.
-         */
-        shouldDisplayFluidOverlay(level: $BlockAndTintGetter, pos: $BlockPos_, fluidState: $FluidState): boolean;
-        /**
-         * Returns the state that this block should transform into when right-clicked by a tool.
-         * For example: Used to determine if an axe can strip,
-         * a shovel can path, or a hoe can till.
-         * Returns `null` if nothing should happen.
-         */
-        getToolModifiedState(context: $UseOnContext, itemAbility: $ItemAbility_, simulate: boolean): $BlockState;
         /**
          * Returns whether the block can be hydrated by a fluid.
          * 
@@ -1661,6 +1630,18 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          * Determines if a fluid adjacent to the block on the given side should not be rendered.
          */
         shouldHideAdjacentFluidFace(selfFace: $Direction_, adjacentFluid: $FluidState): boolean;
+        /**
+         * Gets the path type of the adjacent block to a pathfinding entity.
+         * Path types with a negative malus are not traversable for the entity.
+         * Pathfinding entities will favor paths consisting of a lower malus.
+         * When `null`, uses vanilla behavior.
+         */
+        getAdjacentBlockPathType(level: $BlockGetter, pos: $BlockPos_, mob: $Mob, originalType: $PathType_): $PathType;
+        /**
+         * Gets the path type of this block when an entity is pathfinding. When
+         * `null`, uses vanilla behavior.
+         */
+        getBlockPathType(level: $BlockGetter, pos: $BlockPos_, mob: $Mob): $PathType;
         /**
          * Whether this block hides the neighbors face pointed towards by the given direction.
          * 
@@ -1770,23 +1751,83 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          * Determines the amount of enchanting power this block can provide to an enchanting table.
          */
         getEnchantPowerBonus(level: $LevelReader, pos: $BlockPos_): number;
+        getBeaconColorMultiplier(level: $LevelReader, pos: $BlockPos_, beacon: $BlockPos_): number;
+        /**
+         * Used to determine the state 'viewed' by an entity (see
+         * `Camera#getBlockAtCamera()`).
+         * Can be used by fluid blocks to determine if the viewpoint is within the fluid or not.
+         */
+        getStateAtViewpoint(level: $BlockGetter, pos: $BlockPos_, viewpoint: $Vec3_): $BlockState;
+        /**
+         * Whether this block state has dynamic light emission which is not solely based on its underlying block or its
+         * state properties and instead uses the `BlockPos`, the `AuxiliaryLightManager` or another external
+         * data source to determine its light value in `#getLightEmission(BlockGetter, BlockPos)`
+         */
+        isSlimeBlock(): boolean;
+        /**
+         * Whether this block state has dynamic light emission which is not solely based on its underlying block or its
+         * state properties and instead uses the `BlockPos`, the `AuxiliaryLightManager` or another external
+         * data source to determine its light value in `#getLightEmission(BlockGetter, BlockPos)`
+         */
+        isStickyBlock(): boolean;
+        /**
+         * Determines if this block can stick to another block when pushed by a piston.
+         */
+        canStickTo(other: $BlockState_): boolean;
+        /**
+         * Chance that fire will spread and consume this block.
+         * 300 being a 100% chance, 0, being a 0% chance.
+         */
+        getFlammability(level: $BlockGetter, pos: $BlockPos_, face: $Direction_): number;
+        /**
+         * Called when fire is updating, checks if a block face can catch fire.
+         */
+        isFlammable(level: $BlockGetter, pos: $BlockPos_, face: $Direction_): boolean;
+        /**
+         * If the block is flammable, this is called when it gets lit on fire.
+         */
+        onCaughtFire(level: $Level_, pos: $BlockPos_, face: $Direction_, igniter: $LivingEntity): void;
+        /**
+         * Chance that fire will spread and consume this block.
+         * 300 being a 100% chance, 0, being a 0% chance.
+         */
+        getFireSpreadSpeed(level: $BlockGetter, pos: $BlockPos_, face: $Direction_): number;
+        /**
+         * Currently only called by fire when it is on top of this block.
+         * Returning true will prevent the fire from naturally dying during updating.
+         * Also prevents firing from dying from rain.
+         */
+        isFireSource(level: $LevelReader, pos: $BlockPos_, side: $Direction_): boolean;
+        /**
+         * Determines if this block is can be destroyed by the specified entities normal behavior.
+         */
+        canEntityDestroy(level: $BlockGetter, pos: $BlockPos_, entity: $Entity): boolean;
+        /**
+         * Determines if this block should drop loot when exploded.
+         */
+        canDropFromExplosion(level: $BlockGetter, pos: $BlockPos_, explosion: $Explosion): boolean;
+        /**
+         * Called when the block is destroyed by an explosion.
+         * Useful for allowing the block to take into account tile entities,
+         * state, etc. when exploded, before it is removed.
+         */
+        onBlockExploded(level: $Level_, pos: $BlockPos_, explosion: $Explosion): void;
+        /**
+         * Called to determine whether this block should use the fluid overlay texture or flowing texture when it is placed under the fluid.
+         */
+        shouldDisplayFluidOverlay(level: $BlockAndTintGetter, pos: $BlockPos_, fluidState: $FluidState): boolean;
+        /**
+         * Returns the state that this block should transform into when right-clicked by a tool.
+         * For example: Used to determine if an axe can strip,
+         * a shovel can path, or a hoe can till.
+         * Returns `null` if nothing should happen.
+         */
+        getToolModifiedState(context: $UseOnContext, itemAbility: $ItemAbility_, simulate: boolean): $BlockState;
         handler$zgf000$fabric_rendering_fluids_v1$shouldDisplayFluidOverlay(arg0: $BlockAndTintGetter, arg1: $BlockPos_, arg2: $FluidState, arg3: $CallbackInfoReturnable<any>): void;
         /**
          * Called when fire is updating, checks if a block face can catch fire.
          */
         canRedstoneConnectTo(level: $BlockGetter, pos: $BlockPos_, face: $Direction_): boolean;
-        /**
-         * Gets the path type of this block when an entity is pathfinding. When
-         * `null`, uses vanilla behavior.
-         */
-        getBlockPathType(level: $BlockGetter, pos: $BlockPos_, mob: $Mob): $PathType;
-        /**
-         * Gets the path type of the adjacent block to a pathfinding entity.
-         * Path types with a negative malus are not traversable for the entity.
-         * Pathfinding entities will favor paths consisting of a lower malus.
-         * When `null`, uses vanilla behavior.
-         */
-        getAdjacentBlockPathType(level: $BlockGetter, pos: $BlockPos_, mob: $Mob, originalType: $PathType_): $PathType;
         /**
          * Whether this block state has dynamic light emission which is not solely based on its underlying block or its
          * state properties and instead uses the `BlockPos`, the `AuxiliaryLightManager` or another external
@@ -1794,10 +1835,6 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          */
         isEmpty(): boolean;
         rotate(level: $LevelAccessor, pos: $BlockPos_, direction: $Rotation_): $BlockState;
-        /**
-         * Called when A user uses the creative pick block button on this block
-         */
-        getCloneItemStack(target: $HitResult, level: $LevelReader, pos: $BlockPos_, player: $Player): $ItemStack;
         /**
          * Get a light value for this block, taking into account the given state and coordinates, normal ranges are between 0 and 15
          */
@@ -1809,6 +1846,10 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          * Useful for calculating additional data based on the new state and the neighbor's reactions to the state change.
          */
         onBlockStateChange(level: $LevelReader, pos: $BlockPos_, oldState: $BlockState_): void;
+        /**
+         * Called when A user uses the creative pick block button on this block
+         */
+        getCloneItemStack(target: $HitResult, level: $LevelReader, pos: $BlockPos_, player: $Player): $ItemStack;
         /**
          * Called when a block entity on a side of this block changes, is created, or is destroyed.
          * 
@@ -1826,6 +1867,10 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          * Called to determine whether to allow the block to handle its own indirect power rather than using the default rules.
          */
         shouldCheckWeakPower(level: $SignalGetter, pos: $BlockPos_, side: $Direction_): boolean;
+        get bubbleColumnDirection(): $BubbleColumnDirection;
+        get slimeBlock(): boolean;
+        get stickyBlock(): boolean;
+        get empty(): boolean;
     }
     /**
      * Extension interface for `Transformation`.
@@ -1857,6 +1902,7 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          * Transforms the position according to this transformation.
          */
         transformPosition(position: $Vector4f): void;
+        get identity(): boolean;
     }
     export class $IHolderLookupProviderExtension {
     }
@@ -1919,6 +1965,9 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
         getAdvancement(id: $ResourceLocation_): $AdvancementHolder;
         getRecipeManager(): $RecipeManager;
         getScoreboard(): $Scoreboard;
+        get unsidedLevel(): $Level;
+        get recipeManager(): $RecipeManager;
+        get scoreboard(): $Scoreboard;
     }
     /**
      * Extension interface for `BlockAndTintGetter`.
@@ -1975,15 +2024,15 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          */
         getEquipmentSlot(stack: $ItemStack_): $EquipmentSlot;
         /**
+         * Called when a entity tries to play the 'swing' animation.
+         */
+        onEntitySwing(stack: $ItemStack_, entity: $LivingEntity, hand: $InteractionHand_): boolean;
+        /**
          * @deprecated
          * Called by Piglins to check if a given item prevents hostility on sight. If this is true the Piglins will be neutral to the entity wearing this item, and will not
          * attack on sight. Note: This does not prevent Piglins from becoming hostile due to other actions, nor does it make Piglins that are already hostile stop being so.
          */
         onEntitySwing(stack: $ItemStack_, wearer: $LivingEntity): boolean;
-        /**
-         * Called when a entity tries to play the 'swing' animation.
-         */
-        onEntitySwing(stack: $ItemStack_, entity: $LivingEntity, hand: $InteractionHand_): boolean;
         /**
          * Used to determine if the player can continue Elytra flight,
          * this is called each tick, and can be used to apply ItemStack damage,
@@ -2028,22 +2077,7 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          * Return the itemDamage represented by this ItemStack. Defaults to the Damage
          * entry in the stack NBT, but can be overridden here for other sources.
          */
-        getDamage(stack: $ItemStack_): number;
-        /**
-         * This function should return a new entity to replace the dropped item.
-         * Returning null here will not kill the EntityItem and will leave it to
-         * function normally. Called when the item it placed in a level.
-         */
-        createEntity(level: $Level_, location: $Entity, stack: $ItemStack_): $Entity;
-        /**
-         * Called by Piglins when checking to see if they will give an item or something in exchange for this item.
-         */
-        isDamaged(stack: $ItemStack_): boolean;
-        /**
-         * Return the itemDamage represented by this ItemStack. Defaults to the Damage
-         * entry in the stack NBT, but can be overridden here for other sources.
-         */
-        getMaxDamage(stack: $ItemStack_): number;
+        getEnchantmentValue(stack: $ItemStack_): number;
         /**
          * ItemStack sensitive version of getDefaultAttributeModifiers. Used when a stack has no `DataComponents#ATTRIBUTE_MODIFIERS` component.
          */
@@ -2056,7 +2090,6 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          * Called by Piglins when checking to see if they will give an item or something in exchange for this item.
          */
         isDamageable(stack: $ItemStack_): boolean;
-        doesSneakBypassUse(arg0: $ItemStack_, arg1: $LevelReader, arg2: $BlockPos_, arg3: $Player): boolean;
         /**
          * Called by Piglins when checking to see if they will give an item or something in exchange for this item.
          */
@@ -2214,6 +2247,7 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
          * Books use this functionality to transform themselves into enchanted books.
          */
         applyEnchantments(stack: $ItemStack_, enchantments: $List_<$EnchantmentInstance>): $ItemStack;
+        doesSneakBypassUse(arg0: $ItemStack_, arg1: $LevelReader, arg2: $BlockPos_, arg3: $Player): boolean;
         /**
          * Called when an item entity for this stack is destroyed. Note: The `ItemStack` can be retrieved from the item entity.
          */
@@ -2221,28 +2255,43 @@ declare module "@package/net/neoforged/neoforge/common/extensions" {
         /**
          * Called by Piglins when checking to see if they will give an item or something in exchange for this item.
          */
-        hasCraftingRemainingItem(stack: $ItemStack_): boolean;
+        isDamaged(stack: $ItemStack_): boolean;
         /**
          * Return the itemDamage represented by this ItemStack. Defaults to the Damage
          * entry in the stack NBT, but can be overridden here for other sources.
          */
-        getEnchantmentValue(stack: $ItemStack_): number;
+        getMaxDamage(stack: $ItemStack_): number;
         /**
          * ItemStack sensitive version of `Item#getCraftingRemainingItem()`.
          * Returns a full ItemStack instance of the result.
          */
         getCraftingRemainingItem(itemStack: $ItemStack_): $ItemStack;
         /**
+         * Called by Piglins when checking to see if they will give an item or something in exchange for this item.
+         */
+        hasCraftingRemainingItem(stack: $ItemStack_): boolean;
+        /**
+         * This function should return a new entity to replace the dropped item.
+         * Returning null here will not kill the EntityItem and will leave it to
+         * function normally. Called when the item it placed in a level.
+         */
+        createEntity(level: $Level_, location: $Entity, stack: $ItemStack_): $Entity;
+        getSweepHitBox(stack: $ItemStack_, player: $Player, target: $Entity): $AABB;
+        /**
          * Return the itemDamage represented by this ItemStack. Defaults to the Damage
          * entry in the stack NBT, but can be overridden here for other sources.
          */
         getMaxStackSize(stack: $ItemStack_): number;
         /**
+         * Return the itemDamage represented by this ItemStack. Defaults to the Damage
+         * entry in the stack NBT, but can be overridden here for other sources.
+         */
+        getDamage(stack: $ItemStack_): number;
+        /**
          * Called by Piglins to check if a given item prevents hostility on sight. If this is true the Piglins will be neutral to the entity wearing this item, and will not
          * attack on sight. Note: This does not prevent Piglins from becoming hostile due to other actions, nor does it make Piglins that are already hostile stop being so.
          */
         canElytraFly(stack: $ItemStack_, wearer: $LivingEntity): boolean;
-        getSweepHitBox(stack: $ItemStack_, player: $Player, target: $Entity): $AABB;
     }
     /**
      * Values that may be interpreted as {@link $IItemExtension}.

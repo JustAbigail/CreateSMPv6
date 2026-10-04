@@ -63,16 +63,13 @@ declare module "@package/net/minecraft/client/sounds" {
          * @return The sound associated with the element
          */
         getSound(randomSource: $RandomSource): T;
+        get weight(): number;
     }
     /**
      * The SoundManager class is responsible for managing sound events and playing sounds.
      * It handles sound event registrations, caching of sound resources, and sound playback.
      */
     export class $SoundManager extends $SimplePreparableReloadListener<$SoundManager$Preparations> implements $SoundExtension, $IdentifiableResourceReloadListener, $SoundSystemExt {
-        /**
-         * @return The collection of available sound event locations
-         */
-        getAvailableSounds(): $Collection<$ResourceLocation>;
         /**
          * Updates the volume of the specified sound source category.
          */
@@ -103,15 +100,22 @@ declare module "@package/net/minecraft/client/sounds" {
         essential$getListenerPosition(): $Vec3;
         essential$getListenerRotation(): $Quaternion;
         /**
+         * @return The collection of available sound event locations
+         */
+        getAvailableSounds(): $Collection<$ResourceLocation>;
+        /**
          * @return The sound event associated with the specific ResourceLocation, or `null` if not found
          */
         getSoundEvent(location: $ResourceLocation_): $WeighedSoundEvents;
+        /**
+         * Updates the sound manager's tick state.
+         */
+        tick(isGamePaused: boolean): void;
         reload(): void;
         /**
          * Applies the prepared sound event registrations and caches to the sound manager.
          */
         apply(object: $SoundManager$Preparations, resourceManager: $ResourceManager, profiler: $ProfilerFiller): void;
-        stop(): void;
         /**
          * Stops all sounds associated with the specified ID and category.
          */
@@ -120,29 +124,27 @@ declare module "@package/net/minecraft/client/sounds" {
          * Play a sound
          */
         stop(sound: $SoundInstance): void;
+        stop(): void;
         resume(): void;
         destroy(): void;
-        /**
-         * Performs any reloading that can be done off-thread, such as file IO
-         */
-        prepare(resourceManager: $ResourceManager, profiler: $ProfilerFiller): $SoundManager$Preparations;
         /**
          * Checks if the specified sound is active (playing or scheduled to be played).
          * @return `true` if the sound is active, `false` otherwise
          */
         isActive(sound: $SoundInstance): boolean;
-        /**
-         * Updates the sound manager's tick state.
-         */
-        tick(isGamePaused: boolean): void;
         removeListener(listener: $SoundEventListener_): void;
         addListener(listener: $SoundEventListener_): void;
+        pause(): void;
+        getFabricId(): $ResourceLocation;
+        /**
+         * @return The collection of available sound event locations
+         */
+        getFabricDependencies(): $Collection<any>;
         emergencyShutdown(): void;
         /**
          * Updates the sound source position based on the active render info.
          */
         updateSource(activeRenderInfo: $Camera): void;
-        pause(): void;
         /**
          * Play a sound
          */
@@ -151,11 +153,6 @@ declare module "@package/net/minecraft/client/sounds" {
          * Plays a sound with a delay in ticks.
          */
         playDelayed(sound: $SoundInstance, delay: number): void;
-        getFabricId(): $ResourceLocation;
-        /**
-         * @return The collection of available sound event locations
-         */
-        getFabricDependencies(): $Collection<any>;
         static EMPTY_SOUND: $Sound;
         static INTENTIONALLY_EMPTY_SOUND_EVENT: $WeighedSoundEvents;
         static EMPTY_SOUND_LOCATION: $ResourceLocation;
@@ -163,6 +160,12 @@ declare module "@package/net/minecraft/client/sounds" {
         static INTENTIONALLY_EMPTY_SOUND_LOCATION: $ResourceLocation;
         static INTENTIONALLY_EMPTY_SOUND: $Sound;
         constructor(options: $Options);
+        get availableSoundDevices(): $List<string>;
+        get listenerTransform(): $ListenerTransform;
+        get debugString(): string;
+        get availableSounds(): $Collection<$ResourceLocation>;
+        get fabricId(): $ResourceLocation;
+        get fabricDependencies(): $Collection<any>;
     }
     /**
      * The Preparations class represents the prepared sound event registrations and caches for applying to the sound manager.
@@ -183,19 +186,12 @@ declare module "@package/net/minecraft/client/sounds" {
          * @throws IOException if an I/O error occurs while reading the audio data
          */
         read(size: number): $ByteBuffer;
+        get format(): $AudioFormat;
     }
     /**
      * The MusicManager class manages the playing of music in Minecraft.
      */
     export class $MusicManager implements $MusicManagerAccessor {
-        handler$zhm000$betternether$bn_startPlaying(arg0: $Music, arg1: $CallbackInfo): void;
-        handler$zhm000$betternether$bn_onTick(arg0: $CallbackInfo): void;
-        handler$ddn000$betterend$be_onTick(arg0: $CallbackInfo): void;
-        /**
-         * Starts playing the specified Music selector.
-         */
-        startPlaying(selector: $Music): void;
-        handler$ddn000$betterend$be_startPlaying(arg0: $Music, arg1: $CallbackInfo): void;
         /**
          * Starts playing the specified Music selector.
          */
@@ -204,6 +200,14 @@ declare module "@package/net/minecraft/client/sounds" {
          * Stops playing the current Music selector.
          */
         stopPlaying(): void;
+        handler$zhm000$betternether$bn_startPlaying(arg0: $Music, arg1: $CallbackInfo): void;
+        handler$zhm000$betternether$bn_onTick(arg0: $CallbackInfo): void;
+        handler$ddn000$betterend$be_onTick(arg0: $CallbackInfo): void;
+        /**
+         * Starts playing the specified Music selector.
+         */
+        startPlaying(selector: $Music): void;
+        handler$ddn000$betterend$be_startPlaying(arg0: $Music, arg1: $CallbackInfo): void;
         /**
          * Stops playing the current Music selector.
          */
@@ -216,17 +220,18 @@ declare module "@package/net/minecraft/client/sounds" {
         setNextSongDelay(arg0: number): void;
         getCurrentMusic(): $SoundInstance;
         constructor(minecraft: $Minecraft);
+        get currentMusic(): $SoundInstance;
     }
     /**
      * The `SoundEngine` class handles the management and playback of sounds in the game.
      */
     export class $SoundEngine implements $SoundExtension, $SoundSystemExt {
         getAvailableSoundDevices(): $List<string>;
-        wrapMethod$fho000$asyncparticles$wrapStop(soundName: $ResourceLocation_, category: $SoundSource_, original: $Operation_<any>): void;
         /**
          * Requests a specific Sound instance to be preloaded.
          */
         requestPreload(sound: $Sound): void;
+        wrapMethod$fho000$asyncparticles$wrapStop(soundName: $ResourceLocation_, category: $SoundSource_, original: $Operation_<any>): void;
         wrapMethod$fho000$asyncparticles$wrapReload(original: $Operation_<any>): void;
         wrapMethod$fho000$asyncparticles$wrapUpdateCategoryVolume(category: $SoundSource_, volume: number, original: $Operation_<any>): void;
         wrapMethod$fho000$asyncparticles$wrapAddEventListener(listener: $SoundEventListener_, original: $Operation_<any>): void;
@@ -261,16 +266,21 @@ declare module "@package/net/minecraft/client/sounds" {
         simulated$isSoundPlaying(sound: $SoundInstance): boolean;
         essential$getListenerPosition(): $Vec3;
         essential$getListenerRotation(): $Quaternion;
-        removeEventListener(listener: $SoundEventListener_): void;
         addEventListener(listener: $SoundEventListener_): void;
         /**
          * Cleans up the Sound System
          */
         stopAll(): void;
+        removeEventListener(listener: $SoundEventListener_): void;
+        /**
+         * Ticks all active instances of  `TickableSoundInstance`
+         */
+        tick(isGamePaused: boolean): void;
         /**
          * Cleans up the Sound System
          */
         reload(): void;
+        stop(soundName: $ResourceLocation_ | null, category: $SoundSource_ | null): void;
         /**
          * Plays a given sound instance.
          * 
@@ -288,7 +298,6 @@ declare module "@package/net/minecraft/client/sounds" {
          * @implNote This method assumes proper synchronization or that thread confinement mechanisms are in place.
          */
         stop(sound: $SoundInstance): void;
-        stop(soundName: $ResourceLocation_ | null, category: $SoundSource_ | null): void;
         /**
          * Cleans up the Sound System
          */
@@ -302,18 +311,14 @@ declare module "@package/net/minecraft/client/sounds" {
          */
         isActive(sound: $SoundInstance): boolean;
         /**
-         * Ticks all active instances of  `TickableSoundInstance`
+         * Cleans up the Sound System
          */
-        tick(isGamePaused: boolean): void;
+        pause(): void;
         /**
          * Cleans up the Sound System
          */
         emergencyShutdown(): void;
         updateSource(renderInfo: $Camera): void;
-        /**
-         * Cleans up the Sound System
-         */
-        pause(): void;
         /**
          * Plays a given sound instance.
          * 
@@ -340,6 +345,9 @@ declare module "@package/net/minecraft/client/sounds" {
         static OPEN_AL_SOFT_PREFIX: string;
         static OPEN_AL_SOFT_PREFIX_LENGTH: number;
         constructor(soundManager: $SoundManager, options: $Options, resourceManager: $ResourceProvider_);
+        get availableSoundDevices(): $List<string>;
+        get listenerTransform(): $ListenerTransform;
+        get debugString(): string;
     }
     /**
      * The SoundBufferLibrary class provides a cache containing instances of SoundBuffer and AudioStream for use in Minecraft sound handling.
@@ -365,6 +373,7 @@ declare module "@package/net/minecraft/client/sounds" {
         preload(sounds: $Collection_<$Sound>): $CompletableFuture<never>;
         getResourceManager(): $ResourceProvider;
         constructor(resourceManager: $ResourceProvider_);
+        get resourceManager(): $ResourceProvider;
     }
     /**
      * The WeighedSoundEvents class represents a collection of weighted sound events.
@@ -400,5 +409,7 @@ declare module "@package/net/minecraft/client/sounds" {
          */
         getSound(randomSource: $RandomSource): $Sound;
         constructor(location: $ResourceLocation_, subtitleKey: string | null);
+        get subtitle(): $Component;
+        get weight(): number;
     }
 }

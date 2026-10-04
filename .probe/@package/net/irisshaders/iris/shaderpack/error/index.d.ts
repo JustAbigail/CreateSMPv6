@@ -13,5 +13,5 @@ declare module "@package/net/irisshaders/iris/shaderpack/error" {
     /**
      * Values that may be interpreted as {@link $RusticError}.
      */
-    export type $RusticError_ = { message?: string, file?: string, badLine?: string, detailMessage?: string, severity?: string, lineNumber?: number,  } | [message?: string, file?: string, badLine?: string, detailMessage?: string, severity?: string, lineNumber?: number, ];
+    export type $RusticError_ = { detailMessage?: string, badLine?: string, file?: string, message?: string, lineNumber?: number, severity?: string,  } | [detailMessage?: string, badLine?: string, file?: string, message?: string, lineNumber?: number, severity?: string, ];
 }

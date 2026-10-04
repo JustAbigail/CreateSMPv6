@@ -11,6 +11,10 @@ declare module "@package/net/createmod/catnip/gui" {
         getStartY(): number;
         getWidth(): number;
         getHeight(): number;
+        get startX(): number;
+        get startY(): number;
+        get width(): number;
+        get height(): number;
     }
     export class $TickableGuiEventListener {
     }

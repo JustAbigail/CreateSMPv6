@@ -25,6 +25,7 @@ declare module "@package/org/slf4j" {
          */
         hasChildren(): boolean;
         hasReferences(): boolean;
+        get name(): string;
     }
     export class $Logger {
         static ROOT_LOGGER_NAME: string;
@@ -99,5 +100,6 @@ declare module "@package/org/slf4j" {
         atLevel(arg0: $Level_): $LoggingEventBuilder;
         isEnabledForLevel(arg0: $Level_): boolean;
         makeLoggingEventBuilder(arg0: $Level_): $LoggingEventBuilder;
+        get name(): string;
     }
 }

@@ -73,6 +73,7 @@ declare module "@package/net/minecraft/server/packs/resources" {
     export interface $PreparableReloadListener {
         reload(preparationBarrier: $PreparableReloadListener$PreparationBarrier_, resourceManager: $ResourceManager, preparationsProfiler: $ProfilerFiller, reloadProfiler: $ProfilerFiller, backgroundExecutor: $Executor_, gameExecutor: $Executor_): $CompletableFuture<void>;
         getName(): string;
+        get name(): string;
     }
     /**
      * Values that may be interpreted as {@link $PreparableReloadListener}.
@@ -104,6 +105,8 @@ declare module "@package/net/minecraft/server/packs/resources" {
         getListeners(): $List<$PreparableReloadListener>;
         type: $PackType;
         constructor(type: $PackType_);
+        get namespaces(): $Set<string>;
+        get listeners(): $List<$PreparableReloadListener>;
     }
     /**
      * @deprecated
@@ -126,6 +129,7 @@ declare module "@package/net/minecraft/server/packs/resources" {
         listResources(path: string, filter: $Predicate_<$ResourceLocation>): $Map<$ResourceLocation, $Resource>;
         getNamespaces(): $Set<string>;
         getResourceStack(location: $ResourceLocation_): $List<$Resource>;
+        get namespaces(): $Set<string>;
     }
     export class $Resource implements $FabricResource {
         getFabricPackSource(): $PackSource;
@@ -137,6 +141,7 @@ declare module "@package/net/minecraft/server/packs/resources" {
         sourcePackId(): string;
         constructor(source: $PackResources, streamSupplier: $IoSupplier_<$InputStream>, metadataSupplier: $IoSupplier_<$ResourceMetadata>);
         constructor(source: $PackResources, streamSupplier: $IoSupplier_<$InputStream>);
+        get fabricPackSource(): $PackSource;
     }
     export class $ResourceMetadata {
         static fromJsonStream(stream: $InputStream): $ResourceMetadata;
@@ -158,5 +163,6 @@ declare module "@package/net/minecraft/server/packs/resources" {
         isDone(): boolean;
         getActualProgress(): number;
         checkExceptions(): void;
+        get actualProgress(): number;
     }
 }

@@ -25,6 +25,7 @@ import { $ItemStack_ } from "@package/net/minecraft/world/item";
 import { $ParticleProvider, $SimpleAnimatedParticle, $SpriteSet, $Particle, $ParticleEngine$SpriteParticleRegistration, $ParticleProvider_ } from "@package/net/minecraft/client/particle";
 import { $LocalPlayer } from "@package/net/minecraft/client/player";
 import { $KubeColor_ } from "@package/dev/latvian/mods/kubejs/color";
+import { $Player } from "@package/net/minecraft/world/entity/player";
 import { $Pattern } from "@package/java/util/regex";
 import { $InputConstants$Type_ } from "@package/com/mojang/blaze3d/platform";
 import { $BufferedImage } from "@package/java/awt/image";
@@ -56,8 +57,8 @@ declare module "@package/dev/latvian/mods/kubejs/client" {
         scanCodeInputType(): $KeybindRegistryKubeEvent$Builder;
         mouseInputType(): $KeybindRegistryKubeEvent$Builder;
         defaultKey(keyName: string): $KeybindRegistryKubeEvent$Builder;
-        category(category: string): $KeybindRegistryKubeEvent$Builder;
         modifier(modifier: $KeyModifier_): $KeybindRegistryKubeEvent$Builder;
+        category(category: string): $KeybindRegistryKubeEvent$Builder;
         gui(): $KeybindRegistryKubeEvent$Builder;
     }
     export class $SoundsGenerator$SoundGen {
@@ -111,10 +112,11 @@ declare module "@package/dev/latvian/mods/kubejs/client" {
          */
         cancel(): $Object;
         constructor();
+        get client(): $Minecraft;
     }
     export class $MultipartBlockStateGenerator {
-        part(when: string, consumer: $Consumer_<$MultipartBlockStateGenerator$Part>): void;
         part(when: string, model: $ResourceLocation_): void;
+        part(when: string, consumer: $Consumer_<$MultipartBlockStateGenerator$Part>): void;
         toJson(): $JsonObject;
         constructor();
     }
@@ -129,7 +131,6 @@ declare module "@package/dev/latvian/mods/kubejs/client" {
         constructor(side: $Direction_);
     }
     export class $ClientPlayerKubeEvent implements $KubePlayerEvent, $ClientKubeEvent {
-        getPlayer(): $LocalPlayer;
         getClient(): $Minecraft;
         /**
          * Stops the event with the given exit value. Execution will be stopped **immediately**.
@@ -171,7 +172,14 @@ declare module "@package/dev/latvian/mods/kubejs/client" {
         getServer(): $MinecraftServer;
         getRegistries(): $RegistryAccess;
         getEntity(): $LivingEntity;
+        getPlayer(): $Player;
         constructor(player: $LocalPlayer);
+        get client(): $Minecraft;
+        get level(): $Level;
+        get server(): $MinecraftServer;
+        get registries(): $RegistryAccess;
+        get entity(): $LivingEntity;
+        get player(): $Player;
     }
     export class $AtlasSpriteRegistryKubeEvent implements $KubeEvent {
         register(id: $ResourceLocation_): void;
@@ -220,21 +228,21 @@ declare module "@package/dev/latvian/mods/kubejs/client" {
     }
     export class $KubeAnimatedParticle extends $SimpleAnimatedParticle {
         setSpeed(speed: $Vec3_): void;
-        setGravity(g: number): void;
-        getYSpeed(): number;
-        getZSpeed(): number;
-        getSpriteSet(): $SpriteSet;
         setFasterWhenYMotionBlocked(b: boolean): void;
         setPhysicality(hasPhysics: boolean): void;
-        getXSpeed(): number;
         setLightColor(arg0: $Float2IntFunction_): void;
+        getZSpeed(): number;
+        getSpriteSet(): $SpriteSet;
+        getXSpeed(): number;
+        getYSpeed(): number;
         /**
          * Sets teh friction of the particle, the particle's motion is multiplied by this value every tick
          */
         setFriction(f: number): void;
-        getRandom(): $RandomSource;
+        setGravity(g: number): void;
         getY(): number;
         getLevel(): $ClientLevel;
+        getRandom(): $RandomSource;
         setColor(color: $KubeColor_, alpha: boolean): void;
         setColor(color: $KubeColor_): void;
         getX(): number;
@@ -276,6 +284,14 @@ declare module "@package/dev/latvian/mods/kubejs/client" {
         bbWidth: number;
         age: number;
         constructor(level: $ClientLevel, x: number, y: number, z: number, sprites: $SpriteSet);
+        set speed(value: $Vec3_);
+        set fasterWhenYMotionBlocked(value: boolean);
+        set physicality(value: boolean);
+        set lightColor(value: $Float2IntFunction_);
+        get ZSpeed(): number;
+        get spriteSet(): $SpriteSet;
+        get XSpeed(): number;
+        get YSpeed(): number;
     }
     export class $MenuScreenRegistryKubeEvent implements $ClientKubeEvent {
         register(type: $MenuType_<never>, arg1: $MenuScreens$ScreenConstructor_<any, any>): void;
@@ -317,6 +333,7 @@ declare module "@package/dev/latvian/mods/kubejs/client" {
          */
         cancel(): $Object;
         constructor(event: $RegisterMenuScreensEvent);
+        get client(): $Minecraft;
     }
     export class $DebugInfoKubeEvent extends $ClientPlayerKubeEvent {
         /**
@@ -328,6 +345,8 @@ declare module "@package/dev/latvian/mods/kubejs/client" {
          */
         getLines(): $List<string>;
         constructor(player: $LocalPlayer, l: $List_<string>);
+        get showDebug(): boolean;
+        get lines(): $List<string>;
     }
     export class $VariantBlockStateGenerator$Variant {
         model(s: $ResourceLocation_): $VariantBlockStateGenerator$Model;
@@ -388,7 +407,7 @@ declare module "@package/dev/latvian/mods/kubejs/client" {
     /**
      * Values that may be interpreted as {@link $LangKubeEvent}.
      */
-    export type $LangKubeEvent_ = { map?: $Map_<$LangKubeEvent$Key_, string>, lang?: string,  } | [map?: $Map_<$LangKubeEvent$Key_, string>, lang?: string, ];
+    export type $LangKubeEvent_ = { lang?: string, map?: $Map_<$LangKubeEvent$Key_, string>,  } | [lang?: string, map?: $Map_<$LangKubeEvent$Key_, string>, ];
     export class $EntityRendererRegistryKubeEvent implements $ClientKubeEvent {
         register(type: $EntityType_<never>, renderer: $EntityRendererProvider_<any>): void;
         getClient(): $Minecraft;
@@ -429,6 +448,7 @@ declare module "@package/dev/latvian/mods/kubejs/client" {
          */
         cancel(): $Object;
         constructor(event: $EntityRenderersEvent$RegisterRenderers);
+        get client(): $Minecraft;
     }
     export class $ParticleProviderRegistryKubeEvent implements $ClientKubeEvent {
         registerSpecial<T extends $ParticleOptions>(type: $ParticleType_<T>, provider: $ParticleProvider_<T>): void;
@@ -473,6 +493,7 @@ declare module "@package/dev/latvian/mods/kubejs/client" {
          */
         cancel(): $Object;
         constructor(event: $RegisterParticleProvidersEvent);
+        get client(): $Minecraft;
     }
     export class $ParticleProviderRegistryKubeEvent$SpriteSetParticleProvider<T extends $ParticleOptions> {
     }
@@ -485,16 +506,16 @@ declare module "@package/dev/latvian/mods/kubejs/client" {
      */
     export type $ParticleProviderRegistryKubeEvent$SpriteSetParticleProvider_<T> = ((type: T, clientLevel: $ClientLevel, x: number, y: number, z: number, sprites: $SpriteSet, xSpeed: number, ySpeed: number, zSpeed: number) => $Particle);
     export class $SoundsGenerator$SoundInstance {
-        pitch(f: number): $SoundsGenerator$SoundInstance;
-        attenuationDistance(i: number): $SoundsGenerator$SoundInstance;
         asReferenceToEvent(): $SoundsGenerator$SoundInstance;
+        attenuationDistance(i: number): $SoundsGenerator$SoundInstance;
         volume(f: number): $SoundsGenerator$SoundInstance;
         stream(): $SoundsGenerator$SoundInstance;
         stream(b: boolean): $SoundsGenerator$SoundInstance;
         toJson(): $JsonElement;
         weight(i: number): $SoundsGenerator$SoundInstance;
-        preload(b: boolean): $SoundsGenerator$SoundInstance;
         preload(): $SoundsGenerator$SoundInstance;
+        preload(b: boolean): $SoundsGenerator$SoundInstance;
+        pitch(f: number): $SoundsGenerator$SoundInstance;
         constructor(fileLocation: string);
     }
     export class $KubeSessionData {
@@ -540,8 +561,8 @@ declare module "@package/dev/latvian/mods/kubejs/client" {
         constructor(width: number, height: number, pixels: number[], mcmeta: number[]);
     }
     export class $VariantBlockStateGenerator$Model {
-        uvlock(): $VariantBlockStateGenerator$Model;
         model(s: $ResourceLocation_): $VariantBlockStateGenerator$Model;
+        uvlock(): $VariantBlockStateGenerator$Model;
         x(x: number): $VariantBlockStateGenerator$Model;
         y(y: number): $VariantBlockStateGenerator$Model;
         toJson(): $JsonObject;
@@ -556,7 +577,7 @@ declare module "@package/dev/latvian/mods/kubejs/client" {
     /**
      * Values that may be interpreted as {@link $LangKubeEvent$Key}.
      */
-    export type $LangKubeEvent$Key_ = { lang?: string, namespace?: string, key?: string,  } | [lang?: string, namespace?: string, key?: string, ];
+    export type $LangKubeEvent$Key_ = { namespace?: string, lang?: string, key?: string,  } | [namespace?: string, lang?: string, key?: string, ];
     export class $BlockEntityRendererRegistryKubeEvent implements $ClientKubeEvent {
         register(type: $BlockEntityType_<never>, renderer: $BlockEntityRendererProvider_<any>): void;
         getClient(): $Minecraft;
@@ -597,6 +618,7 @@ declare module "@package/dev/latvian/mods/kubejs/client" {
          */
         cancel(): $Object;
         constructor(event: $EntityRenderersEvent$RegisterRenderers);
+        get client(): $Minecraft;
     }
     export class $MultipartBlockStateGenerator$Part {
         model(s: $ResourceLocation_): $VariantBlockStateGenerator$Model;
@@ -617,6 +639,7 @@ declare module "@package/dev/latvian/mods/kubejs/client" {
     export class $KubeJSKeybinds$TickingKeyEvent extends $KubeJSKeybinds$KeyEvent {
         getTicks(): number;
         constructor(player: $LocalPlayer, key: $KubeJSKeybinds$KubeKey);
+        get ticks(): number;
     }
     export class $KubeJSKeybinds$KeyEvent extends $ClientPlayerKubeEvent {
         constructor(player: $LocalPlayer, key: $KubeJSKeybinds$KubeKey);
@@ -625,5 +648,6 @@ declare module "@package/dev/latvian/mods/kubejs/client" {
     }
     export interface $ClientKubeEvent extends $KubeEvent {
         getClient(): $Minecraft;
+        get client(): $Minecraft;
     }
 }

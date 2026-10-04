@@ -100,8 +100,8 @@ declare module "@package/org/lwjgl/util/freetype" {
         static nautohint(arg0: number): $FT_Generic;
         static nextensions(arg0: number): number;
         static ninternal(arg0: number): number;
-        glyph(): $FT_GlyphSlot;
         bbox(): $FT_BBox;
+        glyph(): $FT_GlyphSlot;
         static nsize(arg0: number): $FT_Size;
         size(): $FT_Size;
         static create(arg0: number): $FT_Face;
@@ -154,8 +154,8 @@ declare module "@package/org/lwjgl/util/freetype" {
         static nn_points(arg0: number): number;
         static ntags(arg0: number): $ByteBuffer;
         static ncontours(arg0: number): $ShortBuffer;
-        tags(): $ByteBuffer;
         static npoints(arg0: number): $FT_Vector$Buffer;
+        tags(): $ByteBuffer;
         flags(): number;
         static create(): $FT_Outline;
         static create(arg0: number): $FT_Outline$Buffer;
@@ -190,8 +190,13 @@ declare module "@package/org/lwjgl/util/freetype" {
         static createSafe(arg0: number): $FT_Alloc_Func;
         callback(arg0: number, arg1: number): void;
         getCallInterface(): $FFICIF;
+        get callInterface(): $FFICIF;
     }
     export class $FT_Size_Metrics extends $Struct<$FT_Size_Metrics> {
+        x_ppem(): number;
+        y_ppem(): number;
+        static nx_ppem(arg0: number): number;
+        static ny_ppem(arg0: number): number;
         x_scale(): number;
         max_advance(): number;
         static nx_scale(arg0: number): number;
@@ -201,10 +206,6 @@ declare module "@package/org/lwjgl/util/freetype" {
         descender(): number;
         static nascender(arg0: number): number;
         static ndescender(arg0: number): number;
-        x_ppem(): number;
-        y_ppem(): number;
-        static nx_ppem(arg0: number): number;
-        static ny_ppem(arg0: number): number;
         y_scale(): number;
         static create(arg0: number): $FT_Size_Metrics;
         static create(arg0: number, arg1: number): $FT_Size_Metrics$Buffer;
@@ -228,9 +229,10 @@ declare module "@package/org/lwjgl/util/freetype" {
         static CIF: $FFICIF;
     }
     export interface $FT_Generic_FinalizerI extends $CallbackI {
-        callback(arg0: number, arg1: number): void;
         invoke(arg0: number): void;
+        callback(arg0: number, arg1: number): void;
         getCallInterface(): $FFICIF;
+        get callInterface(): $FFICIF;
     }
     /**
      * Values that may be interpreted as {@link $FT_Generic_FinalizerI}.
@@ -248,9 +250,10 @@ declare module "@package/org/lwjgl/util/freetype" {
         static CIF: $FFICIF;
     }
     export interface $FT_Alloc_FuncI extends $CallbackI {
-        callback(arg0: number, arg1: number): void;
         invoke(arg0: number, arg1: number): number;
+        callback(arg0: number, arg1: number): void;
         getCallInterface(): $FFICIF;
+        get callInterface(): $FFICIF;
     }
     /**
      * Values that may be interpreted as {@link $FT_Alloc_FuncI}.
@@ -294,9 +297,10 @@ declare module "@package/org/lwjgl/util/freetype" {
         static CIF: $FFICIF;
     }
     export interface $FT_Free_FuncI extends $CallbackI {
-        callback(arg0: number, arg1: number): void;
         invoke(arg0: number, arg1: number): void;
+        callback(arg0: number, arg1: number): void;
         getCallInterface(): $FFICIF;
+        get callInterface(): $FFICIF;
     }
     /**
      * Values that may be interpreted as {@link $FT_Free_FuncI}.
@@ -335,22 +339,22 @@ declare module "@package/org/lwjgl/util/freetype" {
         constructor(arg0: number, arg1: number);
     }
     export class $FT_Stream extends $Struct<$FT_Stream> implements $NativeResource {
-        static nmemory(arg0: number): $FT_Memory;
-        static nmemory(arg0: number, arg1: $FT_Memory | null): void;
-        close$(arg0: $FT_Stream_CloseFuncI_ | null): $FT_Stream;
         close$(): $FT_Stream_CloseFunc;
+        close$(arg0: $FT_Stream_CloseFuncI_ | null): $FT_Stream;
         static nbase(arg0: number): $ByteBuffer;
         static nbase(arg0: number, arg1: $ByteBuffer | null): void;
-        static ndescriptor(arg0: number, arg1: $FT_StreamDesc): void;
         static ndescriptor(arg0: number): $FT_StreamDesc;
-        static npathname(arg0: number): $FT_StreamDesc;
+        static ndescriptor(arg0: number, arg1: $FT_StreamDesc): void;
         static npathname(arg0: number, arg1: $FT_StreamDesc): void;
+        static npathname(arg0: number): $FT_StreamDesc;
         static nclose$(arg0: number): $FT_Stream_CloseFunc;
         static nclose$(arg0: number, arg1: $FT_Stream_CloseFuncI_ | null): void;
-        static ncursor(arg0: number, arg1: number): $ByteBuffer;
         static ncursor(arg0: number, arg1: $ByteBuffer | null): void;
+        static ncursor(arg0: number, arg1: number): $ByteBuffer;
         static nlimit$(arg0: number, arg1: number): $ByteBuffer;
         static nlimit$(arg0: number, arg1: $ByteBuffer | null): void;
+        static nmemory(arg0: number): $FT_Memory;
+        static nmemory(arg0: number, arg1: $FT_Memory | null): void;
         static npos(arg0: number): number;
         static npos(arg0: number, arg1: number): void;
         static nsize(arg0: number): number;
@@ -406,9 +410,10 @@ declare module "@package/org/lwjgl/util/freetype" {
         static CIF: $FFICIF;
     }
     export interface $FT_Stream_IoFuncI extends $CallbackI {
-        callback(arg0: number, arg1: number): void;
         invoke(arg0: number, arg1: number, arg2: number, arg3: number): number;
+        callback(arg0: number, arg1: number): void;
         getCallInterface(): $FFICIF;
+        get callInterface(): $FFICIF;
     }
     /**
      * Values that may be interpreted as {@link $FT_Stream_IoFuncI}.
@@ -418,9 +423,10 @@ declare module "@package/org/lwjgl/util/freetype" {
         static CIF: $FFICIF;
     }
     export interface $FT_Realloc_FuncI extends $CallbackI {
-        callback(arg0: number, arg1: number): void;
         invoke(arg0: number, arg1: number, arg2: number, arg3: number): number;
+        callback(arg0: number, arg1: number): void;
         getCallInterface(): $FFICIF;
+        get callInterface(): $FFICIF;
     }
     /**
      * Values that may be interpreted as {@link $FT_Realloc_FuncI}.
@@ -468,27 +474,27 @@ declare module "@package/org/lwjgl/util/freetype" {
         static npixel_mode(arg0: number): number;
         static npalette_mode(arg0: number): number;
         static npalette(arg0: number): number;
-        palette(): number;
-        pitch(): number;
         pixel_mode(): number;
         rows(): number;
         buffer(arg0: number): $ByteBuffer;
-        static create(arg0: number, arg1: number): $FT_Bitmap$Buffer;
         static create(arg0: number): $FT_Bitmap$Buffer;
+        static create(arg0: number, arg1: number): $FT_Bitmap$Buffer;
         static create(arg0: number): $FT_Bitmap;
         static create(): $FT_Bitmap;
         width(): number;
         static malloc(): $FT_Bitmap;
+        static malloc(arg0: number, arg1: $MemoryStack): $FT_Bitmap$Buffer;
         static malloc(arg0: number): $FT_Bitmap$Buffer;
         static malloc(arg0: $MemoryStack): $FT_Bitmap;
-        static malloc(arg0: number, arg1: $MemoryStack): $FT_Bitmap$Buffer;
-        static calloc(): $FT_Bitmap;
-        static calloc(arg0: $MemoryStack): $FT_Bitmap;
         static calloc(arg0: number): $FT_Bitmap$Buffer;
         static calloc(arg0: number, arg1: $MemoryStack): $FT_Bitmap$Buffer;
+        static calloc(): $FT_Bitmap;
+        static calloc(arg0: $MemoryStack): $FT_Bitmap;
         static createSafe(arg0: number, arg1: number): $FT_Bitmap$Buffer;
         static createSafe(arg0: number): $FT_Bitmap;
         static nwidth(arg0: number): number;
+        pitch(): number;
+        palette(): number;
         close(): void;
         static PALETTE: number;
         static ALIGNOF: number;
@@ -508,6 +514,7 @@ declare module "@package/org/lwjgl/util/freetype" {
         static createSafe(arg0: number): $FT_Stream_IoFunc;
         callback(arg0: number, arg1: number): void;
         getCallInterface(): $FFICIF;
+        get callInterface(): $FFICIF;
     }
     export class $FT_Generic$Buffer extends $StructBuffer<$FT_Generic, $FT_Generic$Buffer> implements $NativeResource {
         data(): number;
@@ -543,9 +550,10 @@ declare module "@package/org/lwjgl/util/freetype" {
         static CIF: $FFICIF;
     }
     export interface $FT_Stream_CloseFuncI extends $CallbackI {
-        callback(arg0: number, arg1: number): void;
         invoke(arg0: number): void;
+        callback(arg0: number, arg1: number): void;
         getCallInterface(): $FFICIF;
+        get callInterface(): $FFICIF;
     }
     /**
      * Values that may be interpreted as {@link $FT_Stream_CloseFuncI}.
@@ -570,6 +578,7 @@ declare module "@package/org/lwjgl/util/freetype" {
         static createSafe(arg0: number): $FT_Realloc_Func;
         callback(arg0: number, arg1: number): void;
         getCallInterface(): $FFICIF;
+        get callInterface(): $FFICIF;
     }
     export class $FT_Outline$Buffer extends $StructBuffer<$FT_Outline, $FT_Outline$Buffer> implements $NativeResource {
         n_contours(): number;
@@ -585,12 +594,12 @@ declare module "@package/org/lwjgl/util/freetype" {
     export class $FT_Bitmap$Buffer extends $StructBuffer<$FT_Bitmap, $FT_Bitmap$Buffer> implements $NativeResource {
         num_grays(): number;
         palette_mode(): number;
-        palette(): number;
-        pitch(): number;
         pixel_mode(): number;
         rows(): number;
         buffer(arg0: number): $ByteBuffer;
         width(): number;
+        pitch(): number;
+        palette(): number;
         close(): void;
         constructor(arg0: $ByteBuffer);
         constructor(arg0: number, arg1: number);
@@ -691,12 +700,12 @@ declare module "@package/org/lwjgl/util/freetype" {
         constructor(arg0: $ByteBuffer);
     }
     export class $FT_Size_Metrics$Buffer extends $StructBuffer<$FT_Size_Metrics, $FT_Size_Metrics$Buffer> {
+        x_ppem(): number;
+        y_ppem(): number;
         x_scale(): number;
         max_advance(): number;
         ascender(): number;
         descender(): number;
-        x_ppem(): number;
-        y_ppem(): number;
         y_scale(): number;
         height(): number;
         constructor(arg0: $ByteBuffer);
@@ -707,29 +716,29 @@ declare module "@package/org/lwjgl/util/freetype" {
         free$(arg0: $FT_Free_FuncI_ | null): $FT_Memory;
         static nuser(arg0: number, arg1: number): void;
         static nuser(arg0: number): number;
-        static nalloc(arg0: number): $FT_Alloc_Func;
         static nalloc(arg0: number, arg1: $FT_Alloc_FuncI_ | null): void;
-        static nfree$(arg0: number, arg1: $FT_Free_FuncI_ | null): void;
+        static nalloc(arg0: number): $FT_Alloc_Func;
         static nfree$(arg0: number): $FT_Free_Func;
+        static nfree$(arg0: number, arg1: $FT_Free_FuncI_ | null): void;
         static nrealloc(arg0: number, arg1: $FT_Realloc_FuncI_ | null): void;
         static nrealloc(arg0: number): $FT_Realloc_Func;
-        alloc(arg0: $FT_Alloc_FuncI_ | null): $FT_Memory;
         alloc(): $FT_Alloc_Func;
+        alloc(arg0: $FT_Alloc_FuncI_ | null): $FT_Memory;
+        user(): number;
+        user(arg0: number): $FT_Memory;
         set(arg0: $FT_Memory): $FT_Memory;
         set(arg0: number, arg1: $FT_Alloc_FuncI_, arg2: $FT_Free_FuncI_, arg3: $FT_Realloc_FuncI_): $FT_Memory;
         static create(arg0: number): $FT_Memory$Buffer;
         static create(arg0: number, arg1: number): $FT_Memory$Buffer;
         static create(arg0: number): $FT_Memory;
         static create(): $FT_Memory;
-        user(arg0: number): $FT_Memory;
-        user(): number;
         static malloc(arg0: number): $FT_Memory$Buffer;
-        static malloc(arg0: $MemoryStack): $FT_Memory;
         static malloc(): $FT_Memory;
+        static malloc(arg0: $MemoryStack): $FT_Memory;
         static malloc(arg0: number, arg1: $MemoryStack): $FT_Memory$Buffer;
-        static calloc(): $FT_Memory;
         static calloc(arg0: number): $FT_Memory$Buffer;
         static calloc(arg0: number, arg1: $MemoryStack): $FT_Memory$Buffer;
+        static calloc(): $FT_Memory;
         static calloc(arg0: $MemoryStack): $FT_Memory;
         static createSafe(arg0: number, arg1: number): $FT_Memory$Buffer;
         static createSafe(arg0: number): $FT_Memory;
@@ -750,6 +759,7 @@ declare module "@package/org/lwjgl/util/freetype" {
         static createSafe(arg0: number): $FT_Free_Func;
         callback(arg0: number, arg1: number): void;
         getCallInterface(): $FFICIF;
+        get callInterface(): $FFICIF;
     }
     export class $FT_StreamDesc$Buffer extends $StructBuffer<$FT_StreamDesc, $FT_StreamDesc$Buffer> implements $NativeResource {
         pointer(): number;
@@ -832,6 +842,7 @@ declare module "@package/org/lwjgl/util/freetype" {
         static createSafe(arg0: number): $FT_Generic_Finalizer;
         callback(arg0: number, arg1: number): void;
         getCallInterface(): $FFICIF;
+        get callInterface(): $FFICIF;
     }
     export class $FT_Stream_CloseFunc extends $Callback implements $FT_Stream_CloseFuncI {
         static create(arg0: number): $FT_Stream_CloseFunc;
@@ -839,6 +850,7 @@ declare module "@package/org/lwjgl/util/freetype" {
         static createSafe(arg0: number): $FT_Stream_CloseFunc;
         callback(arg0: number, arg1: number): void;
         getCallInterface(): $FFICIF;
+        get callInterface(): $FFICIF;
     }
     export class $FT_StreamDesc extends $Struct<$FT_StreamDesc> implements $NativeResource {
         static nvalue(arg0: number): number;
@@ -902,14 +914,14 @@ declare module "@package/org/lwjgl/util/freetype" {
         constructor(arg0: $ByteBuffer);
     }
     export class $FT_Size extends $Struct<$FT_Size> implements $NativeResource {
-        static ngeneric(arg0: number): $FT_Generic;
-        static ngeneric(arg0: number, arg1: $FT_Generic): void;
-        static ninternal(arg0: number): $FT_Size_Internal;
-        static ninternal(arg0: number, arg1: $FT_Size_Internal): void;
-        static nface(arg0: number, arg1: $FT_Face): void;
         static nface(arg0: number): $FT_Face;
-        static nmetrics(arg0: number): $FT_Size_Metrics;
+        static nface(arg0: number, arg1: $FT_Face): void;
         static nmetrics(arg0: number, arg1: $FT_Size_Metrics): void;
+        static nmetrics(arg0: number): $FT_Size_Metrics;
+        static ngeneric(arg0: number, arg1: $FT_Generic): void;
+        static ngeneric(arg0: number): $FT_Generic;
+        static ninternal(arg0: number, arg1: $FT_Size_Internal): void;
+        static ninternal(arg0: number): $FT_Size_Internal;
         face(arg0: $FT_Face): $FT_Size;
         face(): $FT_Face;
         metrics(): $FT_Size_Metrics;
@@ -944,8 +956,6 @@ declare module "@package/org/lwjgl/util/freetype" {
         constructor(arg0: $ByteBuffer);
     }
     export class $FT_GlyphSlot extends $Struct<$FT_GlyphSlot> {
-        static ngeneric(arg0: number): $FT_Generic;
-        static ninternal(arg0: number): number;
         static nface(arg0: number): $FT_Face;
         linearHoriAdvance(): number;
         linearVertAdvance(): number;
@@ -969,9 +979,11 @@ declare module "@package/org/lwjgl/util/freetype" {
         static nlsb_delta(arg0: number): number;
         static nrsb_delta(arg0: number): number;
         static nother(arg0: number): number;
+        static nnext(arg0: number): $FT_GlyphSlot;
+        static ngeneric(arg0: number): $FT_Generic;
+        static ninternal(arg0: number): number;
         bitmap_left(): number;
         bitmap_top(): number;
-        static nnext(arg0: number): $FT_GlyphSlot;
         glyph_index(): number;
         bitmap(): $FT_Bitmap;
         face(): $FT_Face;
@@ -1034,8 +1046,8 @@ declare module "@package/org/lwjgl/util/freetype" {
         underline_position(): number;
         underline_thickness(): number;
         charmap(): $FT_CharMap;
-        glyph(): $FT_GlyphSlot;
         bbox(): $FT_BBox;
+        glyph(): $FT_GlyphSlot;
         size(): $FT_Size;
         generic(): $FT_Generic;
         height(): number;

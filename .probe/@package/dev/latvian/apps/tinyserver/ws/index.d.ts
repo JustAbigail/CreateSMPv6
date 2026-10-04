@@ -20,12 +20,12 @@ declare module "@package/dev/latvian/apps/tinyserver/ws" {
      */
     export type $WSCloseStatus_ = "closed" | "going_away" | "protocol_error" | "unsupported_data";
     export class $FrameInfo extends $Record {
+        applyMask(payload: number[]): void;
+        maskZero(): boolean;
+        maskKey(): number;
         rsv1(): boolean;
         rsv2(): boolean;
         rsv3(): boolean;
-        maskZero(): boolean;
-        applyMask(payload: number[]): void;
-        maskKey(): number;
         opcode(): $Opcode;
         size(): number;
         put(buf: $ByteBuffer): void;
@@ -38,7 +38,7 @@ declare module "@package/dev/latvian/apps/tinyserver/ws" {
     /**
      * Values that may be interpreted as {@link $FrameInfo}.
      */
-    export type $FrameInfo_ = { fin?: boolean, rsv1?: boolean, rsv2?: boolean, rsv3?: boolean, opcode?: $Opcode_, mask?: boolean, size?: number, maskKey?: number,  } | [fin?: boolean, rsv1?: boolean, rsv2?: boolean, rsv3?: boolean, opcode?: $Opcode_, mask?: boolean, size?: number, maskKey?: number, ];
+    export type $FrameInfo_ = { opcode?: $Opcode_, rsv3?: boolean, rsv2?: boolean, rsv1?: boolean, fin?: boolean, maskKey?: number, size?: number, mask?: boolean,  } | [opcode?: $Opcode_, rsv3?: boolean, rsv2?: boolean, rsv1?: boolean, fin?: boolean, maskKey?: number, size?: number, mask?: boolean, ];
     export class $WSSessionFactory<REQ extends $HTTPRequest, WSS extends $WSSession<REQ>> {
         static DEFAULT: $WSSessionFactory<$HTTPRequest, $WSSession<$HTTPRequest>>;
     }
@@ -50,32 +50,33 @@ declare module "@package/dev/latvian/apps/tinyserver/ws" {
      */
     export type $WSSessionFactory_<REQ, WSS> = (() => WSS);
     export class $WSSession<REQ extends $HTTPRequest> implements $HTTPUpgrade<REQ> {
-        sendPing(payload: number[]): void;
         onTextMessage(message: string): void;
         sendText(payload: string): void;
         sendBinary(payload: number[]): void;
+        sendPing(payload: number[]): void;
         onBinaryMessage(message: number[]): void;
         onPing(payload: number[]): void;
         onPong(payload: number[]): void;
         onOpen(req: REQ): void;
+        onClose(reason: $StatusCode_, remote: boolean): void;
         id(): $UUID;
         start(req: REQ): void;
         close(status: $WSCloseStatus_, reason: string): void;
         protocol(): string;
-        onClose(reason: $StatusCode_, remote: boolean): void;
         isClosed(): boolean;
         send(frame: $Frame_): void;
         onError(error: $Throwable): void;
         constructor();
+        get closed(): boolean;
     }
     export class $Frame extends $Record {
-        static ping(buffer: number[]): $Frame;
         applyMask(): void;
-        static binary(buffer: number[]): $Frame;
+        static ping(buffer: number[]): $Frame;
         payload(): number[];
         info(): $FrameInfo;
         appendTo(previous: $Frame_): $Frame;
         static text(text: string): $Frame;
+        static binary(buffer: number[]): $Frame;
         static simple(opcode: $Opcode_, mask: number, payload: number[]): $Frame;
         constructor(info: $FrameInfo_, payload: number[]);
     }
@@ -106,12 +107,12 @@ declare module "@package/dev/latvian/apps/tinyserver/ws" {
     export interface $WSHandler<REQ extends $HTTPRequest, WSS extends $WSSession<REQ>> extends $Iterable<WSS> {
         broadcast(frame: $Frame_): void;
         sessions(): $Map<$UUID, WSS>;
-        broadcastBinary(payload: $Supplier_<number[]>): void;
-        broadcastBinary(payload: number[]): void;
-        broadcastPing(payload: $Supplier_<number[]>): void;
-        broadcastPing(payload: number[]): void;
         broadcastText(payload: $Supplier_<string>): void;
         broadcastText(payload: string): void;
+        broadcastBinary(payload: $Supplier_<number[]>): void;
+        broadcastBinary(payload: number[]): void;
+        broadcastPing(payload: number[]): void;
+        broadcastPing(payload: $Supplier_<number[]>): void;
         iterator(): $Iterator<WSS>;
         spliterator(): $Spliterator<WSS>;
         [Symbol.iterator](): Iterator<WSS>

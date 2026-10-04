@@ -15,6 +15,7 @@ declare module "@package/ru/zznty/create_factory_abstractions/api/generic/stack"
         key(): $GenericKey;
         static EMPTY: $GenericStack;
         constructor(key: $GenericKey, amount: number);
+        get empty(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $GenericStack}.

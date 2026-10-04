@@ -11,6 +11,8 @@ declare module "@package/dev/worldgen/lithostitched/api/util" {
         static CODEC: $Codec<$InjectionType>;
         static APPEND: $InjectionType;
         static PREPEND: $InjectionType;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $InjectionType}.

@@ -7,8 +7,8 @@ import { $StreamCodec } from "@package/net/minecraft/network/codec";
 
 declare module "@package/net/minecraft/network/syncher" {
     export class $SynchedEntityData$DataItem<T> {
-        isSetToDefault(): boolean;
         setDirty(dirty: boolean): void;
+        isSetToDefault(): boolean;
         isDirty(): boolean;
         value(): $SynchedEntityData$DataValue<T>;
         getValue(): T;
@@ -16,6 +16,7 @@ declare module "@package/net/minecraft/network/syncher" {
         getAccessor(): $EntityDataAccessor<T>;
         accessor: $EntityDataAccessor<T>;
         constructor(accessor: $EntityDataAccessor_<T>, value: T);
+        get setToDefault(): boolean;
     }
     export interface $EntityDataSerializer<T> extends RegistryMarked<RegistryTypes.NeoforgeEntityDataSerializersTag, RegistryTypes.NeoforgeEntityDataSerializers> {}
     export class $SynchedEntityData$Builder {
@@ -57,7 +58,7 @@ declare module "@package/net/minecraft/network/syncher" {
     /**
      * Values that may be interpreted as {@link $SynchedEntityData$DataValue}.
      */
-    export type $SynchedEntityData$DataValue_<T> = { serializer?: $EntityDataSerializer_<any>, id?: number, value?: any,  } | [serializer?: $EntityDataSerializer_<any>, id?: number, value?: any, ];
+    export type $SynchedEntityData$DataValue_<T> = { value?: any, id?: number, serializer?: $EntityDataSerializer_<any>,  } | [value?: any, id?: number, serializer?: $EntityDataSerializer_<any>, ];
     /**
      * A Key for `SynchedEntityData`.
      */
@@ -110,5 +111,7 @@ declare module "@package/net/minecraft/network/syncher" {
         set<T>(key: $EntityDataAccessor_<T>, value: T): void;
         static ID_REGISTRY: $ClassTreeIdRegistry;
         constructor(entity: $SyncedDataHolder, itemsById: $SynchedEntityData$DataItem<never>[]);
+        get nonDefaultValues(): $List<$SynchedEntityData$DataValue<never>>;
+        get dirty(): boolean;
     }
 }

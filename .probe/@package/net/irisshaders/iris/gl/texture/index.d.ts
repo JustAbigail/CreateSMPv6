@@ -14,15 +14,16 @@ declare module "@package/net/irisshaders/iris/gl/texture" {
         static TEXTURE_2D: $TextureType;
         static TEXTURE_1D: $TextureType;
         static TEXTURE_3D: $TextureType;
+        get glType(): number;
     }
     /**
      * Values that may be interpreted as {@link $TextureType}.
      */
     export type $TextureType_ = "texture_1d" | "texture_2d" | "texture_3d" | "texture_rectangle";
     export class $PixelType extends $Enum<$PixelType> {
-        getByteSize(): number;
         getGlFormat(): number;
         getMinimumGlVersion(): $GlVersion;
+        getByteSize(): number;
         static values(): $PixelType[];
         static valueOf(arg0: string): $PixelType;
         static fromString(arg0: string): ($PixelType) | undefined;
@@ -48,6 +49,9 @@ declare module "@package/net/irisshaders/iris/gl/texture" {
         static UNSIGNED_INT_2_10_10_10_REV: $PixelType;
         static UNSIGNED_SHORT_4_4_4_4_REV: $PixelType;
         static UNSIGNED_INT_8_8_8_8_REV: $PixelType;
+        get glFormat(): number;
+        get minimumGlVersion(): $GlVersion;
+        get byteSize(): number;
     }
     /**
      * Values that may be interpreted as {@link $PixelType}.
@@ -65,9 +69,9 @@ declare module "@package/net/irisshaders/iris/gl/texture" {
         constructor(arg0: string, arg1: string);
     }
     export class $DepthBufferFormat extends $Enum<$DepthBufferFormat> {
+        getGlType(): number;
         static fromGlEnumOrDefault(arg0: number): $DepthBufferFormat;
         getGlFormat(): number;
-        getGlType(): number;
         static fromGlEnum(arg0: number): $DepthBufferFormat;
         getGlInternalFormat(): number;
         isCombinedStencil(): boolean;
@@ -81,6 +85,10 @@ declare module "@package/net/irisshaders/iris/gl/texture" {
         static DEPTH16: $DepthBufferFormat;
         static DEPTH_STENCIL: $DepthBufferFormat;
         static DEPTH: $DepthBufferFormat;
+        get glType(): number;
+        get glFormat(): number;
+        get glInternalFormat(): number;
+        get combinedStencil(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $DepthBufferFormat}.
@@ -89,6 +97,7 @@ declare module "@package/net/irisshaders/iris/gl/texture" {
     export class $TextureDefinition {
         getName(): string;
         constructor();
+        get name(): string;
     }
     export class $PixelFormat extends $Enum<$PixelFormat> {
         getGlFormat(): number;
@@ -110,6 +119,10 @@ declare module "@package/net/irisshaders/iris/gl/texture" {
         static RGB: $PixelFormat;
         static BGR: $PixelFormat;
         static BGR_INTEGER: $PixelFormat;
+        get glFormat(): number;
+        get minimumGlVersion(): $GlVersion;
+        get componentCount(): number;
+        get integer(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $PixelFormat}.
@@ -180,6 +193,9 @@ declare module "@package/net/irisshaders/iris/gl/texture" {
         static R8_SNORM: $InternalTextureFormat;
         static RG8_SNORM: $InternalTextureFormat;
         static R3_G3_B2: $InternalTextureFormat;
+        get glFormat(): number;
+        get pixelFormat(): $PixelFormat;
+        get minimumGlVersion(): $GlVersion;
     }
     /**
      * Values that may be interpreted as {@link $InternalTextureFormat}.
@@ -190,5 +206,7 @@ declare module "@package/net/irisshaders/iris/gl/texture" {
     export interface $TextureAccess {
         getTextureId(): $IntSupplier;
         getType(): $TextureType;
+        get textureId(): $IntSupplier;
+        get type(): $TextureType;
     }
 }

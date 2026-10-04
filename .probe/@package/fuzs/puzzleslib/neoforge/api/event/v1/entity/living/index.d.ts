@@ -8,11 +8,13 @@ import { $DamageSource_, $DamageSource } from "@package/net/minecraft/world/dama
 declare module "@package/fuzs/puzzleslib/neoforge/api/event/v1/entity/living" {
     export class $ComputeEnchantedLootBonusEvent extends $LivingEvent {
         setEnchantmentLevel(enchantmentLevel: number): void;
-        getDamageSource(): $DamageSource;
         getEnchantmentLevel(): number;
         getEnchantment(): $Holder<$Enchantment>;
+        getDamageSource(): $DamageSource;
         static onComputeEnchantedLootBonus(enchantment: $Holder_<$Enchantment>, enchantmentLevel: number, lootContext: $LootContext): number;
         static onComputeEnchantedLootBonus(enchantment: $Holder_<$Enchantment>, enchantmentLevel: number, livingEntity: $LivingEntity, damageSource: $DamageSource_): number;
         constructor(entity: $LivingEntity, damageSource: $DamageSource_, enchantment: $Holder_<$Enchantment>, enchantmentLevel: number);
+        get enchantment(): $Holder<$Enchantment>;
+        get damageSource(): $DamageSource;
     }
 }

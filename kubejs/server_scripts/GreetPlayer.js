@@ -2,18 +2,32 @@ const { $KubeIcon } = require("@package/dev/latvian/mods/kubejs/client/icon")
 
 PlayerEvents.loggedIn((event) => {
 	event.getPlayer().notify({
-		text: `Hello, ${event.getPlayer().getName()}`,
-
-
+		text: `Hello, ${event.getPlayer().getName()}`
 	})
 })
 
 BlockEvents.broken((event) => {
 	event.getPlayer().notify({
-		text: "1st line\n2nd line",
+		text: [
+			{
+				text: "Hello, "
+			},
+			/*{
+				text: event.getPlayer().getName().getString(),
+				color: "white"
+			},*/
+			event.getPlayer().getName(),
+			"\n",
+			{
+				text: "Welcome to the server!",
+				color: "light_gray_dye"
+			}
+		],
 		icon: {
-			item: Item.of("aeronautics:adjustable_burner")
-		},
-		duration: 20
+			type: "kubejs:item",
+			item: {
+				id: "create:wrench"
+			}
+		}
 	})
 })

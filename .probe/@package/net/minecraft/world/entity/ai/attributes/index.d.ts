@@ -20,8 +20,8 @@ declare module "@package/net/minecraft/world/entity/ai/attributes" {
     export class $AttributeSupplier {
         getBaseValue(attribute: $Holder_<$Attribute>): number;
         getModifierValue(attribute: $Holder_<$Attribute>, id: $ResourceLocation_): number;
-        createInstance(onDirty: $Consumer_<$AttributeInstance>, attribute: $Holder_<$Attribute>): $AttributeInstance;
         hasAttribute(attribute: $Holder_<$Attribute>): boolean;
+        createInstance(onDirty: $Consumer_<$AttributeInstance>, attribute: $Holder_<$Attribute>): $AttributeInstance;
         getValue(attribute: $Holder_<$Attribute>): number;
         static builder(): $AttributeSupplier$Builder;
         hasModifier(attribute: $Holder_<$Attribute>, id: $ResourceLocation_): boolean;
@@ -38,15 +38,15 @@ declare module "@package/net/minecraft/world/entity/ai/attributes" {
         constructor(arg0: $AttributeSupplier);
     }
     export class $AttributeMap {
-        getSyncableAttributes(): $Collection<$AttributeInstance>;
-        getAttributesToSync(): $Set<$AttributeInstance>;
         removeAttributeModifiers(modifiers: $Multimap<$Holder_<$Attribute>, $AttributeModifier_>): void;
         getAttributesToUpdate(): $Set<$AttributeInstance>;
         getBaseValue(attribute: $Holder_<$Attribute>): number;
         assignAllValues(map: $AttributeMap): void;
         getModifierValue(attribute: $Holder_<$Attribute>, id: $ResourceLocation_): number;
-        addTransientAttributeModifiers(modifiers: $Multimap<$Holder_<$Attribute>, $AttributeModifier_>): void;
+        getSyncableAttributes(): $Collection<$AttributeInstance>;
+        getAttributesToSync(): $Set<$AttributeInstance>;
         assignBaseValues(map: $AttributeMap): void;
+        addTransientAttributeModifiers(modifiers: $Multimap<$Holder_<$Attribute>, $AttributeModifier_>): void;
         hasAttribute(attribute: $Holder_<$Attribute>): boolean;
         load(nbt: $ListTag_): void;
         getValue(attribute: $Holder_<$Attribute>): number;
@@ -54,6 +54,9 @@ declare module "@package/net/minecraft/world/entity/ai/attributes" {
         save(): $ListTag;
         hasModifier(attribute: $Holder_<$Attribute>, id: $ResourceLocation_): boolean;
         constructor(supplier: $AttributeSupplier);
+        get attributesToUpdate(): $Set<$AttributeInstance>;
+        get syncableAttributes(): $Collection<$AttributeInstance>;
+        get attributesToSync(): $Set<$AttributeInstance>;
     }
     export class $AttributeModifier$Operation extends $Enum<$AttributeModifier$Operation> implements $StringRepresentable {
         static values(): $AttributeModifier$Operation[];
@@ -67,6 +70,8 @@ declare module "@package/net/minecraft/world/entity/ai/attributes" {
         static BY_ID: $IntFunction<$AttributeModifier$Operation>;
         static ADD_VALUE: $AttributeModifier$Operation;
         static STREAM_CODEC: $StreamCodec<$ByteBuf, $AttributeModifier$Operation>;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $AttributeModifier$Operation}.
@@ -81,25 +86,32 @@ declare module "@package/net/minecraft/world/entity/ai/attributes" {
         setBaseValue(baseValue: number): void;
         removeModifiers(): void;
         addOrUpdateTransientModifier(modifier: $AttributeModifier_): void;
-        addOrReplacePermanentModifier(modifier: $AttributeModifier_): void;
-        setDirty(): void;
         addPermanentModifier(modifier: $AttributeModifier_): void;
+        setDirty(): void;
+        addOrReplacePermanentModifier(modifier: $AttributeModifier_): void;
+        getAttribute(): $Holder<$Attribute>;
         getModifiers(operation: $AttributeModifier$Operation_): $Map<$ResourceLocation, $AttributeModifier>;
         getModifiers(): $Set<$AttributeModifier>;
         load(nbt: $CompoundTag_): void;
         getValue(): number;
         save(): $CompoundTag;
-        getAttribute(): $Holder<$Attribute>;
-        hasModifier(id: $ResourceLocation_): boolean;
         replaceFrom(instance: $AttributeInstance): void;
+        hasModifier(id: $ResourceLocation_): boolean;
         static ID_FIELD: string;
         constructor(attribute: $Holder_<$Attribute>, onDirty: $Consumer_<$AttributeInstance>);
+        get attribute(): $Holder<$Attribute>;
+        get value(): number;
     }
     /**
      * Defines an entity attribute. These are properties of entities that can be dynamically modified.
      * @see net.minecraft.core.Registry#ATTRIBUTE
      */
     export class $Attribute implements $IAttributeExtension {
+        /**
+         * Sets whether the attribute value should be synced to the client.
+         * @return The same attribute instance being modified.
+         */
+        setSyncable(watch: boolean): $Attribute;
         /**
          * Checks if the attribute value should be kept in sync on the client.
          * @return Whether the attribute value should be kept in sync on the client.
@@ -111,11 +123,6 @@ declare module "@package/net/minecraft/world/entity/ai/attributes" {
          */
         sanitizeValue(value: number): number;
         getMergedStyle(arg0: boolean): $TextColor;
-        /**
-         * Sets whether the attribute value should be synced to the client.
-         * @return The same attribute instance being modified.
-         */
-        setSyncable(watch: boolean): $Attribute;
         setSentiment(sentiment: $Attribute$Sentiment_): $Attribute;
         /**
          * Gets the default value for the attribute.
@@ -128,17 +135,23 @@ declare module "@package/net/minecraft/world/entity/ai/attributes" {
          */
         getDescriptionId(): string;
         getStyle(isPositive: boolean): $ChatFormatting;
+        getBaseId(): $ResourceLocation;
+        toBaseComponent(arg0: number, arg1: number, arg2: boolean, arg3: $TooltipFlag): $MutableComponent;
         toValueComponent(arg0: $AttributeModifier$Operation_, arg1: number, arg2: $TooltipFlag): $MutableComponent;
         getDebugInfo(arg0: $AttributeModifier_, arg1: $TooltipFlag): $Component;
         toComponent(arg0: $AttributeModifier_, arg1: $TooltipFlag): $MutableComponent;
-        getBaseId(): $ResourceLocation;
-        toBaseComponent(arg0: number, arg1: number, arg2: boolean, arg3: $TooltipFlag): $MutableComponent;
         static MERGED_GRAY: $TextColor;
         static MERGED_RED: $TextColor;
         static CODEC: $Codec<$Holder<$Attribute>>;
         static MERGED_BLUE: $TextColor;
         static STREAM_CODEC: $StreamCodec<$RegistryFriendlyByteBuf, $Holder<$Attribute>>;
         constructor(descriptionId: string, defaultValue: number);
+        set syncable(value: boolean);
+        get clientSyncable(): boolean;
+        set sentiment(value: $Attribute$Sentiment_);
+        get defaultValue(): number;
+        get descriptionId(): string;
+        get baseId(): $ResourceLocation;
     }
     /**
      * Values that may be interpreted as {@link $Attribute}.
@@ -159,7 +172,7 @@ declare module "@package/net/minecraft/world/entity/ai/attributes" {
     /**
      * Values that may be interpreted as {@link $AttributeModifier}.
      */
-    export type $AttributeModifier_ = { id?: $ResourceLocation_, amount?: number, operation?: $AttributeModifier$Operation_,  } | [id?: $ResourceLocation_, amount?: number, operation?: $AttributeModifier$Operation_, ];
+    export type $AttributeModifier_ = { operation?: $AttributeModifier$Operation_, amount?: number, id?: $ResourceLocation_,  } | [operation?: $AttributeModifier$Operation_, amount?: number, id?: $ResourceLocation_, ];
     export class $Attribute$Sentiment extends $Enum<$Attribute$Sentiment> {
         static values(): $Attribute$Sentiment[];
         static valueOf(arg0: string): $Attribute$Sentiment;

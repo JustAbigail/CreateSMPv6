@@ -12,8 +12,12 @@ declare module "@package/net/fabricmc/loader/api/metadata" {
     export interface $ModOrigin {
         getPaths(): $List<$Path>;
         getKind(): $ModOrigin$Kind;
-        getParentSubLocation(): string;
         getParentModId(): string;
+        getParentSubLocation(): string;
+        get paths(): $List<$Path>;
+        get kind(): $ModOrigin$Kind;
+        get parentModId(): string;
+        get parentSubLocation(): string;
     }
     export class $CustomValue$CvObject {
     }
@@ -27,13 +31,15 @@ declare module "@package/net/fabricmc/loader/api/metadata" {
     export interface $Person {
         getName(): string;
         getContact(): $ContactInformation;
+        get name(): string;
+        get contact(): $ContactInformation;
     }
     export class $ModMetadata {
     }
     export interface $ModMetadata {
         getEnvironment(): $ModEnvironment;
-        getDescription(): string;
         getVersion(): $Version;
+        getDescription(): string;
         getName(): string;
         getId(): string;
         getType(): string;
@@ -71,6 +77,24 @@ declare module "@package/net/fabricmc/loader/api/metadata" {
          * @deprecated
          */
         containsCustomElement(arg0: string): boolean;
+        get environment(): $ModEnvironment;
+        get version(): $Version;
+        get description(): string;
+        get name(): string;
+        get id(): string;
+        get type(): string;
+        get dependencies(): $Collection<$ModDependency>;
+        get license(): $Collection<string>;
+        get depends(): $Collection<$ModDependency>;
+        get provides(): $Collection<string>;
+        get recommends(): $Collection<$ModDependency>;
+        get suggests(): $Collection<$ModDependency>;
+        get conflicts(): $Collection<$ModDependency>;
+        get breaks(): $Collection<$ModDependency>;
+        get authors(): $Collection<$Person>;
+        get contributors(): $Collection<$Person>;
+        get contact(): $ContactInformation;
+        get customValues(): $Map<string, $CustomValue>;
     }
     export class $CustomValue {
     }
@@ -81,19 +105,28 @@ declare module "@package/net/fabricmc/loader/api/metadata" {
         getAsNumber(): $Number;
         getAsObject(): $CustomValue$CvObject;
         getAsArray(): $CustomValue$CvArray;
+        get type(): $CustomValue$CvType;
+        get asString(): string;
+        get asBoolean(): boolean;
+        get asNumber(): $Number;
+        get asObject(): $CustomValue$CvObject;
+        get asArray(): $CustomValue$CvArray;
     }
     export class $ModDependency$Kind extends $Enum<$ModDependency$Kind> {
-        isPositive(): boolean;
+        isSoft(): boolean;
         static values(): $ModDependency$Kind[];
         static valueOf(name: string): $ModDependency$Kind;
         getKey(): string;
         static parse(key: string): $ModDependency$Kind;
-        isSoft(): boolean;
+        isPositive(): boolean;
         static CONFLICTS: $ModDependency$Kind;
         static RECOMMENDS: $ModDependency$Kind;
         static BREAKS: $ModDependency$Kind;
         static DEPENDS: $ModDependency$Kind;
         static SUGGESTS: $ModDependency$Kind;
+        get soft(): boolean;
+        get key(): string;
+        get positive(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $ModDependency$Kind}.
@@ -145,6 +178,10 @@ declare module "@package/net/fabricmc/loader/api/metadata" {
         getKind(): $ModDependency$Kind;
         getVersionRequirements(): $Collection<$VersionPredicate>;
         getVersionIntervals(): $List<$VersionInterval>;
+        get modId(): string;
+        get kind(): $ModDependency$Kind;
+        get versionRequirements(): $Collection<$VersionPredicate>;
+        get versionIntervals(): $List<$VersionInterval>;
     }
     export class $ModEnvironment extends $Enum<$ModEnvironment> {
         static values(): $ModEnvironment[];

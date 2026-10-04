@@ -27,6 +27,7 @@ declare module "@package/net/mehvahdjukaar/moonlight/api/worldgen" {
         static CODEC: $Codec<$SpawnBoxSettings>;
         static EMPTY: $SpawnBoxSettings;
         constructor(spawnOverrides: $Map_<$MobCategory_, $Map_<string, $WeightedRandomList<$MobSpawnSettings$SpawnerData>>>);
+        get empty(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $SpawnBoxSettings}.

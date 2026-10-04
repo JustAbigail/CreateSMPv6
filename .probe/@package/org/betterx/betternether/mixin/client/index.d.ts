@@ -5,6 +5,7 @@ declare module "@package/org/betterx/betternether/mixin/client" {
     }
     export interface $TexturedModelDataMixin {
         getMesh(): $MeshDefinition;
+        get mesh(): $MeshDefinition;
     }
     /**
      * Values that may be interpreted as {@link $TexturedModelDataMixin}.

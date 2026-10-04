@@ -28,6 +28,8 @@ declare module "@package/dev/latvian/mods/kubejs/recipe/schema" {
         getInformativeValue(): T;
         isDefault(): boolean;
         getDefaultValue(type: $RecipeSchemaType): T;
+        get informativeValue(): T;
+        get default(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $RecipeOptional}.
@@ -50,8 +52,8 @@ declare module "@package/dev/latvian/mods/kubejs/recipe/schema" {
     export class $RecipeNamespace extends $LinkedHashMap<string, $RecipeSchemaType> {
         getRegisteredOrThrow(id: string): $RecipeSchemaType;
         registerBasic(id: string, ...keys: $RecipeKey<never>[]): $RecipeNamespace;
-        withExistingParent(id: string, parent: $ResourceLocation_): $RecipeNamespace;
         shapeless(id: string): $RecipeNamespace;
+        withExistingParent(id: string, parent: $ResourceLocation_): $RecipeNamespace;
         register(id: string, type: $RecipeSchema): $RecipeNamespace;
         register(id: string, type: $RegistryAwareSchema_): $RecipeNamespace;
         special(id: string): $RecipeNamespace;
@@ -123,7 +125,7 @@ declare module "@package/dev/latvian/mods/kubejs/recipe/schema" {
     /**
      * Values that may be interpreted as {@link $KubeRecipeFactory}.
      */
-    export type $KubeRecipeFactory_ = { recipeType?: $TypeInfo_, factory?: $Supplier_<$KubeRecipe>, id?: $ResourceLocation_,  } | [recipeType?: $TypeInfo_, factory?: $Supplier_<$KubeRecipe>, id?: $ResourceLocation_, ];
+    export type $KubeRecipeFactory_ = { recipeType?: $TypeInfo_, id?: $ResourceLocation_, factory?: $Supplier_<$KubeRecipe>,  } | [recipeType?: $TypeInfo_, id?: $ResourceLocation_, factory?: $Supplier_<$KubeRecipe>, ];
     export class $RecipeSchemaStorage {
         fireEvents(registries: $RegistryAccessContainer, resourceManager: $ResourceManager): void;
         namespace(namespace: string): $RecipeNamespace;
@@ -144,25 +146,26 @@ declare module "@package/dev/latvian/mods/kubejs/recipe/schema" {
         serializerKey: $ResourceKey<$RecipeSerializer<never>>;
         id: $ResourceLocation;
         constructor(namespace: $RecipeNamespace, id: $ResourceLocation_, schema: $RecipeSchema);
+        get serializer(): $RecipeSerializer<never>;
     }
     export class $RecipeSchema {
-        typeOverride(id: $ResourceLocation_): $RecipeSchema;
-        buildUniqueId(r: $KubeRecipe): string;
-        minRequiredArguments(): number;
+        postProcessors(): $List<$RecipePostProcessor>;
+        inputCount(): number;
         uniqueIds(): $List<$RecipeKey<never>>;
         uniqueIds(keys: $SequencedCollection<$RecipeKey<never>>): $RecipeSchema;
-        constructorsGenerated(): boolean;
-        getOptionalKey<T>(id: string): $RecipeKey<T>;
+        buildUniqueId(r: $KubeRecipe): string;
+        typeOverride(id: $ResourceLocation_): $RecipeSchema;
         setOpFunction<T>(name: string, key: $RecipeKey<T>, value: T): $RecipeSchema;
         addToListOpFunction<T>(name: string, key: $RecipeKey<$List_<T>>): $RecipeSchema;
+        minRequiredArguments(): number;
+        constructorsGenerated(): boolean;
+        getOptionalKey<T>(id: string): $RecipeKey<T>;
         outputCount(): number;
-        inputCount(): number;
-        postProcessors(): $List<$RecipePostProcessor>;
         isHidden(): boolean;
         getKey<T>(id: string): $RecipeKey<T>;
         factory(factory: $KubeRecipeFactory_): $RecipeSchema;
-        addConstructor(...keys: $RecipeKey<never>[]): $RecipeSchema;
         "constructor"(arg0: $RecipeConstructor): $RecipeSchema;
+        addConstructor(...keys: $RecipeKey<never>[]): $RecipeSchema;
         constructors(): $Int2ObjectMap<$RecipeConstructor>;
         "function"(arg0: $RecipeFunctionInstance_): $RecipeSchema;
         deserialize(sourceLine: $SourceLine_, type: $RecipeTypeFunction, id: $ResourceLocation_, json: $JsonObject_): $KubeRecipe;
@@ -174,8 +177,9 @@ declare module "@package/dev/latvian/mods/kubejs/recipe/schema" {
         keys: $List<$RecipeKey<never>>;
         keyOverrides: $Map<$RecipeKey<never>, $RecipeOptional<never>>;
         includedKeys: $List<$RecipeKey<never>>;
-        constructor(keyOverrides: $Map_<$RecipeKey<never>, $RecipeOptional_<never>>, keys: $List_<$RecipeKey<never>>);
         constructor(...keys: $RecipeKey<never>[]);
+        constructor(keyOverrides: $Map_<$RecipeKey<never>, $RecipeOptional_<never>>, keys: $List_<$RecipeKey<never>>);
+        get hidden(): boolean;
     }
     export class $RecipeMappingRegistry implements $KubeEvent {
         register(name: string, type: $ResourceLocation_): void;

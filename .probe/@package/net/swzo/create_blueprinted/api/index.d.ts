@@ -13,6 +13,11 @@ declare module "@package/net/swzo/create_blueprinted/api" {
         getAction(): $RenderSchematicImageEvent$Action;
         setCanceled(arg0: boolean): void;
         isCanceled(): boolean;
+        get handlerId(): $ResourceLocation;
+        get schematicName(): string;
+        get imageContent(): T;
+        get renderSettings(): $SchematicRenderSettings;
+        get action(): $RenderSchematicImageEvent$Action;
     }
     export class $RenderSchematicImageEvent$Pre extends $RenderSchematicImageEvent<$SchematicLevel> {
         modifyRenderSettings(): $SchematicRenderSettings$Builder;

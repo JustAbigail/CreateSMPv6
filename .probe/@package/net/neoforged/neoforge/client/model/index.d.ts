@@ -8,11 +8,11 @@ export * as lighting from "@package/net/neoforged/neoforge/client/model/lighting
 
 declare module "@package/net/neoforged/neoforge/client/model" {
     export class $ExtraFaceData extends $Record {
+        skyLight(): number;
         blockLight(): number;
         static read(arg0: $JsonElement_, arg1: $ExtraFaceData_): $ExtraFaceData;
         color(): number;
         ambientOcclusion(): boolean;
-        skyLight(): number;
         static CODEC: $Codec<$ExtraFaceData>;
         static COLOR: $Codec<number>;
         static DEFAULT: $ExtraFaceData;
@@ -21,5 +21,5 @@ declare module "@package/net/neoforged/neoforge/client/model" {
     /**
      * Values that may be interpreted as {@link $ExtraFaceData}.
      */
-    export type $ExtraFaceData_ = { ambientOcclusion?: boolean, skyLight?: number, blockLight?: number, color?: number,  } | [ambientOcclusion?: boolean, skyLight?: number, blockLight?: number, color?: number, ];
+    export type $ExtraFaceData_ = { skyLight?: number, ambientOcclusion?: boolean, color?: number, blockLight?: number,  } | [skyLight?: number, ambientOcclusion?: boolean, color?: number, blockLight?: number, ];
 }

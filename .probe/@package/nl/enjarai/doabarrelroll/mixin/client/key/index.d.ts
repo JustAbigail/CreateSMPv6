@@ -5,6 +5,7 @@ declare module "@package/nl/enjarai/doabarrelroll/mixin/client/key" {
     }
     export interface $KeyBindingAccessor {
         getKey(): $InputConstants$Key;
+        get key(): $InputConstants$Key;
     }
     /**
      * Values that may be interpreted as {@link $KeyBindingAccessor}.

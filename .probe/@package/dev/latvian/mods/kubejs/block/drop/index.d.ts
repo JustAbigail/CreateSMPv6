@@ -14,8 +14,8 @@ declare module "@package/dev/latvian/mods/kubejs/block/drop" {
      */
     export type $BlockDropSupplier_ = (() => $BlockDrops_);
     export class $BlockDrops extends $Record {
-        items(): $ItemStack[];
         rolls(): $NumberProvider;
+        items(): $ItemStack[];
         static createDefault(item: $ItemStack_): $BlockDrops;
         static EMPTY: $BlockDrops;
         constructor(items: $ItemStack_[], rolls: $NumberProvider_);
@@ -23,5 +23,5 @@ declare module "@package/dev/latvian/mods/kubejs/block/drop" {
     /**
      * Values that may be interpreted as {@link $BlockDrops}.
      */
-    export type $BlockDrops_ = { items?: $ItemStack_[], rolls?: $NumberProvider_,  } | [items?: $ItemStack_[], rolls?: $NumberProvider_, ];
+    export type $BlockDrops_ = { rolls?: $NumberProvider_, items?: $ItemStack_[],  } | [rolls?: $NumberProvider_, items?: $ItemStack_[], ];
 }

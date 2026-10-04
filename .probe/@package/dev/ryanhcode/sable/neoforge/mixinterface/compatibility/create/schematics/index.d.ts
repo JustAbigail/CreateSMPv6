@@ -6,8 +6,8 @@ import { $Quaterniond, $Vector3d } from "@package/org/joml";
 
 declare module "@package/dev/ryanhcode/sable/neoforge/mixinterface/compatibility/create/schematics" {
     export class $SchematicLevelExtension$SchematicSubLevel extends $Record {
-        position(): $Vector3d;
         level(): $SchematicLevel;
+        position(): $Vector3d;
         uuid(): $UUID;
         orientation(): $Quaterniond;
         constructor(uuid: $UUID_, position: $Vector3d, orientation: $Quaterniond, level: $SchematicLevel);
@@ -15,7 +15,7 @@ declare module "@package/dev/ryanhcode/sable/neoforge/mixinterface/compatibility
     /**
      * Values that may be interpreted as {@link $SchematicLevelExtension$SchematicSubLevel}.
      */
-    export type $SchematicLevelExtension$SchematicSubLevel_ = { orientation?: $Quaterniond, position?: $Vector3d, uuid?: $UUID_, level?: $SchematicLevel,  } | [orientation?: $Quaterniond, position?: $Vector3d, uuid?: $UUID_, level?: $SchematicLevel, ];
+    export type $SchematicLevelExtension$SchematicSubLevel_ = { level?: $SchematicLevel, uuid?: $UUID_, position?: $Vector3d, orientation?: $Quaterniond,  } | [level?: $SchematicLevel, uuid?: $UUID_, position?: $Vector3d, orientation?: $Quaterniond, ];
     export class $StructureTemplateExtension {
     }
     export interface $StructureTemplateExtension {
@@ -44,5 +44,5 @@ declare module "@package/dev/ryanhcode/sable/neoforge/mixinterface/compatibility
     /**
      * Values that may be interpreted as {@link $StructureTemplateExtension$SubLevelTemplate}.
      */
-    export type $StructureTemplateExtension$SubLevelTemplate_ = { orientation?: $Quaterniond, position?: $Vector3d, template?: $StructureTemplate, uuid?: $UUID_,  } | [orientation?: $Quaterniond, position?: $Vector3d, template?: $StructureTemplate, uuid?: $UUID_, ];
+    export type $StructureTemplateExtension$SubLevelTemplate_ = { uuid?: $UUID_, template?: $StructureTemplate, position?: $Vector3d, orientation?: $Quaterniond,  } | [uuid?: $UUID_, template?: $StructureTemplate, position?: $Vector3d, orientation?: $Quaterniond, ];
 }

@@ -11,6 +11,7 @@ declare module "@package/net/minecraft/world/level/levelgen/structure/templatesy
         getType(): $RuleBlockEntityModifierType<never>;
         static CODEC: $MapCodec<$Clear>;
         constructor();
+        get type(): $RuleBlockEntityModifierType<never>;
     }
     export interface $RuleBlockEntityModifierType<P> extends RegistryMarked<RegistryTypes.RuleBlockEntityModifierTag, RegistryTypes.RuleBlockEntityModifier> {}
     export class $Passthrough implements $RuleBlockEntityModifier {
@@ -19,12 +20,14 @@ declare module "@package/net/minecraft/world/level/levelgen/structure/templatesy
         static CODEC: $MapCodec<$Passthrough>;
         static INSTANCE: $Passthrough;
         constructor();
+        get type(): $RuleBlockEntityModifierType<never>;
     }
     export class $AppendStatic implements $RuleBlockEntityModifier {
         apply(random: $RandomSource, tag: $CompoundTag_ | null): $CompoundTag;
         getType(): $RuleBlockEntityModifierType<never>;
         static CODEC: $MapCodec<$AppendStatic>;
         constructor(tag: $CompoundTag_);
+        get type(): $RuleBlockEntityModifierType<never>;
     }
     export class $RuleBlockEntityModifierType<P extends $RuleBlockEntityModifier> {
         static PASSTHROUGH: $RuleBlockEntityModifierType<$Passthrough>;
@@ -45,11 +48,13 @@ declare module "@package/net/minecraft/world/level/levelgen/structure/templatesy
     export interface $RuleBlockEntityModifier {
         apply(random: $RandomSource, tag: $CompoundTag_ | null): $CompoundTag;
         getType(): $RuleBlockEntityModifierType<never>;
+        get type(): $RuleBlockEntityModifierType<never>;
     }
     export class $AppendLoot implements $RuleBlockEntityModifier {
         apply(random: $RandomSource, tag: $CompoundTag_ | null): $CompoundTag;
         getType(): $RuleBlockEntityModifierType<never>;
         static CODEC: $MapCodec<$AppendLoot>;
         constructor(lootTable: $ResourceKey_<$LootTable>);
+        get type(): $RuleBlockEntityModifierType<never>;
     }
 }

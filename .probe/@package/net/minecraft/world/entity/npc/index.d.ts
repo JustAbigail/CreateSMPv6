@@ -79,17 +79,17 @@ declare module "@package/net/minecraft/world/entity/npc" {
     /**
      * Values that may be interpreted as {@link $VillagerProfession}.
      */
-    export type $VillagerProfession_ = RegistryTypes.VillagerProfession | { acquirableJobSite?: $Predicate_<$Holder<$PoiType>>, secondaryPoi?: $ImmutableSet<$Block_>, heldJobSite?: $Predicate_<$Holder<$PoiType>>, name?: string, requestedItems?: $ImmutableSet<$Item_>, workSound?: $SoundEvent_,  } | [acquirableJobSite?: $Predicate_<$Holder<$PoiType>>, secondaryPoi?: $ImmutableSet<$Block_>, heldJobSite?: $Predicate_<$Holder<$PoiType>>, name?: string, requestedItems?: $ImmutableSet<$Item_>, workSound?: $SoundEvent_, ];
+    export type $VillagerProfession_ = RegistryTypes.VillagerProfession | { acquirableJobSite?: $Predicate_<$Holder<$PoiType>>, workSound?: $SoundEvent_, requestedItems?: $ImmutableSet<$Item_>, name?: string, heldJobSite?: $Predicate_<$Holder<$PoiType>>, secondaryPoi?: $ImmutableSet<$Block_>,  } | [acquirableJobSite?: $Predicate_<$Holder<$PoiType>>, workSound?: $SoundEvent_, requestedItems?: $ImmutableSet<$Item_>, name?: string, heldJobSite?: $Predicate_<$Holder<$PoiType>>, secondaryPoi?: $ImmutableSet<$Block_>, ];
     export class $VillagerData {
-        static getMinXpPerLevel(level: number): number;
-        setType(type: $VillagerType_): $VillagerData;
         getProfession(): $VillagerProfession;
         setProfession(profession: $VillagerProfession_): $VillagerData;
         static canLevelUp(level: number): boolean;
         static getMaxXpPerLevel(level: number): number;
         getLevel(): number;
         setLevel(level: number): $VillagerData;
+        setType(type: $VillagerType_): $VillagerData;
         getType(): $VillagerType;
+        static getMinXpPerLevel(level: number): number;
         static CODEC: $Codec<$VillagerData>;
         static MIN_VILLAGER_LEVEL: number;
         static MAX_VILLAGER_LEVEL: number;
@@ -97,12 +97,12 @@ declare module "@package/net/minecraft/world/entity/npc" {
         constructor(type: $VillagerType_, profession: $VillagerProfession_, level: number);
     }
     export class $AbstractVillager extends $AgeableMob implements $InventoryCarrier, $Npc, $Merchant {
-        addParticlesAroundSelf(particleOption: $ParticleOptions_): void;
         getOffers(): $MerchantOffers;
         /**
          * Returns the current armor value as determined by a call to InventoryPlayer.getTotalArmorValue
          */
         getVillagerXp(): number;
+        addParticlesAroundSelf(particleOption: $ParticleOptions_): void;
         /**
          * Returns the current armor value as determined by a call to InventoryPlayer.getTotalArmorValue
          */
@@ -146,12 +146,12 @@ declare module "@package/net/minecraft/world/entity/npc" {
          * Dismounts this entity from the entity it is riding.
          */
         playCelebrateSound(): void;
-        getInventory(): $SimpleContainer;
         /**
          * If a rider of this entity can interact with this entity. Should return true on the
          * ridden entity if so.
          */
         isClientSide(): boolean;
+        getInventory(): $SimpleContainer;
         writeInventoryToTag(tag: $CompoundTag_, levelRegistry: $HolderLookup$Provider): void;
         readInventoryFromTag(tag: $CompoundTag_, levelRegistry: $HolderLookup$Provider): void;
         openTradingScreen(player: $Player, displayName: $Component_, level: number): void;
@@ -333,6 +333,11 @@ declare module "@package/net/minecraft/world/entity/npc" {
         static BASE_SAFE_FALL_DISTANCE: number;
         age: number;
         constructor(entityType: $EntityType_<$AbstractVillager>, level: $Level_);
+        get villagerXp(): number;
+        get trading(): boolean;
+        get notifyTradeSound(): $SoundEvent;
+        get clientSide(): boolean;
+        get inventory(): $SimpleContainer;
     }
     export class $WanderingTrader extends $AbstractVillager {
         setDespawnDelay(despawnDelay: number): void;
@@ -527,6 +532,7 @@ declare module "@package/net/minecraft/world/entity/npc" {
         writeInventoryToTag(tag: $CompoundTag_, levelRegistry: $HolderLookup$Provider): void;
         readInventoryFromTag(tag: $CompoundTag_, levelRegistry: $HolderLookup$Provider): void;
         getInventory(): $SimpleContainer;
+        get inventory(): $SimpleContainer;
     }
     /**
      * Values that may be interpreted as {@link $InventoryCarrier}.
@@ -535,22 +541,23 @@ declare module "@package/net/minecraft/world/entity/npc" {
     export class $VillagerDataHolder {
     }
     export interface $VillagerDataHolder extends $VariantHolder<$VillagerType> {
-        setVariant(variant: $VillagerType_): void;
         getVillagerData(): $VillagerData;
         setVillagerData(data: $VillagerData): void;
+        setVariant(variant: $VillagerType_): void;
         getVariant(): $VillagerType;
     }
     export class $Villager extends $AbstractVillager implements $ReputationEventHandler, $VillagerDataHolder, $VillagerEntityAccessor {
-        getBreedOffspring(level: $ServerLevel, otherParent: $AgeableMob): $Villager;
-        setOffers(offers: $MerchantOffers): void;
-        refreshBrain(serverLevel: $ServerLevel): void;
         getVillagerData(): $VillagerData;
         setVillagerData(data: $VillagerData): void;
         getGossips(): $GossipContainer;
         setGossips(gossip: $Tag_): void;
         setVillagerXp(qty: number): void;
-        getPlayerReputation(player: $Player): number;
+        getBreedOffspring(level: $ServerLevel, otherParent: $AgeableMob): $Villager;
+        onReputationEventFrom(type: $ReputationEventType, target: $Entity): void;
+        setOffers(offers: $MerchantOffers): void;
+        refreshBrain(serverLevel: $ServerLevel): void;
         wantsToSpawnGolem(gameTime: number): boolean;
+        getPlayerReputation(player: $Player): number;
         /**
          * Used by `TradeWithVillager` to check if the villager can give some items from an inventory to another villager.
          */
@@ -592,10 +599,9 @@ declare module "@package/net/minecraft/world/entity/npc" {
         hasFarmSeeds(): boolean;
         gossip(serverLevel: $ServerLevel, target: $Villager, gameTime: number): void;
         spawnGolemIfNeeded(serverLevel: $ServerLevel, gameTime: number, arg2: number): void;
-        static fabric_setItemFoodValues$fabric_content_registries_v0_$md$e5fdf9$0(arg0: $Map_<any, any>): void;
-        static fabric_setGatherableItems$fabric_content_registries_v0_$md$e5fdf9$1(arg0: $Set_<any>): void;
-        static fabric_getGatherableItems$fabric_content_registries_v0_$md$e5fdf9$2(): $Set<any>;
-        onReputationEventFrom(type: $ReputationEventType, target: $Entity): void;
+        static fabric_setItemFoodValues$fabric_content_registries_v0_$md$3675d4$0(arg0: $Map_<any, any>): void;
+        static fabric_setGatherableItems$fabric_content_registries_v0_$md$3675d4$1(arg0: $Set_<any>): void;
+        static fabric_getGatherableItems$fabric_content_registries_v0_$md$3675d4$2(): $Set<any>;
         static createAttributes(): $AttributeSupplier$Builder;
         setVariant(arg0: $VillagerType_): void;
         getVariant(): $VillagerType;
@@ -778,6 +784,7 @@ declare module "@package/net/minecraft/world/entity/npc" {
         age: number;
         constructor(entityType: $EntityType_<$Villager>, level: $Level_);
         constructor(entityType: $EntityType_<$Villager>, level: $Level_, villagerType: $VillagerType_);
+        set villagerXp(value: number);
     }
     export class $VillagerType {
         static byBiome(biome: $Holder_<$Biome>): $VillagerType;

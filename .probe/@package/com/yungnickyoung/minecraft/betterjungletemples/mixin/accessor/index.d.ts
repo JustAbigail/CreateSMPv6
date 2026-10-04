@@ -5,6 +5,7 @@ declare module "@package/com/yungnickyoung/minecraft/betterjungletemples/mixin/a
     }
     export interface $ChunkGeneratorStructureStateAccessor {
         getBiomeSource(): $BiomeSource;
+        get biomeSource(): $BiomeSource;
     }
     /**
      * Values that may be interpreted as {@link $ChunkGeneratorStructureStateAccessor}.

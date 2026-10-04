@@ -1,6 +1,6 @@
-import { $DoublePredicate_, $IntToDoubleFunction_, $LongPredicate_, $LongToIntFunction_, $BiConsumer, $Consumer, $IntConsumer, $BiConsumer_, $IntPredicate_, $DoubleFunction_, $IntFunction_, $ToDoubleFunction_, $LongConsumer_, $LongFunction_, $IntToLongFunction_, $LongConsumer, $Supplier_, $Function_, $ObjIntConsumer_, $IntUnaryOperator_, $DoubleConsumer_, $BinaryOperator_, $LongSupplier_, $DoubleBinaryOperator_, $ObjDoubleConsumer_, $ObjLongConsumer_, $IntConsumer_, $LongBinaryOperator_, $Consumer_, $BinaryOperator, $DoubleToLongFunction_, $UnaryOperator_, $DoubleUnaryOperator_, $IntBinaryOperator_, $Predicate_, $BiFunction_, $DoubleSupplier_, $IntSupplier_, $LongToDoubleFunction_, $Supplier, $Function, $DoubleConsumer, $ToLongFunction_, $LongUnaryOperator_, $ToIntFunction_, $DoubleToIntFunction_ } from "@package/java/util/function";
+import { $DoublePredicate_, $IntToDoubleFunction_, $LongPredicate_, $LongToIntFunction_, $BiConsumer, $Consumer, $IntConsumer, $BiConsumer_, $IntPredicate_, $DoubleFunction_, $IntFunction_, $ToDoubleFunction_, $LongConsumer_, $LongFunction_, $IntToLongFunction_, $LongConsumer, $Supplier_, $Function_, $IntUnaryOperator_, $ObjIntConsumer_, $DoubleConsumer_, $BinaryOperator_, $LongSupplier_, $DoubleBinaryOperator_, $ObjDoubleConsumer_, $ObjLongConsumer_, $IntConsumer_, $LongBinaryOperator_, $Consumer_, $BinaryOperator, $DoubleToLongFunction_, $UnaryOperator_, $DoubleUnaryOperator_, $IntBinaryOperator_, $Predicate_, $BiFunction_, $DoubleSupplier_, $IntSupplier_, $LongToDoubleFunction_, $Supplier, $Function, $DoubleConsumer, $ToLongFunction_, $LongUnaryOperator_, $ToIntFunction_, $DoubleToIntFunction_ } from "@package/java/util/function";
 import { $Enum, $AutoCloseable, $Runnable_, $Object } from "@package/java/lang";
-import { $Spliterator$OfInt, $Spliterator, $Iterator, $List, $Spliterator$OfDouble, $LongSummaryStatistics, $PrimitiveIterator$OfLong, $OptionalDouble, $PrimitiveIterator$OfInt, $IntSummaryStatistics, $OptionalLong, $Comparator, $PrimitiveIterator$OfDouble, $DoubleSummaryStatistics, $Set, $OptionalInt } from "@package/java/util";
+import { $Spliterator$OfInt, $Spliterator, $Iterator, $List, $Spliterator$OfDouble, $LongSummaryStatistics, $PrimitiveIterator$OfLong, $OptionalDouble, $IntSummaryStatistics, $OptionalLong, $Comparator, $DoubleSummaryStatistics, $Spliterator$OfLong, $Set, $OptionalInt } from "@package/java/util";
 
 declare module "@package/java/util/stream" {
     export class $LongStream$Builder {
@@ -23,11 +23,11 @@ declare module "@package/java/util/stream" {
         isParallel(): boolean;
         sequential(): S;
         unordered(): S;
+        onClose(arg0: $Runnable_): S;
         iterator(): $Iterator<T>;
         spliterator(): $Spliterator<T>;
         close(): void;
         parallel(): S;
-        onClose(arg0: $Runnable_): S;
     }
     export class $IntStream$IntMapMultiConsumer {
     }
@@ -56,8 +56,8 @@ declare module "@package/java/util/stream" {
         static builder<T>(): $Stream$Builder<T>;
         static concat<T>(arg0: $Stream<T>, arg1: $Stream<T>): $Stream<T>;
         static empty<T>(): $Stream<T>;
-        static iterate<T>(arg0: T, arg1: $UnaryOperator_<T>): $Stream<T>;
         static iterate<T>(arg0: T, arg1: $Predicate_<T>, arg2: $UnaryOperator_<T>): $Stream<T>;
+        static iterate<T>(arg0: T, arg1: $UnaryOperator_<T>): $Stream<T>;
         static ofNullable<T>(arg0: T): $Stream<T>;
     }
     export interface $Stream<T> extends $BaseStream<T, $Stream<T>> {
@@ -73,10 +73,9 @@ declare module "@package/java/util/stream" {
         mapMultiToDouble(arg0: $BiConsumer_<T, $DoubleConsumer>): $DoubleStream;
         takeWhile(arg0: $Predicate_<T>): $Stream<T>;
         forEachOrdered(arg0: $Consumer_<T>): void;
-        dropWhile(arg0: $Predicate_<T>): $Stream<T>;
-        noneMatch(arg0: $Predicate_<T>): boolean;
-        sorted(): $Stream<T>;
         sorted(arg0: $Comparator<T>): $Stream<T>;
+        sorted(): $Stream<T>;
+        noneMatch(arg0: $Predicate_<T>): boolean;
         min(arg0: $Comparator<T>): (T) | undefined;
         max(arg0: $Comparator<T>): (T) | undefined;
         toArray<A>(arg0: $IntFunction_<A[]>): A[];
@@ -100,6 +99,7 @@ declare module "@package/java/util/stream" {
         distinct(): $Stream<T>;
         findFirst(): (T) | undefined;
         allMatch(arg0: $Predicate_<T>): boolean;
+        dropWhile(arg0: $Predicate_<T>): $Stream<T>;
     }
     export class $LongStream$LongMapMultiConsumer {
     }
@@ -127,15 +127,14 @@ declare module "@package/java/util/stream" {
         takeWhile(arg0: $DoublePredicate_): $DoubleStream;
         forEachOrdered(arg0: $DoubleConsumer_): void;
         sequential(): $DoubleStream;
+        sorted(): $DoubleStream;
+        mapToObj<U>(arg0: $DoubleFunction_<U>): $Stream<U>;
         average(): $OptionalDouble;
         summaryStatistics(): $DoubleSummaryStatistics;
-        dropWhile(arg0: $DoublePredicate_): $DoubleStream;
         noneMatch(arg0: $DoublePredicate_): boolean;
-        sorted(): $DoubleStream;
         min(): $OptionalDouble;
         max(): $OptionalDouble;
         toArray(): number[];
-        iterator(): $PrimitiveIterator$OfDouble;
         map(arg0: $DoubleUnaryOperator_): $DoubleStream;
         collect<R>(arg0: $Supplier_<R>, arg1: $ObjDoubleConsumer_<R>, arg2: $BiConsumer_<R, R>): R;
         count(): number;
@@ -151,12 +150,13 @@ declare module "@package/java/util/stream" {
         sum(): number;
         reduce(arg0: $DoubleBinaryOperator_): $OptionalDouble;
         reduce(arg0: number, arg1: $DoubleBinaryOperator_): number;
+        parallel(): $DoubleStream;
         distinct(): $DoubleStream;
         findFirst(): $OptionalDouble;
         allMatch(arg0: $DoublePredicate_): boolean;
-        mapToObj<U>(arg0: $DoubleFunction_<U>): $Stream<U>;
+        dropWhile(arg0: $DoublePredicate_): $DoubleStream;
         boxed(): $Stream<number>;
-        parallel(): $DoubleStream;
+        iterator(): $Iterator<number>;
     }
     export class $DoubleStream$DoubleMapMultiConsumer {
     }
@@ -168,16 +168,16 @@ declare module "@package/java/util/stream" {
      */
     export type $DoubleStream$DoubleMapMultiConsumer_ = ((arg0: number, arg1: $DoubleConsumer) => void);
     export class $LongStream {
-        static rangeClosed(arg0: number, arg1: number): $LongStream;
         static generate(arg0: $LongSupplier_): $LongStream;
-        static of(...arg0: number[]): $LongStream;
+        static rangeClosed(arg0: number, arg1: number): $LongStream;
         static of(arg0: number): $LongStream;
+        static of(...arg0: number[]): $LongStream;
         static builder(): $LongStream$Builder;
         static concat(arg0: $LongStream, arg1: $LongStream): $LongStream;
         static empty(): $LongStream;
+        static range(arg0: number, arg1: number): $LongStream;
         static iterate(arg0: number, arg1: $LongUnaryOperator_): $LongStream;
         static iterate(arg0: number, arg1: $LongPredicate_, arg2: $LongUnaryOperator_): $LongStream;
-        static range(arg0: number, arg1: number): $LongStream;
     }
     export interface $LongStream extends $BaseStream<number, $LongStream> {
         mapToInt(arg0: $LongToIntFunction_): $IntStream;
@@ -185,12 +185,13 @@ declare module "@package/java/util/stream" {
         mapMulti(arg0: $LongStream$LongMapMultiConsumer_): $LongStream;
         takeWhile(arg0: $LongPredicate_): $LongStream;
         forEachOrdered(arg0: $LongConsumer_): void;
+        sequential(): $LongStream;
+        sorted(): $LongStream;
+        mapToObj<U>(arg0: $LongFunction_<U>): $Stream<U>;
         average(): $OptionalDouble;
         summaryStatistics(): $LongSummaryStatistics;
         asDoubleStream(): $DoubleStream;
-        dropWhile(arg0: $LongPredicate_): $LongStream;
         noneMatch(arg0: $LongPredicate_): boolean;
-        sorted(): $LongStream;
         min(): $OptionalLong;
         max(): $OptionalLong;
         toArray(): number[];
@@ -199,6 +200,7 @@ declare module "@package/java/util/stream" {
         collect<R>(arg0: $Supplier_<R>, arg1: $ObjLongConsumer_<R>, arg2: $BiConsumer_<R, R>): R;
         count(): number;
         limit(arg0: number): $LongStream;
+        spliterator(): $Spliterator$OfLong;
         filter(arg0: $LongPredicate_): $LongStream;
         anyMatch(arg0: $LongPredicate_): boolean;
         flatMap(arg0: $LongFunction_<$LongStream>): $LongStream;
@@ -212,10 +214,8 @@ declare module "@package/java/util/stream" {
         distinct(): $LongStream;
         findFirst(): $OptionalLong;
         allMatch(arg0: $LongPredicate_): boolean;
-        mapToObj<U>(arg0: $LongFunction_<U>): $Stream<U>;
+        dropWhile(arg0: $LongPredicate_): $LongStream;
         boxed(): $Stream<number>;
-        sequential(): $LongStream;
-        spliterator(): $Spliterator<number>;
         parallel(): $LongStream;
     }
     export class $Collector$Characteristics extends $Enum<$Collector$Characteristics> {
@@ -237,16 +237,16 @@ declare module "@package/java/util/stream" {
         build(): $IntStream;
     }
     export class $IntStream {
-        static rangeClosed(arg0: number, arg1: number): $IntStream;
         static generate(arg0: $IntSupplier_): $IntStream;
-        static of(arg0: number): $IntStream;
+        static rangeClosed(arg0: number, arg1: number): $IntStream;
         static of(...arg0: number[]): $IntStream;
+        static of(arg0: number): $IntStream;
         static builder(): $IntStream$Builder;
         static concat(arg0: $IntStream, arg1: $IntStream): $IntStream;
         static empty(): $IntStream;
+        static range(arg0: number, arg1: number): $IntStream;
         static iterate(arg0: number, arg1: $IntUnaryOperator_): $IntStream;
         static iterate(arg0: number, arg1: $IntPredicate_, arg2: $IntUnaryOperator_): $IntStream;
-        static range(arg0: number, arg1: number): $IntStream;
     }
     export interface $IntStream extends $BaseStream<number, $IntStream> {
         mapToLong(arg0: $IntToLongFunction_): $LongStream;
@@ -254,17 +254,16 @@ declare module "@package/java/util/stream" {
         mapMulti(arg0: $IntStream$IntMapMultiConsumer_): $IntStream;
         takeWhile(arg0: $IntPredicate_): $IntStream;
         forEachOrdered(arg0: $IntConsumer_): void;
+        sorted(): $IntStream;
+        mapToObj<U>(arg0: $IntFunction_<U>): $Stream<U>;
         average(): $OptionalDouble;
         summaryStatistics(): $IntSummaryStatistics;
         asLongStream(): $LongStream;
         asDoubleStream(): $DoubleStream;
-        dropWhile(arg0: $IntPredicate_): $IntStream;
         noneMatch(arg0: $IntPredicate_): boolean;
-        sorted(): $IntStream;
         min(): $OptionalInt;
         max(): $OptionalInt;
         toArray(): number[];
-        iterator(): $PrimitiveIterator$OfInt;
         map(arg0: $IntUnaryOperator_): $IntStream;
         collect<R>(arg0: $Supplier_<R>, arg1: $ObjIntConsumer_<R>, arg2: $BiConsumer_<R, R>): R;
         count(): number;
@@ -283,9 +282,10 @@ declare module "@package/java/util/stream" {
         distinct(): $IntStream;
         findFirst(): $OptionalInt;
         allMatch(arg0: $IntPredicate_): boolean;
-        mapToObj<U>(arg0: $IntFunction_<U>): $Stream<U>;
+        dropWhile(arg0: $IntPredicate_): $IntStream;
         boxed(): $Stream<number>;
         sequential(): $IntStream;
+        iterator(): $Iterator<number>;
         parallel(): $IntStream;
     }
     export class $Stream$Builder<T> {

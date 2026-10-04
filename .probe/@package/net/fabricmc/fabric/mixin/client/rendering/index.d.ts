@@ -8,6 +8,7 @@ import { $RenderLayer } from "@package/net/minecraft/client/renderer/entity/laye
 declare module "@package/net/fabricmc/fabric/mixin/client/rendering" {
     export class $DimensionEffectsAccessor {
         static getIdentifierMap(): $Object2ObjectMap<$ResourceLocation, $DimensionSpecialEffects>;
+        static get identifierMap(): $Object2ObjectMap<$ResourceLocation, $DimensionSpecialEffects>;
     }
     export interface $DimensionEffectsAccessor {
     }

@@ -22,6 +22,11 @@ declare module "@package/com/google/gson" {
         getAnnotations(): $Collection<$Annotation>;
         hasModifier(arg0: number): boolean;
         constructor(arg0: $Field);
+        get declaredType(): $Type;
+        get declaredClass(): $Class<never>;
+        get name(): string;
+        get declaringClass(): $Class<never>;
+        get annotations(): $Collection<$Annotation>;
     }
     export class $FieldNamingStrategy {
     }
@@ -68,6 +73,13 @@ declare module "@package/com/google/gson" {
         disableJdkUnsafe(): $GsonBuilder;
         addReflectionAccessFilter(arg0: $ReflectionAccessFilter_): $GsonBuilder;
         constructor();
+        set version(value: number);
+        set longSerializationPolicy(value: $LongSerializationPolicy_);
+        set fieldNamingPolicy(value: $FieldNamingPolicy_);
+        set fieldNamingStrategy(value: $FieldNamingStrategy_);
+        set objectToNumberStrategy(value: $ToNumberStrategy_);
+        set numberToNumberStrategy(value: $ToNumberStrategy_);
+        set exclusionStrategies(value: $ExclusionStrategy[]);
     }
     export class $ToNumberStrategy {
     }
@@ -140,19 +152,39 @@ declare module "@package/com/google/gson" {
         isJsonArray(): boolean;
         isJsonNull(): boolean;
         isJsonObject(): boolean;
+        deepCopy(): $JsonElement;
         getAsJsonNull(): $JsonNull;
+        getAsFloat(): number;
         getAsByte(): number;
         /**
          * @deprecated
          */
         getAsCharacter(): string;
         getAsShort(): number;
-        deepCopy(): $JsonElement;
-        getAsFloat(): number;
         /**
          * @deprecated
          */
         constructor();
+        get asInt(): number;
+        get asJsonPrimitive(): $JsonPrimitive;
+        get asString(): string;
+        get jsonPrimitive(): boolean;
+        get asBigDecimal(): $BigDecimal;
+        get asBigInteger(): $BigInteger;
+        get asBoolean(): boolean;
+        get asDouble(): number;
+        get asJsonArray(): $JsonArray;
+        get asJsonObject(): $JsonObject;
+        get asLong(): number;
+        get asNumber(): $Number;
+        get jsonArray(): boolean;
+        get jsonNull(): boolean;
+        get jsonObject(): boolean;
+        get asJsonNull(): $JsonNull;
+        get asFloat(): number;
+        get asByte(): number;
+        get asCharacter(): string;
+        get asShort(): number;
     }
     /**
      * Values that may be interpreted as {@link $JsonElement}.
@@ -176,6 +208,7 @@ declare module "@package/com/google/gson" {
         addProperty(arg0: string, arg1: string): void;
         asMap(): $Map<string, $JsonElement>;
         constructor();
+        get empty(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $JsonObject}.
@@ -244,6 +277,9 @@ declare module "@package/com/google/gson" {
         constructor(arg0: string);
         constructor(arg0: $Number);
         constructor(arg0: boolean);
+        get boolean(): boolean;
+        get number(): boolean;
+        get string(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $JsonPrimitive}.
@@ -300,12 +336,12 @@ declare module "@package/com/google/gson" {
         addAll(arg0: $JsonArray_): void;
         set(arg0: number, arg1: $JsonElement_): $JsonElement;
         asList(): $List<$JsonElement>;
-        deepCopy(): $JsonArray;
         spliterator(): $Spliterator<$JsonElement>;
         forEach(arg0: $Consumer_<$JsonElement>): void;
         constructor();
         constructor(arg0: number);
         [Symbol.iterator](): Iterator<$JsonElement>
+        get empty(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $JsonArray}.

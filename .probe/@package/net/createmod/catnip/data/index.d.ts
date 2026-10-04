@@ -2,7 +2,7 @@ import { $LevelAccessor } from "@package/net/minecraft/world/level";
 import { $Predicate_, $Supplier_, $Function_, $BiFunction_, $Consumer_, $BiConsumer_ } from "@package/java/util/function";
 import { $Stream } from "@package/java/util/stream";
 import { $Codec } from "@package/com/mojang/serialization";
-import { $CompoundTag, $ListTag, $ListTag_ } from "@package/net/minecraft/nbt";
+import { $ListTag, $CompoundTag, $ListTag_ } from "@package/net/minecraft/nbt";
 import { $Iterable } from "@package/java/lang";
 import { $Spliterator, $Iterator } from "@package/java/util";
 import { $StreamCodec } from "@package/net/minecraft/network/codec";
@@ -26,9 +26,8 @@ declare module "@package/net/createmod/catnip/data" {
         stream(): $Stream<T>;
         set(arg0: boolean, arg1: T): void;
         forEach(arg0: $Consumer_<T>): void;
-        static create<T>(arg0: T, arg1: T): $Couple<T>;
         static create<T>(arg0: $Supplier_<T>): $Couple<T>;
-        swap(): $Couple<T>;
+        static create<T>(arg0: T, arg1: T): $Couple<T>;
         either(arg0: $Predicate_<T>): boolean;
         static codec<T>(arg0: $Codec<T>): $Codec<$Couple<T>>;
         both(arg0: $Predicate_<T>): boolean;
@@ -51,11 +50,11 @@ declare module "@package/net/createmod/catnip/data" {
         setFirst(arg0: F): void;
         setSecond(arg0: S): void;
         static streamCodec<B, F, S>(arg0: $StreamCodec<B, F>, arg1: $StreamCodec<B, S>): $StreamCodec<B, $Pair<F, S>>;
+        getSecond(): S;
         static of<F, S>(arg0: F, arg1: S): $Pair<F, S>;
         copy(): $Pair<F, S>;
         getFirst(): F;
         swap(): $Pair<S, F>;
-        getSecond(): S;
         static codec<F, S>(arg0: $Codec<F>, arg1: $Codec<S>): $Codec<$Pair<F, S>>;
     }
 }

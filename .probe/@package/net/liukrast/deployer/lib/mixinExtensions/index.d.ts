@@ -48,10 +48,10 @@ declare module "@package/net/liukrast/deployer/lib/mixinExtensions" {
     export class $FPBExtension {
     }
     export interface $FPBExtension {
+        deployer$getExtra(): $Map<$BlockPos, $FactoryPanelConnection>;
         deployer$getConnectionValue<T>(arg0: $PanelConnection_<T>): (T) | undefined;
         deployer$getInputConnections(): $Set<$PanelConnection<never>>;
         deployer$getOutputConnections(): $Set<$PanelConnection<never>>;
-        deployer$getExtra(): $Map<$BlockPos, $FactoryPanelConnection>;
     }
     export class $VITBExtension {
     }
@@ -68,8 +68,8 @@ declare module "@package/net/liukrast/deployer/lib/mixinExtensions" {
     export class $PRExtension {
     }
     export interface $PRExtension {
-        deployer$isFlagged(): boolean;
         deployer$flag(): void;
+        deployer$isFlagged(): boolean;
     }
     export class $LLBExtension {
     }

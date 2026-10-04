@@ -29,6 +29,10 @@ declare module "@package/net/caffeinemc/mods/sodium/client/render/chunk/transluc
         static OFF: $SortBehavior;
         static STATIC: $SortBehavior;
         static DYNAMIC_DEFER_ALL_ZERO_FRAMES: $SortBehavior;
+        get sortMode(): $SortBehavior$SortMode;
+        get priorityMode(): $SortBehavior$PriorityMode;
+        get deferMode(): $DeferMode;
+        get shortName(): string;
     }
     /**
      * Values that may be interpreted as {@link $SortBehavior}.

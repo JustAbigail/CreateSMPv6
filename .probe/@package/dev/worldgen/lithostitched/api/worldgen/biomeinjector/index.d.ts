@@ -26,8 +26,8 @@ declare module "@package/dev/worldgen/lithostitched/api/worldgen/biomeinjector" 
     }
     export interface $BiomeInjector {
         mapAll(noiseHelper: $DensityFunctionWrapper): void;
-        possibleBiomes(): $List<$Holder<$Biome>>;
         dimension(): $ResourceKey<$LevelStem>;
+        possibleBiomes(): $List<$Holder<$Biome>>;
         predicate(): ($LoadPredicate) | undefined;
         priority(): number;
         codec(): $MapCodec<$BiomeInjector>;
@@ -48,17 +48,17 @@ declare module "@package/dev/worldgen/lithostitched/api/worldgen/biomeinjector" 
         climateMin(climateParameter: $BiomeInjector$ClimateParameter_, d: number): $ParameterBuilder;
         climateMax(climateParameter: $BiomeInjector$ClimateParameter_, d: number): $ParameterBuilder;
         climateRange(climateParameter: $BiomeInjector$ClimateParameter_, d: number, e: number): $ParameterBuilder;
-        region(resourceKey: $ResourceKey_<$Region>): $ParameterBuilder;
         build(): $ParameterMap;
+        region(resourceKey: $ResourceKey_<$Region>): $ParameterBuilder;
     }
     export class $BiomeInjector$InjectorBuilder {
+        addPoints(points: $Climate$ParameterList<$Holder_<$Biome>>): $BiomeInjector;
+        dispatchAlternateLayout(parameterBuilder: $ParameterBuilder, points: $Climate$ParameterList<$Holder_<$Biome>>): $BiomeInjector;
         forcePlacement(biome: $Holder_<$Biome>, parameterBuilder: $ParameterBuilder): $BiomeInjector;
         replacePartially(target: $Holder_<$Biome>, replacement: $Holder_<$Biome>, parameterBuilder: $ParameterBuilder): $BiomeInjector;
         replacePartially(targets: $HolderSet_<$Biome>, replacement: $Holder_<$Biome>, parameterBuilder: $ParameterBuilder): $BiomeInjector;
         replaceFully(target: $Holder_<$Biome>, replacement: $Holder_<$Biome>): $BiomeInjector;
         replaceFully(targets: $HolderSet_<$Biome>, replacement: $Holder_<$Biome>): $BiomeInjector;
-        addPoints(points: $Climate$ParameterList<$Holder_<$Biome>>): $BiomeInjector;
-        dispatchAlternateLayout(parameterBuilder: $ParameterBuilder, points: $Climate$ParameterList<$Holder_<$Biome>>): $BiomeInjector;
         priority(priority: number): $BiomeInjector$InjectorBuilder;
     }
     export class $BiomeInjector$ClimateParameter extends $Enum<$BiomeInjector$ClimateParameter> implements $StringRepresentable {
@@ -74,6 +74,8 @@ declare module "@package/dev/worldgen/lithostitched/api/worldgen/biomeinjector" 
         static EROSION: $BiomeInjector$ClimateParameter;
         static WEIRDNESS: $BiomeInjector$ClimateParameter;
         static DEPTH: $BiomeInjector$ClimateParameter;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $BiomeInjector$ClimateParameter}.

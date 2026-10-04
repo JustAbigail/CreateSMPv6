@@ -37,15 +37,12 @@ declare module "@package/gg/essential/cosmetics" {
         component2(): $List<$CosmeticSetting>;
         static copy$default(arg0: $EquippedCosmeticId, arg1: string, arg2: $List_<any>, arg3: number, arg4: $Object): $EquippedCosmeticId;
         constructor(arg0: string, arg1: $List_<$CosmeticSetting>);
+        get settings(): $List<$CosmeticSetting>;
+        get id(): string;
     }
     export class $CosmeticsRenderState {
     }
     export interface $CosmeticsRenderState {
-        setPoseModified(arg0: boolean): void;
-        setRenderedPose(arg0: $PlayerPose): void;
-        wearablesManager(): $WearablesManager;
-        poseManager(): $PlayerPoseManager;
-        cosmeticFrozenYaw(): number;
         blockedArmorSlots(): $Set<number>;
         skinTexture(): $ResourceLocation;
         emissiveCapeTexture(): $ResourceLocation;
@@ -53,6 +50,15 @@ declare module "@package/gg/essential/cosmetics" {
         isSneaking(): boolean;
         setSuppressedArmor(arg0: boolean[]): void;
         setCosmeticFrozenYaw(arg0: number): void;
+        setPoseModified(arg0: boolean): void;
+        setRenderedPose(arg0: $PlayerPose): void;
+        wearablesManager(): $WearablesManager;
+        poseManager(): $PlayerPoseManager;
+        cosmeticFrozenYaw(): number;
+        get sneaking(): boolean;
+        set suppressedArmor(value: boolean[]);
+        set poseModified(value: boolean);
+        set renderedPose(value: $PlayerPose);
     }
     export class $IngameEquippedOutfitsManager$Update {
     }
@@ -60,25 +66,28 @@ declare module "@package/gg/essential/cosmetics" {
     }
     export class $EquippedCosmetic {
         getCosmetic(): $Cosmetic;
-        getVariant(): string;
         settings<T extends $CosmeticSetting>(): $List<T>;
         getSettings(): $List<$CosmeticSetting>;
         setting<T extends $CosmeticSetting>(): T;
         getId(): string;
         copy(arg0: $Cosmetic, arg1: $List_<$CosmeticSetting>): $EquippedCosmetic;
+        getVariant(): string;
         component1(): $Cosmetic;
         component2(): $List<$CosmeticSetting>;
         static copy$default(arg0: $EquippedCosmetic, arg1: $Cosmetic, arg2: $List_<any>, arg3: number, arg4: $Object): $EquippedCosmetic;
         constructor(arg0: $Cosmetic, arg1: $List_<$CosmeticSetting>);
+        get cosmetic(): $Cosmetic;
+        get id(): string;
+        get variant(): string;
     }
     export class $EssentialModelRenderer$Companion {
         shouldRender(player: $AbstractClientPlayer): boolean;
         constructor($constructor_marker: $DefaultConstructorMarker);
     }
     export class $CosmeticsState {
+        getCosmetics(): $Map<$CosmeticSlot, $EquippedCosmetic>;
         getPositionAdjustment(arg0: $Cosmetic): $Vector3;
         getHiddenBones(): $Map<string, $Set<string>>;
-        getCosmetics(): $Map<$CosmeticSlot, $EquippedCosmetic>;
         getHidesHeldItems(): boolean;
         getSkinType(): $Model;
         getUsesCapePose(): boolean;
@@ -91,17 +100,33 @@ declare module "@package/gg/essential/cosmetics" {
         getPositionAdjustments(): $Map<string, $Vector3>;
         getPartsEquipped(): $Set<number>;
         getLocksPlayerRotation(): boolean;
-        getSkinMask(): $SkinMask;
         getArmor(): $ArmorSlots;
+        getSkinMask(): $SkinMask;
         getSides(): $Map<string, $Side>;
         static Companion: $CosmeticsState$Companion;
         static EMPTY: $CosmeticsState;
         constructor(arg0: $Model_, arg1: $Map_<$CosmeticSlot, $EquippedCosmetic>, arg2: $Map_<$Cosmetic, $BedrockModel>, arg3: $ArmorSlots);
+        get cosmetics(): $Map<$CosmeticSlot, $EquippedCosmetic>;
+        get hiddenBones(): $Map<string, $Set<string>>;
+        get hidesHeldItems(): boolean;
+        get skinType(): $Model;
+        get usesCapePose(): boolean;
+        get usesElytraPose(): boolean;
+        get bedrockModels(): $Map<$Cosmetic, $BedrockModel>;
+        get hiddenParts(): $Map<string, $Set<$EnumPart>>;
+        get renderGeometries(): $Map<string, $List<$List<$Cube>>>;
+        get positionAdjustments(): $Map<string, $Vector3>;
+        get partsEquipped(): $Set<number>;
+        get locksPlayerRotation(): boolean;
+        get armor(): $ArmorSlots;
+        get skinMask(): $SkinMask;
+        get sides(): $Map<string, $Side>;
     }
     export class $WearablesManager$Companion {
         constructor(arg0: $DefaultConstructorMarker);
     }
     export class $WearablesManager {
+        updateLocators(arg0: $PlayerPose): void;
         resetModel(arg0: $CosmeticSlot): void;
         getModels(): $Map<$Cosmetic, $ModelInstance>;
         "render-zkmfrqk"(arg0: $UMatrixStack, arg1: $WearablesManager$CommandQueueProvider_, arg2: number, arg3: $PlayerPose, arg4: $RenderBackend$Texture, arg5: $Set_<$EnumPart_>): void;
@@ -112,24 +137,25 @@ declare module "@package/gg/essential/cosmetics" {
         updateState(arg0: $CosmeticsState): void;
         update(): void;
         getState(): $CosmeticsState;
-        updateLocators(arg0: $PlayerPose): void;
         static Companion: $WearablesManager$Companion;
         constructor(arg0: $RenderBackend, arg1: $MolangQueryEntity, arg2: $Set_<$AnimationTarget_>, arg3: $Function2_<$Cosmetic, string, $Unit>);
+        get models(): $Map<$Cosmetic, $ModelInstance>;
+        get state(): $CosmeticsState;
     }
     export class $IngameEquippedOutfitsManager implements $EquippedOutfitsManager {
         getEquippedCosmeticsState(arg0: $UUID_): $State<$EquippedOutfitsManager$Outfit>;
         getCapeHash(arg0: $UUID_): string;
-        applyUpdates(arg0: $List_<$Pair<$UUID_, $List_<$IngameEquippedOutfitsManager$Update>>>): void;
         applyUpdates(arg0: $UUID_, arg1: $List_<$IngameEquippedOutfitsManager$Update>): void;
-        getVisibleCosmeticsState(arg0: $UUID_): $State<$Map<$CosmeticSlot, $EquippedCosmetic>>;
+        applyUpdates(arg0: $List_<$Pair<$UUID_, $List_<$IngameEquippedOutfitsManager$Update>>>): void;
         getSkin(arg0: $UUID_): $Skin;
+        getVisibleCosmeticsState(arg0: $UUID_): $State<$Map<$CosmeticSlot, $EquippedCosmetic>>;
         constructor(arg0: $CosmeticsData, arg1: $Function3_<$UUID, $CosmeticSlot, string, $Unit>);
     }
     export class $EssentialModelRenderer extends $RenderLayer<$AbstractClientPlayer, $PlayerModel<$AbstractClientPlayer>> {
         static render$default(arg0: $EssentialModelRenderer, arg1: $UMatrixStack$1, arg2: $RenderBackend$VertexConsumerProvider_, arg3: $Object, arg4: $CosmeticsRenderState, arg5: number, arg6: $Set_<any>, arg7: boolean, arg8: number, arg9: $Object): void;
-        static shouldRender(player: $AbstractClientPlayer): boolean;
         render(vMatrixStack: $PoseStack, buffer: $MultiBufferSource_, light: number, player: $AbstractClientPlayer, limbSwing: number, limbSwingAmount: number, partialTicks: number, ageInTicks: number, netHeadYaw: number, headPitch: number): void;
         render(matrixStack: $UMatrixStack$1, vertexConsumerProvider: $RenderBackend$VertexConsumerProvider_, playerState: $Object, cState: $CosmeticsRenderState, lightInt: number, parts: $Set_<$EnumPart_>, setsPose: boolean): void;
+        static shouldRender(player: $AbstractClientPlayer): boolean;
         static Companion: $EssentialModelRenderer$Companion;
         constructor(playerRenderer: $PlayerRenderer);
     }
@@ -145,6 +171,7 @@ declare module "@package/gg/essential/cosmetics" {
         constructor(arg0: boolean, arg1: boolean, arg2: boolean, arg3: boolean, arg4: boolean, arg5: number, arg6: $DefaultConstructorMarker);
         constructor(arg0: boolean, arg1: boolean, arg2: boolean, arg3: boolean, arg4: boolean);
         constructor(arg0: number);
+        get slots(): number;
     }
     export class $IngameEquippedOutfitsUpdateEncoder {
         update(arg0: $TrackedList<$Pair<$UUID_, $EquippedOutfitsManager$Outfit>>): $List<$Pair<$UUID, $List<$IngameEquippedOutfitsManager$Update>>>;

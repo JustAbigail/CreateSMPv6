@@ -35,26 +35,26 @@ import { $RegisterCapabilitiesEvent } from "@package/net/neoforged/neoforge/capa
 declare module "@package/com/simibubi/create/content/trains/station" {
     export class $StationBlockEntity extends $SmartBlockEntity implements $TransformableBlockEntity, $IHaveGoggleInformation {
         static registerCapabilities(arg0: $RegisterCapabilitiesEvent): void;
-        attachPackagePort(arg0: $PackagePortBlockEntity): void;
-        updateName(arg0: string): boolean;
+        trackClicked(arg0: $Player, arg1: $InteractionHand_, arg2: $ITrackBlock, arg3: $BlockState_, arg4: $BlockPos_): boolean;
+        getStation(): $GlobalStation;
+        getAutoSchedule(): $ItemStack;
+        dropSchedule(arg0: $ServerPlayer, arg1: $Train): void;
+        resolveFlagAngle(): boolean;
+        addToGoggleTooltip(tooltip: $List_<any>, isPlayerSneaking: boolean): boolean;
+        assemble(arg0: $UUID_): void;
+        getAssemblyDirection(): $Direction;
         cancelAssembly(): void;
-        removePackagePort(arg0: $PackagePortBlockEntity): void;
+        updateName(arg0: string): boolean;
+        isAssembling(): boolean;
+        refreshAssemblyInfo(): void;
         isValidBogeyOffset(arg0: number): boolean;
         enterAssemblyMode(arg0: $ServerPlayer): boolean;
         tryDisassembleTrain(arg0: $ServerPlayer): boolean;
         tryEnterAssemblyMode(): boolean;
         exitAssemblyMode(): boolean;
         updateMapColor(arg0: number): void;
-        isAssembling(): boolean;
-        refreshAssemblyInfo(): void;
-        addToGoggleTooltip(tooltip: $List_<any>, isPlayerSneaking: boolean): boolean;
-        trackClicked(arg0: $Player, arg1: $InteractionHand_, arg2: $ITrackBlock, arg3: $BlockState_, arg4: $BlockPos_): boolean;
-        getStation(): $GlobalStation;
-        getAutoSchedule(): $ItemStack;
-        resolveFlagAngle(): boolean;
-        dropSchedule(arg0: $ServerPlayer, arg1: $Train): void;
-        assemble(arg0: $UUID_): void;
-        getAssemblyDirection(): $Direction;
+        attachPackagePort(arg0: $PackagePortBlockEntity): void;
+        removePackagePort(arg0: $PackagePortBlockEntity): void;
         transform(arg0: $BlockEntity, arg1: $StructureTransform): void;
         containedFluidTooltip(arg0: $List_<$Component_>, arg1: boolean, arg2: $IFluidHandler): boolean;
         getIcon(arg0: boolean): $ItemStack;
@@ -73,6 +73,10 @@ declare module "@package/com/simibubi/create/content/trains/station" {
         type: $BlockEntityType<never>;
         edgePoint: $TrackTargetingBehaviour<$GlobalStation>;
         constructor(arg0: $BlockEntityType_<never>, arg1: $BlockPos_, arg2: $BlockState_);
+        get station(): $GlobalStation;
+        get autoSchedule(): $ItemStack;
+        get assemblyDirection(): $Direction;
+        get assembling(): boolean;
     }
     export class $GlobalStation extends $SingleBlockEntityEdgePoint implements $GlobalStationHasChunkloaders {
         getPresentTrain(): $Train;
@@ -86,8 +90,8 @@ declare module "@package/com/simibubi/create/content/trains/station" {
         trainDeparted(arg0: $Train): void;
         getImminentTrain(): $Train;
         runMailTransfer(): void;
-        handler$fao000$createmetalogistics$runMailTransfer(arg0: $CallbackInfo): void;
         getConnectedLoaders(): $Map<any, any>;
+        handler$fao000$createmetalogistics$runMailTransfer(arg0: $CallbackInfo): void;
         edgeLocation: $Couple<$TrackNodeLocation>;
         blockEntityPos: $BlockPos;
         connectedPorts: $Map<$BlockPos, $GlobalPackagePort>;
@@ -99,10 +103,12 @@ declare module "@package/com/simibubi/create/content/trains/station" {
         position: number;
         nearestTrain: $WeakReference<$Train>;
         constructor();
+        get presentTrain(): $Train;
+        get imminentTrain(): $Train;
     }
     export class $GlobalPackagePort {
-        restoreOfflineBuffer(arg0: $IItemHandlerModifiable): void;
         saveOfflineBuffer(arg0: $IItemHandlerModifiable): void;
+        restoreOfflineBuffer(arg0: $IItemHandlerModifiable): void;
         address: string;
         primed: boolean;
         offlineBuffer: $ItemStackHandler;
@@ -111,12 +117,12 @@ declare module "@package/com/simibubi/create/content/trains/station" {
     export class $StationMapData {
     }
     export interface $StationMapData {
-        addStationMarker(arg0: $StationMarker): void;
         toggleStation(arg0: $LevelAccessor, arg1: $BlockPos_, arg2: $StationBlockEntity): boolean;
+        addStationMarker(arg0: $StationMarker): void;
     }
     export class $StationMarker {
-        static createStationDecoration(arg0: number, arg1: number, arg2: ($Component_) | undefined): $MapDecoration;
         static fromWorld(arg0: $BlockGetter, arg1: $BlockPos_): $StationMarker;
+        static createStationDecoration(arg0: number, arg1: number, arg2: ($Component_) | undefined): $MapDecoration;
         getSource(): $BlockPos;
         getName(): $Component;
         static load(arg0: $CompoundTag_, arg1: $HolderLookup$Provider): $StationMarker;
@@ -124,5 +130,9 @@ declare module "@package/com/simibubi/create/content/trains/station" {
         save(arg0: $HolderLookup$Provider): $CompoundTag;
         getTarget(): $BlockPos;
         constructor(arg0: $BlockPos_, arg1: $BlockPos_, arg2: $Component_);
+        get source(): $BlockPos;
+        get name(): $Component;
+        get id(): string;
+        get target(): $BlockPos;
     }
 }

@@ -18,16 +18,16 @@ export * as textures from "@package/net/neoforged/neoforge/client/textures";
 
 declare module "@package/net/neoforged/neoforge/client" {
     export class $ChunkRenderTypeSet implements $Iterable<$RenderType>, $ChunkRenderTypeSetAccessor$1, $ChunkRenderTypeSetAccessor, $ExtendedChunkRenderTypeSet {
-        static setChunkRenderTypes$aeronautics_$md$e5fdf9$1(arg0: $RenderType[]): void;
-        static create$sodium_$md$e5fdf9$2(arg0: $BitSet): $ChunkRenderTypeSet;
-        static setChunkRenderTypesList$aeronautics_$md$e5fdf9$0(arg0: $List_<any>): void;
+        static create$sodium_$md$3675d4$2(arg0: $BitSet): $ChunkRenderTypeSet;
         sinytra$firstLayer(): $RenderType;
-        static intersection(...arg0: $ChunkRenderTypeSet[]): $ChunkRenderTypeSet;
+        static setChunkRenderTypesList$aeronautics_$md$3675d4$0(arg0: $List_<any>): void;
+        static setChunkRenderTypes$aeronautics_$md$3675d4$1(arg0: $RenderType[]): void;
+        static union(arg0: $Iterable_<$ChunkRenderTypeSet>): $ChunkRenderTypeSet;
+        static union(arg0: $Collection_<$ChunkRenderTypeSet>): $ChunkRenderTypeSet;
+        static union(...arg0: $ChunkRenderTypeSet[]): $ChunkRenderTypeSet;
         static intersection(arg0: $Collection_<$ChunkRenderTypeSet>): $ChunkRenderTypeSet;
         static intersection(arg0: $Iterable_<$ChunkRenderTypeSet>): $ChunkRenderTypeSet;
-        static union(...arg0: $ChunkRenderTypeSet[]): $ChunkRenderTypeSet;
-        static union(arg0: $Collection_<$ChunkRenderTypeSet>): $ChunkRenderTypeSet;
-        static union(arg0: $Iterable_<$ChunkRenderTypeSet>): $ChunkRenderTypeSet;
+        static intersection(...arg0: $ChunkRenderTypeSet[]): $ChunkRenderTypeSet;
         isEmpty(): boolean;
         iterator(): $Iterator<$RenderType>;
         static of(arg0: $Collection_<$RenderType>): $ChunkRenderTypeSet;
@@ -40,6 +40,10 @@ declare module "@package/net/neoforged/neoforge/client" {
         forEach(arg0: $Consumer_<$RenderType>): void;
         getBits(): $BitSet;
         [Symbol.iterator](): Iterator<$RenderType>
+        static set chunkRenderTypesList$aeronautics_$md$3675d4$0(value: $List_<any>);
+        static set chunkRenderTypes$aeronautics_$md$3675d4$1(value: $RenderType[]);
+        get empty(): boolean;
+        get bits(): $BitSet;
     }
     export class $DimensionTransitionScreenManager$ReceivingLevelScreenFactory {
     }
@@ -58,11 +62,12 @@ declare module "@package/net/neoforged/neoforge/client" {
         type(): string;
         constructor(arg0: string, arg1: boolean, arg2: number, arg3: string);
         constructor(type: string, isCompatible: boolean, numberOfMods: number, extraReason: string, truncated: boolean);
+        get compatible(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $ExtendedServerListData}.
      */
-    export type $ExtendedServerListData_ = { extraReason?: string, isCompatible?: boolean, truncated?: boolean, type?: string, numberOfMods?: number,  } | [extraReason?: string, isCompatible?: boolean, truncated?: boolean, type?: string, numberOfMods?: number, ];
+    export type $ExtendedServerListData_ = { isCompatible?: boolean, extraReason?: string, numberOfMods?: number, type?: string, truncated?: boolean,  } | [isCompatible?: boolean, extraReason?: string, numberOfMods?: number, type?: string, truncated?: boolean, ];
     export class $RenderTypeGroup extends $Record {
         entityFabulous(): $RenderType;
         entity(): $RenderType;
@@ -71,11 +76,12 @@ declare module "@package/net/neoforged/neoforge/client" {
         static EMPTY: $RenderTypeGroup;
         constructor(block: $RenderType, entity: $RenderType, entityFabulous: $RenderType);
         constructor(arg0: $RenderType, arg1: $RenderType);
+        get empty(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $RenderTypeGroup}.
      */
-    export type $RenderTypeGroup_ = { entity?: $RenderType, block?: $RenderType, entityFabulous?: $RenderType,  } | [entity?: $RenderType, block?: $RenderType, entityFabulous?: $RenderType, ];
+    export type $RenderTypeGroup_ = { entity?: $RenderType, entityFabulous?: $RenderType, block?: $RenderType,  } | [entity?: $RenderType, entityFabulous?: $RenderType, block?: $RenderType, ];
     /**
      * An ItemDecorator that is used to render something on specific items, when the DurabilityBar and StackCount is rendered.
      * Add it to an item using RegisterItemDecorationsEvent#register(ItemLike, IItemDecorator).

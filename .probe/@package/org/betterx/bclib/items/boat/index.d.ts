@@ -1,11 +1,11 @@
 import { $ListModel } from "@package/net/minecraft/client/model";
-import { $ModCore } from "@package/org/betterx/wover/core/api";
 import { $EntityRendererProvider$Context } from "@package/net/minecraft/client/renderer/entity";
+import { $ModCore } from "@package/org/betterx/wover/core/api";
 import { $Stream } from "@package/java/util/stream";
 import { $BoatItem, $Item$Properties } from "@package/net/minecraft/world/item";
 import { $ResourceLocation } from "@package/net/minecraft/resources";
 import { $ModelLayerLocation } from "@package/net/minecraft/client/model/geom";
-import { $Block_, $Block } from "@package/net/minecraft/world/level/block";
+import { $Block, $Block_ } from "@package/net/minecraft/world/level/block";
 import { $Boat } from "@package/net/minecraft/world/entity/vehicle";
 
 declare module "@package/org/betterx/bclib/items/boat" {
@@ -14,8 +14,8 @@ declare module "@package/org/betterx/bclib/items/boat" {
         setBoatItem(arg0: $BoatItem): void;
         getBoatModel(arg0: boolean): $ListModel<$Boat>;
         createBoatModels(arg0: $EntityRendererProvider$Context): void;
-        createItem(arg0: boolean): $BoatItem;
         createItem(arg0: boolean, arg1: $Item$Properties): $BoatItem;
+        createItem(arg0: boolean): $BoatItem;
         getPlanks(): $Block;
         getBoatItem(): $BoatItem;
         getChestBoatItem(): $BoatItem;
@@ -32,6 +32,7 @@ declare module "@package/org/betterx/bclib/items/boat" {
         id: $ResourceLocation;
         chestBoatModelName: $ModelLayerLocation;
         isRaft: boolean;
+        get planks(): $Block;
     }
     export class $CustomBoatTypeOverride {
     }

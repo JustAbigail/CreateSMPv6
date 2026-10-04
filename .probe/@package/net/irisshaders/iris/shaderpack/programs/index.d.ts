@@ -20,6 +20,15 @@ declare module "@package/net/irisshaders/iris/shaderpack/programs" {
         getName(): string;
         getParent(): $ProgramSet;
         constructor(arg0: string, arg1: string, arg2: string, arg3: string, arg4: string, arg5: string, arg6: $ProgramSet, arg7: $ShaderProperties, arg8: $BlendModeOverride);
+        get directives(): $ProgramDirectives;
+        get geometrySource(): (string) | undefined;
+        get vertexSource(): (string) | undefined;
+        get tessControlSource(): (string) | undefined;
+        get tessEvalSource(): (string) | undefined;
+        get fragmentSource(): (string) | undefined;
+        get valid(): boolean;
+        get name(): string;
+        get parent(): $ProgramSet;
     }
     export class $ComputeSource {
         getWorkGroupRelative(): $Vector2f;
@@ -28,11 +37,16 @@ declare module "@package/net/irisshaders/iris/shaderpack/programs" {
         setWorkGroupRelative(arg0: $Vector2f): void;
         setWorkGroups(arg0: $Vector3i): void;
         requireValid(): ($ComputeSource) | undefined;
-        isValid(): boolean;
         getSource(): (string) | undefined;
+        isValid(): boolean;
         getName(): string;
         getParent(): $ProgramSet;
         constructor(arg0: string, arg1: string, arg2: $ProgramSet, arg3: $ShaderProperties);
+        get indirectPointer(): $IndirectPointer;
+        get source(): (string) | undefined;
+        get valid(): boolean;
+        get name(): string;
+        get parent(): $ProgramSet;
     }
     export class $ProgramSetInterface {
     }
@@ -47,12 +61,17 @@ declare module "@package/net/irisshaders/iris/shaderpack/programs" {
     export class $ProgramSet implements $ProgramSetInterface {
         getPack(): $ShaderPack;
         getPackDirectives(): $PackDirectives;
+        getComposite(arg0: $ProgramArrayId_): $ProgramSource[];
         getShadowCompute(): $ComputeSource[];
         getCompute(arg0: $ProgramArrayId_): $ComputeSource[][];
         getSetup(): $ComputeSource[];
         getFinalCompute(): $ComputeSource[];
-        getComposite(arg0: $ProgramArrayId_): $ProgramSource[];
         get(arg0: $ProgramId_): ($ProgramSource) | undefined;
         constructor(arg0: $AbsolutePackPath, arg1: $Function_<$AbsolutePackPath, string>, arg2: $ShaderProperties, arg3: $ShaderPack);
+        get pack(): $ShaderPack;
+        get packDirectives(): $PackDirectives;
+        get shadowCompute(): $ComputeSource[];
+        get setup(): $ComputeSource[];
+        get finalCompute(): $ComputeSource[];
     }
 }

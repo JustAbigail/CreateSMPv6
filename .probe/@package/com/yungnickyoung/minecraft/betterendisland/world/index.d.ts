@@ -7,10 +7,10 @@ import { $StringRepresentable$EnumCodec, $StringRepresentable } from "@package/n
 
 declare module "@package/com/yungnickyoung/minecraft/betterendisland/world" {
     export class $DragonRespawnStage extends $Enum<$DragonRespawnStage> implements $StringRepresentable {
+        tick(arg0: $ServerLevel, arg1: $EndDragonFight, arg2: $List_<$EndCrystal>, arg3: number): void;
         static values(): $DragonRespawnStage[];
         static valueOf(arg0: string): $DragonRespawnStage;
         onStart(arg0: $ServerLevel, arg1: $IBetterDragonFight): void;
-        tick(arg0: $ServerLevel, arg1: $EndDragonFight, arg2: $List_<$EndCrystal>, arg3: number): void;
         static byName(arg0: string | null): $DragonRespawnStage;
         getSerializedName(): string;
         getRemappedEnumConstantName(): string;
@@ -20,6 +20,8 @@ declare module "@package/com/yungnickyoung/minecraft/betterendisland/world" {
         static END: $DragonRespawnStage;
         static PREPARING_TO_SUMMON_PILLARS: $DragonRespawnStage;
         static SUMMONING_DRAGON: $DragonRespawnStage;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $DragonRespawnStage}.
@@ -40,11 +42,14 @@ declare module "@package/com/yungnickyoung/minecraft/betterendisland/world" {
         doInitialDragonSpawn(): void;
         tickBellSound(): void;
         reset(arg0: boolean): void;
+        get firstExitPortalSpawn(): boolean;
     }
     export class $IEndSpike {
     }
     export interface $IEndSpike {
         setCrystalYOffsetFromPillarHeight(arg0: number): void;
         getCrystalYOffset(): number;
+        set crystalYOffsetFromPillarHeight(value: number);
+        get crystalYOffset(): number;
     }
 }

@@ -8,6 +8,7 @@ declare module "@package/net/minecraft/util/random" {
         getWeight(): $Weight;
         constructor(weight: number);
         constructor(weight: $Weight);
+        get weight(): $Weight;
     }
     export class $WeightedRandomList<E extends $WeightedEntry> {
         getRandom(random: $RandomSource): (E) | undefined;
@@ -18,6 +19,7 @@ declare module "@package/net/minecraft/util/random" {
         unwrap(): $List<E>;
         static codec<E extends $WeightedEntry>(elementCodec: $Codec<E>): $Codec<$WeightedRandomList<E>>;
         constructor(items: $List_<E>);
+        get empty(): boolean;
     }
     export class $Weight {
         asInt(): number;
@@ -25,8 +27,8 @@ declare module "@package/net/minecraft/util/random" {
         static CODEC: $Codec<$Weight>;
     }
     export class $SimpleWeightedRandomList<E> extends $WeightedRandomList<$WeightedEntry$Wrapper<E>> {
-        static wrappedCodec<E>(elementCodec: $Codec<E>): $Codec<$SimpleWeightedRandomList<E>>;
         getRandomValue(random: $RandomSource): ($WeightedEntry$Wrapper<E>) | undefined;
+        static wrappedCodec<E>(elementCodec: $Codec<E>): $Codec<$SimpleWeightedRandomList<E>>;
         static wrappedCodecAllowingEmpty<E>(elementCodec: $Codec<E>): $Codec<$SimpleWeightedRandomList<E>>;
         static builder<E>(): $SimpleWeightedRandomList$Builder<E>;
         static single<E>(data: E): $SimpleWeightedRandomList<E>;
@@ -38,6 +40,7 @@ declare module "@package/net/minecraft/util/random" {
     }
     export interface $WeightedEntry {
         getWeight(): $Weight;
+        get weight(): $Weight;
     }
     /**
      * Values that may be interpreted as {@link $WeightedEntry}.
@@ -53,7 +56,7 @@ declare module "@package/net/minecraft/util/random" {
     /**
      * Values that may be interpreted as {@link $WeightedEntry$Wrapper}.
      */
-    export type $WeightedEntry$Wrapper_<T> = { weight?: $Weight, data?: any,  } | [weight?: $Weight, data?: any, ];
+    export type $WeightedEntry$Wrapper_<T> = { data?: any, weight?: $Weight,  } | [data?: any, weight?: $Weight, ];
     export class $SimpleWeightedRandomList$Builder<E> {
         add(data: E, weight: number): $SimpleWeightedRandomList$Builder<E>;
         add(data: E): $SimpleWeightedRandomList$Builder<E>;

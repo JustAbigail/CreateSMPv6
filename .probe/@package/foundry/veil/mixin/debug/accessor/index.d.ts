@@ -6,6 +6,7 @@ declare module "@package/foundry/veil/mixin/debug/accessor" {
     }
     export interface $DebugPostChainAccessor {
         getPasses(): $List<$PostPass>;
+        get passes(): $List<$PostPass>;
     }
     /**
      * Values that may be interpreted as {@link $DebugPostChainAccessor}.
@@ -17,11 +18,16 @@ declare module "@package/foundry/veil/mixin/debug/accessor" {
         getPostEffect(): $PostChain;
         getShaders(): $Map<string, $ShaderInstance>;
         getBlitShader(): $ShaderInstance;
+        get postEffect(): $PostChain;
+        get shaders(): $Map<string, $ShaderInstance>;
+        get blitShader(): $ShaderInstance;
     }
     export class $DebugLevelRendererAccessor {
     }
     export interface $DebugLevelRendererAccessor {
         getEntityEffect(): $PostChain;
         getTransparencyChain(): $PostChain;
+        get entityEffect(): $PostChain;
+        get transparencyChain(): $PostChain;
     }
 }

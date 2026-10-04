@@ -10,5 +10,9 @@ declare module "@package/dev/architectury/registry/registries" {
         getRegistryKey(): $ResourceKey<$Registry<T>>;
         getKey(): $ResourceKey<T>;
         getId(): $ResourceLocation;
+        get registryId(): $ResourceLocation;
+        get registryKey(): $ResourceKey<$Registry<T>>;
+        get key(): $ResourceKey<T>;
+        get id(): $ResourceLocation;
     }
 }

@@ -16,14 +16,17 @@ declare module "@package/net/neoforged/neoforge/event/village" {
      * To add trades to the merchant, simply add new trades to the list. `BasicItemListing` provides a default implementation.
      */
     export class $WandererTradesEvent extends $Event {
+        getRegistryAccess(): $RegistryAccess;
         getGenericTrades(): $List<$VillagerTrades$ItemListing>;
         getRareTrades(): $List<$VillagerTrades$ItemListing>;
-        getRegistryAccess(): $RegistryAccess;
         constructor(generic: $List_<$VillagerTrades$ItemListing_>, rare: $List_<$VillagerTrades$ItemListing_>, registryAccess: $RegistryAccess);
         /**
          * @deprecated
          */
         constructor(generic: $List_<$VillagerTrades$ItemListing_>, rare: $List_<$VillagerTrades$ItemListing_>);
+        get registryAccess(): $RegistryAccess;
+        get genericTrades(): $List<$VillagerTrades$ItemListing>;
+        get rareTrades(): $List<$VillagerTrades$ItemListing>;
     }
     /**
      * VillageSiegeEvent is fired just before a zombie siege finds a successful location in
@@ -43,6 +46,10 @@ declare module "@package/net/neoforged/neoforge/event/village" {
         setCanceled(arg0: boolean): void;
         isCanceled(): boolean;
         constructor(siege: $VillageSiege, level: $Level_, player: $Player, attemptedSpawnPos: $Vec3_);
+        get siege(): $VillageSiege;
+        get attemptedSpawnPos(): $Vec3;
+        get player(): $Player;
+        get level(): $Level;
     }
     /**
      * VillagerTradesEvent is fired during reload by `TagsUpdatedEvent`. It is used to gather the trade lists for each profession.
@@ -55,13 +62,16 @@ declare module "@package/net/neoforged/neoforge/event/village" {
      * To add trades to the merchant, simply add new trades to the list. `BasicItemListing` provides a default implementation.
      */
     export class $VillagerTradesEvent extends $Event {
-        getTrades(): $Int2ObjectMap<$List<$VillagerTrades$ItemListing>>;
         getRegistryAccess(): $RegistryAccess;
+        getTrades(): $Int2ObjectMap<$List<$VillagerTrades$ItemListing>>;
         getType(): $VillagerProfession;
         constructor(trades: $Int2ObjectMap<$List_<$VillagerTrades$ItemListing_>>, type: $VillagerProfession_, registryAccess: $RegistryAccess);
         /**
          * @deprecated
          */
         constructor(trades: $Int2ObjectMap<$List_<$VillagerTrades$ItemListing_>>, type: $VillagerProfession_);
+        get registryAccess(): $RegistryAccess;
+        get trades(): $Int2ObjectMap<$List<$VillagerTrades$ItemListing>>;
+        get type(): $VillagerProfession;
     }
 }

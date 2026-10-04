@@ -6,6 +6,7 @@ declare module "@package/xaero/pac/common/mixin/create" {
     }
     export interface $MixinAccessorDeployerFakePlayer {
         getBlockBreakingProgress(): $Pair<$BlockPos, number>;
+        get blockBreakingProgress(): $Pair<$BlockPos, number>;
     }
     /**
      * Values that may be interpreted as {@link $MixinAccessorDeployerFakePlayer}.

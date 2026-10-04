@@ -41,5 +41,6 @@ declare module "@package/net/minecraft/world/flag" {
         static create(universe: $FeatureFlagUniverse, flags: $Collection_<$FeatureFlag>): $FeatureFlagSet;
         isSubsetOf(set: $FeatureFlagSet): boolean;
         static MAX_CONTAINER_SIZE: number;
+        get empty(): boolean;
     }
 }

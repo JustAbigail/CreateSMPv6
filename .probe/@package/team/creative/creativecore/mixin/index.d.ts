@@ -9,6 +9,7 @@ declare module "@package/team/creative/creativecore/mixin" {
     }
     export interface $MouseHandlerAccessor {
         getLastHandleMovementTime(): number;
+        get lastHandleMovementTime(): number;
     }
     /**
      * Values that may be interpreted as {@link $MouseHandlerAccessor}.
@@ -18,6 +19,7 @@ declare module "@package/team/creative/creativecore/mixin" {
     }
     export interface $VanillaPackResourcesAccessor {
         getPathsForType(): $Map<$PackType, $List<$Path>>;
+        get pathsForType(): $Map<$PackType, $List<$Path>>;
     }
     /**
      * Values that may be interpreted as {@link $VanillaPackResourcesAccessor}.
@@ -27,6 +29,7 @@ declare module "@package/team/creative/creativecore/mixin" {
     }
     export interface $StringSplitterAccessor {
         getWidthProvider(): $StringSplitter$WidthProvider;
+        get widthProvider(): $StringSplitter$WidthProvider;
     }
     /**
      * Values that may be interpreted as {@link $StringSplitterAccessor}.
@@ -36,6 +39,7 @@ declare module "@package/team/creative/creativecore/mixin" {
     }
     export interface $VoxelShapeAccessor {
         setShape(arg0: $DiscreteVoxelShape): void;
+        set shape(value: $DiscreteVoxelShape);
     }
     /**
      * Values that may be interpreted as {@link $VoxelShapeAccessor}.

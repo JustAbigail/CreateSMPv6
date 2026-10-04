@@ -18,6 +18,7 @@ declare module "@package/org/embeddedt/modernfix/duck" {
     export interface $IBlockState {
         isCacheInvalid(): boolean;
         clearCache(): void;
+        get cacheInvalid(): boolean;
     }
     export class $IChunkGenerator {
     }

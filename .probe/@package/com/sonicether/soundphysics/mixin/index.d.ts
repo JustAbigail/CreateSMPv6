@@ -4,6 +4,7 @@ declare module "@package/com/sonicether/soundphysics/mixin" {
     }
     export interface $ChannelAccessor {
         getSource(): number;
+        get source(): number;
     }
     /**
      * Values that may be interpreted as {@link $ChannelAccessor}.

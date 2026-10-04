@@ -12,6 +12,9 @@ declare module "@package/dev/ryanhcode/sable/api/sublevel/ticket" {
         getKey(): T;
         getType(): $SubLevelLoadingTicketType<T>;
         constructor(arg0: $SubLevelLoadingTicketType_<T>, arg1: $UUID_, arg2: T);
+        get subLevelId(): $UUID;
+        get key(): T;
+        get type(): $SubLevelLoadingTicketType<T>;
     }
     export class $SubLevelLoadingTicketType<T> extends $Record {
         name(): $ResourceLocation;

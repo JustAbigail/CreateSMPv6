@@ -1,6 +1,6 @@
 import { $Behavior } from "@package/net/minecraft/world/entity/ai/behavior";
 import { $NonNullList } from "@package/net/minecraft/core";
-import { $Sensor, $SensorType } from "@package/net/minecraft/world/entity/ai/sensing";
+import { $SensorType, $Sensor } from "@package/net/minecraft/world/entity/ai/sensing";
 import { $ItemStack, $ItemStack_ } from "@package/net/minecraft/world/item";
 import { $ModelPart } from "@package/net/minecraft/client/model/geom";
 import { $LivingEntity } from "@package/net/minecraft/world/entity";
@@ -13,6 +13,7 @@ declare module "@package/net/mehvahdjukaar/moonlight/core/mixins/accessor" {
     }
     export interface $DispenserBlockEntityAccessor {
         getItems(): $NonNullList<$ItemStack>;
+        get items(): $NonNullList<$ItemStack>;
     }
     /**
      * Values that may be interpreted as {@link $DispenserBlockEntityAccessor}.
@@ -23,6 +24,8 @@ declare module "@package/net/mehvahdjukaar/moonlight/core/mixins/accessor" {
     export interface $BrainAccessor<E extends $LivingEntity> {
         getSensors(): $Map<$SensorType<$Sensor<E>>, $Sensor<E>>;
         getAvailableBehaviorsByPriority(): $Map<number, $Map<$Activity, $Set<$Behavior<E>>>>;
+        get sensors(): $Map<$SensorType<$Sensor<E>>, $Sensor<E>>;
+        get availableBehaviorsByPriority(): $Map<number, $Map<$Activity, $Set<$Behavior<E>>>>;
     }
     export class $AgeableListModelAccessor {
     }

@@ -27,12 +27,12 @@ import { $Vec3 } from "@package/net/minecraft/world/phys";
 
 declare module "@package/net/minecraft/world/entity/ambient" {
     export class $Bat extends $AmbientCreature {
-        setResting(isResting: boolean): void;
         /**
          * Return whether this entity should NOT trigger a pressure plate or a tripwire.
          */
         isResting(): boolean;
         static checkBatSpawnRules(bat: $EntityType_<$Bat>, level: $LevelAccessor, spawnType: $MobSpawnType_, pos: $BlockPos_, random: $RandomSource): boolean;
+        setResting(isResting: boolean): void;
         static createAttributes(): $AttributeSupplier$Builder;
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
         static MAX_WEARING_ARMOR_CHANCE: number;

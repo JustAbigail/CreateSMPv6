@@ -6,14 +6,16 @@ declare module "@package/dev/worldgen/lithostitched/api/predicate" {
         static packFormat(supportedFormats: $InclusiveRange_<number>): $LoadPredicate;
         static isNeoforge(): $LoadPredicate;
         static modLoaded(modId: string): $LoadPredicate;
-        static anyOf(...predicates: $LoadPredicate[]): $LoadPredicate;
-        static allOf(...predicates: $LoadPredicate[]): $LoadPredicate;
         static alwaysFalse(): $LoadPredicate;
         static alwaysTrue(): $LoadPredicate;
         static not(predicate: $LoadPredicate): $LoadPredicate;
+        static anyOf(...predicates: $LoadPredicate[]): $LoadPredicate;
+        static allOf(...predicates: $LoadPredicate[]): $LoadPredicate;
         static isFabric(): $LoadPredicate;
         static CODEC: $Codec<$LoadPredicate>;
         static FIELD_CODEC: $MapCodec<($LoadPredicate) | undefined>;
+        static get neoforge(): $LoadPredicate;
+        static get fabric(): $LoadPredicate;
     }
     export interface $LoadPredicate {
         test(): boolean;

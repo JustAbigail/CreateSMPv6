@@ -13,8 +13,8 @@ import { $Path_, $Path } from "@package/java/nio/file";
 import { $PackType_ } from "@package/net/minecraft/server/packs";
 import { $BlockState_ } from "@package/net/minecraft/world/level/block/state";
 import { $StackTraceElement, $Throwable, $Enum, $Record, $RuntimeException, $StringBuilder, $Object } from "@package/java/lang";
-export * as world from "@package/net/minecraft/world";
 export * as network from "@package/net/minecraft/network";
+export * as world from "@package/net/minecraft/world";
 export * as server from "@package/net/minecraft/server";
 export * as commands from "@package/net/minecraft/commands";
 export * as client from "@package/net/minecraft/client";
@@ -36,14 +36,6 @@ declare module "@package/net/minecraft" {
          */
         isColor(): boolean;
         /**
-         * Gets all the valid values.
-         */
-        static getNames(getColor: boolean, getFancyStyling: boolean): $Collection<any>;
-        /**
-         * Returns the numerical color index that represents this formatting
-         */
-        kjs$getARGB(): number;
-        /**
          * Returns the numerical color index that represents this formatting
          */
         kjs$getRGB(): number;
@@ -57,6 +49,14 @@ declare module "@package/net/minecraft" {
          */
         static getById(index: number): $ChatFormatting;
         static getByCode(formattingCode: string): $ChatFormatting;
+        /**
+         * Returns the numerical color index that represents this formatting
+         */
+        kjs$getARGB(): number;
+        /**
+         * Gets all the valid values.
+         */
+        static getNames(getColor: boolean, getFancyStyling: boolean): $Collection<any>;
         /**
          * Gets the friendly name of this value.
          */
@@ -122,6 +122,12 @@ declare module "@package/net/minecraft" {
         static DARK_GREEN: $ChatFormatting;
         static YELLOW: $ChatFormatting;
         static DARK_GRAY: $ChatFormatting;
+        get format(): boolean;
+        get char(): string;
+        get id(): number;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
+        get fireworkRGB(): number;
     }
     /**
      * Values that may be interpreted as {@link $ChatFormatting}.
@@ -136,13 +142,13 @@ declare module "@package/net/minecraft" {
      */
     export type $CrashReportDetail_<V> = (() => void);
     export class $CrashReportCategory {
+        static populateBlockDetails(category: $CrashReportCategory, levelHeightAccessor: $LevelHeightAccessor, pos: $BlockPos_, state: $BlockState_ | null): void;
         getDetails(builder: $StringBuilder): void;
         getStacktrace(): $StackTraceElement[];
         /**
          * Do the deepest two elements of our saved stack trace match the given elements, in order from the deepest?
          */
         validateStackTrace(s1: $StackTraceElement, s2: $StackTraceElement): boolean;
-        static populateBlockDetails(category: $CrashReportCategory, levelHeightAccessor: $LevelHeightAccessor, pos: $BlockPos_, state: $BlockState_ | null): void;
         /**
          * Removes the given number entries from the bottom of the stack trace.
          */
@@ -166,26 +172,31 @@ declare module "@package/net/minecraft" {
          * If the given callable throws an exception, a detail containing that exception will be created instead.
          */
         setDetail(name: string, detail: $CrashReportDetail_<string>): $CrashReportCategory;
-        static formatLocation(levelHeightAccess: $LevelHeightAccessor, pos: $BlockPos_): string;
         static formatLocation(levelHeightAccess: $LevelHeightAccessor, x: number, arg2: number, y: number): string;
         static formatLocation(levelHeightAccess: $LevelHeightAccessor, x: number, y: number, z: number): string;
+        static formatLocation(levelHeightAccess: $LevelHeightAccessor, pos: $BlockPos_): string;
         /**
          * Adds a Crashreport section with the given name with the given Throwable
          */
         setDetailError(sectionName: string, throwable: $Throwable): void;
         constructor(title: string);
+        get stacktrace(): $StackTraceElement[];
+        set stackTrace(value: $StackTraceElement[]);
     }
     export class $SystemReport implements $SystemReportAccessor {
-        appendToCrashReportString(reportAppender: $StringBuilder): void;
         static sizeInMiB(bytes: number): number;
-        static getOPERATING_SYSTEM$create_$md$e5fdf9$2(): string;
-        static getJAVA_VERSION$create_$md$e5fdf9$3(): string;
+        appendToCrashReportString(reportAppender: $StringBuilder): void;
+        static getOPERATING_SYSTEM$create_$md$3675d4$2(): string;
+        static getJAVA_VERSION$create_$md$3675d4$3(): string;
         setDetail(identifier: string, value: string): void;
         setDetail(property: string, valueSupplier: $Supplier_<string>): void;
         toLineSeparatedString(): string;
         getEntries(): $Map<string, string>;
         static BYTES_PER_MEBIBYTE: number;
         constructor();
+        static get OPERATING_SYSTEM$create_$md$3675d4$2(): string;
+        static get JAVA_VERSION$create_$md$3675d4$3(): string;
+        get entries(): $Map<string, string>;
     }
     export class $BlockUtil$FoundRectangle {
         axis1Size: number;
@@ -203,6 +214,12 @@ declare module "@package/net/minecraft" {
         getDataVersion(): $DataVersion;
         getPackVersion(packType: $PackType_): number;
         getBuildTime(): $Date;
+        get protocolVersion(): number;
+        get name(): string;
+        get id(): string;
+        get stable(): boolean;
+        get dataVersion(): $DataVersion;
+        get buildTime(): $Date;
     }
     export class $CrashReport {
         /**
@@ -227,24 +244,29 @@ declare module "@package/net/minecraft" {
          * Gets the stack trace of the Throwable that caused this crash report, or if that fails, the cause `.toString()`.
          */
         getTitle(): string;
+        static preload(): void;
         /**
          * Creates a crash report for the exception
          */
         static forThrowable(cause: $Throwable, description: string): $CrashReport;
         /**
-         * Creates a CrashReportCategory for the given stack trace depth
-         */
-        addCategory(categoryName: string, stacktraceLength: number): $CrashReportCategory;
-        /**
          * Creates a CrashReportCategory
          */
         addCategory(name: string): $CrashReportCategory;
-        getFriendlyReport(type: $ReportType_, links: $List_<string>): string;
-        getFriendlyReport(type: $ReportType_): string;
-        getSaveFile(): $Path;
+        /**
+         * Creates a CrashReportCategory for the given stack trace depth
+         */
+        addCategory(categoryName: string, stacktraceLength: number): $CrashReportCategory;
         getSystemReport(): $SystemReport;
-        static preload(): void;
+        getFriendlyReport(type: $ReportType_): string;
+        getFriendlyReport(type: $ReportType_, links: $List_<string>): string;
+        getSaveFile(): $Path;
         constructor(title: string, exception: $Throwable);
+        get exceptionMessage(): string;
+        get exception(): $Throwable;
+        get title(): string;
+        get systemReport(): $SystemReport;
+        get saveFile(): $Path;
     }
     export class $ReportedException extends $RuntimeException {
         /**
@@ -252,21 +274,23 @@ declare module "@package/net/minecraft" {
          */
         getReport(): $CrashReport;
         constructor(report: $CrashReport);
+        get report(): $CrashReport;
     }
     export class $ReportType extends $Record {
         appendHeader(builder: $StringBuilder, links: $List_<string>): void;
-        nuggets(): $List<string>;
         getErrorComment(): string;
         header(): string;
+        nuggets(): $List<string>;
         static CRASH: $ReportType;
         static PROFILE: $ReportType;
         static TEST: $ReportType;
         static CHUNK_IO_ERROR: $ReportType;
         static NETWORK_PROTOCOL_ERROR: $ReportType;
         constructor(header: string, nuggets: $List_<string>);
+        get errorComment(): string;
     }
     /**
      * Values that may be interpreted as {@link $ReportType}.
      */
-    export type $ReportType_ = { header?: string, nuggets?: $List_<string>,  } | [header?: string, nuggets?: $List_<string>, ];
+    export type $ReportType_ = { nuggets?: $List_<string>, header?: string,  } | [nuggets?: $List_<string>, header?: string, ];
 }

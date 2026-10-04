@@ -30,17 +30,23 @@ declare module "@package/io/homo/irisapi" {
     export class $UniformRegistrationEvent extends $Event {
         getUniforms(): $UniformHolder;
         constructor(arg0: $UniformHolder);
+        get uniforms(): $UniformHolder;
     }
     export class $IrisCompositePassRenderingEvent$PassEnd extends $IrisCompositePassRenderingEvent {
         constructor(arg0: $ICompositeRendererAccessor, arg1: $IrisCompositeRenderingPhase_, arg2: string, arg3: $IrisCompositePassType_, arg4: $NamedCompositePass);
     }
     export class $IrisCompositePassRenderingEvent extends $Event {
         getCompositeRenderer(): $ICompositeRendererAccessor;
-        getPassName(): string;
         getCompositePass(): $NamedCompositePass;
+        getPassName(): string;
         getPassType(): $IrisCompositePassType;
         getPhase(): $IrisCompositeRenderingPhase;
         constructor();
+        get compositeRenderer(): $ICompositeRendererAccessor;
+        get compositePass(): $NamedCompositePass;
+        get passName(): string;
+        get passType(): $IrisCompositePassType;
+        get phase(): $IrisCompositeRenderingPhase;
     }
     export class $ShaderPackLifecycleEvents$Created$Post extends $ShaderPackLifecycleEvents {
         constructor(arg0: $ShaderPack);
@@ -88,8 +94,8 @@ declare module "@package/io/homo/irisapi" {
         getFlippedAtLeastOnceFinal(): $ImmutableSet<number>;
         getCustomUniforms(): $CustomUniforms;
         getPasses(): $ImmutableList<$NamedCompositePass>;
-        setPipeline(arg0: $WorldRenderingPipeline): void;
         isSameInstance(arg0: $ICompositeRendererAccessor): boolean;
+        setPipeline(arg0: $WorldRenderingPipeline): void;
         setRenderTargets(arg0: $RenderTargets): void;
         setPasses(arg0: $ImmutableList<$NamedCompositePass>): void;
         setNoiseTexture(arg0: $TextureAccess): void;
@@ -107,10 +113,12 @@ declare module "@package/io/homo/irisapi" {
         getPhase(): $IrisCompositeRenderingPhase;
         getPipeline(): $WorldRenderingPipeline;
         getRenderTargets(): $RenderTargets;
+        get phase(): $IrisCompositeRenderingPhase;
     }
     export class $ShaderPackLifecycleEvents extends $Event {
         getShaderPack(): $ShaderPack;
         constructor();
+        get shaderPack(): $ShaderPack;
     }
     export class $IrisCompositePassRenderingEvent$PassBegin extends $IrisCompositePassRenderingEvent {
         constructor(arg0: $ICompositeRendererAccessor, arg1: $IrisCompositeRenderingPhase_, arg2: string, arg3: $IrisCompositePassType_, arg4: $NamedCompositePass);
@@ -119,9 +127,10 @@ declare module "@package/io/homo/irisapi" {
         constructor(arg0: $ICompositeRendererAccessor, arg1: $IrisCompositeRenderingPhase_, arg2: string, arg3: $IrisCompositePassType_, arg4: $NamedCompositePass);
     }
     export class $MacroRegistrationEvent extends $Event {
+        getMacros(): $List<$StringPair>;
         registerMacro(arg0: string, arg1: string): void;
         registerMacros(arg0: $List_<$StringPair_>): void;
-        getMacros(): $List<$StringPair>;
         constructor();
+        get macros(): $List<$StringPair>;
     }
 }

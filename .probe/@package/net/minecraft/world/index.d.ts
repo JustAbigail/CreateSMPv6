@@ -61,6 +61,7 @@ declare module "@package/net/minecraft/world" {
         static YELLOW: $BossEvent$BossBarColor;
         static PURPLE: $BossEvent$BossBarColor;
         static GREEN: $BossEvent$BossBarColor;
+        get formatting(): $ChatFormatting;
     }
     /**
      * Values that may be interpreted as {@link $BossEvent$BossBarColor}.
@@ -69,10 +70,14 @@ declare module "@package/net/minecraft/world" {
     export class $DifficultyInstance {
         isHard(): boolean;
         getSpecialMultiplier(): number;
-        isHarderThan(difficulty: number): boolean;
         getEffectiveDifficulty(): number;
+        isHarderThan(difficulty: number): boolean;
         getDifficulty(): $Difficulty;
         constructor(base: $Difficulty_, levelTime: number, arg2: number, chunkInhabitedTime: number);
+        get hard(): boolean;
+        get specialMultiplier(): number;
+        get effectiveDifficulty(): number;
+        get difficulty(): $Difficulty;
     }
     export class $BossEvent$BossBarOverlay extends $Enum<$BossEvent$BossBarOverlay> {
         getName(): string;
@@ -90,31 +95,33 @@ declare module "@package/net/minecraft/world" {
      */
     export type $BossEvent$BossBarOverlay_ = "progress" | "notched_6" | "notched_10" | "notched_12" | "notched_20";
     export class $InteractionResultHolder<T> {
-        static sidedSuccess<T>(object: T, isClientSide: boolean): $InteractionResultHolder<T>;
-        static pass<T>(type: T): $InteractionResultHolder<T>;
-        static success<T>(type: T): $InteractionResultHolder<T>;
         static consume<T>(type: T): $InteractionResultHolder<T>;
+        static pass<T>(type: T): $InteractionResultHolder<T>;
         getResult(): $InteractionResult;
+        static success<T>(type: T): $InteractionResultHolder<T>;
         static fail<T>(type: T): $InteractionResultHolder<T>;
         getObject(): T;
+        static sidedSuccess<T>(object: T, isClientSide: boolean): $InteractionResultHolder<T>;
         constructor(result: $InteractionResult_, object: T);
+        get result(): $InteractionResult;
+        get object(): T;
     }
     export class $BossEvent {
-        shouldDarkenScreen(): boolean;
+        shouldCreateWorldFog(): boolean;
         setPlayBossMusic(createFog: boolean): $BossEvent;
         setCreateWorldFog(createFog: boolean): $BossEvent;
         shouldPlayBossMusic(): boolean;
+        getProgress(): number;
         setDarkenScreen(createFog: boolean): $BossEvent;
         setProgress(progress: number): void;
-        getProgress(): number;
+        setColor(color: $BossEvent$BossBarColor_): void;
         getName(): $Component;
         setName(name: $Component_): void;
         getId(): $UUID;
-        setColor(color: $BossEvent$BossBarColor_): void;
         getColor(): $BossEvent$BossBarColor;
+        shouldDarkenScreen(): boolean;
         setOverlay(overlay: $BossEvent$BossBarOverlay_): void;
         getOverlay(): $BossEvent$BossBarOverlay;
-        shouldCreateWorldFog(): boolean;
         darkenScreen: boolean;
         playBossMusic: boolean;
         color: $BossEvent$BossBarColor;
@@ -123,6 +130,7 @@ declare module "@package/net/minecraft/world" {
         progress: number;
         createWorldFog: boolean;
         constructor(id: $UUID_, name: $Component_, color: $BossEvent$BossBarColor_, overlay: $BossEvent$BossBarOverlay_);
+        get id(): $UUID;
     }
     export class $Nameable {
     }
@@ -131,6 +139,9 @@ declare module "@package/net/minecraft/world" {
         getCustomName(): $Component;
         getDisplayName(): $Component;
         getName(): $Component;
+        get customName(): $Component;
+        get displayName(): $Component;
+        get name(): $Component;
     }
     /**
      * Values that may be interpreted as {@link $Nameable}.
@@ -176,32 +187,32 @@ declare module "@package/net/minecraft/world" {
      */
     export type $LockCode_ = { key?: string,  } | [key?: string, ];
     export class $SimpleContainer implements $Container, $StackedContentsCompatible, $SpecialLogicInventory {
+        removeAllItems(): $List<$ItemStack>;
+        createTag(levelRegistry: $HolderLookup$Provider): $ListTag;
         /**
          * Removes up to a specified number of items from an inventory slot and returns them in a new stack.
          */
         removeItem(index: number, count: number): $ItemStack;
         addItem(stack: $ItemStack_): $ItemStack;
-        createTag(levelRegistry: $HolderLookup$Provider): $ListTag;
-        fabric_onFinalCommit(arg0: number, arg1: $ItemStack_, arg2: $ItemStack_): void;
-        fabric_setSuppress(arg0: boolean): void;
-        fillStackedContents(helper: $StackedContents): void;
         removeItemType(item: $Item_, amount: number): $ItemStack;
         canAddItem(stack: $ItemStack_): boolean;
         redirect$fdj000$fabric_transfer_api_v1$fabric_redirectMarkDirty(arg0: $SimpleContainer): void;
-        getItems(): $NonNullList<$ItemStack>;
-        /**
-         * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
-         */
-        setItem(index: number, stack: $ItemStack_): void;
         /**
          * For block entities, ensures the chunk containing the block entity is saved to disk later - the game won't think it hasn't changed and skip it.
          */
         clearContent(): void;
+        fillStackedContents(helper: $StackedContents): void;
+        fabric_onFinalCommit(arg0: number, arg1: $ItemStack_, arg2: $ItemStack_): void;
+        fabric_setSuppress(arg0: boolean): void;
+        /**
+         * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
+         */
+        setItem(index: number, stack: $ItemStack_): void;
+        getItems(): $NonNullList<$ItemStack>;
         /**
          * Returns the stack in the given slot.
          */
         getItem(index: number): $ItemStack;
-        removeAllItems(): $List<$ItemStack>;
         isEmpty(): boolean;
         /**
          * Add a listener that will be notified when any item in this inventory is modified.
@@ -216,10 +227,6 @@ declare module "@package/net/minecraft/world" {
          */
         setChanged(): void;
         /**
-         * Don't rename this method to canInteractWith due to conflicts with Container
-         */
-        stillValid(player: $Player): boolean;
-        /**
          * Returns the number of slots in the inventory.
          */
         getContainerSize(): number;
@@ -228,6 +235,10 @@ declare module "@package/net/minecraft/world" {
          */
         removeItemNoUpdate(index: number): $ItemStack;
         fromTag(tag: $ListTag_, levelRegistry: $HolderLookup$Provider): void;
+        /**
+         * Don't rename this method to canInteractWith due to conflicts with Container
+         */
+        stillValid(player: $Player): boolean;
         canTakeItem(arg0: $Container, arg1: number, arg2: $ItemStack_): boolean;
         startOpen(arg0: $Player): void;
         stopOpen(arg0: $Player): void;
@@ -235,14 +246,12 @@ declare module "@package/net/minecraft/world" {
         countItem(arg0: $Item_): number;
         hasAnyOf(arg0: $Set_<$Item_>): boolean;
         hasAnyMatching(arg0: $Predicate_<$ItemStack>): boolean;
-        getMaxStackSize(arg0: $ItemStack_): number;
         /**
          * Returns the number of slots in the inventory.
          */
         getMaxStackSize(): number;
+        getMaxStackSize(arg0: $ItemStack_): number;
         fabric_onTransfer(arg0: number, arg1: $TransactionContext): void;
-        self(): $Container;
-        getBlock(level: $Level_): $LevelBlock;
         isMutable(): boolean;
         /**
          * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
@@ -277,35 +286,43 @@ declare module "@package/net/minecraft/world" {
          */
         setChanged(): void;
         asContainer(): $Container;
-        isEmpty(): boolean;
+        self(): $Container;
+        getBlock(level: $Level_): $LevelBlock;
         insertItem(stack: $ItemStack_, simulate: boolean): $ItemStack;
         clear(match: $ItemPredicate_): void;
-        find(match: $ItemPredicate_): number;
         /**
          * Returns the number of slots in the inventory.
          */
         find(): number;
-        count(match: $ItemPredicate_): number;
+        find(match: $ItemPredicate_): number;
         /**
          * Returns the number of slots in the inventory.
          */
         count(): number;
+        count(match: $ItemPredicate_): number;
         countNonEmpty(match: $ItemPredicate_): number;
         /**
          * Returns the number of slots in the inventory.
          */
         countNonEmpty(): number;
         getAllItems(): $List<$ItemStack>;
+        isEmpty(): boolean;
         size: number;
         items: $NonNullList<$ItemStack>;
         constructor(...items: $ItemStack_[]);
         constructor(size: number);
+        get containerSize(): number;
+        get mutable(): boolean;
+        get slots(): number;
+        get width(): number;
+        get height(): number;
+        get allItems(): $List<$ItemStack>;
     }
     export class $InteractionResult extends $Enum<$InteractionResult> {
-        static sidedSuccess(isClientSide: boolean): $InteractionResult;
         indicateItemUse(): boolean;
         static values(): $InteractionResult[];
         static valueOf(arg0: string): $InteractionResult;
+        static sidedSuccess(isClientSide: boolean): $InteractionResult;
         consumesAction(): boolean;
         shouldSwing(): boolean;
         static SUCCESS: $InteractionResult;
@@ -350,19 +367,21 @@ declare module "@package/net/minecraft/world" {
     export class $TickRateManager {
         tickrate(): number;
         nanosecondsPerTick(): number;
-        frozenTicksToRun(): number;
-        isSteppingForward(): boolean;
         setTickRate(tickRate: number): void;
         setFrozen(frozen: boolean): void;
         setFrozenTicksToRun(frozenTicksToRun: number): void;
-        isFrozen(): boolean;
+        isSteppingForward(): boolean;
+        frozenTicksToRun(): number;
         tick(): void;
-        runsNormally(): boolean;
+        isFrozen(): boolean;
         millisecondsPerTick(): number;
+        runsNormally(): boolean;
         isEntityFrozen(entity: $Entity): boolean;
         static MIN_TICKRATE: number;
         runGameElements: boolean;
         constructor();
+        set tickRate(value: number);
+        get steppingForward(): boolean;
     }
     export class $RandomizableContainer {
         static setBlockEntityLootTable(level: $BlockGetter, random: $RandomSource, ps: $BlockPos_, lootTable: $ResourceKey_<$LootTable>): void;
@@ -372,20 +391,22 @@ declare module "@package/net/minecraft/world" {
     export interface $RandomizableContainer extends $Container {
         getLootTable(): $ResourceKey<$LootTable>;
         getLootTableSeed(): number;
-        setLootTableSeed(seed: number): void;
+        unpackLootTable(player: $Player | null): void;
         tryLoadLootTable(tag: $CompoundTag_): boolean;
         trySaveLootTable(tag: $CompoundTag_): boolean;
-        setLootTable(lootTable: $ResourceKey_<$LootTable> | null): void;
         setLootTable(lootTable: $ResourceKey_<$LootTable>, seed: number): void;
-        unpackLootTable(player: $Player | null): void;
+        setLootTable(lootTable: $ResourceKey_<$LootTable> | null): void;
+        setLootTableSeed(seed: number): void;
         getLevel(): $Level;
         getBlockPos(): $BlockPos;
+        get level(): $Level;
+        get blockPos(): $BlockPos;
     }
     export class $ItemInteractionResult extends $Enum<$ItemInteractionResult> {
-        static sidedSuccess(clientSide: boolean): $ItemInteractionResult;
         static values(): $ItemInteractionResult[];
         static valueOf(arg0: string): $ItemInteractionResult;
         result(): $InteractionResult;
+        static sidedSuccess(clientSide: boolean): $ItemInteractionResult;
         consumesAction(): boolean;
         static SUCCESS: $ItemInteractionResult;
         static SKIP_DEFAULT_BLOCK_INTERACTION: $ItemInteractionResult;
@@ -399,8 +420,8 @@ declare module "@package/net/minecraft/world" {
      */
     export type $ItemInteractionResult_ = "success" | "consume" | "consume_partial" | "pass_to_default_block_interaction" | "skip_default_block_interaction" | "fail";
     export class $Container {
-        static stillValidBlockEntity(blockEntity: $BlockEntity, player: $Player): boolean;
         static stillValidBlockEntity(blockEntity: $BlockEntity, player: $Player, distance: number): boolean;
+        static stillValidBlockEntity(blockEntity: $BlockEntity, player: $Player): boolean;
         static DEFAULT_DISTANCE_BUFFER: number;
     }
     export interface $Container extends $Clearable, $ContainerKJS {
@@ -436,19 +457,10 @@ declare module "@package/net/minecraft/world" {
          */
         getItem(slot: number): $ItemStack;
         isEmpty(): boolean;
-        getMaxStackSize(stack: $ItemStack_): number;
-        /**
-         * Returns the number of slots in the inventory.
-         */
-        getMaxStackSize(): number;
         /**
          * For block entities, ensures the chunk containing the block entity is saved to disk later - the game won't think it hasn't changed and skip it.
          */
         setChanged(): void;
-        /**
-         * Don't rename this method to canInteractWith due to conflicts with Container
-         */
-        stillValid(player: $Player): boolean;
         /**
          * Returns the number of slots in the inventory.
          */
@@ -457,12 +469,24 @@ declare module "@package/net/minecraft/world" {
          * Returns the stack in the given slot.
          */
         removeItemNoUpdate(slot: number): $ItemStack;
+        /**
+         * Returns the number of slots in the inventory.
+         */
+        getMaxStackSize(): number;
+        getMaxStackSize(stack: $ItemStack_): number;
+        /**
+         * Don't rename this method to canInteractWith due to conflicts with Container
+         */
+        stillValid(player: $Player): boolean;
+        get empty(): boolean;
+        get containerSize(): number;
     }
     export class $MenuProvider {
     }
     export interface $MenuProvider extends $MenuConstructor, $IMenuProviderExtension, $FabricScreenHandlerFactory {
         shouldTriggerClientSideContainerClosingOnOpen(): boolean;
         getDisplayName(): $Component;
+        get displayName(): $Component;
     }
     export class $Difficulty extends $Enum<$Difficulty> implements $StringRepresentable {
         getInfo(): $Component;
@@ -480,6 +504,12 @@ declare module "@package/net/minecraft/world" {
         static PEACEFUL: $Difficulty;
         static HARD: $Difficulty;
         static NORMAL: $Difficulty;
+        get info(): $Component;
+        get displayName(): $Component;
+        get key(): string;
+        get id(): number;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $Difficulty}.

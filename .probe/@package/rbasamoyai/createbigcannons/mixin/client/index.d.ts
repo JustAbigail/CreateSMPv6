@@ -6,6 +6,7 @@ declare module "@package/rbasamoyai/createbigcannons/mixin/client" {
     }
     export interface $ClientLevelAccessor {
         getLevelRenderer(): $LevelRenderer;
+        get levelRenderer(): $LevelRenderer;
     }
     /**
      * Values that may be interpreted as {@link $ClientLevelAccessor}.
@@ -24,6 +25,7 @@ declare module "@package/rbasamoyai/createbigcannons/mixin/client" {
     }
     export interface $Blaze3DAudioChannelAccessor {
         getSource(): number;
+        get source(): number;
     }
     /**
      * Values that may be interpreted as {@link $Blaze3DAudioChannelAccessor}.

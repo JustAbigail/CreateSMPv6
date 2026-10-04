@@ -12,6 +12,7 @@ declare module "@package/dev/latvian/mods/rhino/util" {
         createDataObject<T>(arg0: $Supplier_<T>, arg1: $Context): T;
         createDataObjectList<T>(arg0: $Supplier_<T>, arg1: $Context): $List<T>;
         isDataObjectList(): boolean;
+        get dataObjectList(): boolean;
     }
     export class $SpecialEquality {
         static checkSpecialEquality(arg1: $Object, arg2: $Object, arg3: boolean): boolean;
@@ -54,6 +55,8 @@ declare module "@package/dev/latvian/mods/rhino/util" {
         createSet(arg1: $TypeInfo_): $Object;
         getLength(): number;
         createList(arg1: $TypeInfo_): $Object;
+        get errorSource(): $Object;
+        get length(): number;
     }
     export class $ClassVisibilityContext extends $Enum<$ClassVisibilityContext> {
         static values(): $ClassVisibilityContext[];
@@ -78,6 +81,7 @@ declare module "@package/dev/latvian/mods/rhino/util" {
     }
     export interface $RemappedEnumConstant {
         getRemappedEnumConstantName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $RemappedEnumConstant}.

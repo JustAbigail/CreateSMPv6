@@ -137,6 +137,7 @@ declare module "@package/dev/latvian/mods/kubejs/block/custom" {
          */
         shape(age: number, minX: number, minY: number, minZ: number, maxX: number, maxY: number, maxZ: number): $CropBlockBuilder$ShapeBuilder;
         constructor(age: number);
+        get shapes(): $List<$VoxelShape>;
     }
     export class $FenceGateBlockBuilder extends $ShapedBlockBuilder {
         behaviour(wt: string): this;
@@ -157,22 +158,22 @@ declare module "@package/dev/latvian/mods/kubejs/block/custom" {
         constructor(i: $ResourceLocation_);
     }
     export class $CropBlockBuilder extends $BlockBuilder {
-        survive(surviveCallback: $CropBlockBuilder$SurviveCallback_): this;
-        growTick(growSpeedCallback: $ToDoubleFunction_<$RandomTickCallback>): this;
         /**
          * Remove seed drops from the loot table, does not prevent seed item from creating.
          */
         noSeeds(): this;
         farmersCanPlant(): this;
+        survive(surviveCallback: $CropBlockBuilder$SurviveCallback_): this;
+        growTick(growSpeedCallback: $ToDoubleFunction_<$RandomTickCallback>): this;
         bonemeal(bonemealCallback: $ToIntFunction_<$RandomTickCallback>): this;
-        /**
-         * Add a crop output with a specific amount.
-         */
-        crop(output: $Holder_<$Item>, chance: $NumberProvider_): this;
         /**
          * Add a crop output with exactly one output.
          */
         crop(output: $Holder_<$Item>): this;
+        /**
+         * Add a crop output with a specific amount.
+         */
+        crop(output: $Holder_<$Item>, chance: $NumberProvider_): this;
         /**
          * Set the age of the crop and the shape of the crop at that age.
          */

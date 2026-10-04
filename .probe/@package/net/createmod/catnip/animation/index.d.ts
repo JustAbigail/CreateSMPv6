@@ -24,9 +24,12 @@ declare module "@package/net/createmod/catnip/animation" {
      */
     export type $LerpedFloat$Interpolator_ = ((arg0: number, arg1: number, arg2: number) => number);
     export class $LerpedFloat {
-        startWithValue(arg0: number): $LerpedFloat;
+        static angular(): $LerpedFloat;
+        settled(): boolean;
+        getChaseTarget(): number;
         chase(arg0: number, arg1: number, arg2: $LerpedFloat$Chaser_): $LerpedFloat;
         tickChaser(): void;
+        startWithValue(arg0: number): $LerpedFloat;
         updateChaseTarget(arg0: number): void;
         setValueNoUpdate(arg0: number): void;
         chaseTimed(arg0: number, arg1: number): $LerpedFloat;
@@ -35,13 +38,12 @@ declare module "@package/net/createmod/catnip/animation" {
         forceNextSync(): void;
         writeNBT(): $CompoundTag;
         readNBT(arg0: $CompoundTag_, arg1: boolean): void;
-        static angular(): $LerpedFloat;
-        getChaseTarget(): number;
-        settled(): boolean;
         static linear(): $LerpedFloat;
         getValue(arg0: number): number;
         getValue(): number;
         setValue(arg0: number): void;
         constructor(arg0: $LerpedFloat$Interpolator_);
+        get chaseTarget(): number;
+        set valueNoUpdate(value: number);
     }
 }

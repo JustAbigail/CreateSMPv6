@@ -18,6 +18,9 @@ declare module "@package/java/security" {
         getCodeSigners(): $CodeSigner[];
         constructor(arg0: $URL, arg1: $Certificate[]);
         constructor(arg0: $URL, arg1: $CodeSigner[]);
+        get location(): $URL;
+        get certificates(): $Certificate[];
+        get codeSigners(): $CodeSigner[];
     }
     export class $SecureRandomParameters {
     }
@@ -33,9 +36,11 @@ declare module "@package/java/security" {
      */
     export type $PrivilegedExceptionAction_<T> = (() => T);
     export class $CodeSigner implements $Serializable {
-        getSignerCertPath(): $CertPath;
         getTimestamp(): $Timestamp;
+        getSignerCertPath(): $CertPath;
         constructor(arg0: $CertPath, arg1: $Timestamp);
+        get timestamp(): $Timestamp;
+        get signerCertPath(): $CertPath;
     }
     export class $PrivilegedAction<T> {
     }
@@ -58,31 +63,43 @@ declare module "@package/java/security" {
          */
         getVersion(): number;
         getName(): string;
+        get services(): $Set<$Provider$Service>;
+        get configured(): boolean;
+        get versionStr(): string;
+        get info(): string;
+        get version(): number;
+        get name(): string;
     }
     export class $SecureRandom extends $Random {
-        getProvider(): $Provider;
-        nextBytes(arg0: number[], arg1: $SecureRandomParameters): void;
         setSeed(arg0: number[]): void;
         generateSeed(arg0: number): number[];
         static getSeed(arg0: number): number[];
         static getInstanceStrong(): $SecureRandom;
-        reseed(): void;
         reseed(arg0: $SecureRandomParameters): void;
-        static getInstance(arg0: string, arg1: $SecureRandomParameters): $SecureRandom;
+        reseed(): void;
+        getProvider(): $Provider;
+        nextBytes(arg0: number[], arg1: $SecureRandomParameters): void;
+        getAlgorithm(): string;
         static getInstance(arg0: string, arg1: $Provider): $SecureRandom;
         static getInstance(arg0: string, arg1: string): $SecureRandom;
         static getInstance(arg0: string): $SecureRandom;
-        static getInstance(arg0: string, arg1: $SecureRandomParameters, arg2: string): $SecureRandom;
         static getInstance(arg0: string, arg1: $SecureRandomParameters, arg2: $Provider): $SecureRandom;
+        static getInstance(arg0: string, arg1: $SecureRandomParameters, arg2: string): $SecureRandom;
+        static getInstance(arg0: string, arg1: $SecureRandomParameters): $SecureRandom;
         getParameters(): $SecureRandomParameters;
-        getAlgorithm(): string;
-        constructor();
         constructor(arg0: number[]);
+        constructor();
+        static get instanceStrong(): $SecureRandom;
+        get provider(): $Provider;
+        get algorithm(): string;
+        get parameters(): $SecureRandomParameters;
     }
     export class $KeyPair implements $Serializable {
-        getPrivate(): $PrivateKey;
         getPublic(): $PublicKey;
+        getPrivate(): $PrivateKey;
         constructor(arg0: $PublicKey, arg1: $PrivateKey);
+        get public(): $PublicKey;
+        get private(): $PrivateKey;
     }
     export class $PrivateKey {
         /**
@@ -117,45 +134,53 @@ declare module "@package/java/security" {
         toString(): string;
         hashCode(): number;
         implies(arg0: $Subject): boolean;
+        get name(): string;
     }
     export class $Signature extends $SignatureSpi {
+        initVerify(arg0: $PublicKey): void;
+        initVerify(arg0: $Certificate): void;
+        initSign(arg0: $PrivateKey, arg1: $SecureRandom): void;
+        initSign(arg0: $PrivateKey): void;
+        setParameter(arg0: $AlgorithmParameterSpec): void;
         /**
          * @deprecated
          */
         setParameter(arg0: string, arg1: $Object): void;
-        setParameter(arg0: $AlgorithmParameterSpec): void;
-        initVerify(arg0: $PublicKey): void;
-        initVerify(arg0: $Certificate): void;
-        initSign(arg0: $PrivateKey): void;
-        initSign(arg0: $PrivateKey, arg1: $SecureRandom): void;
+        verify(arg0: number[]): boolean;
+        verify(arg0: number[], arg1: number, arg2: number): boolean;
         getProvider(): $Provider;
-        update(arg0: number): void;
+        getAlgorithm(): string;
         update(arg0: number[]): void;
-        update(arg0: number[], arg1: number, arg2: number): void;
         update(arg0: $ByteBuffer): void;
-        static getInstance(arg0: string, arg1: string): $Signature;
+        update(arg0: number): void;
+        update(arg0: number[], arg1: number, arg2: number): void;
         static getInstance(arg0: string): $Signature;
+        static getInstance(arg0: string, arg1: string): $Signature;
         static getInstance(arg0: string, arg1: $Provider): $Signature;
         getParameters(): $AlgorithmParameters;
         sign(arg0: number[], arg1: number, arg2: number): number;
         sign(): number[];
-        verify(arg0: number[], arg1: number, arg2: number): boolean;
-        verify(arg0: number[]): boolean;
-        getAlgorithm(): string;
         /**
          * @deprecated
          */
         getParameter(arg0: string): $Object;
+        get provider(): $Provider;
+        get algorithm(): string;
+        get parameters(): $AlgorithmParameters;
     }
     export class $Provider$Service {
         supportsParameter(arg0: $Object): boolean;
         getProvider(): $Provider;
+        getAttribute(arg0: string): string;
+        getAlgorithm(): string;
         newInstance(arg0: $Object): $Object;
         getType(): string;
         getClassName(): string;
-        getAlgorithm(): string;
-        getAttribute(arg0: string): string;
         constructor(arg0: $Provider, arg1: string, arg2: string, arg3: string, arg4: $List_<string>, arg5: $Map_<string, string>);
+        get provider(): $Provider;
+        get algorithm(): string;
+        get type(): string;
+        get className(): string;
     }
     /**
      * @deprecated
@@ -165,6 +190,7 @@ declare module "@package/java/security" {
         getDomainCombiner(): $DomainCombiner;
         constructor(arg0: $AccessControlContext, arg1: $DomainCombiner);
         constructor(arg0: $ProtectionDomain[]);
+        get domainCombiner(): $DomainCombiner;
     }
     export class $PermissionCollection implements $Serializable {
         elementsAsStream(): $Stream<$Permission>;
@@ -184,6 +210,10 @@ declare module "@package/java/security" {
         staticPermissionsOnly(): boolean;
         constructor(arg0: $CodeSource, arg1: $PermissionCollection);
         constructor(arg0: $CodeSource, arg1: $PermissionCollection, arg2: $ClassLoader, arg3: $Principal[]);
+        get classLoader(): $ClassLoader;
+        get codeSource(): $CodeSource;
+        get permissions(): $PermissionCollection;
+        get principals(): $Principal[];
     }
     export class $Permission implements $Guard, $Serializable {
         newPermissionCollection(): $PermissionCollection;
@@ -192,19 +222,23 @@ declare module "@package/java/security" {
         implies(arg0: $Permission): boolean;
         getActions(): string;
         constructor(arg0: string);
+        get name(): string;
+        get actions(): string;
     }
     export class $AlgorithmParameters {
         getParameterSpec<T extends $AlgorithmParameterSpec>(arg0: $Class<T>): T;
         getProvider(): $Provider;
+        getAlgorithm(): string;
         static getInstance(arg0: string): $AlgorithmParameters;
         static getInstance(arg0: string, arg1: string): $AlgorithmParameters;
         static getInstance(arg0: string, arg1: $Provider): $AlgorithmParameters;
         init(arg0: $AlgorithmParameterSpec): void;
         init(arg0: number[], arg1: string): void;
         init(arg0: number[]): void;
-        getEncoded(arg0: string): number[];
         getEncoded(): number[];
-        getAlgorithm(): string;
+        getEncoded(arg0: string): number[];
+        get provider(): $Provider;
+        get algorithm(): string;
     }
     export class $Key {
         /**
@@ -214,16 +248,21 @@ declare module "@package/java/security" {
     }
     export interface $Key extends $Serializable {
         getFormat(): string;
-        getEncoded(): number[];
         getAlgorithm(): string;
+        getEncoded(): number[];
+        get format(): string;
+        get algorithm(): string;
+        get encoded(): number[];
     }
     export class $SignatureSpi {
         clone(): $Object;
         constructor();
     }
     export class $Timestamp implements $Serializable {
-        getSignerCertPath(): $CertPath;
         getTimestamp(): $Date;
+        getSignerCertPath(): $CertPath;
         constructor(arg0: $Date, arg1: $CertPath);
+        get timestamp(): $Date;
+        get signerCertPath(): $CertPath;
     }
 }

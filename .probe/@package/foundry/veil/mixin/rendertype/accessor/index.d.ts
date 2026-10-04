@@ -7,6 +7,7 @@ declare module "@package/foundry/veil/mixin/rendertype/accessor" {
     }
     export interface $RenderStateShardAccessor {
         getName(): string;
+        get name(): string;
     }
     /**
      * Values that may be interpreted as {@link $RenderStateShardAccessor}.
@@ -16,6 +17,7 @@ declare module "@package/foundry/veil/mixin/rendertype/accessor" {
     }
     export interface $RenderTypeAccessor {
         isSortOnUpload(): boolean;
+        get sortOnUpload(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $RenderTypeAccessor}.
@@ -25,6 +27,7 @@ declare module "@package/foundry/veil/mixin/rendertype/accessor" {
     }
     export interface $RenderTypeBufferSourceAccessor {
         getFixedBuffers(): $SequencedMap<$RenderType, $ByteBufferBuilder>;
+        get fixedBuffers(): $SequencedMap<$RenderType, $ByteBufferBuilder>;
     }
     /**
      * Values that may be interpreted as {@link $RenderTypeBufferSourceAccessor}.

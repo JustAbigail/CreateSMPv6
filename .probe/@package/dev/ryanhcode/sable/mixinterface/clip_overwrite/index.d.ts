@@ -7,10 +7,10 @@ declare module "@package/dev/ryanhcode/sable/mixinterface/clip_overwrite" {
     export class $ClipContextExtension {
     }
     export interface $ClipContextExtension {
+        sable$setIgnoredSubLevel(arg0: $SubLevel): void;
         sable$setDoNotProject(arg0: boolean): void;
         sable$setSubLevelIgnoring(arg0: $Predicate_<$SubLevel>): void;
         sable$setIgnoreMainLevel(arg0: boolean): void;
-        sable$setIgnoredSubLevel(arg0: $SubLevel): void;
         sable$doNotProject(): boolean;
         sable$getIgnoredSubLevel(): $SubLevel;
         sable$getSubLevelIgnoring(): $Predicate<$SubLevel>;

@@ -26,6 +26,8 @@ declare module "@package/net/neoforged/neoforge/network/event" {
          */
         register(task: $ConfigurationTask): void;
         constructor(listener: $ServerConfigurationPacketListener);
+        get configurationTasks(): $Queue<$ConfigurationTask>;
+        get listener(): $ServerConfigurationPacketListener;
     }
     /**
      * Event fired when the `NetworkRegistry` is being set up.

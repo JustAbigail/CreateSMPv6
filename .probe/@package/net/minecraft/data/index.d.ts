@@ -43,6 +43,7 @@ declare module "@package/net/minecraft/data" {
         static CRACKED: $BlockFamily$Variant;
         static SIGN: $BlockFamily$Variant;
         static SLAB: $BlockFamily$Variant;
+        get recipeGroup(): string;
     }
     /**
      * Values that may be interpreted as {@link $BlockFamily$Variant}.
@@ -50,11 +51,11 @@ declare module "@package/net/minecraft/data" {
     export type $BlockFamily$Variant_ = "button" | "chiseled" | "cracked" | "cut" | "door" | "custom_fence" | "fence" | "custom_fence_gate" | "fence_gate" | "mosaic" | "sign" | "slab" | "stairs" | "pressure_plate" | "polished" | "trapdoor" | "wall" | "wall_sign";
     export class $DataGenerator implements $DataGeneratorExtension {
         createPack(arg0: string, arg1: $PackOutput): $DataGenerator$PackGenerator;
-        getPackGenerator(arg0: boolean, arg1: string, arg2: string): $DataGenerator$PackGenerator;
-        getBuiltinDatapack(toRun: boolean, providerPrefix: string): $DataGenerator$PackGenerator;
         getBuiltinDatapack(arg0: boolean, arg1: string, arg2: string): $DataGenerator$PackGenerator;
+        getBuiltinDatapack(toRun: boolean, providerPrefix: string): $DataGenerator$PackGenerator;
         getProvidersView(): $Map<string, $DataProvider>;
         createBuiltinResourcePack(arg0: boolean, arg1: $ResourceLocation_, arg2: $ModContainer, arg3: boolean): $Pair<any, any>;
+        getPackGenerator(arg0: boolean, arg1: string, arg2: string): $DataGenerator$PackGenerator;
         getPackOutput(): $PackOutput;
         getPackOutput(arg0: string): $PackOutput;
         /**
@@ -69,6 +70,7 @@ declare module "@package/net/minecraft/data" {
         providersToRun: $Map<string, $DataProvider>;
         allProviderIds: $Set<string>;
         constructor(rootOutputFolder: $Path_, version: $WorldVersion, alwaysGenerate: boolean);
+        get providersView(): $Map<string, $DataProvider>;
     }
     export class $BlockFamily {
         shouldGenerateModel(): boolean;
@@ -76,14 +78,15 @@ declare module "@package/net/minecraft/data" {
         shouldGenerateRecipe(): boolean;
         getRecipeGroupPrefix(): (string) | undefined;
         getRecipeUnlockedBy(): (string) | undefined;
-        getVariants(): $Map<$BlockFamily$Variant, $Block>;
         get(variant: $BlockFamily$Variant_): $Block;
+        getVariants(): $Map<$BlockFamily$Variant, $Block>;
         generateModel: boolean;
         recipeUnlockedBy: string;
         recipeGroupPrefix: string;
         variants: $Map<$BlockFamily$Variant, $Block>;
         generateRecipe: boolean;
         constructor(baseBlock: $Block_);
+        get baseBlock(): $Block;
     }
     export class $DataGenerator$PackGenerator {
         addProvider<T extends $DataProvider>(factory: $DataProvider$Factory_<T>): T;
@@ -121,13 +124,14 @@ declare module "@package/net/minecraft/data" {
          */
         getName(): string;
         run(output: $CachedOutput_): $CompletableFuture<never>;
+        get name(): string;
     }
     export class $PackOutput {
+        createRegistryElementsPathProvider(registryKey: $ResourceKey_<$Registry<never>>): $PackOutput$PathProvider;
         getOutputFolder(target: $PackOutput$Target_): $Path;
         getOutputFolder(): $Path;
         createPathProvider(target: $PackOutput$Target_, kind: string): $PackOutput$PathProvider;
         createRegistryTagsPathProvider(registryKey: $ResourceKey_<$Registry<never>>): $PackOutput$PathProvider;
-        createRegistryElementsPathProvider(registryKey: $ResourceKey_<$Registry<never>>): $PackOutput$PathProvider;
         constructor(outputFolder: $Path_);
     }
     export class $PackOutput$Target extends $Enum<$PackOutput$Target> {

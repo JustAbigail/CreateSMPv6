@@ -26,12 +26,12 @@ declare module "@package/net/neoforged/neoforge/fluids/crafting" {
      * standard serialization format for mods to use.
      */
     export class $SizedFluidIngredient implements $SizedFluidIngredientKJS {
-        ingredient(): $FluidIngredient;
-        amount(): number;
         /**
          * Returns a list of the stacks from this `#ingredient`, with an updated `#amount`.
          */
         getFluids(): $FluidStack[];
+        ingredient(): $FluidIngredient;
+        amount(): number;
         /**
          * Performs a size-sensitive test on the given stack.
          */
@@ -55,6 +55,7 @@ declare module "@package/net/neoforged/neoforge/fluids/crafting" {
         static STREAM_CODEC: $StreamCodec<$RegistryFriendlyByteBuf, $SizedFluidIngredient>;
         static FLAT_CODEC: $Codec<$SizedFluidIngredient>;
         constructor(ingredient: $FluidIngredient_, amount: number);
+        get fluids(): $FluidStack[];
     }
     export interface $FluidIngredientType<T> extends RegistryMarked<RegistryTypes.NeoforgeFluidIngredientTypeTag, RegistryTypes.NeoforgeFluidIngredientType> {}
     /**
@@ -108,9 +109,9 @@ declare module "@package/net/neoforged/neoforge/fluids/crafting" {
          */
         isSimple(): boolean;
         self(): $FluidIngredient;
-        or(arg0: $Predicate_<$FluidStack>): $Predicate<$FluidStack>;
         negate(): $Predicate<$FluidStack>;
         and(arg0: $Predicate_<$FluidStack>): $Predicate<$FluidStack>;
+        or(arg0: $Predicate_<$FluidStack>): $Predicate<$FluidStack>;
         withAmount(amount: number): $SizedFluidIngredient;
         matches(cx: $RecipeMatchContext, s: $FluidStack_, exact: boolean): boolean;
         matches(cx: $RecipeMatchContext, arg1: $FluidIngredient_, exact: boolean): boolean;
@@ -125,6 +126,10 @@ declare module "@package/net/neoforged/neoforge/fluids/crafting" {
         static MAP_CODEC_NONEMPTY: $MapCodec<$FluidIngredient>;
         static LIST_CODEC_NON_EMPTY: $Codec<$List<$FluidIngredient>>;
         constructor();
+        get stacks(): $FluidStack[];
+        get type(): $FluidIngredientType<never>;
+        get simple(): boolean;
+        get codec(): $Codec<never>;
     }
     /**
      * Values that may be interpreted as {@link $FluidIngredient}.

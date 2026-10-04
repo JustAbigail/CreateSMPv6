@@ -20,5 +20,5 @@ declare module "@package/foundry/veil/api/client/render/shader/compiler" {
     /**
      * Values that may be interpreted as {@link $CompiledShader}.
      */
-    export type $CompiledShader_ = { sourceFile?: $ResourceLocation_, includes?: $Set_<$ResourceLocation_>, definitionDependencies?: $Set_<string>, uniformBindings?: $Object2IntMap<string>, id?: number,  } | [sourceFile?: $ResourceLocation_, includes?: $Set_<$ResourceLocation_>, definitionDependencies?: $Set_<string>, uniformBindings?: $Object2IntMap<string>, id?: number, ];
+    export type $CompiledShader_ = { includes?: $Set_<$ResourceLocation_>, sourceFile?: $ResourceLocation_, id?: number, uniformBindings?: $Object2IntMap<string>, definitionDependencies?: $Set_<string>,  } | [includes?: $Set_<$ResourceLocation_>, sourceFile?: $ResourceLocation_, id?: number, uniformBindings?: $Object2IntMap<string>, definitionDependencies?: $Set_<string>, ];
 }

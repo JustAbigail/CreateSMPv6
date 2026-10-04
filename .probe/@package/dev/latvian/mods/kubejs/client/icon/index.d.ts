@@ -21,7 +21,7 @@ declare module "@package/dev/latvian/mods/kubejs/client/icon" {
     /**
      * Values that may be interpreted as {@link $KubeIconType}.
      */
-    export type $KubeIconType_<T> = { streamCodec?: $StreamCodec<$RegistryFriendlyByteBuf, $KubeIcon_>, codec?: $MapCodec_<$KubeIcon_>, id?: $ResourceLocation_,  } | [streamCodec?: $StreamCodec<$RegistryFriendlyByteBuf, $KubeIcon_>, codec?: $MapCodec_<$KubeIcon_>, id?: $ResourceLocation_, ];
+    export type $KubeIconType_<T> = { streamCodec?: $StreamCodec<$RegistryFriendlyByteBuf, $KubeIcon_>, id?: $ResourceLocation_, codec?: $MapCodec_<$KubeIcon_>,  } | [streamCodec?: $StreamCodec<$RegistryFriendlyByteBuf, $KubeIcon_>, id?: $ResourceLocation_, codec?: $MapCodec_<$KubeIcon_>, ];
     export class $KubeIcon {
         static CODEC: $Codec<$KubeIcon>;
         static OPTIONAL_STREAM_CODEC: $StreamCodec<$RegistryFriendlyByteBuf, ($KubeIcon) | undefined>;
@@ -29,6 +29,7 @@ declare module "@package/dev/latvian/mods/kubejs/client/icon" {
     }
     export interface $KubeIcon {
         getType(): $KubeIconType<never>;
+        get type(): $KubeIconType<never>;
     }
     /**
      * Values that may be interpreted as {@link $KubeIcon}.

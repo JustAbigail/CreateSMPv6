@@ -7,6 +7,7 @@ declare module "@package/net/irisshaders/batchedentityrendering/mixin" {
     }
     export interface $SectionBufferBuilderPackAccessor {
         getBuffers(): $Map<$RenderType, $ByteBufferBuilder>;
+        get buffers(): $Map<$RenderType, $ByteBufferBuilder>;
     }
     /**
      * Values that may be interpreted as {@link $SectionBufferBuilderPackAccessor}.
@@ -16,6 +17,7 @@ declare module "@package/net/irisshaders/batchedentityrendering/mixin" {
     }
     export interface $OutlineBufferSourceAccessor {
         getOutlineBufferSource(): $MultiBufferSource$BufferSource;
+        get outlineBufferSource(): $MultiBufferSource$BufferSource;
     }
     /**
      * Values that may be interpreted as {@link $OutlineBufferSourceAccessor}.
@@ -25,6 +27,7 @@ declare module "@package/net/irisshaders/batchedentityrendering/mixin" {
     }
     export interface $BufferSourceAccessor {
         getFixedBuffers(): $SequencedMap<$RenderType, $ByteBufferBuilder>;
+        get fixedBuffers(): $SequencedMap<$RenderType, $ByteBufferBuilder>;
     }
     /**
      * Values that may be interpreted as {@link $BufferSourceAccessor}.
@@ -34,6 +37,9 @@ declare module "@package/net/irisshaders/batchedentityrendering/mixin" {
         static getNO_TRANSPARENCY(): $RenderStateShard$TransparencyStateShard;
         static getGLINT_TRANSPARENCY(): $RenderStateShard$TransparencyStateShard;
         static getCRUMBLING_TRANSPARENCY(): $RenderStateShard$TransparencyStateShard;
+        static get NO_TRANSPARENCY(): $RenderStateShard$TransparencyStateShard;
+        static get GLINT_TRANSPARENCY(): $RenderStateShard$TransparencyStateShard;
+        static get CRUMBLING_TRANSPARENCY(): $RenderStateShard$TransparencyStateShard;
     }
     export interface $RenderStateShardAccessor {
     }
@@ -51,5 +57,7 @@ declare module "@package/net/irisshaders/batchedentityrendering/mixin" {
     export interface $CompositeStateAccessor {
         getTransparency(): $RenderStateShard$TransparencyStateShard;
         getDepth(): $RenderStateShard$DepthTestStateShard;
+        get transparency(): $RenderStateShard$TransparencyStateShard;
+        get depth(): $RenderStateShard$DepthTestStateShard;
     }
 }

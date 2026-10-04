@@ -19,6 +19,7 @@ declare module "@package/net/neoforged/neoforge/event/level/block" {
          */
         getOriginalState(): $BlockState;
         constructor(level: $Level_, pos: $BlockPos_, original: $BlockState_, state: $BlockState_);
+        get originalState(): $BlockState;
     }
     /**
      * Fired when a fluid checks if nearby blocks can convert it to a source block.
@@ -26,6 +27,12 @@ declare module "@package/net/neoforged/neoforge/event/level/block" {
      * This can be used to manipulate if fluids are allowed to create sources dynamically.
      */
     export class $CreateFluidSourceEvent extends $BlockEvent {
+        /**
+         * Returns if the fluid would normally be converted to a source block.
+         * 
+         * This is computed by calling `IFluidStateExtension#canConvertToSource(Level, BlockPos)`.
+         */
+        getVanillaResult(): boolean;
         /**
          * Sets if the fluid will be converted to a source block.
          */
@@ -35,15 +42,11 @@ declare module "@package/net/neoforged/neoforge/event/level/block" {
          * 
          * This is computed by calling `IFluidStateExtension#canConvertToSource(Level, BlockPos)`.
          */
-        getVanillaResult(): boolean;
-        /**
-         * Returns if the fluid would normally be converted to a source block.
-         * 
-         * This is computed by calling `IFluidStateExtension#canConvertToSource(Level, BlockPos)`.
-         */
         canConvert(): boolean;
         getFluidState(): $FluidState;
         constructor(level: $Level_, pos: $BlockPos_, state: $BlockState_);
+        get vanillaResult(): boolean;
+        get fluidState(): $FluidState;
     }
     /**
      * Fired when any "growing age" blocks (for example cacti, chorus plants, or crops

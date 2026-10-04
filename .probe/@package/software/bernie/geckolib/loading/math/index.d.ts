@@ -7,6 +7,8 @@ declare module "@package/software/bernie/geckolib/loading/math" {
         get(): number;
         getAsDouble(): number;
         isMutable(): boolean;
+        get asDouble(): number;
+        get mutable(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $MathValue}.

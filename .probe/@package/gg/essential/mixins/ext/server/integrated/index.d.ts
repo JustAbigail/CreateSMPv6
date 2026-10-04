@@ -7,5 +7,6 @@ declare module "@package/gg/essential/mixins/ext/server/integrated" {
     export interface $IntegratedServerExt {
         essential$undoLan(arg0: $UUID_): void;
         getEssential$manager(): $McIntegratedServerManager;
+        get essential$manager(): $McIntegratedServerManager;
     }
 }

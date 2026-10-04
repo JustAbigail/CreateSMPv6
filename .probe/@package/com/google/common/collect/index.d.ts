@@ -33,6 +33,7 @@ declare module "@package/com/google/common/collect" {
         asMap(): $Map<K, $Collection<V>>;
         containsEntry(key: $Object, value: $Object): boolean;
         replaceValues(key: K, values: $Iterable_<V>): $Collection<V>;
+        get empty(): boolean;
     }
     export class $ImmutableMultimap$Builder<K, V> {
         put(entry: $Map$Entry<K, V>): $ImmutableMultimap$Builder<K, V>;
@@ -60,8 +61,9 @@ declare module "@package/com/google/common/collect" {
          * @deprecated
          */
         put(k: K, v: V): V;
-        static copyOf<K, V>(entries: $Iterable_<$Map$Entry<K, V>>): $ImmutableMap<K, V>;
+        values(): $ImmutableCollection<V>;
         static copyOf<K, V>(map: $Map_<K, V>): $ImmutableMap<K, V>;
+        static copyOf<K, V>(entries: $Iterable_<$Map$Entry<K, V>>): $ImmutableMap<K, V>;
         /**
          * @deprecated
          */
@@ -79,22 +81,23 @@ declare module "@package/com/google/common/collect" {
          * @deprecated
          */
         replaceAll(arg0: $BiFunction_<K, V, V>): void;
-        static of<K, V>(k1: K, v1: V, k2: K, v2: V, k3: K, v3: V, k4: K, v4: V): $ImmutableMap<K, V>;
-        static of<K, V>(): $ImmutableMap<K, V>;
-        static of<K, V>(k1: K, v1: V, k2: K, v2: V): $ImmutableMap<K, V>;
-        static of<K, V>(k1: K, v1: V, k2: K, v2: V, k3: K, v3: V): $ImmutableMap<K, V>;
-        static of<K, V>(k1: K, v1: V, k2: K, v2: V, k3: K, v3: V, k4: K, v4: V, k5: K, v5: V, k6: K, v6: V, k7: K, v7: V): $ImmutableMap<K, V>;
-        static of<K, V>(k1: K, v1: V): $ImmutableMap<K, V>;
-        static of<K, V>(k1: K, v1: V, k2: K, v2: V, k3: K, v3: V, k4: K, v4: V, k5: K, v5: V, k6: K, v6: V, k7: K, v7: V, k8: K, v8: V): $ImmutableMap<K, V>;
-        static of<K, V>(k1: K, v1: V, k2: K, v2: V, k3: K, v3: V, k4: K, v4: V, k5: K, v5: V, k6: K, v6: V, k7: K, v7: V, k8: K, v8: V, k9: K, v9: V, k10: K, v10: V): $ImmutableMap<K, V>;
         static of<K, V>(k1: K, v1: V, k2: K, v2: V, k3: K, v3: V, k4: K, v4: V, k5: K, v5: V, k6: K, v6: V): $ImmutableMap<K, V>;
-        static of<K, V>(k1: K, v1: V, k2: K, v2: V, k3: K, v3: V, k4: K, v4: V, k5: K, v5: V): $ImmutableMap<K, V>;
+        static of<K, V>(k1: K, v1: V, k2: K, v2: V, k3: K, v3: V, k4: K, v4: V, k5: K, v5: V, k6: K, v6: V, k7: K, v7: V): $ImmutableMap<K, V>;
+        static of<K, V>(k1: K, v1: V, k2: K, v2: V, k3: K, v3: V, k4: K, v4: V, k5: K, v5: V, k6: K, v6: V, k7: K, v7: V, k8: K, v8: V, k9: K, v9: V, k10: K, v10: V): $ImmutableMap<K, V>;
         static of<K, V>(k1: K, v1: V, k2: K, v2: V, k3: K, v3: V, k4: K, v4: V, k5: K, v5: V, k6: K, v6: V, k7: K, v7: V, k8: K, v8: V, k9: K, v9: V): $ImmutableMap<K, V>;
+        static of<K, V>(): $ImmutableMap<K, V>;
+        static of<K, V>(k1: K, v1: V, k2: K, v2: V, k3: K, v3: V, k4: K, v4: V, k5: K, v5: V, k6: K, v6: V, k7: K, v7: V, k8: K, v8: V): $ImmutableMap<K, V>;
+        static of<K, V>(k1: K, v1: V, k2: K, v2: V, k3: K, v3: V, k4: K, v4: V, k5: K, v5: V): $ImmutableMap<K, V>;
+        static of<K, V>(k1: K, v1: V, k2: K, v2: V, k3: K, v3: V, k4: K, v4: V): $ImmutableMap<K, V>;
+        static of<K, V>(k1: K, v1: V, k2: K, v2: V, k3: K, v3: V): $ImmutableMap<K, V>;
+        static of<K, V>(k1: K, v1: V, k2: K, v2: V): $ImmutableMap<K, V>;
+        static of<K, V>(k1: K, v1: V): $ImmutableMap<K, V>;
         static builder<K, V>(): $ImmutableMap$Builder<K, V>;
         /**
          * @deprecated
          */
         merge(key: K, value: V, arg2: $BiFunction_<V, V, V>): V;
+        entrySet(): $ImmutableSet<$Map$Entry<K, V>>;
         /**
          * @deprecated
          */
@@ -112,7 +115,6 @@ declare module "@package/com/google/common/collect" {
          * @deprecated
          */
         computeIfAbsent(key: K, mappingFunction: $Function_<K, V>): V;
-        keySet(): $ImmutableSet<K>;
         containsValue(value: $Object): boolean;
         getOrDefault(key: $Object, defaultValue: V): V;
         /**
@@ -121,12 +123,12 @@ declare module "@package/com/google/common/collect" {
         computeIfPresent(key: K, remappingFunction: $BiFunction_<K, V, V>): V;
         static ofEntries<K, V>(...entries: $Map$Entry<K, V>[]): $ImmutableMap<K, V>;
         static builderWithExpectedSize<K, V>(expectedSize: number): $ImmutableMap$Builder<K, V>;
-        static toImmutableMap<T, K, V>(keyFunction: $Function_<T, K>, valueFunction: $Function_<T, V>): $Collector<T, never, $ImmutableMap<K, V>>;
         static toImmutableMap<T, K, V>(keyFunction: $Function_<T, K>, valueFunction: $Function_<T, V>, mergeFunction: $BinaryOperator_<V>): $Collector<T, never, $ImmutableMap<K, V>>;
+        static toImmutableMap<T, K, V>(keyFunction: $Function_<T, K>, valueFunction: $Function_<T, V>): $Collector<T, never, $ImmutableMap<K, V>>;
         asMultimap(): $ImmutableSetMultimap<K, V>;
         forEach(arg0: $BiConsumer_<K, V>): void;
-        values(): $Collection<V>;
-        entrySet(): $Set<$Map$Entry<K, V>>;
+        keySet(): $Set<K>;
+        get empty(): boolean;
     }
     export class $SetMultimap<K, V> {
     }
@@ -198,6 +200,8 @@ declare module "@package/com/google/common/collect" {
         listIterator(arg0: number): $ListIterator<E>;
         listIterator(): $ListIterator<E>;
         reversed(): $SequencedCollection<E>;
+        get first(): E;
+        get last(): E;
     }
     export class $ImmutableCollection<E> extends $AbstractCollection<E> implements $Serializable {
         iterator(): $UnmodifiableIterator<E>;
@@ -252,6 +256,9 @@ declare module "@package/com/google/common/collect" {
         equals(obj: $Object): boolean;
         hashCode(): number;
         getValue(): V;
+        get rowKey(): R;
+        get columnKey(): C;
+        get value(): V;
     }
     export class $BiMap<K, V> {
     }
@@ -275,14 +282,13 @@ declare module "@package/com/google/common/collect" {
          */
         add(element: E, occurrences: number): number;
         static of<E>(e1: E, e2: E): $ImmutableMultiset<E>;
-        static of<E>(element: E): $ImmutableMultiset<E>;
         static of<E>(): $ImmutableMultiset<E>;
+        static of<E>(element: E): $ImmutableMultiset<E>;
         static of<E>(e1: E, e2: E, e3: E, e4: E, e5: E, e6: E, ...others: E[]): $ImmutableMultiset<E>;
         static of<E>(e1: E, e2: E, e3: E, e4: E, e5: E): $ImmutableMultiset<E>;
         static of<E>(e1: E, e2: E, e3: E, e4: E): $ImmutableMultiset<E>;
         static of<E>(e1: E, e2: E, e3: E): $ImmutableMultiset<E>;
         static builder<E>(): $ImmutableMultiset$Builder<E>;
-        entrySet(): $ImmutableSet<$Multiset$Entry<E>>;
         static toImmutableMultiset<T, E>(elementFunction: $Function_<T, E>, countFunction: $ToIntFunction_<T>): $Collector<T, never, $ImmutableMultiset<E>>;
         static toImmutableMultiset<E>(): $Collector<E, never, $ImmutableMultiset<E>>;
         /**
@@ -294,6 +300,7 @@ declare module "@package/com/google/common/collect" {
          */
         setCount(element: E, count: number): number;
         forEachEntry(action: $ObjIntConsumer_<E>): void;
+        entrySet(): $Set<$Multiset$Entry<E>>;
         elementSet(): $Set<E>;
     }
     export class $ImmutableMap$Builder<K, V> {
@@ -302,8 +309,8 @@ declare module "@package/com/google/common/collect" {
         putAll(entries: $Iterable_<$Map$Entry<K, V>>): $ImmutableMap$Builder<K, V>;
         putAll(map: $Map_<K, V>): $ImmutableMap$Builder<K, V>;
         build(): $ImmutableMap<K, V>;
-        orderEntriesByValue(valueComparator: $Comparator<V>): $ImmutableMap$Builder<K, V>;
         buildOrThrow(): $ImmutableMap<K, V>;
+        orderEntriesByValue(valueComparator: $Comparator<V>): $ImmutableMap$Builder<K, V>;
         buildKeepingLast(): $ImmutableMap<K, V>;
         constructor();
     }
@@ -386,6 +393,8 @@ declare module "@package/com/google/common/collect" {
         toString(): string;
         hashCode(): number;
         getCount(): number;
+        get element(): E;
+        get count(): number;
     }
     export class $Interner<E> {
     }
@@ -425,6 +434,7 @@ declare module "@package/com/google/common/collect" {
         putAll(table: $Table<R, C, V>): void;
         containsValue(value: $Object): boolean;
         column(columnKey: C): $Map<R, V>;
+        get empty(): boolean;
     }
     export class $ForwardingMultimap<K, V> extends $ForwardingObject implements $Multimap<K, V> {
         remove(key: $Object, value: $Object): boolean;
@@ -446,5 +456,6 @@ declare module "@package/com/google/common/collect" {
         containsEntry(key: $Object, value: $Object): boolean;
         replaceValues(key: K, values: $Iterable_<V>): $Collection<V>;
         forEach(action: $BiConsumer_<K, V>): void;
+        get empty(): boolean;
     }
 }

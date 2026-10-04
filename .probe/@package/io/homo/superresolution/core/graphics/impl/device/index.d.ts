@@ -13,13 +13,13 @@ declare module "@package/io/homo/superresolution/core/graphics/impl/device" {
     export interface $IDevice {
         createTexture(arg0: $TextureDescription): $ITexture;
         createTextureView(arg0: $TextureViewDescription): $ITextureView;
+        createBuffer(arg0: $BufferDescription): $IBuffer;
+        createFramebuffer(arg0: $FramebufferDescription): $IFrameBuffer;
         createVertexBuffer(arg0: $VertexBufferDescription): $IVertexBuffer;
         createDescriptorSet(arg0: $IShaderProgram): $PipelineDescriptorSet;
         createGraphicsPipeline(arg0: $GraphicsPipeline$Builder): $GraphicsPipeline;
         createCommandPool(...arg0: $CommandPoolFlags[]): $ICommandPool;
         commandDecoder(): $ICommandDecoder;
-        createBuffer(arg0: $BufferDescription): $IBuffer;
-        createFramebuffer(arg0: $FramebufferDescription): $IFrameBuffer;
         createSampler(arg0: $SamplerDescription): $ISampler;
         defaultCommandPool(): $ICommandPool;
         createCommandBuffer(): $ICommandBuffer;

@@ -9,12 +9,15 @@ import { $StreamCodec } from "@package/net/minecraft/network/codec";
 
 declare module "@package/net/minecraft/sounds" {
     export class $Music {
-        getEvent(): $Holder<$SoundEvent>;
         replaceCurrentMusic(): boolean;
+        getEvent(): $Holder<$SoundEvent>;
         getMinDelay(): number;
         getMaxDelay(): number;
         static CODEC: $Codec<$Music>;
         constructor(event: $Holder_<$SoundEvent>, minDelay: number, maxDelay: number, replaceCurrentMusic: boolean);
+        get event(): $Holder<$SoundEvent>;
+        get minDelay(): number;
+        get maxDelay(): number;
     }
     export interface $SoundEvent extends RegistryMarked<RegistryTypes.SoundEventTag, RegistryTypes.SoundEvent> {}
     export class $SoundSource extends $Enum<$SoundSource> {
@@ -37,14 +40,15 @@ declare module "@package/net/minecraft/sounds" {
      */
     export type $SoundSource_ = "master" | "music" | "records" | "weather" | "blocks" | "hostile" | "neutral" | "players" | "ambient" | "voice";
     export class $SoundEvent {
-        getRange(volume: number): number;
         static createFixedRangeEvent(location: $ResourceLocation_, range: number): $SoundEvent;
         static createVariableRangeEvent(location: $ResourceLocation_): $SoundEvent;
+        getRange(volume: number): number;
         getLocation(): $ResourceLocation;
         static CODEC: $Codec<$Holder<$SoundEvent>>;
         static DIRECT_CODEC: $Codec<$SoundEvent>;
         static DIRECT_STREAM_CODEC: $StreamCodec<$ByteBuf, $SoundEvent>;
         static STREAM_CODEC: $StreamCodec<$RegistryFriendlyByteBuf, $Holder<$SoundEvent>>;
+        get location(): $ResourceLocation;
     }
     /**
      * Values that may be interpreted as {@link $SoundEvent}.

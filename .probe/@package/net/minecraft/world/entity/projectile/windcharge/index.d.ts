@@ -102,6 +102,7 @@ declare module "@package/net/minecraft/world/entity/projectile/windcharge" {
         constructor(entityType: $EntityType_<$AbstractWindCharge>, level: $Level_, owner: $Entity, x: number, arg4: number, y: number);
         constructor(entityType: $EntityType_<$AbstractWindCharge>, x: number, arg2: number, y: number, arg4: $Vec3_, z: $Level_);
         constructor(entityType: $EntityType_<$AbstractWindCharge>, level: $Level_);
+        get item(): $ItemStack;
     }
     export class $WindCharge extends $AbstractWindCharge {
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
@@ -182,9 +183,9 @@ declare module "@package/net/minecraft/world/entity/projectile/windcharge" {
         wasTouchingWater: boolean;
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
+        constructor(entityType: $EntityType_<$AbstractWindCharge>, level: $Level_);
         constructor(level: $Level_, x: number, arg2: number, y: number, arg4: $Vec3_);
         constructor(player: $Player, level: $Level_, x: number, arg3: number, y: number);
-        constructor(entityType: $EntityType_<$AbstractWindCharge>, level: $Level_);
     }
     export class $BreezeWindCharge extends $AbstractWindCharge {
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;

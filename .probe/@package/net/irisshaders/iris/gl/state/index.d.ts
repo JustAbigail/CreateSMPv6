@@ -5,6 +5,7 @@ declare module "@package/net/irisshaders/iris/gl/state" {
     }
     export interface $ValueUpdateNotifier {
         setListener(arg0: $Runnable_): void;
+        set listener(value: $Runnable_);
     }
     /**
      * Values that may be interpreted as {@link $ValueUpdateNotifier}.

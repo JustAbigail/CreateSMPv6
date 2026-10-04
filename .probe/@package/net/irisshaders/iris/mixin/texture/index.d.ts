@@ -7,6 +7,7 @@ declare module "@package/net/irisshaders/iris/mixin/texture" {
     }
     export interface $SpriteContentsAccessor {
         getAnimatedTexture(): $SpriteContents$AnimatedTexture;
+        get animatedTexture(): $SpriteContents$AnimatedTexture;
     }
     /**
      * Values that may be interpreted as {@link $SpriteContentsAccessor}.
@@ -17,6 +18,7 @@ declare module "@package/net/irisshaders/iris/mixin/texture" {
     export interface $SpriteContentsAnimatedTextureAccessor {
         invokeUploadFrame(arg0: number, arg1: number, arg2: number): void;
         getFrames(): $List<$SpriteContents$FrameInfo>;
+        get frames(): $List<$SpriteContents$FrameInfo>;
     }
     export class $TextureAtlasAccessor {
     }
@@ -25,20 +27,25 @@ declare module "@package/net/irisshaders/iris/mixin/texture" {
         getMipLevel(): number;
         callGetWidth(): number;
         callGetHeight(): number;
+        get texturesByName(): $Map<$ResourceLocation, $TextureAtlasSprite>;
+        get mipLevel(): number;
     }
     export class $SpriteContentsTickerAccessor {
     }
     export interface $SpriteContentsTickerAccessor {
-        getSubFrame(): number;
         setSubFrame(arg0: number): void;
+        getSubFrame(): number;
         getAnimationInfo(): $SpriteContents$AnimatedTexture;
-        setFrame(arg0: number): void;
         getFrame(): number;
+        setFrame(arg0: number): void;
+        get animationInfo(): $SpriteContents$AnimatedTexture;
     }
     export class $SpriteContentsFrameInfoAccessor {
     }
     export interface $SpriteContentsFrameInfoAccessor {
         getIndex(): number;
         getTime(): number;
+        get index(): number;
+        get time(): number;
     }
 }

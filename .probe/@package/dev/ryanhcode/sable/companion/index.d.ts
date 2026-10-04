@@ -7,10 +7,12 @@ declare module "@package/dev/ryanhcode/sable/companion" {
     }
     export interface $SubLevelAccess {
         lastPose(): $Pose3dc;
-        getUniqueId(): $UUID;
         boundingBox(): $BoundingBox3dc;
         getName(): string;
         logicalPose(): $Pose3dc;
+        getUniqueId(): $UUID;
+        get name(): string;
+        get uniqueId(): $UUID;
     }
     export class $ClientSubLevelAccess {
     }

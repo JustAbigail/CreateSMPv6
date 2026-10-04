@@ -30,14 +30,22 @@ declare module "@package/net/minecraft/world/damagesource" {
         flyIntoWall(): $DamageSource;
         drown(): $DamageSource;
         cramming(): $DamageSource;
-        onFire(): $DamageSource;
-        lava(): $DamageSource;
-        lightningBolt(): $DamageSource;
-        dragonBreath(): $DamageSource;
-        sonicBoom(entity: $Entity): $DamageSource;
         noAggroMobAttack(mob: $LivingEntity): $DamageSource;
+        sonicBoom(entity: $Entity): $DamageSource;
+        anvil(entity: $Entity): $DamageSource;
+        cactus(): $DamageSource;
+        campfire(): $DamageSource;
+        fireball(fireball: $Fireball, thrower: $Entity | null): $DamageSource;
+        trident(causingEntity: $Entity, directEntity: $Entity | null): $DamageSource;
+        badRespawnPointExplosion(position: $Vec3_): $DamageSource;
+        fallingBlock(entity: $Entity): $DamageSource;
+        arrow(arrow: $AbstractArrow, shooter: $Entity | null): $DamageSource;
         wither(): $DamageSource;
+        fall(): $DamageSource;
+        spit(projectile: $Entity, thrower: $LivingEntity | null): $DamageSource;
+        indirectMagic(causingEntity: $Entity, directEntity: $Entity | null): $DamageSource;
         mobAttack(mob: $LivingEntity): $DamageSource;
+        inFire(): $DamageSource;
         hotFloor(): $DamageSource;
         sweetBerryBush(): $DamageSource;
         stalagmite(): $DamageSource;
@@ -49,18 +57,7 @@ declare module "@package/net/minecraft/world/damagesource" {
         mobProjectile(projectile: $Entity, thrower: $LivingEntity | null): $DamageSource;
         starve(): $DamageSource;
         witherSkull(witherSkull: $WitherSkull, shooter: $Entity): $DamageSource;
-        trident(causingEntity: $Entity, directEntity: $Entity | null): $DamageSource;
-        spit(projectile: $Entity, thrower: $LivingEntity | null): $DamageSource;
-        anvil(entity: $Entity): $DamageSource;
-        cactus(): $DamageSource;
-        campfire(): $DamageSource;
-        indirectMagic(causingEntity: $Entity, directEntity: $Entity | null): $DamageSource;
-        arrow(arrow: $AbstractArrow, shooter: $Entity | null): $DamageSource;
-        fireball(fireball: $Fireball, thrower: $Entity | null): $DamageSource;
-        fall(): $DamageSource;
-        inFire(): $DamageSource;
-        badRespawnPointExplosion(position: $Vec3_): $DamageSource;
-        fallingBlock(entity: $Entity): $DamageSource;
+        dragonBreath(): $DamageSource;
         magic(): $DamageSource;
         thrown(causingEntity: $Entity, directEntity: $Entity | null): $DamageSource;
         source(damageTypeKey: $ResourceKey_<$DamageType>, entity: $Entity | null): $DamageSource;
@@ -68,10 +65,13 @@ declare module "@package/net/minecraft/world/damagesource" {
         source(damageTypeKey: $ResourceKey_<$DamageType>, causingEntity: $Entity | null, directEntity: $Entity | null): $DamageSource;
         generic(): $DamageSource;
         freeze(): $DamageSource;
+        playerAttack(player: $Player): $DamageSource;
+        onFire(): $DamageSource;
+        lava(): $DamageSource;
+        lightningBolt(): $DamageSource;
         explosion(causingEntity: $Entity | null, directEntity: $Entity | null): $DamageSource;
         explosion(explosion: $Explosion | null): $DamageSource;
         fireworks(firework: $FireworkRocketEntity, shooter: $Entity | null): $DamageSource;
-        playerAttack(player: $Player): $DamageSource;
         damageTypes: $Registry<$DamageType>;
         constructor(registry: $RegistryAccess);
     }
@@ -85,7 +85,7 @@ declare module "@package/net/minecraft/world/damagesource" {
     /**
      * Values that may be interpreted as {@link $CombatEntry}.
      */
-    export type $CombatEntry_ = { damage?: number, fallLocation?: $FallLocation_, fallDistance?: number, source?: $DamageSource_,  } | [damage?: number, fallLocation?: $FallLocation_, fallDistance?: number, source?: $DamageSource_, ];
+    export type $CombatEntry_ = { damage?: number, source?: $DamageSource_, fallDistance?: number, fallLocation?: $FallLocation_,  } | [damage?: number, source?: $DamageSource_, fallDistance?: number, fallLocation?: $FallLocation_, ];
     export class $DamageEffects extends $Enum<$DamageEffects> implements $StringRepresentable, $IExtensibleEnum {
         static values(): $DamageEffects[];
         static valueOf(arg0: string): $DamageEffects;
@@ -100,6 +100,9 @@ declare module "@package/net/minecraft/world/damagesource" {
         static BURNING: $DamageEffects;
         static HURT: $DamageEffects;
         static THORNS: $DamageEffects;
+        static get extensionInfo(): $ExtensionInfo;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $DamageEffects}.
@@ -108,9 +111,9 @@ declare module "@package/net/minecraft/world/damagesource" {
     export class $DamageType extends $Record {
         deathMessageType(): $DeathMessageType;
         msgId(): string;
+        exhaustion(): number;
         effects(): $DamageEffects;
         scaling(): $DamageScaling;
-        exhaustion(): number;
         static CODEC: $Codec<$Holder<$DamageType>>;
         static DIRECT_CODEC: $Codec<$DamageType>;
         static STREAM_CODEC: $StreamCodec<$RegistryFriendlyByteBuf, $Holder<$DamageType>>;
@@ -123,7 +126,7 @@ declare module "@package/net/minecraft/world/damagesource" {
     /**
      * Values that may be interpreted as {@link $DamageType}.
      */
-    export type $DamageType_ = RegistryTypes.DamageType | { exhaustion?: number, deathMessageType?: $DeathMessageType_, msgId?: string, scaling?: $DamageScaling_, effects?: $DamageEffects_,  } | [exhaustion?: number, deathMessageType?: $DeathMessageType_, msgId?: string, scaling?: $DamageScaling_, effects?: $DamageEffects_, ];
+    export type $DamageType_ = RegistryTypes.DamageType | { deathMessageType?: $DeathMessageType_, exhaustion?: number, effects?: $DamageEffects_, scaling?: $DamageScaling_, msgId?: string,  } | [deathMessageType?: $DeathMessageType_, exhaustion?: number, effects?: $DamageEffects_, scaling?: $DamageScaling_, msgId?: string, ];
     export class $DamageSource {
         /**
          * Retrieves the immediate causer of the damage, e.g. the arrow entity, not its shooter
@@ -135,14 +138,14 @@ declare module "@package/net/minecraft/world/damagesource" {
         getSourcePosition(): $Vec3;
         getWeaponItem(): $ItemStack;
         /**
-         * Return whether this damage source will have its damage amount scaled based on the current difficulty.
+         * Retrieves the immediate causer of the damage, e.g. the arrow entity, not its shooter
          */
-        isCreativePlayer(): boolean;
+        getActual(): $Entity;
+        typeHolder(): $Holder<$DamageType>;
         /**
          * Gets the death message that is displayed when the player dies
          */
         getLocalizedDeathMessage(livingEntity: $LivingEntity): $Component;
-        typeHolder(): $Holder<$DamageType>;
         /**
          * Return the name of damage type.
          */
@@ -157,10 +160,6 @@ declare module "@package/net/minecraft/world/damagesource" {
          * Return whether this damage source will have its damage amount scaled based on the current difficulty.
          */
         scalesWithDifficulty(): boolean;
-        /**
-         * Retrieves the immediate causer of the damage, e.g. the arrow entity, not its shooter
-         */
-        getActual(): $Entity;
         type(): $DamageType;
         /**
          * Return whether this damage source will have its damage amount scaled based on the current difficulty.
@@ -172,11 +171,23 @@ declare module "@package/net/minecraft/world/damagesource" {
          * How much satiate (food) is consumed by this `DamageSource`.
          */
         getFoodExhaustion(): number;
+        /**
+         * Return whether this damage source will have its damage amount scaled based on the current difficulty.
+         */
+        isCreativePlayer(): boolean;
         constructor(type: $Holder_<$DamageType>, directEntity: $Entity | null, causingEntity: $Entity | null, damageSourcePosition: $Vec3_ | null);
         constructor(type: $Holder_<$DamageType>, directEntity: $Entity | null, causingEntity: $Entity | null);
-        constructor(type: $Holder_<$DamageType>);
-        constructor(type: $Holder_<$DamageType>, entity: $Entity | null);
         constructor(type: $Holder_<$DamageType>, damageSourcePosition: $Vec3_);
+        constructor(type: $Holder_<$DamageType>, entity: $Entity | null);
+        constructor(type: $Holder_<$DamageType>);
+        get immediate(): $Entity;
+        get sourcePosition(): $Vec3;
+        get weaponItem(): $ItemStack;
+        get actual(): $Entity;
+        get player(): $Player;
+        get direct(): boolean;
+        get foodExhaustion(): number;
+        get creativePlayer(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $DamageSource}.
@@ -205,20 +216,23 @@ declare module "@package/net/minecraft/world/damagesource" {
         static values(): $DamageScaling[];
         static valueOf(arg0: string): $DamageScaling;
         static getExtensionInfo(): $ExtensionInfo;
-        getSerializedName(): string;
         getScalingFunction(): $IScalingFunction;
+        getSerializedName(): string;
         getRemappedEnumConstantName(): string;
         static CODEC: $Codec<$DamageScaling>;
         static WHEN_CAUSED_BY_LIVING_NON_PLAYER: $DamageScaling;
         static NEVER: $DamageScaling;
         static ALWAYS: $DamageScaling;
+        static get extensionInfo(): $ExtensionInfo;
+        get scalingFunction(): $IScalingFunction;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $DamageScaling}.
      */
     export type $DamageScaling_ = "never" | "when_caused_by_living_non_player" | "always";
     export class $CombatTracker {
-        getCombatDuration(): number;
         getDeathMessage(): $Component;
         /**
          * Resets this trackers list of combat entries
@@ -226,6 +240,7 @@ declare module "@package/net/minecraft/world/damagesource" {
         recheckStatus(): void;
         recordDamage(source: $DamageSource_, damage: number): void;
         getMostSignificantFall(): $CombatEntry;
+        getCombatDuration(): number;
         getFallMessage(combatEntry: $CombatEntry_, entity: $Entity | null): $Component;
         static INTENTIONAL_GAME_DESIGN_STYLE: $Style;
         entries: $List<$CombatEntry>;
@@ -234,6 +249,9 @@ declare module "@package/net/minecraft/world/damagesource" {
         static RESET_COMBAT_STATUS_TIME: number;
         static RESET_DAMAGE_STATUS_TIME: number;
         constructor(mob: $LivingEntity);
+        get deathMessage(): $Component;
+        get mostSignificantFall(): $CombatEntry;
+        get combatDuration(): number;
     }
     export class $DeathMessageType extends $Enum<$DeathMessageType> implements $StringRepresentable, $IExtensibleEnum {
         getMessageFunction(): $IDeathMessageProvider;
@@ -246,6 +264,10 @@ declare module "@package/net/minecraft/world/damagesource" {
         static FALL_VARIANTS: $DeathMessageType;
         static CODEC: $Codec<$DeathMessageType>;
         static DEFAULT: $DeathMessageType;
+        get messageFunction(): $IDeathMessageProvider;
+        static get extensionInfo(): $ExtensionInfo;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $DeathMessageType}.

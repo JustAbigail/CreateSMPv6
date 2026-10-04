@@ -17,28 +17,42 @@ declare module "@package/net/caffeinemc/mods/sodium/client/render/chunk/compile/
         isBlocking(): boolean;
         execute(arg0: $ChunkBuildContext): void;
         isStarted(): boolean;
+        get estimatedDuration(): number;
+        get estimatedUploadDuration(): number;
+        get estimatedSize(): number;
+        get blocking(): boolean;
+        get started(): boolean;
     }
     export class $ChunkJobTyped<TASK extends $ChunkBuilderTask<OUTPUT>, OUTPUT extends $BuilderTaskOutput> implements $ChunkJob {
         setCancelled(): void;
         getEstimatedDuration(): number;
         getEstimatedUploadDuration(): number;
         getEstimatedSize(): number;
-        isCancelled(): boolean;
         isBlocking(): boolean;
+        isCancelled(): boolean;
         execute(arg0: $ChunkBuildContext): void;
         isStarted(): boolean;
+        get estimatedDuration(): number;
+        get estimatedUploadDuration(): number;
+        get estimatedSize(): number;
+        get blocking(): boolean;
+        get started(): boolean;
     }
     export class $ChunkBuilder {
         scheduleTask<TASK extends $ChunkBuilderTask<OUTPUT>, OUTPUT extends $BuilderTaskOutput>(arg0: TASK, arg1: boolean, arg2: $Consumer_<$ChunkJobResult<OUTPUT>>, arg3: boolean): $ChunkJobTyped<TASK, OUTPUT>;
         isBuildQueueEmpty(): boolean;
+        tryStealTask(arg0: $ChunkJob): void;
         getTotalRemainingDuration(arg0: number): number;
         getScheduledJobCount(): number;
         getBusyThreadCount(): number;
         getBusyFraction(arg0: number): number;
-        tryStealTask(arg0: $ChunkJob): void;
         getTotalThreadCount(): number;
         shutdown(): void;
         constructor(arg0: $ClientLevel, arg1: $ChunkVertexType);
+        get buildQueueEmpty(): boolean;
+        get scheduledJobCount(): number;
+        get busyThreadCount(): number;
+        get totalThreadCount(): number;
     }
     export class $ChunkJobResult<OUTPUT> {
         static successfully<OUTPUT>(arg0: OUTPUT): $ChunkJobResult<OUTPUT>;
@@ -46,5 +60,6 @@ declare module "@package/net/caffeinemc/mods/sodium/client/render/chunk/compile/
         getJobEffort(): $JobEffort;
         static exceptionally<OUTPUT>(arg0: $Throwable): $ChunkJobResult<OUTPUT>;
         unwrap(): OUTPUT;
+        get jobEffort(): $JobEffort;
     }
 }

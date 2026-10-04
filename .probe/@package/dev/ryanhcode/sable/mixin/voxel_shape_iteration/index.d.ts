@@ -6,5 +6,8 @@ declare module "@package/dev/ryanhcode/sable/mixin/voxel_shape_iteration" {
         getXSize(): number;
         getYSize(): number;
         getZSize(): number;
+        get XSize(): number;
+        get YSize(): number;
+        get ZSize(): number;
     }
 }

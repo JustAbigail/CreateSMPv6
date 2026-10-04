@@ -28,12 +28,16 @@ declare module "@package/net/neoforged/neoforge/common/data" {
         run(cache: $CachedOutput_): $CompletableFuture<never>;
         builder<T, R, VR extends $DataMapValueRemover<R, T>>(arg0: $AdvancedDataMapType<R, T, VR>): $DataMapProvider$AdvancedBuilder<T, R, VR>;
         builder<T, R>(arg0: $DataMapType<R, T>): $DataMapProvider$Builder<T, R>;
+        get name(): string;
     }
     export class $ExistingFileHelper$ResourceType implements $ExistingFileHelper$IResourceType {
         getPackType(): $PackType;
         getPrefix(): string;
         getSuffix(): string;
         constructor(type: $PackType_, suffix: string, prefix: string);
+        get packType(): $PackType;
+        get prefix(): string;
+        get suffix(): string;
     }
     /**
      * An extension of the `RegistriesDatapackGenerator` which properly handles
@@ -46,12 +50,6 @@ declare module "@package/net/neoforged/neoforge/common/data" {
          */
         getRegistryProvider(): $CompletableFuture<$HolderLookup$Provider>;
         registries: $CompletableFuture<$HolderLookup$Provider>;
-        /**
-         * Constructs a new datapack provider which generates all registry objects
-         * from the provided mods using the holder. All entries that need to be
-         * bootstrapped are provided within the `RegistrySetBuilder`.
-         */
-        constructor(output: $PackOutput, registries: $CompletableFuture<$HolderLookup$Provider>, datapackEntriesBuilder: $RegistrySetBuilder, conditionsBuilder: $Consumer_<$BiConsumer<$ResourceKey<never>, $ICondition>>, modIds: $Set_<string>);
         /**
          * Constructs a new datapack provider which generates all registry objects
          * from the provided mods using the holder.
@@ -79,6 +77,13 @@ declare module "@package/net/neoforged/neoforge/common/data" {
          * bootstrapped are provided within the `RegistrySetBuilder`.
          */
         constructor(output: $PackOutput, registries: $CompletableFuture<$HolderLookup$Provider>, datapackEntriesBuilder: $RegistrySetBuilder, conditions: $Map_<$ResourceKey_<never>, $List_<$ICondition>>, modIds: $Set_<string>);
+        /**
+         * Constructs a new datapack provider which generates all registry objects
+         * from the provided mods using the holder. All entries that need to be
+         * bootstrapped are provided within the `RegistrySetBuilder`.
+         */
+        constructor(output: $PackOutput, registries: $CompletableFuture<$HolderLookup$Provider>, datapackEntriesBuilder: $RegistrySetBuilder, conditionsBuilder: $Consumer_<$BiConsumer<$ResourceKey<never>, $ICondition>>, modIds: $Set_<string>);
+        get registryProvider(): $CompletableFuture<$HolderLookup$Provider>;
     }
     /**
      * Enables data providers to check if other data files currently exist. The
@@ -125,6 +130,7 @@ declare module "@package/net/neoforged/neoforge/common/data" {
          * other generated files.
          */
         constructor(existingPacks: $Collection_<$Path_>, existingMods: $Set_<string>, enable: boolean, assetIndex: string, assetsDir: $File_);
+        get enabled(): boolean;
     }
     export class $ExistingFileHelper$IResourceType {
     }
@@ -132,10 +138,12 @@ declare module "@package/net/neoforged/neoforge/common/data" {
         getPackType(): $PackType;
         getPrefix(): string;
         getSuffix(): string;
+        get packType(): $PackType;
+        get prefix(): string;
+        get suffix(): string;
     }
     export class $LanguageProvider implements $DataProvider {
         addEffect(key: $Supplier_<$MobEffect>, name: string): void;
-        addTag(key: $Supplier_<$TagKey<never>>, name: string): void;
         addItem(key: $Supplier_<$Item>, name: string): void;
         addBlock(key: $Supplier_<$Block>, name: string): void;
         addEntityType(key: $Supplier_<$EntityType<never>>, name: string): void;
@@ -146,10 +154,12 @@ declare module "@package/net/neoforged/neoforge/common/data" {
         add(key: $EntityType_<never>, name: string): void;
         add(tagKey: $TagKey_<never>, name: string): void;
         add(key: string, value: string): void;
-        add(key: $Item_, name: string): void;
+        add(key: $Block_, name: string): void;
         add(key: $ItemStack_, name: string): void;
         add(key: $MobEffect_, name: string): void;
-        add(key: $Block_, name: string): void;
+        add(key: $Item_, name: string): void;
+        addTag(key: $Supplier_<$TagKey<never>>, name: string): void;
         constructor(output: $PackOutput, modid: string, locale: string);
+        get name(): string;
     }
 }

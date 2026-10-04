@@ -20,6 +20,8 @@ declare module "@package/foundry/veil/api/flare/modifier" {
         static MULTIPLY: $PropertyModifier$PropertyModifierMode;
         static REPLACE: $PropertyModifier$PropertyModifierMode;
         static SUBTRACT: $PropertyModifier$PropertyModifierMode;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $PropertyModifier$PropertyModifierMode}.
@@ -33,11 +35,14 @@ declare module "@package/foundry/veil/api/flare/modifier" {
         update(arg0: number): void;
         getValue(): number;
         initialize(): void;
+        get updatedValue(): number;
+        get name(): string;
+        get value(): number;
     }
     export class $PropertyModifier<T> {
-        outputPropertyName(): string;
         inputControllerName(): string;
         static modifyProperty(arg0: $EffectHost, arg1: string, arg2: $Property<never>, arg3: $Iterable_<$PropertyModifier<never>>): void;
+        outputPropertyName(): string;
         optionalClazz(): (string) | undefined;
         molangExpressions(): ($List<$MolangExpression>) | undefined;
         getPair(): $Pair<($List<$MolangExpression>) | undefined, $PropertyModifier$PropertyModifierMode>;
@@ -50,5 +55,6 @@ declare module "@package/foundry/veil/api/flare/modifier" {
         static createCodec<A, T extends $PropertyModifier<A>, O>(arg0: $Function7_<string, string, string, string, $PropertyModifier$PropertyModifierMode, ($List<$MolangExpression>) | undefined, O, T>, arg1: $Function_<T, O>, arg2: $MapCodec_<O>, arg3: number): $MapCodec<T>;
         static createCodec<A, T extends $PropertyModifier<A>>(arg0: $Function6_<string, string, string, string, $PropertyModifier$PropertyModifierMode, ($List<$MolangExpression>) | undefined, T>, arg1: number): $MapCodec<T>;
         constructor(arg0: $PropertyModifierRegistry$PropertyModifierType_<T, never>, arg1: string, arg2: string, arg3: string, arg4: string, arg5: $PropertyModifier$PropertyModifierMode_, arg6: ($List_<$MolangExpression_>) | undefined);
+        get pair(): $Pair<($List<$MolangExpression>) | undefined, $PropertyModifier$PropertyModifierMode>;
     }
 }

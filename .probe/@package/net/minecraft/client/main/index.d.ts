@@ -16,17 +16,18 @@ declare module "@package/net/minecraft/client/main" {
         constructor(demo: boolean, launchVersion: string, versionType: string, disableMultiplayer: boolean, disableChat: boolean);
     }
     export class $GameConfig$QuickPlayData extends $Record {
+        singleplayer(): string;
+        multiplayer(): string;
         isEnabled(): boolean;
         path(): string;
         realms(): string;
-        singleplayer(): string;
-        multiplayer(): string;
         constructor(arg0: string | null, arg1: string | null, arg2: string | null, arg3: string | null);
+        get enabled(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $GameConfig$QuickPlayData}.
      */
-    export type $GameConfig$QuickPlayData_ = { path?: string, singleplayer?: string, multiplayer?: string, realms?: string,  } | [path?: string, singleplayer?: string, multiplayer?: string, realms?: string, ];
+    export type $GameConfig$QuickPlayData_ = { path?: string, realms?: string, multiplayer?: string, singleplayer?: string,  } | [path?: string, realms?: string, multiplayer?: string, singleplayer?: string, ];
     export class $GameConfig {
         game: $GameConfig$GameData;
         display: $DisplayData;
@@ -49,5 +50,6 @@ declare module "@package/net/minecraft/client/main" {
         assetDirectory: $File;
         resourcePackDirectory: $File;
         constructor(gameDirectory: $File_, resourcePackDirectory: $File_, assetDirectory: $File_, assetIndex: string | null);
+        get externalAssetSource(): $Path;
     }
 }

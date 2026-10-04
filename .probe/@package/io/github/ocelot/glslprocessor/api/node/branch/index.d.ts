@@ -11,9 +11,9 @@ declare module "@package/io/github/ocelot/glslprocessor/api/node/branch" {
         setSecond(arg0: $Collection_<$GlslNode>): $GlslIfNode;
         getNodeType(): $GlslNodeType;
         visit(arg0: $GlslNodeVisitor): void;
+        getSecond(): $GlslNodeList;
         stream(): $Stream<$GlslNode>;
         getFirst(): $GlslNodeList;
-        getSecond(): $GlslNodeList;
         getExpression(): $GlslNode;
         setExpression(arg0: $GlslNode): void;
         getBody(): $GlslNodeList;
@@ -23,6 +23,8 @@ declare module "@package/io/github/ocelot/glslprocessor/api/node/branch" {
         setBody(arg0: $Collection_<$GlslNode>): boolean;
         setBody(...arg0: $GlslNode[]): boolean;
         constructor(arg0: $GlslNode, arg1: $Collection_<$GlslNode>, arg2: $Collection_<$GlslNode>);
+        get nodeType(): $GlslNodeType;
+        get type(): $GlslSpecifiedType;
     }
     export class $GlslReturnNode implements $GlslNode {
         getNodeType(): $GlslNodeType;
@@ -37,6 +39,8 @@ declare module "@package/io/github/ocelot/glslprocessor/api/node/branch" {
         setBody(arg0: $Collection_<$GlslNode>): boolean;
         setBody(...arg0: $GlslNode[]): boolean;
         constructor(arg0: $GlslNode);
+        get nodeType(): $GlslNodeType;
+        get type(): $GlslSpecifiedType;
     }
     export class $GlslWhileLoopNode$Type extends $Enum<$GlslWhileLoopNode$Type> {
         static values(): $GlslWhileLoopNode$Type[];
@@ -63,6 +67,8 @@ declare module "@package/io/github/ocelot/glslprocessor/api/node/branch" {
         static CONTINUE: $GlslJumpNode;
         static DISCARD: $GlslJumpNode;
         static BREAK: $GlslJumpNode;
+        get nodeType(): $GlslNodeType;
+        get type(): $GlslSpecifiedType;
     }
     /**
      * Values that may be interpreted as {@link $GlslJumpNode}.
@@ -70,10 +76,10 @@ declare module "@package/io/github/ocelot/glslprocessor/api/node/branch" {
     export type $GlslJumpNode_ = "continue" | "break" | "discard";
     export class $GlslSwitchNode implements $GlslNode {
         getCondition(): $GlslNode;
-        setBranches(arg0: $Collection_<$GlslNode>): $GlslSwitchNode;
-        setBranches(...arg0: $GlslNode[]): $GlslSwitchNode;
-        setCondition(arg0: $GlslNode): $GlslSwitchNode;
         getBranches(): $List<$GlslNode>;
+        setBranches(...arg0: $GlslNode[]): $GlslSwitchNode;
+        setBranches(arg0: $Collection_<$GlslNode>): $GlslSwitchNode;
+        setCondition(arg0: $GlslNode): $GlslSwitchNode;
         getNodeType(): $GlslNodeType;
         visit(arg0: $GlslNodeVisitor): void;
         stream(): $Stream<$GlslNode>;
@@ -84,14 +90,16 @@ declare module "@package/io/github/ocelot/glslprocessor/api/node/branch" {
         setBody(arg0: $Collection_<$GlslNode>): boolean;
         setBody(...arg0: $GlslNode[]): boolean;
         constructor(arg0: $GlslNode, arg1: $Collection_<$GlslNode>);
+        get nodeType(): $GlslNodeType;
+        get type(): $GlslSpecifiedType;
     }
     export class $GlslForLoopNode implements $GlslNode {
         getCondition(): $GlslNode;
         getIncrement(): $GlslNode;
-        setCondition(arg0: $GlslNode): $GlslForLoopNode;
         setIncrement(arg0: $GlslNode): $GlslForLoopNode;
-        getInit(): $GlslNode;
+        setCondition(arg0: $GlslNode): $GlslForLoopNode;
         getNodeType(): $GlslNodeType;
+        getInit(): $GlslNode;
         getBody(): $GlslNodeList;
         visit(arg0: $GlslNodeVisitor): void;
         stream(): $Stream<$GlslNode>;
@@ -102,6 +110,8 @@ declare module "@package/io/github/ocelot/glslprocessor/api/node/branch" {
         setBody(arg0: $Collection_<$GlslNode>): boolean;
         setBody(...arg0: $GlslNode[]): boolean;
         constructor(arg0: $GlslNode, arg1: $GlslNode, arg2: $GlslNode, arg3: $Collection_<$GlslNode>);
+        get nodeType(): $GlslNodeType;
+        get type(): $GlslSpecifiedType;
     }
     export class $GlslWhileLoopNode implements $GlslNode {
         getLoopType(): $GlslWhileLoopNode$Type;
@@ -118,6 +128,8 @@ declare module "@package/io/github/ocelot/glslprocessor/api/node/branch" {
         setBody(arg0: $Collection_<$GlslNode>): boolean;
         setBody(...arg0: $GlslNode[]): boolean;
         constructor(arg0: $GlslNode, arg1: $Collection_<$GlslNode>, arg2: $GlslWhileLoopNode$Type_);
+        get nodeType(): $GlslNodeType;
+        get type(): $GlslSpecifiedType;
     }
     export class $GlslCaseLabelNode implements $GlslNode {
         getCondition(): $GlslNode;
@@ -133,5 +145,8 @@ declare module "@package/io/github/ocelot/glslprocessor/api/node/branch" {
         setBody(arg0: $Collection_<$GlslNode>): boolean;
         setBody(...arg0: $GlslNode[]): boolean;
         constructor(arg0: $GlslNode);
+        get nodeType(): $GlslNodeType;
+        get default(): boolean;
+        get type(): $GlslSpecifiedType;
     }
 }

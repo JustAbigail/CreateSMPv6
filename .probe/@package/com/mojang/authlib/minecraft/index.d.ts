@@ -72,13 +72,15 @@ declare module "@package/com/mojang/authlib/minecraft" {
     /**
      * Values that may be interpreted as {@link $MinecraftProfileTextures}.
      */
-    export type $MinecraftProfileTextures_ = { skin?: $MinecraftProfileTexture, elytra?: $MinecraftProfileTexture, signatureState?: $SignatureState_, cape?: $MinecraftProfileTexture,  } | [skin?: $MinecraftProfileTexture, elytra?: $MinecraftProfileTexture, signatureState?: $SignatureState_, cape?: $MinecraftProfileTexture, ];
+    export type $MinecraftProfileTextures_ = { skin?: $MinecraftProfileTexture, cape?: $MinecraftProfileTexture, signatureState?: $SignatureState_, elytra?: $MinecraftProfileTexture,  } | [skin?: $MinecraftProfileTexture, cape?: $MinecraftProfileTexture, signatureState?: $SignatureState_, elytra?: $MinecraftProfileTexture, ];
     export class $MinecraftProfileTexture {
         getUrl(): string;
         getMetadata(arg0: string): string;
         getHash(): string;
         static PROFILE_TEXTURE_COUNT: number;
         constructor(arg0: string, arg1: $Map_<string, string>);
+        get url(): string;
+        get hash(): string;
     }
     export class $UserApiService$UserFlag extends $Enum<$UserApiService$UserFlag> {
         static values(): $UserApiService$UserFlag[];
@@ -107,24 +109,27 @@ declare module "@package/com/mojang/authlib/minecraft" {
         getAbuseReportLimits(): $AbuseReportLimits;
         getKeyPair(): $KeyPairResponse;
         fetchProperties(): $UserApiService$UserProperties;
+        get abuseReportLimits(): $AbuseReportLimits;
+        get keyPair(): $KeyPairResponse;
     }
     export class $BanDetails extends $Record {
         reasonMessage(): string;
-        expires(): $Instant;
         id(): $UUID;
         reason(): string;
+        expires(): $Instant;
         static MULTIPLAYER_SCOPE: string;
         constructor(id: $UUID_, expires: $Instant | null, reason: string | null, reasonMessage: string | null);
     }
     /**
      * Values that may be interpreted as {@link $BanDetails}.
      */
-    export type $BanDetails_ = { expires?: $Instant, id?: $UUID_, reasonMessage?: string, reason?: string,  } | [expires?: $Instant, id?: $UUID_, reasonMessage?: string, reason?: string, ];
+    export type $BanDetails_ = { id?: $UUID_, expires?: $Instant, reason?: string, reasonMessage?: string,  } | [id?: $UUID_, expires?: $Instant, reason?: string, reasonMessage?: string, ];
     export class $TelemetrySession {
         static DISABLED: $TelemetrySession;
     }
     export interface $TelemetrySession {
         createNewEvent(arg0: string): $TelemetryEvent;
         isEnabled(): boolean;
+        get enabled(): boolean;
     }
 }

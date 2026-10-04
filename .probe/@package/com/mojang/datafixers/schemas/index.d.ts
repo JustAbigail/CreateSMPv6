@@ -6,14 +6,8 @@ import { $DSL$TypeReference_ } from "@package/com/mojang/datafixers";
 
 declare module "@package/com/mojang/datafixers/schemas" {
     export class $Schema {
-        resolveTemplate(arg0: string): $TypeTemplate;
-        registerSimple(arg0: $Map_<string, $Supplier_<$TypeTemplate>>, arg1: string): void;
-        registerType(arg0: boolean, arg1: $DSL$TypeReference_, arg2: $Supplier_<$TypeTemplate>): void;
-        registerEntities(arg0: $Schema): $Map<string, $Supplier<$TypeTemplate>>;
-        registerBlockEntities(arg0: $Schema): $Map<string, $Supplier<$TypeTemplate>>;
-        registerTypes(arg0: $Schema, arg1: $Map_<string, $Supplier_<$TypeTemplate>>, arg2: $Map_<string, $Supplier_<$TypeTemplate>>): void;
-        register(arg0: $Map_<string, $Supplier_<$TypeTemplate>>, arg1: string, arg2: $Supplier_<$TypeTemplate>): void;
         register(arg0: $Map_<string, $Supplier_<$TypeTemplate>>, arg1: string, arg2: $Function_<string, $TypeTemplate>): void;
+        register(arg0: $Map_<string, $Supplier_<$TypeTemplate>>, arg1: string, arg2: $Supplier_<$TypeTemplate>): void;
         id(arg0: string): $TypeTemplate;
         getParent(): $Schema;
         getType(arg0: $DSL$TypeReference_): $Type<never>;
@@ -22,6 +16,14 @@ declare module "@package/com/mojang/datafixers/schemas" {
         getTypeRaw(arg0: $DSL$TypeReference_): $Type<never>;
         getVersionKey(): number;
         findChoiceType(arg0: $DSL$TypeReference_): $TaggedChoice$TaggedChoiceType<never>;
+        resolveTemplate(arg0: string): $TypeTemplate;
+        registerType(arg0: boolean, arg1: $DSL$TypeReference_, arg2: $Supplier_<$TypeTemplate>): void;
+        registerSimple(arg0: $Map_<string, $Supplier_<$TypeTemplate>>, arg1: string): void;
+        registerEntities(arg0: $Schema): $Map<string, $Supplier<$TypeTemplate>>;
+        registerBlockEntities(arg0: $Schema): $Map<string, $Supplier<$TypeTemplate>>;
+        registerTypes(arg0: $Schema, arg1: $Map_<string, $Supplier_<$TypeTemplate>>, arg2: $Map_<string, $Supplier_<$TypeTemplate>>): void;
         constructor(arg0: number, arg1: $Schema);
+        get parent(): $Schema;
+        get versionKey(): number;
     }
 }

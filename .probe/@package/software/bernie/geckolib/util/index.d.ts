@@ -2,15 +2,12 @@ import { $Record } from "@package/java/lang";
 
 declare module "@package/software/bernie/geckolib/util" {
     export class $Color extends $Record {
-        brighter(arg0: number): $Color;
-        darker(arg0: number): $Color;
-        argbInt(): number;
-        static ofRGBA(arg0: number, arg1: number, arg2: number, arg3: number): $Color;
-        static ofRGBA(arg0: number, arg1: number, arg2: number, arg3: number): $Color;
         static ofOpaque(arg0: number): $Color;
+        static ofRGB(arg0: number, arg1: number, arg2: number): $Color;
+        static ofRGB(arg0: number, arg1: number, arg2: number): $Color;
         static ofHSB(arg0: number, arg1: number, arg2: number): $Color;
-        static ofRGB(arg0: number, arg1: number, arg2: number): $Color;
-        static ofRGB(arg0: number, arg1: number, arg2: number): $Color;
+        static ofRGBA(arg0: number, arg1: number, arg2: number, arg3: number): $Color;
+        static ofRGBA(arg0: number, arg1: number, arg2: number, arg3: number): $Color;
         static HSBtoARGB(arg0: number, arg1: number, arg2: number): number;
         static ofARGB(arg0: number, arg1: number, arg2: number, arg3: number): $Color;
         static ofARGB(arg0: number, arg1: number, arg2: number, arg3: number): $Color;
@@ -18,6 +15,9 @@ declare module "@package/software/bernie/geckolib/util" {
         getRedFloat(): number;
         getGreenFloat(): number;
         getBlueFloat(): number;
+        argbInt(): number;
+        brighter(arg0: number): $Color;
+        darker(arg0: number): $Color;
         getRed(): number;
         getGreen(): number;
         getBlue(): number;
@@ -37,6 +37,15 @@ declare module "@package/software/bernie/geckolib/util" {
         static CYAN: $Color;
         static ORANGE: $Color;
         constructor(argbInt: number);
+        get alphaFloat(): number;
+        get redFloat(): number;
+        get greenFloat(): number;
+        get blueFloat(): number;
+        get red(): number;
+        get green(): number;
+        get blue(): number;
+        get alpha(): number;
+        get color(): number;
     }
     /**
      * Values that may be interpreted as {@link $Color}.

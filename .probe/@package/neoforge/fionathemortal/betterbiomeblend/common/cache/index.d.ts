@@ -15,6 +15,7 @@ declare module "@package/neoforge/fionathemortal/betterbiomeblend/common/cache" 
         size: number;
         key: number;
         constructor(size: number, salt: number);
+        get invalid(): boolean;
     }
     export class $ColorCache extends $SliceCache<$ColorSlice> {
         newSlice(size: number, salt: number): $ColorSlice;

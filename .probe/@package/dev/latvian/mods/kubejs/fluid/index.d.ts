@@ -63,21 +63,24 @@ declare module "@package/dev/latvian/mods/kubejs/fluid" {
         getAmount(): number;
         copy(amount: number): $FluidLike;
         isEmpty(): boolean;
+        get fluid(): $Fluid;
+        get amount(): number;
+        get empty(): boolean;
     }
     export class $FluidBuilder extends $BuilderBase<$FlowingFluid> {
+        translucent(): this;
         tint(c: $KubeColor_): this;
-        slopeFindDistance(slopeFindDistance: number): this;
         levelDecreasePerBlock(levelDecreasePerBlock: number): this;
+        slopeFindDistance(slopeFindDistance: number): this;
         renderType(l: $BlockRenderType_): this;
         noBlock(): this;
         noBucket(): this;
+        explosionResistance(explosionResistance: number): this;
         tickRate(tickRate: number): this;
         stillTexture(id: $ResourceLocation_): this;
         flowingTexture(id: $ResourceLocation_): this;
-        explosionResistance(explosionResistance: number): this;
         type(builder: $Consumer_<$FluidTypeBuilder>): this;
         createProperties(): $BaseFlowingFluid$Properties;
-        translucent(): this;
         static WATER_COLOR: $KubeColor;
         bucketItem: $FluidBucketItemBuilder;
         registryKey: $ResourceKey<$Registry<$FlowingFluid>>;
@@ -120,13 +123,10 @@ declare module "@package/dev/latvian/mods/kubejs/fluid" {
         addDripstoneDripping(chance: number, dripParticle: $ParticleOptions_, cauldron: $Block_, fillSound: $SoundEvent_): this;
         screenOverlayTexture(screenOverlayTexture: $ResourceLocation_): this;
         blockOverlayTexture(blockOverlayTexture: $ResourceLocation_): this;
-        renderType(renderType: $BlockRenderType_): this;
-        rarity(rarity: $Rarity_): this;
-        stillTexture(stillTexture: $ResourceLocation_): this;
-        flowingTexture(flowingTexture: $ResourceLocation_): this;
         temperature(temperature: number): this;
-        descriptionId(descriptionId: string): this;
         lightLevel(lightLevel: number): this;
+        renderType(renderType: $BlockRenderType_): this;
+        viscosity(viscosity: number): this;
         canDrown(canDrown: boolean): this;
         fallDistanceModifier(fallDistanceModifier: number): this;
         canConvertToSource(canConvertToSource: boolean): this;
@@ -134,7 +134,10 @@ declare module "@package/dev/latvian/mods/kubejs/fluid" {
         pathType(pathType: $PathType_): this;
         adjacentPathType(adjacentPathType: $PathType_): this;
         density(density: number): this;
-        viscosity(viscosity: number): this;
+        descriptionId(descriptionId: string): this;
+        rarity(rarity: $Rarity_): this;
+        stillTexture(stillTexture: $ResourceLocation_): this;
+        flowingTexture(flowingTexture: $ResourceLocation_): this;
         sound(action: $SoundAction, sound: $SoundEvent_): this;
         registryKey: $ResourceKey<$Registry<$FluidType>>;
         sourceLine: $SourceLine;
@@ -142,11 +145,6 @@ declare module "@package/dev/latvian/mods/kubejs/fluid" {
         constructor(id: $ResourceLocation_);
     }
     export class $FluidWrapper {
-        static lava(amount: number): $FluidStack;
-        static lava(): $FluidStack;
-        static ingredientOfString(registryOps: $DynamicOps<$Tag_>, s: string): $DataResult<$FluidIngredient>;
-        static sizedIngredientOfString(registryOps: $DynamicOps<$Tag_>, s: string): $DataResult<$SizedFluidIngredient>;
-        static ingredientOf(of: $FluidIngredient_): $FluidIngredient;
         /**
          * Returns an ingredient that accepts the given set of fluids under the given component filter.
          */
@@ -155,34 +153,39 @@ declare module "@package/dev/latvian/mods/kubejs/fluid" {
          * Returns an ingredient that accepts the given set of items under the given (optionally strict) component filter.
          */
         static ingredientOf(base: $HolderSet_<$Fluid>, data: $DataComponentMap_, strict: boolean): $FluidIngredient;
+        static ingredientOf(of: $FluidIngredient_): $FluidIngredient;
+        static ingredientOfString(registryOps: $DynamicOps<$Tag_>, s: string): $DataResult<$FluidIngredient>;
+        static sizedIngredientOfString(registryOps: $DynamicOps<$Tag_>, s: string): $DataResult<$SizedFluidIngredient>;
         static readWithContext<T>(registryOps: $DynamicOps<$Tag_>, s: string, fn: $FluidWrapper$ReadFn_<T>, name: string): $DataResult<T>;
-        static sizedIngredientOf(arg0: $FluidIngredient_, amount: number): $SizedFluidIngredient;
         static sizedIngredientOf(of: $SizedFluidIngredient): $SizedFluidIngredient;
+        static sizedIngredientOf(arg0: $FluidIngredient_, amount: number): $SizedFluidIngredient;
         static readSizedIngredient(registryOps: $DynamicOps<$Tag_>, reader: $StringReader): $DataResult<$SizedFluidIngredient>;
-        static parseString(registryOps: $DynamicOps<$Tag_>, s: string): $DataResult<$FluidStack>;
-        static water(): $FluidStack;
         static water(amount: number): $FluidStack;
+        static water(): $FluidStack;
+        static parseString(registryOps: $DynamicOps<$Tag_>, s: string): $DataResult<$FluidStack>;
         /**
-         * Returns a FluidStack of the input, with the specified amount
+         * Returns a FluidStack of the input
          */
-        static of(o: $FluidStack_, amount: number): $FluidStack;
+        static of(o: $FluidStack_): $FluidStack;
         /**
          * Returns a FluidStack of the input, with the specified data components
          */
         static of(o: $FluidStack_, components: $DataComponentMap_): $FluidStack;
         /**
+         * Returns a FluidStack of the input, with the specified amount
+         */
+        static of(o: $FluidStack_, amount: number): $FluidStack;
+        /**
          * Returns a FluidStack of the input, with the specified amount and data components
          */
         static of(o: $FluidStack_, amount: number, components: $DataComponentMap_): $FluidStack;
-        /**
-         * Returns a FluidStack of the input
-         */
-        static of(o: $FluidStack_): $FluidStack;
         static read(registryOps: $DynamicOps<$Tag_>, reader: $StringReader): $DataResult<$FluidStack>;
         static getId(fluid: $Fluid_): $ResourceLocation;
         static getType(id: $ResourceLocation_): $Fluid;
         static exists(id: $ResourceLocation_): boolean;
         static getEmpty(): $FluidStack;
+        static lava(): $FluidStack;
+        static lava(amount: number): $FluidStack;
         static getTypes(): $List<string>;
         static FLUID_TYPE_INFO: $TypeInfo;
         static EMPTY_STACK_RESULT: $DataResult<$FluidStack>;
@@ -192,6 +195,8 @@ declare module "@package/dev/latvian/mods/kubejs/fluid" {
         static INGREDIENT_TYPE_INFO: $TypeInfo;
         static SIZED_INGREDIENT_TYPE_INFO: $TypeInfo;
         static EMPTY_INGREDIENT_RESULT: $DataResult<$FluidIngredient>;
+        static get empty(): $FluidStack;
+        static get types(): $List<string>;
     }
     export interface $FluidWrapper {
     }

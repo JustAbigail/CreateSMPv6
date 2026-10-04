@@ -7,6 +7,9 @@ declare module "@package/dev/kosmx/playerAnim/core/util" {
         getX(): N;
         getZ(): N;
         constructor(x: N, y: N, z: N);
+        get y(): N;
+        get x(): N;
+        get z(): N;
     }
     export class $SetableSupplier<T> implements $Supplier<T> {
         get(): T;
@@ -38,5 +41,7 @@ declare module "@package/dev/kosmx/playerAnim/core/util" {
         getLeft(): L;
         getRight(): R;
         constructor(left: L, right: R);
+        get left(): L;
+        get right(): R;
     }
 }

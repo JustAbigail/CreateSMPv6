@@ -22,17 +22,21 @@ declare module "@package/net/mehvahdjukaar/moonlight/api/events/platform" {
     export class $LightningStruckBlockEvent extends $BlockEvent implements $ILightningStruckBlockEvent {
         getEntity(): $LightningBolt;
         constructor(arg0: $BlockState_, arg1: $LevelAccessor, arg2: $BlockPos_, arg3: $LightningBolt);
+        get entity(): $LightningBolt;
     }
     export class $DropItemOnDeathEvent extends $Event implements $IDropItemOnDeathEvent, $ICancellableEvent {
         setReturnItemStack(arg0: $ItemStack_): void;
         isBeforeDrop(): boolean;
-        getPlayer(): $Player;
         setCanceled(arg0: boolean): void;
+        getPlayer(): $Player;
         getReturnItemStack(): $ItemStack;
         static create(arg0: $ItemStack_, arg1: $Player, arg2: boolean): $IDropItemOnDeathEvent;
         isCanceled(): boolean;
         getItemStack(): $ItemStack;
         constructor(arg0: $ItemStack_, arg1: $Player, arg2: boolean);
+        get beforeDrop(): boolean;
+        get player(): $Player;
+        get itemStack(): $ItemStack;
     }
     export class $VillagerBrainEvent extends $Event implements $IVillagerBrainEvent {
         getVillager(): $Villager;
@@ -43,6 +47,9 @@ declare module "@package/net/mehvahdjukaar/moonlight/api/events/platform" {
         addSensor(arg0: $SensorType_<$Sensor<$Villager>>): void;
         getInternal(): $VillagerBrainEventInternal;
         constructor(arg0: $Brain<$Villager>, arg1: $Villager);
+        get villager(): $Villager;
+        get memories(): $Map<$MemoryModuleType<never>, ($ExpirableValue<never>) | undefined>;
+        get internal(): $VillagerBrainEventInternal;
     }
     export class $FireConsumeBlockEvent extends $BlockEvent implements $IFireConsumeBlockEvent {
         wasReplacedByFire(): boolean;
@@ -52,5 +59,8 @@ declare module "@package/net/mehvahdjukaar/moonlight/api/events/platform" {
         getChance(): number;
         getAge(): number;
         constructor(arg0: $Level_, arg1: $BlockPos_, arg2: $BlockState_, arg3: number, arg4: number, arg5: $Direction_, arg6: boolean);
+        get face(): $Direction;
+        get chance(): number;
+        get age(): number;
     }
 }

@@ -9,5 +9,8 @@ declare module "@package/gg/essential/mixins/ext/client/network" {
         getEssential$ingameEquippedOutfitsManager(): $IngameEquippedOutfitsManager;
         getEssential$ingameEquippedOutfitsUpdateEncoder(): $IngameEquippedOutfitsUpdateEncoder;
         essential$getNameIdCache(): $Map<string, $UUID>;
+        get essential$maxPlayers(): number;
+        get essential$ingameEquippedOutfitsManager(): $IngameEquippedOutfitsManager;
+        get essential$ingameEquippedOutfitsUpdateEncoder(): $IngameEquippedOutfitsUpdateEncoder;
     }
 }

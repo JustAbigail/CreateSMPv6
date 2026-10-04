@@ -60,6 +60,7 @@ declare module "@package/com/simibubi/create/foundation/mixin/accessor" {
     }
     export interface $StateHolderAccessor<O, S> {
         getOwner(): O;
+        get owner(): O;
     }
     /**
      * Values that may be interpreted as {@link $StateHolderAccessor}.
@@ -75,9 +76,12 @@ declare module "@package/com/simibubi/create/foundation/mixin/accessor" {
     export class $SystemReportAccessor {
         static getOPERATING_SYSTEM(): string;
         static getJAVA_VERSION(): string;
+        static get OPERATING_SYSTEM(): string;
+        static get JAVA_VERSION(): string;
     }
     export interface $SystemReportAccessor {
         getEntries(): $Map<string, string>;
+        get entries(): $Map<string, string>;
     }
     /**
      * Values that may be interpreted as {@link $SystemReportAccessor}.

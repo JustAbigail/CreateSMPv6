@@ -26,5 +26,10 @@ declare module "@package/net/caffeinemc/mods/sodium/client/render/chunk/compile/
         calculateEstimations(arg0: $JobDurationEstimator, arg1: $MeshTaskSizeEstimator, arg2: $UploadDurationEstimator): void;
         execute(arg0: $ChunkBuildContext, arg1: $CancellationToken): OUTPUT;
         constructor(arg0: $RenderSection, arg1: number, arg2: $Vector3dc);
+        get estimatedDuration(): number;
+        get relativeCameraPos(): $Vector3fc;
+        get absoluteCameraPos(): $Vector3dc;
+        get estimatedUploadDuration(): number;
+        get estimatedSize(): number;
     }
 }

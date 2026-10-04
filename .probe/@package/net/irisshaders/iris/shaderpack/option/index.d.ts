@@ -10,9 +10,9 @@ export * as menu from "@package/net/irisshaders/iris/shaderpack/option/menu";
 declare module "@package/net/irisshaders/iris/shaderpack/option" {
     export class $ProfileSet {
         static fromTree(arg0: $Map_<string, $List_<string>>, arg1: $OptionSet): $ProfileSet;
+        scan(arg0: $OptionSet, arg1: $OptionValues): $ProfileSet$ProfileResult;
         size(): number;
         forEach(arg0: $BiConsumer_<string, $Profile>): void;
-        scan(arg0: $OptionSet, arg1: $OptionValues): $ProfileSet$ProfileResult;
         constructor(arg0: $LinkedHashMap<string, $Profile>);
     }
     export class $ProfileSet$ProfileResult {
@@ -32,21 +32,28 @@ declare module "@package/net/irisshaders/iris/shaderpack/option" {
         getOption(): $StringOption;
         merge(arg0: $MergedStringOption): $MergedStringOption;
         constructor(arg0: $OptionLocation_, arg1: $StringOption);
+        get locations(): $ImmutableSet<$OptionLocation>;
+        get option(): $StringOption;
     }
     export class $BooleanOption extends $BaseOption {
         getDefaultValue(): boolean;
         constructor(arg0: $OptionType, arg1: string, arg2: string, arg3: boolean);
+        get defaultValue(): boolean;
     }
     export class $MergedBooleanOption {
         getLocations(): $ImmutableSet<$OptionLocation>;
         getOption(): $BooleanOption;
         merge(arg0: $MergedBooleanOption): $MergedBooleanOption;
         constructor(arg0: $OptionLocation_, arg1: $BooleanOption);
+        get locations(): $ImmutableSet<$OptionLocation>;
+        get option(): $BooleanOption;
     }
     export class $StringOption extends $BaseOption {
         getDefaultValue(): string;
         static create(arg0: $OptionType, arg1: string, arg2: string, arg3: string): $StringOption;
         getAllowedValues(): $ImmutableList<string>;
+        get defaultValue(): string;
+        get allowedValues(): $ImmutableList<string>;
     }
     export class $OptionLocation extends $Record {
         lineIndex(): number;
@@ -56,12 +63,15 @@ declare module "@package/net/irisshaders/iris/shaderpack/option" {
     /**
      * Values that may be interpreted as {@link $OptionLocation}.
      */
-    export type $OptionLocation_ = { filePath?: $AbsolutePackPath, lineIndex?: number,  } | [filePath?: $AbsolutePackPath, lineIndex?: number, ];
+    export type $OptionLocation_ = { lineIndex?: number, filePath?: $AbsolutePackPath,  } | [lineIndex?: number, filePath?: $AbsolutePackPath, ];
     export class $ShaderPackOptions {
         getIncludes(): $IncludeGraph;
-        getOptionSet(): $OptionSet;
         getOptionValues(): $OptionValues;
+        getOptionSet(): $OptionSet;
         constructor(arg0: $IncludeGraph, arg1: $Map_<string, string>);
+        get includes(): $IncludeGraph;
+        get optionValues(): $OptionValues;
+        get optionSet(): $OptionSet;
     }
     export class $OptionSet$Builder {
         addStringOption(arg0: $OptionLocation_, arg1: $StringOption): void;
@@ -77,5 +87,7 @@ declare module "@package/net/irisshaders/iris/shaderpack/option" {
         static builder(): $OptionSet$Builder;
         getStringOptions(): $ImmutableMap<string, $MergedStringOption>;
         getBooleanOptions(): $ImmutableMap<string, $MergedBooleanOption>;
+        get stringOptions(): $ImmutableMap<string, $MergedStringOption>;
+        get booleanOptions(): $ImmutableMap<string, $MergedBooleanOption>;
     }
 }

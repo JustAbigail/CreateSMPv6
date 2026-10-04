@@ -38,8 +38,8 @@ declare module "@package/software/bernie/geckolib/renderer" {
         getRenderColor(arg0: T, arg1: number, arg2: number): $Color;
         getPackedOverlay(arg0: T, arg1: number, arg2: number): number;
         preApplyRenderLayers(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $RenderType, arg4: $MultiBufferSource_, arg5: $VertexConsumer, arg6: number, arg7: number, arg8: number): void;
-        applyRenderLayers(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $RenderType, arg4: $MultiBufferSource_, arg5: $VertexConsumer, arg6: number, arg7: number, arg8: number): void;
         postRender(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $MultiBufferSource_, arg4: $VertexConsumer, arg5: boolean, arg6: number, arg7: number, arg8: number, arg9: number): void;
+        applyRenderLayers(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $RenderType, arg4: $MultiBufferSource_, arg5: $VertexConsumer, arg6: number, arg7: number, arg8: number): void;
         renderFinal(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $MultiBufferSource_, arg4: $VertexConsumer, arg5: number, arg6: number, arg7: number, arg8: number): void;
         checkAndRefreshBuffer(arg0: boolean, arg1: $VertexConsumer, arg2: $MultiBufferSource_, arg3: $RenderType): $VertexConsumer;
         renderCubesOfBone(arg0: $PoseStack, arg1: $GeoBone, arg2: $VertexConsumer, arg3: number, arg4: number, arg5: number): void;
@@ -47,17 +47,21 @@ declare module "@package/software/bernie/geckolib/renderer" {
         renderChildBones(arg0: $PoseStack, arg1: T, arg2: $GeoBone, arg3: $RenderType, arg4: $MultiBufferSource_, arg5: $VertexConsumer, arg6: boolean, arg7: number, arg8: number, arg9: number, arg10: number): void;
         createVerticesOfQuad(arg0: $GeoQuad_, arg1: $Matrix4f, arg2: $Vector3f, arg3: $VertexConsumer, arg4: number, arg5: number, arg6: number): void;
         getMotionAnimThreshold(arg0: T): number;
-        reRender(arg0: $BakedGeoModel_, arg1: $PoseStack, arg2: $MultiBufferSource_, arg3: T, arg4: $RenderType, arg5: $VertexConsumer, arg6: number, arg7: number, arg8: number, arg9: number): void;
         getTextureLocation(arg0: T): $ResourceLocation;
         getRenderLayers(): $List<$GeoRenderLayer<T>>;
+        reRender(arg0: $BakedGeoModel_, arg1: $PoseStack, arg2: $MultiBufferSource_, arg3: T, arg4: $RenderType, arg5: $VertexConsumer, arg6: number, arg7: number, arg8: number, arg9: number): void;
         renderCube(arg0: $PoseStack, arg1: $GeoCube_, arg2: $VertexConsumer, arg3: number, arg4: number, arg5: number): void;
         getRenderType(arg0: T, arg1: $ResourceLocation_, arg2: $MultiBufferSource_, arg3: number): $RenderType;
+        get animatable(): T;
+        get geoModel(): $GeoModel<T>;
+        get renderLayers(): $List<$GeoRenderLayer<T>>;
     }
     export class $GeoBlockRenderer<T extends $BlockEntity> implements $GeoRenderer<T>, $BlockEntityRenderer<T> {
         withScale(arg0: number, arg1: number): $GeoBlockRenderer<T>;
         withScale(arg0: number): $GeoBlockRenderer<T>;
         renderRecursively(arg0: $PoseStack, arg1: T, arg2: $GeoBone, arg3: $RenderType, arg4: $MultiBufferSource_, arg5: $VertexConsumer, arg6: boolean, arg7: number, arg8: number, arg9: number, arg10: number): void;
         updateAnimatedTextureFrame(arg0: T): void;
+        getAnimatable(): T;
         getInstanceId(arg0: T): number;
         getGeoModel(): $GeoModel<T>;
         actuallyRender(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $RenderType, arg4: $MultiBufferSource_, arg5: $VertexConsumer, arg6: boolean, arg7: number, arg8: number, arg9: number, arg10: number): void;
@@ -74,8 +78,8 @@ declare module "@package/software/bernie/geckolib/renderer" {
         getRenderColor(arg0: T, arg1: number, arg2: number): $Color;
         getPackedOverlay(arg0: T, arg1: number, arg2: number): number;
         preApplyRenderLayers(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $RenderType, arg4: $MultiBufferSource_, arg5: $VertexConsumer, arg6: number, arg7: number, arg8: number): void;
-        applyRenderLayers(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $RenderType, arg4: $MultiBufferSource_, arg5: $VertexConsumer, arg6: number, arg7: number, arg8: number): void;
         postRender(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $MultiBufferSource_, arg4: $VertexConsumer, arg5: boolean, arg6: number, arg7: number, arg8: number, arg9: number): void;
+        applyRenderLayers(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $RenderType, arg4: $MultiBufferSource_, arg5: $VertexConsumer, arg6: number, arg7: number, arg8: number): void;
         renderFinal(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $MultiBufferSource_, arg4: $VertexConsumer, arg5: number, arg6: number, arg7: number, arg8: number): void;
         checkAndRefreshBuffer(arg0: boolean, arg1: $VertexConsumer, arg2: $MultiBufferSource_, arg3: $RenderType): $VertexConsumer;
         renderCubesOfBone(arg0: $PoseStack, arg1: $GeoBone, arg2: $VertexConsumer, arg3: number, arg4: number, arg5: number): void;
@@ -83,24 +87,27 @@ declare module "@package/software/bernie/geckolib/renderer" {
         renderChildBones(arg0: $PoseStack, arg1: T, arg2: $GeoBone, arg3: $RenderType, arg4: $MultiBufferSource_, arg5: $VertexConsumer, arg6: boolean, arg7: number, arg8: number, arg9: number, arg10: number): void;
         createVerticesOfQuad(arg0: $GeoQuad_, arg1: $Matrix4f, arg2: $Vector3f, arg3: $VertexConsumer, arg4: number, arg5: number, arg6: number): void;
         getMotionAnimThreshold(arg0: T): number;
-        reRender(arg0: $BakedGeoModel_, arg1: $PoseStack, arg2: $MultiBufferSource_, arg3: T, arg4: $RenderType, arg5: $VertexConsumer, arg6: number, arg7: number, arg8: number, arg9: number): void;
         getTextureLocation(arg0: T): $ResourceLocation;
+        reRender(arg0: $BakedGeoModel_, arg1: $PoseStack, arg2: $MultiBufferSource_, arg3: T, arg4: $RenderType, arg5: $VertexConsumer, arg6: number, arg7: number, arg8: number, arg9: number): void;
         renderCube(arg0: $PoseStack, arg1: $GeoCube_, arg2: $VertexConsumer, arg3: number, arg4: number, arg5: number): void;
         getRenderType(arg0: T, arg1: $ResourceLocation_, arg2: $MultiBufferSource_, arg3: number): $RenderType;
-        shouldRender(arg0: T, arg1: $Vec3_): boolean;
         getViewDistance(): number;
         shouldRenderOffScreen(arg0: T): boolean;
+        shouldRender(arg0: T, arg1: $Vec3_): boolean;
         getRenderBoundingBox(arg0: T): $AABB;
-        getAnimatable(): T;
         constructor(arg0: $GeoModel<T>);
         constructor(arg0: $BlockEntityType_<T>);
+        get animatable(): T;
+        get geoModel(): $GeoModel<T>;
+        get renderLayers(): $List<$GeoRenderLayer<T>>;
+        get viewDistance(): number;
     }
     export class $GeoEntityRenderer<T extends $Entity> extends $EntityRenderer<T> implements $GeoRenderer<T> {
-        withScale(arg0: number, arg1: number): $GeoEntityRenderer<T>;
+        getNameRenderCutoffDistance(arg0: T): number;
         withScale(arg0: number): $GeoEntityRenderer<T>;
+        withScale(arg0: number, arg1: number): $GeoEntityRenderer<T>;
         renderRecursively(arg0: $PoseStack, arg1: T, arg2: $GeoBone, arg3: $RenderType, arg4: $MultiBufferSource_, arg5: $VertexConsumer, arg6: boolean, arg7: number, arg8: number, arg9: number, arg10: number): void;
         updateAnimatedTextureFrame(arg0: T): void;
-        getAnimatable(): T;
         getInstanceId(arg0: T): number;
         getGeoModel(): $GeoModel<T>;
         actuallyRender(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $RenderType, arg4: $MultiBufferSource_, arg5: $VertexConsumer, arg6: boolean, arg7: number, arg8: number, arg9: number, arg10: number): void;
@@ -115,9 +122,8 @@ declare module "@package/software/bernie/geckolib/renderer" {
         applyRenderLayers(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $RenderType, arg4: $MultiBufferSource_, arg5: $VertexConsumer, arg6: number, arg7: number, arg8: number): void;
         renderFinal(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $MultiBufferSource_, arg4: $VertexConsumer, arg5: number, arg6: number, arg7: number, arg8: number): void;
         renderLeash<E extends $Entity, M extends $Mob>(arg0: M, arg1: number, arg2: $PoseStack, arg3: $MultiBufferSource_, arg4: E): void;
-        getNameRenderCutoffDistance(arg0: T): number;
-        isShaking(arg0: T): boolean;
         getRenderLayers(): $List<$GeoRenderLayer<T>>;
+        isShaking(arg0: T): boolean;
         getRenderType(arg0: T, arg1: $ResourceLocation_, arg2: $MultiBufferSource_, arg3: number): $RenderType;
         scaleModelForRender(arg0: number, arg1: number, arg2: $PoseStack, arg3: T, arg4: $BakedGeoModel_, arg5: boolean, arg6: number, arg7: number, arg8: number): void;
         defaultRender(arg0: $PoseStack, arg1: T, arg2: $MultiBufferSource_, arg3: $RenderType, arg4: $VertexConsumer, arg5: number, arg6: number, arg7: number): void;
@@ -131,14 +137,18 @@ declare module "@package/software/bernie/geckolib/renderer" {
         getMotionAnimThreshold(arg0: T): number;
         reRender(arg0: $BakedGeoModel_, arg1: $PoseStack, arg2: $MultiBufferSource_, arg3: T, arg4: $RenderType, arg5: $VertexConsumer, arg6: number, arg7: number, arg8: number, arg9: number): void;
         renderCube(arg0: $PoseStack, arg1: $GeoCube_, arg2: $VertexConsumer, arg3: number, arg4: number, arg5: number): void;
+        getAnimatable(): T;
         getTextureLocation(arg0: T): $ResourceLocation;
         shadowRadius: number;
         static LEASH_RENDER_STEPS: number;
         entityRenderDispatcher: $EntityRenderDispatcher;
         shadowStrength: number;
         static NAMETAG_SCALE: number;
-        constructor(arg0: $EntityRendererProvider$Context, arg1: $EntityType_<T>);
         constructor(arg0: $EntityRendererProvider$Context, arg1: $GeoModel<T>);
+        constructor(arg0: $EntityRendererProvider$Context, arg1: $EntityType_<T>);
+        get geoModel(): $GeoModel<T>;
+        get renderLayers(): $List<$GeoRenderLayer<T>>;
+        get animatable(): T;
     }
     export class $GeoItemRenderer<T extends $Item> extends $BlockEntityWithoutLevelRenderer implements $GeoRenderer<T> {
         withScale(arg0: number, arg1: number): $GeoItemRenderer<T>;
@@ -165,8 +175,8 @@ declare module "@package/software/bernie/geckolib/renderer" {
         getRenderColor(arg0: T, arg1: number, arg2: number): $Color;
         getPackedOverlay(arg0: T, arg1: number, arg2: number): number;
         preApplyRenderLayers(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $RenderType, arg4: $MultiBufferSource_, arg5: $VertexConsumer, arg6: number, arg7: number, arg8: number): void;
-        applyRenderLayers(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $RenderType, arg4: $MultiBufferSource_, arg5: $VertexConsumer, arg6: number, arg7: number, arg8: number): void;
         postRender(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $MultiBufferSource_, arg4: $VertexConsumer, arg5: boolean, arg6: number, arg7: number, arg8: number, arg9: number): void;
+        applyRenderLayers(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $RenderType, arg4: $MultiBufferSource_, arg5: $VertexConsumer, arg6: number, arg7: number, arg8: number): void;
         renderFinal(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $MultiBufferSource_, arg4: $VertexConsumer, arg5: number, arg6: number, arg7: number, arg8: number): void;
         checkAndRefreshBuffer(arg0: boolean, arg1: $VertexConsumer, arg2: $MultiBufferSource_, arg3: $RenderType): $VertexConsumer;
         renderCubesOfBone(arg0: $PoseStack, arg1: $GeoBone, arg2: $VertexConsumer, arg3: number, arg4: number, arg5: number): void;
@@ -180,6 +190,10 @@ declare module "@package/software/bernie/geckolib/renderer" {
         constructor(arg0: $GeoModel<T>);
         constructor<I extends T>(arg0: I);
         constructor(arg0: $BlockEntityRenderDispatcher, arg1: $EntityModelSet, arg2: $GeoModel<T>);
+        get animatable(): T;
+        get geoModel(): $GeoModel<T>;
+        get currentItemStack(): $ItemStack;
+        get renderLayers(): $List<$GeoRenderLayer<T>>;
     }
     export class $GeoObjectRenderer<T extends $GeoAnimatable> implements $GeoRenderer<T> {
         withScale(arg0: number): $GeoObjectRenderer<T>;
@@ -204,8 +218,8 @@ declare module "@package/software/bernie/geckolib/renderer" {
         getRenderColor(arg0: T, arg1: number, arg2: number): $Color;
         getPackedOverlay(arg0: T, arg1: number, arg2: number): number;
         preApplyRenderLayers(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $RenderType, arg4: $MultiBufferSource_, arg5: $VertexConsumer, arg6: number, arg7: number, arg8: number): void;
-        applyRenderLayers(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $RenderType, arg4: $MultiBufferSource_, arg5: $VertexConsumer, arg6: number, arg7: number, arg8: number): void;
         postRender(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $MultiBufferSource_, arg4: $VertexConsumer, arg5: boolean, arg6: number, arg7: number, arg8: number, arg9: number): void;
+        applyRenderLayers(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $RenderType, arg4: $MultiBufferSource_, arg5: $VertexConsumer, arg6: number, arg7: number, arg8: number): void;
         renderFinal(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $MultiBufferSource_, arg4: $VertexConsumer, arg5: number, arg6: number, arg7: number, arg8: number): void;
         checkAndRefreshBuffer(arg0: boolean, arg1: $VertexConsumer, arg2: $MultiBufferSource_, arg3: $RenderType): $VertexConsumer;
         renderCubesOfBone(arg0: $PoseStack, arg1: $GeoBone, arg2: $VertexConsumer, arg3: number, arg4: number, arg5: number): void;
@@ -217,6 +231,9 @@ declare module "@package/software/bernie/geckolib/renderer" {
         renderCube(arg0: $PoseStack, arg1: $GeoCube_, arg2: $VertexConsumer, arg3: number, arg4: number, arg5: number): void;
         getRenderType(arg0: T, arg1: $ResourceLocation_, arg2: $MultiBufferSource_, arg3: number): $RenderType;
         constructor(arg0: $GeoModel<T>);
+        get animatable(): T;
+        get geoModel(): $GeoModel<T>;
+        get renderLayers(): $List<$GeoRenderLayer<T>>;
     }
     export class $GeoArmorRenderer<T extends $Item> extends $HumanoidModel<any> implements $GeoRenderer<T> {
         /**
@@ -224,8 +241,23 @@ declare module "@package/software/bernie/geckolib/renderer" {
          */
         prepForRender(arg0: $Entity, arg1: $ItemStack_, arg2: $EquipmentSlot_, arg3: $HumanoidModel<never>): void;
         prepForRender(arg0: $Entity, arg1: $ItemStack_, arg2: $EquipmentSlot_, arg3: $HumanoidModel<never>, arg4: $MultiBufferSource_, arg5: number, arg6: number, arg7: number, arg8: number, arg9: number): void;
-        withScale(arg0: number): $GeoArmorRenderer<T>;
+        scaleModelForBaby(arg0: $PoseStack, arg1: T, arg2: number, arg3: boolean): void;
+        /**
+         * @deprecated
+         */
+        doArmourPostRenderCleanup(): void;
+        applyBoneVisibilityByPart(arg0: $EquipmentSlot_, arg1: $ModelPart, arg2: $HumanoidModel<never>): void;
+        getHeadBone(arg0: $GeoModel<T>): $GeoBone;
+        getBodyBone(arg0: $GeoModel<T>): $GeoBone;
+        getRightArmBone(arg0: $GeoModel<T>): $GeoBone;
+        getLeftArmBone(arg0: $GeoModel<T>): $GeoBone;
+        getRightLegBone(arg0: $GeoModel<T>): $GeoBone;
+        getLeftLegBone(arg0: $GeoModel<T>): $GeoBone;
+        getRightBootBone(arg0: $GeoModel<T>): $GeoBone;
+        getLeftBootBone(arg0: $GeoModel<T>): $GeoBone;
+        getCurrentSlot(): $EquipmentSlot;
         withScale(arg0: number, arg1: number): $GeoArmorRenderer<T>;
+        withScale(arg0: number): $GeoArmorRenderer<T>;
         renderRecursively(arg0: $PoseStack, arg1: T, arg2: $GeoBone, arg3: $RenderType, arg4: $MultiBufferSource_, arg5: $VertexConsumer, arg6: boolean, arg7: number, arg8: number, arg9: number, arg10: number): void;
         updateAnimatedTextureFrame(arg0: T): void;
         getAnimatable(): T;
@@ -240,21 +272,6 @@ declare module "@package/software/bernie/geckolib/renderer" {
         firePostRenderEvent(arg0: $PoseStack, arg1: $BakedGeoModel_, arg2: $MultiBufferSource_, arg3: number, arg4: number): void;
         getRenderColor(arg0: T, arg1: number, arg2: number): $Color;
         getCurrentStack(): $ItemStack;
-        scaleModelForBaby(arg0: $PoseStack, arg1: T, arg2: number, arg3: boolean): void;
-        applyBoneVisibilityByPart(arg0: $EquipmentSlot_, arg1: $ModelPart, arg2: $HumanoidModel<never>): void;
-        getHeadBone(arg0: $GeoModel<T>): $GeoBone;
-        getBodyBone(arg0: $GeoModel<T>): $GeoBone;
-        getRightArmBone(arg0: $GeoModel<T>): $GeoBone;
-        getLeftArmBone(arg0: $GeoModel<T>): $GeoBone;
-        getRightLegBone(arg0: $GeoModel<T>): $GeoBone;
-        getLeftLegBone(arg0: $GeoModel<T>): $GeoBone;
-        getRightBootBone(arg0: $GeoModel<T>): $GeoBone;
-        getLeftBootBone(arg0: $GeoModel<T>): $GeoBone;
-        /**
-         * @deprecated
-         */
-        doArmourPostRenderCleanup(): void;
-        getCurrentSlot(): $EquipmentSlot;
         getCurrentEntity(): $Entity;
         getRenderLayers(): $List<$GeoRenderLayer<T>>;
         getRenderType(arg0: T, arg1: $ResourceLocation_, arg2: $MultiBufferSource_, arg3: number): $RenderType;
@@ -262,8 +279,8 @@ declare module "@package/software/bernie/geckolib/renderer" {
         defaultRender(arg0: $PoseStack, arg1: T, arg2: $MultiBufferSource_, arg3: $RenderType, arg4: $VertexConsumer, arg5: number, arg6: number, arg7: number): void;
         getPackedOverlay(arg0: T, arg1: number, arg2: number): number;
         preApplyRenderLayers(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $RenderType, arg4: $MultiBufferSource_, arg5: $VertexConsumer, arg6: number, arg7: number, arg8: number): void;
-        applyRenderLayers(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $RenderType, arg4: $MultiBufferSource_, arg5: $VertexConsumer, arg6: number, arg7: number, arg8: number): void;
         postRender(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $MultiBufferSource_, arg4: $VertexConsumer, arg5: boolean, arg6: number, arg7: number, arg8: number, arg9: number): void;
+        applyRenderLayers(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $RenderType, arg4: $MultiBufferSource_, arg5: $VertexConsumer, arg6: number, arg7: number, arg8: number): void;
         renderFinal(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $MultiBufferSource_, arg4: $VertexConsumer, arg5: number, arg6: number, arg7: number, arg8: number): void;
         checkAndRefreshBuffer(arg0: boolean, arg1: $VertexConsumer, arg2: $MultiBufferSource_, arg3: $RenderType): $VertexConsumer;
         renderCubesOfBone(arg0: $PoseStack, arg1: $GeoBone, arg2: $VertexConsumer, arg3: number, arg4: number, arg5: number): void;
@@ -271,8 +288,8 @@ declare module "@package/software/bernie/geckolib/renderer" {
         renderChildBones(arg0: $PoseStack, arg1: T, arg2: $GeoBone, arg3: $RenderType, arg4: $MultiBufferSource_, arg5: $VertexConsumer, arg6: boolean, arg7: number, arg8: number, arg9: number, arg10: number): void;
         createVerticesOfQuad(arg0: $GeoQuad_, arg1: $Matrix4f, arg2: $Vector3f, arg3: $VertexConsumer, arg4: number, arg5: number, arg6: number): void;
         getMotionAnimThreshold(arg0: T): number;
-        reRender(arg0: $BakedGeoModel_, arg1: $PoseStack, arg2: $MultiBufferSource_, arg3: T, arg4: $RenderType, arg5: $VertexConsumer, arg6: number, arg7: number, arg8: number, arg9: number): void;
         getTextureLocation(arg0: T): $ResourceLocation;
+        reRender(arg0: $BakedGeoModel_, arg1: $PoseStack, arg2: $MultiBufferSource_, arg3: T, arg4: $RenderType, arg5: $VertexConsumer, arg6: number, arg7: number, arg8: number, arg9: number): void;
         renderCube(arg0: $PoseStack, arg1: $GeoCube_, arg2: $VertexConsumer, arg3: number, arg4: number, arg5: number): void;
         scaleHead: boolean;
         young: boolean;
@@ -301,10 +318,17 @@ declare module "@package/software/bernie/geckolib/renderer" {
         rightArmPose: $HumanoidModel$ArmPose;
         constructor(arg0: $GeoModel<T>);
         constructor<I extends T>(arg0: I);
+        get currentSlot(): $EquipmentSlot;
+        get animatable(): T;
+        get geoModel(): $GeoModel<T>;
+        get currentStack(): $ItemStack;
+        get currentEntity(): $Entity;
+        get renderLayers(): $List<$GeoRenderLayer<T>>;
     }
     export class $GeoReplacedEntityRenderer<E extends $Entity, T extends $GeoAnimatable> extends $EntityRenderer<E> implements $GeoRenderer<T> {
-        withScale(arg0: number, arg1: number): $GeoReplacedEntityRenderer<E, T>;
+        getNameRenderCutoffDistance(arg0: E, arg1: T): number;
         withScale(arg0: number): $GeoReplacedEntityRenderer<E, T>;
+        withScale(arg0: number, arg1: number): $GeoReplacedEntityRenderer<E, T>;
         renderRecursively(arg0: $PoseStack, arg1: T, arg2: $GeoBone, arg3: $RenderType, arg4: $MultiBufferSource_, arg5: $VertexConsumer, arg6: boolean, arg7: number, arg8: number, arg9: number, arg10: number): void;
         updateAnimatedTextureFrame(arg0: T): void;
         getAnimatable(): T;
@@ -318,14 +342,13 @@ declare module "@package/software/bernie/geckolib/renderer" {
         firePreRenderEvent(arg0: $PoseStack, arg1: $BakedGeoModel_, arg2: $MultiBufferSource_, arg3: number, arg4: number): boolean;
         firePostRenderEvent(arg0: $PoseStack, arg1: $BakedGeoModel_, arg2: $MultiBufferSource_, arg3: number, arg4: number): void;
         getPackedOverlay(arg0: T, arg1: number, arg2: number): number;
-        applyRenderLayers(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $RenderType, arg4: $MultiBufferSource_, arg5: $VertexConsumer, arg6: number, arg7: number, arg8: number): void;
         postRender(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $MultiBufferSource_, arg4: $VertexConsumer, arg5: boolean, arg6: number, arg7: number, arg8: number, arg9: number): void;
+        applyRenderLayers(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $RenderType, arg4: $MultiBufferSource_, arg5: $VertexConsumer, arg6: number, arg7: number, arg8: number): void;
         renderFinal(arg0: $PoseStack, arg1: T, arg2: $BakedGeoModel_, arg3: $MultiBufferSource_, arg4: $VertexConsumer, arg5: number, arg6: number, arg7: number, arg8: number): void;
         renderLeash<H extends $Entity, M extends $Mob>(arg0: M, arg1: number, arg2: $PoseStack, arg3: $MultiBufferSource_, arg4: H): void;
-        getNameRenderCutoffDistance(arg0: E, arg1: T): number;
         getCurrentEntity(): E;
-        isShaking(arg0: T): boolean;
         getRenderLayers(): $List<$GeoRenderLayer<T>>;
+        isShaking(arg0: T): boolean;
         getRenderType(arg0: T, arg1: $ResourceLocation_, arg2: $MultiBufferSource_, arg3: number): $RenderType;
         scaleModelForRender(arg0: number, arg1: number, arg2: $PoseStack, arg3: T, arg4: $BakedGeoModel_, arg5: boolean, arg6: number, arg7: number, arg8: number): void;
         defaultRender(arg0: $PoseStack, arg1: T, arg2: $MultiBufferSource_, arg3: $RenderType, arg4: $VertexConsumer, arg5: number, arg6: number, arg7: number): void;
@@ -337,8 +360,8 @@ declare module "@package/software/bernie/geckolib/renderer" {
         renderChildBones(arg0: $PoseStack, arg1: T, arg2: $GeoBone, arg3: $RenderType, arg4: $MultiBufferSource_, arg5: $VertexConsumer, arg6: boolean, arg7: number, arg8: number, arg9: number, arg10: number): void;
         createVerticesOfQuad(arg0: $GeoQuad_, arg1: $Matrix4f, arg2: $Vector3f, arg3: $VertexConsumer, arg4: number, arg5: number, arg6: number): void;
         getMotionAnimThreshold(arg0: T): number;
-        reRender(arg0: $BakedGeoModel_, arg1: $PoseStack, arg2: $MultiBufferSource_, arg3: T, arg4: $RenderType, arg5: $VertexConsumer, arg6: number, arg7: number, arg8: number, arg9: number): void;
         getTextureLocation(arg0: T): $ResourceLocation;
+        reRender(arg0: $BakedGeoModel_, arg1: $PoseStack, arg2: $MultiBufferSource_, arg3: T, arg4: $RenderType, arg5: $VertexConsumer, arg6: number, arg7: number, arg8: number, arg9: number): void;
         renderCube(arg0: $PoseStack, arg1: $GeoCube_, arg2: $VertexConsumer, arg3: number, arg4: number, arg5: number): void;
         shadowRadius: number;
         static LEASH_RENDER_STEPS: number;
@@ -346,5 +369,9 @@ declare module "@package/software/bernie/geckolib/renderer" {
         shadowStrength: number;
         static NAMETAG_SCALE: number;
         constructor(arg0: $EntityRendererProvider$Context, arg1: $GeoModel<T>, arg2: T);
+        get animatable(): T;
+        get geoModel(): $GeoModel<T>;
+        get currentEntity(): E;
+        get renderLayers(): $List<$GeoRenderLayer<T>>;
     }
 }

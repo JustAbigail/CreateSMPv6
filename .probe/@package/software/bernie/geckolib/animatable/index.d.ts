@@ -13,5 +13,7 @@ declare module "@package/software/bernie/geckolib/animatable" {
         animatableCacheOverride(): $AnimatableInstanceCache;
         getBoneResetTime(): number;
         shouldPlayAnimsWhileGamePaused(): boolean;
+        get animatableInstanceCache(): $AnimatableInstanceCache;
+        get boneResetTime(): number;
     }
 }

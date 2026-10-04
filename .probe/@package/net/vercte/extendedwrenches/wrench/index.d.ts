@@ -17,6 +17,9 @@ declare module "@package/net/vercte/extendedwrenches/wrench" {
         static COG: $WrenchPart;
         static HANDLE: $WrenchPart;
         static AXIS: $WrenchPart;
+        get id(): number;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $WrenchPart}.

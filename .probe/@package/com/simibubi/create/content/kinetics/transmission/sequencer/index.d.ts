@@ -7,8 +7,8 @@ import { $StreamCodec } from "@package/net/minecraft/network/codec";
 declare module "@package/com/simibubi/create/content/kinetics/transmission/sequencer" {
     export class $SequencerInstructions extends $Enum<$SequencerInstructions> {
         needsPropagation(): boolean;
-        static invokeInit$create_connected_$md$e5fdf9$0(arg0: string, arg1: number, arg2: string, arg3: $AllGuiTextures_): $SequencerInstructions;
-        static invokeInit$create_connected_$md$e5fdf9$1(arg0: string, arg1: number, arg2: string, arg3: $AllGuiTextures_, arg4: boolean, arg5: boolean, arg6: number, arg7: number, arg8: number): $SequencerInstructions;
+        static invokeInit$create_connected_$md$3675d4$0(arg0: string, arg1: number, arg2: string, arg3: $AllGuiTextures_): $SequencerInstructions;
+        static invokeInit$create_connected_$md$3675d4$1(arg0: string, arg1: number, arg2: string, arg3: $AllGuiTextures_, arg4: boolean, arg5: boolean, arg6: number, arg7: number, arg8: number): $SequencerInstructions;
         static values(): $SequencerInstructions[];
         static valueOf(arg0: string): $SequencerInstructions;
         translationKey: string;
@@ -32,16 +32,16 @@ declare module "@package/com/simibubi/create/content/kinetics/transmission/seque
      */
     export type $SequencerInstructions_ = "turn_angle" | "turn_distance" | "delay" | "await" | "end" | "turn_await" | "turn_time" | "loop";
     export class $SequencedGearshiftBlockEntity$SequenceContext extends $Record {
-        serializeNBT(): $CompoundTag;
-        static fromNBT(arg0: $CompoundTag_): $SequencedGearshiftBlockEntity$SequenceContext;
-        static fromGearshift(arg0: $SequencerInstructions_, arg1: number, arg2: number): $SequencedGearshiftBlockEntity$SequenceContext;
-        relativeValue(): number;
         instruction(): $SequencerInstructions;
         getEffectiveValue(arg0: number): number;
+        serializeNBT(): $CompoundTag;
+        relativeValue(): number;
+        static fromNBT(arg0: $CompoundTag_): $SequencedGearshiftBlockEntity$SequenceContext;
+        static fromGearshift(arg0: $SequencerInstructions_, arg1: number, arg2: number): $SequencedGearshiftBlockEntity$SequenceContext;
         constructor(instruction: $SequencerInstructions_, relativeValue: number);
     }
     /**
      * Values that may be interpreted as {@link $SequencedGearshiftBlockEntity$SequenceContext}.
      */
-    export type $SequencedGearshiftBlockEntity$SequenceContext_ = { relativeValue?: number, instruction?: $SequencerInstructions_,  } | [relativeValue?: number, instruction?: $SequencerInstructions_, ];
+    export type $SequencedGearshiftBlockEntity$SequenceContext_ = { instruction?: $SequencerInstructions_, relativeValue?: number,  } | [instruction?: $SequencerInstructions_, relativeValue?: number, ];
 }

@@ -20,19 +20,19 @@ declare module "@package/dev/simulated_team/simulated/content/entities/launched_
     export class $LaunchedPlungerEntity extends $ThrowableProjectile {
         getOther(): $LaunchedPlungerEntity;
         setOther(arg0: $LaunchedPlungerEntity): void;
+        getPlungedTime(): number;
+        getAnimationOffset(): number;
+        getClientSmoothedVelocity(arg0: number): $Vec3;
         resetPlunged(): void;
         isPlunged(): boolean;
         getAttachmentPos(arg0: number): $Vec3;
         getAttachmentPos(): $Vec3;
         getClientTarget(arg0: number): $Vec3;
-        getPlungedTime(): number;
-        getAnimationOffset(): number;
-        getClientSmoothedVelocity(arg0: number): $Vec3;
-        setData<T>(arg0: $EntityDataAccessor_<T>, arg1: T): void;
         physicsTick(arg0: $ServerSubLevel, arg1: $RigidBodyHandle, arg2: number): void;
+        setData<T>(arg0: $EntityDataAccessor_<T>, arg1: T): void;
+        getData<T>(arg0: $EntityDataAccessor_<T>): T;
         static create(arg0: $EntityType_<$LaunchedPlungerEntity>, arg1: $Level_): $LaunchedPlungerEntity;
         getTarget(): $Vec3;
-        getData<T>(arg0: $EntityDataAccessor_<T>): T;
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
         firstTick: boolean;
         wasEyeInWater: boolean;
@@ -114,5 +114,9 @@ declare module "@package/dev/simulated_team/simulated/content/entities/launched_
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
         constructor(arg0: $EntityType_<$LaunchedPlungerEntity>, arg1: $Level_);
+        get plungedTime(): number;
+        get animationOffset(): number;
+        get plunged(): boolean;
+        get target(): $Vec3;
     }
 }

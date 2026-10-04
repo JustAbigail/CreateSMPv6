@@ -29,14 +29,15 @@ import { $Vec3 } from "@package/net/minecraft/world/phys";
 
 declare module "@package/net/minecraft/world/entity/boss/wither" {
     export class $WitherBoss extends $Monster implements $PowerableMob, $RangedAttackMob {
-        /**
-         * @deprecated
-         */
-        static canDestroy(state: $BlockState_): boolean;
+        isPowered(): boolean;
         /**
          * Attack the specified entity using a ranged attack.
          */
         performRangedAttack(target: $LivingEntity, distanceFactor: number): void;
+        /**
+         * @deprecated
+         */
+        static canDestroy(state: $BlockState_): boolean;
         getInvulnerableTicks(): number;
         setInvulnerableTicks(invulnerableTicks: number): void;
         /**
@@ -49,7 +50,6 @@ declare module "@package/net/minecraft/world/entity/boss/wither" {
         setAlternativeTarget(targetOffset: number, newId: number): void;
         getHeadYRot(head: number): number;
         getHeadXRot(head: number): number;
-        isPowered(): boolean;
         /**
          * Called every tick so the entity can update its state as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
          */
@@ -222,5 +222,6 @@ declare module "@package/net/minecraft/world/entity/boss/wither" {
         removeStingerTime: number;
         static BASE_SAFE_FALL_DISTANCE: number;
         constructor(entityType: $EntityType_<$WitherBoss>, level: $Level_);
+        get powered(): boolean;
     }
 }

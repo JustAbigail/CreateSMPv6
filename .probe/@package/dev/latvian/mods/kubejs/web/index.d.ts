@@ -37,7 +37,7 @@ declare module "@package/dev/latvian/mods/kubejs/web" {
     /**
      * Values that may be interpreted as {@link $RelativeURL}.
      */
-    export type $RelativeURL_ = { query?: $Map_<string, string>, path?: string,  } | [query?: $Map_<string, string>, path?: string, ];
+    export type $RelativeURL_ = { path?: string, query?: $Map_<string, string>,  } | [path?: string, query?: $Map_<string, string>, ];
     export class $SessionInfo extends $Record {
         tags(): $Set<string>;
         source(): string;

@@ -9,5 +9,6 @@ declare module "@package/com/simibubi/create/content/equipment/clipboard" {
         getClipboardKey(): string;
         writeToClipboard(arg0: $HolderLookup$Provider, arg1: $CompoundTag_, arg2: $Direction_): boolean;
         readFromClipboard(arg0: $HolderLookup$Provider, arg1: $CompoundTag_, arg2: $Player, arg3: $Direction_, arg4: boolean): boolean;
+        get clipboardKey(): string;
     }
 }

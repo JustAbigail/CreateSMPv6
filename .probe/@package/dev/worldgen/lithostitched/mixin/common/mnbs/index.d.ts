@@ -6,6 +6,7 @@ declare module "@package/dev/worldgen/lithostitched/mixin/common/mnbs" {
     }
     export interface $MNBSPLAccessor {
         setParameters(parameterList: $Climate$ParameterList<$Holder_<$Biome>>): void;
+        set parameters(value: $Climate$ParameterList<$Holder_<$Biome>>);
     }
     /**
      * Values that may be interpreted as {@link $MNBSPLAccessor}.

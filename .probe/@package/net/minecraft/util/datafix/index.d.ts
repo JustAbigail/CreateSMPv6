@@ -12,9 +12,9 @@ declare module "@package/net/minecraft/util/datafix" {
         update<T>(fixer: $DataFixer, input: $Dynamic<T>, version: number, newVersion: number): $Dynamic<T>;
         static valueOf(arg0: string): $DataFixTypes;
         static currentVersion(): number;
-        updateToCurrentVersion(fixer: $DataFixer, tag: $CompoundTag_, version: number): $CompoundTag;
-        updateToCurrentVersion<T>(fixer: $DataFixer, input: $Dynamic<T>, version: number): $Dynamic<T>;
         wrapCodec<A>(codec: $Codec<A>, dataFixer: $DataFixer, dataVersion: number): $Codec<A>;
+        updateToCurrentVersion<T>(fixer: $DataFixer, input: $Dynamic<T>, version: number): $Dynamic<T>;
+        updateToCurrentVersion(fixer: $DataFixer, tag: $CompoundTag_, version: number): $CompoundTag;
         static SAVED_DATA_MAP_DATA: $DataFixTypes;
         static WORLD_GEN_SETTINGS: $DataFixTypes;
         static SAVED_DATA_MAP_INDEX: $DataFixTypes;

@@ -46,18 +46,20 @@ declare module "@package/dev/latvian/mods/kubejs/server" {
         setParseResults(parse: $ParseResults<$CommandSourceStack>): void;
         getCommandName(): string;
         setException(exception: $Throwable): void;
-        getInput(): string;
         getException(): $Throwable;
+        getInput(): string;
         server: $MinecraftServer;
         constructor(event: $CommandEvent);
+        get commandName(): string;
+        get input(): string;
     }
     export class $BasicCommandKubeEvent implements $KubeEntityEvent {
-        respondLazily(text: $Supplier_<$Component>, informAdmins: boolean): void;
         respond(text: $Component_): void;
-        getPlayer(): $ServerPlayer;
-        getLevel(): $Level;
-        getBlock(): $LevelBlock;
+        respondLazily(text: $Supplier_<$Component>, informAdmins: boolean): void;
         getEntity(): $Entity;
+        getPlayer(): $ServerPlayer;
+        getBlock(): $LevelBlock;
+        getLevel(): $Level;
         getId(): string;
         getServer(): $MinecraftServer;
         getRegistries(): $RegistryAccess;
@@ -100,6 +102,12 @@ declare module "@package/dev/latvian/mods/kubejs/server" {
         input: string;
         id: string;
         constructor(source: $CommandSourceStack, id: string, input: string);
+        get entity(): $Entity;
+        get player(): $ServerPlayer;
+        get block(): $LevelBlock;
+        get level(): $Level;
+        get server(): $MinecraftServer;
+        get registries(): $RegistryAccess;
     }
     export class $ServerKubeEvent implements $KubeEvent {
         getServer(): $MinecraftServer;

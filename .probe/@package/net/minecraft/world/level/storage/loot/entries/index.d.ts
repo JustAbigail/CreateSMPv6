@@ -21,6 +21,7 @@ declare module "@package/net/minecraft/world/level/storage/loot/entries" {
         getConditions(): $List<$LootItemCondition>;
         conditions: $List<$LootItemCondition>;
         constructor(conditions: $List_<$LootItemCondition>);
+        get type(): $LootPoolEntryType;
     }
     export class $EntryGroup$Builder extends $LootPoolEntryContainer$Builder<$EntryGroup$Builder> {
         constructor(...children: $LootPoolEntryContainer$Builder<never>[]);
@@ -59,13 +60,15 @@ declare module "@package/net/minecraft/world/level/storage/loot/entries" {
     export class $LootPoolEntryContainer$Builder<T extends $LootPoolEntryContainer$Builder<T>> implements $ConditionUserBuilder<T> {
         getThis(): T;
         then(childBuilder: $LootPoolEntryContainer$Builder<never>): $SequentialEntry$Builder;
-        getConditions(): $List<$LootItemCondition>;
         otherwise(childBuilder: $LootPoolEntryContainer$Builder<never>): $AlternativesEntry$Builder;
+        getConditions(): $List<$LootItemCondition>;
         append(childBuilder: $LootPoolEntryContainer$Builder<never>): $EntryGroup$Builder;
         build(): $LootPoolEntryContainer;
         when<E>(arg0: $Iterable_<E>, arg1: $Function_<E, $LootItemCondition$Builder>): T;
         when(arg0: $LootItemCondition$Builder_): T;
         unwrap(): T;
         constructor();
+        get this(): T;
+        get conditions(): $List<$LootItemCondition>;
     }
 }

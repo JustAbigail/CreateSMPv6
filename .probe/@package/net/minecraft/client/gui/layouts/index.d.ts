@@ -8,12 +8,15 @@ declare module "@package/net/minecraft/client/gui/layouts" {
     export interface $LayoutElement {
         setPosition(x: number, y: number): void;
         getY(): number;
-        getWidth(): number;
-        getHeight(): number;
         setX(x: number): void;
         setY(x: number): void;
+        getWidth(): number;
+        getHeight(): number;
         getX(): number;
-        visitWidgets(consumer: $Consumer_<$AbstractWidget>): void;
         getRectangle(): $ScreenRectangle;
+        visitWidgets(consumer: $Consumer_<$AbstractWidget>): void;
+        get width(): number;
+        get height(): number;
+        get rectangle(): $ScreenRectangle;
     }
 }

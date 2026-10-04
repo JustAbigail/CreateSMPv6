@@ -15,26 +15,26 @@ export * as deployer from "@package/com/simibubi/create/content/kinetics/deploye
 
 declare module "@package/com/simibubi/create/content/kinetics" {
     export class $KineticNetwork implements $FlywheelAccessibleKineticNetwork, $KineticNetworkAccessor {
-        calculateCapacity(): number;
-        updateNetwork(): void;
-        initFromTE(arg0: number, arg1: number, arg2: number): void;
-        addSilently(arg0: $KineticBlockEntity, arg1: number, arg2: number): void;
-        bits_n_bobs$getFlywheelStressAbsoptionCapacity(): number;
-        bits_n_bobs$getFlywheelStressReleaseCapacity(): number;
-        bits_n_bobs$updateFlywheelStresses(): void;
-        getActualCapacityOf(arg0: $KineticBlockEntity): number;
-        updateCapacityFor(arg0: $KineticBlockEntity, arg1: number): void;
-        updateStressFor(arg0: $KineticBlockEntity, arg1: number): void;
-        updateStress(): void;
         handler$ehh000$bits_n_bobs$updateNetworkHead(arg0: $CallbackInfo): void;
         updateCapacity(): void;
         handler$ehh000$bits_n_bobs$addSilently(arg0: $KineticBlockEntity, arg1: number, arg2: number, arg3: $CallbackInfo): void;
         handler$ehh000$bits_n_bobs$add(arg0: $KineticBlockEntity, arg1: $CallbackInfo): void;
         handler$ehh000$bits_n_bobs$remove(arg0: $KineticBlockEntity, arg1: $CallbackInfo): void;
+        calculateCapacity(): number;
         calculateStress(): number;
         getActualStressOf(arg0: $KineticBlockEntity): number;
         redirect$eab000$simulated$extraKineticsCapacity(arg0: $Level_, arg1: $BlockPos_): $BlockEntity;
         redirect$eab000$simulated$extraKineticsStress(arg0: $Level_, arg1: $BlockPos_): $BlockEntity;
+        initFromTE(arg0: number, arg1: number, arg2: number): void;
+        addSilently(arg0: $KineticBlockEntity, arg1: number, arg2: number): void;
+        updateNetwork(): void;
+        getActualCapacityOf(arg0: $KineticBlockEntity): number;
+        updateCapacityFor(arg0: $KineticBlockEntity, arg1: number): void;
+        updateStressFor(arg0: $KineticBlockEntity, arg1: number): void;
+        updateStress(): void;
+        bits_n_bobs$updateFlywheelStresses(): void;
+        bits_n_bobs$getFlywheelStressAbsoptionCapacity(): number;
+        bits_n_bobs$getFlywheelStressReleaseCapacity(): number;
         remove(arg0: $KineticBlockEntity): void;
         add(arg0: $KineticBlockEntity): void;
         getSize(): number;
@@ -45,5 +45,7 @@ declare module "@package/com/simibubi/create/content/kinetics" {
         initialized: boolean;
         id: number;
         constructor();
+        get size(): number;
+        get unloadedStress(): number;
     }
 }

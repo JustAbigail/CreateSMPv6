@@ -25,27 +25,27 @@ declare module "@package/net/neoforged/neoforge/items/wrapper" {
         find(filter: $SlotFilter_): $ItemStack;
         self(): $RecipeInput;
         constructor(inv: $IItemHandler);
+        get empty(): boolean;
     }
     export class $CombinedInvWrapper implements $IItemHandlerModifiable {
         getSlots(): number;
-        getStackInSlot(slot: number): $ItemStack;
         insertItem(slot: number, stack: $ItemStack_, simulate: boolean): $ItemStack;
         extractItem(slot: number, amount: number, simulate: boolean): $ItemStack;
         getSlotLimit(slot: number): number;
         isItemValid(slot: number, stack: $ItemStack_): boolean;
         setStackInSlot(slot: number, stack: $ItemStack_): void;
-        kjs$self(): $IItemHandler;
-        kjs$getBlock(level: $Level_): $LevelBlock;
+        getStackInSlot(slot: number): $ItemStack;
         kjs$isMutable(): boolean;
         kjs$setStackInSlot(slot: number, stack: $ItemStack_): void;
-        isEmpty(): boolean;
+        kjs$self(): $IItemHandler;
+        kjs$getBlock(level: $Level_): $LevelBlock;
         insertItem(stack: $ItemStack_, simulate: boolean): $ItemStack;
         clear(match: $ItemPredicate_): void;
         clear(): void;
-        find(match: $ItemPredicate_): number;
         find(): number;
-        count(match: $ItemPredicate_): number;
+        find(match: $ItemPredicate_): number;
         count(): number;
+        count(match: $ItemPredicate_): number;
         countNonEmpty(match: $ItemPredicate_): number;
         countNonEmpty(): number;
         getWidth(): number;
@@ -53,6 +53,7 @@ declare module "@package/net/neoforged/neoforge/items/wrapper" {
         setChanged(): void;
         getAllItems(): $List<$ItemStack>;
         asContainer(): $Container;
+        isEmpty(): boolean;
         getSlots(): number;
         getStackInSlot(slot: number): $ItemStack;
         insertItem(slot: number, stack: $ItemStack_, simulate: boolean): $ItemStack;
@@ -60,5 +61,9 @@ declare module "@package/net/neoforged/neoforge/items/wrapper" {
         getSlotLimit(slot: number): number;
         isItemValid(slot: number, stack: $ItemStack_): boolean;
         constructor(...arg0: $IItemHandlerModifiable[]);
+        get width(): number;
+        get height(): number;
+        get allItems(): $List<$ItemStack>;
+        get empty(): boolean;
     }
 }

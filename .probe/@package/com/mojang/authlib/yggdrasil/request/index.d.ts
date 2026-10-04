@@ -11,7 +11,7 @@ declare module "@package/com/mojang/authlib/yggdrasil/request" {
     /**
      * Values that may be interpreted as {@link $AbuseReportRequest$ClientInfo}.
      */
-    export type $AbuseReportRequest$ClientInfo_ = { clientVersion?: string, locale?: string,  } | [clientVersion?: string, locale?: string, ];
+    export type $AbuseReportRequest$ClientInfo_ = { locale?: string, clientVersion?: string,  } | [locale?: string, clientVersion?: string, ];
     export class $AbuseReportRequest$RealmInfo extends $Record {
         slotId(): number;
         realmId(): string;
@@ -20,7 +20,7 @@ declare module "@package/com/mojang/authlib/yggdrasil/request" {
     /**
      * Values that may be interpreted as {@link $AbuseReportRequest$RealmInfo}.
      */
-    export type $AbuseReportRequest$RealmInfo_ = { slotId?: number, realmId?: string,  } | [slotId?: number, realmId?: string, ];
+    export type $AbuseReportRequest$RealmInfo_ = { realmId?: string, slotId?: number,  } | [realmId?: string, slotId?: number, ];
     export class $AbuseReportRequest$ThirdPartyServerInfo extends $Record {
         address(): string;
         constructor(address: string);
@@ -30,10 +30,10 @@ declare module "@package/com/mojang/authlib/yggdrasil/request" {
      */
     export type $AbuseReportRequest$ThirdPartyServerInfo_ = { address?: string,  } | [address?: string, ];
     export class $AbuseReportRequest extends $Record {
+        reportType(): string;
         clientInfo(): $AbuseReportRequest$ClientInfo;
         thirdPartyServerInfo(): $AbuseReportRequest$ThirdPartyServerInfo;
         realmInfo(): $AbuseReportRequest$RealmInfo;
-        reportType(): string;
         report(): $AbuseReport;
         version(): number;
         id(): $UUID;
@@ -42,5 +42,5 @@ declare module "@package/com/mojang/authlib/yggdrasil/request" {
     /**
      * Values that may be interpreted as {@link $AbuseReportRequest}.
      */
-    export type $AbuseReportRequest_ = { id?: $UUID_, report?: $AbuseReport_, version?: number, reportType?: string, clientInfo?: $AbuseReportRequest$ClientInfo_, thirdPartyServerInfo?: $AbuseReportRequest$ThirdPartyServerInfo_, realmInfo?: $AbuseReportRequest$RealmInfo_,  } | [id?: $UUID_, report?: $AbuseReport_, version?: number, reportType?: string, clientInfo?: $AbuseReportRequest$ClientInfo_, thirdPartyServerInfo?: $AbuseReportRequest$ThirdPartyServerInfo_, realmInfo?: $AbuseReportRequest$RealmInfo_, ];
+    export type $AbuseReportRequest_ = { version?: number, report?: $AbuseReport_, id?: $UUID_, realmInfo?: $AbuseReportRequest$RealmInfo_, thirdPartyServerInfo?: $AbuseReportRequest$ThirdPartyServerInfo_, clientInfo?: $AbuseReportRequest$ClientInfo_, reportType?: string,  } | [version?: number, report?: $AbuseReport_, id?: $UUID_, realmInfo?: $AbuseReportRequest$RealmInfo_, thirdPartyServerInfo?: $AbuseReportRequest$ThirdPartyServerInfo_, clientInfo?: $AbuseReportRequest$ClientInfo_, reportType?: string, ];
 }

@@ -16,11 +16,11 @@ declare module "@package/net/minecraft/world/level/levelgen/synth" {
          * @deprecated
          */
         static createLegacyNetherBiome(random: $RandomSource, parameters: $NormalNoise$NoiseParameters_): $NormalNoise;
+        maxValue(): number;
         getValue(x: number, arg1: number, y: number): number;
         parameters(): $NormalNoise$NoiseParameters;
-        static create(random: $RandomSource, parameters: $NormalNoise$NoiseParameters_): $NormalNoise;
         static create(random: $RandomSource, firstOctave: number, ...amplitudes: number[]): $NormalNoise;
-        maxValue(): number;
+        static create(random: $RandomSource, parameters: $NormalNoise$NoiseParameters_): $NormalNoise;
         parityConfigString(builder: $StringBuilder): void;
     }
     /**
@@ -43,19 +43,19 @@ declare module "@package/net/minecraft/world/level/levelgen/synth" {
     /**
      * Values that may be interpreted as {@link $NormalNoise$NoiseParameters}.
      */
-    export type $NormalNoise$NoiseParameters_ = RegistryTypes.WorldgenNoise | { amplitudes?: $DoubleList, firstOctave?: number,  } | [amplitudes?: $DoubleList, firstOctave?: number, ];
+    export type $NormalNoise$NoiseParameters_ = RegistryTypes.WorldgenNoise | { firstOctave?: number, amplitudes?: $DoubleList,  } | [firstOctave?: number, amplitudes?: $DoubleList, ];
     export interface $NormalNoise$NoiseParameters extends RegistryMarked<RegistryTypes.WorldgenNoiseTag, RegistryTypes.WorldgenNoise> {}
     /**
      * Generates a single octave of Perlin noise.
      */
     export class $ImprovedNoise {
+        noiseWithDerivative(x: number, arg1: number, y: number, arg3: number[]): number;
+        parityConfigString(builder: $StringBuilder): void;
         /**
          * @deprecated
          */
         noise(x: number, arg1: number, y: number, arg3: number, z: number): number;
         noise(x: number, arg1: number, y: number): number;
-        noiseWithDerivative(x: number, arg1: number, y: number, arg3: number[]): number;
-        parityConfigString(builder: $StringBuilder): void;
         zo: number;
         yo: number;
         xo: number;

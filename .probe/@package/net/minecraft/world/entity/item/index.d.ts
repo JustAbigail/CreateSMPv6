@@ -23,16 +23,6 @@ import { $EntityInLevelCallback } from "@package/net/minecraft/world/level/entit
 
 declare module "@package/net/minecraft/world/entity/item" {
     export class $ItemEntity extends $Entity implements $TraceableEntity, $ItemEntityKJS, $ItemEntityAccessor, $IItemEntity {
-        /**
-         * Looks for other itemstacks nearby and tries to stack them together
-         */
-        setDefaultPickUpDelay(): void;
-        /**
-         * Sets the item that this entity represents.
-         */
-        setItem(stack: $ItemStack_): void;
-        setXaero_OPAC_throwerAccessor(target: $UUID_): void;
-        getXaero_OPAC_throwerAccessor(): $UUID;
         static areMergable(destinationStack: $ItemStack_, originStack: $ItemStack_): boolean;
         /**
          * Looks for other itemstacks nearby and tries to stack them together
@@ -61,6 +51,12 @@ declare module "@package/net/minecraft/world/entity/item" {
         getSpin(partialTicks: number): number;
         getXaero_OPAC_thrower(): $UUID;
         getXaero_OPAC_target(): $UUID;
+        getXaero_OPAC_throwerAccessor(): $UUID;
+        setXaero_OPAC_throwerAccessor(target: $UUID_): void;
+        /**
+         * Sets the item that this entity represents.
+         */
+        setItem(stack: $ItemStack_): void;
         /**
          * Gets the item that this entity represents.
          */
@@ -80,6 +76,10 @@ declare module "@package/net/minecraft/world/entity/item" {
          */
         setThrower(entity: $Entity): void;
         /**
+         * Looks for other itemstacks nearby and tries to stack them together
+         */
+        setDefaultPickUpDelay(): void;
+        /**
          * The maximum height from where the entity is allowed to jump (used in pathfinder)
          */
         getLifespan(): number;
@@ -91,15 +91,15 @@ declare module "@package/net/minecraft/world/entity/item" {
         /**
          * Looks for other itemstacks nearby and tries to stack them together
          */
-        setNoDespawn(): void;
-        /**
-         * Looks for other itemstacks nearby and tries to stack them together
-         */
         setNoPickUpDelay(): void;
         /**
          * Looks for other itemstacks nearby and tries to stack them together
          */
         setInfinitePickUpDelay(): void;
+        /**
+         * Looks for other itemstacks nearby and tries to stack them together
+         */
+        setNoDespawn(): void;
         /**
          * The maximum height from where the entity is allowed to jump (used in pathfinder)
          */
@@ -183,9 +183,14 @@ declare module "@package/net/minecraft/world/entity/item" {
         wasTouchingWater: boolean;
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
+        constructor(level: $Level_, posX: number, arg2: number, posY: number, arg4: $ItemStack_, posZ: number, arg6: number, itemStack: number);
         constructor(level: $Level_, posX: number, arg2: number, posY: number, arg4: $ItemStack_);
         constructor(entityType: $EntityType_<$ItemEntity>, level: $Level_);
-        constructor(level: $Level_, posX: number, arg2: number, posY: number, arg4: $ItemStack_, posZ: number, arg6: number, itemStack: number);
+        get xaero_OPAC_thrower(): $UUID;
+        get xaero_OPAC_target(): $UUID;
+        get owner(): $Entity;
+        set pickUpDelay(value: number);
+        set thrower(value: $Entity);
     }
     export class $PrimedTnt extends $Entity implements $TraceableEntity {
         /**
@@ -275,21 +280,21 @@ declare module "@package/net/minecraft/world/entity/item" {
         wasTouchingWater: boolean;
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
-        constructor(level: $Level_, x: number, arg2: number, y: number, arg4: $LivingEntity | null);
         constructor(entityType: $EntityType_<$PrimedTnt>, level: $Level_);
+        constructor(level: $Level_, x: number, arg2: number, y: number, arg4: $LivingEntity | null);
     }
     export class $FallingBlockEntity extends $Entity implements $FallingBlockEntityAccessor {
-        setStartPos(startPos: $BlockPos_): void;
-        getStartPos(): $BlockPos;
-        handler$ilj000$architectury$handleLand(ci: $CallbackInfo, block: $Block_, blockPos2: $BlockPos_, bl: boolean, bl2: boolean, d: number, blockState: $BlockState_): void;
-        callOnBrokenAfterFall(block: $Block_, pos: $BlockPos_): void;
-        static callInit$create_$md$e5fdf9$0(arg0: $Level_, arg1: number, arg2: number, arg3: number, arg4: $BlockState_): $FallingBlockEntity;
-        setBlockState(state: $BlockState_): void;
-        static fall(level: $Level_, pos: $BlockPos_, blockState: $BlockState_): $FallingBlockEntity;
         /**
          * Called to update the entity's position/logic.
          */
         disableDrop(): void;
+        setStartPos(startPos: $BlockPos_): void;
+        getStartPos(): $BlockPos;
+        handler$ilj000$architectury$handleLand(ci: $CallbackInfo, block: $Block_, blockPos2: $BlockPos_, bl: boolean, bl2: boolean, d: number, blockState: $BlockState_): void;
+        callOnBrokenAfterFall(block: $Block_, pos: $BlockPos_): void;
+        setBlockState(state: $BlockState_): void;
+        static callInit$create_$md$3675d4$0(arg0: $Level_, arg1: number, arg2: number, arg3: number, arg4: $BlockState_): $FallingBlockEntity;
+        static fall(level: $Level_, pos: $BlockPos_, blockState: $BlockState_): $FallingBlockEntity;
         setHurtsEntities(fallDamagePerDistance: number, fallDamageMax: number): void;
         getBlockState(): $BlockState;
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;

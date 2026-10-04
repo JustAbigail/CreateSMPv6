@@ -14,6 +14,7 @@ declare module "@package/java/lang/module" {
         source(): string;
         isQualified(): boolean;
         targets(): $Set<string>;
+        get qualified(): boolean;
     }
     export class $ModuleDescriptor$Opens$Modifier extends $Enum<$ModuleDescriptor$Opens$Modifier> {
         static values(): $ModuleDescriptor$Opens$Modifier[];
@@ -49,13 +50,13 @@ declare module "@package/java/lang/module" {
     export type $ModuleDescriptor$Requires$Modifier_ = "transitive" | "static" | "synthetic" | "mandated";
     export class $Configuration {
         static empty(): $Configuration;
-        resolve(arg0: $ModuleFinder, arg1: $ModuleFinder, arg2: $Collection_<string>): $Configuration;
         static resolve(arg0: $ModuleFinder, arg1: $List_<$Configuration>, arg2: $ModuleFinder, arg3: $Collection_<string>): $Configuration;
+        resolve(arg0: $ModuleFinder, arg1: $ModuleFinder, arg2: $Collection_<string>): $Configuration;
         modules(): $Set<$ResolvedModule>;
         parents(): $List<$Configuration>;
         findModule(arg0: string): ($ResolvedModule) | undefined;
-        resolveAndBind(arg0: $ModuleFinder, arg1: $ModuleFinder, arg2: $Collection_<string>): $Configuration;
         static resolveAndBind(arg0: $ModuleFinder, arg1: $List_<$Configuration>, arg2: $ModuleFinder, arg3: $Collection_<string>): $Configuration;
+        resolveAndBind(arg0: $ModuleFinder, arg1: $ModuleFinder, arg2: $Collection_<string>): $Configuration;
     }
     export class $ModuleDescriptor$Exports implements $Comparable<$ModuleDescriptor$Exports> {
         modifiers(): $Set<$ModuleDescriptor$Exports$Modifier>;
@@ -64,19 +65,20 @@ declare module "@package/java/lang/module" {
         source(): string;
         isQualified(): boolean;
         targets(): $Set<string>;
+        get qualified(): boolean;
     }
     export class $ModuleDescriptor$Requires implements $Comparable<$ModuleDescriptor$Requires> {
+        compiledVersion(): ($ModuleDescriptor$Version) | undefined;
         modifiers(): $Set<$ModuleDescriptor$Requires$Modifier>;
         name(): string;
         compareTo(arg0: $ModuleDescriptor$Requires): number;
         accessFlags(): $Set<$AccessFlag>;
         rawCompiledVersion(): (string) | undefined;
-        compiledVersion(): ($ModuleDescriptor$Version) | undefined;
     }
     export class $ModuleFinder {
         static of(...arg0: $Path_[]): $ModuleFinder;
-        static compose(...arg0: $ModuleFinder[]): $ModuleFinder;
         static ofSystem(): $ModuleFinder;
+        static compose(...arg0: $ModuleFinder[]): $ModuleFinder;
     }
     export interface $ModuleFinder {
         find(arg0: string): ($ModuleReference) | undefined;
@@ -118,6 +120,8 @@ declare module "@package/java/lang/module" {
         static newModule(arg0: string): $ModuleDescriptor$Builder;
         static newOpenModule(arg0: string): $ModuleDescriptor$Builder;
         static newAutomaticModule(arg0: string): $ModuleDescriptor$Builder;
+        get open(): boolean;
+        get automatic(): boolean;
     }
     export class $ModuleDescriptor$Modifier extends $Enum<$ModuleDescriptor$Modifier> {
         static values(): $ModuleDescriptor$Modifier[];

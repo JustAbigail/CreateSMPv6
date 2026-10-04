@@ -26,10 +26,9 @@ declare module "@package/net/minecraft/resources" {
      */
     export class $ResourceKey<T> implements $Comparable<$ResourceKey<never>>, $SpecialEquality {
         /**
-         * @note_to_llm `ResourceKey` is a reference to a registry entry. KubeJS has special type wrapper for `ResourceKey<T>`
-         * that allows you to use string literals as `ResourceKey`. For example, "minecraf:apple" can be used as a `ResourceKey<Item>`.
-         * Check available literals for registry entries using the #tool:prunoideae.probejs/listRegistries #tool:prunoideae.probejs/queryRegistryObjectsByRegex #tool:prunoideae.probejs/queryTaggedObjects tools.
+         * @return the created registry key. The registry name is set to `minecraft:root` and the location the specified `registryName`.
          */
+        static createRegistryKey<T>(location: $ResourceLocation_): $ResourceKey<$Registry<T>>;
         static streamCodec<T>(registryKey: $ResourceKey_<$Registry<T>>): $StreamCodec<$ByteBuf, $ResourceKey<T>>;
         /**
          * @return `true` if this resource key is a direct child of the specified `registryKey`.
@@ -37,10 +36,6 @@ declare module "@package/net/minecraft/resources" {
         isFor(registryKey: $ResourceKey_<$Registry<never>>): boolean;
         getNamespace(): string;
         getPath(): string;
-        /**
-         * @return the created registry key. The registry name is set to `minecraft:root` and the location the specified `registryName`.
-         */
-        static createRegistryKey<T>(location: $ResourceLocation_): $ResourceKey<$Registry<T>>;
         cast<E>(registryKey: $ResourceKey_<$Registry<E>>): ($ResourceKey<E>) | undefined;
         compareTo(arg0: $ResourceKey_<never>): number;
         location(): $ResourceLocation;
@@ -52,9 +47,11 @@ declare module "@package/net/minecraft/resources" {
         static create<T>(registryKey: $ResourceKey_<$Registry<T>>, location: $ResourceLocation_): $ResourceKey<T>;
         registry(): $ResourceLocation;
         static codec<T>(registryKey: $ResourceKey_<$Registry<T>>): $Codec<$ResourceKey<T>>;
-        specialEquals(o: $Object, shallow: boolean): boolean;
         registryKey(): $ResourceKey<$Registry<$ResourceKey<never>>>;
+        specialEquals(o: $Object, shallow: boolean): boolean;
         constructor(registryName: $ResourceLocation_, location: $ResourceLocation_);
+        get namespace(): string;
+        get path(): string;
     }
     /**
      * Values that may be interpreted as {@link $ResourceKey}.
@@ -79,12 +76,13 @@ declare module "@package/net/minecraft/resources" {
         getPath(): string;
         withPrefix(location: string): $ResourceLocation;
         withSuffix(location: string): $ResourceLocation;
-        static withDefaultNamespace(location: string): $ResourceLocation;
         static fromNamespaceAndPath(namespace: string, path: string): $ResourceLocation;
         static tryParse(location: string): $ResourceLocation;
+        static withDefaultNamespace(location: string): $ResourceLocation;
         toLanguageKey(): string;
-        toLanguageKey(namespace: string, path: string): string;
         toLanguageKey(type: string): string;
+        toLanguageKey(namespace: string, path: string): string;
+        static isAllowedInResourceLocation(character: string): boolean;
         /**
          * @return `true` if the specified `namespace` is valid: consists only of `[a-z0-9_.-]` characters
          */
@@ -96,12 +94,11 @@ declare module "@package/net/minecraft/resources" {
         static bySeparator(location: string, seperator: string): $ResourceLocation;
         static tryBySeparator(location: string, seperator: string): $ResourceLocation;
         static tryBuild(namespace: string, path: string): $ResourceLocation;
-        withPath(pathOperator: $UnaryOperator_<string>): $ResourceLocation;
         withPath(location: string): $ResourceLocation;
+        withPath(pathOperator: $UnaryOperator_<string>): $ResourceLocation;
         compareNamespaced(other: $ResourceLocation_): number;
         toDebugFileName(): string;
         toShortLanguageKey(): string;
-        static isAllowedInResourceLocation(character: string): boolean;
         static readNonEmpty(reader: $StringReader): $ResourceLocation;
         static validPathChar(character: string): boolean;
         static validNamespaceChar(character: string): boolean;
@@ -113,6 +110,8 @@ declare module "@package/net/minecraft/resources" {
         static DEFAULT_NAMESPACE: string;
         static $assertionsDisabled: boolean;
         static STREAM_CODEC: $StreamCodec<$ByteBuf, $ResourceLocation>;
+        get namespace(): string;
+        get path(): string;
     }
     /**
      * Values that may be interpreted as {@link $ResourceLocation}.
@@ -144,16 +143,17 @@ declare module "@package/net/minecraft/resources" {
         constructor(prefix: string, extenstion: string);
     }
     export class $RegistryOps$RegistryInfo<T> extends $Record {
+        static fromRegistryLookup<T>(registryLookup: $HolderLookup$RegistryLookup<T>): $RegistryOps$RegistryInfo<T>;
         elementsLifecycle(): $Lifecycle;
         getter(): $HolderGetter<T>;
         owner(): $HolderOwner<T>;
-        static fromRegistryLookup<T>(registryLookup: $HolderLookup$RegistryLookup<T>): $RegistryOps$RegistryInfo<T>;
         constructor(owner: $HolderOwner<T>, getter: $HolderGetter<T>, elementsLifecycle: $Lifecycle);
+        get ter(): $HolderGetter<T>;
     }
     /**
      * Values that may be interpreted as {@link $RegistryOps$RegistryInfo}.
      */
-    export type $RegistryOps$RegistryInfo_<T> = { getter?: $HolderGetter<any>, elementsLifecycle?: $Lifecycle, owner?: $HolderOwner<any>,  } | [getter?: $HolderGetter<any>, elementsLifecycle?: $Lifecycle, owner?: $HolderOwner<any>, ];
+    export type $RegistryOps$RegistryInfo_<T> = { getter?: $HolderGetter<any>, owner?: $HolderOwner<any>, elementsLifecycle?: $Lifecycle,  } | [getter?: $HolderGetter<any>, owner?: $HolderOwner<any>, elementsLifecycle?: $Lifecycle, ];
     export class $RegistryOps$RegistryInfoLookup {
     }
     export interface $RegistryOps$RegistryInfoLookup {
@@ -167,18 +167,18 @@ declare module "@package/net/minecraft/resources" {
      * A `DynamicOps` that delegates all functionality to an internal delegate. Comments and parameters here are copied from `DynamicOps` in DataFixerUpper.
      */
     export class $DelegatingOps<T> implements $DynamicOps<T> {
-        getStringValue(input: T): $DataResult<string>;
         getStream(input: T): $DataResult<$Stream<T>>;
+        getStringValue(input: T): $DataResult<string>;
         getMap(input: T): $DataResult<$MapLike<T>>;
+        createMap(map: $Map_<T, T>): T;
+        createMap(input: $Stream<$Pair<T, T>>): T;
+        createLong(value: number): T;
+        createString(value: string): T;
         remove(input: T, key: string): T;
         empty(): T;
         emptyList(): T;
         getByteBuffer(input: T): $DataResult<$ByteBuffer>;
         emptyMap(): T;
-        createMap(map: $Map_<T, T>): T;
-        createMap(input: $Stream<$Pair<T, T>>): T;
-        createLong(value: number): T;
-        createString(value: string): T;
         getList(input: T): $DataResult<$Consumer<$Consumer<T>>>;
         createList(input: $Stream<T>): T;
         getBooleanValue(input: T): $DataResult<boolean>;

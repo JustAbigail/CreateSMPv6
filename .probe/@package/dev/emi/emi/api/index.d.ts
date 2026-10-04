@@ -30,10 +30,15 @@ declare module "@package/dev/emi/emi/api" {
     export class $EmiRegistry {
     }
     export interface $EmiRegistry extends $GlobalMixin {
-        addRecipe(arg0: $EmiRecipe): void;
-        removeEmiStacks(arg0: $Predicate_<$EmiStack>): void;
+        /**
+         * @deprecated
+         */
+        addIngredientSerializer<T extends $EmiIngredient>(arg0: $Class<T>, arg1: $EmiIngredientSerializer<T>): void;
+        addWorkstation(arg0: $EmiRecipeCategory, arg1: $EmiIngredient): void;
         removeEmiStacks(stack: $EmiStack): void;
+        removeEmiStacks(arg0: $Predicate_<$EmiStack>): void;
         addEmiStack(arg0: $EmiStack): void;
+        addGenericScreenBoundsProvider(arg0: $EmiScreenBoundsProvider_<$Screen>): void;
         addScreenBoundsProvider<T extends $Screen>(arg0: $Class<T>, arg1: $EmiScreenBoundsProvider_<T>): void;
         isStackDisabled(arg0: $EmiIngredient): boolean;
         addDeferredRecipes(arg0: $Consumer_<$Consumer<$EmiRecipe>>): void;
@@ -46,23 +51,19 @@ declare module "@package/dev/emi/emi/api" {
         addStackProvider<T extends $Screen>(arg0: $Class<T>, arg1: $EmiStackProvider_<T>): void;
         addGenericStackProvider(arg0: $EmiStackProvider_<$Screen>): void;
         setDefaultComparison(stack: $EmiStack, comparison: $Function_<$Comparison, $Comparison>): void;
-        setDefaultComparison(arg0: $Object, arg1: $Function_<$Comparison, $Comparison>): void;
-        setDefaultComparison(stack: $EmiStack, comparison: $Comparison): void;
         setDefaultComparison(key: $Object, comparison: $Comparison): void;
+        setDefaultComparison(stack: $EmiStack, comparison: $Comparison): void;
+        setDefaultComparison(arg0: $Object, arg1: $Function_<$Comparison, $Comparison>): void;
         addRecipeHandler<T extends $AbstractContainerMenu>(arg0: $MenuType_<T>, arg1: $EmiRecipeHandler<T>): void;
-        addRecipeDecorator(arg0: $EmiRecipeDecorator_): void;
         addRecipeDecorator(category: $EmiRecipeCategory, decorator: $EmiRecipeDecorator_): void;
-        addGenericScreenBoundsProvider(arg0: $EmiScreenBoundsProvider_<$Screen>): void;
-        /**
-         * @deprecated
-         */
-        addIngredientSerializer<T extends $EmiIngredient>(arg0: $Class<T>, arg1: $EmiIngredientSerializer<T>): void;
-        addWorkstation(arg0: $EmiRecipeCategory, arg1: $EmiIngredient): void;
-        addAlias(arg0: $EmiIngredient, arg1: $Component_): void;
+        addRecipeDecorator(arg0: $EmiRecipeDecorator_): void;
+        addRecipe(arg0: $EmiRecipe): void;
         removeRecipes(id: $ResourceLocation_): void;
         removeRecipes(arg0: $Predicate_<$EmiRecipe>): void;
+        addAlias(arg0: $EmiIngredient, arg1: $Component_): void;
         addCategory(arg0: $EmiRecipeCategory): void;
         getRecipeManager(): $RecipeManager;
+        get recipeManager(): $RecipeManager;
     }
     export class $EmiStackProvider<T extends $Screen> {
     }

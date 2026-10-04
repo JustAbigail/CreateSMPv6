@@ -10,29 +10,29 @@ declare module "@package/java/lang/foreign" {
     }
     export interface $ValueLayout$OfDouble extends $ValueLayout {
         withByteAlignment(arg0: number): $ValueLayout$OfDouble;
-        withName(arg0: string): $MemoryLayout;
-        withOrder(arg0: $ByteOrder): $ValueLayout;
         withoutName(): $MemoryLayout;
+        withName(arg0: string): $ValueLayout;
+        withOrder(arg0: $ByteOrder): $ValueLayout;
     }
     export class $StructLayout {
     }
     export interface $StructLayout extends $GroupLayout {
-        withName(arg0: string): $MemoryLayout;
-        withByteAlignment(arg0: number): $GroupLayout;
+        withByteAlignment(arg0: number): $MemoryLayout;
         withoutName(): $MemoryLayout;
+        withName(arg0: string): $GroupLayout;
     }
     export class $PaddingLayout {
     }
     export interface $PaddingLayout extends $MemoryLayout {
-        withName(arg0: string): $MemoryLayout;
-        withByteAlignment(arg0: number): $MemoryLayout;
+        withByteAlignment(arg0: number): $PaddingLayout;
         withoutName(): $MemoryLayout;
+        withName(arg0: string): $MemoryLayout;
     }
     export class $Arena {
-        static ofConfined(): $Arena;
-        static ofShared(): $Arena;
         static ofAuto(): $Arena;
         static global(): $Arena;
+        static ofConfined(): $Arena;
+        static ofShared(): $Arena;
     }
     export interface $Arena extends $SegmentAllocator, $AutoCloseable {
         scope(): $MemorySegment$Scope;
@@ -41,12 +41,12 @@ declare module "@package/java/lang/foreign" {
     }
     export class $MemorySegment {
         static ofBuffer(arg0: $Buffer): $MemorySegment;
-        static ofArray(arg0: number[]): $MemorySegment;
-        static ofArray(arg0: number[]): $MemorySegment;
-        static ofArray(arg0: number[]): $MemorySegment;
-        static ofArray(arg0: number[]): $MemorySegment;
-        static ofArray(arg0: number[]): $MemorySegment;
         static ofArray(arg0: string[]): $MemorySegment;
+        static ofArray(arg0: number[]): $MemorySegment;
+        static ofArray(arg0: number[]): $MemorySegment;
+        static ofArray(arg0: number[]): $MemorySegment;
+        static ofArray(arg0: number[]): $MemorySegment;
+        static ofArray(arg0: number[]): $MemorySegment;
         static ofArray(arg0: number[]): $MemorySegment;
         static ofAddress(arg0: number): $MemorySegment;
         static mismatch(arg0: $MemorySegment, arg1: number, arg2: number, arg3: $MemorySegment, arg4: number, arg5: number): number;
@@ -57,17 +57,15 @@ declare module "@package/java/lang/foreign" {
         static NULL: $MemorySegment;
     }
     export interface $MemorySegment {
-        byteSize(): number;
-        isAccessibleBy(arg0: $Thread): boolean;
         copyFrom(arg0: $MemorySegment): $MemorySegment;
-        asSlice(arg0: number, arg1: number): $MemorySegment;
         asSlice(arg0: number, arg1: number, arg2: number): $MemorySegment;
         asSlice(arg0: number, arg1: $MemoryLayout): $MemorySegment;
         asSlice(arg0: number): $MemorySegment;
+        asSlice(arg0: number, arg1: number): $MemorySegment;
         heapBase(): (never) | undefined;
         reinterpret(arg0: number): $MemorySegment;
-        reinterpret(arg0: $Arena, arg1: $Consumer_<$MemorySegment>): $MemorySegment;
         reinterpret(arg0: number, arg1: $Arena, arg2: $Consumer_<$MemorySegment>): $MemorySegment;
+        reinterpret(arg0: $Arena, arg1: $Consumer_<$MemorySegment>): $MemorySegment;
         asReadOnly(): $MemorySegment;
         isMapped(): boolean;
         asOverlappingSlice(arg0: $MemorySegment): ($MemorySegment) | undefined;
@@ -80,19 +78,21 @@ declare module "@package/java/lang/foreign" {
         getAtIndex(arg0: $ValueLayout$OfBoolean, arg1: number): boolean;
         getAtIndex(arg0: $ValueLayout$OfByte, arg1: number): number;
         getAtIndex(arg0: $ValueLayout$OfFloat, arg1: number): number;
-        getAtIndex(arg0: $ValueLayout$OfLong, arg1: number): number;
         getAtIndex(arg0: $ValueLayout$OfDouble, arg1: number): number;
-        getAtIndex(arg0: $AddressLayout, arg1: number): $MemorySegment;
         getAtIndex(arg0: $ValueLayout$OfInt, arg1: number): number;
-        setAtIndex(arg0: $AddressLayout, arg1: number, arg2: $MemorySegment): void;
+        getAtIndex(arg0: $ValueLayout$OfLong, arg1: number): number;
+        getAtIndex(arg0: $AddressLayout, arg1: number): $MemorySegment;
         setAtIndex(arg0: $ValueLayout$OfLong, arg1: number, arg2: number): void;
-        setAtIndex(arg0: $ValueLayout$OfDouble, arg1: number, arg2: number): void;
-        setAtIndex(arg0: $ValueLayout$OfChar, arg1: number, arg2: string): void;
         setAtIndex(arg0: $ValueLayout$OfByte, arg1: number, arg2: number): void;
+        setAtIndex(arg0: $ValueLayout$OfDouble, arg1: number, arg2: number): void;
+        setAtIndex(arg0: $AddressLayout, arg1: number, arg2: $MemorySegment): void;
         setAtIndex(arg0: $ValueLayout$OfBoolean, arg1: number, arg2: boolean): void;
-        setAtIndex(arg0: $ValueLayout$OfFloat, arg1: number, arg2: number): void;
-        setAtIndex(arg0: $ValueLayout$OfInt, arg1: number, arg2: number): void;
+        setAtIndex(arg0: $ValueLayout$OfChar, arg1: number, arg2: string): void;
         setAtIndex(arg0: $ValueLayout$OfShort, arg1: number, arg2: number): void;
+        setAtIndex(arg0: $ValueLayout$OfInt, arg1: number, arg2: number): void;
+        setAtIndex(arg0: $ValueLayout$OfFloat, arg1: number, arg2: number): void;
+        byteSize(): number;
+        isAccessibleBy(arg0: $Thread): boolean;
         scope(): $MemorySegment$Scope;
         get(arg0: $ValueLayout$OfFloat, arg1: number): number;
         get(arg0: $ValueLayout$OfInt, arg1: number): number;
@@ -132,29 +132,33 @@ declare module "@package/java/lang/foreign" {
         isLoaded(): boolean;
         unload(): void;
         force(): void;
+        get mapped(): boolean;
+        get native(): boolean;
+        get readOnly(): boolean;
+        get loaded(): boolean;
     }
     export class $AddressLayout {
     }
     export interface $AddressLayout extends $ValueLayout {
+        withByteAlignment(arg0: number): $AddressLayout;
         withTargetLayout(arg0: $MemoryLayout): $AddressLayout;
         withoutTargetLayout(): $AddressLayout;
         targetLayout(): ($MemoryLayout) | undefined;
-        withName(arg0: string): $MemoryLayout;
-        withOrder(arg0: $ByteOrder): $ValueLayout;
-        withByteAlignment(arg0: number): $MemoryLayout;
+        withOrder(arg0: $ByteOrder): $AddressLayout;
         withoutName(): $MemoryLayout;
+        withName(arg0: string): $ValueLayout;
     }
     export class $SequenceLayout {
     }
     export interface $SequenceLayout extends $MemoryLayout {
-        reshape(...arg0: number[]): $SequenceLayout;
-        withElementCount(arg0: number): $SequenceLayout;
-        elementCount(): number;
-        flatten(): $SequenceLayout;
         withoutName(): $MemoryLayout;
         elementLayout(): $MemoryLayout;
-        withName(arg0: string): $MemoryLayout;
+        elementCount(): number;
+        reshape(...arg0: number[]): $SequenceLayout;
+        flatten(): $SequenceLayout;
+        withElementCount(arg0: number): $SequenceLayout;
         withByteAlignment(arg0: number): $MemoryLayout;
+        withName(arg0: string): $MemoryLayout;
     }
     export class $MemoryLayout {
         static sequenceLayout(arg0: number, arg1: $MemoryLayout): $SequenceLayout;
@@ -164,6 +168,11 @@ declare module "@package/java/lang/foreign" {
         static unionLayout(...arg0: $MemoryLayout[]): $UnionLayout;
     }
     export interface $MemoryLayout {
+        withByteAlignment(arg0: number): $MemoryLayout;
+        withoutName(): $MemoryLayout;
+        byteOffsetHandle(...arg0: $MemoryLayout$PathElement[]): $MethodHandle;
+        varHandle(...arg0: $MemoryLayout$PathElement[]): $VarHandle;
+        sliceHandle(...arg0: $MemoryLayout$PathElement[]): $MethodHandle;
         byteSize(): number;
         byteAlignment(): number;
         name(): (string) | undefined;
@@ -173,27 +182,22 @@ declare module "@package/java/lang/foreign" {
         byteOffset(...arg0: $MemoryLayout$PathElement[]): number;
         select(...arg0: $MemoryLayout$PathElement[]): $MemoryLayout;
         withName(arg0: string): $MemoryLayout;
-        withByteAlignment(arg0: number): $MemoryLayout;
-        withoutName(): $MemoryLayout;
-        byteOffsetHandle(...arg0: $MemoryLayout$PathElement[]): $MethodHandle;
-        varHandle(...arg0: $MemoryLayout$PathElement[]): $VarHandle;
-        sliceHandle(...arg0: $MemoryLayout$PathElement[]): $MethodHandle;
     }
     export class $ValueLayout$OfInt {
     }
     export interface $ValueLayout$OfInt extends $ValueLayout {
         withByteAlignment(arg0: number): $ValueLayout$OfInt;
-        withName(arg0: string): $MemoryLayout;
-        withOrder(arg0: $ByteOrder): $ValueLayout;
         withoutName(): $MemoryLayout;
+        withName(arg0: string): $ValueLayout;
+        withOrder(arg0: $ByteOrder): $ValueLayout;
     }
     export class $ValueLayout$OfByte {
     }
     export interface $ValueLayout$OfByte extends $ValueLayout {
         withByteAlignment(arg0: number): $ValueLayout$OfByte;
-        withName(arg0: string): $MemoryLayout;
-        withOrder(arg0: $ByteOrder): $ValueLayout;
         withoutName(): $MemoryLayout;
+        withName(arg0: string): $ValueLayout;
+        withOrder(arg0: $ByteOrder): $ValueLayout;
     }
     export class $MemorySegment$Scope {
     }
@@ -201,14 +205,15 @@ declare module "@package/java/lang/foreign" {
         equals(arg0: $Object): boolean;
         hashCode(): number;
         isAlive(): boolean;
+        get alive(): boolean;
     }
     export class $ValueLayout$OfFloat {
     }
     export interface $ValueLayout$OfFloat extends $ValueLayout {
         withByteAlignment(arg0: number): $ValueLayout$OfFloat;
-        withName(arg0: string): $MemoryLayout;
-        withOrder(arg0: $ByteOrder): $ValueLayout;
         withoutName(): $MemoryLayout;
+        withName(arg0: string): $ValueLayout;
+        withOrder(arg0: $ByteOrder): $ValueLayout;
     }
     export class $ValueLayout {
         static JAVA_CHAR: $ValueLayout$OfChar;
@@ -232,36 +237,36 @@ declare module "@package/java/lang/foreign" {
         arrayElementVarHandle(...arg0: number[]): $VarHandle;
         carrier(): $Class<never>;
         order(): $ByteOrder;
+        withName(arg0: string): $ValueLayout;
         withOrder(arg0: $ByteOrder): $ValueLayout;
-        withName(arg0: string): $MemoryLayout;
         withByteAlignment(arg0: number): $MemoryLayout;
         withoutName(): $MemoryLayout;
     }
     export class $SegmentAllocator {
-        static slicingAllocator(arg0: $MemorySegment): $SegmentAllocator;
         static prefixAllocator(arg0: $MemorySegment): $SegmentAllocator;
+        static slicingAllocator(arg0: $MemorySegment): $SegmentAllocator;
     }
     export interface $SegmentAllocator {
-        allocateUtf8String(arg0: string): $MemorySegment;
-        allocate(arg0: $ValueLayout$OfByte, arg1: number): $MemorySegment;
-        allocate(arg0: $ValueLayout$OfShort, arg1: number): $MemorySegment;
-        allocate(arg0: number, arg1: number): $MemorySegment;
-        allocate(arg0: number): $MemorySegment;
-        allocate(arg0: $MemoryLayout): $MemorySegment;
-        allocate(arg0: $ValueLayout$OfChar, arg1: string): $MemorySegment;
-        allocate(arg0: $ValueLayout$OfFloat, arg1: number): $MemorySegment;
-        allocate(arg0: $ValueLayout$OfInt, arg1: number): $MemorySegment;
-        allocate(arg0: $ValueLayout$OfDouble, arg1: number): $MemorySegment;
-        allocate(arg0: $ValueLayout$OfLong, arg1: number): $MemorySegment;
-        allocate(arg0: $AddressLayout, arg1: $MemorySegment): $MemorySegment;
+        allocateArray(arg0: $ValueLayout$OfFloat, ...arg1: number[]): $MemorySegment;
+        allocateArray(arg0: $ValueLayout$OfInt, ...arg1: number[]): $MemorySegment;
+        allocateArray(arg0: $ValueLayout$OfShort, ...arg1: number[]): $MemorySegment;
+        allocateArray(arg0: $ValueLayout$OfByte, ...arg1: number[]): $MemorySegment;
         allocateArray(arg0: $MemoryLayout, arg1: number): $MemorySegment;
         allocateArray(arg0: $ValueLayout$OfChar, ...arg1: string[]): $MemorySegment;
-        allocateArray(arg0: $ValueLayout$OfByte, ...arg1: number[]): $MemorySegment;
-        allocateArray(arg0: $ValueLayout$OfShort, ...arg1: number[]): $MemorySegment;
-        allocateArray(arg0: $ValueLayout$OfInt, ...arg1: number[]): $MemorySegment;
-        allocateArray(arg0: $ValueLayout$OfFloat, ...arg1: number[]): $MemorySegment;
-        allocateArray(arg0: $ValueLayout$OfLong, ...arg1: number[]): $MemorySegment;
         allocateArray(arg0: $ValueLayout$OfDouble, ...arg1: number[]): $MemorySegment;
+        allocateArray(arg0: $ValueLayout$OfLong, ...arg1: number[]): $MemorySegment;
+        allocateUtf8String(arg0: string): $MemorySegment;
+        allocate(arg0: number): $MemorySegment;
+        allocate(arg0: $ValueLayout$OfByte, arg1: number): $MemorySegment;
+        allocate(arg0: $MemoryLayout): $MemorySegment;
+        allocate(arg0: number, arg1: number): $MemorySegment;
+        allocate(arg0: $AddressLayout, arg1: $MemorySegment): $MemorySegment;
+        allocate(arg0: $ValueLayout$OfLong, arg1: number): $MemorySegment;
+        allocate(arg0: $ValueLayout$OfFloat, arg1: number): $MemorySegment;
+        allocate(arg0: $ValueLayout$OfInt, arg1: number): $MemorySegment;
+        allocate(arg0: $ValueLayout$OfShort, arg1: number): $MemorySegment;
+        allocate(arg0: $ValueLayout$OfChar, arg1: string): $MemorySegment;
+        allocate(arg0: $ValueLayout$OfDouble, arg1: number): $MemorySegment;
     }
     /**
      * Values that may be interpreted as {@link $SegmentAllocator}.
@@ -271,9 +276,9 @@ declare module "@package/java/lang/foreign" {
     }
     export interface $ValueLayout$OfChar extends $ValueLayout {
         withByteAlignment(arg0: number): $ValueLayout$OfChar;
-        withName(arg0: string): $MemoryLayout;
-        withOrder(arg0: $ByteOrder): $ValueLayout;
         withoutName(): $MemoryLayout;
+        withName(arg0: string): $ValueLayout;
+        withOrder(arg0: $ByteOrder): $ValueLayout;
     }
     export class $MemoryLayout$PathElement {
         static sequenceElement(arg0: number): $MemoryLayout$PathElement;
@@ -289,31 +294,31 @@ declare module "@package/java/lang/foreign" {
     }
     export interface $ValueLayout$OfBoolean extends $ValueLayout {
         withByteAlignment(arg0: number): $ValueLayout$OfBoolean;
-        withName(arg0: string): $MemoryLayout;
-        withOrder(arg0: $ByteOrder): $ValueLayout;
         withoutName(): $MemoryLayout;
+        withName(arg0: string): $ValueLayout;
+        withOrder(arg0: $ByteOrder): $ValueLayout;
     }
     export class $UnionLayout {
     }
     export interface $UnionLayout extends $GroupLayout {
-        withName(arg0: string): $MemoryLayout;
-        withByteAlignment(arg0: number): $GroupLayout;
+        withByteAlignment(arg0: number): $MemoryLayout;
         withoutName(): $MemoryLayout;
+        withName(arg0: string): $GroupLayout;
     }
     export class $ValueLayout$OfShort {
     }
     export interface $ValueLayout$OfShort extends $ValueLayout {
         withByteAlignment(arg0: number): $ValueLayout$OfShort;
-        withName(arg0: string): $MemoryLayout;
-        withOrder(arg0: $ByteOrder): $ValueLayout;
         withoutName(): $MemoryLayout;
+        withName(arg0: string): $ValueLayout;
+        withOrder(arg0: $ByteOrder): $ValueLayout;
     }
     export class $ValueLayout$OfLong {
     }
     export interface $ValueLayout$OfLong extends $ValueLayout {
         withByteAlignment(arg0: number): $ValueLayout$OfLong;
-        withName(arg0: string): $MemoryLayout;
-        withOrder(arg0: $ByteOrder): $ValueLayout;
         withoutName(): $MemoryLayout;
+        withName(arg0: string): $ValueLayout;
+        withOrder(arg0: $ByteOrder): $ValueLayout;
     }
 }

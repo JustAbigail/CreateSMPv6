@@ -7,26 +7,28 @@ import { $Collection } from "@package/java/util";
 
 declare module "@package/plus/dragons/createdragonsplus/common/fluids/dye" {
     export class $DyeVariant extends $Record {
-        isVanilla(): boolean;
+        fluidName(): string;
         concreteBlockId(): $ResourceLocation;
         dyeItemTag(): $TagKey<$Item>;
         dyeItemId(): $ResourceLocation;
         vanillaColor(): $DyeColor;
         fanProcessingName(): string;
         dyeItemStack(): $ItemStack;
-        fluidName(): string;
         isAvailable(): boolean;
         id(): $ResourceLocation;
         color(): number;
         displayName(): string;
         serializedName(): string;
+        isVanilla(): boolean;
         requiredModId(): string;
         constructor(id: $ResourceLocation_, serializedName: string, displayName: string, color: number, dyeItemTag: $TagKey_<$Item>, dyeItemId: $ResourceLocation_, concreteBlockId: $ResourceLocation_, vanillaColor: $DyeColor_, requiredModId: string);
+        get available(): boolean;
+        get vanilla(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $DyeVariant}.
      */
-    export type $DyeVariant_ = { requiredModId?: string, dyeItemId?: $ResourceLocation_, concreteBlockId?: $ResourceLocation_, serializedName?: string, vanillaColor?: $DyeColor_, color?: number, id?: $ResourceLocation_, dyeItemTag?: $TagKey_<$Item>, displayName?: string,  } | [requiredModId?: string, dyeItemId?: $ResourceLocation_, concreteBlockId?: $ResourceLocation_, serializedName?: string, vanillaColor?: $DyeColor_, color?: number, id?: $ResourceLocation_, dyeItemTag?: $TagKey_<$Item>, displayName?: string, ];
+    export type $DyeVariant_ = { vanillaColor?: $DyeColor_, serializedName?: string, concreteBlockId?: $ResourceLocation_, dyeItemId?: $ResourceLocation_, requiredModId?: string, displayName?: string, dyeItemTag?: $TagKey_<$Item>, id?: $ResourceLocation_, color?: number,  } | [vanillaColor?: $DyeColor_, serializedName?: string, concreteBlockId?: $ResourceLocation_, dyeItemId?: $ResourceLocation_, requiredModId?: string, displayName?: string, dyeItemTag?: $TagKey_<$Item>, id?: $ResourceLocation_, color?: number, ];
     export class $DyeVariantRegistry$Builder {
         add(arg0: $DyeVariant_): void;
         build(): $Collection<$DyeVariant>;

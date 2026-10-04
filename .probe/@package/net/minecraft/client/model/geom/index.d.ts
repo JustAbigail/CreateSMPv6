@@ -32,6 +32,7 @@ declare module "@package/net/minecraft/client/model/geom" {
         reload(arg0: $PreparableReloadListener$PreparationBarrier_, arg1: $ResourceManager, arg2: $ProfilerFiller, arg3: $ProfilerFiller, arg4: $Executor_, arg5: $Executor_): $CompletableFuture<void>;
         getName(): string;
         constructor();
+        get name(): string;
     }
     export class $ModelPart$Visitor {
     }
@@ -44,7 +45,6 @@ declare module "@package/net/minecraft/client/model/geom" {
     export type $ModelPart$Visitor_ = ((arg0: $PoseStack$Pose, arg1: string, arg2: number, arg3: $ModelPart$Cube) => void);
     export class $ModelPart implements $IUpperPartHelper, $ModelPartAccessor, $IModelPartExtension, $ExtraTransformHolder {
         hasChild(name: string): boolean;
-        translateAndRotate(poseStack: $PoseStack): void;
         setPos(x: number, y: number, z: number): void;
         storePose(): $PartPose;
         loadPose(partPose: $PartPose): void;
@@ -57,17 +57,18 @@ declare module "@package/net/minecraft/client/model/geom" {
         moonlight$getTextHeight(): number;
         moonlight$getTextWidth(): number;
         resetPose(): void;
+        translateAndRotate(poseStack: $PoseStack): void;
         isUpperPart(): boolean;
         setUpperPart(bl: boolean): void;
         offsetScale(offset: $Vector3f): void;
-        visit(poseStack: $PoseStack, visitor: $ModelPart$Visitor_): void;
-        getChild(name: string): $ModelPart;
         setRotation(x: number, y: number, z: number): void;
         offsetPos(offset: $Vector3f): void;
         copyFrom(modelPart: $ModelPart): void;
-        isEmpty(): boolean;
+        visit(poseStack: $PoseStack, visitor: $ModelPart$Visitor_): void;
+        getChild(name: string): $ModelPart;
         setExtra(extra: $Mat4): void;
         getExtra(): $Mat4;
+        isEmpty(): boolean;
         render(poseStack: $PoseStack, buffer: $VertexConsumer, packedLight: number, packedOverlay: number): void;
         render(poseStack: $PoseStack, buffer: $VertexConsumer, packedLight: number, packedOverlay: number, color: number): void;
         flywheel$children(): $Map<string, $ModelPart>;
@@ -87,11 +88,15 @@ declare module "@package/net/minecraft/client/model/geom" {
         skipDraw: boolean;
         zScale: number;
         constructor(cubes: $List_<$ModelPart$Cube>, children: $Map_<string, $ModelPart>);
+        get allParts(): $Stream<$ModelPart>;
+        get empty(): boolean;
     }
     export class $ModelLayerLocation {
         getLayer(): string;
         getModel(): $ResourceLocation;
         constructor(model: $ResourceLocation_, layer: string);
+        get layer(): string;
+        get model(): $ResourceLocation;
     }
     export class $PartPose {
         static offsetAndRotation(x: number, y: number, z: number, xRot: number, yRot: number, zRot: number): $PartPose;

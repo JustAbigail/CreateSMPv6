@@ -10,5 +10,10 @@ declare module "@package/io/homo/irisapi/mixin/composite" {
         getPrepareRenderer(): $CompositeRenderer;
         getFinalPassRenderer(): $FinalPassRenderer;
         getCompositeRenderer(): $CompositeRenderer;
+        get deferredRenderer(): $CompositeRenderer;
+        get beginRenderer(): $CompositeRenderer;
+        get prepareRenderer(): $CompositeRenderer;
+        get finalPassRenderer(): $FinalPassRenderer;
+        get compositeRenderer(): $CompositeRenderer;
     }
 }

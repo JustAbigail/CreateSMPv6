@@ -20,5 +20,6 @@ declare module "@package/org/slf4j/spi" {
         addArgument(arg0: $Object): $LoggingEventBuilder;
         addKeyValue(arg0: string, arg1: $Object): $LoggingEventBuilder;
         addKeyValue(arg0: string, arg1: $Supplier_<$Object>): $LoggingEventBuilder;
+        set cause(value: $Throwable);
     }
 }

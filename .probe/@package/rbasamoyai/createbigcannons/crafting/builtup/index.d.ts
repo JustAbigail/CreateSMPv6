@@ -1,8 +1,8 @@
 import { $Level_ } from "@package/net/minecraft/world/level";
 import { $BlockPos_ } from "@package/net/minecraft/core";
-import { $Block, $Block_ } from "@package/net/minecraft/world/level/block";
+import { $Block_, $Block } from "@package/net/minecraft/world/level/block";
 import { $List_, $Set, $List } from "@package/java/util";
-import { $BlockRecipe, $BlockRecipeType, $BlockRecipeIngredient, $BlockRecipeSerializer } from "@package/rbasamoyai/createbigcannons/crafting";
+import { $BlockRecipeType, $BlockRecipe, $BlockRecipeIngredient, $BlockRecipeSerializer } from "@package/rbasamoyai/createbigcannons/crafting";
 
 declare module "@package/rbasamoyai/createbigcannons/crafting/builtup" {
     export class $BuiltUpHeatingRecipe implements $BlockRecipe {
@@ -14,5 +14,8 @@ declare module "@package/rbasamoyai/createbigcannons/crafting/builtup" {
         layers(): $Set<$BlockRecipeIngredient>;
         getType(): $BlockRecipeType<never>;
         constructor(arg0: $List_<$BlockRecipeIngredient>, arg1: $Block_);
+        get resultBlock(): $Block;
+        get serializer(): $BlockRecipeSerializer<never>;
+        get type(): $BlockRecipeType<never>;
     }
 }

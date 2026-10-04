@@ -6,11 +6,10 @@ import { $Couple } from "@package/net/createmod/catnip/data";
 
 declare module "@package/net/createmod/catnip/theme" {
     export class $Color {
-        asStyle(): $Style;
-        ensureMutable(): $Color;
-        scaleAlpha(arg0: number): $Color;
-        scaleAlphaForText(arg0: number): $Color;
-        modifyValue(arg0: $UnaryOperator_<number>): $Color;
+        setAlpha(arg0: number): $Color;
+        setAlpha(arg0: number): $Color;
+        setImmutable(): $Color;
+        mixWith(arg0: $Color, arg1: number): $Color;
         static rainbowColor(arg0: number): $Color;
         static generateFromLong(arg0: number): $Color;
         getRedAsFloat(): number;
@@ -18,27 +17,28 @@ declare module "@package/net/createmod/catnip/theme" {
         getBlueAsFloat(): number;
         getAlphaAsFloat(): number;
         asVector(): $Vec3;
-        asVectorF(): $Vector3f;
-        mixWith(arg0: $Color, arg1: number): $Color;
-        setAlpha(arg0: number): $Color;
-        setAlpha(arg0: number): $Color;
-        brighter(): $Color;
-        darker(): $Color;
-        setRed(arg0: number): $Color;
-        setRed(arg0: number): $Color;
-        setGreen(arg0: number): $Color;
-        setGreen(arg0: number): $Color;
-        setBlue(arg0: number): $Color;
-        setBlue(arg0: number): $Color;
+        asStyle(): $Style;
+        ensureMutable(): $Color;
+        scaleAlpha(arg0: number): $Color;
+        scaleAlphaForText(arg0: number): $Color;
+        modifyValue(arg0: $UnaryOperator_<number>): $Color;
+        static mixColors(arg0: number, arg1: number, arg2: number): number;
         static mixColors(arg0: $Couple<$Color>, arg1: number): $Color;
         static mixColors(arg0: $Color, arg1: $Color, arg2: number): $Color;
-        static mixColors(arg0: number, arg1: number, arg2: number): number;
-        getRGB(): number;
-        setImmutable(): $Color;
+        setRed(arg0: number): $Color;
+        setRed(arg0: number): $Color;
+        setGreen(arg0: number): $Color;
+        setGreen(arg0: number): $Color;
+        setBlue(arg0: number): $Color;
+        setBlue(arg0: number): $Color;
+        brighter(): $Color;
+        darker(): $Color;
         getRed(): number;
         getGreen(): number;
         getBlue(): number;
         getAlpha(): number;
+        asVectorF(): $Vector3f;
+        getRGB(): number;
         setValue(arg0: number): $Color;
         copy(): $Color;
         copy(arg0: boolean): $Color;
@@ -54,5 +54,11 @@ declare module "@package/net/createmod/catnip/theme" {
         constructor(arg0: number, arg1: number, arg2: number, arg3: number);
         constructor(arg0: number, arg1: number, arg2: number);
         constructor(arg0: number, arg1: boolean);
+        get redAsFloat(): number;
+        get greenAsFloat(): number;
+        get blueAsFloat(): number;
+        get alphaAsFloat(): number;
+        get RGB(): number;
+        set value(value: number);
     }
 }

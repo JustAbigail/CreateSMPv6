@@ -10,6 +10,7 @@ declare module "@package/fzzyhmstrs/emi_loot/mixins" {
     }
     export interface $LootPoolEntryAccessor {
         getConditions(): $List<$LootItemCondition>;
+        get conditions(): $List<$LootItemCondition>;
     }
     /**
      * Values that may be interpreted as {@link $LootPoolEntryAccessor}.
@@ -18,15 +19,20 @@ declare module "@package/fzzyhmstrs/emi_loot/mixins" {
     export class $LootPoolAccessor {
     }
     export interface $LootPoolAccessor {
-        getConditions(): $List<$LootItemCondition>;
         getRolls(): $NumberProvider;
+        getConditions(): $List<$LootItemCondition>;
         getEntries(): $List<$LootPoolEntryContainer>;
         getFunctions(): $List<$LootItemFunction>;
+        get rolls(): $NumberProvider;
+        get conditions(): $List<$LootItemCondition>;
+        get entries(): $List<$LootPoolEntryContainer>;
+        get functions(): $List<$LootItemFunction>;
     }
     export class $LootTableAccessor {
     }
     export interface $LootTableAccessor {
         getPools(): $List<$LootPool>;
+        get pools(): $List<$LootPool>;
     }
     /**
      * Values that may be interpreted as {@link $LootTableAccessor}.

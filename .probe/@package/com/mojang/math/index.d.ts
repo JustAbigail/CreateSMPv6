@@ -7,14 +7,14 @@ import { $Matrix4f, $Vector4f, $Matrix3f, $Quaternionf, $Vector3f } from "@packa
 
 declare module "@package/com/mojang/math" {
     export class $OctahedralGroup extends $Enum<$OctahedralGroup> implements $StringRepresentable {
+        inverts(axis: $Direction$Axis_): boolean;
         transformation(): $Matrix3f;
         inverse(): $OctahedralGroup;
-        inverts(axis: $Direction$Axis_): boolean;
         static values(): $OctahedralGroup[];
         static valueOf(arg0: string): $OctahedralGroup;
+        compose(other: $OctahedralGroup_): $OctahedralGroup;
         rotate(frontAndTop: $FrontAndTop_): $FrontAndTop;
         rotate(direction: $Direction_): $Direction;
-        compose(other: $OctahedralGroup_): $OctahedralGroup;
         getSerializedName(): string;
         getRemappedEnumConstantName(): string;
         static ROT_60_REF_PNP: $OctahedralGroup;
@@ -65,22 +65,24 @@ declare module "@package/com/mojang/math" {
         static SWAP_XZ: $OctahedralGroup;
         static INVERT_Z: $OctahedralGroup;
         static INVERT_Y: $OctahedralGroup;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $OctahedralGroup}.
      */
     export type $OctahedralGroup_ = "identity" | "rot_180_face_xy" | "rot_180_face_xz" | "rot_180_face_yz" | "rot_120_nnn" | "rot_120_nnp" | "rot_120_npn" | "rot_120_npp" | "rot_120_pnn" | "rot_120_pnp" | "rot_120_ppn" | "rot_120_ppp" | "rot_180_edge_xy_neg" | "rot_180_edge_xy_pos" | "rot_180_edge_xz_neg" | "rot_180_edge_xz_pos" | "rot_180_edge_yz_neg" | "rot_180_edge_yz_pos" | "rot_90_x_neg" | "rot_90_x_pos" | "rot_90_y_neg" | "rot_90_y_pos" | "rot_90_z_neg" | "rot_90_z_pos" | "inversion" | "invert_x" | "invert_y" | "invert_z" | "rot_60_ref_nnn" | "rot_60_ref_nnp" | "rot_60_ref_npn" | "rot_60_ref_npp" | "rot_60_ref_pnn" | "rot_60_ref_pnp" | "rot_60_ref_ppn" | "rot_60_ref_ppp" | "swap_xy" | "swap_yz" | "swap_xz" | "swap_neg_xy" | "swap_neg_yz" | "swap_neg_xz" | "rot_90_ref_x_neg" | "rot_90_ref_x_pos" | "rot_90_ref_y_neg" | "rot_90_ref_y_pos" | "rot_90_ref_z_neg" | "rot_90_ref_z_pos";
     export class $Transformation implements $ITransformationExtension {
-        getNormalMatrix(): $Matrix3f;
         getMatrix(): $Matrix4f;
-        inverse(): $Transformation;
+        getNormalMatrix(): $Matrix3f;
         getLeftRotation(): $Quaternionf;
         getRightRotation(): $Quaternionf;
+        inverse(): $Transformation;
         static identity(): $Transformation;
         compose(other: $Transformation): $Transformation;
         slerp(transformation: $Transformation, delta: number): $Transformation;
-        getScale(): $Vector3f;
         getTranslation(): $Vector3f;
+        getScale(): $Vector3f;
         applyOrigin(arg0: $Vector3f): $Transformation;
         rotateTransform(arg0: $Direction_): $Direction;
         blockCenterToCorner(): $Transformation;
@@ -90,8 +92,14 @@ declare module "@package/com/mojang/math" {
         transformPosition(arg0: $Vector4f): void;
         static CODEC: $Codec<$Transformation>;
         static EXTENDED_CODEC: $Codec<$Transformation>;
-        constructor(matrix: $Matrix4f | null);
         constructor(translation: $Vector3f | null, leftRotation: $Quaternionf | null, scale: $Vector3f | null, rightRotation: $Quaternionf | null);
+        constructor(matrix: $Matrix4f | null);
+        get matrix(): $Matrix4f;
+        get normalMatrix(): $Matrix3f;
+        get leftRotation(): $Quaternionf;
+        get rightRotation(): $Quaternionf;
+        get translation(): $Vector3f;
+        get scale(): $Vector3f;
     }
     export class $Axis {
         static of(axis: $Vector3f): $Axis;

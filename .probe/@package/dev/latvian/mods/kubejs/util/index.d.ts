@@ -1,5 +1,5 @@
 import { $JsonObject, $JsonElement_, $JsonArray, $JsonElement, $JsonPrimitive } from "@package/com/google/gson";
-import { $Ingredient, $Ingredient_ } from "@package/net/minecraft/world/item/crafting";
+import { $Ingredient_, $Ingredient } from "@package/net/minecraft/world/item/crafting";
 import { $MapCodec_, $DataResult, $DynamicOps, $Codec, $MapCodec, $MapLike } from "@package/com/mojang/serialization";
 import { $Tag_, $Tag, $TagType, $CompoundTag, $CompoundTag_ } from "@package/net/minecraft/nbt";
 import { $KubeIcon_, $KubeIcon } from "@package/dev/latvian/mods/kubejs/client/icon";
@@ -50,6 +50,7 @@ declare module "@package/dev/latvian/mods/kubejs/util" {
         constructor(collection: $Collection_<$TinyMap$Entry_<K, V>>);
         constructor(entries: $TinyMap$Entry_<K, V>[]);
         constructor(map: $TinyMap_<K, V>);
+        get empty(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $TinyMap}.
@@ -99,9 +100,9 @@ declare module "@package/dev/latvian/mods/kubejs/util" {
     }
     export class $TickDuration extends $Record implements $TemporalAmount {
         intTicks(): number;
-        getUnits(): $List<$TemporalUnit>;
         addTo(temporal: $Temporal): $Temporal;
         subtractFrom(temporal: $Temporal): $Temporal;
+        getUnits(): $List<$TemporalUnit>;
         get(unit: $TemporalUnit): number;
         static wrap(from: $Object): $TickDuration;
         static of(ticks: number): $TickDuration;
@@ -113,23 +114,24 @@ declare module "@package/dev/latvian/mods/kubejs/util" {
         static TYPE_INFO: $TypeInfo;
         static HOURS_CODEC: $Codec<$TickDuration>;
         constructor(ticks: number);
+        get units(): $List<$TemporalUnit>;
     }
     /**
      * Values that may be interpreted as {@link $TickDuration}.
      */
     export type $TickDuration_ = number | { ticks?: number,  } | [ticks?: number, ];
     export class $JsonIO {
-        static getJsonHashString(json: $JsonElement_): string;
         static toPrettyString(json: $JsonElement_): string;
-        static parseRaw(string: string): $JsonElement;
         static writeJsonHash(stream: $DataOutputStream, element: $JsonElement_): void;
         static getJsonHashBytes(json: $JsonElement_): number[];
+        static getJsonHashString(json: $JsonElement_): string;
+        static parseRaw(string: string): $JsonElement;
+        static readString(path: $Path_): string;
         static toString(json: $JsonElement_): string;
         static toArray(element: $JsonElement_): $JsonArray;
         static write(path: $Path_, json: $JsonElement_): void;
         static read(path: $Path_): $Map<never, never>;
         static parse(string: string): $Object;
-        static readString(path: $Path_): string;
         static toPrimitive(element: $JsonElement_): $Object;
         static toObject(json: $JsonElement_): $Object;
         static readJson(path: $Path_): $JsonElement;
@@ -147,9 +149,9 @@ declare module "@package/dev/latvian/mods/kubejs/util" {
     export interface $WrappedJS {
     }
     export class $JsonUtils {
+        static toPrettyString(json: $JsonElement_): string;
         static objectOf(map: $Object): $JsonObject;
         static primitiveOf(o: $Object): $JsonPrimitive;
-        static toPrettyString(json: $JsonElement_): string;
         static toString(json: $JsonElement_): string;
         static of(o: $Object): $JsonElement;
         static copy(element: $JsonElement_): $JsonElement;
@@ -200,6 +202,7 @@ declare module "@package/dev/latvian/mods/kubejs/util" {
         getOrDefault(arg0: $Object, arg1: V): V;
         computeIfPresent(arg0: K, arg1: $BiFunction_<K, V, V>): V;
         constructor(map: $Map_<K, V>);
+        get empty(): boolean;
     }
     export class $LogType extends $Enum<$LogType> {
         static values(): $LogType[];
@@ -219,10 +222,10 @@ declare module "@package/dev/latvian/mods/kubejs/util" {
     export type $LogType_ = "init" | "debug" | "info" | "warn" | "error";
     export class $SlotFilter extends $Record {
         checkFilter(index: number, stack: $ItemStack_): boolean;
+        item(): $Ingredient;
         index(): number;
         static wrap(o: $Object, target: $TypeInfo_): $SlotFilter;
         static of(ingredient: $Ingredient_, index: number): $SlotFilter;
-        item(): $Ingredient;
         static CODEC: $Codec<$SlotFilter>;
         static TYPE_INFO: $TypeInfo;
         static EMPTY: $SlotFilter;
@@ -237,6 +240,7 @@ declare module "@package/dev/latvian/mods/kubejs/util" {
         add(key: string, data: $Object): void;
         getParent(): T;
         constructor(p: T);
+        get parent(): T;
     }
     export class $RegistryAccessContainer extends $RegistryOpsContainer implements $ICondition$IContext {
         getAllTags<T>(key: $ResourceKey_<$Registry<T>>): $Map<$ResourceLocation, $Collection<$Holder<T>>>;
@@ -294,7 +298,6 @@ declare module "@package/dev/latvian/mods/kubejs/util" {
     export type $NBTSerializable_ = (() => $Tag_);
     export class $ID {
         static namespace(s: string): string;
-        static isKey(from: $Object): boolean;
         static reduceKjs(id: $ResourceLocation_): string;
         static kjsString(id: string): string;
         static kjs(o: $Object): $ResourceLocation;
@@ -305,6 +308,7 @@ declare module "@package/dev/latvian/mods/kubejs/util" {
         static path(s: string): string;
         static reduce(id: $ResourceLocation_): string;
         static string(id: string): string;
+        static isKey(from: $Object): boolean;
         static resourcePath(id: $ResourceLocation_): string;
         static ITEM: $UnaryOperator<string>;
         static PNG_TEXTURE_MCMETA: $UnaryOperator<string>;
@@ -350,7 +354,6 @@ declare module "@package/dev/latvian/mods/kubejs/util" {
     }
     export class $CountingMap {
         getValues(): $Collection<number>;
-        getKeys(): $Set<$Object>;
         get(key: $Object): number;
         clear(): void;
         add(key: $Object, value: number): number;
@@ -358,15 +361,21 @@ declare module "@package/dev/latvian/mods/kubejs/util" {
         forEach(forEach: $Consumer_<$Object2LongEntry>): void;
         getSize(): number;
         getEntries(): $List<$Object2LongEntry>;
+        getKeys(): $Set<$Object>;
         getTotalCount(): number;
         constructor();
+        get values(): $Collection<number>;
+        get size(): number;
+        get entries(): $List<$Object2LongEntry>;
+        get keys(): $Set<$Object>;
+        get totalCount(): number;
     }
     export class $NotificationToastData extends $Record {
         outlineColor(): ($KubeColor) | undefined;
+        textShadow(): boolean;
         iconSize(): number;
         borderColor(): ($KubeColor) | undefined;
         static ofText(text: $Component_): $NotificationToastData;
-        textShadow(): boolean;
         backgroundColor(): ($KubeColor) | undefined;
         duration(): $Duration;
         text(): $Component;
@@ -383,7 +392,7 @@ declare module "@package/dev/latvian/mods/kubejs/util" {
     /**
      * Values that may be interpreted as {@link $NotificationToastData}.
      */
-    export type $NotificationToastData_ = { icon?: ($KubeIcon_) | undefined, iconSize?: number, text?: $Component_, textShadow?: boolean, outlineColor?: ($KubeColor_) | undefined, duration?: $Duration_, backgroundColor?: ($KubeColor_) | undefined, borderColor?: ($KubeColor_) | undefined,  } | [icon?: ($KubeIcon_) | undefined, iconSize?: number, text?: $Component_, textShadow?: boolean, outlineColor?: ($KubeColor_) | undefined, duration?: $Duration_, backgroundColor?: ($KubeColor_) | undefined, borderColor?: ($KubeColor_) | undefined, ];
+    export type $NotificationToastData_ = { textShadow?: boolean, text?: $Component_, iconSize?: number, icon?: ($KubeIcon_) | undefined, borderColor?: ($KubeColor_) | undefined, backgroundColor?: ($KubeColor_) | undefined, duration?: $Duration_, outlineColor?: ($KubeColor_) | undefined,  } | [textShadow?: boolean, text?: $Component_, iconSize?: number, icon?: ($KubeIcon_) | undefined, borderColor?: ($KubeColor_) | undefined, backgroundColor?: ($KubeColor_) | undefined, duration?: $Duration_, outlineColor?: ($KubeColor_) | undefined, ];
     export class $RotationAxis extends $Enum<$RotationAxis> {
         deg(f: number): $Quaternionf;
         static values(): $RotationAxis[];
@@ -416,6 +425,7 @@ declare module "@package/dev/latvian/mods/kubejs/util" {
         toJson(): $JsonElement;
         getCodec(): $Codec<never>;
         toNBT(): $Tag;
+        get codec(): $Codec<never>;
     }
     /**
      * Values that may be interpreted as {@link $WithCodec}.
@@ -457,6 +467,8 @@ declare module "@package/dev/latvian/mods/kubejs/util" {
         static VALUES: $Tristate[];
         static DEFAULT: $Tristate;
         static STREAM_CODEC: $StreamCodec<$ByteBuf, $Tristate>;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $Tristate}.
@@ -495,5 +507,5 @@ declare module "@package/dev/latvian/mods/kubejs/util" {
     /**
      * Values that may be interpreted as {@link $IntBounds}.
      */
-    export type $IntBounds_ = { max?: number, min?: number,  } | [max?: number, min?: number, ];
+    export type $IntBounds_ = { min?: number, max?: number,  } | [min?: number, max?: number, ];
 }

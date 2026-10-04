@@ -202,12 +202,15 @@ declare module "@package/net/minecraft/world/entity/projectile" {
         wasTouchingWater: boolean;
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
+        constructor(level: $Level_, stack: $ItemStack_, shooter: $Entity, x: number, arg4: number, y: number, arg6: boolean);
         constructor(level: $Level_, stack: $ItemStack_, x: number, arg3: number, y: number, arg5: boolean);
+        constructor(level: $Level_, x: number, arg2: number, y: number, arg4: $ItemStack_);
         constructor(level: $Level_, stack: $ItemStack_, shooter: $LivingEntity);
         constructor(level: $Level_, shooter: $Entity | null, x: number, arg3: number, y: number, arg5: $ItemStack_);
-        constructor(level: $Level_, x: number, arg2: number, y: number, arg4: $ItemStack_);
         constructor(entityType: $EntityType_<$FireworkRocketEntity>, level: $Level_);
-        constructor(level: $Level_, stack: $ItemStack_, shooter: $Entity, x: number, arg4: number, y: number, arg6: boolean);
+        get shotAtAngle(): boolean;
+        get item(): $ItemStack;
+        set lifetimeKJS(value: number);
     }
     export class $ThrownPotion extends $ThrowableItemProjectile implements $ItemSupplier {
         handler$gcl000$moonlight$extinguishILightables(arg0: $BlockPos_, arg1: $CallbackInfo, arg2: $BlockState_): void;
@@ -287,8 +290,8 @@ declare module "@package/net/minecraft/world/entity/projectile" {
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
         constructor(entityType: $EntityType_<$ThrownPotion>, level: $Level_);
-        constructor(level: $Level_, shooter: $LivingEntity);
         constructor(level: $Level_, x: number, arg2: number, y: number);
+        constructor(level: $Level_, shooter: $LivingEntity);
     }
     export class $DragonFireball extends $AbstractHurtingProjectile implements $IVisualTransformationProvider {
         amendments$getVisualTransformation(arg0: number): $Matrix4f;
@@ -369,14 +372,14 @@ declare module "@package/net/minecraft/world/entity/projectile" {
         wasTouchingWater: boolean;
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
-        constructor(entityType: $EntityType_<$DragonFireball>, level: $Level_);
         constructor(level: $Level_, owner: $LivingEntity, movement: $Vec3_);
+        constructor(entityType: $EntityType_<$DragonFireball>, level: $Level_);
     }
     export class $EyeOfEnder extends $Entity implements $ItemSupplier {
+        setItem(stack: $ItemStack_): void;
         signalTo(pos: $BlockPos_): void;
         handler$cmo003$ambiance$tick(arg0: $CallbackInfo): void;
         modify$cmo000$ambiance$eyeTrial(arg0: $ParticleOptions_): $ParticleOptions;
-        setItem(stack: $ItemStack_): void;
         getItem(): $ItemStack;
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
         firstTick: boolean;
@@ -448,13 +451,13 @@ declare module "@package/net/minecraft/world/entity/projectile" {
         wasTouchingWater: boolean;
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
-        constructor(entityType: $EntityType_<$EyeOfEnder>, level: $Level_);
         constructor(level: $Level_, x: number, arg2: number, y: number);
+        constructor(entityType: $EntityType_<$EyeOfEnder>, level: $Level_);
     }
     export class $ThrownTrident extends $AbstractArrow implements $ThrownTridentAccessor {
-        handler$inn000$bettertridents$tryPickup(player: $Player, callback: $CallbackInfoReturnable<any>): void;
-        static getLoyaltyId$bettertridents_$md$e5fdf9$0(): $EntityDataAccessor<any>;
         isFoil(): boolean;
+        handler$inn000$bettertridents$tryPickup(player: $Player, callback: $CallbackInfoReturnable<any>): void;
+        static getLoyaltyId$bettertridents_$md$3675d4$0(): $EntityDataAccessor<any>;
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
         firstTick: boolean;
         wasEyeInWater: boolean;
@@ -533,9 +536,11 @@ declare module "@package/net/minecraft/world/entity/projectile" {
         wasTouchingWater: boolean;
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
-        constructor(level: $Level_, shooter: $LivingEntity, pickupItemStack: $ItemStack_);
         constructor(level: $Level_, x: number, arg2: number, y: number, arg4: $ItemStack_);
+        constructor(level: $Level_, shooter: $LivingEntity, pickupItemStack: $ItemStack_);
         constructor(entityType: $EntityType_<$ThrownTrident>, level: $Level_);
+        get foil(): boolean;
+        static get loyaltyId$bettertridents_$md$3675d4$0(): $EntityDataAccessor<any>;
     }
     export class $SpectralArrow extends $AbstractArrow {
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
@@ -616,12 +621,12 @@ declare module "@package/net/minecraft/world/entity/projectile" {
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
         constructor(entityType: $EntityType_<$SpectralArrow>, level: $Level_);
-        constructor(level: $Level_, x: number, arg2: number, y: number, arg4: $ItemStack_, z: $ItemStack_ | null);
         constructor(level: $Level_, owner: $LivingEntity, pickupItemStack: $ItemStack_, firedFromWeapon: $ItemStack_ | null);
+        constructor(level: $Level_, x: number, arg2: number, y: number, arg4: $ItemStack_, z: $ItemStack_ | null);
     }
     export class $Fireball extends $AbstractHurtingProjectile implements $ItemSupplier, $IVisualTransformationProvider {
-        amendments$getVisualTransformation(arg0: number): $Matrix4f;
         setItem(stack: $ItemStack_): void;
+        amendments$getVisualTransformation(arg0: number): $Matrix4f;
         getItem(): $ItemStack;
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
         firstTick: boolean;
@@ -699,9 +704,9 @@ declare module "@package/net/minecraft/world/entity/projectile" {
         wasTouchingWater: boolean;
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
-        constructor(entityType: $EntityType_<$Fireball>, owner: $LivingEntity, movement: $Vec3_, level: $Level_);
-        constructor(entityType: $EntityType_<$Fireball>, level: $Level_);
         constructor(entityType: $EntityType_<$Fireball>, x: number, arg2: number, y: number, arg4: $Vec3_, z: $Level_);
+        constructor(entityType: $EntityType_<$Fireball>, level: $Level_);
+        constructor(entityType: $EntityType_<$Fireball>, owner: $LivingEntity, movement: $Vec3_, level: $Level_);
     }
     export class $ThrowableProjectile extends $Projectile {
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
@@ -778,13 +783,13 @@ declare module "@package/net/minecraft/world/entity/projectile" {
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
         constructor(entityType: $EntityType_<$ThrowableProjectile>, level: $Level_);
-        constructor(entityType: $EntityType_<$ThrowableProjectile>, x: number, arg2: number, y: number, arg4: $Level_);
         constructor(entityType: $EntityType_<$ThrowableProjectile>, shooter: $LivingEntity, level: $Level_);
+        constructor(entityType: $EntityType_<$ThrowableProjectile>, x: number, arg2: number, y: number, arg4: $Level_);
     }
     export class $EvokerFangs extends $Entity implements $TraceableEntity {
         getAnimationProgress(partialTicks: number): number;
         setOwner(target: $LivingEntity | null): void;
-        getOwner(): $Entity;
+        getOwner(): $LivingEntity;
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
         firstTick: boolean;
         wasEyeInWater: boolean;
@@ -935,8 +940,8 @@ declare module "@package/net/minecraft/world/entity/projectile" {
         wasTouchingWater: boolean;
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
-        constructor(entityType: $EntityType_<$ShulkerBullet>, level: $Level_);
         constructor(level: $Level_, shooter: $LivingEntity, finalTarget: $Entity, axis: $Direction$Axis_);
+        constructor(entityType: $EntityType_<$ShulkerBullet>, level: $Level_);
     }
     export class $LargeFireball extends $Fireball {
         handler$fjc000$amendments$cancelExplosion(arg0: $HitResult, arg1: $CallbackInfo): void;
@@ -1017,8 +1022,8 @@ declare module "@package/net/minecraft/world/entity/projectile" {
         wasTouchingWater: boolean;
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
-        constructor(level: $Level_, owner: $LivingEntity, movement: $Vec3_, explosionPower: number);
         constructor(entityType: $EntityType_<$LargeFireball>, level: $Level_);
+        constructor(level: $Level_, owner: $LivingEntity, movement: $Vec3_, explosionPower: number);
     }
     export class $FishingHook$OpenWaterType extends $Enum<$FishingHook$OpenWaterType> {
         static values(): $FishingHook$OpenWaterType[];
@@ -1037,27 +1042,6 @@ declare module "@package/net/minecraft/world/entity/projectile" {
          * The sound made when an entity is hit by this projectile
          */
         getDefaultHitGroundSoundEvent(): $SoundEvent;
-        getDefaultPickupItem(): $ItemStack;
-        setSoundEvent(soundEvent: $SoundEvent_): void;
-        /**
-         * Returns `true` if it's possible to attack this entity with an item.
-         */
-        isNoPhysics(): boolean;
-        /**
-         * Called to update the entity's position/logic.
-         */
-        tickDespawn(): void;
-        setBaseDamage(baseDamage: number): void;
-        getBaseDamage(): number;
-        setBaseDamageFromMob(velocity: number): void;
-        /**
-         * Whether the arrow has a stream of critical hit particles flying behind it.
-         */
-        setNoPhysics(critArrow: boolean): void;
-        /**
-         * Gets the EntityRayTraceResult representing the entity hit
-         */
-        findHitEntity(startVec: $Vec3_, endVec: $Vec3_): $EntityHitResult;
         /**
          * Returns `true` if it's possible to attack this entity with an item.
          */
@@ -1083,6 +1067,27 @@ declare module "@package/net/minecraft/world/entity/projectile" {
         setPickupItemStack(pickupItemStack: $ItemStack_): void;
         tryPickup(player: $Player): boolean;
         getPickupItemStackOrigin(): $ItemStack;
+        setBaseDamage(baseDamage: number): void;
+        getBaseDamage(): number;
+        setBaseDamageFromMob(velocity: number): void;
+        /**
+         * Whether the arrow has a stream of critical hit particles flying behind it.
+         */
+        setNoPhysics(critArrow: boolean): void;
+        getDefaultPickupItem(): $ItemStack;
+        setSoundEvent(soundEvent: $SoundEvent_): void;
+        /**
+         * Returns `true` if it's possible to attack this entity with an item.
+         */
+        isNoPhysics(): boolean;
+        /**
+         * Called to update the entity's position/logic.
+         */
+        tickDespawn(): void;
+        /**
+         * Gets the EntityRayTraceResult representing the entity hit
+         */
+        findHitEntity(startVec: $Vec3_, endVec: $Vec3_): $EntityHitResult;
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
         firstTick: boolean;
         wasEyeInWater: boolean;
@@ -1160,9 +1165,19 @@ declare module "@package/net/minecraft/world/entity/projectile" {
         wasTouchingWater: boolean;
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
-        constructor(entityType: $EntityType_<$AbstractArrow>, level: $Level_);
         constructor(entityType: $EntityType_<$AbstractArrow>, owner: $LivingEntity, level: $Level_, pickupItemStack: $ItemStack_, firedFromWeapon: $ItemStack_ | null);
+        constructor(entityType: $EntityType_<$AbstractArrow>, level: $Level_);
         constructor(entityType: $EntityType_<$AbstractArrow>, x: number, arg2: number, y: number, arg4: $Level_, z: $ItemStack_, arg6: $ItemStack_ | null);
+        get pierceLevel(): number;
+        get defaultHitGroundSoundEvent(): $SoundEvent;
+        get waterInertia(): number;
+        get pickupItem(): $ItemStack;
+        get hitGroundSoundEvent(): $SoundEvent;
+        set pickupItemStack(value: $ItemStack_);
+        get pickupItemStackOrigin(): $ItemStack;
+        set baseDamageFromMob(value: number);
+        get defaultPickupItem(): $ItemStack;
+        set soundEvent(value: $SoundEvent_);
     }
     export class $ProjectileDeflection {
         static MOMENTUM_DEFLECT: $ProjectileDeflection;
@@ -1178,7 +1193,6 @@ declare module "@package/net/minecraft/world/entity/projectile" {
      */
     export type $ProjectileDeflection_ = ((arg0: $Projectile, arg1: $Entity, arg2: $RandomSource) => void);
     export class $FishingHook extends $Projectile {
-        retrieve(stack: $ItemStack_): number;
         getPlayerOwner(): $Player;
         getOpenWaterTypeForArea(firstPos: $BlockPos_, secondPos: $BlockPos_): $FishingHook$OpenWaterType;
         getOpenWaterTypeForBlock(pos: $BlockPos_): $FishingHook$OpenWaterType;
@@ -1186,6 +1200,7 @@ declare module "@package/net/minecraft/world/entity/projectile" {
         pullEntity(entity: $Entity): void;
         getHookedIn(): $Entity;
         handler$zzl000$openpartiesandclaims$onSetHookedEntity(arg0: $Entity, arg1: $CallbackInfo): void;
+        retrieve(stack: $ItemStack_): number;
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
         firstTick: boolean;
         wasEyeInWater: boolean;
@@ -1261,9 +1276,12 @@ declare module "@package/net/minecraft/world/entity/projectile" {
         wasTouchingWater: boolean;
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
-        constructor(entityType: $EntityType_<$FishingHook>, level: $Level_);
-        constructor(player: $Player, level: $Level_, luck: number, lureSpeed: number);
         constructor(entityType: $EntityType_<$FishingHook>, level: $Level_, luck: number, lureSpeed: number);
+        constructor(player: $Player, level: $Level_, luck: number, lureSpeed: number);
+        constructor(entityType: $EntityType_<$FishingHook>, level: $Level_);
+        get playerOwner(): $Player;
+        get openWaterFishing(): boolean;
+        get hookedIn(): $Entity;
     }
     export class $ThrownEgg extends $ThrowableItemProjectile {
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
@@ -1425,6 +1443,7 @@ declare module "@package/net/minecraft/world/entity/projectile" {
     }
     export interface $ItemSupplier {
         getItem(): $ItemStack;
+        get item(): $ItemStack;
     }
     /**
      * Values that may be interpreted as {@link $ItemSupplier}.
@@ -1518,10 +1537,14 @@ declare module "@package/net/minecraft/world/entity/projectile" {
         wasTouchingWater: boolean;
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
+        constructor(entityType: $EntityType_<$AbstractHurtingProjectile>, level: $Level_);
         constructor(entityType: $EntityType_<$AbstractHurtingProjectile>, x: number, arg2: number, y: number, arg4: $Level_);
         constructor(entityType: $EntityType_<$AbstractHurtingProjectile>, x: number, arg2: number, y: number, arg4: $Vec3_, z: $Level_);
-        constructor(entityType: $EntityType_<$AbstractHurtingProjectile>, level: $Level_);
         constructor(entityType: $EntityType_<$AbstractHurtingProjectile>, owner: $LivingEntity, movement: $Vec3_, level: $Level_);
+        get inertia(): number;
+        get liquidInertia(): number;
+        get trailParticle(): $ParticleOptions;
+        get clipType(): $ClipContext$Block;
     }
     export class $ThrownExperienceBottle extends $ThrowableItemProjectile {
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
@@ -1603,12 +1626,18 @@ declare module "@package/net/minecraft/world/entity/projectile" {
     }
     export class $Projectile extends $Entity implements $TraceableEntity, $ProjectileAccessor {
         calculateHorizontalHurtKnockbackDirection(entity: $LivingEntity, damageSource: $DamageSource_): $DoubleDoubleImmutablePair;
-        ownedBy(target: $Entity): boolean;
-        mayBreak(level: $Level_): boolean;
+        static lerpRotation(currentRotation: number, targetRotation: number): number;
         /**
-         * Called when this EntityFireball hits a block or entity.
+         * Called when the arrow hits an entity
          */
-        onHit(result: $HitResult): void;
+        onHitEntity(result: $EntityHitResult): void;
+        onHitBlock(result: $BlockHitResult): void;
+        canHitEntity(target: $Entity): boolean;
+        /**
+         * Similar to setArrowHeading, it's point the throwable entity to a x, y, z direction.
+         */
+        shoot(x: number, arg1: number, y: number, arg3: number, z: number): void;
+        hitTargetOrDeflectSelf(hitResult: $HitResult): $ProjectileDeflection;
         getEffectSource(): $Entity;
         /**
          * Returns `true` if other Entities should be prevented from moving through this Entity.
@@ -1619,22 +1648,16 @@ declare module "@package/net/minecraft/world/entity/projectile" {
         handler$zbe000$openpartiesandclaims$preHit(arg0: $CallbackInfoReturnable<any>): void;
         handler$zbe000$openpartiesandclaims$postHit(arg0: $CallbackInfoReturnable<any>): void;
         onDeflection(entity: $Entity | null, deflectedByPlayer: boolean): void;
-        hitTargetOrDeflectSelf(hitResult: $HitResult): $ProjectileDeflection;
-        static lerpRotation(currentRotation: number, targetRotation: number): number;
-        /**
-         * Called when the arrow hits an entity
-         */
-        onHitEntity(result: $EntityHitResult): void;
-        onHitBlock(result: $BlockHitResult): void;
-        canHitEntity(target: $Entity): boolean;
         /**
          * Called to update the entity's position/logic.
          */
         updateRotation(): void;
+        ownedBy(target: $Entity): boolean;
+        mayBreak(level: $Level_): boolean;
         /**
-         * Similar to setArrowHeading, it's point the throwable entity to a x, y, z direction.
+         * Called when this EntityFireball hits a block or entity.
          */
-        shoot(x: number, arg1: number, y: number, arg3: number, z: number): void;
+        onHit(result: $HitResult): void;
         /**
          * Prepares this entity in new dimension by copying NBT data from entity in old dimension
          */
@@ -1716,6 +1739,7 @@ declare module "@package/net/minecraft/world/entity/projectile" {
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
         constructor(entityType: $EntityType_<$Projectile>, level: $Level_);
+        get effectSource(): $Entity;
     }
     export class $Arrow extends $AbstractArrow {
         addEffect(effectInstance: $MobEffectInstance): void;
@@ -1797,9 +1821,10 @@ declare module "@package/net/minecraft/world/entity/projectile" {
         wasTouchingWater: boolean;
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
+        constructor(level: $Level_, owner: $LivingEntity, pickupItemStack: $ItemStack_, firedFromWeapon: $ItemStack_ | null);
         constructor(entityType: $EntityType_<$Arrow>, level: $Level_);
         constructor(level: $Level_, x: number, arg2: number, y: number, arg4: $ItemStack_, z: $ItemStack_ | null);
-        constructor(level: $Level_, owner: $LivingEntity, pickupItemStack: $ItemStack_, firedFromWeapon: $ItemStack_ | null);
+        get color(): number;
     }
     export class $LlamaSpit extends $Projectile {
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
@@ -1968,8 +1993,8 @@ declare module "@package/net/minecraft/world/entity/projectile" {
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
         constructor(entityType: $EntityType_<$Snowball>, level: $Level_);
-        constructor(level: $Level_, shooter: $LivingEntity);
         constructor(level: $Level_, x: number, arg2: number, y: number);
+        constructor(level: $Level_, shooter: $LivingEntity);
     }
     export class $SmallFireball extends $Fireball {
         handler$fjj000$amendments$hurt(arg0: $DamageSource_, arg1: number, arg2: $CallbackInfoReturnable<any>): void;
@@ -2133,5 +2158,6 @@ declare module "@package/net/minecraft/world/entity/projectile" {
         constructor(entityType: $EntityType_<$ThrowableItemProjectile>, x: number, arg2: number, y: number, arg4: $Level_);
         constructor(entityType: $EntityType_<$ThrowableItemProjectile>, shooter: $LivingEntity, level: $Level_);
         constructor(entityType: $EntityType_<$ThrowableItemProjectile>, level: $Level_);
+        get defaultItem(): $Item;
     }
 }

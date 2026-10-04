@@ -5,9 +5,9 @@ declare module "@package/java/util/function" {
     export class $IntPredicate {
     }
     export interface $IntPredicate {
-        or(arg0: $IntPredicate_): $IntPredicate;
         negate(): $IntPredicate;
         and(arg0: $IntPredicate_): $IntPredicate;
+        or(arg0: $IntPredicate_): $IntPredicate;
         test(arg0: number): boolean;
     }
     /**
@@ -45,9 +45,9 @@ declare module "@package/java/util/function" {
     export class $DoublePredicate {
     }
     export interface $DoublePredicate {
-        or(arg0: $DoublePredicate_): $DoublePredicate;
         negate(): $DoublePredicate;
         and(arg0: $DoublePredicate_): $DoublePredicate;
+        or(arg0: $DoublePredicate_): $DoublePredicate;
         test(arg0: number): boolean;
     }
     /**
@@ -144,6 +144,7 @@ declare module "@package/java/util/function" {
     }
     export interface $IntSupplier {
         getAsInt(): number;
+        get asInt(): number;
     }
     /**
      * Values that may be interpreted as {@link $IntSupplier}.
@@ -161,9 +162,9 @@ declare module "@package/java/util/function" {
     export class $BiPredicate<T, U> {
     }
     export interface $BiPredicate<T, U> {
-        or(arg0: $BiPredicate_<T, U>): $BiPredicate<T, U>;
         negate(): $BiPredicate<T, U>;
         and(arg0: $BiPredicate_<T, U>): $BiPredicate<T, U>;
+        or(arg0: $BiPredicate_<T, U>): $BiPredicate<T, U>;
         test(arg0: T, arg1: U): boolean;
     }
     /**
@@ -240,6 +241,7 @@ declare module "@package/java/util/function" {
     }
     export interface $LongSupplier {
         getAsLong(): number;
+        get asLong(): number;
     }
     /**
      * Values that may be interpreted as {@link $LongSupplier}.
@@ -309,6 +311,7 @@ declare module "@package/java/util/function" {
     }
     export interface $BooleanSupplier {
         getAsBoolean(): boolean;
+        get asBoolean(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $BooleanSupplier}.
@@ -328,9 +331,9 @@ declare module "@package/java/util/function" {
         static isEqual<T>(arg0: $Object): $Predicate<T>;
     }
     export interface $Predicate<T> {
-        or(arg0: $Predicate_<T>): $Predicate<T>;
         negate(): $Predicate<T>;
         and(arg0: $Predicate_<T>): $Predicate<T>;
+        or(arg0: $Predicate_<T>): $Predicate<T>;
         test(arg0: T): boolean;
     }
     /**
@@ -379,9 +382,9 @@ declare module "@package/java/util/function" {
     export class $LongPredicate {
     }
     export interface $LongPredicate {
-        or(arg0: $LongPredicate_): $LongPredicate;
         negate(): $LongPredicate;
         and(arg0: $LongPredicate_): $LongPredicate;
+        or(arg0: $LongPredicate_): $LongPredicate;
         test(arg0: number): boolean;
     }
     /**
@@ -401,6 +404,7 @@ declare module "@package/java/util/function" {
     }
     export interface $DoubleSupplier {
         getAsDouble(): number;
+        get asDouble(): number;
     }
     /**
      * Values that may be interpreted as {@link $DoubleSupplier}.

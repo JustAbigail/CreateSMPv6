@@ -61,5 +61,7 @@ declare module "@package/net/mehvahdjukaar/moonlight/core/misc" {
         addTaskToActivity<P extends $Pair<number, $Behavior<$Villager>>>(arg0: $Activity_, arg1: P): boolean;
         addSensor(arg0: $SensorType_<$Sensor<$Villager>>): void;
         constructor(arg0: $Brain<$Villager>, arg1: $Villager);
+        get villager(): $Villager;
+        get memories(): $Map<$MemoryModuleType<never>, ($ExpirableValue<never>) | undefined>;
     }
 }

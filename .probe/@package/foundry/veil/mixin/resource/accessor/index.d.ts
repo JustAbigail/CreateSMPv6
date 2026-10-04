@@ -7,6 +7,7 @@ declare module "@package/foundry/veil/mixin/resource/accessor" {
     }
     export interface $ResourceAtlasSetAccessor {
         getAtlases(): $Map<$ResourceLocation, $AtlasSet$AtlasEntry>;
+        get atlases(): $Map<$ResourceLocation, $AtlasSet$AtlasEntry>;
     }
     /**
      * Values that may be interpreted as {@link $ResourceAtlasSetAccessor}.
@@ -16,6 +17,7 @@ declare module "@package/foundry/veil/mixin/resource/accessor" {
     }
     export interface $ResourceTextureAtlasAccessor {
         getMipLevel(): number;
+        get mipLevel(): number;
     }
     /**
      * Values that may be interpreted as {@link $ResourceTextureAtlasAccessor}.
@@ -26,5 +28,7 @@ declare module "@package/foundry/veil/mixin/resource/accessor" {
     export interface $ResourceModelManagerAccessor {
         getMaxMipmapLevels(): number;
         getAtlases(): $AtlasSet;
+        get maxMipmapLevels(): number;
+        get atlases(): $AtlasSet;
     }
 }

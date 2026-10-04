@@ -20,10 +20,14 @@ declare module "@package/net/mehvahdjukaar/moonlight/api/events" {
         static create(arg0: $BlockState_, arg1: $LevelAccessor, arg2: $BlockPos_, arg3: $LightningBolt): $ILightningStruckBlockEvent;
     }
     export interface $ILightningStruckBlockEvent extends $SimpleEvent {
-        getLevel(): $LevelAccessor;
         getEntity(): $LightningBolt;
+        getLevel(): $LevelAccessor;
         getState(): $BlockState;
         getPos(): $BlockPos;
+        get entity(): $LightningBolt;
+        get level(): $LevelAccessor;
+        get state(): $BlockState;
+        get pos(): $BlockPos;
     }
     export class $IFireConsumeBlockEvent {
         static create(arg0: $BlockPos_, arg1: $Level_, arg2: $BlockState_, arg3: number, arg4: number, arg5: $Direction_, arg6: boolean): $IFireConsumeBlockEvent;
@@ -38,6 +42,12 @@ declare module "@package/net/mehvahdjukaar/moonlight/api/events" {
         getState(): $BlockState;
         getAge(): number;
         getPos(): $BlockPos;
+        get face(): $Direction;
+        get chance(): number;
+        get level(): $LevelAccessor;
+        get state(): $BlockState;
+        get age(): number;
+        get pos(): $BlockPos;
     }
     export class $IDropItemOnDeathEvent {
         static create(arg0: $ItemStack_, arg1: $Player, arg2: boolean): $IDropItemOnDeathEvent;
@@ -45,11 +55,14 @@ declare module "@package/net/mehvahdjukaar/moonlight/api/events" {
     export interface $IDropItemOnDeathEvent extends $SimpleEvent {
         setReturnItemStack(arg0: $ItemStack_): void;
         isBeforeDrop(): boolean;
-        getPlayer(): $Player;
         setCanceled(arg0: boolean): void;
+        getPlayer(): $Player;
         getReturnItemStack(): $ItemStack;
         isCanceled(): boolean;
         getItemStack(): $ItemStack;
+        get beforeDrop(): boolean;
+        get player(): $Player;
+        get itemStack(): $ItemStack;
     }
     export class $SimpleEvent {
     }
@@ -65,5 +78,8 @@ declare module "@package/net/mehvahdjukaar/moonlight/api/events" {
         addTaskToActivity<P extends $Pair<number, $Behavior<$Villager>>>(arg0: $Activity_, arg1: P): boolean;
         addSensor(arg0: $SensorType_<$Sensor<$Villager>>): void;
         getInternal(): $VillagerBrainEventInternal;
+        get villager(): $Villager;
+        get memories(): $Map<$MemoryModuleType<never>, ($ExpirableValue<never>) | undefined>;
+        get internal(): $VillagerBrainEventInternal;
     }
 }

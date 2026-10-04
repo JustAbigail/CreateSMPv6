@@ -8,15 +8,21 @@ declare module "@package/dev/ryanhcode/sable/neoforge/event" {
         getPhysicsSystem(): $SubLevelPhysicsSystem;
         getTimeStep(): number;
         constructor(arg0: $SubLevelPhysicsSystem, arg1: number);
+        get physicsSystem(): $SubLevelPhysicsSystem;
+        get timeStep(): number;
     }
     export class $ForgeSableSubLevelContainerReadyEvent extends $Event {
         getContainer(): $SubLevelContainer;
         getLevel(): $Level;
         constructor(arg0: $Level_, arg1: $SubLevelContainer);
+        get container(): $SubLevelContainer;
+        get level(): $Level;
     }
     export class $ForgeSablePostPhysicsTickEvent extends $Event {
         getPhysicsSystem(): $SubLevelPhysicsSystem;
         getTimeStep(): number;
         constructor(arg0: $SubLevelPhysicsSystem, arg1: number);
+        get physicsSystem(): $SubLevelPhysicsSystem;
+        get timeStep(): number;
     }
 }

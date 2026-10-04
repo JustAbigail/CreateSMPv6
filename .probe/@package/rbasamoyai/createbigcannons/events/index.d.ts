@@ -9,5 +9,7 @@ declare module "@package/rbasamoyai/createbigcannons/events" {
         setCanceled(arg0: boolean): void;
         isCanceled(): boolean;
         constructor(arg0: $Level_, arg1: $BlockPos_);
+        get level(): $Level;
+        get pos(): $BlockPos;
     }
 }

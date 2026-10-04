@@ -31,8 +31,8 @@ declare module "@package/net/minecraft/world/item/enchantment/effects" {
         onChangedBlock(level: $ServerLevel, enchantmentLevel: number, item: $EnchantedItemInUse_, entity: $Entity, pos: $Vec3_, applyTransientEffects: boolean): void;
         getModifier(enchantmentLevel: number, slot: $StringRepresentable_): $AttributeModifier;
         onDeactivated(item: $EnchantedItemInUse_, entity: $Entity, pos: $Vec3_, enchantmentLevel: number): void;
-        attribute(): $Holder<$Attribute>;
         amount(): $LevelBasedValue;
+        attribute(): $Holder<$Attribute>;
         id(): $ResourceLocation;
         operation(): $AttributeModifier$Operation;
         codec(): $MapCodec<$EnchantmentAttributeEffect>;
@@ -42,7 +42,7 @@ declare module "@package/net/minecraft/world/item/enchantment/effects" {
     /**
      * Values that may be interpreted as {@link $EnchantmentAttributeEffect}.
      */
-    export type $EnchantmentAttributeEffect_ = { operation?: $AttributeModifier$Operation_, amount?: $LevelBasedValue, id?: $ResourceLocation_, attribute?: $Holder_<$Attribute>,  } | [operation?: $AttributeModifier$Operation_, amount?: $LevelBasedValue, id?: $ResourceLocation_, attribute?: $Holder_<$Attribute>, ];
+    export type $EnchantmentAttributeEffect_ = { operation?: $AttributeModifier$Operation_, attribute?: $Holder_<$Attribute>, id?: $ResourceLocation_, amount?: $LevelBasedValue,  } | [operation?: $AttributeModifier$Operation_, attribute?: $Holder_<$Attribute>, id?: $ResourceLocation_, amount?: $LevelBasedValue, ];
     export class $EnchantmentLocationBasedEffect {
         static bootstrap(registry: $Registry<$MapCodec_<$EnchantmentLocationBasedEffect>>): $MapCodec<$EnchantmentLocationBasedEffect>;
         static CODEC: $Codec<$EnchantmentLocationBasedEffect>;

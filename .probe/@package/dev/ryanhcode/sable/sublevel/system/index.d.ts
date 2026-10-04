@@ -19,6 +19,8 @@ export * as ticket from "@package/dev/ryanhcode/sable/sublevel/system/ticket";
 
 declare module "@package/dev/ryanhcode/sable/sublevel/system" {
     export class $SubLevelPhysicsSystem implements $SubLevelObserver {
+        getPartialPhysicsTick(): number;
+        updatePose(arg0: $ServerSubLevel): void;
         recoverSubLevel(arg0: $ServerSubLevel): boolean;
         updateMassDataFromBlockChange(arg0: $SubLevel, arg1: $BlockPos_, arg2: $BlockState_, arg3: $BlockState_, arg4: boolean): void;
         getNextRuntimeID(): number;
@@ -30,35 +32,41 @@ declare module "@package/dev/ryanhcode/sable/sublevel/system" {
         getArbitraryObjects(): $Iterable<$ArbitraryPhysicsObject>;
         getTicketManager(): $PhysicsChunkTicketManager;
         addObject(arg0: $ArbitraryPhysicsObject): void;
-        updatePose(arg0: $ServerSubLevel): void;
-        getPartialPhysicsTick(): number;
-        wakeUpObjectsAt(arg0: number, arg1: number, arg2: number): void;
-        static require(arg0: $Level_): $SubLevelPhysicsSystem;
-        handleBlockChange(arg0: $SectionPos, arg1: $LevelChunkSection, arg2: number, arg3: number, arg4: number, arg5: $BlockState_, arg6: $BlockState_): void;
-        getPhysicsHandle(arg0: $ServerSubLevel): $RigidBodyHandle;
-        getLevel(): $ServerLevel;
-        static get(arg0: $Level_): $SubLevelPhysicsSystem;
-        initialize(): void;
-        tick(arg0: $SubLevelContainer): void;
-        removeObject(arg0: $ArbitraryPhysicsObject): void;
-        getConfig(): $PhysicsConfigData;
-        getPipeline(): $PhysicsPipeline;
         onSubLevelRemoved(arg0: $SubLevel, arg1: $SubLevelRemovalReason_): void;
         onSubLevelAdded(arg0: $SubLevel): void;
         queryIntersecting(arg0: $BoundingBox3dc): $Iterable<$SubLevel>;
+        wakeUpObjectsAt(arg0: number, arg1: number, arg2: number): void;
+        handleBlockChange(arg0: $SectionPos, arg1: $LevelChunkSection, arg2: number, arg3: number, arg4: number, arg5: $BlockState_, arg6: $BlockState_): void;
+        getPhysicsHandle(arg0: $ServerSubLevel): $RigidBodyHandle;
+        getLevel(): $ServerLevel;
+        tick(arg0: $SubLevelContainer): void;
+        static get(arg0: $Level_): $SubLevelPhysicsSystem;
+        initialize(): void;
+        removeObject(arg0: $ArbitraryPhysicsObject): void;
+        getConfig(): $PhysicsConfigData;
+        getPipeline(): $PhysicsPipeline;
+        static require(arg0: $Level_): $SubLevelPhysicsSystem;
         static IN_PHYSICS_STEP: boolean;
         static USE_TICKETS_FOR_QUERIES: boolean;
         static DEFAULT_RESIDENT_CAPACITY: number;
         static currentlySteppingSystem: $SubLevelPhysicsSystem;
         constructor(arg0: $ServerLevel);
+        get partialPhysicsTick(): number;
+        get nextRuntimeID(): number;
+        get arbitraryObjects(): $Iterable<$ArbitraryPhysicsObject>;
+        get ticketManager(): $PhysicsChunkTicketManager;
+        get level(): $ServerLevel;
+        get config(): $PhysicsConfigData;
+        get pipeline(): $PhysicsPipeline;
     }
     export class $SubLevelTrackingSystem implements $SubLevelObserver {
         serverWidePlayerSink(arg0: $ServerSubLevel): $VeilPacketManager$PacketSink;
         getInterpolationTick(): number;
-        addTrackingPlugin(arg0: $SubLevelTrackingPlugin): void;
-        tick(arg0: $SubLevelContainer): void;
         onSubLevelRemoved(arg0: $SubLevel, arg1: $SubLevelRemovalReason_): void;
         onSubLevelAdded(arg0: $SubLevel): void;
+        addTrackingPlugin(arg0: $SubLevelTrackingPlugin): void;
+        tick(arg0: $SubLevelContainer): void;
         constructor(arg0: $ServerLevel);
+        get interpolationTick(): number;
     }
 }

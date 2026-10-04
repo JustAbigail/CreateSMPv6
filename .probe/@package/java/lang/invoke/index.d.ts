@@ -150,6 +150,12 @@ declare module "@package/java/lang/invoke" {
         getReferenceKind(): number;
         getMethodType(): $MethodType;
         reflectAs<T extends $Member>(arg0: $Class<T>, arg1: $MethodHandles$Lookup): T;
+        get name(): string;
+        get modifiers(): number;
+        get declaringClass(): $Class<never>;
+        get varArgs(): boolean;
+        get referenceKind(): number;
+        get methodType(): $MethodType;
     }
     export class $VarHandle implements $Constable {
         get(...arg0: $Object[]): $Object;
@@ -197,6 +203,7 @@ declare module "@package/java/lang/invoke" {
         toMethodHandle(arg0: $VarHandle$AccessMode_): $MethodHandle;
         static acquireFence(): void;
         static releaseFence(): void;
+        set release(value: $Object[]);
     }
     export class $TypeDescriptor$OfMethod<F extends $TypeDescriptor$OfField<F>, M extends $TypeDescriptor$OfMethod<F, M>> {
     }
@@ -247,6 +254,7 @@ declare module "@package/java/lang/invoke" {
         asCollector(arg0: $Class<never>, arg1: number): $MethodHandle;
         withVarargs(arg0: boolean): $MethodHandle;
         bindTo(arg0: $Object): $MethodHandle;
+        get varargsCollector(): boolean;
     }
     export class $TypeDescriptor$OfField<F extends $TypeDescriptor$OfField<F>> {
     }
@@ -255,5 +263,7 @@ declare module "@package/java/lang/invoke" {
         isPrimitive(): boolean;
         componentType(): F;
         arrayType(): F;
+        get array(): boolean;
+        get primitive(): boolean;
     }
 }

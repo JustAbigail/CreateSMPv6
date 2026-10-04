@@ -28,12 +28,12 @@ declare module "@package/fuzs/puzzleslib/neoforge/mixin/accessor" {
     export class $BiomeSpecialEffectsBuilderNeoForgeAccessor {
     }
     export interface $BiomeSpecialEffectsBuilderNeoForgeAccessor {
-        puzzleslib$setFoliageColorOverride(arg0: (number) | undefined): void;
         puzzleslib$setAmbientParticle(arg0: ($AmbientParticleSettings) | undefined): void;
         puzzleslib$setAmbientLoopSoundEvent(arg0: ($Holder_<$SoundEvent>) | undefined): void;
         puzzleslib$setAmbientMoodSettings(arg0: ($AmbientMoodSettings) | undefined): void;
         puzzleslib$setAmbientAdditionsSettings(arg0: ($AmbientAdditionsSettings) | undefined): void;
         puzzleslib$setBackgroundMusic(arg0: ($Music) | undefined): void;
         puzzleslib$setGrassColorOverride(arg0: (number) | undefined): void;
+        puzzleslib$setFoliageColorOverride(arg0: (number) | undefined): void;
     }
 }

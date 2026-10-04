@@ -4,12 +4,15 @@ import { $Iterator, $List } from "@package/java/util";
 
 declare module "@package/java/security/cert" {
     export class $Certificate implements $Serializable {
-        getType(): string;
-        getEncoded(): number[];
-        verify(arg0: $PublicKey): void;
         verify(arg0: $PublicKey, arg1: string): void;
         verify(arg0: $PublicKey, arg1: $Provider): void;
+        verify(arg0: $PublicKey): void;
         getPublicKey(): $PublicKey;
+        getType(): string;
+        getEncoded(): number[];
+        get publicKey(): $PublicKey;
+        get type(): string;
+        get encoded(): number[];
     }
     export class $CertPath implements $Serializable {
         getEncodings(): $Iterator<string>;
@@ -17,5 +20,8 @@ declare module "@package/java/security/cert" {
         getType(): string;
         getEncoded(): number[];
         getEncoded(arg0: string): number[];
+        get encodings(): $Iterator<string>;
+        get certificates(): $List<$Certificate>;
+        get type(): string;
     }
 }

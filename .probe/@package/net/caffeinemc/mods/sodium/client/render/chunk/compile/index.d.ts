@@ -17,17 +17,20 @@ declare module "@package/net/caffeinemc/mods/sodium/client/render/chunk/compile"
         submitTime: number;
         render: $RenderSection;
         constructor(arg0: $RenderSection, arg1: number);
+        get resultSize(): number;
     }
     export class $ChunkSortOutput extends $BuilderTaskOutput {
+        isReusingUploadedIndexData(): boolean;
         markAsReusingUploadedData(): void;
         getSorter(): $Sorter;
         setSorter(arg0: $Sorter): void;
         getDynamicSorter(): $DynamicTopoData$DynamicTopoSorter;
-        isReusingUploadedIndexData(): boolean;
         submitTime: number;
         render: $RenderSection;
         constructor(arg0: $RenderSection, arg1: number);
         constructor(arg0: $RenderSection, arg1: number, arg2: $Sorter);
+        get reusingUploadedIndexData(): boolean;
+        get dynamicSorter(): $DynamicTopoData$DynamicTopoSorter;
     }
     export class $ChunkBuildContext {
         cleanup(): void;

@@ -5,13 +5,14 @@ declare module "@package/net/caffeinemc/mods/sodium/client/render/chunk/terrain"
         /**
          * @deprecated
          */
-        startDrawing(): void;
+        endDrawing(): void;
         /**
          * @deprecated
          */
-        endDrawing(): void;
-        isTranslucent(): boolean;
+        startDrawing(): void;
         supportsFragmentDiscard(): boolean;
+        isTranslucent(): boolean;
         constructor(arg0: $RenderType, arg1: boolean, arg2: boolean);
+        get translucent(): boolean;
     }
 }

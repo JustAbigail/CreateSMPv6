@@ -1,5 +1,6 @@
 export * as net from "@package/net";
 export * as dev from "@package/dev";
+export * as gg from "@package/gg";
 export * as com from "@package/com";
 export * as java from "@package/java";
 export * as io from "@package/io";
@@ -8,7 +9,6 @@ export * as foundry from "@package/foundry";
 export * as org from "@package/org";
 export * as xaero from "@package/xaero";
 export * as kroppeb from "@package/kroppeb";
-export * as gg from "@package/gg";
 export * as software from "@package/software";
 export * as nl from "@package/nl";
 export * as cpw from "@package/cpw";

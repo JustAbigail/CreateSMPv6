@@ -63,12 +63,12 @@ declare module "@package/net/minecraft/world/level/levelgen/feature/treedecorato
         constructor();
     }
     export class $TreeDecorator$Context {
-        logs(): $ObjectArrayList<$BlockPos>;
         leaves(): $ObjectArrayList<$BlockPos>;
+        logs(): $ObjectArrayList<$BlockPos>;
         placeVine(pos: $BlockPos_, sideProperty: $BooleanProperty): void;
+        level(): $LevelSimulatedReader;
         roots(): $ObjectArrayList<$BlockPos>;
         random(): $RandomSource;
-        level(): $LevelSimulatedReader;
         setBlock(pos: $BlockPos_, state: $BlockState_): void;
         isAir(pos: $BlockPos_): boolean;
         constructor(level: $LevelSimulatedReader, decorationSetter: $BiConsumer_<$BlockPos, $BlockState>, random: $RandomSource, logs: $Set_<$BlockPos_>, leaves: $Set_<$BlockPos_>, roots: $Set_<$BlockPos_>);

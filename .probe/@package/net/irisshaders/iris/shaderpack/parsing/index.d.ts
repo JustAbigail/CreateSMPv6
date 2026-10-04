@@ -10,10 +10,10 @@ declare module "@package/net/irisshaders/iris/shaderpack/parsing" {
     export interface $DirectiveHolder {
         acceptCommentStringDirective(arg0: string, arg1: $Consumer_<string>): void;
         acceptUniformDirective(arg0: string, arg1: $Runnable_): void;
-        acceptCommentIntDirective(arg0: string, arg1: $IntConsumer_): void;
-        acceptConstStringDirective(arg0: string, arg1: $Consumer_<string>): void;
         acceptCommentFloatDirective(arg0: string, arg1: $FloatConsumer_): void;
+        acceptCommentIntDirective(arg0: string, arg1: $IntConsumer_): void;
         acceptConstBooleanDirective(arg0: string, arg1: $BooleanConsumer_): void;
+        acceptConstStringDirective(arg0: string, arg1: $Consumer_<string>): void;
         acceptConstIntDirective(arg0: string, arg1: $IntConsumer_): void;
         acceptConstFloatDirective(arg0: string, arg1: $FloatConsumer_): void;
         acceptConstVec2Directive(arg0: string, arg1: $Consumer_<$Vector2f>): void;

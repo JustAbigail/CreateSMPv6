@@ -6,7 +6,7 @@ declare module "@package/org/betterx/wover/preset/mixin" {
     export class $WorldPresetAccessor {
     }
     export interface $WorldPresetAccessor {
-        wover_setDimensions(arg0: $Map_<$ResourceKey_<$LevelStem>, $LevelStem_>): void;
         wover_getDimensions(): $Map<$ResourceKey<$LevelStem>, $LevelStem>;
+        wover_setDimensions(arg0: $Map_<$ResourceKey_<$LevelStem>, $LevelStem_>): void;
     }
 }

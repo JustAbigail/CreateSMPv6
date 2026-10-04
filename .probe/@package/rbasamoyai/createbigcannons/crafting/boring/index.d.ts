@@ -17,5 +17,8 @@ declare module "@package/rbasamoyai/createbigcannons/crafting/boring" {
         matches(arg0: $Level_, arg1: $BlockPos_): boolean;
         getType(): $BlockRecipeType<never>;
         constructor(arg0: $BlockRecipeIngredient, arg1: $Block_, arg2: boolean);
+        get resultBlock(): $Block;
+        get serializer(): $BlockRecipeSerializer<never>;
+        get type(): $BlockRecipeType<never>;
     }
 }

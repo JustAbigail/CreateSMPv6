@@ -13,6 +13,7 @@ declare module "@package/net/minecraft/client/resources/sounds" {
     export interface $TickableSoundInstance extends $SoundInstance {
         tick(): void;
         isStopped(): boolean;
+        get stopped(): boolean;
     }
     export class $SoundInstance {
         static createUnseededRandom(): $RandomSource;
@@ -20,8 +21,8 @@ declare module "@package/net/minecraft/client/resources/sounds" {
     export interface $SoundInstance extends $FabricSoundInstance {
         getVolume(): number;
         getPitch(): number;
-        getDelay(): number;
         getStream(arg0: $SoundBufferLibrary, arg1: $Sound, arg2: boolean): $CompletableFuture<any>;
+        getDelay(): number;
         getY(): number;
         /**
          * True if the sound is not tied to a particular position in world (e.g. BGM)
@@ -46,6 +47,18 @@ declare module "@package/net/minecraft/client/resources/sounds" {
         getX(): number;
         getZ(): number;
         getSound(): $Sound;
+        get volume(): number;
+        get pitch(): number;
+        get delay(): number;
+        get y(): number;
+        get looping(): boolean;
+        get attenuation(): $SoundInstance$Attenuation;
+        get source(): $SoundSource;
+        get location(): $ResourceLocation;
+        get relative(): boolean;
+        get x(): number;
+        get z(): number;
+        get sound(): $Sound;
     }
     export class $Sound implements $Weighted<$Sound> {
         getVolume(): $SampledFloat;
@@ -71,6 +84,13 @@ declare module "@package/net/minecraft/client/resources/sounds" {
         getSound(arg0: $RandomSource): $Sound;
         static SOUND_LISTER: $FileToIdConverter;
         constructor(location: $ResourceLocation_, volume: $SampledFloat_, pitch: $SampledFloat_, weight: number, type: $Sound$Type_, stream: boolean, preload: boolean, attenuationDistance: number);
+        get volume(): $SampledFloat;
+        get pitch(): $SampledFloat;
+        get attenuationDistance(): number;
+        get location(): $ResourceLocation;
+        get type(): $Sound$Type;
+        get path(): $ResourceLocation;
+        get weight(): number;
     }
     export class $SoundInstance$Attenuation extends $Enum<$SoundInstance$Attenuation> {
         static values(): $SoundInstance$Attenuation[];

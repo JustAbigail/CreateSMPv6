@@ -13,12 +13,16 @@ declare module "@package/cc/abbie/emi_ores/mixin/accessor" {
     export interface $RandomBlockMatchTestAccessor {
         getProbability(): number;
         getBlock(): $Block;
+        get probability(): number;
+        get block(): $Block;
     }
     export class $RandomBlockStateMatchTestAccessor {
     }
     export interface $RandomBlockStateMatchTestAccessor {
         getProbability(): number;
         getBlockState(): $BlockState;
+        get probability(): number;
+        get blockState(): $BlockState;
     }
     export class $TrapezoidHeightAccessor {
     }
@@ -26,11 +30,15 @@ declare module "@package/cc/abbie/emi_ores/mixin/accessor" {
         getMaxInclusive(): $VerticalAnchor;
         getMinInclusive(): $VerticalAnchor;
         getPlateau(): number;
+        get maxInclusive(): $VerticalAnchor;
+        get minInclusive(): $VerticalAnchor;
+        get plateau(): number;
     }
     export class $SimpleStateProviderAccessor {
     }
     export interface $SimpleStateProviderAccessor {
         getState(): $BlockState;
+        get state(): $BlockState;
     }
     /**
      * Values that may be interpreted as {@link $SimpleStateProviderAccessor}.
@@ -41,11 +49,14 @@ declare module "@package/cc/abbie/emi_ores/mixin/accessor" {
     export interface $UniformHeightAccessor {
         getMaxInclusive(): $VerticalAnchor;
         getMinInclusive(): $VerticalAnchor;
+        get maxInclusive(): $VerticalAnchor;
+        get minInclusive(): $VerticalAnchor;
     }
     export class $NoiseProviderAccessor {
     }
     export interface $NoiseProviderAccessor {
         getStates(): $List<$BlockState>;
+        get states(): $List<$BlockState>;
     }
     /**
      * Values that may be interpreted as {@link $NoiseProviderAccessor}.
@@ -55,6 +66,7 @@ declare module "@package/cc/abbie/emi_ores/mixin/accessor" {
     }
     export interface $WeightedStateProviderAccessor {
         getWeightedList(): $SimpleWeightedRandomList<$BlockState>;
+        get weightedList(): $SimpleWeightedRandomList<$BlockState>;
     }
     /**
      * Values that may be interpreted as {@link $WeightedStateProviderAccessor}.
@@ -64,6 +76,7 @@ declare module "@package/cc/abbie/emi_ores/mixin/accessor" {
     }
     export interface $HeightRangePlacementAccessor {
         getHeight(): $HeightProvider;
+        get height(): $HeightProvider;
     }
     /**
      * Values that may be interpreted as {@link $HeightRangePlacementAccessor}.
@@ -73,6 +86,7 @@ declare module "@package/cc/abbie/emi_ores/mixin/accessor" {
     }
     export interface $BlockStateMatchTestAccessor {
         getBlockState(): $BlockState;
+        get blockState(): $BlockState;
     }
     /**
      * Values that may be interpreted as {@link $BlockStateMatchTestAccessor}.
@@ -82,6 +96,7 @@ declare module "@package/cc/abbie/emi_ores/mixin/accessor" {
     }
     export interface $RarityFilterAccessor {
         getChance(): number;
+        get chance(): number;
     }
     /**
      * Values that may be interpreted as {@link $RarityFilterAccessor}.
@@ -91,6 +106,7 @@ declare module "@package/cc/abbie/emi_ores/mixin/accessor" {
     }
     export interface $TagMatchTestAccessor {
         getTag(): $TagKey<$Block>;
+        get tag(): $TagKey<$Block>;
     }
     /**
      * Values that may be interpreted as {@link $TagMatchTestAccessor}.
@@ -100,6 +116,7 @@ declare module "@package/cc/abbie/emi_ores/mixin/accessor" {
     }
     export interface $CountPlacementAccessor {
         getCount(): $IntProvider;
+        get count(): $IntProvider;
     }
     /**
      * Values that may be interpreted as {@link $CountPlacementAccessor}.
@@ -109,6 +126,7 @@ declare module "@package/cc/abbie/emi_ores/mixin/accessor" {
     }
     export interface $BlockMatchTestAccessor {
         getBlock(): $Block;
+        get block(): $Block;
     }
     /**
      * Values that may be interpreted as {@link $BlockMatchTestAccessor}.

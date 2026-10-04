@@ -8,5 +8,7 @@ declare module "@package/foundry/veil/forge/mixin/compat/iris" {
     export interface $IrisRenderingPipelineAccessor {
         getLoadedShaders(): $Set<$ShaderInstance>;
         getRenderTargets(): $RenderTargets;
+        get loadedShaders(): $Set<$ShaderInstance>;
+        get renderTargets(): $RenderTargets;
     }
 }

@@ -24,15 +24,15 @@ declare module "@package/net/minecraft/world/level/chunk/status" {
     export class $WorldGenContext extends $Record {
         mainThreadMailBox(): $ProcessorHandle<$ChunkTaskPriorityQueueSorter$Message<$Runnable>>;
         structureManager(): $StructureTemplateManager;
-        generator(): $ChunkGenerator;
         level(): $ServerLevel;
+        generator(): $ChunkGenerator;
         lightEngine(): $ThreadedLevelLightEngine;
         constructor(arg0: $ServerLevel, arg1: $ChunkGenerator, arg2: $StructureTemplateManager, arg3: $ThreadedLevelLightEngine, arg4: $ProcessorHandle<$ChunkTaskPriorityQueueSorter$Message<$Runnable_>>);
     }
     /**
      * Values that may be interpreted as {@link $WorldGenContext}.
      */
-    export type $WorldGenContext_ = { level?: $ServerLevel, structureManager?: $StructureTemplateManager, mainThreadMailBox?: $ProcessorHandle<$ChunkTaskPriorityQueueSorter$Message<$Runnable_>>, lightEngine?: $ThreadedLevelLightEngine, generator?: $ChunkGenerator,  } | [level?: $ServerLevel, structureManager?: $StructureTemplateManager, mainThreadMailBox?: $ProcessorHandle<$ChunkTaskPriorityQueueSorter$Message<$Runnable_>>, lightEngine?: $ThreadedLevelLightEngine, generator?: $ChunkGenerator, ];
+    export type $WorldGenContext_ = { level?: $ServerLevel, generator?: $ChunkGenerator, lightEngine?: $ThreadedLevelLightEngine, mainThreadMailBox?: $ProcessorHandle<$ChunkTaskPriorityQueueSorter$Message<$Runnable_>>, structureManager?: $StructureTemplateManager,  } | [level?: $ServerLevel, generator?: $ChunkGenerator, lightEngine?: $ThreadedLevelLightEngine, mainThreadMailBox?: $ProcessorHandle<$ChunkTaskPriorityQueueSorter$Message<$Runnable_>>, structureManager?: $StructureTemplateManager, ];
     export class $ChunkType extends $Enum<$ChunkType> {
         static values(): $ChunkType[];
         static valueOf(arg0: string): $ChunkType;
@@ -50,6 +50,7 @@ declare module "@package/net/minecraft/world/level/chunk/status" {
         get(radius: number): $ChunkStatus;
         asList(): $ImmutableList<$ChunkStatus>;
         constructor(dependencyByRadius: $ImmutableList<$ChunkStatus_>);
+        get radius(): number;
     }
     export class $ChunkStep extends $Record {
         directDependencies(): $ChunkDependencies;
@@ -64,15 +65,15 @@ declare module "@package/net/minecraft/world/level/chunk/status" {
     /**
      * Values that may be interpreted as {@link $ChunkStep}.
      */
-    export type $ChunkStep_ = { targetStatus?: $ChunkStatus_, directDependencies?: $ChunkDependencies, accumulatedDependencies?: $ChunkDependencies, blockStateWriteRadius?: number, task?: $ChunkStatusTask_,  } | [targetStatus?: $ChunkStatus_, directDependencies?: $ChunkDependencies, accumulatedDependencies?: $ChunkDependencies, blockStateWriteRadius?: number, task?: $ChunkStatusTask_, ];
+    export type $ChunkStep_ = { targetStatus?: $ChunkStatus_, task?: $ChunkStatusTask_, blockStateWriteRadius?: number, accumulatedDependencies?: $ChunkDependencies, directDependencies?: $ChunkDependencies,  } | [targetStatus?: $ChunkStatus_, task?: $ChunkStatusTask_, blockStateWriteRadius?: number, accumulatedDependencies?: $ChunkDependencies, directDependencies?: $ChunkDependencies, ];
     export class $ChunkStatus {
-        isAfter(chunkStatus: $ChunkStatus_): boolean;
-        isBefore(chunkStatus: $ChunkStatus_): boolean;
         heightmapsAfter(): $EnumSet<$Heightmap$Types>;
         static getStatusList(): $List<$ChunkStatus>;
         getChunkType(): $ChunkType;
         isOrBefore(chunkStatus: $ChunkStatus_): boolean;
         getChunkSaveHeightmaps(): $EnumSet<$Heightmap$Types>;
+        isAfter(chunkStatus: $ChunkStatus_): boolean;
+        isBefore(chunkStatus: $ChunkStatus_): boolean;
         getName(): string;
         static max(first: $ChunkStatus_, second: $ChunkStatus_): $ChunkStatus;
         getParent(): $ChunkStatus;
@@ -94,6 +95,12 @@ declare module "@package/net/minecraft/world/level/chunk/status" {
         static CARVERS: $ChunkStatus;
         static EMPTY: $ChunkStatus;
         constructor(parent: $ChunkStatus_ | null, heightmapsAfter: $EnumSet<$Heightmap$Types_>, chunkType: $ChunkType_);
+        static get statusList(): $List<$ChunkStatus>;
+        get chunkType(): $ChunkType;
+        get chunkSaveHeightmaps(): $EnumSet<$Heightmap$Types>;
+        get name(): string;
+        get parent(): $ChunkStatus;
+        get index(): number;
     }
     /**
      * Values that may be interpreted as {@link $ChunkStatus}.

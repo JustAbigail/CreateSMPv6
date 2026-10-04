@@ -30,16 +30,16 @@ declare module "@package/it/unimi/dsi/fastutil/booleans" {
          * @deprecated
          */
         put(arg0: boolean, arg1: string): string;
-        containsKey(arg0: boolean): boolean;
         /**
          * @deprecated
          */
         containsKey(arg0: $Object): boolean;
-        getOrDefault(arg0: boolean, arg1: string): string;
+        containsKey(arg0: boolean): boolean;
         /**
          * @deprecated
          */
         getOrDefault(arg0: $Object, arg1: string): string;
+        getOrDefault(arg0: boolean, arg1: string): string;
         /**
          * @deprecated
          */
@@ -91,16 +91,16 @@ declare module "@package/it/unimi/dsi/fastutil/booleans" {
          * @deprecated
          */
         put(arg0: boolean, arg1: number): number;
-        containsKey(arg0: boolean): boolean;
         /**
          * @deprecated
          */
         containsKey(arg0: $Object): boolean;
-        getOrDefault(arg0: boolean, arg1: number): number;
+        containsKey(arg0: boolean): boolean;
         /**
          * @deprecated
          */
         getOrDefault(arg0: $Object, arg1: number): number;
+        getOrDefault(arg0: boolean, arg1: number): number;
         /**
          * @deprecated
          */
@@ -207,16 +207,16 @@ declare module "@package/it/unimi/dsi/fastutil/booleans" {
          * @deprecated
          */
         put(arg0: boolean, arg1: number): number;
-        containsKey(arg0: boolean): boolean;
         /**
          * @deprecated
          */
         containsKey(arg0: $Object): boolean;
-        getOrDefault(arg0: boolean, arg1: number): number;
+        containsKey(arg0: boolean): boolean;
         /**
          * @deprecated
          */
         getOrDefault(arg0: $Object, arg1: number): number;
+        getOrDefault(arg0: boolean, arg1: number): number;
         /**
          * @deprecated
          */
@@ -268,16 +268,16 @@ declare module "@package/it/unimi/dsi/fastutil/booleans" {
          * @deprecated
          */
         put(arg0: boolean, arg1: number): number;
-        containsKey(arg0: boolean): boolean;
         /**
          * @deprecated
          */
         containsKey(arg0: $Object): boolean;
-        getOrDefault(arg0: boolean, arg1: number): number;
+        containsKey(arg0: boolean): boolean;
         /**
          * @deprecated
          */
         getOrDefault(arg0: $Object, arg1: number): number;
+        getOrDefault(arg0: boolean, arg1: number): number;
         /**
          * @deprecated
          */
@@ -404,16 +404,16 @@ declare module "@package/it/unimi/dsi/fastutil/booleans" {
          * @deprecated
          */
         put(arg0: boolean, arg1: number): number;
-        containsKey(arg0: boolean): boolean;
         /**
          * @deprecated
          */
         containsKey(arg0: $Object): boolean;
-        getOrDefault(arg0: boolean, arg1: number): number;
+        containsKey(arg0: boolean): boolean;
         /**
          * @deprecated
          */
         getOrDefault(arg0: $Object, arg1: number): number;
+        getOrDefault(arg0: boolean, arg1: number): number;
         /**
          * @deprecated
          */
@@ -452,22 +452,22 @@ declare module "@package/it/unimi/dsi/fastutil/booleans" {
         static negation(): $BooleanPredicate;
     }
     export interface $BooleanPredicate extends $Predicate<boolean> {
-        /**
-         * @deprecated
-         */
-        or(arg0: $Predicate_<boolean>): $Predicate<boolean>;
-        or(arg0: $BooleanPredicate_): $BooleanPredicate;
+        negate(): $BooleanPredicate;
+        and(arg0: $BooleanPredicate_): $BooleanPredicate;
         /**
          * @deprecated
          */
         and(arg0: $Predicate_<boolean>): $Predicate<boolean>;
-        and(arg0: $BooleanPredicate_): $BooleanPredicate;
+        or(arg0: $BooleanPredicate_): $BooleanPredicate;
+        /**
+         * @deprecated
+         */
+        or(arg0: $Predicate_<boolean>): $Predicate<boolean>;
         test(arg0: boolean): boolean;
         /**
          * @deprecated
          */
         test(arg0: boolean): boolean;
-        negate(): $Predicate<boolean>;
     }
     /**
      * Values that may be interpreted as {@link $BooleanPredicate}.
@@ -548,16 +548,16 @@ declare module "@package/it/unimi/dsi/fastutil/booleans" {
          * @deprecated
          */
         put(arg0: boolean, arg1: number): number;
-        containsKey(arg0: boolean): boolean;
         /**
          * @deprecated
          */
         containsKey(arg0: $Object): boolean;
-        getOrDefault(arg0: boolean, arg1: number): number;
+        containsKey(arg0: boolean): boolean;
         /**
          * @deprecated
          */
         getOrDefault(arg0: $Object, arg1: number): number;
+        getOrDefault(arg0: boolean, arg1: number): number;
         /**
          * @deprecated
          */
@@ -609,16 +609,16 @@ declare module "@package/it/unimi/dsi/fastutil/booleans" {
          * @deprecated
          */
         put(arg0: boolean, arg1: number): number;
-        containsKey(arg0: boolean): boolean;
         /**
          * @deprecated
          */
         containsKey(arg0: $Object): boolean;
-        getOrDefault(arg0: boolean, arg1: number): number;
+        containsKey(arg0: boolean): boolean;
         /**
          * @deprecated
          */
         getOrDefault(arg0: $Object, arg1: number): number;
+        getOrDefault(arg0: boolean, arg1: number): number;
         /**
          * @deprecated
          */

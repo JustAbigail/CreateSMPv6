@@ -16,6 +16,7 @@ declare module "@package/net/caffeinemc/mods/sodium/client/gl/shader" {
         "delete"(): void;
         bind(): void;
         getInterface(): T;
+        get interface(): T;
     }
     export class $GlProgram$Builder {
         attachShader(arg0: $GlShader): $GlProgram$Builder;

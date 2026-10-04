@@ -9,5 +9,7 @@ declare module "@package/net/fabricmc/fabric/api/resource" {
     export interface $IdentifiableResourceReloadListener extends $PreparableReloadListener {
         getFabricId(): $ResourceLocation;
         getFabricDependencies(): $Collection<$ResourceLocation>;
+        get fabricId(): $ResourceLocation;
+        get fabricDependencies(): $Collection<$ResourceLocation>;
     }
 }

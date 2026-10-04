@@ -3,9 +3,11 @@ import { $RenderStateShard$TransparencyStateShard } from "@package/net/minecraft
 declare module "@package/net/irisshaders/iris/mixin/rendertype" {
     export class $RenderStateShardAccessor {
         static getTranslucentTransparency(): $RenderStateShard$TransparencyStateShard;
+        static get translucentTransparency(): $RenderStateShard$TransparencyStateShard;
     }
     export interface $RenderStateShardAccessor {
         getName(): string;
+        get name(): string;
     }
     /**
      * Values that may be interpreted as {@link $RenderStateShardAccessor}.

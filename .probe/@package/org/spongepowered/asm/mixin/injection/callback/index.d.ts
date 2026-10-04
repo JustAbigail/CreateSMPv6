@@ -7,18 +7,20 @@ declare module "@package/org/spongepowered/asm/mixin/injection/callback" {
         isCancelled(): boolean;
         cancel(): void;
         isCancellable(): boolean;
+        get cancelled(): boolean;
+        get cancellable(): boolean;
     }
     export class $CallbackInfoReturnable<R> extends $CallbackInfo {
-        setReturnValue(arg0: R): void;
-        getReturnValueF(): number;
+        getReturnValue(): R;
         getReturnValueC(): string;
         getReturnValueD(): number;
-        getReturnValueS(): number;
-        getReturnValue(): R;
+        getReturnValueF(): number;
         getReturnValueI(): number;
-        getReturnValueB(): number;
-        getReturnValueZ(): boolean;
         getReturnValueJ(): number;
+        getReturnValueS(): number;
+        getReturnValueZ(): boolean;
+        setReturnValue(arg0: R): void;
+        getReturnValueB(): number;
         constructor(arg0: string, arg1: boolean, arg2: number);
         constructor(arg0: string, arg1: boolean, arg2: number);
         constructor(arg0: string, arg1: boolean, arg2: number);
@@ -29,6 +31,14 @@ declare module "@package/org/spongepowered/asm/mixin/injection/callback" {
         constructor(arg0: string, arg1: boolean, arg2: number);
         constructor(arg0: string, arg1: boolean, arg2: string);
         constructor(arg0: string, arg1: boolean, arg2: number);
+        get returnValueC(): string;
+        get returnValueD(): number;
+        get returnValueF(): number;
+        get returnValueI(): number;
+        get returnValueJ(): number;
+        get returnValueS(): number;
+        get returnValueZ(): boolean;
+        get returnValueB(): number;
     }
     export class $CallbackInfo implements $Cancellable {
         isCancelled(): boolean;
@@ -37,5 +47,8 @@ declare module "@package/org/spongepowered/asm/mixin/injection/callback" {
         isCancellable(): boolean;
         static getCallInfoClassName(arg0: $Type): string;
         constructor(arg0: string, arg1: boolean);
+        get cancelled(): boolean;
+        get id(): string;
+        get cancellable(): boolean;
     }
 }

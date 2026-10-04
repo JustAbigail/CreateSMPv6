@@ -12,13 +12,12 @@ declare module "@package/net/fabricmc/fabric/mixin/object/builder" {
     export class $AbstractBlockSettingsAccessor {
     }
     export interface $AbstractBlockSettingsAccessor {
-        getLiquid(): boolean;
         getSoundType(): $SoundType;
         getFriction(): number;
         getJumpFactor(): number;
         getSpeedFactor(): number;
-        getHasCollision(): boolean;
         getMapColor(): $Function<$BlockState, $MapColor>;
+        getHasCollision(): boolean;
         getDrops(): $ResourceKey<$LootTable>;
         getExplosionResistance(): number;
         getDestroyTime(): number;
@@ -59,11 +58,28 @@ declare module "@package/net/fabricmc/fabric/mixin/object/builder" {
         setForceSolidOff(arg0: boolean): void;
         setForceSolidOn(arg0: boolean): void;
         setReplaceable(arg0: boolean): void;
+        getLiquid(): boolean;
+        get soundType(): $SoundType;
+        get friction(): number;
+        get jumpFactor(): number;
+        get speedFactor(): number;
+        get explosionResistance(): number;
+        get destroyTime(): number;
+        get luminance(): $ToIntFunction<$BlockState>;
+        get isValidSpawn(): $BlockBehaviour$StateArgumentPredicate<$EntityType<never>>;
+        get isRedstoneConductor(): $BlockBehaviour$StatePredicate;
+        get isSuffocating(): $BlockBehaviour$StatePredicate;
+        get isViewBlocking(): $BlockBehaviour$StatePredicate;
+        get hasPostProcess(): $BlockBehaviour$StatePredicate;
+        get emissiveRendering(): $BlockBehaviour$StatePredicate;
+        get pushReaction(): $PushReaction;
+        get instrument(): $NoteBlockInstrument;
     }
     export class $AbstractBlockAccessor {
     }
     export interface $AbstractBlockAccessor {
         getProperties(): $BlockBehaviour$Properties;
+        get properties(): $BlockBehaviour$Properties;
     }
     /**
      * Values that may be interpreted as {@link $AbstractBlockAccessor}.

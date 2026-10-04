@@ -16,15 +16,15 @@ declare module "@package/net/neoforged/neoforge/client/model/lighting" {
         /**
          * Compute the brightness and lightmap values for each vertex of this quad. After a call to this method, the
          * values may be accessed using `QuadLighter#getComputedBrightness()` and `QuadLighter#getComputedLightmap()`.
+         */
+        computeLightingForQuad(quad: $BakedQuad): void;
+        /**
+         * Compute the brightness and lightmap values for each vertex of this quad. After a call to this method, the
+         * values may be accessed using `QuadLighter#getComputedBrightness()` and `QuadLighter#getComputedLightmap()`.
          * 
          * This overload allows cleanly reusing the same vertex data array many times.
          */
         computeLightingForQuad(vertices: number[], isShade: boolean): void;
-        /**
-         * Compute the brightness and lightmap values for each vertex of this quad. After a call to this method, the
-         * values may be accessed using `QuadLighter#getComputedBrightness()` and `QuadLighter#getComputedLightmap()`.
-         */
-        computeLightingForQuad(quad: $BakedQuad): void;
         /**
          * Returns the computed brightness for each vertex of this quad.
          * 
@@ -39,6 +39,7 @@ declare module "@package/net/neoforged/neoforge/client/model/lighting" {
         getComputedLightmap(): number[];
         handler$geg000$creativecore$getColorMultiplierHook(arg0: number, arg1: $CallbackInfoReturnable<any>): void;
         setCustomTint(arg0: number): void;
+        process(consumer: $VertexConsumer, pose: $PoseStack$Pose, quad: $BakedQuad, overlay: number): void;
         /**
          * Invalidate and reset any cached state of this lighter.
          */
@@ -47,9 +48,11 @@ declare module "@package/net/neoforged/neoforge/client/model/lighting" {
          * Set up this lighter to light quads of the given block.
          */
         setup(level: $BlockAndTintGetter, pos: $BlockPos_, state: $BlockState_): void;
-        process(consumer: $VertexConsumer, pose: $PoseStack$Pose, quad: $BakedQuad, overlay: number): void;
         static calculateShade(normalX: number, normalY: number, normalZ: number, constantAmbientLight: boolean): number;
         setState(arg0: $BlockState_): void;
         customTint: number;
+        get computedBrightness(): number[];
+        get computedLightmap(): number[];
+        set state(value: $BlockState_);
     }
 }

@@ -10,6 +10,7 @@ declare module "@package/net/fabricmc/loader/api" {
     }
     export interface $Version extends $Comparable<$Version> {
         getFriendlyString(): string;
+        get friendlyString(): string;
     }
     export class $ModContainer {
     }
@@ -32,5 +33,12 @@ declare module "@package/net/fabricmc/loader/api" {
         getContainingMod(): ($ModContainer) | undefined;
         getContainedMods(): $Collection<$ModContainer>;
         findPath(file: string): ($Path) | undefined;
+        get origin(): $ModOrigin;
+        get root(): $Path;
+        get rootPath(): $Path;
+        get metadata(): $ModMetadata;
+        get rootPaths(): $List<$Path>;
+        get containingMod(): ($ModContainer) | undefined;
+        get containedMods(): $Collection<$ModContainer>;
     }
 }

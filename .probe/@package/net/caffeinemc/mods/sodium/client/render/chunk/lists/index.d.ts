@@ -18,18 +18,23 @@ declare module "@package/net/caffeinemc/mods/sodium/client/render/chunk/lists" {
     export type $ChunkRenderListIterable_ = ((arg0: boolean) => $Iterator<$ChunkRenderList>);
     export class $ChunkRenderList {
         sectionsWithEntitiesIterator(): $ByteIterator;
-        sectionsWithSpritesIterator(): $ByteIterator;
-        getLastVisibleFrame(): number;
-        getSectionsWithGeometryCount(): number;
         sectionsWithGeometryIterator(arg0: boolean): $ByteIterator;
         getSectionsWithSpritesCount(): number;
         getSectionsWithEntitiesCount(): number;
+        sectionsWithSpritesIterator(): $ByteIterator;
+        getLastVisibleFrame(): number;
+        getSectionsWithGeometryCount(): number;
         prepareForRender(arg0: $SectionPos, arg1: $SortItemsProvider): void;
-        getRegion(): $RenderRegion;
         size(): number;
         reset(arg0: number, arg1: boolean): void;
         add(arg0: number, arg1: number): void;
+        getRegion(): $RenderRegion;
         constructor(arg0: $RenderRegion);
+        get sectionsWithSpritesCount(): number;
+        get sectionsWithEntitiesCount(): number;
+        get lastVisibleFrame(): number;
+        get sectionsWithGeometryCount(): number;
+        get region(): $RenderRegion;
     }
     export class $SortItemsProvider {
     }
@@ -39,7 +44,7 @@ declare module "@package/net/caffeinemc/mods/sodium/client/render/chunk/lists" {
         ensureSortItemsOfLength(arg0: number): number[];
     }
     export class $SortedRenderLists implements $ChunkRenderListIterable, $SortedRenderListsAccessor {
-        static init$veil_$md$e5fdf9$0(arg0: $ObjectArrayList<any>): $SortedRenderLists;
+        static init$veil_$md$3675d4$0(arg0: $ObjectArrayList<any>): $SortedRenderLists;
         static empty(): $SortedRenderLists;
         iterator(): $Iterator<$ChunkRenderList>;
         iterator(arg0: boolean): $Iterator<$ChunkRenderList>;

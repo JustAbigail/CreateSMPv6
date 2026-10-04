@@ -15,6 +15,7 @@ declare module "@package/net/irisshaders/iris/gl/sampler" {
         static MIPPED_LINEAR: $GlSampler;
         static MIPPED_NEAREST: $GlSampler;
         constructor(arg0: boolean, arg1: boolean, arg2: boolean, arg3: boolean);
+        get id(): number;
     }
     export class $SamplerHolder {
     }

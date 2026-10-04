@@ -140,6 +140,15 @@ declare module "@package/io/github/ocelot/glslprocessor/api/grammar" {
         static IMAGE2DARRAY: $GlslTypeSpecifier$BuiltinType;
         static BOOL: $GlslTypeSpecifier$BuiltinType;
         static ISAMPLER2DRECT: $GlslTypeSpecifier$BuiltinType;
+        get double(): boolean;
+        get unsignedInteger(): boolean;
+        get vector(): boolean;
+        get matrix(): boolean;
+        get integer(): boolean;
+        get float(): boolean;
+        get primitive(): boolean;
+        get components(): number;
+        get bool(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $GlslTypeSpecifier$BuiltinType}.
@@ -165,10 +174,10 @@ declare module "@package/io/github/ocelot/glslprocessor/api/grammar" {
      */
     export type $GlslTypeQualifier$Precision_ = "high_precision" | "medium_precision" | "low_precision";
     export class $GlslSpecifiedType implements $GlslType {
-        setSpecifier(arg0: $GlslTypeSpecifier_): $GlslSpecifiedType;
-        setQualifiers(arg0: $Collection_<$GlslTypeQualifier>): $GlslSpecifiedType;
-        setQualifiers(...arg0: $GlslTypeQualifier[]): $GlslSpecifiedType;
         addLayoutId(arg0: string, arg1: $GlslNode): $GlslSpecifiedType;
+        setSpecifier(arg0: $GlslTypeSpecifier_): $GlslSpecifiedType;
+        setQualifiers(...arg0: $GlslTypeQualifier[]): $GlslSpecifiedType;
+        setQualifiers(arg0: $Collection_<$GlslTypeQualifier>): $GlslSpecifiedType;
         asSpecifiedType(): $GlslSpecifiedType;
         getQualifiers(): $List<$GlslTypeQualifier>;
         copy(): $GlslSpecifiedType;
@@ -205,7 +214,7 @@ declare module "@package/io/github/ocelot/glslprocessor/api/grammar" {
     /**
      * Values that may be interpreted as {@link $GlslTypeQualifier$LayoutId}.
      */
-    export type $GlslTypeQualifier$LayoutId_ = { expression?: $GlslNode, identifier?: string,  } | [expression?: $GlslNode, identifier?: string, ];
+    export type $GlslTypeQualifier$LayoutId_ = { identifier?: string, expression?: $GlslNode,  } | [identifier?: string, expression?: $GlslNode, ];
     export class $GlslTypeSpecifier {
         static array(arg0: $GlslTypeSpecifier_, arg1: $GlslNode): $GlslTypeSpecifier;
         static named(arg0: string): $GlslTypeSpecifier;
@@ -217,6 +226,7 @@ declare module "@package/io/github/ocelot/glslprocessor/api/grammar" {
         asSpecifiedType(): $GlslSpecifiedType;
         getName(): string;
         isNamed(): boolean;
+        get name(): string;
     }
     /**
      * Values that may be interpreted as {@link $GlslTypeSpecifier}.
@@ -224,21 +234,21 @@ declare module "@package/io/github/ocelot/glslprocessor/api/grammar" {
     export type $GlslTypeSpecifier_ = (() => string);
     export class $GlslStructSpecifier implements $GlslTypeSpecifier {
         isStruct(): boolean;
-        setFields(...arg0: $GlslStructField[]): $GlslStructSpecifier;
-        setFields(arg0: $Collection_<$GlslStructField>): $GlslStructSpecifier;
         getName(): string;
         getFields(): $List<$GlslStructField>;
         setName(arg0: string): $GlslStructSpecifier;
         copy(): $GlslStructSpecifier;
+        setFields(arg0: $Collection_<$GlslStructField>): $GlslStructSpecifier;
+        setFields(...arg0: $GlslStructField[]): $GlslStructSpecifier;
         asStructSpecifier(): $GlslStructSpecifier;
         asSpecifiedType(): $GlslSpecifiedType;
         isNamed(): boolean;
     }
     export class $GlslTypeQualifier$Layout extends $Record implements $GlslTypeQualifier {
+        addLayoutIds(...arg0: $GlslTypeQualifier$LayoutId_[]): $GlslTypeQualifier;
+        addLayoutIds(arg0: $Collection_<$GlslTypeQualifier$LayoutId_>): $GlslTypeQualifier;
         addLayoutId(arg0: string, arg1: $GlslNode): $GlslTypeQualifier;
         layoutIds(): $List<$GlslTypeQualifier$LayoutId>;
-        addLayoutIds(arg0: $Collection_<$GlslTypeQualifier$LayoutId_>): $GlslTypeQualifier;
-        addLayoutIds(...arg0: $GlslTypeQualifier$LayoutId_[]): $GlslTypeQualifier;
         constructor(layoutIds: $List_<$GlslTypeQualifier$LayoutId_>);
     }
     /**

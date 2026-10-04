@@ -6,6 +6,7 @@ declare module "@package/gg/essential/mixins/transformers/feature/gamerules" {
     }
     export interface $MixinGameRulesAccessor {
         getRules(): $Map<$GameRules$Key<never>, $GameRules$Value<never>>;
+        get rules(): $Map<$GameRules$Key<never>, $GameRules$Value<never>>;
     }
     /**
      * Values that may be interpreted as {@link $MixinGameRulesAccessor}.
@@ -15,6 +16,7 @@ declare module "@package/gg/essential/mixins/transformers/feature/gamerules" {
     }
     export interface $MixinGameRulesValueAccessor {
         getType(): $GameRules$Type<any>;
+        get type(): $GameRules$Type<any>;
     }
     /**
      * Values that may be interpreted as {@link $MixinGameRulesValueAccessor}.

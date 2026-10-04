@@ -17,6 +17,7 @@ declare module "@package/malte0811/ferritecore/ducks" {
         setNeighborTable(arg0: $Table<$Property<never>, $Comparable_<never>, S>): void;
         getNeighborTable(): $Table<$Property<never>, $Comparable<never>, S>;
         replacePropertyMap(arg0: $Reference2ObjectMap<$Property<never>, $Comparable_<never>>): void;
+        get vanillaPropertyMap(): $Reference2ObjectMap<$Property<never>, $Comparable<never>>;
     }
     export class $BlockStateCacheAccess {
     }

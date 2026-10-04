@@ -8,12 +8,17 @@ declare module "@package/org/apache/maven/artifact/repository" {
     export class $ArtifactRepository {
     }
     export interface $ArtifactRepository {
+        setProxy(arg0: $Proxy): void;
+        pathOfRemoteRepositoryMetadata(arg0: $ArtifactMetadata): string;
+        pathOf(arg0: $Artifact): string;
+        getBasedir(): string;
+        pathOfLocalRepositoryMetadata(arg0: $ArtifactMetadata, arg1: $ArtifactRepository): string;
+        setSnapshotUpdatePolicy(arg0: $ArtifactRepositoryPolicy): void;
+        setReleaseUpdatePolicy(arg0: $ArtifactRepositoryPolicy): void;
         /**
          * @deprecated
          */
-        isBlacklisted(): boolean;
-        setProxy(arg0: $Proxy): void;
-        pathOfRemoteRepositoryMetadata(arg0: $ArtifactMetadata): string;
+        isUniqueVersion(): boolean;
         /**
          * @deprecated
          */
@@ -22,18 +27,13 @@ declare module "@package/org/apache/maven/artifact/repository" {
         isProjectAware(): boolean;
         setAuthentication(arg0: $Authentication): void;
         getAuthentication(): $Authentication;
-        getBasedir(): string;
+        getMirroredRepositories(): $List<$ArtifactRepository>;
+        setMirroredRepositories(arg0: $List_<$ArtifactRepository>): void;
+        setUrl(arg0: string): void;
         /**
          * @deprecated
          */
-        isUniqueVersion(): boolean;
-        pathOfLocalRepositoryMetadata(arg0: $ArtifactMetadata, arg1: $ArtifactRepository): string;
-        setSnapshotUpdatePolicy(arg0: $ArtifactRepositoryPolicy): void;
-        setReleaseUpdatePolicy(arg0: $ArtifactRepositoryPolicy): void;
-        getMirroredRepositories(): $List<$ArtifactRepository>;
-        setMirroredRepositories(arg0: $List_<$ArtifactRepository>): void;
-        pathOf(arg0: $Artifact): string;
-        setUrl(arg0: string): void;
+        isBlacklisted(): boolean;
         setBlocked(arg0: boolean): void;
         getKey(): string;
         find(arg0: $Artifact): $Artifact;
@@ -47,5 +47,14 @@ declare module "@package/org/apache/maven/artifact/repository" {
         getSnapshots(): $ArtifactRepositoryPolicy;
         getProxy(): $Proxy;
         isBlocked(): boolean;
+        get basedir(): string;
+        set snapshotUpdatePolicy(value: $ArtifactRepositoryPolicy);
+        set releaseUpdatePolicy(value: $ArtifactRepositoryPolicy);
+        get uniqueVersion(): boolean;
+        get projectAware(): boolean;
+        get key(): string;
+        get protocol(): string;
+        get releases(): $ArtifactRepositoryPolicy;
+        get snapshots(): $ArtifactRepositoryPolicy;
     }
 }

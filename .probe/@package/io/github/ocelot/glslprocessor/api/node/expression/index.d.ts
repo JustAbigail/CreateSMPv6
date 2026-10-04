@@ -7,14 +7,14 @@ import { $GlslNodeVisitor } from "@package/io/github/ocelot/glslprocessor/api/vi
 
 declare module "@package/io/github/ocelot/glslprocessor/api/node/expression" {
     export class $GlslOperationNode implements $GlslNode {
+        setOperand(arg0: $GlslOperationNode$Operand_): $GlslOperationNode;
         setFirst(arg0: $GlslNode): $GlslOperationNode;
         setSecond(arg0: $GlslNode): $GlslOperationNode;
-        setOperand(arg0: $GlslOperationNode$Operand_): $GlslOperationNode;
         getNodeType(): $GlslNodeType;
         visit(arg0: $GlslNodeVisitor): void;
+        getSecond(): $GlslNode;
         stream(): $Stream<$GlslNode>;
         getFirst(): $GlslNode;
-        getSecond(): $GlslNode;
         getOperand(): $GlslOperationNode$Operand;
         getBody(): $GlslNodeList;
         toSourceString(): string;
@@ -23,17 +23,19 @@ declare module "@package/io/github/ocelot/glslprocessor/api/node/expression" {
         setBody(arg0: $Collection_<$GlslNode>): boolean;
         setBody(...arg0: $GlslNode[]): boolean;
         constructor(arg0: $GlslNode, arg1: $GlslNode, arg2: $GlslOperationNode$Operand_);
+        get nodeType(): $GlslNodeType;
+        get type(): $GlslSpecifiedType;
     }
     export class $GlslAssignmentNode implements $GlslNode {
+        setOperand(arg0: $GlslAssignmentNode$Operand_): $GlslAssignmentNode;
         setFirst(arg0: $GlslNode): $GlslAssignmentNode;
         setSecond(arg0: $GlslNode): $GlslAssignmentNode;
-        setOperand(arg0: $GlslAssignmentNode$Operand_): $GlslAssignmentNode;
         getNodeType(): $GlslNodeType;
         visit(arg0: $GlslNodeVisitor): void;
+        getSecond(): $GlslNode;
         stream(): $Stream<$GlslNode>;
         getType(): $GlslSpecifiedType;
         getFirst(): $GlslNode;
-        getSecond(): $GlslNode;
         getOperand(): $GlslAssignmentNode$Operand;
         getBody(): $GlslNodeList;
         toSourceString(): string;
@@ -41,16 +43,18 @@ declare module "@package/io/github/ocelot/glslprocessor/api/node/expression" {
         setBody(arg0: $Collection_<$GlslNode>): boolean;
         setBody(...arg0: $GlslNode[]): boolean;
         constructor(arg0: $GlslNode, arg1: $GlslNode, arg2: $GlslAssignmentNode$Operand_);
+        get nodeType(): $GlslNodeType;
+        get type(): $GlslSpecifiedType;
     }
     export class $GlslCompareNode implements $GlslNode {
+        setOperand(arg0: $GlslCompareNode$Operand_): $GlslCompareNode;
         setFirst(arg0: $GlslNode): $GlslCompareNode;
         setSecond(arg0: $GlslNode): $GlslCompareNode;
-        setOperand(arg0: $GlslCompareNode$Operand_): $GlslCompareNode;
         getNodeType(): $GlslNodeType;
         visit(arg0: $GlslNodeVisitor): void;
+        getSecond(): $GlslNode;
         stream(): $Stream<$GlslNode>;
         getFirst(): $GlslNode;
-        getSecond(): $GlslNode;
         getOperand(): $GlslCompareNode$Operand;
         getBody(): $GlslNodeList;
         toSourceString(): string;
@@ -59,6 +63,8 @@ declare module "@package/io/github/ocelot/glslprocessor/api/node/expression" {
         setBody(arg0: $Collection_<$GlslNode>): boolean;
         setBody(...arg0: $GlslNode[]): boolean;
         constructor(arg0: $GlslNode, arg1: $GlslNode, arg2: $GlslCompareNode$Operand_);
+        get nodeType(): $GlslNodeType;
+        get type(): $GlslSpecifiedType;
     }
     export class $GlslUnaryNode$Operand extends $Enum<$GlslUnaryNode$Operand> {
         getDelimiter(): string;
@@ -72,6 +78,7 @@ declare module "@package/io/github/ocelot/glslprocessor/api/node/expression" {
         static DASH: $GlslUnaryNode$Operand;
         static PRE_INCREMENT: $GlslUnaryNode$Operand;
         static PLUS: $GlslUnaryNode$Operand;
+        get delimiter(): string;
     }
     /**
      * Values that may be interpreted as {@link $GlslUnaryNode$Operand}.
@@ -79,14 +86,14 @@ declare module "@package/io/github/ocelot/glslprocessor/api/node/expression" {
     export type $GlslUnaryNode$Operand_ = "pre_increment" | "pre_decrement" | "post_increment" | "post_decrement" | "plus" | "dash" | "bang" | "tilde";
     export class $GlslConditionalNode implements $GlslNode {
         getCondition(): $GlslNode;
-        setCondition(arg0: $GlslNode): $GlslConditionalNode;
         setFirst(arg0: $GlslNode): $GlslConditionalNode;
         setSecond(arg0: $GlslNode): $GlslConditionalNode;
+        setCondition(arg0: $GlslNode): $GlslConditionalNode;
         getNodeType(): $GlslNodeType;
         visit(arg0: $GlslNodeVisitor): void;
+        getSecond(): $GlslNode;
         stream(): $Stream<$GlslNode>;
         getFirst(): $GlslNode;
-        getSecond(): $GlslNode;
         getBody(): $GlslNodeList;
         toSourceString(): string;
         toList(): $List<$GlslNode>;
@@ -94,6 +101,8 @@ declare module "@package/io/github/ocelot/glslprocessor/api/node/expression" {
         setBody(arg0: $Collection_<$GlslNode>): boolean;
         setBody(...arg0: $GlslNode[]): boolean;
         constructor(arg0: $GlslNode, arg1: $GlslNode, arg2: $GlslNode);
+        get nodeType(): $GlslNodeType;
+        get type(): $GlslSpecifiedType;
     }
     export class $GlslBitwiseNode$Operand extends $Enum<$GlslBitwiseNode$Operand> {
         getDelimiter(): string;
@@ -106,6 +115,8 @@ declare module "@package/io/github/ocelot/glslprocessor/api/node/expression" {
         static BITWISE_AND: $GlslBitwiseNode$Operand;
         static LOGICAL_EXCLUSIVE_OR: $GlslBitwiseNode$Operand;
         static LOGICAL_OR: $GlslBitwiseNode$Operand;
+        get delimiter(): string;
+        get nodeType(): $GlslNodeType;
     }
     /**
      * Values that may be interpreted as {@link $GlslBitwiseNode$Operand}.
@@ -121,6 +132,7 @@ declare module "@package/io/github/ocelot/glslprocessor/api/node/expression" {
         static GREATER: $GlslCompareNode$Operand;
         static LESS: $GlslCompareNode$Operand;
         static LEQUAL: $GlslCompareNode$Operand;
+        get delimiter(): string;
     }
     /**
      * Values that may be interpreted as {@link $GlslCompareNode$Operand}.
@@ -133,8 +145,8 @@ declare module "@package/io/github/ocelot/glslprocessor/api/node/expression" {
         static bitAnd(arg0: $Collection_<$GlslNode>): $GlslBitwiseNode;
         static bitXor(arg0: $Collection_<$GlslNode>): $GlslBitwiseNode;
         static bitOr(arg0: $Collection_<$GlslNode>): $GlslBitwiseNode;
-        getExpressions(): $List<$GlslNode>;
         getNodeType(): $GlslNodeType;
+        getExpressions(): $List<$GlslNode>;
         visit(arg0: $GlslNodeVisitor): void;
         stream(): $Stream<$GlslNode>;
         static logicalAnd(arg0: $Collection_<$GlslNode>): $GlslBitwiseNode;
@@ -148,6 +160,8 @@ declare module "@package/io/github/ocelot/glslprocessor/api/node/expression" {
         setBody(arg0: $Collection_<$GlslNode>): boolean;
         setBody(...arg0: $GlslNode[]): boolean;
         constructor(arg0: $Collection_<$GlslNode>, arg1: $GlslBitwiseNode$Operand_);
+        get nodeType(): $GlslNodeType;
+        get type(): $GlslSpecifiedType;
     }
     export class $GlslAssignmentNode$Operand extends $Enum<$GlslAssignmentNode$Operand> {
         getDelimiter(): string;
@@ -164,6 +178,7 @@ declare module "@package/io/github/ocelot/glslprocessor/api/node/expression" {
         static OR_ASSIGN: $GlslAssignmentNode$Operand;
         static LEFT_ASSIGN: $GlslAssignmentNode$Operand;
         static ADD_ASSIGN: $GlslAssignmentNode$Operand;
+        get delimiter(): string;
     }
     /**
      * Values that may be interpreted as {@link $GlslAssignmentNode$Operand}.
@@ -184,14 +199,16 @@ declare module "@package/io/github/ocelot/glslprocessor/api/node/expression" {
         setBody(arg0: $Collection_<$GlslNode>): boolean;
         setBody(...arg0: $GlslNode[]): boolean;
         constructor(arg0: $GlslNode, arg1: $GlslUnaryNode$Operand_);
+        get nodeType(): $GlslNodeType;
+        get type(): $GlslSpecifiedType;
     }
     export class $GlslPrecisionNode implements $GlslNode {
         setTypeSpecifier(arg0: $GlslTypeSpecifier_): $GlslPrecisionNode;
-        setPrecision(arg0: $GlslTypeQualifier$Precision_): $GlslPrecisionNode;
         getTypeSpecifier(): $GlslTypeSpecifier;
         getNodeType(): $GlslNodeType;
-        getPrecision(): $GlslTypeQualifier$Precision;
         visit(arg0: $GlslNodeVisitor): void;
+        getPrecision(): $GlslTypeQualifier$Precision;
+        setPrecision(arg0: $GlslTypeQualifier$Precision_): $GlslPrecisionNode;
         stream(): $Stream<$GlslNode>;
         getBody(): $GlslNodeList;
         toSourceString(): string;
@@ -200,6 +217,8 @@ declare module "@package/io/github/ocelot/glslprocessor/api/node/expression" {
         setBody(arg0: $Collection_<$GlslNode>): boolean;
         setBody(...arg0: $GlslNode[]): boolean;
         constructor(arg0: $GlslTypeQualifier$Precision_, arg1: $GlslTypeSpecifier_);
+        get nodeType(): $GlslNodeType;
+        get type(): $GlslSpecifiedType;
     }
     export class $GlslOperationNode$Operand extends $Enum<$GlslOperationNode$Operand> {
         getDelimiter(): string;
@@ -212,6 +231,7 @@ declare module "@package/io/github/ocelot/glslprocessor/api/node/expression" {
         static MULTIPLY: $GlslOperationNode$Operand;
         static SUBTRACT: $GlslOperationNode$Operand;
         static DIVIDE: $GlslOperationNode$Operand;
+        get delimiter(): string;
     }
     /**
      * Values that may be interpreted as {@link $GlslOperationNode$Operand}.

@@ -5,6 +5,7 @@ declare module "@package/net/fabricmc/fabric/mixin/datagen/loot" {
     }
     export interface $BlockLootTableGeneratorAccessor {
         getRegistries(): $HolderLookup$Provider;
+        get registries(): $HolderLookup$Provider;
     }
     /**
      * Values that may be interpreted as {@link $BlockLootTableGeneratorAccessor}.

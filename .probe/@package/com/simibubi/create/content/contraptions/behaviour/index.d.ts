@@ -15,13 +15,13 @@ import { $MountedItemStorage } from "@package/com/simibubi/create/api/contraptio
 
 declare module "@package/com/simibubi/create/content/contraptions/behaviour" {
     export class $MovementContext implements $MovementContextAccessor {
-        getFluidStorage(): $MountedFluidStorage;
-        pattern_schematics$setFilter(arg0: $ItemStack_): void;
-        static readNBT(arg0: $Level_, arg1: $StructureTemplate$StructureBlockInfo_, arg2: $CompoundTag_, arg3: $Contraption): $MovementContext;
-        getItemStorage(): $MountedItemStorage;
         writeToNBT(arg0: $CompoundTag_): $CompoundTag;
         getAnimationSpeed(): number;
         getFilterFromBE(): $FilterItemStack;
+        pattern_schematics$setFilter(arg0: $ItemStack_): void;
+        static readNBT(arg0: $Level_, arg1: $StructureTemplate$StructureBlockInfo_, arg2: $CompoundTag_, arg3: $Contraption): $MovementContext;
+        getItemStorage(): $MountedItemStorage;
+        getFluidStorage(): $MountedFluidStorage;
         localPos: $BlockPos;
         motion: $Vec3;
         data: $CompoundTag;
@@ -37,5 +37,9 @@ declare module "@package/com/simibubi/create/content/contraptions/behaviour" {
         state: $BlockState;
         relativeMotion: $Vec3;
         constructor(arg0: $Level_, arg1: $StructureTemplate$StructureBlockInfo_, arg2: $Contraption);
+        get animationSpeed(): number;
+        get filterFromBE(): $FilterItemStack;
+        get itemStorage(): $MountedItemStorage;
+        get fluidStorage(): $MountedFluidStorage;
     }
 }

@@ -12,6 +12,8 @@ declare module "@package/dev/ryanhcode/sable/api/physics/constraint" {
         setContactsEnabled(arg0: boolean): void;
         isValid(): boolean;
         remove(): void;
+        set contactsEnabled(value: boolean);
+        get valid(): boolean;
     }
     export class $ConstraintJointAxis extends $Enum<$ConstraintJointAxis> {
         static values(): $ConstraintJointAxis[];

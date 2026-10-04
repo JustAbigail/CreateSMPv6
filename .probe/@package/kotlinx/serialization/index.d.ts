@@ -11,16 +11,19 @@ declare module "@package/kotlinx/serialization" {
     export interface $SerializationStrategy<T> {
         getDescriptor(): $SerialDescriptor;
         serialize(arg0: $Encoder, arg1: T): void;
+        get descriptor(): $SerialDescriptor;
     }
     export class $DeserializationStrategy<T> {
     }
     export interface $DeserializationStrategy<T> {
         getDescriptor(): $SerialDescriptor;
         deserialize(arg0: $Decoder): T;
+        get descriptor(): $SerialDescriptor;
     }
     export class $KSerializer<T> {
     }
     export interface $KSerializer<T> extends $SerializationStrategy<T>, $DeserializationStrategy<T> {
         getDescriptor(): $SerialDescriptor;
+        get descriptor(): $SerialDescriptor;
     }
 }

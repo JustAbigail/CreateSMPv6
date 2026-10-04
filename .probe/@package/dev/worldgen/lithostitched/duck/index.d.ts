@@ -12,6 +12,7 @@ declare module "@package/dev/worldgen/lithostitched/duck" {
     export interface $StructurePoolAccess {
         getLithostitchedTemplates(): $LithostitchedTemplates;
         compileRawTemplates(): void;
+        get lithostitchedTemplates(): $LithostitchedTemplates;
     }
     export class $ContextAccessor {
     }
@@ -21,13 +22,22 @@ declare module "@package/dev/worldgen/lithostitched/duck" {
         getY(): number;
         getX(): number;
         getZ(): number;
-        getBiome(): $Holder<$Biome>;
         getChunk(): $ChunkAccess;
+        getBiome(): $Holder<$Biome>;
+        get stoneDepthBelow(): number;
+        get system(): $SurfaceSystem;
+        get y(): number;
+        get x(): number;
+        get z(): number;
+        get chunk(): $ChunkAccess;
+        get biome(): $Holder<$Biome>;
     }
     export class $SurfaceSystemAccessor {
     }
     export interface $SurfaceSystemAccessor {
         getBandOffsetNoise(): $NormalNoise;
         getNoiseRandom(): $PositionalRandomFactory;
+        get bandOffsetNoise(): $NormalNoise;
+        get noiseRandom(): $PositionalRandomFactory;
     }
 }

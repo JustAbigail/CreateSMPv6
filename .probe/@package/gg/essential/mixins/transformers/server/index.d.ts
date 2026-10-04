@@ -1,4 +1,4 @@
-import { $GameRules$BooleanValue, $GameRules$Key, $GameRules$Value, $GameRules$Category_, $GameRules$Type } from "@package/net/minecraft/world/level";
+import { $GameRules$BooleanValue, $GameRules$Key, $GameRules$Category_, $GameRules$Value, $GameRules$Type } from "@package/net/minecraft/world/level";
 import { $ServerStatus$Favicon_, $ServerStatus$Favicon, $ServerStatus, $ServerStatus_ } from "@package/net/minecraft/network/protocol/status";
 import { $Thread } from "@package/java/lang";
 export * as integrated from "@package/gg/essential/mixins/transformers/server/integrated";
@@ -22,5 +22,8 @@ declare module "@package/gg/essential/mixins/transformers/server" {
         setFavicon(arg0: $ServerStatus$Favicon_): void;
         invokeCreateMetadata(): $ServerStatus;
         setMetadata(arg0: $ServerStatus_): void;
+        get serverThread(): $Thread;
+        set favicon(value: $ServerStatus$Favicon_);
+        set metadata(value: $ServerStatus_);
     }
 }

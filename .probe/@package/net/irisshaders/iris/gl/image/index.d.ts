@@ -4,16 +4,23 @@ import { $GlResource } from "@package/net/irisshaders/iris/gl";
 
 declare module "@package/net/irisshaders/iris/gl/image" {
     export class $GlImage extends $GlResource {
+        getInternalFormat(): $InternalTextureFormat;
+        getSamplerName(): string;
         shouldClear(): boolean;
         getPixelType(): $PixelType;
         updateNewSize(arg0: number, arg1: number): void;
-        getSamplerName(): string;
-        getInternalFormat(): $InternalTextureFormat;
         getFormat(): $PixelFormat;
         getName(): string;
         getId(): number;
         getTarget(): $TextureType;
         constructor(arg0: string, arg1: string, arg2: $TextureType_, arg3: $PixelFormat_, arg4: $InternalTextureFormat_, arg5: $PixelType_, arg6: boolean, arg7: number, arg8: number, arg9: number);
+        get internalFormat(): $InternalTextureFormat;
+        get samplerName(): string;
+        get pixelType(): $PixelType;
+        get format(): $PixelFormat;
+        get name(): string;
+        get id(): number;
+        get target(): $TextureType;
     }
     export class $ImageHolder {
     }

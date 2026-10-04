@@ -14,16 +14,18 @@ declare module "@package/net/caffeinemc/mods/sodium/client/render/chunk/shader" 
     export class $ChunkShaderInterface {
     }
     export interface $ChunkShaderInterface {
-        /**
-         * @deprecated
-         */
-        setupState(): void;
         setModelViewMatrix(arg0: $Matrix4fc): void;
         setRegionOffset(arg0: number, arg1: number, arg2: number): void;
         /**
          * @deprecated
          */
         resetState(): void;
+        /**
+         * @deprecated
+         */
+        setupState(): void;
         setProjectionMatrix(arg0: $Matrix4fc): void;
+        set modelViewMatrix(value: $Matrix4fc);
+        set projectionMatrix(value: $Matrix4fc);
     }
 }

@@ -13,11 +13,17 @@ declare module "@package/io/homo/superresolution/common/mixin/core/accessor" {
         getPasses(): $List<$PostPass>;
         getScreenWidth(): number;
         getScreenHeight(): number;
+        get fullSizedTargets(): $List<$RenderTarget>;
+        set screenTarget(value: $RenderTarget);
+        get passes(): $List<$PostPass>;
+        get screenWidth(): number;
+        get screenHeight(): number;
     }
     export class $OptionInstanceAccessor {
     }
     export interface $OptionInstanceAccessor {
         getValue(): $Object;
+        get value(): $Object;
     }
     /**
      * Values that may be interpreted as {@link $OptionInstanceAccessor}.
@@ -34,11 +40,15 @@ declare module "@package/io/homo/superresolution/common/mixin/core/accessor" {
     export interface $MinecraftAccessor {
         getLevel(): $ClientLevel;
         setRenderTarget(arg0: $RenderTarget): void;
+        get level(): $ClientLevel;
+        set renderTarget(value: $RenderTarget);
     }
     export class $LevelRendererAccessor {
     }
     export interface $LevelRendererAccessor {
         getEntityEffect(): $PostChain;
         getEntityRenderTarget(): $RenderTarget;
+        get entityEffect(): $PostChain;
+        get entityRenderTarget(): $RenderTarget;
     }
 }

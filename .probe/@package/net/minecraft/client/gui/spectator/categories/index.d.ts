@@ -7,5 +7,6 @@ declare module "@package/net/minecraft/client/gui/spectator/categories" {
         getItem(index: number): $SpectatorMenuItem;
         static NO_SELECTION: number;
         constructor(items: $List_<$SpectatorMenuItem>, selection: number);
+        get selectedSlot(): number;
     }
 }

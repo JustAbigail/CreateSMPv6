@@ -27,5 +27,6 @@ declare module "@package/net/minecraft/client/multiplayer/prediction" {
         retainKnownServerState(pos: $BlockPos_, state: $BlockState_, player: $LocalPlayer): void;
         retainSnapshot(arg0: $BlockPos_, arg1: $BlockSnapshot): void;
         constructor();
+        get predicting(): boolean;
     }
 }

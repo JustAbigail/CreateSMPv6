@@ -3,7 +3,6 @@ import { $Vector4fc, $Vector3fc } from "@package/org/joml";
 
 declare module "@package/foundry/veil/api/client/color" {
     export class $Color implements $Colorc {
-        setARGB(arg0: number): $Color;
         setHSV(arg0: number, arg1: number, arg2: number): $Color;
         redInt(arg0: number): $Color;
         greenInt(arg0: number): $Color;
@@ -15,6 +14,7 @@ declare module "@package/foundry/veil/api/client/color" {
         sepia(): $Color;
         setHue(arg0: number): $Color;
         setLuminance(arg0: number): $Color;
+        setARGB(arg0: number): $Color;
         invert(): $Color;
         setRGB(arg0: number): $Color;
         set(arg0: number, arg1: number, arg2: number, arg3: number): $Color;
@@ -25,14 +25,14 @@ declare module "@package/foundry/veil/api/client/color" {
         mix(arg0: $Colorc, arg1: number): $Color;
         red(arg0: number): $Color;
         red(): number;
+        alpha(arg0: number): $Color;
+        alpha(): number;
         blue(arg0: number): $Color;
         blue(): number;
         green(arg0: number): $Color;
         green(): number;
-        alpha(): number;
-        alpha(arg0: number): $Color;
-        lerp(arg0: $Colorc, arg1: number): $Color;
         setSaturation(arg0: number): $Color;
+        lerp(arg0: $Colorc, arg1: number): $Color;
         luminance(): number;
         setHSV(arg0: number, arg1: number, arg2: number, arg3: $Color): $Color;
         redInt(): number;
@@ -50,11 +50,11 @@ declare module "@package/foundry/veil/api/client/color" {
         saturation(): number;
         rgb(): number;
         mix(arg0: $Colorc, arg1: number, arg2: $Color): $Color;
+        setSaturation(arg0: number, arg1: $Color): $Color;
         argb(): number;
         lerp(arg0: $Colorc, arg1: number, arg2: $Color): $Color;
         maxComponent(): number;
         minComponent(): number;
-        setSaturation(arg0: number, arg1: $Color): $Color;
         static WHITE: $Colorc;
         static RGB_INT_CODEC: $Codec<number>;
         static BLUE: $Colorc;
@@ -76,6 +76,8 @@ declare module "@package/foundry/veil/api/client/color" {
         constructor(arg0: $Vector3fc);
         constructor(arg0: $Colorc);
         constructor(arg0: number, arg1: number, arg2: number, arg3: number);
+        set ARGB(value: number);
+        set RGB(value: number);
     }
     export class $Colorc {
     }
@@ -98,13 +100,13 @@ declare module "@package/foundry/veil/api/client/color" {
         rgb(): number;
         mix(arg0: $Colorc, arg1: number, arg2: $Color): $Color;
         red(): number;
+        alpha(): number;
         blue(): number;
         green(): number;
-        alpha(): number;
+        setSaturation(arg0: number, arg1: $Color): $Color;
         argb(): number;
         lerp(arg0: $Colorc, arg1: number, arg2: $Color): $Color;
         maxComponent(): number;
         minComponent(): number;
-        setSaturation(arg0: number, arg1: $Color): $Color;
     }
 }

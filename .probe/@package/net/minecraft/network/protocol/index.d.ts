@@ -52,6 +52,8 @@ declare module "@package/net/minecraft/network/protocol" {
         isTerminal(): boolean;
         isSkippable(): boolean;
         constructor();
+        get terminal(): boolean;
+        get skippable(): boolean;
     }
     export class $Packet<T extends $PacketListener> {
         static codec<B extends $ByteBuf, T extends $Packet<never>>(encoder: $StreamMemberEncoder_<B, T>, decoder: $StreamDecoder_<B, T>): $StreamCodec<B, T>;
@@ -70,6 +72,8 @@ declare module "@package/net/minecraft/network/protocol" {
          * Whether decoding errors will be ignored for this packet.
          */
         isSkippable(): boolean;
+        get terminal(): boolean;
+        get skippable(): boolean;
     }
     export class $BundlePacket<T extends $PacketListener> implements $Packet<T> {
         subPackets(): $Iterable<$Packet<T>>;
@@ -77,6 +81,8 @@ declare module "@package/net/minecraft/network/protocol" {
         isTerminal(): boolean;
         isSkippable(): boolean;
         constructor(packets: $Iterable_<$Packet<T>>);
+        get terminal(): boolean;
+        get skippable(): boolean;
     }
     /**
      * The direction of packets.
@@ -92,6 +98,10 @@ declare module "@package/net/minecraft/network/protocol" {
         self(): $PacketFlow;
         static CLIENTBOUND: $PacketFlow;
         static SERVERBOUND: $PacketFlow;
+        get opposite(): $PacketFlow;
+        get serverbound(): boolean;
+        get clientbound(): boolean;
+        get receptionSide(): $LogicalSide;
     }
     /**
      * Values that may be interpreted as {@link $PacketFlow}.

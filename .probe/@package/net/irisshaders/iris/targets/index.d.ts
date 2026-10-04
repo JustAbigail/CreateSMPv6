@@ -10,9 +10,9 @@ import { $GlResource } from "@package/net/irisshaders/iris/gl";
 
 declare module "@package/net/irisshaders/iris/targets" {
     export class $RenderTarget implements $IrisRenderTargetExtension {
+        getInternalFormat(): $InternalTextureFormat;
         getAltTexture(): number;
         getMainTexture(): number;
-        getInternalFormat(): $InternalTextureFormat;
         veil$getMainTexture(): number;
         veil$getAltTexture(): number;
         veil$getWidth(): number;
@@ -24,12 +24,22 @@ declare module "@package/net/irisshaders/iris/targets" {
         destroy(): void;
         veil$getName(): string;
         constructor(arg0: $RenderTarget$Builder);
+        get internalFormat(): $InternalTextureFormat;
+        get altTexture(): number;
+        get mainTexture(): number;
+        get width(): number;
+        get height(): number;
     }
     export class $DepthTexture extends $GlResource {
         getTextureId(): number;
         constructor(arg0: string, arg1: number, arg2: number, arg3: $DepthBufferFormat_);
+        get textureId(): number;
     }
     export class $RenderTargets implements $RenderTargetsAccessor {
+        getDepthTextureNoTranslucents(): $DepthTexture;
+        createIfUnsure(arg0: number): void;
+        getDepthTexture(): number;
+        getDepthTextureNoHand(): $DepthTexture;
         createFramebufferWritingToMain(arg0: number[]): $GlFramebuffer;
         onFullClear(): void;
         createFramebufferWritingToAlt(arg0: number[]): $GlFramebuffer;
@@ -40,29 +50,37 @@ declare module "@package/net/irisshaders/iris/targets" {
         copyPreTranslucentDepth(): void;
         createDHFramebuffer(arg0: $ImmutableSet<number>, arg1: number[]): $GlFramebuffer;
         destroyFramebuffer(arg0: $GlFramebuffer): void;
-        createIfUnsure(arg0: number): void;
-        getDepthTexture(): number;
-        getDepthTextureNoHand(): $DepthTexture;
-        getDepthTextureNoTranslucents(): $DepthTexture;
         createColorFramebuffer(arg0: $ImmutableSet<number>, arg1: number[]): $GlFramebuffer;
         createColorFramebufferWithDepth(arg0: $ImmutableSet<number>, arg1: number[]): $GlFramebuffer;
         getCurrentWidth(): number;
         getCurrentHeight(): number;
         createClearFramebuffer(arg0: boolean, arg1: number[]): $GlFramebuffer;
-        getOrCreate(arg0: number): $RenderTarget;
         get(arg0: number): $RenderTarget;
         destroy(): void;
+        getOrCreate(arg0: number): $RenderTarget;
         getRenderTargetCount(): number;
         isDestroyed(): boolean;
         constructor(arg0: number, arg1: number, arg2: number, arg3: number, arg4: $DepthBufferFormat_, arg5: $Map_<number, $PackRenderTargetDirectives$RenderTargetSettings>, arg6: $PackDirectives);
+        get depthTextureNoTranslucents(): $DepthTexture;
+        get depthTexture(): number;
+        get depthTextureNoHand(): $DepthTexture;
+        get fullClearRequired(): boolean;
+        get currentWidth(): number;
+        get currentHeight(): number;
+        get renderTargetCount(): number;
+        get destroyed(): boolean;
     }
     export class $RenderTarget$Builder {
+        setDimensions(arg0: number, arg1: number): $RenderTarget$Builder;
         setInternalFormat(arg0: $InternalTextureFormat_): $RenderTarget$Builder;
         setPixelFormat(arg0: $PixelFormat_): $RenderTarget$Builder;
         setPixelType(arg0: $PixelType_): $RenderTarget$Builder;
-        setDimensions(arg0: number, arg1: number): $RenderTarget$Builder;
         setName(arg0: string): $RenderTarget$Builder;
         build(): $RenderTarget;
+        set internalFormat(value: $InternalTextureFormat_);
+        set pixelFormat(value: $PixelFormat_);
+        set pixelType(value: $PixelType_);
+        set name(value: string);
     }
     export class $Blaze3dRenderTargetExt {
     }

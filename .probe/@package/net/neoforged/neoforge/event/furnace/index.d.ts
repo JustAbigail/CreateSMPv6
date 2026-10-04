@@ -18,14 +18,14 @@ declare module "@package/net/neoforged/neoforge/event/furnace" {
      */
     export class $FurnaceFuelBurnTimeEvent extends $Event implements $ICancellableEvent {
         /**
-         * Get the recipe type for which to obtain the burn time, if known.
-         */
-        getRecipeType(): $RecipeType<never>;
-        /**
          * Set the burn time for the given ItemStack.
          * Setting it to 0 will prevent the item from being used as fuel, overriding vanilla's decision.
          */
         setBurnTime(burnTime: number): void;
+        /**
+         * Get the recipe type for which to obtain the burn time, if known.
+         */
+        getRecipeType(): $RecipeType<never>;
         /**
          * The resulting value of this event, the burn time for the ItemStack.
          * A value of 0 will prevent the item from being used as fuel, overriding vanilla's decision.
@@ -41,5 +41,7 @@ declare module "@package/net/neoforged/neoforge/event/furnace" {
         setCanceled(arg0: boolean): void;
         isCanceled(): boolean;
         constructor(itemStack: $ItemStack_, burnTime: number, recipeType: $RecipeType_<never>);
+        get recipeType(): $RecipeType<never>;
+        get itemStack(): $ItemStack;
     }
 }

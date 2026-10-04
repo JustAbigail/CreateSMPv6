@@ -23,5 +23,6 @@ declare module "@package/net/fabricmc/fabric/api/registry" {
         registerItemRecipe(arg0: $Item_, arg1: $Ingredient_, arg2: $Item_): void;
         registerRecipes(arg0: $Ingredient_, arg1: $Holder_<$Potion>): void;
         getEnabledFeatures(): $FeatureFlagSet;
+        get enabledFeatures(): $FeatureFlagSet;
     }
 }

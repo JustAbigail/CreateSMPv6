@@ -13,6 +13,7 @@ declare module "@package/dev/latvian/mods/kubejs/server/tag" {
         id: $ResourceLocation;
         event: $TagKubeEvent;
         constructor(e: $TagKubeEvent, i: $ResourceLocation_, t: $List_<$TagLoader$EntryWithSource_>);
+        get objectIds(): $List<$ResourceLocation>;
     }
     export class $TagKubeEvent implements $KubeEvent {
         getElementIds(): $Set<$ResourceLocation>;
@@ -61,6 +62,8 @@ declare module "@package/dev/latvian/mods/kubejs/server/tag" {
         static TAG_EVENT_HANDLER: $EventExceptionHandler;
         tags: $Map<$ResourceLocation, $TagWrapper>;
         constructor(registryKey: $ResourceKey_<never>, vr: $Registry<never>);
+        get elementIds(): $Set<$ResourceLocation>;
+        get type(): $ResourceLocation;
     }
     export class $PreTagWrapper extends $TagWrapper {
         preEvent: $PreTagKubeEvent;

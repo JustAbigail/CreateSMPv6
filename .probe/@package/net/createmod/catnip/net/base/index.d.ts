@@ -7,6 +7,7 @@ declare module "@package/net/createmod/catnip/net/base" {
     }
     export interface $BasePacketPayload$PacketTypeProvider {
         getType<T extends $CustomPacketPayload>(): $CustomPacketPayload$Type<T>;
+        get type(): $CustomPacketPayload$Type<T>;
     }
     /**
      * Values that may be interpreted as {@link $BasePacketPayload$PacketTypeProvider}.
@@ -23,6 +24,7 @@ declare module "@package/net/createmod/catnip/net/base" {
     export interface $BasePacketPayload extends $CustomPacketPayload {
         type(): $CustomPacketPayload$Type<$CustomPacketPayload>;
         getTypeProvider(): $BasePacketPayload$PacketTypeProvider;
+        get typeProvider(): $BasePacketPayload$PacketTypeProvider;
     }
     /**
      * Values that may be interpreted as {@link $BasePacketPayload}.

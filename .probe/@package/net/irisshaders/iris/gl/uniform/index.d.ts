@@ -1,4 +1,4 @@
-import { $Supplier_, $BooleanSupplier_, $DoubleSupplier_, $IntSupplier_ } from "@package/java/util/function";
+import { $Supplier_, $DoubleSupplier_, $BooleanSupplier_, $IntSupplier_ } from "@package/java/util/function";
 import { $Enum } from "@package/java/lang";
 import { $OptionalInt } from "@package/java/util";
 import { $ValueUpdateNotifier } from "@package/net/irisshaders/iris/gl/state";
@@ -41,6 +41,7 @@ declare module "@package/net/irisshaders/iris/gl/uniform" {
     }
     export interface $FloatSupplier {
         getAsFloat(): number;
+        get asFloat(): number;
     }
     /**
      * Values that may be interpreted as {@link $FloatSupplier}.
@@ -89,5 +90,7 @@ declare module "@package/net/irisshaders/iris/gl/uniform" {
         getNotifier(): $ValueUpdateNotifier;
         update(): void;
         getLocation(): number;
+        get notifier(): $ValueUpdateNotifier;
+        get location(): number;
     }
 }

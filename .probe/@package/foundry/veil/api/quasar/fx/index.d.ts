@@ -12,21 +12,29 @@ declare module "@package/foundry/veil/api/quasar/fx" {
         setMinDistance(arg0: number): void;
         setWidthFunction(arg0: $Function_<number, number>): void;
         pushPoint(arg0: $Vec3_): void;
-        setFrequency(arg0: number): void;
+        pushRotatedPoint(arg0: $Vec3_, arg1: $Vec3_): void;
+        setPoints(arg0: $Vec3_[]): void;
         setParentRotation(arg0: boolean): void;
         setBillboard(arg0: boolean): void;
         setTilingMode(arg0: $Trail$TilingMode_): void;
-        pushRotatedPoint(arg0: $Vec3_, arg1: $Vec3_): void;
-        setPoints(arg0: $Vec3_[]): void;
+        setFrequency(arg0: number): void;
+        setColor(arg0: number): void;
         getLength(): number;
         setLength(arg0: number): void;
-        setColor(arg0: number): void;
-        render(arg0: $MatrixStack, arg1: $VertexConsumer, arg2: number): void;
         getTexture(): $ResourceLocation;
+        render(arg0: $MatrixStack, arg1: $VertexConsumer, arg2: number): void;
         setTexture(arg0: $ResourceLocation_): void;
         constructor(arg0: $Vec3_[], arg1: number, arg2: $Function_<number, number>);
         constructor(arg0: number, arg1: $Function_<number, number>);
         constructor(arg0: $TrailSettings);
+        set minDistance(value: number);
+        set widthFunction(value: $Function_<number, number>);
+        set points(value: $Vec3_[]);
+        set parentRotation(value: boolean);
+        set billboard(value: boolean);
+        set tilingMode(value: $Trail$TilingMode_);
+        set frequency(value: number);
+        set color(value: number);
     }
     export class $Trail$TilingMode extends $Enum<$Trail$TilingMode> {
         static values(): $Trail$TilingMode[];

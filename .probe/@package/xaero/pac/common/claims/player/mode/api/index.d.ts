@@ -4,6 +4,7 @@ declare module "@package/xaero/pac/common/claims/player/mode/api" {
     }
     export interface $IClaimingModeAPI {
         getId(): string;
+        get id(): string;
     }
     /**
      * Values that may be interpreted as {@link $IClaimingModeAPI}.

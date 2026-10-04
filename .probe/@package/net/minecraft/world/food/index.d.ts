@@ -21,7 +21,7 @@ declare module "@package/net/minecraft/world/food" {
     /**
      * Values that may be interpreted as {@link $FoodProperties$PossibleEffect}.
      */
-    export type $FoodProperties$PossibleEffect_ = { probability?: number, effectSupplier?: $Supplier_<$MobEffectInstance>,  } | [probability?: number, effectSupplier?: $Supplier_<$MobEffectInstance>, ];
+    export type $FoodProperties$PossibleEffect_ = { effectSupplier?: $Supplier_<$MobEffectInstance>, probability?: number,  } | [effectSupplier?: $Supplier_<$MobEffectInstance>, probability?: number, ];
     export class $FoodData {
         /**
          * Writes the food data for the player.
@@ -50,6 +50,10 @@ declare module "@package/net/minecraft/world/food" {
          */
         tick(player: $Player): void;
         /**
+         * Adds input to `foodExhaustionLevel` to a max of 40.
+         */
+        addExhaustion(exhaustion: number): void;
+        /**
          * Get the player's food saturation level.
          */
         getSaturationLevel(): number;
@@ -66,20 +70,21 @@ declare module "@package/net/minecraft/world/food" {
          */
         getFoodLevel(): number;
         setFoodLevel(foodLevel: number): void;
-        /**
-         * Adds input to `foodExhaustionLevel` to a max of 40.
-         */
-        addExhaustion(exhaustion: number): void;
         constructor();
+        get lastFoodLevel(): number;
+        get exhaustionLevel(): number;
+        set exhaustion(value: number);
+        get saturationLevel(): number;
+        set saturation(value: number);
     }
     export class $FoodProperties extends $Record {
         saturation(): number;
-        canAlwaysEat(): boolean;
         eatSeconds(): number;
-        eatDurationTicks(): number;
+        canAlwaysEat(): boolean;
         nutrition(): number;
-        effects(): $List<$FoodProperties$PossibleEffect>;
+        eatDurationTicks(): number;
         usingConvertsTo(): ($ItemStack) | undefined;
+        effects(): $List<$FoodProperties$PossibleEffect>;
         static DIRECT_CODEC: $Codec<$FoodProperties>;
         static DIRECT_STREAM_CODEC: $StreamCodec<$RegistryFriendlyByteBuf, $FoodProperties>;
         constructor(nutrition: number, saturation: number, canAlwaysEat: boolean, eatSeconds: number, usingConvertsTo: ($ItemStack_) | undefined, effects: $List_<$FoodProperties$PossibleEffect_>);
@@ -87,5 +92,5 @@ declare module "@package/net/minecraft/world/food" {
     /**
      * Values that may be interpreted as {@link $FoodProperties}.
      */
-    export type $FoodProperties_ = { effects?: $List_<$FoodProperties$PossibleEffect_>, eatSeconds?: number, usingConvertsTo?: ($ItemStack_) | undefined, canAlwaysEat?: boolean, nutrition?: number, saturation?: number,  } | [effects?: $List_<$FoodProperties$PossibleEffect_>, eatSeconds?: number, usingConvertsTo?: ($ItemStack_) | undefined, canAlwaysEat?: boolean, nutrition?: number, saturation?: number, ];
+    export type $FoodProperties_ = { eatSeconds?: number, effects?: $List_<$FoodProperties$PossibleEffect_>, saturation?: number, nutrition?: number, canAlwaysEat?: boolean, usingConvertsTo?: ($ItemStack_) | undefined,  } | [eatSeconds?: number, effects?: $List_<$FoodProperties$PossibleEffect_>, saturation?: number, nutrition?: number, canAlwaysEat?: boolean, usingConvertsTo?: ($ItemStack_) | undefined, ];
 }

@@ -14,19 +14,19 @@ declare module "@package/gg/essential/cosmetics/events" {
         component3(): string;
         component4(): $AnimationEvent;
         component5(): $Set<string>;
-        getOnComplete(): $AnimationEvent;
         component6(): number;
         component7(): number;
         component8(): number;
         component9(): number;
         static write$Self$cosmetics(arg0: $AnimationEvent, arg1: $CompositeEncoder, arg2: $SerialDescriptor): void;
         static access$get$childSerializers$cp(): $Lazy<any>[];
-        getLoops(): number;
+        getOnComplete(): $AnimationEvent;
         getSkips(): number;
+        static getOnComplete$annotations(): void;
         static getTriggerInOtherCosmetic$annotations(): void;
         getTriggerInOtherCosmetic(): $Set<string>;
-        static getOnComplete$annotations(): void;
         static getTotalTime$default(arg0: $AnimationEvent, arg1: $BedrockModel, arg2: number, arg3: number, arg4: $Object): number;
+        getLoops(): number;
         getProbability(): number;
         getName(): string;
         getPriority(): number;
@@ -41,6 +41,17 @@ declare module "@package/gg/essential/cosmetics/events" {
         constructor(arg0: number, arg1: $AnimationEventType_, arg2: $AnimationTarget_, arg3: string, arg4: $AnimationEvent, arg5: $Set_<any>, arg6: number, arg7: number, arg8: number, arg9: number, arg10: $SerializationConstructorMarker);
         constructor(arg0: $AnimationEventType_, arg1: $AnimationTarget_, arg2: string, arg3: $AnimationEvent, arg4: $Set_<string>, arg5: number, arg6: number, arg7: number, arg8: number);
         constructor(arg0: $AnimationEventType_, arg1: $AnimationTarget_, arg2: string, arg3: $AnimationEvent, arg4: $Set_<any>, arg5: number, arg6: number, arg7: number, arg8: number, arg9: number, arg10: $DefaultConstructorMarker);
+        get onComplete(): $AnimationEvent;
+        get skips(): number;
+        static get onComplete$annotations(): void;
+        static get triggerInOtherCosmetic$annotations(): void;
+        get triggerInOtherCosmetic(): $Set<string>;
+        get loops(): number;
+        get probability(): number;
+        get name(): string;
+        get priority(): number;
+        get type(): $AnimationEventType;
+        get target(): $AnimationTarget;
     }
     export class $AnimationTarget extends $Enum<$AnimationTarget> {
         static values(): $AnimationTarget[];
@@ -49,6 +60,7 @@ declare module "@package/gg/essential/cosmetics/events" {
         static ALL: $AnimationTarget;
         static OTHERS: $AnimationTarget;
         static SELF: $AnimationTarget;
+        static get entries(): $EnumEntries<$AnimationTarget>;
     }
     /**
      * Values that may be interpreted as {@link $AnimationTarget}.
@@ -78,6 +90,7 @@ declare module "@package/gg/essential/cosmetics/events" {
         static JOIN_WORLD: $AnimationEventType;
         static WALK_END: $AnimationEventType;
         static BY_OTHER: $AnimationEventType;
+        static get entries(): $EnumEntries<$AnimationEventType>;
     }
     /**
      * Values that may be interpreted as {@link $AnimationEventType}.

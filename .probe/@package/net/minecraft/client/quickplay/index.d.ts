@@ -13,6 +13,8 @@ declare module "@package/net/minecraft/client/quickplay" {
         static CODEC: $Codec<$QuickPlayLog$Type>;
         static SINGLEPLAYER: $QuickPlayLog$Type;
         static REALMS: $QuickPlayLog$Type;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $QuickPlayLog$Type}.

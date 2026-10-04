@@ -15,5 +15,7 @@ declare module "@package/kotlinx/serialization/modules" {
         static getContextual$default(arg0: $SerializersModule, arg1: $KClass<any>, arg2: $List_<any>, arg3: number, arg4: $Object): $KSerializer<any>;
         static getHasInterfaceContextualSerializers$kotlinx_serialization_core$annotations(): void;
         constructor(arg0: $DefaultConstructorMarker);
+        get hasInterfaceContextualSerializers$kotlinx_serialization_core(): boolean;
+        static get hasInterfaceContextualSerializers$kotlinx_serialization_core$annotations(): void;
     }
 }

@@ -6,6 +6,8 @@ declare module "@package/snownee/jade/mixin" {
     export interface $AbstractFurnaceBlockEntityAccess {
         getCookingProgress(): number;
         getCookingTotalTime(): number;
+        get cookingProgress(): number;
+        get cookingTotalTime(): number;
     }
     export class $EntityAccess {
     }

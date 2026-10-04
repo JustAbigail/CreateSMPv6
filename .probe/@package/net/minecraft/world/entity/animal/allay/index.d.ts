@@ -41,8 +41,8 @@ declare module "@package/net/minecraft/world/entity/animal/allay" {
         getSpinningProgress(partialTick: number): number;
         getVibrationUser(): $VibrationSystem$User;
         getVibrationData(): $VibrationSystem$Data;
-        getInventory(): $SimpleContainer;
         static createAttributes(): $AttributeSupplier$Builder;
+        getInventory(): $SimpleContainer;
         writeInventoryToTag(arg0: $CompoundTag_, arg1: $HolderLookup$Provider): void;
         readInventoryFromTag(arg0: $CompoundTag_, arg1: $HolderLookup$Provider): void;
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
@@ -216,5 +216,9 @@ declare module "@package/net/minecraft/world/entity/animal/allay" {
         removeStingerTime: number;
         static BASE_SAFE_FALL_DISTANCE: number;
         constructor(entityType: $EntityType_<$Allay>, level: $Level_);
+        get spinning(): boolean;
+        get vibrationUser(): $VibrationSystem$User;
+        get vibrationData(): $VibrationSystem$Data;
+        get inventory(): $SimpleContainer;
     }
 }

@@ -14,6 +14,8 @@ declare module "@package/neoforge/fun/qu_an/minecraft/asyncparticles/client/comp
         constructor(defaultHeight: number, defaultMoving: number);
         constructor(defaultMoving: number);
         constructor();
+        get defaultMoving(): number;
+        get state(): $ContraptionHeightMap$State;
     }
     export class $ContraptionHeightMap$State extends $HeightMap$State {
         isMoving(x: number, z: number): number;

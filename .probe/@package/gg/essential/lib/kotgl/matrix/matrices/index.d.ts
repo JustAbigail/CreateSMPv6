@@ -29,6 +29,22 @@ declare module "@package/gg/essential/lib/kotgl/matrix/matrices" {
         getM33(): number;
         copyOf(): $Mat4;
         constructor();
+        get m03(): number;
+        get m13(): number;
+        get m23(): number;
+        get m00(): number;
+        get m10(): number;
+        get m20(): number;
+        get m30(): number;
+        get m01(): number;
+        get m11(): number;
+        get m21(): number;
+        get m31(): number;
+        get m02(): number;
+        get m12(): number;
+        get m22(): number;
+        get m32(): number;
+        get m33(): number;
     }
     export class $Mat3 implements $Mat {
         getM00(): number;
@@ -42,5 +58,14 @@ declare module "@package/gg/essential/lib/kotgl/matrix/matrices" {
         getM22(): number;
         copyOf(): $Mat3;
         constructor();
+        get m00(): number;
+        get m10(): number;
+        get m20(): number;
+        get m01(): number;
+        get m11(): number;
+        get m21(): number;
+        get m02(): number;
+        get m12(): number;
+        get m22(): number;
     }
 }

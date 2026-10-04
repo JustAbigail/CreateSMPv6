@@ -11,8 +11,8 @@ declare module "@package/net/minecraft/world/level/levelgen/presets" {
     export class $WorldPreset implements $WorldPresetAccessor {
         createWorldDimensions(): $WorldDimensions;
         overworld(): ($LevelStem) | undefined;
-        wover_setDimensions(dimensions: $Map_<$ResourceKey_<$LevelStem>, $LevelStem_>): void;
         wover_getDimensions(): $Map<$ResourceKey<$LevelStem>, $LevelStem>;
+        wover_setDimensions(dimensions: $Map_<$ResourceKey_<$LevelStem>, $LevelStem_>): void;
         static CODEC: $Codec<$Holder<$WorldPreset>>;
         static DIRECT_CODEC: $Codec<$WorldPreset>;
         constructor(dimensions: $Map_<$ResourceKey_<$LevelStem>, $LevelStem_>);

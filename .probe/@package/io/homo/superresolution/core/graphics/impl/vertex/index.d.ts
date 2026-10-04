@@ -6,8 +6,8 @@ declare module "@package/io/homo/superresolution/core/graphics/impl/vertex" {
     }
     export interface $IVertexBuffer extends $GpuObject {
         getSizeInBytes(): number;
-        getVertexCount(): number;
         isDynamic(): boolean;
+        getVertexCount(): number;
         unmap(): void;
         map(arg0: number, arg1: number, arg2: boolean): $ByteBuffer;
         map(arg0: boolean): $ByteBuffer;
@@ -17,5 +17,9 @@ declare module "@package/io/homo/superresolution/core/graphics/impl/vertex" {
         updateData(arg0: $ByteBuffer): void;
         updateData(arg0: $ByteBuffer, arg1: number): void;
         getVertexFormat(): $VertexFormat;
+        get sizeInBytes(): number;
+        get dynamic(): boolean;
+        get vertexCount(): number;
+        get vertexFormat(): $VertexFormat;
     }
 }

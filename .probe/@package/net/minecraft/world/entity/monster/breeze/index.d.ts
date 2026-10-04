@@ -215,5 +215,7 @@ declare module "@package/net/minecraft/world/entity/monster/breeze" {
         removeStingerTime: number;
         static BASE_SAFE_FALL_DISTANCE: number;
         constructor(entityType: $EntityType_<$Monster>, level: $Level_);
+        get hurtBy(): ($LivingEntity) | undefined;
+        get snoutYPosition(): number;
     }
 }

@@ -7,6 +7,7 @@ declare module "@package/kotlinx/coroutines" {
     }
     export interface $CoroutineScope {
         getCoroutineContext(): $CoroutineContext;
+        get coroutineContext(): $CoroutineContext;
     }
     /**
      * Values that may be interpreted as {@link $CoroutineScope}.

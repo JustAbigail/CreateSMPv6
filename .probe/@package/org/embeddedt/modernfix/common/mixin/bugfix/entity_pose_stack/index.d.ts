@@ -6,6 +6,7 @@ declare module "@package/org/embeddedt/modernfix/common/mixin/bugfix/entity_pose
     }
     export interface $PoseStackAccessor {
         getPoseStack(): $Deque<$PoseStack$Pose>;
+        get poseStack(): $Deque<$PoseStack$Pose>;
     }
     /**
      * Values that may be interpreted as {@link $PoseStackAccessor}.

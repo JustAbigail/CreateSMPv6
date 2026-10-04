@@ -20,7 +20,7 @@ declare module "@package/net/minecraft/world/level/levelgen/structure/pieces" {
     /**
      * Values that may be interpreted as {@link $StructurePieceSerializationContext}.
      */
-    export type $StructurePieceSerializationContext_ = { structureTemplateManager?: $StructureTemplateManager, registryAccess?: $RegistryAccess, resourceManager?: $ResourceManager,  } | [structureTemplateManager?: $StructureTemplateManager, registryAccess?: $RegistryAccess, resourceManager?: $ResourceManager, ];
+    export type $StructurePieceSerializationContext_ = { registryAccess?: $RegistryAccess, structureTemplateManager?: $StructureTemplateManager, resourceManager?: $ResourceManager,  } | [registryAccess?: $RegistryAccess, structureTemplateManager?: $StructureTemplateManager, resourceManager?: $ResourceManager, ];
     export class $PiecesContainer extends $Record {
         pieces(): $List<$StructurePiece>;
         calculateBoundingBox(): $BoundingBox;
@@ -29,6 +29,7 @@ declare module "@package/net/minecraft/world/level/levelgen/structure/pieces" {
         isEmpty(): boolean;
         save(context: $StructurePieceSerializationContext_): $Tag;
         constructor(pieces: $List_<$StructurePiece>);
+        get empty(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $PiecesContainer}.
@@ -52,6 +53,8 @@ declare module "@package/net/minecraft/world/level/levelgen/structure/pieces" {
         build(): $PiecesContainer;
         getBoundingBox(): $BoundingBox;
         constructor();
+        get empty(): boolean;
+        get boundingBox(): $BoundingBox;
     }
     export class $StructurePieceType {
         static NETHER_FORTRESS_BRIDGE_STRAIGHT: $StructurePieceType;

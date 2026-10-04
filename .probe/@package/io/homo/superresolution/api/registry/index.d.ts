@@ -18,24 +18,26 @@ declare module "@package/io/homo/superresolution/api/registry" {
     }
     export class $ExtraResources {
         resetCancelState(): void;
+        checkAll(arg0: $DirectoryEnsurer): $List<$ExtraResource>;
         isCancelled(): boolean;
         cancelAll(): void;
-        getAll(arg0: $ExtraResource$ResourceSource$Type, arg1: $DirectoryEnsurer, arg2: $ExtraResources$ResourcesProgressListener, arg3: $ExtraResources$ResourcesFinishListener, arg4: $ExtraResources$ResourcesErrorListener, arg5: boolean): $List<$ExtraResource>;
         getAll(arg0: $List_<$ExtraResource>, arg1: $ExtraResource$ResourceSource$Type, arg2: $DirectoryEnsurer, arg3: $ExtraResources$ResourcesProgressListener, arg4: $ExtraResources$ResourcesFinishListener, arg5: $ExtraResources$ResourcesErrorListener, arg6: boolean): $List<$ExtraResource>;
-        checkAll(arg0: $DirectoryEnsurer): $List<$ExtraResource>;
+        getAll(arg0: $ExtraResource$ResourceSource$Type, arg1: $DirectoryEnsurer, arg2: $ExtraResources$ResourcesProgressListener, arg3: $ExtraResources$ResourcesFinishListener, arg4: $ExtraResources$ResourcesErrorListener, arg5: boolean): $List<$ExtraResource>;
         static builder(): $ExtraResources$Builder;
         getResources(): $List<$ExtraResource>;
         constructor(arg0: $List_<$ExtraResource>);
+        get cancelled(): boolean;
+        get resources(): $List<$ExtraResource>;
     }
     export class $AlgorithmDescription<T extends $AbstractAlgorithm> {
         createNewInstance(): T;
+        getRequirement(): $Requirement;
         getExtraResources(): $ExtraResources;
+        isCustomUpscaleRatio(): boolean;
         getCodeName(): string;
         getBriefName(): string;
         isSupportJitter(): boolean;
         getQualityPresets(): $List<$QualityPreset>;
-        isCustomUpscaleRatio(): boolean;
-        getRequirement(): $Requirement;
         getDisplayName(): string;
         static builder<T extends $AbstractAlgorithm>(arg0: $Class<T>): $AlgorithmDescription$Builder<T>;
         getId(): string;
@@ -47,5 +49,6 @@ declare module "@package/io/homo/superresolution/api/registry" {
         requirement: $Requirement;
         customUpscaleRatio: boolean;
         supportJitter: boolean;
+        get id(): string;
     }
 }

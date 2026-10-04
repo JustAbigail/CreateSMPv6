@@ -17,6 +17,8 @@ declare module "@package/com/simibubi/create/content/processing/burner" {
         static SMOULDERING: $BlazeBurnerBlock$HeatLevel;
         static NONE: $BlazeBurnerBlock$HeatLevel;
         static FADING: $BlazeBurnerBlock$HeatLevel;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $BlazeBurnerBlock$HeatLevel}.

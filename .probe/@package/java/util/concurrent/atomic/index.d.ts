@@ -69,6 +69,10 @@ declare module "@package/java/util/concurrent/atomic" {
         setPlain(arg0: number): void;
         constructor(arg0: number);
         constructor();
+        get acquire(): number;
+        set release(value: number);
+        get andIncrement(): number;
+        get andDecrement(): number;
     }
     export class $AtomicReference<V> implements $Serializable {
         get(): V;
@@ -99,5 +103,7 @@ declare module "@package/java/util/concurrent/atomic" {
         setPlain(arg0: V): void;
         constructor(arg0: V);
         constructor();
+        get acquire(): V;
+        set release(value: V);
     }
 }

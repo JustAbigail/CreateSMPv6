@@ -44,6 +44,9 @@ declare module "@package/net/minecraft/world/entity/animal/armadillo" {
         static IDLE: $Armadillo$ArmadilloState;
         static UNROLLING: $Armadillo$ArmadilloState;
         static STREAM_CODEC: $StreamCodec<$ByteBuf, $Armadillo$ArmadilloState>;
+        get threatened(): boolean;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $Armadillo$ArmadilloState}.
@@ -247,5 +250,7 @@ declare module "@package/net/minecraft/world/entity/animal/armadillo" {
         static BASE_SAFE_FALL_DISTANCE: number;
         age: number;
         constructor(entityType: $EntityType_<$Animal>, level: $Level_);
+        get scared(): boolean;
+        get state(): $Armadillo$ArmadilloState;
     }
 }

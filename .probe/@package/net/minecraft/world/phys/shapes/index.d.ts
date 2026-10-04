@@ -44,19 +44,25 @@ declare module "@package/net/minecraft/world/phys/shapes" {
         ySize: number;
         xSize: number;
         constructor(xSize: number, ySize: number, zSize: number);
+        get empty(): boolean;
+        get XSize(): number;
+        get YSize(): number;
+        get ZSize(): number;
     }
     export class $EntityCollisionContext implements $CollisionContext {
         canStandOnFluid(fluid1: $FluidState, fluid2: $FluidState): boolean;
-        isDescending(): boolean;
-        isHoldingItem(item: $Item_): boolean;
-        isAbove(shape: $VoxelShape, pos: $BlockPos_, canAscend: boolean): boolean;
         getEntity(): $Entity;
+        isAbove(shape: $VoxelShape, pos: $BlockPos_, canAscend: boolean): boolean;
+        isHoldingItem(item: $Item_): boolean;
+        isDescending(): boolean;
         static EMPTY: $CollisionContext;
+        constructor(descending: boolean, entityBottom: number, arg2: $ItemStack_, heldItem: $Predicate_<$FluidState>, canStandOnFluid: $Entity | null);
         /**
          * @deprecated
          */
         constructor(entity: $Entity);
-        constructor(descending: boolean, entityBottom: number, arg2: $ItemStack_, heldItem: $Predicate_<$FluidState>, canStandOnFluid: $Entity | null);
+        get entity(): $Entity;
+        get descending(): boolean;
     }
     export class $CollisionContext {
         static of(entity: $Entity): $CollisionContext;
@@ -64,9 +70,10 @@ declare module "@package/net/minecraft/world/phys/shapes" {
     }
     export interface $CollisionContext {
         canStandOnFluid(fluid1: $FluidState, fluid2: $FluidState): boolean;
-        isDescending(): boolean;
-        isHoldingItem(item: $Item_): boolean;
         isAbove(shape: $VoxelShape, pos: $BlockPos_, canAscend: boolean): boolean;
+        isHoldingItem(item: $Item_): boolean;
+        isDescending(): boolean;
+        get descending(): boolean;
     }
     export class $VoxelShape implements $VoxelShapeAccessor$1, $VoxelShapeAccessor, $FastVoxelShapeIterable, $VoxelShapeAccess {
         getCoords(axis: $Direction$Axis_): $DoubleList;
@@ -81,8 +88,8 @@ declare module "@package/net/minecraft/world/phys/shapes" {
         get(axis: $Direction$Axis_, index: number): number;
         min(axis: $Direction$Axis_, primaryPosition: number, arg2: number): number;
         min(axis: $Direction$Axis_): number;
-        max(axis: $Direction$Axis_): number;
         max(axis: $Direction$Axis_, primaryPosition: number, arg2: number): number;
+        max(axis: $Direction$Axis_): number;
         isEmpty(): boolean;
         bounds(): $AABB;
         optimize(): $VoxelShape;
@@ -90,15 +97,16 @@ declare module "@package/net/minecraft/world/phys/shapes" {
         clip(startVec: $Vec3_, endVec: $Vec3_, pos: $BlockPos_): $BlockHitResult;
         closestPointTo(point: $Vec3_): ($Vec3) | undefined;
         toAabbs(): $List<$AABB>;
-        getShape(): $DiscreteVoxelShape;
         copycats$getShape(): $DiscreteVoxelShape;
         copycats$setShape(shape: $DiscreteVoxelShape): void;
         copycats$callGetCoords(axis: $Direction$Axis_): $DoubleList;
         setShape(shape: $DiscreteVoxelShape): void;
         getFaces(): $VoxelShape[];
         setFaces(arg0: $VoxelShape[]): void;
+        getShape(): $DiscreteVoxelShape;
         shape: $DiscreteVoxelShape;
         constructor(shape: $DiscreteVoxelShape);
+        get empty(): boolean;
     }
     export class $DiscreteVoxelShape$IntLineConsumer {
     }

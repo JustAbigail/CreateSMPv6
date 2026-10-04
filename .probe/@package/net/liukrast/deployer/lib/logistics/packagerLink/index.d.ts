@@ -8,7 +8,7 @@ declare module "@package/net/liukrast/deployer/lib/logistics/packagerLink" {
         tick(): void;
         ticksExisted: number;
         promisedStack: V;
-        constructor(arg0: V);
         constructor(arg0: number, arg1: V);
+        constructor(arg0: V);
     }
 }

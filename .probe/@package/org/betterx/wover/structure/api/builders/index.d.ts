@@ -6,7 +6,7 @@ declare module "@package/org/betterx/wover/structure/api/builders" {
     }
     export interface $BaseStructureBuilder<S extends $Structure, R extends $BaseStructureBuilder<S, R>> {
         directHolder(): $Holder<$Structure>;
-        register(): $Holder<$Structure>;
         adjustment(arg0: $TerrainAdjustment_): R;
+        register(): $Holder<$Structure>;
     }
 }

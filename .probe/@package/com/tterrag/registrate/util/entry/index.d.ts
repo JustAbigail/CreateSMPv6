@@ -37,11 +37,15 @@ declare module "@package/com/tterrag/registrate/util/entry" {
         constructor(arg0: $AbstractRegistrate<never>, arg1: $DeferredHolder<$MenuType_<never>, $MenuType_<$MenuType_<T>>>);
     }
     export class $FluidEntry<T extends $BaseFlowingFluid> extends $RegistryEntry<$Fluid, T> {
-        getSource<S extends $BaseFlowingFluid>(): S;
         getBlock<B extends $Block>(): (B) | undefined;
+        getSource<S extends $BaseFlowingFluid>(): S;
         getType(): $FluidType;
         getBucket<I extends $Item>(): (I) | undefined;
         constructor(arg0: $AbstractRegistrate<never>, arg1: $DeferredHolder<$Fluid_, T>);
+        get block(): (B) | undefined;
+        get source(): S;
+        get type(): $FluidType;
+        get bucket(): (I) | undefined;
     }
     export class $BlockEntityEntry<T extends $BlockEntity> extends $RegistryEntry<$BlockEntityType<never>, $BlockEntityType<T>> {
         getNullable(arg0: $BlockGetter, arg1: $BlockPos_): $BlockEntityType<T>;

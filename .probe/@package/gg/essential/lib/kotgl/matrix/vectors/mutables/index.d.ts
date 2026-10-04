@@ -10,5 +10,8 @@ declare module "@package/gg/essential/lib/kotgl/matrix/vectors/mutables" {
         setY(arg0: number): void;
         setZ(arg0: number): void;
         constructor();
+        set x(value: number);
+        set y(value: number);
+        set z(value: number);
     }
 }

@@ -19,10 +19,13 @@ declare module "@package/net/minecraft/util/profiling/metrics" {
         getCategory(): $MetricCategory;
         thresholdTest: $MetricSampler$ThresholdTest;
         constructor(name: string, category: $MetricCategory_, sampler: $DoubleSupplier_, beforeTick: $Runnable_ | null, thresholdTest: $MetricSampler$ThresholdTest_ | null);
+        get sampler(): $DoubleSupplier;
+        get name(): string;
+        get category(): $MetricCategory;
     }
     export class $MetricSampler$MetricSamplerBuilder<T> {
-        withThresholdAlert(thresholdTest: $MetricSampler$ThresholdTest_): $MetricSampler$MetricSamplerBuilder<T>;
         withBeforeTick(beforeTick: $Consumer_<T>): $MetricSampler$MetricSamplerBuilder<T>;
+        withThresholdAlert(thresholdTest: $MetricSampler$ThresholdTest_): $MetricSampler$MetricSamplerBuilder<T>;
         build(): $MetricSampler;
         constructor(name: string, category: $MetricCategory_, sampler: $ToDoubleFunction_<T>, context: T);
     }
@@ -48,16 +51,19 @@ declare module "@package/net/minecraft/util/profiling/metrics" {
         static MAIL_BOXES: $MetricCategory;
         static CHUNK_RENDERING_DISPATCHING: $MetricCategory;
         static GPU: $MetricCategory;
+        get description(): string;
     }
     /**
      * Values that may be interpreted as {@link $MetricCategory}.
      */
     export type $MetricCategory_ = "path_finding" | "event_loops" | "mail_boxes" | "tick_loop" | "jvm" | "chunk_rendering" | "chunk_rendering_dispatching" | "cpu" | "gpu";
     export class $MetricSampler$SamplerResult {
-        getFirstTick(): number;
         getLastTick(): number;
         valueAtTick(tick: number): number;
+        getFirstTick(): number;
         constructor(firstTick: number, lastTick: number, recording: $Int2DoubleMap);
+        get lastTick(): number;
+        get firstTick(): number;
     }
     export class $MetricSampler$ThresholdTest {
     }

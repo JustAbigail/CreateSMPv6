@@ -35,6 +35,8 @@ export * as phases from "@package/net/minecraft/world/entity/boss/enderdragon/ph
 declare module "@package/net/minecraft/world/entity/boss/enderdragon" {
     export class $EnderDragon extends $Mob implements $Enemy {
         hurt(part: $EnderDragonPart, source: $DamageSource_, damage: number): boolean;
+        setDragonFight(dragonFight: $EndDragonFight): void;
+        getDragonFight(): $EndDragonFight;
         onCrystalDestroyed(crystal: $EndCrystal, pos: $BlockPos_, damageSource: $DamageSource_): void;
         setFightOrigin(fightOrigin: $BlockPos_): void;
         getFightOrigin(): $BlockPos;
@@ -47,19 +49,17 @@ declare module "@package/net/minecraft/world/entity/boss/enderdragon" {
          */
         reallyHurt(source: $DamageSource_, amount: number): boolean;
         /**
-         * Generates values for the fields pathPoints, and neighbors, and then returns the nearest pathPoint to the specified position.
-         */
-        findClosestNode(): number;
-        /**
          * Returns the index into pathPoints of the nearest PathPoint.
          */
         findClosestNode(x: number, arg1: number, y: number): number;
+        /**
+         * Generates values for the fields pathPoints, and neighbors, and then returns the nearest pathPoint to the specified position.
+         */
+        findClosestNode(): number;
         getSubEntities(): $EnderDragonPart[];
         getHeadPartYOffset(partIndex: number, spineEndOffsets: number[], headPartOffsets: number[]): number;
         getHeadLookVector(partialTicks: number): $Vec3;
         getPhaseManager(): $EnderDragonPhaseManager;
-        getDragonFight(): $EndDragonFight;
-        setDragonFight(dragonFight: $EndDragonFight): void;
         /**
          * Find and return a path among the circles described by pathPoints, or null if the shortest path would just be directly between the start and finish with no intermediate points.
          * 
@@ -243,15 +243,17 @@ declare module "@package/net/minecraft/world/entity/boss/enderdragon" {
         removeStingerTime: number;
         static BASE_SAFE_FALL_DISTANCE: number;
         constructor(entityType: $EntityType_<$EnderDragon>, level: $Level_);
+        get subEntities(): $EnderDragonPart[];
+        get phaseManager(): $EnderDragonPhaseManager;
     }
     export class $EndCrystal extends $Entity {
+        setShowBottom(showBottom: boolean): void;
+        setBeamTarget(beamTarget: $BlockPos_ | null): void;
         getBeamTarget(): $BlockPos;
         /**
          * Returns `true` if other Entities should be prevented from moving through this Entity.
          */
         showsBottom(): boolean;
-        setBeamTarget(beamTarget: $BlockPos_ | null): void;
-        setShowBottom(showBottom: boolean): void;
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
         firstTick: boolean;
         wasEyeInWater: boolean;
@@ -323,7 +325,8 @@ declare module "@package/net/minecraft/world/entity/boss/enderdragon" {
         wasTouchingWater: boolean;
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
-        constructor(level: $Level_, x: number, arg2: number, y: number);
         constructor(entityType: $EntityType_<$EndCrystal>, level: $Level_);
+        constructor(level: $Level_, x: number, arg2: number, y: number);
+        set showBottom(value: boolean);
     }
 }

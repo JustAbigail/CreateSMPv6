@@ -16,7 +16,6 @@ import { $Pair, $Lazy } from "@package/kotlin";
 declare module "@package/gg/essential/network/cosmetics" {
     export class $Cosmetic {
         component3(): $List<$Cosmetic$Diagnostic>;
-        getTags(): $Set<string>;
         getDefaultVariantName(): string;
         requiresUnlockAction(): boolean;
         getAvailableAfter(): $Instant;
@@ -49,11 +48,11 @@ declare module "@package/gg/essential/network/cosmetics" {
         getPartnerName(): string;
         static getEmoteInterruptionTriggers$annotations(): void;
         getEmoteInterruptionTriggers(): $CosmeticProperty$InterruptsEmote$Data;
-        getTier(): $CosmeticTier;
         getCategories(): $Map<string, number>;
-        getDisplayName(arg0: string): string;
+        getTier(): $CosmeticTier;
         getDisplayName(): string;
-        getVariants(): $List<$CosmeticProperty$Variants$Variant>;
+        getDisplayName(arg0: string): string;
+        getBase(): $CosmeticBase;
         getDisplayNames(): $Map<string, string>;
         getProperties(): $List<$CosmeticProperty>;
         properties<T extends $CosmeticProperty>(): $List<T>;
@@ -61,22 +60,63 @@ declare module "@package/gg/essential/network/cosmetics" {
         copy(arg0: $CosmeticBase, arg1: $CosmeticStoreInfo, arg2: $List_<$Cosmetic$Diagnostic>): $Cosmetic;
         getSlot(): $CosmeticSlot;
         property<T extends $CosmeticProperty>(): T;
-        getBase(): $CosmeticBase;
+        getVariants(): $List<$CosmeticProperty$Variants$Variant>;
         getLocalPath(): string;
         assets(arg0: string): $CosmeticAssets;
         assets(arg0: $List_<$CosmeticSetting>): $CosmeticAssets;
         getFiles(): $Map<string, $EssentialAsset>;
+        getTags(): $Set<string>;
         component1(): $CosmeticBase;
         component2(): $CosmeticStoreInfo;
         static copy$default(arg0: $Cosmetic, arg1: $CosmeticBase, arg2: $CosmeticStoreInfo, arg3: $List_<any>, arg4: number, arg5: $Object): $Cosmetic;
-        constructor(arg0: $CosmeticBase, arg1: $CosmeticStoreInfo, arg2: $List_<$Cosmetic$Diagnostic>);
         constructor(arg0: $CosmeticBase, arg1: $CosmeticStoreInfo, arg2: $List_<any>, arg3: number, arg4: $DefaultConstructorMarker);
+        constructor(arg0: $CosmeticBase, arg1: $CosmeticStoreInfo, arg2: $List_<$Cosmetic$Diagnostic>);
+        get defaultVariantName(): string;
+        get availableAfter(): $Instant;
+        get availableUntil(): $Instant;
+        get storeInfo(): $CosmeticStoreInfo;
+        get diagnostics(): $List<$Cosmetic$Diagnostic>;
+        get allProperties(): $List<$CosmeticProperty>;
+        get price(): number;
+        get showTimerAfter(): $Instant;
+        get defaultSortWeight(): number;
+        get baseAssets(): $CosmeticAssets;
+        get assetVariants(): $Map<string, $CosmeticAssets>;
+        get disabledProperties(): $List<$CosmeticProperty>;
+        get legacy(): boolean;
+        get purchasable(): boolean;
+        get cosmeticFree(): boolean;
+        get defaultSide(): $Side;
+        get mutuallyExclusiveWith(): $Set<$CosmeticSlot>;
+        get defaultVariant(): $CosmeticProperty$Variants$Variant;
+        get defaultVariantSetting(): $CosmeticSetting$Variant;
+        static get partnerCreator$annotations(): void;
+        get partnerCreator(): boolean;
+        static get partnerMod$annotations(): void;
+        get partnerMod(): string;
+        static get partnerEvent$annotations(): void;
+        get partnerEvent(): string;
+        get partnered(): boolean;
+        static get partnered$annotations(): void;
+        static get partnerName$annotations(): void;
+        get partnerName(): string;
+        static get emoteInterruptionTriggers$annotations(): void;
+        get emoteInterruptionTriggers(): $CosmeticProperty$InterruptsEmote$Data;
+        get categories(): $Map<string, number>;
+        get tier(): $CosmeticTier;
+        get base(): $CosmeticBase;
+        get displayNames(): $Map<string, string>;
+        get id(): string;
+        get slot(): $CosmeticSlot;
+        get variants(): $List<$CosmeticProperty$Variants$Variant>;
+        get localPath(): string;
+        get files(): $Map<string, $EssentialAsset>;
+        get tags(): $Set<string>;
     }
     export class $CosmeticStoreInfo {
         component3(): $Instant;
         component4(): $Instant;
         component5(): $Instant;
-        getTags(): $Set<string>;
         component6(): $Map<string, number>;
         component7(): number;
         getAvailableAfter(): $Instant;
@@ -86,10 +126,18 @@ declare module "@package/gg/essential/network/cosmetics" {
         getDefaultSortWeight(): number;
         getCategories(): $Map<string, number>;
         copy(arg0: number, arg1: $Set_<string>, arg2: $Instant, arg3: $Instant, arg4: $Instant, arg5: $Map_<string, number>, arg6: number): $CosmeticStoreInfo;
+        getTags(): $Set<string>;
         component1(): number;
         component2(): $Set<string>;
         static copy$default(arg0: $CosmeticStoreInfo, arg1: number, arg2: $Set_<any>, arg3: $Instant, arg4: $Instant, arg5: $Instant, arg6: $Map_<any, any>, arg7: number, arg8: number, arg9: $Object): $CosmeticStoreInfo;
         constructor(arg0: number, arg1: $Set_<string>, arg2: $Instant, arg3: $Instant, arg4: $Instant, arg5: $Map_<string, number>, arg6: number);
+        get availableAfter(): $Instant;
+        get availableUntil(): $Instant;
+        get price(): number;
+        get showTimerAfter(): $Instant;
+        get defaultSortWeight(): number;
+        get categories(): $Map<string, number>;
+        get tags(): $Set<string>;
     }
     export class $Cosmetic$Diagnostic {
         component3(): string;
@@ -102,23 +150,30 @@ declare module "@package/gg/essential/network/cosmetics" {
         static access$get$childSerializers$cp(): $Lazy<any>[];
         getLineColumn(): $Pair<number, number>;
         getSkin(): $Model;
-        getVariant(): string;
         getMessage(): string;
         getType(): $Cosmetic$Diagnostic$Type;
         copy(arg0: $Cosmetic$Diagnostic$Type_, arg1: string, arg2: string, arg3: string, arg4: $Pair<number, number>, arg5: string, arg6: $Model_): $Cosmetic$Diagnostic;
         getFile(): string;
+        getVariant(): string;
         component1(): $Cosmetic$Diagnostic$Type;
         component2(): string;
         static copy$default(arg0: $Cosmetic$Diagnostic, arg1: $Cosmetic$Diagnostic$Type_, arg2: string, arg3: string, arg4: string, arg5: $Pair<any, any>, arg6: string, arg7: $Model_, arg8: number, arg9: $Object): $Cosmetic$Diagnostic;
         static Companion: $Cosmetic$Diagnostic$Companion;
-        constructor(arg0: number, arg1: $Cosmetic$Diagnostic$Type_, arg2: string, arg3: string, arg4: string, arg5: $Pair<any, any>, arg6: string, arg7: $Model_, arg8: $SerializationConstructorMarker);
         constructor(arg0: $Cosmetic$Diagnostic$Type_, arg1: string, arg2: string, arg3: string, arg4: $Pair<number, number>, arg5: string, arg6: $Model_);
+        constructor(arg0: number, arg1: $Cosmetic$Diagnostic$Type_, arg2: string, arg3: string, arg4: string, arg5: $Pair<any, any>, arg6: string, arg7: $Model_, arg8: $SerializationConstructorMarker);
         constructor(arg0: $Cosmetic$Diagnostic$Type_, arg1: string, arg2: string, arg3: string, arg4: $Pair<any, any>, arg5: string, arg6: $Model_, arg7: number, arg8: $DefaultConstructorMarker);
+        get stacktrace(): string;
+        get lineColumn(): $Pair<number, number>;
+        get skin(): $Model;
+        get message(): string;
+        get type(): $Cosmetic$Diagnostic$Type;
+        get file(): string;
+        get variant(): string;
     }
     export class $Cosmetic$Diagnostic$Companion {
         static warning$default(arg0: $Cosmetic$Diagnostic$Companion, arg1: string, arg2: string, arg3: string, arg4: $Pair<any, any>, arg5: string, arg6: $Model_, arg7: number, arg8: $Object): $Cosmetic$Diagnostic;
-        static fatal$default(arg0: $Cosmetic$Diagnostic$Companion, arg1: string, arg2: string, arg3: string, arg4: $Pair<any, any>, arg5: string, arg6: $Model_, arg7: number, arg8: $Object): $Cosmetic$Diagnostic;
         static error$default(arg0: $Cosmetic$Diagnostic$Companion, arg1: string, arg2: string, arg3: string, arg4: $Pair<any, any>, arg5: string, arg6: $Model_, arg7: number, arg8: $Object): $Cosmetic$Diagnostic;
+        static fatal$default(arg0: $Cosmetic$Diagnostic$Companion, arg1: string, arg2: string, arg3: string, arg4: $Pair<any, any>, arg5: string, arg6: $Model_, arg7: number, arg8: $Object): $Cosmetic$Diagnostic;
         warning(arg0: string, arg1: string, arg2: string, arg3: $Pair<number, number>, arg4: string, arg5: $Model_): $Cosmetic$Diagnostic;
         error(arg0: string, arg1: string, arg2: string, arg3: $Pair<number, number>, arg4: string, arg5: $Model_): $Cosmetic$Diagnostic;
         fatal(arg0: string, arg1: string, arg2: string, arg3: $Pair<number, number>, arg4: string, arg5: $Model_): $Cosmetic$Diagnostic;
@@ -141,6 +196,12 @@ declare module "@package/gg/essential/network/cosmetics" {
         component2(): $CosmeticSlot;
         static copy$default(arg0: $CosmeticBase, arg1: string, arg2: $CosmeticSlot, arg3: $CosmeticTier_, arg4: $Map_<any, any>, arg5: $Map_<any, any>, arg6: $List_<any>, arg7: number, arg8: $Object): $CosmeticBase;
         constructor(arg0: string, arg1: $CosmeticSlot, arg2: $CosmeticTier_, arg3: $Map_<string, string>, arg4: $Map_<string, $EssentialAsset>, arg5: $List_<$CosmeticProperty>);
+        get allProperties(): $List<$CosmeticProperty>;
+        get tier(): $CosmeticTier;
+        get displayNames(): $Map<string, string>;
+        get id(): string;
+        get slot(): $CosmeticSlot;
+        get files(): $Map<string, $EssentialAsset>;
     }
     export class $Cosmetic$Diagnostic$Type extends $Enum<$Cosmetic$Diagnostic$Type> {
         static access$get$cachedSerializer$delegate$cp(): $Lazy<any>;
@@ -151,6 +212,7 @@ declare module "@package/gg/essential/network/cosmetics" {
         static Warning: $Cosmetic$Diagnostic$Type;
         static Error: $Cosmetic$Diagnostic$Type;
         static Fatal: $Cosmetic$Diagnostic$Type;
+        static get entries(): $EnumEntries<$Cosmetic$Diagnostic$Type>;
     }
     /**
      * Values that may be interpreted as {@link $Cosmetic$Diagnostic$Type}.

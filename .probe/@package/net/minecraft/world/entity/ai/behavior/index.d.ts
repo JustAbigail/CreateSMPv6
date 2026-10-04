@@ -15,6 +15,7 @@ declare module "@package/net/minecraft/world/entity/ai/behavior" {
         tickOrStop(level: $ServerLevel, entity: E, gameTime: number): void;
         debugString(): string;
         getStatus(): $Behavior$Status;
+        get status(): $Behavior$Status;
     }
     export class $PositionTracker {
     }
@@ -34,22 +35,23 @@ declare module "@package/net/minecraft/world/entity/ai/behavior" {
      */
     export type $Behavior$Status_ = "stopped" | "running";
     export class $Behavior<E extends $LivingEntity> implements $BehaviorControl<E> {
-        checkExtraStartConditions(level: $ServerLevel, owner: E): boolean;
-        canStillUse(level: $ServerLevel, entity: E, gameTime: number): boolean;
-        hasRequiredMemories(owner: E): boolean;
         doStop(level: $ServerLevel, entity: E, gameTime: number): void;
         tryStart(level: $ServerLevel, entity: E, gameTime: number): boolean;
         tickOrStop(level: $ServerLevel, entity: E, gameTime: number): void;
+        canStillUse(level: $ServerLevel, entity: E, gameTime: number): boolean;
+        hasRequiredMemories(owner: E): boolean;
+        checkExtraStartConditions(level: $ServerLevel, owner: E): boolean;
         timedOut(gameTime: number): boolean;
+        tick(level: $ServerLevel, entity: E, gameTime: number): void;
         start(level: $ServerLevel, entity: E, gameTime: number): void;
         stop(level: $ServerLevel, entity: E, gameTime: number): void;
         debugString(): string;
-        tick(level: $ServerLevel, entity: E, gameTime: number): void;
         getStatus(): $Behavior$Status;
         static DEFAULT_DURATION: number;
         entryCondition: $Map<$MemoryModuleType<never>, $MemoryStatus>;
+        constructor(entryCondition: $Map_<$MemoryModuleType_<never>, $MemoryStatus_>, duration: number);
         constructor(entryCondition: $Map_<$MemoryModuleType_<never>, $MemoryStatus_>);
         constructor(entryCondition: $Map_<$MemoryModuleType_<never>, $MemoryStatus_>, minDuration: number, maxDuration: number);
-        constructor(entryCondition: $Map_<$MemoryModuleType_<never>, $MemoryStatus_>, duration: number);
+        get status(): $Behavior$Status;
     }
 }

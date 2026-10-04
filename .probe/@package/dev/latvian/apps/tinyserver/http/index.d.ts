@@ -37,21 +37,22 @@ declare module "@package/dev/latvian/apps/tinyserver/http" {
     /**
      * Values that may be interpreted as {@link $HTTPPathHandler}.
      */
-    export type $HTTPPathHandler_<REQ> = { handler?: $HTTPHandler_<$HTTPRequest>, method?: $HTTPMethod_, path?: $CompiledPath_,  } | [handler?: $HTTPHandler_<$HTTPRequest>, method?: $HTTPMethod_, path?: $CompiledPath_, ];
+    export type $HTTPPathHandler_<REQ> = { handler?: $HTTPHandler_<$HTTPRequest>, path?: $CompiledPath_, method?: $HTTPMethod_,  } | [handler?: $HTTPHandler_<$HTTPRequest>, path?: $CompiledPath_, method?: $HTTPMethod_, ];
     export class $Body {
         getPostData(): $Map<string, $OptionalString>;
-        contentType(): string;
+        byteBuffer(): $ByteBuffer;
         name(): string;
         fileName(): string;
         bytes(): number[];
         property(key: string): $OptionalString;
         text(): string;
-        byteBuffer(): $ByteBuffer;
+        contentType(): string;
         constructor();
+        get postData(): $Map<string, $OptionalString>;
     }
     export class $HTTPRequest {
-        bodyBuffer(): $ByteBuffer;
         queryString(): string;
+        bodyBuffer(): $ByteBuffer;
         fullPath(): string;
         ipv6(): string;
         handleResponse(payload: $HTTPPayload, response: $HTTPResponse, error: $Throwable): $HTTPResponse;
@@ -68,17 +69,17 @@ declare module "@package/dev/latvian/apps/tinyserver/http" {
         gitHubEvent(): string;
         cookies(): $Map<string, $OptionalString>;
         headers(): $List<$Header>;
-        cookie(key: string): $OptionalString;
-        country(): string;
         variable(name: string): $OptionalString;
         ip(): string;
+        cookie(key: string): $OptionalString;
+        header(name: string): $OptionalString;
         method(): $HTTPMethod;
         init(path: string, pathParts: string[], compiledPath: $CompiledPath_, headers: $List_<$Header_>, queryString: string, query: $Map_<string, $OptionalString_>): void;
         startTime(): $Instant;
         query(): $Map<string, $OptionalString>;
         query(key: string): $OptionalString;
         path(): string;
-        header(name: string): $OptionalString;
+        country(): string;
         server(): $HTTPServer<never>;
         connection(): $HTTPConnection<never>;
         userAgent(): string;
@@ -91,6 +92,7 @@ declare module "@package/dev/latvian/apps/tinyserver/http" {
     export interface $HTTPHandler<REQ extends $HTTPRequest> {
         isFileHandler(): boolean;
         handle(req: REQ): $HTTPResponse;
+        get fileHandler(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $HTTPHandler}.
@@ -113,5 +115,6 @@ declare module "@package/dev/latvian/apps/tinyserver/http" {
         start(req: REQ): void;
         protocol(): string;
         isClosed(): boolean;
+        get closed(): boolean;
     }
 }

@@ -9,5 +9,6 @@ declare module "@package/foundry/veil/forge/mixin/client/perspective/sodium" {
         setRenderLists(arg0: $SortedRenderLists): void;
         setTaskLists(arg0: $Map_<$TaskQueueType_, $ArrayDeque<$RenderSection>>): void;
         getTaskLists(): $Map<$TaskQueueType, $ArrayDeque<$RenderSection>>;
+        set renderLists(value: $SortedRenderLists);
     }
 }

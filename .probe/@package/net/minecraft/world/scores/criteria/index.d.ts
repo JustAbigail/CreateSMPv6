@@ -7,10 +7,10 @@ declare module "@package/net/minecraft/world/scores/criteria" {
         static registerCustom(name: string, readOnly: boolean, renderType: $ObjectiveCriteria$RenderType_): $ObjectiveCriteria;
         static registerCustom(name: string): $ObjectiveCriteria;
         static getCustomCriteriaNames(): $Set<string>;
+        getDefaultRenderType(): $ObjectiveCriteria$RenderType;
         getName(): string;
         isReadOnly(): boolean;
         static byName(name: string): ($ObjectiveCriteria) | undefined;
-        getDefaultRenderType(): $ObjectiveCriteria$RenderType;
         static DEATH_COUNT: $ObjectiveCriteria;
         static ARMOR: $ObjectiveCriteria;
         static TRIGGER: $ObjectiveCriteria;
@@ -24,8 +24,12 @@ declare module "@package/net/minecraft/world/scores/criteria" {
         static TEAM_KILL: $ObjectiveCriteria[];
         static KILLED_BY_TEAM: $ObjectiveCriteria[];
         static FOOD: $ObjectiveCriteria;
-        constructor(name: string, readOnly: boolean, renderType: $ObjectiveCriteria$RenderType_);
         constructor(name: string);
+        constructor(name: string, readOnly: boolean, renderType: $ObjectiveCriteria$RenderType_);
+        static get customCriteriaNames(): $Set<string>;
+        get defaultRenderType(): $ObjectiveCriteria$RenderType;
+        get name(): string;
+        get readOnly(): boolean;
     }
     export class $ObjectiveCriteria$RenderType extends $Enum<$ObjectiveCriteria$RenderType> implements $StringRepresentable {
         static values(): $ObjectiveCriteria$RenderType[];
@@ -37,6 +41,9 @@ declare module "@package/net/minecraft/world/scores/criteria" {
         static CODEC: $StringRepresentable$EnumCodec<$ObjectiveCriteria$RenderType>;
         static HEARTS: $ObjectiveCriteria$RenderType;
         static INTEGER: $ObjectiveCriteria$RenderType;
+        get id(): string;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $ObjectiveCriteria$RenderType}.

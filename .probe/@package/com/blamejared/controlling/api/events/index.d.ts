@@ -13,35 +13,61 @@ declare module "@package/com/blamejared/controlling/api/events" {
         getMouseX(): number;
         getMouseY(): number;
         constructor(arg0: $IKeyEntry, arg1: number, arg2: number, arg3: number);
+        get buttonId(): number;
+        get entry(): $IKeyEntry;
+        get mouseX(): number;
+        get mouseY(): number;
     }
     export class $KeyEntryRenderEvent extends $Event implements $IKeyEntryRenderEvent {
+        getGuiGraphics(): $GuiGraphics;
+        getRowWidth(): number;
+        getRowLeft(): number;
         isHovered(): boolean;
         getPartialTicks(): number;
-        getGuiGraphics(): $GuiGraphics;
         getY(): number;
         getSlotIndex(): number;
         getEntry(): $IKeyEntry;
         getX(): number;
         getMouseX(): number;
         getMouseY(): number;
-        getRowWidth(): number;
-        getRowLeft(): number;
         constructor(arg0: $IKeyEntry, arg1: $GuiGraphics, arg2: number, arg3: number, arg4: number, arg5: number, arg6: number, arg7: number, arg8: number, arg9: boolean, arg10: number);
+        get guiGraphics(): $GuiGraphics;
+        get rowWidth(): number;
+        get rowLeft(): number;
+        get hovered(): boolean;
+        get partialTicks(): number;
+        get y(): number;
+        get slotIndex(): number;
+        get entry(): $IKeyEntry;
+        get x(): number;
+        get mouseX(): number;
+        get mouseY(): number;
     }
     export class $IKeyEntryRenderEvent {
     }
     export interface $IKeyEntryRenderEvent {
+        getGuiGraphics(): $GuiGraphics;
+        getRowWidth(): number;
+        getRowLeft(): number;
         isHovered(): boolean;
         getPartialTicks(): number;
-        getGuiGraphics(): $GuiGraphics;
         getY(): number;
         getSlotIndex(): number;
         getEntry(): $IKeyEntry;
         getX(): number;
         getMouseX(): number;
         getMouseY(): number;
-        getRowWidth(): number;
-        getRowLeft(): number;
+        get guiGraphics(): $GuiGraphics;
+        get rowWidth(): number;
+        get rowLeft(): number;
+        get hovered(): boolean;
+        get partialTicks(): number;
+        get y(): number;
+        get slotIndex(): number;
+        get entry(): $IKeyEntry;
+        get x(): number;
+        get mouseX(): number;
+        get mouseY(): number;
     }
     export class $IKeyEntryMouseReleasedEvent {
     }
@@ -52,6 +78,10 @@ declare module "@package/com/blamejared/controlling/api/events" {
         getEntry(): $IKeyEntry;
         getMouseX(): number;
         getMouseY(): number;
+        get buttonId(): number;
+        get entry(): $IKeyEntry;
+        get mouseX(): number;
+        get mouseY(): number;
     }
     export class $KeyEntryMouseClickedEvent extends $Event implements $IKeyEntryMouseClickedEvent {
         getButtonId(): number;
@@ -61,17 +91,25 @@ declare module "@package/com/blamejared/controlling/api/events" {
         getMouseX(): number;
         getMouseY(): number;
         constructor(arg0: $IKeyEntry, arg1: number, arg2: number, arg3: number);
+        get buttonId(): number;
+        get entry(): $IKeyEntry;
+        get mouseX(): number;
+        get mouseY(): number;
     }
     export class $IKeyEntryListenersEvent {
     }
     export interface $IKeyEntryListenersEvent {
         getEntry(): $IKeyEntry;
         getListeners(): $List<$GuiEventListener>;
+        get entry(): $IKeyEntry;
+        get listeners(): $List<$GuiEventListener>;
     }
     export class $KeyEntryListenersEvent extends $Event implements $IKeyEntryListenersEvent {
         getEntry(): $IKeyEntry;
         getListeners(): $List<$GuiEventListener>;
         constructor(arg0: $IKeyEntry);
+        get entry(): $IKeyEntry;
+        get listeners(): $List<$GuiEventListener>;
     }
     export class $IKeyEntryMouseClickedEvent {
     }
@@ -82,5 +120,9 @@ declare module "@package/com/blamejared/controlling/api/events" {
         getEntry(): $IKeyEntry;
         getMouseX(): number;
         getMouseY(): number;
+        get buttonId(): number;
+        get entry(): $IKeyEntry;
+        get mouseX(): number;
+        get mouseY(): number;
     }
 }

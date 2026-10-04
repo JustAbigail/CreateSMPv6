@@ -11,6 +11,7 @@ declare module "@package/xaero/pac/common/parties/party/member" {
         static ADMIN: $PartyMemberRank;
         static MEMBER: $PartyMemberRank;
         static MODERATOR: $PartyMemberRank;
+        get color(): $ChatFormatting;
     }
     /**
      * Values that may be interpreted as {@link $PartyMemberRank}.

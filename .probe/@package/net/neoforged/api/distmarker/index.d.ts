@@ -8,6 +8,8 @@ declare module "@package/net/neoforged/api/distmarker" {
         isDedicatedServer(): boolean;
         static DEDICATED_SERVER: $Dist;
         static CLIENT: $Dist;
+        get client(): boolean;
+        get dedicatedServer(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $Dist}.

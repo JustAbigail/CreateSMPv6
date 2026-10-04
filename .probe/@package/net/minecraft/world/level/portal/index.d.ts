@@ -19,8 +19,8 @@ declare module "@package/net/minecraft/world/level/portal" {
     export class $DimensionTransition$PostDimensionTransition {
     }
     export interface $DimensionTransition$PostDimensionTransition {
-        onTransition(entity: $Entity): void;
         then(transition: $DimensionTransition$PostDimensionTransition_): $DimensionTransition$PostDimensionTransition;
+        onTransition(entity: $Entity): void;
     }
     /**
      * Values that may be interpreted as {@link $DimensionTransition$PostDimensionTransition}.
@@ -29,33 +29,35 @@ declare module "@package/net/minecraft/world/level/portal" {
     export class $DimensionTransition extends $Record {
         xRot(): number;
         yRot(): number;
-        postDimensionTransition(): $DimensionTransition$PostDimensionTransition;
         missingRespawnBlock(): boolean;
         static missingRespawnBlock(level: $ServerLevel, entity: $Entity, postDimensionTransition: $DimensionTransition$PostDimensionTransition_): $DimensionTransition;
         newLevel(): $ServerLevel;
         pos(): $Vec3;
+        postDimensionTransition(): $DimensionTransition$PostDimensionTransition;
         speed(): $Vec3;
         static PLACE_PORTAL_TICKET: $DimensionTransition$PostDimensionTransition;
         static PLAY_PORTAL_SOUND: $DimensionTransition$PostDimensionTransition;
         static DO_NOTHING: $DimensionTransition$PostDimensionTransition;
-        constructor(arg0: $ServerLevel, arg1: $Vec3_, arg2: $Vec3_, arg3: number, arg4: number, arg5: boolean, arg6: $DimensionTransition$PostDimensionTransition_);
         constructor(newLevel: $ServerLevel, entity: $Entity, postDimensionTransition: $DimensionTransition$PostDimensionTransition_);
         constructor(newLevel: $ServerLevel, pos: $Vec3_, speed: $Vec3_, yRot: number, xRot: number, postDimensionTransition: $DimensionTransition$PostDimensionTransition_);
+        constructor(arg0: $ServerLevel, arg1: $Vec3_, arg2: $Vec3_, arg3: number, arg4: number, arg5: boolean, arg6: $DimensionTransition$PostDimensionTransition_);
     }
     /**
      * Values that may be interpreted as {@link $DimensionTransition}.
      */
-    export type $DimensionTransition_ = { newLevel?: $ServerLevel, postDimensionTransition?: $DimensionTransition$PostDimensionTransition_, pos?: $Vec3_, speed?: $Vec3_, yRot?: number, xRot?: number, missingRespawnBlock?: boolean,  } | [newLevel?: $ServerLevel, postDimensionTransition?: $DimensionTransition$PostDimensionTransition_, pos?: $Vec3_, speed?: $Vec3_, yRot?: number, xRot?: number, missingRespawnBlock?: boolean, ];
+    export type $DimensionTransition_ = { postDimensionTransition?: $DimensionTransition$PostDimensionTransition_, newLevel?: $ServerLevel, missingRespawnBlock?: boolean, xRot?: number, yRot?: number, speed?: $Vec3_, pos?: $Vec3_,  } | [postDimensionTransition?: $DimensionTransition$PostDimensionTransition_, newLevel?: $ServerLevel, missingRespawnBlock?: boolean, xRot?: number, yRot?: number, speed?: $Vec3_, pos?: $Vec3_, ];
     export class $PortalShape {
         static findPortalShape(level: $LevelAccessor, bottomLeft: $BlockPos_, predicate: $Predicate_<$PortalShape>, axis: $Direction$Axis_): ($PortalShape) | undefined;
-        static getRelativePosition(foundRectangle: $BlockUtil$FoundRectangle, axis: $Direction$Axis_, pos: $Vec3_, entityDimensions: $EntityDimensions_): $Vec3;
         static findEmptyPortalShape(level: $LevelAccessor, bottomLeft: $BlockPos_, axis: $Direction$Axis_): ($PortalShape) | undefined;
         createPortalBlocks(): void;
         static findCollisionFreePosition(pos: $Vec3_, level: $ServerLevel, entity: $Entity, dimensions: $EntityDimensions_): $Vec3;
         isValid(): boolean;
         isComplete(): boolean;
+        static getRelativePosition(foundRectangle: $BlockUtil$FoundRectangle, axis: $Direction$Axis_, pos: $Vec3_, entityDimensions: $EntityDimensions_): $Vec3;
         static MAX_WIDTH: number;
         static MAX_HEIGHT: number;
         constructor(level: $LevelAccessor, bottomLeft: $BlockPos_, axis: $Direction$Axis_);
+        get valid(): boolean;
+        get complete(): boolean;
     }
 }

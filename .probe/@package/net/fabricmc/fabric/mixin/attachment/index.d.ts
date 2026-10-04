@@ -21,6 +21,7 @@ declare module "@package/net/fabricmc/fabric/mixin/attachment" {
     }
     export interface $AttachmentTypeAccessor {
         getSerializer(): $IAttachmentSerializer<never, never>;
+        get serializer(): $IAttachmentSerializer<never, never>;
     }
     /**
      * Values that may be interpreted as {@link $AttachmentTypeAccessor}.

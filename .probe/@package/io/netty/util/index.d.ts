@@ -68,6 +68,8 @@ declare module "@package/io/netty/util" {
         key(): $AttributeKey<T>;
         compareAndSet(arg0: T, arg1: T): boolean;
         getAndSet(arg0: T): T;
+        set ifAbsent(value: T);
+        get andRemove(): T;
     }
     export class $ReferenceCounted {
     }

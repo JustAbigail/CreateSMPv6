@@ -13,6 +13,7 @@ import { $PrimaryAssemblerExtension } from "@package/dev/simulated_team/simulate
 import { $SubLevelHeatMapManager } from "@package/dev/ryanhcode/sable/sublevel/plot/heat";
 import { $ReactionWheelManager } from "@package/dev/ryanhcode/sable/physics";
 import { $UUID, $UUID_, $Collection } from "@package/java/util";
+import { $ClientLevel } from "@package/net/minecraft/client/multiplayer";
 import { $ServerLevel } from "@package/net/minecraft/server/level";
 import { $Object2ObjectMap } from "@package/it/unimi/dsi/fastutil/objects";
 import { $BlockPos, $BlockPos_ } from "@package/net/minecraft/core";
@@ -31,26 +32,36 @@ export * as storage from "@package/dev/ryanhcode/sable/sublevel/storage";
 declare module "@package/dev/ryanhcode/sable/sublevel" {
     export class $SubLevel implements $SubLevelAccess {
         lastPose(): $Pose3dc;
-        getUniqueId(): $UUID;
-        boundingBox(): $BoundingBox3dc;
-        getLevel(): $Level;
-        getName(): string;
-        setName(arg0: string): void;
-        tick(): void;
-        onRemove(): void;
-        isRemoved(): boolean;
-        getPlot(): $LevelPlot;
         markRemoved(): void;
         onPlotBoundsChanged(): void;
         updateLastPose(): void;
         updateBoundingBox(): void;
         forceUpdateGlobalBounds(): void;
         setUniqueId(arg0: $UUID_): void;
+        boundingBox(): $BoundingBox3dc;
+        getLevel(): $Level;
+        tick(): void;
+        getName(): string;
+        setName(arg0: string): void;
+        onRemove(): void;
+        getUniqueId(): $UUID;
+        isRemoved(): boolean;
+        getPlot(): $LevelPlot;
         logicalPose(): $Pose3dc;
+        get level(): $Level;
+        get removed(): boolean;
+        get plot(): $LevelPlot;
     }
     export class $ServerSubLevel extends $SubLevel implements $PhysicsPipelineBody, $PrimaryAssemblerExtension {
-        getQueuedForceGroups(): $Object2ObjectMap<$ForceGroup, $QueuedForceGroup>;
+        prePhysicsTickBegin(): void;
+        updateMergedMassData(arg0: number): void;
+        applyQueuedForces(arg0: $SubLevelPhysicsSystem, arg1: $RigidBodyHandle, arg2: number): void;
+        getSelfMassTracker(): $MassTracker;
+        buildMassTracker(): void;
+        getMassTracker(): $MassData;
+        getTrackingPlayers(): $Collection<$UUID>;
         enableIndividualQueuedForcesTracking(arg0: boolean): void;
+        getQueuedForceGroups(): $Object2ObjectMap<$ForceGroup, $QueuedForceGroup>;
         simulated$setPrimaryAssembler(arg0: $BlockPos_): void;
         simulated$getPrimaryAssembler(): $BlockPos;
         getRuntimeId(): number;
@@ -73,24 +84,25 @@ declare module "@package/dev/ryanhcode/sable/sublevel" {
         setLastSerializationPointer(arg0: $GlobalSavedSubLevelPointer_): void;
         getUserDataTag(): $CompoundTag;
         setUserDataTag(arg0: $CompoundTag_): void;
-        getSelfMassTracker(): $MassTracker;
-        buildMassTracker(): void;
-        prePhysicsTickBegin(): void;
-        updateMergedMassData(arg0: number): void;
-        applyQueuedForces(arg0: $SubLevelPhysicsSystem, arg1: $RigidBodyHandle, arg2: number): void;
         prePhysicsTick(arg0: $SubLevelPhysicsSystem, arg1: $RigidBodyHandle, arg2: number): void;
         getPlot(): $ServerLevelPlot;
-        getMassTracker(): $MassData;
-        getTrackingPlayers(): $Collection<$UUID>;
         latestLinearVelocity: $Vector3d;
         latestAngularVelocity: $Vector3d;
         constructor(arg0: $ServerLevel, arg1: number, arg2: number, arg3: $Pose3d);
+        get selfMassTracker(): $MassTracker;
+        get massTracker(): $MassData;
+        get trackingPlayers(): $Collection<$UUID>;
+        get queuedForceGroups(): $Object2ObjectMap<$ForceGroup, $QueuedForceGroup>;
+        get runtimeId(): number;
+        get trackingIndividualQueuedForces(): boolean;
+        get heatMapManager(): $SubLevelHeatMapManager;
+        get floatingBlockController(): $FloatingBlockController;
+        get reactionWheelManager(): $ReactionWheelManager;
+        get splitFromSubLevel(): $UUID;
+        get splitFromPose(): $Pose3d;
+        get plot(): $ServerLevelPlot;
     }
     export class $ClientSubLevel extends $SubLevel implements $ClientSubLevelAccess {
-        isFinalized(): boolean;
-        renderPose(): $Pose3dc;
-        renderPose(arg0: number): $Pose3dc;
-        getRenderData(): $SubLevelRenderData;
         computeSubLevelSkyLight(arg0: $Pose3dc): number;
         forceUpdateBounds(): void;
         scaleSkyLight(arg0: number): number;
@@ -104,6 +116,16 @@ declare module "@package/dev/ryanhcode/sable/sublevel" {
         getInterpolator(): $SubLevelSnapshotInterpolator;
         setInitialPosesFrom(arg0: $ClientSableInterpolationState): void;
         setFinalized(): void;
+        isFinalized(): boolean;
+        getLevel(): $ClientLevel;
+        renderPose(): $Pose3dc;
+        renderPose(arg0: number): $Pose3dc;
+        getRenderData(): $SubLevelRenderData;
         constructor(arg0: $Level_, arg1: number, arg2: number, arg3: $Pose3d);
+        get latestSkyLightScale(): number;
+        get interpolator(): $SubLevelSnapshotInterpolator;
+        set initialPosesFrom(value: $ClientSableInterpolationState);
+        get level(): $ClientLevel;
+        get renderData(): $SubLevelRenderData;
     }
 }

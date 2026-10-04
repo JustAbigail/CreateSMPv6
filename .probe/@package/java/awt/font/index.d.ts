@@ -23,18 +23,36 @@ declare module "@package/java/awt/font" {
         static STANDARD: number;
         constructor(arg0: boolean, arg1: number, arg2: number, arg3: $Rectangle2D, arg4: number);
         constructor(arg0: number, arg1: $Rectangle2D, arg2: number);
+        get advance(): number;
+        get bounds2D(): $Rectangle2D;
+        get standard(): boolean;
+        get advanceX(): number;
+        get advanceY(): number;
+        get LSB(): number;
+        get RSB(): number;
+        get ligature(): boolean;
+        get combining(): boolean;
+        get component(): boolean;
+        get whitespace(): boolean;
+        get type(): number;
     }
     export class $FontRenderContext {
+        getTransform(): $AffineTransform;
         isAntiAliased(): boolean;
         usesFractionalMetrics(): boolean;
-        getTransformType(): number;
         getAntiAliasingHint(): $Object;
         getFractionalMetricsHint(): $Object;
-        getTransform(): $AffineTransform;
+        getTransformType(): number;
         equals(arg0: $FontRenderContext): boolean;
         isTransformed(): boolean;
         constructor(arg0: $AffineTransform, arg1: boolean, arg2: boolean);
         constructor(arg0: $AffineTransform, arg1: $Object, arg2: $Object);
+        get transform(): $AffineTransform;
+        get antiAliased(): boolean;
+        get antiAliasingHint(): $Object;
+        get fractionalMetricsHint(): $Object;
+        get transformType(): number;
+        get transformed(): boolean;
     }
     export class $GlyphVector implements $Cloneable {
         getOutline(arg0: number, arg1: number): $Shape;
@@ -45,8 +63,8 @@ declare module "@package/java/awt/font" {
         getGlyphOutline(arg0: number, arg1: number, arg2: number): $Shape;
         getGlyphOutline(arg0: number): $Shape;
         getGlyphVisualBounds(arg0: number): $Shape;
-        getNumGlyphs(): number;
         performDefaultLayout(): void;
+        getNumGlyphs(): number;
         getGlyphCode(arg0: number): number;
         getGlyphCodes(arg0: number, arg1: number, arg2: number[]): number[];
         getGlyphCharIndices(arg0: number, arg1: number, arg2: number[]): number[];
@@ -69,6 +87,12 @@ declare module "@package/java/awt/font" {
         static FLAG_MASK: number;
         static FLAG_COMPLEX_GLYPHS: number;
         static FLAG_RUN_RTL: number;
+        get fontRenderContext(): $FontRenderContext;
+        get visualBounds(): $Rectangle2D;
+        get numGlyphs(): number;
+        get logicalBounds(): $Rectangle2D;
+        get layoutFlags(): number;
+        get font(): $Font;
     }
     export class $GlyphJustificationInfo {
         growRightLimit: number;

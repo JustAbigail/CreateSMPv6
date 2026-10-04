@@ -5,7 +5,7 @@ import { $ExecutorService, $Future } from "@package/java/util/concurrent";
 import { $SocketOption, $SocketAddress, $ServerSocket, $NetworkInterface, $DatagramSocket, $InetAddress, $ProtocolFamily_, $Socket } from "@package/java/net";
 import { $FileAttribute } from "@package/java/nio/file/attribute";
 import { $AbstractSelectableChannel, $SelectorProvider, $AbstractInterruptibleChannel } from "@package/java/nio/channels/spi";
-import { $MemorySegment, $Arena } from "@package/java/lang/foreign";
+import { $Arena, $MemorySegment } from "@package/java/lang/foreign";
 import { $Set_, $Set } from "@package/java/util";
 import { $Throwable, $AutoCloseable } from "@package/java/lang";
 import { $ByteBuffer, $MappedByteBuffer } from "@package/java/nio";
@@ -44,6 +44,7 @@ declare module "@package/java/nio/channels" {
         getLocalAddress(): $SocketAddress;
         getOption<T>(arg0: $SocketOption<T>): T;
         bind(arg0: $SocketAddress): $NetworkChannel;
+        get localAddress(): $SocketAddress;
     }
     export class $Pipe$SinkChannel extends $AbstractSelectableChannel implements $WritableByteChannel, $GatheringByteChannel {
     }
@@ -63,6 +64,7 @@ declare module "@package/java/nio/channels" {
         read(arg0: $ByteBuffer): number;
     }
     export class $SocketChannel extends $AbstractSelectableChannel implements $ByteChannel, $ScatteringByteChannel, $GatheringByteChannel, $NetworkChannel {
+        socket(): $Socket;
         isConnected(): boolean;
         isConnectionPending(): boolean;
         setOption<T>(arg0: $SocketOption<T>, arg1: T): $SocketChannel;
@@ -71,7 +73,6 @@ declare module "@package/java/nio/channels" {
         finishConnect(): boolean;
         shutdownInput(): $SocketChannel;
         shutdownOutput(): $SocketChannel;
-        socket(): $Socket;
         write(arg0: $ByteBuffer): number;
         write(arg0: $ByteBuffer[]): number;
         write(arg0: $ByteBuffer[], arg1: number, arg2: number): number;
@@ -83,12 +84,16 @@ declare module "@package/java/nio/channels" {
         static open(arg0: $ProtocolFamily_): $SocketChannel;
         static open(arg0: $SocketAddress): $SocketChannel;
         bind(arg0: $SocketAddress): $NetworkChannel;
+        get connected(): boolean;
+        get connectionPending(): boolean;
+        get localAddress(): $SocketAddress;
+        get remoteAddress(): $SocketAddress;
     }
     export class $Selector implements $Closeable {
-        wakeup(): $Selector;
         selectedKeys(): $Set<$SelectionKey>;
-        selectNow(): number;
         selectNow(arg0: $Consumer_<$SelectionKey>): number;
+        selectNow(): number;
+        wakeup(): $Selector;
         isOpen(): boolean;
         provider(): $SelectorProvider;
         close(): void;
@@ -138,20 +143,22 @@ declare module "@package/java/nio/channels" {
         close(): void;
     }
     export class $ServerSocketChannel extends $AbstractSelectableChannel implements $NetworkChannel {
+        socket(): $ServerSocket;
         setOption<T>(arg0: $SocketOption<T>, arg1: T): $ServerSocketChannel;
         getLocalAddress(): $SocketAddress;
-        socket(): $ServerSocket;
         accept(): $SocketChannel;
         static open(): $ServerSocketChannel;
         static open(arg0: $ProtocolFamily_): $ServerSocketChannel;
         bind(arg0: $SocketAddress, arg1: number): $ServerSocketChannel;
         bind(arg0: $SocketAddress): $NetworkChannel;
+        get localAddress(): $SocketAddress;
     }
     export class $Channel {
     }
     export interface $Channel extends $Closeable {
         isOpen(): boolean;
         close(): void;
+        get open(): boolean;
     }
     export class $FileChannel$MapMode {
         static READ_ONLY: $FileChannel$MapMode;
@@ -168,6 +175,8 @@ declare module "@package/java/nio/channels" {
         close(): void;
         release(): void;
         channel(): $FileChannel;
+        get shared(): boolean;
+        get valid(): boolean;
     }
     export class $AsynchronousFileChannel implements $AsynchronousChannel {
         truncate(arg0: number): $AsynchronousFileChannel;
@@ -197,12 +206,11 @@ declare module "@package/java/nio/channels" {
         static open(): $Pipe;
     }
     export class $DatagramChannel extends $AbstractSelectableChannel implements $ByteChannel, $ScatteringByteChannel, $GatheringByteChannel, $MulticastChannel {
-        isConnected(): boolean;
-        setOption<T>(arg0: $SocketOption<T>, arg1: T): $DatagramChannel;
-        getLocalAddress(): $SocketAddress;
-        getRemoteAddress(): $SocketAddress;
         receive(arg0: $ByteBuffer): $SocketAddress;
         socket(): $DatagramSocket;
+        isConnected(): boolean;
+        getLocalAddress(): $SocketAddress;
+        getRemoteAddress(): $SocketAddress;
         write(arg0: $ByteBuffer[]): number;
         write(arg0: $ByteBuffer): number;
         write(arg0: $ByteBuffer[], arg1: number, arg2: number): number;
@@ -215,6 +223,10 @@ declare module "@package/java/nio/channels" {
         bind(arg0: $SocketAddress): $DatagramChannel;
         disconnect(): $DatagramChannel;
         send(arg0: $ByteBuffer, arg1: $SocketAddress): number;
+        setOption<T>(arg0: $SocketOption<T>, arg1: T): $NetworkChannel;
+        get connected(): boolean;
+        get localAddress(): $SocketAddress;
+        get remoteAddress(): $SocketAddress;
     }
     export class $ByteChannel {
     }

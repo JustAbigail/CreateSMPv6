@@ -25,8 +25,8 @@ declare module "@package/com/kipti/bnb/mixin_accessor" {
     export class $FlywheelAccessibleKineticNetwork {
     }
     export interface $FlywheelAccessibleKineticNetwork {
+        bits_n_bobs$updateFlywheelStresses(): void;
         bits_n_bobs$getFlywheelStressAbsoptionCapacity(): number;
         bits_n_bobs$getFlywheelStressReleaseCapacity(): number;
-        bits_n_bobs$updateFlywheelStresses(): void;
     }
 }

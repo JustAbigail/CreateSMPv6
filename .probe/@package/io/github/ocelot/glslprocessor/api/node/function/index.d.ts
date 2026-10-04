@@ -19,40 +19,50 @@ declare module "@package/io/github/ocelot/glslprocessor/api/node/function" {
         setBody(arg0: $Collection_<$GlslNode>): boolean;
         setBody(...arg0: $GlslNode[]): boolean;
         constructor(arg0: $GlslTypeSpecifier_);
+        get nodeType(): $GlslNodeType;
+        get type(): $GlslSpecifiedType;
     }
     export class $GlslFunctionNode implements $GlslRootNode {
         setHeader(arg0: $GlslFunctionHeader): void;
         getNodeType(): $GlslNodeType;
         getBody(): $GlslNodeList;
         visit(arg0: $GlslNodeVisitor): void;
+        getHeader(): $GlslFunctionHeader;
         getName(): string;
         stream(): $Stream<$GlslNode>;
         getReturnType(): $GlslSpecifiedType;
+        setName(arg0: string): $GlslFunctionNode;
         getParameters(): $List<$GlslParameterDeclaration>;
-        getHeader(): $GlslFunctionHeader;
         setBody(arg0: $Collection_<$GlslNode>): boolean;
-        asFunction(): $GlslFunctionNode;
-        asField(): $GlslNewFieldNode;
-        isStruct(): boolean;
         asDeclaration(): $GlslVariableDeclarationNode;
         asStruct(): $GlslStructDeclarationNode;
+        asField(): $GlslNewFieldNode;
+        isStruct(): boolean;
         isField(): boolean;
         isDeclaration(): boolean;
         isFunction(): boolean;
+        asFunction(): $GlslFunctionNode;
         toSourceString(): string;
         toList(): $List<$GlslNode>;
         getType(): $GlslSpecifiedType;
         setBody(...arg0: $GlslNode[]): boolean;
-        setName(arg0: string): $GlslRootNode;
         constructor(arg0: $GlslFunctionHeader, arg1: $Collection_<$GlslNode>);
+        get nodeType(): $GlslNodeType;
+        get returnType(): $GlslSpecifiedType;
+        get parameters(): $List<$GlslParameterDeclaration>;
+        get struct(): boolean;
+        get field(): boolean;
+        get declaration(): boolean;
+        get function(): boolean;
+        get type(): $GlslSpecifiedType;
     }
     export class $GlslInvokeFunctionNode implements $GlslNode {
         setHeader(arg0: $GlslNode): void;
         getNodeType(): $GlslNodeType;
         visit(arg0: $GlslNodeVisitor): void;
+        getHeader(): $GlslNode;
         stream(): $Stream<$GlslNode>;
         getParameters(): $List<$GlslNode>;
-        getHeader(): $GlslNode;
         getBody(): $GlslNodeList;
         toSourceString(): string;
         toList(): $List<$GlslNode>;
@@ -60,5 +70,8 @@ declare module "@package/io/github/ocelot/glslprocessor/api/node/function" {
         setBody(arg0: $Collection_<$GlslNode>): boolean;
         setBody(...arg0: $GlslNode[]): boolean;
         constructor(arg0: $GlslNode, arg1: $Collection_<$GlslNode>);
+        get nodeType(): $GlslNodeType;
+        get parameters(): $List<$GlslNode>;
+        get type(): $GlslSpecifiedType;
     }
 }

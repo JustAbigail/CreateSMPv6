@@ -46,6 +46,8 @@ declare module "@package/net/neoforged/neoforge/client/extensions/common" {
      * This event is fired on the mod-specific event bus, only on the logical client.
      */
     export class $RegisterClientExtensionsEvent extends $Event implements $IModBusEvent {
+        registerFluidType(arg0: $IClientFluidTypeExtensions, ...arg1: $FluidType_[]): void;
+        registerFluidType(arg0: $IClientFluidTypeExtensions, ...arg1: $Holder_<$FluidType>[]): void;
         registerMobEffect(arg0: $IClientMobEffectExtensions, ...arg1: $Holder_<$MobEffect>[]): void;
         registerMobEffect(arg0: $IClientMobEffectExtensions, ...arg1: $MobEffect_[]): void;
         /**
@@ -56,8 +58,6 @@ declare module "@package/net/neoforged/neoforge/client/extensions/common" {
          * @return whether a `IClientFluidTypeExtensions` has been registered for the given `FluidType`
          */
         isFluidTypeRegistered(fluidType: $FluidType_): boolean;
-        registerFluidType(arg0: $IClientFluidTypeExtensions, ...arg1: $FluidType_[]): void;
-        registerFluidType(arg0: $IClientFluidTypeExtensions, ...arg1: $Holder_<$FluidType>[]): void;
         /**
          * @return whether a `IClientBlockExtensions` has been registered for the given `Block`
          */
@@ -68,8 +68,8 @@ declare module "@package/net/neoforged/neoforge/client/extensions/common" {
         isItemRegistered(item: $Item_): boolean;
         registerBlock(arg0: $IClientBlockExtensions, ...arg1: $Holder_<$Block>[]): void;
         registerBlock(arg0: $IClientBlockExtensions, ...arg1: $Block_[]): void;
-        registerItem(arg0: $IClientItemExtensions, ...arg1: $Item_[]): void;
         registerItem(arg0: $IClientItemExtensions, ...arg1: $Holder_<$Item>[]): void;
+        registerItem(arg0: $IClientItemExtensions, ...arg1: $Item_[]): void;
     }
     /**
      * Client-only extensions to `FluidType`.
@@ -81,39 +81,6 @@ declare module "@package/net/neoforged/neoforge/client/extensions/common" {
         static DEFAULT: $IClientFluidTypeExtensions;
     }
     export interface $IClientFluidTypeExtensions {
-        /**
-         * Returns the reference of the texture to apply to a source fluid.
-         * 
-         * This should return a reference to the texture and not the actual
-         * texture itself (e.g. `minecraft:block/water_still` will point to
-         * `assets/minecraft/textures/block/water_still.png`).
-         * 
-         * Important: This method should only return `null` for `Fluids#EMPTY`.
-         * All other implementations must define this property.
-         */
-        getFlowingTexture(): $ResourceLocation;
-        /**
-         * Returns the reference of the texture to apply to a source fluid.
-         * 
-         * This should return a reference to the texture and not the actual
-         * texture itself (e.g. `minecraft:block/water_still` will point to
-         * `assets/minecraft/textures/block/water_still.png`).
-         * 
-         * Important: This method should only return `null` for `Fluids#EMPTY`.
-         * All other implementations must define this property.
-         */
-        getFlowingTexture(state: $FluidState, getter: $BlockAndTintGetter, pos: $BlockPos_): $ResourceLocation;
-        /**
-         * Returns the reference of the texture to apply to a source fluid.
-         * 
-         * This should return a reference to the texture and not the actual
-         * texture itself (e.g. `minecraft:block/water_still` will point to
-         * `assets/minecraft/textures/block/water_still.png`).
-         * 
-         * Important: This method should only return `null` for `Fluids#EMPTY`.
-         * All other implementations must define this property.
-         */
-        getFlowingTexture(stack: $FluidStack_): $ResourceLocation;
         /**
          * Returns the location of the texture to apply to the camera when it is
          * within the fluid. If no location is specified, no overlay will be applied.
@@ -158,7 +125,7 @@ declare module "@package/net/neoforged/neoforge/client/extensions/common" {
          * Important: This method should only return `null` for `Fluids#EMPTY`.
          * All other implementations must define this property.
          */
-        getStillTexture(state: $FluidState, getter: $BlockAndTintGetter, pos: $BlockPos_): $ResourceLocation;
+        getFlowingTexture(stack: $FluidStack_): $ResourceLocation;
         /**
          * Returns the reference of the texture to apply to a source fluid.
          * 
@@ -169,7 +136,7 @@ declare module "@package/net/neoforged/neoforge/client/extensions/common" {
          * Important: This method should only return `null` for `Fluids#EMPTY`.
          * All other implementations must define this property.
          */
-        getStillTexture(stack: $FluidStack_): $ResourceLocation;
+        getFlowingTexture(): $ResourceLocation;
         /**
          * Returns the reference of the texture to apply to a source fluid.
          * 
@@ -180,28 +147,18 @@ declare module "@package/net/neoforged/neoforge/client/extensions/common" {
          * Important: This method should only return `null` for `Fluids#EMPTY`.
          * All other implementations must define this property.
          */
-        getStillTexture(): $ResourceLocation;
+        getFlowingTexture(state: $FluidState, getter: $BlockAndTintGetter, pos: $BlockPos_): $ResourceLocation;
         /**
-         * Returns the tint applied to the fluid's textures.
+         * Returns the reference of the texture to apply to a source fluid.
          * 
-         * The result represents a 32-bit integer where each 8-bits represent
-         * the alpha, red, green, and blue channel respectively.
-         */
-        getTintColor(stack: $FluidStack_): number;
-        /**
-         * Returns the tint applied to the fluid's textures.
+         * This should return a reference to the texture and not the actual
+         * texture itself (e.g. `minecraft:block/water_still` will point to
+         * `assets/minecraft/textures/block/water_still.png`).
          * 
-         * The result represents a 32-bit integer where each 8-bits represent
-         * the alpha, red, green, and blue channel respectively.
+         * Important: This method should only return `null` for `Fluids#EMPTY`.
+         * All other implementations must define this property.
          */
-        getTintColor(state: $FluidState, getter: $BlockAndTintGetter, pos: $BlockPos_): number;
-        /**
-         * Returns the tint applied to the fluid's textures.
-         * 
-         * The result represents a 32-bit integer where each 8-bits represent
-         * the alpha, red, green, and blue channel respectively.
-         */
-        getTintColor(): number;
+        getOverlayTexture(state: $FluidState, getter: $BlockAndTintGetter, pos: $BlockPos_): $ResourceLocation;
         /**
          * Returns the reference of the texture to apply to a source fluid.
          * 
@@ -234,7 +191,50 @@ declare module "@package/net/neoforged/neoforge/client/extensions/common" {
          * Important: This method should only return `null` for `Fluids#EMPTY`.
          * All other implementations must define this property.
          */
-        getOverlayTexture(state: $FluidState, getter: $BlockAndTintGetter, pos: $BlockPos_): $ResourceLocation;
+        getStillTexture(stack: $FluidStack_): $ResourceLocation;
+        /**
+         * Returns the reference of the texture to apply to a source fluid.
+         * 
+         * This should return a reference to the texture and not the actual
+         * texture itself (e.g. `minecraft:block/water_still` will point to
+         * `assets/minecraft/textures/block/water_still.png`).
+         * 
+         * Important: This method should only return `null` for `Fluids#EMPTY`.
+         * All other implementations must define this property.
+         */
+        getStillTexture(): $ResourceLocation;
+        /**
+         * Returns the reference of the texture to apply to a source fluid.
+         * 
+         * This should return a reference to the texture and not the actual
+         * texture itself (e.g. `minecraft:block/water_still` will point to
+         * `assets/minecraft/textures/block/water_still.png`).
+         * 
+         * Important: This method should only return `null` for `Fluids#EMPTY`.
+         * All other implementations must define this property.
+         */
+        getStillTexture(state: $FluidState, getter: $BlockAndTintGetter, pos: $BlockPos_): $ResourceLocation;
+        /**
+         * Returns the tint applied to the fluid's textures.
+         * 
+         * The result represents a 32-bit integer where each 8-bits represent
+         * the alpha, red, green, and blue channel respectively.
+         */
+        getTintColor(): number;
+        /**
+         * Returns the tint applied to the fluid's textures.
+         * 
+         * The result represents a 32-bit integer where each 8-bits represent
+         * the alpha, red, green, and blue channel respectively.
+         */
+        getTintColor(stack: $FluidStack_): number;
+        /**
+         * Returns the tint applied to the fluid's textures.
+         * 
+         * The result represents a 32-bit integer where each 8-bits represent
+         * the alpha, red, green, and blue channel respectively.
+         */
+        getTintColor(state: $FluidState, getter: $BlockAndTintGetter, pos: $BlockPos_): number;
     }
     /**
      * Client-only extensions to `Block`.
@@ -264,17 +264,17 @@ declare module "@package/net/neoforged/neoforge/client/extensions/common" {
          */
         areBreakingParticlesTinted(state: $BlockState_, level: $ClientLevel, pos: $BlockPos_): boolean;
         /**
-         * Play breaking sound(s) when the block is destroyed. This allows playing sounds dependent on BE data
-         * as it is called before the block and BE are actually removed on the client.
-         */
-        playBreakSound(state: $BlockState_, level: $Level_, pos: $BlockPos_): boolean;
-        /**
          * NOT CURRENTLY IMPLEMENTED
          * 
          * Use this to change the fog color used when the entity is "inside" a material.
          * Vec3d is used here as "r/g/b" 0 - 1 values.
          */
         getFogColor(state: $BlockState_, level: $LevelReader, pos: $BlockPos_, entity: $Entity, originalColor: $Vector3d, partialTick: number): $Vector3d;
+        /**
+         * Play breaking sound(s) when the block is destroyed. This allows playing sounds dependent on BE data
+         * as it is called before the block and BE are actually removed on the client.
+         */
+        playBreakSound(state: $BlockState_, level: $Level_, pos: $BlockPos_): boolean;
     }
     /**
      * Client-only extensions to `Item`.
@@ -358,6 +358,7 @@ declare module "@package/net/neoforged/neoforge/client/extensions/common" {
          * By default, returns vanilla's block entity renderer.
          */
         getCustomRenderer(): $BlockEntityWithoutLevelRenderer;
+        get customRenderer(): $BlockEntityWithoutLevelRenderer;
     }
     /**
      * Client-only extensions to `MobEffect`.

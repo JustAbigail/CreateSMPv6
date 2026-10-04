@@ -28,6 +28,11 @@ declare module "@package/java/util/concurrent/locks" {
         hasQueuedThread(arg0: $Thread): boolean;
         constructor();
         constructor(arg0: boolean);
+        get holdCount(): number;
+        get locked(): boolean;
+        get queueLength(): number;
+        get heldByCurrentThread(): boolean;
+        get fair(): boolean;
     }
     export class $StampedLock implements $Serializable {
         writeLockInterruptibly(): number;
@@ -59,6 +64,9 @@ declare module "@package/java/util/concurrent/locks" {
         tryOptimisticRead(): number;
         tryConvertToWriteLock(arg0: number): number;
         constructor();
+        get readLocked(): boolean;
+        get readLockCount(): number;
+        get writeLocked(): boolean;
     }
     export class $Condition {
     }

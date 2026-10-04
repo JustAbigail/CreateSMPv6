@@ -25,12 +25,16 @@ declare module "@package/com/mojang/authlib" {
         static buildQuery(arg0: $Map_<string, $Object>): string;
         static concatenateURL(arg0: $URL, arg1: string): $URL;
         getProxy(): $Proxy;
+        get proxy(): $Proxy;
     }
     export class $GameProfile {
         getName(): string;
         getProperties(): $PropertyMap;
         getId(): $UUID;
         constructor(arg0: $UUID_, arg1: string);
+        get name(): string;
+        get properties(): $PropertyMap;
+        get id(): $UUID;
     }
     export class $SignatureState extends $Enum<$SignatureState> {
         static values(): $SignatureState[];
@@ -52,7 +56,7 @@ declare module "@package/com/mojang/authlib" {
     /**
      * Values that may be interpreted as {@link $Environment}.
      */
-    export type $Environment_ = { servicesHost?: string, sessionHost?: string, name?: string,  } | [servicesHost?: string, sessionHost?: string, name?: string, ];
+    export type $Environment_ = { servicesHost?: string, name?: string, sessionHost?: string,  } | [servicesHost?: string, name?: string, sessionHost?: string, ];
     export class $GameProfileRepository {
     }
     export interface $GameProfileRepository {

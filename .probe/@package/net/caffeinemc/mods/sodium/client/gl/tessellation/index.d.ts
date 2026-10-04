@@ -11,6 +11,7 @@ declare module "@package/net/caffeinemc/mods/sodium/client/gl/tessellation" {
         "delete"(arg0: $CommandList): void;
         bind(arg0: $CommandList): void;
         getPrimitiveType(): $GlPrimitiveType;
+        get primitiveType(): $GlPrimitiveType;
     }
     export class $TessellationBinding extends $Record {
         static forVertexBuffer(arg0: $GlBuffer, arg1: $GlVertexAttributeBinding[]): $TessellationBinding;
@@ -23,7 +24,7 @@ declare module "@package/net/caffeinemc/mods/sodium/client/gl/tessellation" {
     /**
      * Values that may be interpreted as {@link $TessellationBinding}.
      */
-    export type $TessellationBinding_ = { attributeBindings?: $GlVertexAttributeBinding[], buffer?: $GlBuffer, target?: $GlBufferTarget_,  } | [attributeBindings?: $GlVertexAttributeBinding[], buffer?: $GlBuffer, target?: $GlBufferTarget_, ];
+    export type $TessellationBinding_ = { attributeBindings?: $GlVertexAttributeBinding[], target?: $GlBufferTarget_, buffer?: $GlBuffer,  } | [attributeBindings?: $GlVertexAttributeBinding[], target?: $GlBufferTarget_, buffer?: $GlBuffer, ];
     export class $GlPrimitiveType extends $Enum<$GlPrimitiveType> {
         static values(): $GlPrimitiveType[];
         static valueOf(arg0: string): $GlPrimitiveType;
@@ -32,6 +33,7 @@ declare module "@package/net/caffeinemc/mods/sodium/client/gl/tessellation" {
         static PATCHES: $GlPrimitiveType;
         static POINTS: $GlPrimitiveType;
         static LINES: $GlPrimitiveType;
+        get id(): number;
     }
     /**
      * Values that may be interpreted as {@link $GlPrimitiveType}.

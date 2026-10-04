@@ -10,11 +10,17 @@ declare module "@package/java/lang/reflect" {
         getGenericReturnType(): $Type;
         isBridge(): boolean;
         getDefaultValue(): $Object;
+        get returnType(): $Class<never>;
+        get default(): boolean;
+        get genericReturnType(): $Type;
+        get bridge(): boolean;
+        get defaultValue(): $Object;
     }
     export class $GenericDeclaration {
     }
     export interface $GenericDeclaration extends $AnnotatedElement {
         getTypeParameters(): $TypeVariable<never>[];
+        get typeParameters(): $TypeVariable<never>[];
     }
     export class $Member {
         static PUBLIC: number;
@@ -26,6 +32,10 @@ declare module "@package/java/lang/reflect" {
         isSynthetic(): boolean;
         accessFlags(): $Set<$AccessFlag>;
         getDeclaringClass(): $Class<never>;
+        get name(): string;
+        get modifiers(): number;
+        get synthetic(): boolean;
+        get declaringClass(): $Class<never>;
     }
     export class $Field extends $AccessibleObject implements $Member {
         getName(): string;
@@ -56,15 +66,23 @@ declare module "@package/java/lang/reflect" {
         setDouble(arg0: $Object, arg1: number): void;
         isEnumConstant(): boolean;
         getAnnotatedType(): $AnnotatedType;
+        get name(): string;
+        get modifiers(): number;
+        get synthetic(): boolean;
+        get declaringClass(): $Class<never>;
+        get genericType(): $Type;
+        get type(): $Class<never>;
+        get enumConstant(): boolean;
+        get annotatedType(): $AnnotatedType;
     }
     export class $ClassFileFormatVersion extends $Enum<$ClassFileFormatVersion> {
         static values(): $ClassFileFormatVersion[];
-        static valueOf(arg0: string): $ClassFileFormatVersion;
         static valueOf(arg0: $Runtime$Version): $ClassFileFormatVersion;
-        major(): number;
+        static valueOf(arg0: string): $ClassFileFormatVersion;
         static latest(): $ClassFileFormatVersion;
         runtimeVersion(): $Runtime$Version;
         static fromMajor(arg0: number): $ClassFileFormatVersion;
+        major(): number;
         static RELEASE_15: $ClassFileFormatVersion;
         static RELEASE_16: $ClassFileFormatVersion;
         static RELEASE_17: $ClassFileFormatVersion;
@@ -99,6 +117,10 @@ declare module "@package/java/lang/reflect" {
         getName(): string;
         getBounds(): $Type[];
         getGenericDeclaration(): D;
+        get annotatedBounds(): $AnnotatedType[];
+        get name(): string;
+        get bounds(): $Type[];
+        get genericDeclaration(): D;
     }
     export class $RecordComponent implements $AnnotatedElement {
         getName(): string;
@@ -115,6 +137,15 @@ declare module "@package/java/lang/reflect" {
         getAnnotationsByType<T extends $Annotation>(arg0: $Class<T>): T[];
         getDeclaredAnnotation<T extends $Annotation>(arg0: $Class<T>): T;
         getDeclaredAnnotationsByType<T extends $Annotation>(arg0: $Class<T>): T[];
+        get name(): string;
+        get annotations(): $Annotation[];
+        get declaredAnnotations(): $Annotation[];
+        get genericSignature(): string;
+        get genericType(): $Type;
+        get type(): $Class<never>;
+        get annotatedType(): $AnnotatedType;
+        get declaringRecord(): $Class<never>;
+        get accessor(): $Method;
     }
     export class $AnnotatedType {
     }
@@ -124,6 +155,10 @@ declare module "@package/java/lang/reflect" {
         getAnnotations(): $Annotation[];
         getDeclaredAnnotations(): $Annotation[];
         getType(): $Type;
+        get annotatedOwnerType(): $AnnotatedType;
+        get annotations(): $Annotation[];
+        get declaredAnnotations(): $Annotation[];
+        get type(): $Type;
     }
     export class $Executable extends $AccessibleObject implements $Member, $GenericDeclaration {
         getName(): string;
@@ -145,6 +180,23 @@ declare module "@package/java/lang/reflect" {
         getParameters(): $Parameter[];
         getAnnotatedReceiverType(): $AnnotatedType;
         getAnnotatedExceptionTypes(): $AnnotatedType[];
+        get name(): string;
+        get modifiers(): number;
+        get typeParameters(): $TypeVariable<never>[];
+        get parameterTypes(): $Class<never>[];
+        get synthetic(): boolean;
+        get declaringClass(): $Class<never>;
+        get varArgs(): boolean;
+        get annotatedParameterTypes(): $AnnotatedType[];
+        get parameterCount(): number;
+        get parameterAnnotations(): $Annotation[][];
+        get genericParameterTypes(): $Type[];
+        get genericExceptionTypes(): $Type[];
+        get exceptionTypes(): $Class<never>[];
+        get annotatedReturnType(): $AnnotatedType;
+        get parameters(): $Parameter[];
+        get annotatedReceiverType(): $AnnotatedType;
+        get annotatedExceptionTypes(): $AnnotatedType[];
     }
     export class $AccessFlag extends $Enum<$AccessFlag> {
         sourceModifier(): boolean;
@@ -192,6 +244,8 @@ declare module "@package/java/lang/reflect" {
         getDeclaredAnnotation<T extends $Annotation>(arg0: $Class<T>): T;
         getDeclaredAnnotationsByType<T extends $Annotation>(arg0: $Class<T>): T[];
         getDeclaredAnnotations(): $Annotation[];
+        get annotations(): $Annotation[];
+        get declaredAnnotations(): $Annotation[];
     }
     export class $AccessibleObject implements $AnnotatedElement {
         isAnnotationPresent(arg0: $Class<$Annotation>): boolean;
@@ -209,6 +263,8 @@ declare module "@package/java/lang/reflect" {
          * @deprecated
          */
         isAccessible(): boolean;
+        get annotations(): $Annotation[];
+        get declaredAnnotations(): $Annotation[];
     }
     export class $Parameter implements $AnnotatedElement {
         getName(): string;
@@ -229,6 +285,18 @@ declare module "@package/java/lang/reflect" {
         getDeclaringExecutable(): $Executable;
         isImplicit(): boolean;
         isAnnotationPresent(arg0: $Class<$Annotation>): boolean;
+        get name(): string;
+        get modifiers(): number;
+        get synthetic(): boolean;
+        get annotations(): $Annotation[];
+        get declaredAnnotations(): $Annotation[];
+        get type(): $Class<never>;
+        get annotatedType(): $AnnotatedType;
+        get parameterizedType(): $Type;
+        get varArgs(): boolean;
+        get namePresent(): boolean;
+        get declaringExecutable(): $Executable;
+        get implicit(): boolean;
     }
     export class $Constructor<T> extends $Executable {
         newInstance(...arg0: $Object[]): T;
@@ -254,5 +322,6 @@ declare module "@package/java/lang/reflect" {
     }
     export interface $Type {
         getTypeName(): string;
+        get typeName(): string;
     }
 }

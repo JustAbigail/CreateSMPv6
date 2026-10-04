@@ -5,13 +5,17 @@ declare module "@package/software/bernie/geckolib/animation/keyframe/event/data"
         getLocator(): string;
         script(): string;
         constructor(arg0: number, arg1: string, arg2: string, arg3: string);
+        get effect(): string;
+        get locator(): string;
     }
     export class $CustomInstructionKeyframeData extends $KeyFrameData {
         getInstructions(): string;
         constructor(arg0: number, arg1: string);
+        get instructions(): string;
     }
     export class $SoundKeyframeData extends $KeyFrameData {
         getSound(): string;
         constructor(arg0: number, arg1: string);
+        get sound(): string;
     }
 }

@@ -73,7 +73,7 @@ import { $FoodProperties_, $FoodProperties } from "@package/net/minecraft/world/
 import { $PotionContents_, $Potion } from "@package/net/minecraft/world/item/alchemy";
 import { $ResourceKey, $ResourceLocation_, $ResourceKey_, $ResourceLocation } from "@package/net/minecraft/resources";
 import { $ItemAccessor, $TooltipTypeMixin } from "@package/net/fabricmc/fabric/mixin/item";
-import { $ComponentFunctions } from "@package/dev/latvian/mods/kubejs/component";
+import { $MutableDataComponentHolderFunctions, $ComponentFunctions } from "@package/dev/latvian/mods/kubejs/component";
 import { $ByteBuf } from "@package/io/netty/buffer";
 import { $IItemExtension as $IItemExtension$1 } from "@package/de/mrjulsen/mcdragonlib/item";
 import { $BlockEntityType_ } from "@package/net/minecraft/world/level/block/entity";
@@ -141,6 +141,10 @@ declare module "@package/net/minecraft/world/item" {
         static BY_ID: $IntFunction<$Rarity>;
         static COMMON: $Rarity;
         static STREAM_CODEC: $StreamCodec<$ByteBuf, $Rarity>;
+        get styleModifier(): $UnaryOperator<$Style>;
+        static get extensionInfo(): $ExtensionInfo;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $Rarity}.
@@ -152,10 +156,12 @@ declare module "@package/net/minecraft/world/item" {
     }
     export interface $TooltipFlag extends $FabricTooltipType, $TooltipTypeMixin {
         isAdvanced(): boolean;
-        isCreative(): boolean;
-        hasControlDown(): boolean;
         hasShiftDown(): boolean;
         hasAltDown(): boolean;
+        isCreative(): boolean;
+        hasControlDown(): boolean;
+        get advanced(): boolean;
+        get creative(): boolean;
     }
     export class $BucketItem extends $Item implements $DispensibleContainerItem, $BucketItemAccessor, $InjectedBucketItemExtension {
         handler$ilh000$architectury$fillBucket(level: $Level_, player: $Player, hand: $InteractionHand_, cir: $CallbackInfoReturnable<any>, stack: $ItemStack_, target: $BlockHitResult): void;
@@ -185,16 +191,16 @@ declare module "@package/net/minecraft/world/item" {
         constructor(content: $Fluid_, properties: $Item$Properties);
     }
     export class $TooltipFlag$Default extends $Record implements $TooltipFlag, $TooltipFlagExtension {
-        simulated$setCreativeSearch(arg0: boolean): void;
-        simulated$getCreativeSearch(): boolean;
         asCreative(): $TooltipFlag$Default;
+        simulated$getCreativeSearch(): boolean;
+        simulated$setCreativeSearch(arg0: boolean): void;
         isAdvanced(): boolean;
         advanced(): boolean;
         isCreative(): boolean;
         creative(): boolean;
-        hasControlDown(): boolean;
         hasShiftDown(): boolean;
         hasAltDown(): boolean;
+        hasControlDown(): boolean;
         shouldDisplayAllInformation(): boolean;
         constructor(advanced: boolean, creative: boolean);
     }
@@ -203,13 +209,13 @@ declare module "@package/net/minecraft/world/item" {
      */
     export type $TooltipFlag$Default_ = { creative?: boolean, advanced?: boolean,  } | [creative?: boolean, advanced?: boolean, ];
     export class $ArmorMaterial extends $Record {
+        getDefense(type: $ArmorItem$Type_): number;
+        defense(): $Map<$ArmorItem$Type, number>;
         enchantmentValue(): number;
         repairIngredient(): $Supplier<$Ingredient>;
         toughness(): number;
         equipSound(): $Holder<$SoundEvent>;
         knockbackResistance(): number;
-        getDefense(type: $ArmorItem$Type_): number;
-        defense(): $Map<$ArmorItem$Type, number>;
         layers(): $List<$ArmorMaterial$Layer>;
         static CODEC: $Codec<$Holder<$ArmorMaterial>>;
         constructor(arg0: $Map_<$ArmorItem$Type_, number>, arg1: number, arg2: $Holder_<$SoundEvent>, arg3: $Supplier_<$Ingredient>, arg4: $List_<$ArmorMaterial$Layer>, arg5: number, arg6: number);
@@ -217,32 +223,38 @@ declare module "@package/net/minecraft/world/item" {
     /**
      * Values that may be interpreted as {@link $ArmorMaterial}.
      */
-    export type $ArmorMaterial_ = RegistryTypes.ArmorMaterial | string | { defense?: $Map_<$ArmorItem$Type_, number>, enchantmentValue?: number, equipSound?: $Holder_<$SoundEvent>, repairIngredient?: $Supplier_<$Ingredient>, knockbackResistance?: number, layers?: $List_<$ArmorMaterial$Layer>, toughness?: number,  } | [defense?: $Map_<$ArmorItem$Type_, number>, enchantmentValue?: number, equipSound?: $Holder_<$SoundEvent>, repairIngredient?: $Supplier_<$Ingredient>, knockbackResistance?: number, layers?: $List_<$ArmorMaterial$Layer>, toughness?: number, ];
+    export type $ArmorMaterial_ = RegistryTypes.ArmorMaterial | string | { defense?: $Map_<$ArmorItem$Type_, number>, toughness?: number, layers?: $List_<$ArmorMaterial$Layer>, knockbackResistance?: number, repairIngredient?: $Supplier_<$Ingredient>, equipSound?: $Holder_<$SoundEvent>, enchantmentValue?: number,  } | [defense?: $Map_<$ArmorItem$Type_, number>, toughness?: number, layers?: $List_<$ArmorMaterial$Layer>, knockbackResistance?: number, repairIngredient?: $Supplier_<$Ingredient>, equipSound?: $Holder_<$SoundEvent>, enchantmentValue?: number, ];
     export class $Tier {
     }
     export interface $Tier {
         getSpeed(): number;
-        createToolProperties(block: $TagKey_<$Block>): $Tool;
+        getEnchantmentValue(): number;
         getUses(): number;
         getIncorrectBlocksForDrops(): $TagKey<$Block>;
         getRepairIngredient(): $Ingredient;
-        getEnchantmentValue(): number;
+        createToolProperties(block: $TagKey_<$Block>): $Tool;
         getAttackDamageBonus(): number;
+        get speed(): number;
+        get enchantmentValue(): number;
+        get uses(): number;
+        get incorrectBlocksForDrops(): $TagKey<$Block>;
+        get repairIngredient(): $Ingredient;
+        get attackDamageBonus(): number;
     }
     /**
      * Values that may be interpreted as {@link $Tier}.
      */
     export type $Tier_ = string;
     export class $Item$TooltipContext {
-        static of(level: $Level_ | null): $Item$TooltipContext;
         static of(registries: $HolderLookup$Provider): $Item$TooltipContext;
+        static of(level: $Level_ | null): $Item$TooltipContext;
         static EMPTY: $Item$TooltipContext;
     }
     export interface $Item$TooltipContext {
         tickRate(): number;
         level(): $Level;
-        mapData(mapId: $MapId_): $MapItemSavedData;
         registries(): $HolderLookup$Provider;
+        mapData(mapId: $MapId_): $MapItemSavedData;
     }
     export class $CreativeModeTab$DisplayItemsGenerator {
     }
@@ -290,7 +302,7 @@ declare module "@package/net/minecraft/world/item" {
     /**
      * Values that may be interpreted as {@link $CreativeModeTab$ItemDisplayParameters}.
      */
-    export type $CreativeModeTab$ItemDisplayParameters_ = { holders?: $HolderLookup$Provider, enabledFeatures?: $FeatureFlagSet, hasPermissions?: boolean,  } | [holders?: $HolderLookup$Provider, enabledFeatures?: $FeatureFlagSet, hasPermissions?: boolean, ];
+    export type $CreativeModeTab$ItemDisplayParameters_ = { holders?: $HolderLookup$Provider, hasPermissions?: boolean, enabledFeatures?: $FeatureFlagSet,  } | [holders?: $HolderLookup$Provider, hasPermissions?: boolean, enabledFeatures?: $FeatureFlagSet, ];
     export class $CreativeModeTab$Type extends $Enum<$CreativeModeTab$Type> {
         static values(): $CreativeModeTab$Type[];
         static valueOf(arg0: string): $CreativeModeTab$Type;
@@ -314,15 +326,15 @@ declare module "@package/net/minecraft/world/item" {
      */
     export type $CreativeModeTab$Row_ = "top" | "bottom";
     export class $DyeColor extends $Enum<$DyeColor> implements $StringRepresentable, $KubeColor {
-        getTextureDiffuseColor(): number;
+        kjs$getRGB(): number;
         getMapColor(): $MapColor;
+        getTextureDiffuseColor(): number;
         getFireworkColor(): number;
         getTextColor(): number;
         static byFireworkColor(fireworkColor: number): $DyeColor;
         getDyedTag(): $TagKey<$Item>;
         kjs$getARGB(): number;
         kjs$getFireworkRGB(): number;
-        kjs$getRGB(): number;
         getTag(): $TagKey<$Item>;
         getName(): string;
         static values(): $DyeColor[];
@@ -355,6 +367,15 @@ declare module "@package/net/minecraft/world/item" {
         static CYAN: $DyeColor;
         static BROWN: $DyeColor;
         static ORANGE: $DyeColor;
+        get mapColor(): $MapColor;
+        get textureDiffuseColor(): number;
+        get fireworkColor(): number;
+        get textColor(): number;
+        get dyedTag(): $TagKey<$Item>;
+        get tag(): $TagKey<$Item>;
+        get id(): number;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $DyeColor}.
@@ -381,13 +402,17 @@ declare module "@package/net/minecraft/world/item" {
         getTicksSinceSongStarted(): number;
         setSongWithoutPlaying(song: $Holder_<$JukeboxSong>, ticksSinceSongStarted: number): void;
         isPlaying(): boolean;
-        stop(level: $LevelAccessor, state: $BlockState_ | null): void;
         tick(level: $LevelAccessor, state: $BlockState_ | null): void;
+        stop(level: $LevelAccessor, state: $BlockState_ | null): void;
         play(level: $LevelAccessor, song: $Holder_<$JukeboxSong>): void;
         static PLAY_EVENT_INTERVAL_TICKS: number;
         constructor(onSongChanged: $JukeboxSongPlayer$OnSongChanged_, blockPos: $BlockPos_);
+        get song(): $JukeboxSong;
+        get ticksSinceSongStarted(): number;
+        get playing(): boolean;
     }
     export class $ProjectileWeaponItem extends $Item {
+        shoot(level: $ServerLevel, shooter: $LivingEntity, hand: $InteractionHand_, weapon: $ItemStack_, projectileItems: $List_<$ItemStack_>, velocity: number, inaccuracy: number, isCrit: boolean, target: $LivingEntity | null): void;
         shootProjectile(shooter: $LivingEntity, projectile: $Projectile, index: number, velocity: number, inaccuracy: number, angle: number, target: $LivingEntity | null): void;
         /**
          * Return the enchantability factor of the item, most of the time is based on material.
@@ -397,7 +422,6 @@ declare module "@package/net/minecraft/world/item" {
         getDurabilityUse(stack: $ItemStack_): number;
         customArrow(arg0: $AbstractArrow, arg1: $ItemStack_, arg2: $ItemStack_): $AbstractArrow;
         static useAmmo(weapon: $ItemStack_, ammo: $ItemStack_, shooter: $LivingEntity, intangable: boolean): $ItemStack;
-        shoot(level: $ServerLevel, shooter: $LivingEntity, hand: $InteractionHand_, weapon: $ItemStack_, projectileItems: $List_<$ItemStack_>, velocity: number, inaccuracy: number, isCrit: boolean, target: $LivingEntity | null): void;
         static draw(weapon: $ItemStack_, ammo: $ItemStack_, shooter: $LivingEntity): $List<$ItemStack>;
         getSupportedHeldProjectiles(arg0: $ItemStack_): $Predicate<$ItemStack>;
         /**
@@ -424,24 +448,25 @@ declare module "@package/net/minecraft/world/item" {
         moonlight$clientAnimationProvider: $Object;
         static BY_BLOCK: $Map<$Block, $Item>;
         constructor(properties: $Item$Properties);
+        get defaultProjectileRange(): number;
     }
     export class $Item$Properties implements $IItemPropertiesExtensions, $FabricItem$Settings, $InjectedItemPropertiesExtension, $ItemPropertiesExtensionImpl {
-        fireResistant(): $Item$Properties;
-        jukeboxPlayable(song: $ResourceKey_<$JukeboxSong>): $Item$Properties;
-        rarity(rarity: $Rarity_): $Item$Properties;
         arch$getTab(): $CreativeModeTab;
         arch$getTabSupplier(): $DeferredSupplier<any>;
         setNoRepair(): $Item$Properties;
-        arch$tab(song: $ResourceKey_<any>): $Item$Properties;
         arch$tab(tab: $DeferredSupplier<any>): $Item$Properties;
         arch$tab(tab: $CreativeModeTab_): $Item$Properties;
-        durability(maxDamage: number): $Item$Properties;
+        arch$tab(song: $ResourceKey_<any>): $Item$Properties;
         buildAndValidateComponents(): $DataComponentMap;
         static validateComponents(arg0: $DataComponentMap_): $DataComponentMap;
         craftRemainder(craftingRemainingItem: $Item_): $Item$Properties;
         stacksTo(maxDamage: number): $Item$Properties;
-        component<T>(component: $DataComponentType_<T>, value: T): $Item$Properties;
+        durability(maxDamage: number): $Item$Properties;
+        rarity(rarity: $Rarity_): $Item$Properties;
+        fireResistant(): $Item$Properties;
+        jukeboxPlayable(song: $ResourceKey_<$JukeboxSong>): $Item$Properties;
         attributes(attributes: $ItemAttributeModifiers_): $Item$Properties;
+        component<T>(component: $DataComponentType_<T>, value: T): $Item$Properties;
         requiredFeatures(...requiredFeatures: $FeatureFlag[]): $Item$Properties;
         food(food: $FoodProperties_): $Item$Properties;
         component<T>(arg0: $Supplier_<$DataComponentType<T>>, arg1: T): $Item$Properties;
@@ -468,9 +493,9 @@ declare module "@package/net/minecraft/world/item" {
         onCooldownStarted(item: $Item_, ticks: number): void;
         onCooldownEnded(item: $Item_): void;
         tick(): void;
-        getCooldownPercent(item: $Item_, partialTicks: number): number;
-        isOnCooldown(item: $Item_): boolean;
         addCooldown(item: $Item_, ticks: number): void;
+        isOnCooldown(item: $Item_): boolean;
+        getCooldownPercent(item: $Item_, partialTicks: number): number;
         constructor();
     }
     /**
@@ -481,8 +506,8 @@ declare module "@package/net/minecraft/world/item" {
         getBreakingSound(): $SoundEvent;
         getDrinkingSound(): $SoundEvent;
         getEatingSound(): $SoundEvent;
-        forEachModifier(slotGroup: $EquipmentSlotGroup_, action: $BiConsumer_<$Holder<$Attribute>, $AttributeModifier>): void;
         forEachModifier(equipmentSLot: $EquipmentSlot_, action: $BiConsumer_<$Holder<$Attribute>, $AttributeModifier>): void;
+        forEachModifier(slotGroup: $EquipmentSlotGroup_, action: $BiConsumer_<$Holder<$Attribute>, $AttributeModifier>): void;
         /**
          * Called as the stack is being used by an entity.
          */
@@ -502,14 +527,73 @@ declare module "@package/net/minecraft/world/item" {
          */
         releaseUsing(level: $Level_, livingEntity: $LivingEntity, count: number): void;
         fabric_setLivingEntity(arg0: $LivingEntity): void;
+        hurtAndBreak(damage: number, level: $ServerLevel, player: $ServerPlayer | null, onBreak: $Consumer_<$Item>): void;
         hurtAndBreak(arg0: number, arg1: $ServerLevel, arg2: $LivingEntity | null, arg3: $Consumer_<$Item>): void;
         hurtAndBreak(amount: number, entity: $LivingEntity, slot: $EquipmentSlot_): void;
-        hurtAndBreak(damage: number, level: $ServerLevel, player: $ServerPlayer | null, onBreak: $Consumer_<$Item>): void;
+        /**
+         * Returns `true` if this `ItemStack` is damageable.
+         */
+        isEnchanted(): boolean;
+        /**
+         * Returns `true` if this `ItemStack` is damageable.
+         */
+        isEnchantable(): boolean;
+        onItemUseFirst(context: $UseOnContext): $InteractionResult;
+        getTagEnchantments(): $ItemEnchantments;
+        /**
+         * Returns `true` if this `ItemStack` is damageable.
+         */
+        isDamageableItem(): boolean;
+        canBeHurtBy(damageSource: $DamageSource_): boolean;
+        transmuteCopy(item: $ItemLike_): $ItemStack;
+        transmuteCopy(item: $ItemLike_, count: number): $ItemStack;
+        fabric_getLivingEntity(): $LivingEntity;
+        getItemHolder(): $Holder<$Item>;
+        consumeAndReturn(amount: number, entity: $LivingEntity | null): $ItemStack;
+        setDamageValue(increment: number): void;
         /**
          * Returns `true` if this `ItemStack` is damageable.
          */
         isStackable(): boolean;
+        copyWithCount(count: number): $ItemStack;
+        setEntityRepresentation(entity: $Entity | null): void;
+        getComponentsPatch(): $DataComponentPatch;
+        /**
+         * Returns `true` if this `ItemStack` is damageable.
+         */
+        isComponentsPatchEmpty(): boolean;
+        wrapOperation$gmb001$geckolib$removeGeckolibIdOnCopy(arg0: $ItemStack_, arg1: number, arg2: $Operation_<any>): $ItemStack;
+        /**
+         * @deprecated
+         */
+        onDestroyed(itemEntity: $ItemEntity): void;
         useOn(context: $UseOnContext): $InteractionResult;
+        static validateComponents(components: $DataComponentMap_): $DataResult<$Unit>;
+        getRarity(): $Rarity;
+        /**
+         * @deprecated
+         */
+        static listMatches(list: $List_<$ItemStack_>, other: $List_<$ItemStack_>): boolean;
+        static hashItemAndComponents(stack: $ItemStack_ | null): number;
+        /**
+         * @deprecated
+         */
+        static hashStackList(list: $List_<$ItemStack_>): number;
+        applyComponentsAndValidate(components: $DataComponentPatch_): void;
+        addToTooltip<T extends $TooltipProvider>(component: $DataComponentType_<T>, context: $Item$TooltipContext, tooltipAdder: $Consumer_<$Component>, tooltipFlag: $TooltipFlag): void;
+        /**
+         * Returns `true` if this `ItemStack` is damageable.
+         */
+        isFramed(): boolean;
+        /**
+         * Return the item frame this stack is on. Returns null if not on an item frame.
+         */
+        getFrame(): $ItemFrame;
+        /**
+         * For example, it'll return an `ItemFrameEntity` if it is in an itemframe.
+         */
+        getEntityRepresentation(): $Entity;
+        connector_useOn(context: $UseOnContext): $InteractionResult;
         /**
          * Returns `true` if this `ItemStack` is damageable.
          */
@@ -524,32 +608,6 @@ declare module "@package/net/minecraft/world/item" {
         getMaxDamage(): number;
         overrideStackedOnOther(slot: $Slot, action: $ClickAction_, player: $Player): boolean;
         overrideOtherStackedOnMe(stack: $ItemStack_, slot: $Slot, action: $ClickAction_, player: $Player, access: $SlotAccess): boolean;
-        wrapOperation$gmb001$geckolib$removeGeckolibIdOnCopy(arg0: $ItemStack_, arg1: number, arg2: $Operation_<any>): $ItemStack;
-        static validatedStreamCodec(codec: $StreamCodec<$RegistryFriendlyByteBuf, $ItemStack_>): $StreamCodec<$RegistryFriendlyByteBuf, $ItemStack>;
-        /**
-         * Returns `true` if this `ItemStack` is damageable.
-         */
-        isComponentsPatchEmpty(): boolean;
-        static parseOptional(lookupProvider: $HolderLookup$Provider, tag: $CompoundTag_): $ItemStack;
-        setDamageValue(increment: number): void;
-        getItemHolder(): $Holder<$Item>;
-        onCraftedBySystem(level: $Level_): void;
-        getComponentsPatch(): $DataComponentPatch;
-        onItemUseFirst(context: $UseOnContext): $InteractionResult;
-        getTagEnchantments(): $ItemEnchantments;
-        /**
-         * Returns `true` if this `ItemStack` is damageable.
-         */
-        isDamageableItem(): boolean;
-        canBeHurtBy(damageSource: $DamageSource_): boolean;
-        transmuteCopy(item: $ItemLike_, count: number): $ItemStack;
-        transmuteCopy(item: $ItemLike_): $ItemStack;
-        fabric_getLivingEntity(): $LivingEntity;
-        static validateComponents(components: $DataComponentMap_): $DataResult<$Unit>;
-        /**
-         * @deprecated
-         */
-        onDestroyed(itemEntity: $ItemEntity): void;
         /**
          * Called when a Block is destroyed using this ItemStack
          */
@@ -559,30 +617,13 @@ declare module "@package/net/minecraft/world/item" {
          */
         inventoryTick(level: $Level_, entity: $Entity, inventorySlot: number, isCurrentItem: boolean): void;
         onCraftedBy(level: $Level_, player: $Player, amount: number): void;
-        /**
-         * Returns `true` if this `ItemStack` is damageable.
-         */
-        isEnchanted(): boolean;
-        /**
-         * Returns `true` if this `ItemStack` is damageable.
-         */
-        isEnchantable(): boolean;
+        static parseOptional(lookupProvider: $HolderLookup$Provider, tag: $CompoundTag_): $ItemStack;
         resetComponents(): this;
         /**
-         * Returns `true` if this `ItemStack` is damageable.
+         * Returns a new stack with the same properties.
          */
-        isFramed(): boolean;
-        /**
-         * Return the item frame this stack is on. Returns null if not on an item frame.
-         */
-        getFrame(): $ItemFrame;
-        /**
-         * For example, it'll return an `ItemFrameEntity` if it is in an itemframe.
-         */
-        getEntityRepresentation(): $Entity;
-        connector_useOn(context: $UseOnContext): $InteractionResult;
-        copyWithCount(count: number): $ItemStack;
-        setEntityRepresentation(entity: $Entity | null): void;
+        copyAndClear(): $ItemStack;
+        onCraftedBySystem(level: $Level_): void;
         saveOptional(levelRegistryAccess: $HolderLookup$Provider): $Tag;
         hurtAndConvertOnBreak(amount: number, item: $ItemLike_, entity: $LivingEntity, slot: $EquipmentSlot_): $ItemStack;
         /**
@@ -590,34 +631,18 @@ declare module "@package/net/minecraft/world/item" {
          */
         getPopTime(): number;
         setPopTime(increment: number): void;
-        /**
-         * @deprecated
-         */
-        static listMatches(list: $List_<$ItemStack_>, other: $List_<$ItemStack_>): boolean;
-        static hashItemAndComponents(stack: $ItemStack_ | null): number;
-        /**
-         * @deprecated
-         */
-        static hashStackList(list: $List_<$ItemStack_>): number;
-        applyComponentsAndValidate(components: $DataComponentPatch_): void;
-        addToTooltip<T extends $TooltipProvider>(component: $DataComponentType_<T>, context: $Item$TooltipContext, tooltipAdder: $Consumer_<$Component>, tooltipFlag: $TooltipFlag): void;
-        getRarity(): $Rarity;
-        /**
-         * Returns a new stack with the same properties.
-         */
-        copyAndClear(): $ItemStack;
-        consumeAndReturn(amount: number, entity: $LivingEntity | null): $ItemStack;
+        static validatedStreamCodec(codec: $StreamCodec<$RegistryFriendlyByteBuf, $ItemStack_>): $StreamCodec<$RegistryFriendlyByteBuf, $ItemStack>;
+        consume(amount: number, entity: $LivingEntity | null): void;
         /**
          * Get a ChatComponent for this Item's display name that shows this Item on hover
          */
         getDisplayName(): $Component;
-        consume(amount: number, entity: $LivingEntity | null): void;
         /**
          * Returns the object corresponding to the stack.
          */
         getItem(): $Item;
-        update<T>(component: $DataComponentType_<T>, defaultValue: T, updater: $UnaryOperator_<T>): T;
         update<T, U>(component: $DataComponentType_<T>, defaultValue: T, updateValue: U, updater: $BiFunction_<T, U, T>): T;
+        update<T>(component: $DataComponentType_<T>, defaultValue: T, updater: $UnaryOperator_<T>): T;
         /**
          * Returns `true` if this `ItemStack` is damageable.
          */
@@ -628,8 +653,8 @@ declare module "@package/net/minecraft/world/item" {
          * Returns the max damage an item in the stack can take.
          */
         getCount(): number;
-        save(levelRegistryAccess: $HolderLookup$Provider): $Tag;
         save(levelRegistryAccess: $HolderLookup$Provider, outputTag: $Tag_): $Tag;
+        save(levelRegistryAccess: $HolderLookup$Provider): $Tag;
         static parse(lookupProvider: $HolderLookup$Provider, tag: $Tag_): ($ItemStack) | undefined;
         /**
          * Returns a new stack with the same properties.
@@ -639,11 +664,11 @@ declare module "@package/net/minecraft/world/item" {
          * Called when the `ItemStack` is equipped and right-clicked. Replaces the `ItemStack` with the return value.
          */
         use(level: $Level_, player: $Player, usedHand: $InteractionHand_): $InteractionResultHolder<$ItemStack>;
-        is(tag: $TagKey_<$Item>): boolean;
-        is(item: $HolderSet_<$Item>): boolean;
-        is(item: $Holder_<$Item>): boolean;
-        is(item: $Item_): boolean;
         is(item: $Predicate_<$Holder<$Item>>): boolean;
+        is(item: $Holder_<$Item>): boolean;
+        is(item: $HolderSet_<$Item>): boolean;
+        is(item: $Item_): boolean;
+        is(tag: $TagKey_<$Item>): boolean;
         grow(increment: number): void;
         setCount(increment: number): void;
         limitSize(increment: number): void;
@@ -651,6 +676,14 @@ declare module "@package/net/minecraft/world/item" {
         shrink(increment: number): void;
         getComponents(): $DataComponentMap;
         getPrototype(): $DataComponentMap;
+        getDestroySpeed(state: $BlockState_): number;
+        /**
+         * Check whether the given Block can be harvested using this ItemStack.
+         */
+        isCorrectToolForDrops(state: $BlockState_): boolean;
+        interactLivingEntity(player: $Player, entity: $LivingEntity, usedHand: $InteractionHand_): $InteractionResult;
+        hurtEnemy(target: $LivingEntity, attacker: $Player): boolean;
+        postHurtEnemy(target: $LivingEntity, attacker: $Player): void;
         /**
          * Returns `true` if this `ItemStack` is damageable.
          */
@@ -670,26 +703,18 @@ declare module "@package/net/minecraft/world/item" {
          */
         hasFoil(): boolean;
         /**
-         * Get a ChatComponent for this Item's display name that shows this Item on hover
-         */
-        getHoverName(): $Component;
-        /**
          * Returns the max damage an item in the stack can take.
          */
         getMaxStackSize(): number;
-        getDescriptionId(): string;
-        isItemEnabled(enabledFlags: $FeatureFlagSet): boolean;
+        canPlaceOnBlockInAdventureMode(block: $BlockInWorld): boolean;
         canBreakBlockInAdventureMode(block: $BlockInWorld): boolean;
         static isSameItem(stack: $ItemStack_, other: $ItemStack_): boolean;
-        getDestroySpeed(state: $BlockState_): number;
+        getDescriptionId(): string;
+        isItemEnabled(enabledFlags: $FeatureFlagSet): boolean;
         /**
-         * Check whether the given Block can be harvested using this ItemStack.
+         * Get a ChatComponent for this Item's display name that shows this Item on hover
          */
-        isCorrectToolForDrops(state: $BlockState_): boolean;
-        interactLivingEntity(player: $Player, entity: $LivingEntity, usedHand: $InteractionHand_): $InteractionResult;
-        hurtEnemy(target: $LivingEntity, attacker: $Player): boolean;
-        postHurtEnemy(target: $LivingEntity, attacker: $Player): void;
-        canPlaceOnBlockInAdventureMode(block: $BlockInWorld): boolean;
+        getHoverName(): $Component;
         has(arg0: $DataComponentType_<never>): boolean;
         copyFrom(arg0: $DataComponentHolder_, ...arg1: $DataComponentType_<never>[]): void;
         copyFrom(arg0: $DataComponentHolder_, ...arg1: $Supplier_<$DataComponentType<never>>[]): void;
@@ -709,11 +734,13 @@ declare module "@package/net/minecraft/world/item" {
         getFoodProperties(arg0: $LivingEntity): $FoodProperties;
         canDisableShield(arg0: $ItemStack_, arg1: $LivingEntity, arg2: $LivingEntity): boolean;
         /**
+         * Returns the max damage an item in the stack can take.
+         */
+        getEnchantmentValue(): number;
+        /**
          * Returns `true` if this `ItemStack` is damageable.
          */
         isRepairable(): boolean;
-        getAttributeModifiers(): $ItemAttributeModifiers;
-        doesSneakBypassUse(arg0: $LevelReader, arg1: $BlockPos_, arg2: $Player): boolean;
         /**
          * Returns `true` if this `ItemStack` is damageable.
          */
@@ -742,30 +769,28 @@ declare module "@package/net/minecraft/world/item" {
          * Returns `true` if this `ItemStack` is damageable.
          */
         canGrindstoneRepair(): boolean;
+        doesSneakBypassUse(arg0: $LevelReader, arg1: $BlockPos_, arg2: $Player): boolean;
+        getAttributeModifiers(): $ItemAttributeModifiers;
         onDestroyed(arg0: $ItemEntity, arg1: $DamageSource_): void;
-        /**
-         * Returns `true` if this `ItemStack` is damageable.
-         */
-        hasCraftingRemainingItem(): boolean;
-        /**
-         * Returns the max damage an item in the stack can take.
-         */
-        getEnchantmentValue(): number;
         handler$bne000$fabric_entity_events_v1$canElytraFly(arg0: $LivingEntity, arg1: $CallbackInfoReturnable<any>): void;
         /**
          * Returns a new stack with the same properties.
          */
         getCraftingRemainingItem(): $ItemStack;
-        canElytraFly(arg0: $LivingEntity): boolean;
-        getCapability<T>(arg0: $ItemCapability<T, void>): T;
-        getCapability<T, C>(arg0: $ItemCapability<T, C>, arg1: C): T;
+        /**
+         * Returns `true` if this `ItemStack` is damageable.
+         */
+        hasCraftingRemainingItem(): boolean;
         getSweepHitBox(arg0: $Player, arg1: $Entity): $AABB;
-        canBeEnchantedWith(arg0: $Holder_<$Enchantment>, arg1: $EnchantingContext_): boolean;
-        getCreatorNamespace(): string;
+        canElytraFly(arg0: $LivingEntity): boolean;
+        getCapability<T, C>(arg0: $ItemCapability<T, C>, arg1: C): T;
+        getCapability<T>(arg0: $ItemCapability<T, void>): T;
         /**
          * Returns a new stack with the same properties.
          */
         getRecipeRemainder(): $ItemStack;
+        canBeEnchantedWith(arg0: $Holder_<$Enchantment>, arg1: $EnchantingContext_): boolean;
+        getCreatorNamespace(): string;
         getId(): string;
         replaceThisWith(cx: $RecipeScriptContext, arg1: $Object): $Object;
         getRegistryId(): $ResourceKey<$Registry<$Item>>;
@@ -773,15 +798,13 @@ declare module "@package/net/minecraft/world/item" {
         asHolder(): $Holder<$Item>;
         getIdLocation(): $ResourceLocation;
         getMod(): string;
-        toStringJS(): string;
-        toItemString0(dynamicOps: $DynamicOps<$Tag_>): string;
         asIngredient(): $Ingredient;
         getTypeData(): $Map<string, $Object>;
-        getComponentString(): string;
-        equalsIgnoringCount(stack: $ItemStack_): boolean;
         getEnchantments(): $ItemEnchantments;
         getHarvestSpeed(): number;
         getHarvestSpeed(block: $LevelBlock): number;
+        equalsIgnoringCount(stack: $ItemStack_): boolean;
+        toItemString0(dynamicOps: $DynamicOps<$Tag_>): string;
         withCount(count: number): this;
         withCustomName(name: $Component_): this;
         hasEnchantment(enchantment: $Holder_<$Enchantment>, level: number): boolean;
@@ -789,36 +812,36 @@ declare module "@package/net/minecraft/world/item" {
         enchant(enchantment: $Holder_<$Enchantment>, level: number): this;
         areItemsEqual(other: $ItemStack_): boolean;
         areComponentsEqual(other: $ItemStack_): boolean;
+        toStringJS(): string;
         toItemString(): string;
         /**
          * @deprecated
          */
         withChance(chance: number): $ItemStack;
-        withLore(lines: $Component_[], styledLines: $Component_[]): this;
         withLore(lines: $Component_[]): this;
+        withLore(lines: $Component_[], styledLines: $Component_[]): this;
         getWebIconURL(ops: $DynamicOps<$Tag_>, size: number): $RelativeURL;
-        matches(cx: $RecipeMatchContext, arg1: $Ingredient_, exact: boolean): boolean;
-        matches(cx: $RecipeMatchContext, s: $ItemStack_, exact: boolean): boolean;
+        getComponentString(): string;
         matches(cx: $RecipeMatchContext, itemLike: $ItemLike_, exact: boolean): boolean;
+        matches(cx: $RecipeMatchContext, s: $ItemStack_, exact: boolean): boolean;
+        matches(cx: $RecipeMatchContext, arg1: $Ingredient_, exact: boolean): boolean;
         getCodec(): $Codec<$ItemStack>;
+        getKey(): $ResourceKey<$Item>;
         /**
          * Returns a new stack with the same properties.
          */
         self(): $ItemStack;
-        getKey(): $ResourceKey<$Item>;
         getBlock(): $Block;
         specialEquals(o: $Object, shallow: boolean): boolean;
         addToTooltip<T extends $TooltipProvider>(arg0: $Supplier_<$DataComponentType<T>>, arg1: $Item$TooltipContext, arg2: $Consumer_<$Component>, arg3: $TooltipFlag): void;
         has(arg0: $Supplier_<$DataComponentType<never>>): boolean;
-        getComponentMap(): $DataComponentMap;
-        patch(components: $DataComponentPatch_): $ComponentFunctions;
         getComponentHolder(): $MutableDataComponentHolder;
+        getComponentMap(): $DataComponentMap;
+        patch(components: $DataComponentPatch_): $MutableDataComponentHolderFunctions;
         toJson(): $JsonElement;
         toNBT(): $Tag;
-        setFood(nutrition: number, saturation: number): void;
-        setFood(foodProperties: $FoodProperties_): void;
-        modifyFood(foodBuilder: $Consumer_<$FoodBuilder>): void;
-        setMaxStackSize(increment: number): void;
+        setNoteBlockSound(id: $ResourceLocation_): void;
+        getAttributeModifiers(): $ItemAttributeModifiers;
         setMaxDamage(increment: number): void;
         setDamage(increment: number): void;
         setUnbreakable(): void;
@@ -835,21 +858,15 @@ declare module "@package/net/minecraft/world/item" {
         setInstrument(tag: $Holder_<$Instrument>): void;
         setFireworkExplosion(explosion: $FireworkExplosion_): void;
         setFireworks(fireworks: $Fireworks_): void;
-        setNoteBlockSound(id: $ResourceLocation_): void;
-        getAttributeModifiers(): $ItemAttributeModifiers;
+        setFood(nutrition: number, saturation: number): void;
+        setFood(foodProperties: $FoodProperties_): void;
+        modifyFood(foodBuilder: $Consumer_<$FoodBuilder>): void;
+        setMaxStackSize(increment: number): void;
         matchesAny(cx: $RecipeMatchContext, itemLikes: $Iterable_<$ItemLike>, exact: boolean): boolean;
         getTagKeys(): $List<$TagKey<$Item>>;
         getTags(): $List<$ResourceLocation>;
         hasTag(tag: $ResourceLocation_): boolean;
         remove(type: $DataComponentType_<never>): $ComponentFunctions;
-        setEntityData(tag: $CompoundTag_): void;
-        setProfile(name: string, uuid: $UUID_): void;
-        setProfile(profile: $GameProfile): void;
-        setBaseColor(color: $DyeColor_): void;
-        setBlockStateProperties(properties: $Map_<string, string>): void;
-        setLockCode(lock: string): void;
-        setContainerLootTable(lootTable: $ResourceKey_<$LootTable>, seed: number): void;
-        setContainerLootTable(lootTable: $ResourceKey_<$LootTable>): void;
         setAdditionalTooltipHidden(): void;
         setUnit(component: $DataComponentType_<$Unit_>): $ComponentFunctions;
         setCustomData(tag: $CompoundTag_): void;
@@ -869,6 +886,14 @@ declare module "@package/net/minecraft/world/item" {
         setDyedColorWithTooltip(color: $KubeColor_): void;
         setPotionContents(contents: $PotionContents_): void;
         setPotionId(tag: $Holder_<$Potion>): void;
+        setEntityData(tag: $CompoundTag_): void;
+        setProfile(name: string, uuid: $UUID_): void;
+        setProfile(profile: $GameProfile): void;
+        setBaseColor(color: $DyeColor_): void;
+        setBlockStateProperties(properties: $Map_<string, string>): void;
+        setLockCode(lock: string): void;
+        setContainerLootTable(lootTable: $ResourceKey_<$LootTable>, seed: number): void;
+        setContainerLootTable(lootTable: $ResourceKey_<$LootTable>): void;
         setAttributeModifiers(modifiers: $List_<$ItemAttributeModifiers$Entry_>): void;
         getBaseAttackDamage(): number;
         getBaseAttackSpeed(): number;
@@ -913,15 +938,88 @@ declare module "@package/net/minecraft/world/item" {
         static OPTIONAL_STREAM_CODEC: $StreamCodec<$RegistryFriendlyByteBuf, $ItemStack>;
         static EMPTY: $ItemStack;
         static OPTIONAL_LIST_STREAM_CODEC: $StreamCodec<$RegistryFriendlyByteBuf, $List<$ItemStack>>;
-        constructor(tag: $Holder_<$Item>);
         constructor(tag: $Holder_<$Item>, count: number, components: $DataComponentPatch_);
+        constructor(tag: $Holder_<$Item>);
+        constructor(item: $ItemLike_);
         constructor(item: $ItemLike_, count: number);
         constructor(item: $Holder_<$Item>, count: number);
-        constructor(item: $ItemLike_);
         get<T extends keyof DataComponentTypes.OutputMap>(type: T): DataComponentTypes.OutputMap[T] | null;
         getOrDefault<T extends keyof DataComponentTypes.OutputMap>(type: T, _default: DataComponentTypes.OutputMap[T]): DataComponentTypes.OutputMap[T];
         set(components: $DataComponentMap_): this;
         set<T extends keyof DataComponentTypes.InputMap>(type: T, data: DataComponentTypes.InputMap[T]): this;
+        get breakingSound(): $SoundEvent;
+        get drinkingSound(): $SoundEvent;
+        get eatingSound(): $SoundEvent;
+        get useAnimation(): $UseAnim;
+        get enchanted(): boolean;
+        get enchantable(): boolean;
+        get tagEnchantments(): $ItemEnchantments;
+        get damageableItem(): boolean;
+        get itemHolder(): $Holder<$Item>;
+        get stackable(): boolean;
+        get componentsPatch(): $DataComponentPatch;
+        get componentsPatchEmpty(): boolean;
+        get framed(): boolean;
+        get frame(): $ItemFrame;
+        get damaged(): boolean;
+        get displayName(): $Component;
+        get item(): $Item;
+        get empty(): boolean;
+        get prototype(): $DataComponentMap;
+        get barVisible(): boolean;
+        get barWidth(): number;
+        get barColor(): number;
+        get tooltipImage(): ($TooltipComponent) | undefined;
+        get descriptionId(): string;
+        get hoverName(): $Component;
+        get equipmentSlot(): $EquipmentSlot;
+        get enchantmentValue(): number;
+        get repairable(): boolean;
+        get piglinCurrency(): boolean;
+        get xpRepairRatio(): number;
+        get craftingRemainingItem(): $ItemStack;
+        get recipeRemainder(): $ItemStack;
+        get creatorNamespace(): string;
+        get id(): string;
+        get registryId(): $ResourceKey<$Registry<$Item>>;
+        get registry(): $Registry<$Item>;
+        get idLocation(): $ResourceLocation;
+        get mod(): string;
+        get typeData(): $Map<string, $Object>;
+        get enchantments(): $ItemEnchantments;
+        get componentString(): string;
+        get codec(): $Codec<$ItemStack>;
+        get key(): $ResourceKey<$Item>;
+        get block(): $Block;
+        get componentHolder(): $MutableDataComponentHolder;
+        get componentMap(): $DataComponentMap;
+        set noteBlockSound(value: $ResourceLocation_);
+        set damage(value: number);
+        set itemName(value: $Component_);
+        set repairCost(value: number);
+        set tool(value: $Tool_);
+        set mapItemColor(value: $KubeColor_);
+        set chargedProjectiles(value: $List_<$ItemStack_>);
+        set bundleContents(value: $List_<$ItemStack_>);
+        set bucketEntityData(value: $CompoundTag_);
+        set blockEntityData(value: $CompoundTag_);
+        set instrument(value: $Holder_<$Instrument>);
+        set fireworkExplosion(value: $FireworkExplosion_);
+        set fireworks(value: $Fireworks_);
+        get tagKeys(): $List<$TagKey<$Item>>;
+        get tags(): $List<$ResourceLocation>;
+        set unit(value: $DataComponentType_<$Unit_>);
+        set customModelData(value: number);
+        set glintOverride(value: boolean);
+        set dyedColor(value: $KubeColor_);
+        set dyedColorWithTooltip(value: $KubeColor_);
+        set potionContents(value: $PotionContents_);
+        set potionId(value: $Holder_<$Potion>);
+        set entityData(value: $CompoundTag_);
+        set baseColor(value: $DyeColor_);
+        set blockStateProperties(value: $Map_<string, string>);
+        set lockCode(value: string);
+        set attributeModifiersWithTooltip(value: $List_<$ItemAttributeModifiers$Entry_>);
     }
     /**
      * Values that may be interpreted as {@link $ItemStack}.
@@ -943,13 +1041,13 @@ declare module "@package/net/minecraft/world/item" {
         getSlotColor(): number;
         getScrollerSprite(): $ResourceLocation;
         handler$cpm000$fabric_item_group_api_v1$getStacks(arg0: $CreativeModeTab$ItemDisplayParameters_, arg1: $CallbackInfo): void;
-        kjs$setDisplayName(component: $Component_): void;
-        kjs$setIcon(icon: $ItemStack_): void;
         shouldDisplay(): boolean;
         buildContents(parameters: $CreativeModeTab$ItemDisplayParameters_): void;
         getSearchTabDisplayItems(): $Collection<$ItemStack>;
-        getDisplayName(): $Component;
+        kjs$setDisplayName(component: $Component_): void;
+        kjs$setIcon(icon: $ItemStack_): void;
         row(): $CreativeModeTab$Row;
+        getDisplayName(): $Component;
         /**
          * @deprecated
          */
@@ -963,21 +1061,31 @@ declare module "@package/net/minecraft/world/item" {
         tabsBefore: $List<$ResourceLocation>;
         static DEFAULT_BACKGROUND: $ResourceLocation;
         alignedRight: boolean;
-        constructor(arg0: $CreativeModeTab$Row_, arg1: number, arg2: $CreativeModeTab$Type_, arg3: $Component_, arg4: $Supplier_<$ItemStack>, arg5: $CreativeModeTab$DisplayItemsGenerator_, arg6: $ResourceLocation_, arg7: boolean, arg8: number, arg9: $ResourceLocation_, arg10: number, arg11: number, arg12: $List_<$ResourceLocation_>, arg13: $List_<$ResourceLocation_>);
         constructor(arg0: $CreativeModeTab$Builder);
+        constructor(arg0: $CreativeModeTab$Row_, arg1: number, arg2: $CreativeModeTab$Type_, arg3: $Component_, arg4: $Supplier_<$ItemStack>, arg5: $CreativeModeTab$DisplayItemsGenerator_, arg6: $ResourceLocation_, arg7: boolean, arg8: number, arg9: $ResourceLocation_, arg10: number, arg11: number, arg12: $List_<$ResourceLocation_>, arg13: $List_<$ResourceLocation_>);
         constructor(row: $CreativeModeTab$Row_, column: number, type: $CreativeModeTab$Type_, displayName: $Component_, iconGenerator: $Supplier_<any>, displayItemGenerator: $CreativeModeTab$DisplayItemsGenerator_);
+        get iconItem(): $ItemStack;
+        get displayItems(): $Collection<$ItemStack>;
+        get searchBarWidth(): number;
+        get tabsImage(): $ResourceLocation;
+        get labelColor(): number;
+        get slotColor(): number;
+        get scrollerSprite(): $ResourceLocation;
+        get searchTabDisplayItems(): $Collection<$ItemStack>;
+        get displayName(): $Component;
+        get type(): $CreativeModeTab$Type;
     }
     /**
      * Values that may be interpreted as {@link $CreativeModeTab}.
      */
     export type $CreativeModeTab_ = RegistryTypes.CreativeModeTab;
     export class $CreativeModeTab$Builder {
-        backgroundTexture(backgroundTexture: $ResourceLocation_): $CreativeModeTab$Builder;
-        displayItems(arg0: $Collection_<$Holder_<$ItemLike>>): $CreativeModeTab$Builder;
-        displayItems(displayItemsGenerator: $CreativeModeTab$DisplayItemsGenerator_): $CreativeModeTab$Builder;
         alignedRight(): $CreativeModeTab$Builder;
+        backgroundTexture(backgroundTexture: $ResourceLocation_): $CreativeModeTab$Builder;
         hideTitle(): $CreativeModeTab$Builder;
         noScrollBar(): $CreativeModeTab$Builder;
+        displayItems(arg0: $Collection_<$Holder_<$ItemLike>>): $CreativeModeTab$Builder;
+        displayItems(displayItemsGenerator: $CreativeModeTab$DisplayItemsGenerator_): $CreativeModeTab$Builder;
         withSearchBar(arg0: number): $CreativeModeTab$Builder;
         withSearchBar(): $CreativeModeTab$Builder;
         withScrollBarSpriteLocation(backgroundTexture: $ResourceLocation_): $CreativeModeTab$Builder;
@@ -1008,7 +1116,7 @@ declare module "@package/net/minecraft/world/item" {
     /**
      * Values that may be interpreted as {@link $Instrument}.
      */
-    export type $Instrument_ = RegistryTypes.Instrument | { soundEvent?: $Holder_<$SoundEvent>, useDuration?: number, range?: number,  } | [soundEvent?: $Holder_<$SoundEvent>, useDuration?: number, range?: number, ];
+    export type $Instrument_ = RegistryTypes.Instrument | { range?: number, useDuration?: number, soundEvent?: $Holder_<$SoundEvent>,  } | [range?: number, useDuration?: number, soundEvent?: $Holder_<$SoundEvent>, ];
     export interface $CreativeModeTab extends RegistryMarked<RegistryTypes.CreativeModeTabTag, RegistryTypes.CreativeModeTab> {}
     export class $Items {
         static registerBlock(item: $BlockItem): $Item;
@@ -2366,25 +2474,25 @@ declare module "@package/net/minecraft/world/item" {
      */
     export type $CreativeModeTab$TabVisibility_ = "parent_and_search_tabs" | "parent_tab_only" | "search_tab_only";
     export class $BlockItem extends $Item implements $IExtendedItem {
-        place(context: $BlockPlaceContext): $InteractionResult;
-        registerBlocks(blockToItemMap: $Map_<$Block_, $Item_>, item: $Item_): void;
-        updatePlacementContext(context: $BlockPlaceContext): $BlockPlaceContext;
-        getPlacementState(context: $BlockPlaceContext): $BlockState;
-        static updateCustomBlockEntityTag(level: $Level_, player: $Player | null, pos: $BlockPos_, stack: $ItemStack_): boolean;
+        canPlace(context: $BlockPlaceContext, state: $BlockState_): boolean;
+        getPlaceSound(arg0: $BlockState_, arg1: $Level_, arg2: $BlockPos_, arg3: $Player): $SoundEvent;
+        /**
+         * @deprecated
+         */
+        getPlaceSound(state: $BlockState_): $SoundEvent;
         updateCustomBlockEntityTag(pos: $BlockPos_, level: $Level_, player: $Player | null, stack: $ItemStack_, state: $BlockState_): boolean;
+        static updateCustomBlockEntityTag(level: $Level_, player: $Player | null, pos: $BlockPos_, stack: $ItemStack_): boolean;
         mustSurvive(): boolean;
         /**
          * @deprecated
          */
         removeFromBlockToItemMap(blockToItemMap: $Map_<$Block_, $Item_>, item: $Item_): void;
-        /**
-         * @deprecated
-         */
-        getPlaceSound(state: $BlockState_): $SoundEvent;
-        getPlaceSound(arg0: $BlockState_, arg1: $Level_, arg2: $BlockPos_, arg3: $Player): $SoundEvent;
+        registerBlocks(blockToItemMap: $Map_<$Block_, $Item_>, item: $Item_): void;
+        updatePlacementContext(context: $BlockPlaceContext): $BlockPlaceContext;
+        getPlacementState(context: $BlockPlaceContext): $BlockState;
         placeBlock(context: $BlockPlaceContext, state: $BlockState_): boolean;
-        canPlace(context: $BlockPlaceContext, state: $BlockState_): boolean;
         getBlock(): $Block;
+        place(context: $BlockPlaceContext): $InteractionResult;
         static setBlockEntityData(stack: $ItemStack_, blockEntityType: $BlockEntityType_<never>, blockEntityData: $CompoundTag_): void;
         static BASE_ATTACK_DAMAGE_ID: $ResourceLocation;
         static DEFAULT_MAX_STACK_SIZE: number;
@@ -2413,10 +2521,10 @@ declare module "@package/net/minecraft/world/item" {
     }
     export interface $Item extends RegistryMarked<RegistryTypes.ItemTag, RegistryTypes.Item> {}
     export class $SpawnEggItem extends $Item {
-        spawnsEntity(stack: $ItemStack_, entityType: $EntityType_<never>): boolean;
-        static eggs(): $Iterable<$SpawnEggItem>;
-        spawnOffspringFromSpawnEgg(player: $Player, mob: $Mob, entityType: $EntityType_<$Mob>, serverLevel: $ServerLevel, pos: $Vec3_, stack: $ItemStack_): ($Mob) | undefined;
         getDefaultType(): $EntityType<never>;
+        spawnOffspringFromSpawnEgg(player: $Player, mob: $Mob, entityType: $EntityType_<$Mob>, serverLevel: $ServerLevel, pos: $Vec3_, stack: $ItemStack_): ($Mob) | undefined;
+        static eggs(): $Iterable<$SpawnEggItem>;
+        spawnsEntity(stack: $ItemStack_, entityType: $EntityType_<never>): boolean;
         getType(stack: $ItemStack_): $EntityType<never>;
         getColor(tintIndex: number): number;
         static byId(type: $EntityType_<never> | null): $SpawnEggItem;
@@ -2463,30 +2571,31 @@ declare module "@package/net/minecraft/world/item" {
          * Returns the unlocalized name of this item.
          */
         getId(): string;
-        getDescription(): $Component;
+        handler$fpn000$elytratrims$modifyTooltip(stack: $ItemStack_, context: $Item$TooltipContext, tooltip: $List_<any>, type: $TooltipFlag, ci: $CallbackInfo): void;
+        isFoil(stack: $ItemStack_): boolean;
+        isEnchantable(stack: $ItemStack_): boolean;
+        static getPlayerPOVHitResult(level: $Level_, player: $Player, fluidMode: $ClipContext$Fluid_): $BlockHitResult;
         /**
-         * Called when this item is used when targeting a Block
+         * @deprecated
+         * Return the enchantability factor of the item, most of the time is based on material.
          */
-        useOn(context: $UseOnContext): $InteractionResult;
-        overrideStackedOnOther(stack: $ItemStack_, slot: $Slot, action: $ClickAction_, player: $Player): boolean;
-        overrideOtherStackedOnMe(stack: $ItemStack_, other: $ItemStack_, slot: $Slot, action: $ClickAction_, player: $Player, access: $SlotAccess): boolean;
+        getEnchantmentValue(): number;
+        /**
+         * Return whether this item is repairable in an anvil.
+         */
+        isValidRepairItem(stack: $ItemStack_, repairCandidate: $ItemStack_): boolean;
         /**
          * @deprecated
          */
         getDefaultAttributeModifiers(): $ItemAttributeModifiers;
         isRepairable(stack: $ItemStack_): boolean;
-        fabric_getEquipmentSlotProvider(): $EquipmentSlotProvider;
-        /**
-         * @deprecated
-         */
-        static byBlock(block: $Block_): $Item;
-        asHolder(): $Holder<any>;
         /**
          * @deprecated
          * True if this Item has a container item (a.k.a. crafting result)
          */
         canFitInsideContainerItems(): boolean;
         handler$gap000$moonlight$initializeClient(arg0: $Consumer_<any>, arg1: $CallbackInfo): void;
+        fabric_getEquipmentSlotProvider(): $EquipmentSlotProvider;
         fabric_setEquipmentSlotProvider(arg0: $EquipmentSlotProvider_): void;
         fabric_getCustomDamageHandler(): $CustomDamageHandler;
         fabric_setCustomDamageHandler(arg0: $CustomDamageHandler_): void;
@@ -2497,14 +2606,9 @@ declare module "@package/net/minecraft/world/item" {
         moonlight$setClientAnimationExtension(arg0: $Object): void;
         setItemBuilder(b: $ItemBuilder): void;
         getTypeItemStackKey(): $ItemStackKey;
-        static getPlayerPOVHitResult$sable_$md$e5fdf9$0(level: $Level_, player: $Player, fluidMode: $ClipContext$Fluid_): $BlockHitResult;
+        static getPlayerPOVHitResult$sable_$md$3675d4$0(level: $Level_, player: $Player, fluidMode: $ClipContext$Fluid_): $BlockHitResult;
         setCraftingRemainder(arg0: $Item_): void;
         setCanRepair(arg0: boolean): void;
-        asIngredient(): $Ingredient;
-        /**
-         * @deprecated
-         */
-        modifyDefaultComponentsFrom(arg0: $DataComponentPatch_): void;
         /**
          * Return the enchantability factor of the item, most of the time is based on material.
          */
@@ -2515,9 +2619,32 @@ declare module "@package/net/minecraft/world/item" {
         onDestroyed(itemEntity: $ItemEntity): void;
         canAttackBlock(state: $BlockState_, level: $Level_, pos: $BlockPos_, player: $Player): boolean;
         /**
+         * Called when this item is used when targeting a Block
+         */
+        useOn(context: $UseOnContext): $InteractionResult;
+        asHolder(): $Holder<any>;
+        asIngredient(): $Ingredient;
+        /**
+         * @deprecated
+         */
+        modifyDefaultComponentsFrom(arg0: $DataComponentPatch_): void;
+        /**
+         * @deprecated
+         */
+        builtInRegistryHolder(): $Holder$Reference<$Item>;
+        appendHoverText(stack: $ItemStack_, context: $Item$TooltipContext, tooltipComponents: $List_<$Component_>, tooltipFlag: $TooltipFlag): void;
+        getTypeData(): $Map<any, any>;
+        setNameKey(arg0: string): void;
+        overrideStackedOnOther(stack: $ItemStack_, slot: $Slot, action: $ClickAction_, player: $Player): boolean;
+        overrideOtherStackedOnMe(stack: $ItemStack_, other: $ItemStack_, slot: $Slot, action: $ClickAction_, player: $Player, access: $SlotAccess): boolean;
+        /**
          * Called when a `Block` is destroyed using this Item. Return `true` to trigger the "Use Item" statistic.
          */
         mineBlock(stack: $ItemStack_, level: $Level_, state: $BlockState_, pos: $BlockPos_, miningEntity: $LivingEntity): boolean;
+        /**
+         * @deprecated
+         */
+        getCraftingRemainingItem(): $Item;
         /**
          * @deprecated
          * True if this Item has a container item (a.k.a. crafting result)
@@ -2536,19 +2663,6 @@ declare module "@package/net/minecraft/world/item" {
          * True if this Item has a container item (a.k.a. crafting result)
          */
         isComplex(): boolean;
-        handler$fpn000$elytratrims$modifyTooltip(stack: $ItemStack_, context: $Item$TooltipContext, tooltip: $List_<any>, type: $TooltipFlag, ci: $CallbackInfo): void;
-        isFoil(stack: $ItemStack_): boolean;
-        isEnchantable(stack: $ItemStack_): boolean;
-        static getPlayerPOVHitResult(level: $Level_, player: $Player, fluidMode: $ClipContext$Fluid_): $BlockHitResult;
-        /**
-         * @deprecated
-         * Return the enchantability factor of the item, most of the time is based on material.
-         */
-        getEnchantmentValue(): number;
-        /**
-         * Return whether this item is repairable in an anvil.
-         */
-        isValidRepairItem(stack: $ItemStack_, repairCandidate: $ItemStack_): boolean;
         /**
          * Returns the unlocalized name of this item.
          */
@@ -2557,13 +2671,11 @@ declare module "@package/net/minecraft/world/item" {
          * @deprecated
          */
         initializeClient(arg0: $Consumer_<$IClientItemExtensions>): void;
-        appendHoverText(stack: $ItemStack_, context: $Item$TooltipContext, tooltipComponents: $List_<$Component_>, tooltipFlag: $TooltipFlag): void;
-        getTypeData(): $Map<any, any>;
-        setNameKey(arg0: string): void;
         /**
          * @deprecated
          */
-        builtInRegistryHolder(): $Holder$Reference<$Item>;
+        static byBlock(block: $Block_): $Item;
+        getDescription(): $Component;
         getName(stack: $ItemStack_): $Component;
         static getId(item: $Item_): number;
         /**
@@ -2572,15 +2684,23 @@ declare module "@package/net/minecraft/world/item" {
         use(level: $Level_, player: $Player, usedHand: $InteractionHand_): $InteractionResultHolder<$ItemStack>;
         components(): $DataComponentMap;
         requiredFeatures(): $FeatureFlagSet;
+        getDestroySpeed(stack: $ItemStack_, state: $BlockState_): number;
+        isCorrectToolForDrops(stack: $ItemStack_, state: $BlockState_): boolean;
         /**
-         * @deprecated
+         * Try interacting with given entity. Return `InteractionResult.PASS` if nothing should happen.
          */
-        getCraftingRemainingItem(): $Item;
+        interactLivingEntity(stack: $ItemStack_, player: $Player, interactionTarget: $LivingEntity, usedHand: $InteractionHand_): $InteractionResult;
+        getAttackDamageBonus(target: $Entity, damage: number, damageSource: $DamageSource_): number;
+        /**
+         * Current implementations of this method in child classes do not use the entry argument beside ev. They just raise the damage on the stack.
+         */
+        hurtEnemy(stack: $ItemStack_, target: $LivingEntity, attacker: $LivingEntity): boolean;
+        postHurtEnemy(stack: $ItemStack_, target: $LivingEntity, attacker: $LivingEntity): void;
+        getKey(): $ResourceKey<any>;
         isBarVisible(stack: $ItemStack_): boolean;
         getBarWidth(stack: $ItemStack_): number;
         getBarColor(stack: $ItemStack_): number;
         getTooltipImage(stack: $ItemStack_): ($TooltipComponent) | undefined;
-        asItem(): $Item;
         getDefaultInstance(): $ItemStack;
         /**
          * Returns the unlocalized name of this item. This version accepts an ItemStack so different stacks can have different names based on their damage or NBT.
@@ -2590,29 +2710,17 @@ declare module "@package/net/minecraft/world/item" {
          * Returns the unlocalized name of this item.
          */
         getDescriptionId(): string;
-        getKey(): $ResourceKey<any>;
-        getDestroySpeed(stack: $ItemStack_, state: $BlockState_): number;
-        isCorrectToolForDrops(stack: $ItemStack_, state: $BlockState_): boolean;
-        /**
-         * Try interacting with given entity. Return `InteractionResult.PASS` if nothing should happen.
-         */
-        interactLivingEntity(stack: $ItemStack_, player: $Player, interactionTarget: $LivingEntity, usedHand: $InteractionHand_): $InteractionResult;
+        asItem(): $Item;
         static byId(id: number): $Item;
-        getAttackDamageBonus(target: $Entity, damage: number, damageSource: $DamageSource_): number;
-        /**
-         * Current implementations of this method in child classes do not use the entry argument beside ev. They just raise the damage on the stack.
-         */
-        hurtEnemy(stack: $ItemStack_, target: $LivingEntity, attacker: $LivingEntity): boolean;
-        postHurtEnemy(stack: $ItemStack_, target: $LivingEntity, attacker: $LivingEntity): void;
         isEnabled(arg0: $FeatureFlagSet): boolean;
         canWalkOnPowderedSnow(arg0: $ItemStack_, arg1: $LivingEntity): boolean;
         makesPiglinsNeutral(arg0: $ItemStack_, arg1: $LivingEntity): boolean;
         getEquipmentSlot(arg0: $ItemStack_): $EquipmentSlot;
+        onEntitySwing(arg0: $ItemStack_, arg1: $LivingEntity, arg2: $InteractionHand_): boolean;
         /**
          * @deprecated
          */
         onEntitySwing(arg0: $ItemStack_, arg1: $LivingEntity): boolean;
-        onEntitySwing(arg0: $ItemStack_, arg1: $LivingEntity, arg2: $InteractionHand_): boolean;
         elytraFlightTick(arg0: $ItemStack_, arg1: $LivingEntity, arg2: number): boolean;
         /**
          * Return whether this item is repairable in an anvil.
@@ -2622,13 +2730,9 @@ declare module "@package/net/minecraft/world/item" {
         canPerformAction(arg0: $ItemStack_, arg1: $ItemAbility_): boolean;
         getFoodProperties(arg0: $ItemStack_, arg1: $LivingEntity): $FoodProperties;
         canDisableShield(arg0: $ItemStack_, arg1: $ItemStack_, arg2: $LivingEntity, arg3: $LivingEntity): boolean;
-        getDamage(stack: $ItemStack_): number;
-        createEntity(arg0: $Level_, arg1: $Entity, arg2: $ItemStack_): $Entity;
-        isDamaged(stack: $ItemStack_): boolean;
-        getMaxDamage(stack: $ItemStack_): number;
+        getEnchantmentValue(stack: $ItemStack_): number;
         getDefaultAttributeModifiers(arg0: $ItemStack_): $ItemAttributeModifiers;
         isDamageable(stack: $ItemStack_): boolean;
-        doesSneakBypassUse(arg0: $ItemStack_, arg1: $LevelReader, arg2: $BlockPos_, arg3: $Player): boolean;
         canFitInsideContainerItems(stack: $ItemStack_): boolean;
         onDroppedByPlayer(arg0: $ItemStack_, arg1: $Player): boolean;
         getHighlightTip(arg0: $ItemStack_, arg1: $Component_): $Component;
@@ -2673,15 +2777,20 @@ declare module "@package/net/minecraft/world/item" {
         canGrindstoneRepair(stack: $ItemStack_): boolean;
         canBeHurtBy(arg0: $ItemStack_, arg1: $DamageSource_): boolean;
         applyEnchantments(arg0: $ItemStack_, arg1: $List_<$EnchantmentInstance>): $ItemStack;
+        doesSneakBypassUse(arg0: $ItemStack_, arg1: $LevelReader, arg2: $BlockPos_, arg3: $Player): boolean;
         onDestroyed(arg0: $ItemEntity, arg1: $DamageSource_): void;
-        hasCraftingRemainingItem(stack: $ItemStack_): boolean;
-        getEnchantmentValue(stack: $ItemStack_): number;
+        isDamaged(stack: $ItemStack_): boolean;
+        getMaxDamage(stack: $ItemStack_): number;
         getCraftingRemainingItem(arg0: $ItemStack_): $ItemStack;
-        getMaxStackSize(stack: $ItemStack_): number;
-        canElytraFly(arg0: $ItemStack_, arg1: $LivingEntity): boolean;
+        hasCraftingRemainingItem(stack: $ItemStack_): boolean;
+        createEntity(arg0: $Level_, arg1: $Entity, arg2: $ItemStack_): $Entity;
         getSweepHitBox(arg0: $ItemStack_, arg1: $Player, arg2: $Entity): $AABB;
+        getMaxStackSize(stack: $ItemStack_): number;
+        getDamage(stack: $ItemStack_): number;
+        canElytraFly(arg0: $ItemStack_, arg1: $LivingEntity): boolean;
         getLightColor(arg0: $Player, arg1: $ItemStack_): $Vector3f;
         getLightEmission(arg0: $Player, arg1: $ItemStack_): number;
+        getRecipeRemainder(arg0: $ItemStack_): $ItemStack;
         allowContinuingBlockBreaking(arg0: $Player, arg1: $ItemStack_, arg2: $ItemStack_): boolean;
         allowComponentsUpdateAnimation(arg0: $Player, arg1: $InteractionHand_, arg2: $ItemStack_, arg3: $ItemStack_): boolean;
         canBeEnchantedWith(arg0: $ItemStack_, arg1: $Holder_<$Enchantment>, arg2: $EnchantingContext_): boolean;
@@ -2689,7 +2798,6 @@ declare module "@package/net/minecraft/world/item" {
          * Returns the unlocalized name of this item. This version accepts an ItemStack so different stacks can have different names based on their damage or NBT.
          */
         getCreatorNamespace(stack: $ItemStack_): string;
-        getRecipeRemainder(arg0: $ItemStack_): $ItemStack;
         dragonlib$tickArmor(stack: $ItemStack_, player: $Player): void;
         dragonlib$getCustomEquipmentSlot(stack: $ItemStack_): $EquipmentSlot;
         arch$holder(): $Holder<$Item>;
@@ -2716,6 +2824,26 @@ declare module "@package/net/minecraft/world/item" {
         moonlight$clientAnimationProvider: $Object;
         static BY_BLOCK: $Map<$Block, $Item>;
         constructor(properties: $Item$Properties);
+        get breakingSound(): $SoundEvent;
+        get drinkingSound(): $SoundEvent;
+        get eatingSound(): $SoundEvent;
+        get typeItemStackKey(): $ItemStackKey;
+        set craftingRemainder(value: $Item_);
+        get defaultMaxStackSize(): number;
+        get typeData(): $Map<any, any>;
+        set nameKey(value: string);
+        get complex(): boolean;
+        get orCreateDescriptionId(): string;
+        get description(): $Component;
+        get key(): $ResourceKey<any>;
+        get defaultInstance(): $ItemStack;
+        get registryId(): $ResourceKey<$Registry<$Item>>;
+        get registry(): $Registry<$Item>;
+        get item(): $Item;
+        get idLocation(): $ResourceLocation;
+        get mod(): string;
+        get tagKeys(): $List<$TagKey<$Item>>;
+        get tags(): $List<$ResourceLocation>;
     }
     /**
      * Values that may be interpreted as {@link $Item}.
@@ -2738,7 +2866,7 @@ declare module "@package/net/minecraft/world/item" {
     /**
      * Values that may be interpreted as {@link $JukeboxSong}.
      */
-    export type $JukeboxSong_ = RegistryTypes.JukeboxSong | { lengthInSeconds?: number, comparatorOutput?: number, soundEvent?: $Holder_<$SoundEvent>, description?: $Component_,  } | [lengthInSeconds?: number, comparatorOutput?: number, soundEvent?: $Holder_<$SoundEvent>, description?: $Component_, ];
+    export type $JukeboxSong_ = RegistryTypes.JukeboxSong | { comparatorOutput?: number, lengthInSeconds?: number, description?: $Component_, soundEvent?: $Holder_<$SoundEvent>,  } | [comparatorOutput?: number, lengthInSeconds?: number, description?: $Component_, soundEvent?: $Holder_<$SoundEvent>, ];
     export class $ItemDisplayContext extends $Enum<$ItemDisplayContext> implements $StringRepresentable, $IExtensibleEnum {
         isModded(): boolean;
         static values(): $ItemDisplayContext[];
@@ -2760,6 +2888,11 @@ declare module "@package/net/minecraft/world/item" {
         static BY_ID: $IntFunction<$ItemDisplayContext>;
         static GUI: $ItemDisplayContext;
         static NONE: $ItemDisplayContext;
+        get modded(): boolean;
+        get id(): number;
+        static get extensionInfo(): $ExtensionInfo;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $ItemDisplayContext}.
@@ -2780,6 +2913,9 @@ declare module "@package/net/minecraft/world/item" {
         static CHESTPLATE: $ArmorItem$Type;
         static BOOTS: $ArmorItem$Type;
         static BODY: $ArmorItem$Type;
+        get slot(): $EquipmentSlot;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $ArmorItem$Type}.

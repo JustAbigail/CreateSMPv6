@@ -25,12 +25,11 @@ declare module "@package/net/minecraft/world/item/trading" {
         isOutOfStock(): boolean;
         getCostA(): $ItemStack;
         getCostB(): $ItemStack;
-        getDemand(): number;
         satisfiedBy(playerOfferA: $ItemStack_, playerOfferB: $ItemStack_): boolean;
-        take(playerOfferA: $ItemStack_, playerOfferB: $ItemStack_): boolean;
-        getUses(): number;
+        getDemand(): number;
         getXp(): number;
         assemble(): $ItemStack;
+        getUses(): number;
         /**
          * Calculates the demand with following formula: demand = demand + uses - maxUses - uses
          */
@@ -54,6 +53,7 @@ declare module "@package/net/minecraft/world/item/trading" {
          * Calculates the demand with following formula: demand = demand + uses - maxUses - uses
          */
         increaseUses(): void;
+        take(playerOfferA: $ItemStack_, playerOfferB: $ItemStack_): boolean;
         getResult(): $ItemStack;
         copy(): $MerchantOffer;
         maxUses: number;
@@ -65,6 +65,15 @@ declare module "@package/net/minecraft/world/item/trading" {
         constructor(baseCostA: $ItemCost_, costB: ($ItemCost_) | undefined, result: $ItemStack_, uses: number, maxUses: number, xp: number, priceMultiplier: number);
         constructor(baseCostA: $ItemCost_, result: $ItemStack_, maxUses: number, xp: number, priceMultiplier: number);
         constructor(baseCostA: $ItemCost_, costB: ($ItemCost_) | undefined, result: $ItemStack_, uses: number, maxUses: number, xp: number, priceMultiplier: number, demand: number);
+        get outOfStock(): boolean;
+        get costA(): $ItemStack;
+        get costB(): $ItemStack;
+        get xp(): number;
+        get priceMultiplier(): number;
+        get baseCostA(): $ItemStack;
+        get itemCostA(): $ItemCost;
+        get itemCostB(): ($ItemCost) | undefined;
+        get result(): $ItemStack;
     }
     export class $MerchantOffers extends $ArrayList<$MerchantOffer> {
         getRecipeFor(stackA: $ItemStack_, stackB: $ItemStack_, index: number): $MerchantOffer;
@@ -93,13 +102,17 @@ declare module "@package/net/minecraft/world/item/trading" {
         notifyTradeUpdated(stack: $ItemStack_): void;
         getNotifyTradeSound(): $SoundEvent;
         isClientSide(): boolean;
+        get offers(): $MerchantOffers;
+        get villagerXp(): number;
+        get notifyTradeSound(): $SoundEvent;
+        get clientSide(): boolean;
     }
     export class $ItemCost extends $Record {
         itemStack(): $ItemStack;
         withComponents(components: $UnaryOperator_<$DataComponentPredicate$Builder>): $ItemCost;
+        item(): $Holder<$Item>;
         test(stack: $ItemStack_): boolean;
         count(): number;
-        item(): $Holder<$Item>;
         components(): $DataComponentPredicate;
         static CODEC: $Codec<$ItemCost>;
         static OPTIONAL_STREAM_CODEC: $StreamCodec<$RegistryFriendlyByteBuf, ($ItemCost) | undefined>;
@@ -112,5 +125,5 @@ declare module "@package/net/minecraft/world/item/trading" {
     /**
      * Values that may be interpreted as {@link $ItemCost}.
      */
-    export type $ItemCost_ = { itemStack?: $ItemStack_, components?: $DataComponentPredicate, count?: number, item?: $Holder_<$Item>,  } | [itemStack?: $ItemStack_, components?: $DataComponentPredicate, count?: number, item?: $Holder_<$Item>, ];
+    export type $ItemCost_ = { count?: number, components?: $DataComponentPredicate, itemStack?: $ItemStack_, item?: $Holder_<$Item>,  } | [count?: number, components?: $DataComponentPredicate, itemStack?: $ItemStack_, item?: $Holder_<$Item>, ];
 }

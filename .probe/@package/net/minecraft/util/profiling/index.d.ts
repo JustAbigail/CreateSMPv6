@@ -14,12 +14,14 @@ declare module "@package/net/minecraft/util/profiling" {
         count: number;
         name: string;
         constructor(name: string, percentage: number, arg2: number, globalPercentage: number);
+        get color(): number;
     }
     export class $ProfilerFiller {
         static tee(first: $ProfilerFiller, second: $ProfilerFiller): $ProfilerFiller;
         static ROOT: string;
     }
     export interface $ProfilerFiller {
+        markForCharting(category: $MetricCategory_): void;
         push(entryIdSupplier: $Supplier_<string>): void;
         push(entryId: string): void;
         /**
@@ -34,13 +36,12 @@ declare module "@package/net/minecraft/util/profiling" {
          * End section
          */
         endTick(): void;
-        incrementCounter(entryId: string): void;
         incrementCounter(counterName: string, increment: number): void;
+        incrementCounter(entryId: string): void;
         incrementCounter(entryIdSupplier: $Supplier_<string>): void;
         incrementCounter(counterNameSupplier: $Supplier_<string>, increment: number): void;
-        popPush(entryId: string): void;
         popPush(entryIdSupplier: $Supplier_<string>): void;
-        markForCharting(category: $MetricCategory_): void;
+        popPush(entryId: string): void;
     }
     export class $ProfileResults {
         static demanglePath(path: string): string;
@@ -56,5 +57,12 @@ declare module "@package/net/minecraft/util/profiling" {
         getTimes(sectionPath: string): $List<$ResultField>;
         getTickDuration(): number;
         getNanoDuration(): number;
+        get startTimeNano(): number;
+        get startTimeTicks(): number;
+        get endTimeNano(): number;
+        get endTimeTicks(): number;
+        get profilerResults(): string;
+        get tickDuration(): number;
+        get nanoDuration(): number;
     }
 }

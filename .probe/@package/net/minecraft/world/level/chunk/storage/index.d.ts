@@ -15,8 +15,8 @@ import { $Throwable, $Record, $AutoCloseable, $Runnable } from "@package/java/la
 
 declare module "@package/net/minecraft/world/level/chunk/storage" {
     export class $ChunkStorage implements $AutoCloseable {
-        storageInfo(): $RegionStorageInfo;
         isOldChunkAround(pos: $ChunkPos, radius: number): boolean;
+        storageInfo(): $RegionStorageInfo;
         upgradeChunkTag(levelKey: $ResourceKey_<$Level>, storage: $Supplier_<$DimensionDataStorage>, chunkData: $CompoundTag_, chunkGeneratorKey: ($ResourceKey_<$MapCodec<$ChunkGenerator>>) | undefined): $CompoundTag;
         flushWorker(): void;
         static injectDatafixingContext(chunkData: $CompoundTag_, levelKey: $ResourceKey_<$Level>, chunkGeneratorKey: ($ResourceKey_<$MapCodec<$ChunkGenerator>>) | undefined): void;
@@ -33,22 +33,22 @@ declare module "@package/net/minecraft/world/level/chunk/storage" {
     export class $RegionStorageInfo extends $Record {
         withTypeSuffix(suffix: string): $RegionStorageInfo;
         dimension(): $ResourceKey<$Level>;
-        type(): string;
         level(): string;
+        type(): string;
         constructor(arg0: string, arg1: $ResourceKey_<$Level>, arg2: string);
     }
     /**
      * Values that may be interpreted as {@link $RegionStorageInfo}.
      */
-    export type $RegionStorageInfo_ = { type?: string, level?: string, dimension?: $ResourceKey_<$Level>,  } | [type?: string, level?: string, dimension?: $ResourceKey_<$Level>, ];
+    export type $RegionStorageInfo_ = { dimension?: $ResourceKey_<$Level>, level?: string, type?: string,  } | [dimension?: $ResourceKey_<$Level>, level?: string, type?: string, ];
     export class $SimpleRegionStorage implements $AutoCloseable {
         storageInfo(): $RegionStorageInfo;
         upgradeChunkTag(tag: $Dynamic<$Tag_>, version: number): $Dynamic<$Tag>;
         upgradeChunkTag(tag: $CompoundTag_, version: number): $CompoundTag;
-        synchronize(flushStorage: boolean): $CompletableFuture<void>;
         write(chunkPos: $ChunkPos, data: $CompoundTag_ | null): $CompletableFuture<void>;
         read(chunkPos: $ChunkPos): $CompletableFuture<($CompoundTag) | undefined>;
         close(): void;
+        synchronize(flushStorage: boolean): $CompletableFuture<void>;
         constructor(info: $RegionStorageInfo_, folder: $Path_, fixerUpper: $DataFixer, sync: boolean, dataFixType: $DataFixTypes_);
     }
     export class $ChunkIOErrorReporter {
@@ -71,16 +71,17 @@ declare module "@package/net/minecraft/world/level/chunk/storage" {
     export class $SectionStorage<R> implements $AutoCloseable {
         onSectionLoad(sectionKey: number): void;
         outsideStoredRange(sectionKey: number): boolean;
-        getOrLoad(sectionKey: number): (R) | undefined;
         hasWork(): boolean;
-        getOrCreate(sectionKey: number): R;
         setDirty(sectionKey: number): void;
+        tick(aheadOfTime: $BooleanSupplier_): void;
         remove(sectionKey: number): void;
         get(sectionKey: number): (R) | undefined;
         flush(chunkPos: $ChunkPos): void;
         close(): void;
-        tick(aheadOfTime: $BooleanSupplier_): void;
+        getOrCreate(sectionKey: number): R;
+        getOrLoad(sectionKey: number): (R) | undefined;
         levelHeightAccessor: $LevelHeightAccessor;
         constructor(simpleRegionStorage: $SimpleRegionStorage, codec: $Function_<$Runnable, $Codec<R>>, factory: $Function_<$Runnable, R>, registryAccess: $RegistryAccess, errorReporter: $ChunkIOErrorReporter, levelHeightAccessor: $LevelHeightAccessor);
+        set dirty(value: number);
     }
 }

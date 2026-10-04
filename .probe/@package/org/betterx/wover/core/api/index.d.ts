@@ -9,16 +9,16 @@ import { $ModContainer } from "@package/net/neoforged/fml";
 
 declare module "@package/org/betterx/wover/core/api" {
     export class $ModCore implements $Version$ModVersionProvider {
+        getNamespace(): string;
         static isDevEnvironment(): boolean;
         static isDatagen(): boolean;
-        registerDatapackListener(arg0: $IEventBus): void;
         providedDatapacks(): $Stream<$ResourceLocation>;
         convertNamespace(arg0: $ResourceLocation_): $ResourceLocation;
         convertNamespace<T>(arg0: $ResourceKey_<T>): $ResourceLocation;
+        registerDatapackListener(arg0: $IEventBus): void;
         addDatapack(arg0: string, arg1: $DatapackActivationType_): $ResourceLocation;
         addDatapack(arg0: $ModCore): $ResourceLocation;
         getModID(): string;
-        getNamespace(): string;
         id(arg0: string): $ResourceLocation;
         static create(arg0: string, arg1: string): $ModCore;
         static create(arg0: string): $ModCore;
@@ -32,6 +32,13 @@ declare module "@package/org/betterx/wover/core/api" {
         namespace: string;
         modId: string;
         modContainer: $ModContainer;
+        static get devEnvironment(): boolean;
+        static get datagen(): boolean;
+        get modID(): string;
+        get loaded(): boolean;
+        static get client(): boolean;
+        get modVersion(): $Version;
+        static get server(): boolean;
     }
     export class $DatapackActivationType extends $Enum<$DatapackActivationType> {
         packSource(): $PackSource;
@@ -47,12 +54,12 @@ declare module "@package/org/betterx/wover/core/api" {
      */
     export type $DatapackActivationType_ = "normal" | "default_enabled" | "always_enabled";
     export class $Logger extends $Logger$1 {
-        verboseWarning(arg0: string, ...arg1: $Object[]): void;
         verboseWarning(arg0: string): void;
-        verboseError(arg0: string, arg1: $Exception): void;
+        verboseWarning(arg0: string, ...arg1: $Object[]): void;
         verboseError(arg0: string): void;
+        verboseError(arg0: string, arg1: $Exception): void;
+        static create(arg0: $ModCore): $Logger;
         verbose(arg0: string): void;
         verbose(arg0: string, ...arg1: $Object[]): void;
-        static create(arg0: $ModCore): $Logger;
     }
 }

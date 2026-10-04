@@ -28,6 +28,7 @@ declare module "@package/com/electronwill/nightconfig/core/io" {
         parse(arg0: $InputStream, arg1: $Config, arg2: $ParsingMode, arg3: $Charset): void;
         parse(arg0: $InputStream, arg1: $Config, arg2: $ParsingMode): void;
         parse(arg0: $InputStream, arg1: $Charset): C;
+        get format(): $ConfigFormat<C>;
     }
     export class $ConfigWriter {
     }

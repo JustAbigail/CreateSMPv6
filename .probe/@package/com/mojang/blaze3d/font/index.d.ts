@@ -10,15 +10,25 @@ declare module "@package/com/mojang/blaze3d/font" {
     export interface $SheetGlyphInfo {
         getBottom(): number;
         getTop(): number;
+        getPixelWidth(): number;
+        getPixelHeight(): number;
         getOversample(): number;
         getBearingLeft(): number;
         getBearingTop(): number;
-        getPixelWidth(): number;
-        getPixelHeight(): number;
         isColored(): boolean;
         getLeft(): number;
         getRight(): number;
         upload(xOffset: number, yOffset: number): void;
+        get bottom(): number;
+        get top(): number;
+        get pixelWidth(): number;
+        get pixelHeight(): number;
+        get oversample(): number;
+        get bearingLeft(): number;
+        get bearingTop(): number;
+        get colored(): boolean;
+        get left(): number;
+        get right(): number;
     }
     export class $GlyphProvider$Conditional extends $Record implements $AutoCloseable {
         filter(): $FontOption$Filter;
@@ -29,7 +39,7 @@ declare module "@package/com/mojang/blaze3d/font" {
     /**
      * Values that may be interpreted as {@link $GlyphProvider$Conditional}.
      */
-    export type $GlyphProvider$Conditional_ = { filter?: $FontOption$Filter, provider?: $GlyphProvider_,  } | [filter?: $FontOption$Filter, provider?: $GlyphProvider_, ];
+    export type $GlyphProvider$Conditional_ = { provider?: $GlyphProvider_, filter?: $FontOption$Filter,  } | [provider?: $GlyphProvider_, filter?: $FontOption$Filter, ];
     export class $GlyphInfo {
     }
     export interface $GlyphInfo {
@@ -38,6 +48,8 @@ declare module "@package/com/mojang/blaze3d/font" {
         bake(glyphProvider: $Function_<$SheetGlyphInfo, $BakedGlyph>): $BakedGlyph;
         getBoldOffset(): number;
         getShadowOffset(): number;
+        get boldOffset(): number;
+        get shadowOffset(): number;
     }
     export class $GlyphProvider {
         static BASELINE: number;
@@ -46,6 +58,7 @@ declare module "@package/com/mojang/blaze3d/font" {
         getSupportedGlyphs(): $IntSet;
         getGlyph(character: number): $GlyphInfo;
         close(): void;
+        get supportedGlyphs(): $IntSet;
     }
     /**
      * Values that may be interpreted as {@link $GlyphProvider}.

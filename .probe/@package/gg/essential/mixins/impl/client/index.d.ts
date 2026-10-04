@@ -12,6 +12,7 @@ declare module "@package/gg/essential/mixins/impl/client" {
     }
     export interface $MinecraftExt {
         setSession(arg0: $User): void;
+        set session(value: $User);
     }
     /**
      * Values that may be interpreted as {@link $MinecraftExt}.

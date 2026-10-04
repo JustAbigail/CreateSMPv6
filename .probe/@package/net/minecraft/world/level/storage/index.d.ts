@@ -64,6 +64,11 @@ declare module "@package/net/minecraft/world/level/storage" {
         this$0: $LevelStorageSource;
         lock: $DirectoryLock;
         constructor(levelId: $LevelStorageSource, levelDir: string, arg2: $Path_);
+        get iconFile(): ($Path) | undefined;
+        get dataTag(): $Dynamic<never>;
+        get dataTagFallback(): $Dynamic<never>;
+        get worldDir(): $Path;
+        get levelId(): string;
     }
     export class $CommandStorage {
         get(id: $ResourceLocation_): $CompoundTag;
@@ -77,6 +82,7 @@ declare module "@package/net/minecraft/world/level/storage" {
         save(player: $Player): void;
         fixerUpper: $DataFixer;
         constructor(levelStorageAccess: $LevelStorageSource$LevelStorageAccess, fixerUpper: $DataFixer);
+        get playerDir(): $File;
     }
     export class $LevelStorageSource$LevelDirectory extends $Record {
         dataFile(): $Path;
@@ -115,14 +121,9 @@ declare module "@package/net/minecraft/world/level/storage" {
         getWanderingTraderId(): $UUID;
         setWanderingTraderId(id: $UUID_): void;
         /**
-         * Get current world name
-         */
-        getLevelName(): string;
-        /**
          * Gets the GameType.
          */
         getGameType(): $GameType;
-        setGameType(type: $GameType_): void;
         setClearWeatherTime(time: number): void;
         setRainTime(time: number): void;
         setThunderTime(time: number): void;
@@ -135,6 +136,7 @@ declare module "@package/net/minecraft/world/level/storage" {
          * Return the number of ticks until rain.
          */
         getClearWeatherTime(): number;
+        setGameType(type: $GameType_): void;
         /**
          * Return the number of ticks until rain.
          */
@@ -143,6 +145,10 @@ declare module "@package/net/minecraft/world/level/storage" {
          * Return the number of ticks until rain.
          */
         getRainTime(): number;
+        /**
+         * Get current world name
+         */
+        getLevelName(): string;
         /**
          * Sets the initialization status of the World.
          */
@@ -165,6 +171,12 @@ declare module "@package/net/minecraft/world/level/storage" {
          * Set current world time
          */
         setGameTime(time: number): void;
+        get allowCommands(): boolean;
+        set thundering(value: boolean);
+        get scheduledEvents(): $TimerQueue<$MinecraftServer>;
+        get levelName(): string;
+        set dayTime(value: number);
+        set gameTime(value: number);
     }
     export class $LevelDataAndDimensions extends $Record {
         dimensions(): $WorldDimensions$Complete;
@@ -174,7 +186,7 @@ declare module "@package/net/minecraft/world/level/storage" {
     /**
      * Values that may be interpreted as {@link $LevelDataAndDimensions}.
      */
-    export type $LevelDataAndDimensions_ = { worldData?: $WorldData, dimensions?: $WorldDimensions$Complete_,  } | [worldData?: $WorldData, dimensions?: $WorldDimensions$Complete_, ];
+    export type $LevelDataAndDimensions_ = { dimensions?: $WorldDimensions$Complete_, worldData?: $WorldData,  } | [dimensions?: $WorldDimensions$Complete_, worldData?: $WorldData, ];
     export class $WorldData {
         static ANVIL_VERSION_ID: number;
         static MCREGION_VERSION_ID: number;
@@ -182,6 +194,10 @@ declare module "@package/net/minecraft/world/level/storage" {
     export interface $WorldData {
         getDataConfiguration(): $WorldDataConfiguration;
         setDataConfiguration(dataConfiguration: $WorldDataConfiguration_): void;
+        /**
+         * Returns `true` if hardcore mode is enabled, otherwise `false`.
+         */
+        wasModded(): boolean;
         getKnownServerBrands(): $Set<string>;
         getRemovedFeatureFlags(): $Set<string>;
         setModdedInfo(name: string, isModded: boolean): void;
@@ -204,10 +220,6 @@ declare module "@package/net/minecraft/world/level/storage" {
         worldGenSettingsLifecycle(): $Lifecycle;
         createTag(registries: $RegistryAccess, hostPlayerNBT: $CompoundTag_ | null): $CompoundTag;
         /**
-         * Get current world name
-         */
-        getLevelName(): string;
-        /**
          * Gets the GameType.
          */
         getGameType(): $GameType;
@@ -215,19 +227,19 @@ declare module "@package/net/minecraft/world/level/storage" {
          * Returns `true` if hardcore mode is enabled, otherwise `false`.
          */
         isDifficultyLocked(): boolean;
-        /**
-         * Returns `true` if hardcore mode is enabled, otherwise `false`.
-         */
-        isFlatWorld(): boolean;
         setGameType(type: $GameType_): void;
         worldGenOptions(): $WorldOptions;
         endDragonFightData(): $EndDragonFight$Data;
         setEndDragonFightData(endDragonFightData: $EndDragonFight$Data_): void;
-        getVersion(): number;
         /**
          * Returns `true` if hardcore mode is enabled, otherwise `false`.
          */
-        wasModded(): boolean;
+        isFlatWorld(): boolean;
+        /**
+         * Get current world name
+         */
+        getLevelName(): string;
+        getVersion(): number;
         /**
          * Returns `true` if hardcore mode is enabled, otherwise `false`.
          */
@@ -239,15 +251,29 @@ declare module "@package/net/minecraft/world/level/storage" {
          */
         getGameRules(): $GameRules;
         getDifficulty(): $Difficulty;
+        get knownServerBrands(): $Set<string>;
+        get removedFeatureFlags(): $Set<string>;
+        get levelSettings(): $LevelSettings;
+        get allowCommands(): boolean;
+        get loadedPlayerTag(): $CompoundTag;
+        get debugWorld(): boolean;
+        get flatWorld(): boolean;
+        get levelName(): string;
+        get version(): number;
+        get hardcore(): boolean;
+        get gameRules(): $GameRules;
     }
     export class $DataVersion {
-        isCompatible(dataVersion: $DataVersion): boolean;
         getVersion(): number;
+        isCompatible(dataVersion: $DataVersion): boolean;
         isSideSeries(): boolean;
         getSeries(): string;
         static MAIN_SERIES: string;
         constructor(version: number, series: string);
         constructor(version: number);
+        get version(): number;
+        get sideSeries(): boolean;
+        get series(): string;
     }
     export class $LevelVersion {
         lastPlayed(): number;
@@ -289,6 +315,10 @@ declare module "@package/net/minecraft/world/level/storage" {
         static FORMATTER: $DateTimeFormatter;
         static LOGGER: $Logger;
         constructor(baseDir: $Path_, backupDir: $Path_, worldDirValidator: $DirectoryValidator, fixerUpper: $DataFixer);
+        get baseDir(): $Path;
+        get backupPath(): $Path;
+        get worldDirValidator(): $DirectoryValidator;
+        get name(): string;
     }
     export class $LevelSummary implements $Comparable<$LevelSummary> {
         levelVersion(): $LevelVersion;
@@ -304,18 +334,18 @@ declare module "@package/net/minecraft/world/level/storage" {
         canUpload(): boolean;
         canEdit(): boolean;
         canRecreate(): boolean;
-        isCompatible(): boolean;
-        getInfo(): $Component;
-        /**
-         * Returns the file name.
-         */
-        getLevelName(): string;
-        isExperimental(): boolean;
+        getSettings(): $LevelSettings;
         /**
          * Gets the EnumGameType.
          */
         getGameMode(): $GameType;
-        getSettings(): $LevelSettings;
+        isExperimental(): boolean;
+        /**
+         * Returns the file name.
+         */
+        getLevelName(): string;
+        getInfo(): $Component;
+        isCompatible(): boolean;
         compareTo(other: $LevelSummary): number;
         isLocked(): boolean;
         getIcon(): $Path;
@@ -328,6 +358,20 @@ declare module "@package/net/minecraft/world/level/storage" {
         getLevelId(): string;
         static PLAY_WORLD: $Component;
         constructor(settings: $LevelSettings, levelVersion: $LevelVersion, levelId: string, requiresManualConversion: boolean, locked: boolean, experimental: boolean, icon: $Path_);
+        get lastPlayed(): number;
+        get worldVersionName(): $MutableComponent;
+        get downgrade(): boolean;
+        get settings(): $LevelSettings;
+        get gameMode(): $GameType;
+        get experimental(): boolean;
+        get levelName(): string;
+        get info(): $Component;
+        get compatible(): boolean;
+        get locked(): boolean;
+        get icon(): $Path;
+        get disabled(): boolean;
+        get hardcore(): boolean;
+        get levelId(): string;
     }
     export class $WritableLevelData {
     }
@@ -373,6 +417,15 @@ declare module "@package/net/minecraft/world/level/storage" {
          */
         getDayTime(): number;
         getDifficulty(): $Difficulty;
+        get difficultyLocked(): boolean;
+        get gameTime(): number;
+        get hardcore(): boolean;
+        get gameRules(): $GameRules;
+        get spawnPos(): $BlockPos;
+        get spawnAngle(): number;
+        get thundering(): boolean;
+        get dayTime(): number;
+        get difficulty(): $Difficulty;
     }
     export class $LevelResource {
         getId(): string;
@@ -389,6 +442,7 @@ declare module "@package/net/minecraft/world/level/storage" {
         static PLAYER_DATA_DIR: $LevelResource;
         static DATAPACK_DIR: $LevelResource;
         constructor(id: string);
+        get id(): string;
     }
     /**
      * @deprecated
@@ -422,6 +476,7 @@ declare module "@package/net/minecraft/world/level/storage" {
         forEach(arg0: $Consumer_<$LevelStorageSource$LevelDirectory>): void;
         constructor(levels: $List_<$LevelStorageSource$LevelDirectory_>);
         [Symbol.iterator](): Iterator<$LevelStorageSource$LevelDirectory>
+        get empty(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $LevelStorageSource$LevelCandidates}.
@@ -436,6 +491,8 @@ declare module "@package/net/minecraft/world/level/storage" {
         static UPGRADE_TO_SNAPSHOT: $LevelSummary$BackupStatus;
         static DOWNGRADE: $LevelSummary$BackupStatus;
         static NONE: $LevelSummary$BackupStatus;
+        get severe(): boolean;
+        get translationKey(): string;
     }
     /**
      * Values that may be interpreted as {@link $LevelSummary$BackupStatus}.

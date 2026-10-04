@@ -66,18 +66,17 @@ declare module "@package/it/unimi/dsi/fastutil/doubles" {
     export class $DoublePredicate {
     }
     export interface $DoublePredicate extends $Predicate<number>, $DoublePredicate$1 {
+        and(arg0: $DoublePredicate_): $DoublePredicate;
+        /**
+         * @deprecated
+         */
+        and(arg0: $Predicate_<number>): $Predicate<number>;
         or(arg0: $DoublePredicate_$1): $DoublePredicate;
         or(arg0: $DoublePredicate_): $DoublePredicate;
         /**
          * @deprecated
          */
         or(arg0: $Predicate_<number>): $Predicate<number>;
-        and(arg0: $DoublePredicate_): $DoublePredicate;
-        and(arg0: $DoublePredicate_$1): $DoublePredicate;
-        /**
-         * @deprecated
-         */
-        and(arg0: $Predicate_<number>): $Predicate<number>;
         /**
          * @deprecated
          */
@@ -151,12 +150,12 @@ declare module "@package/it/unimi/dsi/fastutil/doubles" {
         static lexComparator(): $Comparator<$DoubleDoublePair>;
     }
     export interface $DoubleDoublePair extends $Pair<number, number> {
+        firstDouble(): number;
+        keyDouble(): number;
         leftDouble(): number;
         rightDouble(): number;
         secondDouble(): number;
         valueDouble(): number;
-        firstDouble(): number;
-        keyDouble(): number;
         /**
          * @deprecated
          */
@@ -408,10 +407,10 @@ declare module "@package/it/unimi/dsi/fastutil/doubles" {
         leftDouble(): number;
         rightDouble(): number;
         static of(arg0: number, arg1: number): $DoubleDoubleImmutablePair;
-        secondDouble(): number;
-        valueDouble(): number;
         firstDouble(): number;
         keyDouble(): number;
+        secondDouble(): number;
+        valueDouble(): number;
         /**
          * @deprecated
          */
@@ -478,6 +477,7 @@ declare module "@package/it/unimi/dsi/fastutil/doubles" {
         skip(arg0: number): number;
         trySplit(): $Spliterator<number>;
         getComparator(): $Comparator<number>;
+        get comparator(): $Comparator<number>;
     }
     export class $Double2ReferenceFunction<V> {
     }
@@ -609,8 +609,8 @@ declare module "@package/it/unimi/dsi/fastutil/doubles" {
         [Symbol.iterator](): Iterator<number>
     }
     export interface $DoubleList extends $List<number>, $Comparable<$List<number>>, $DoubleCollection {
-        getElements(arg0: number, arg1: number[], arg2: number, arg3: number): void;
         removeDouble(arg0: number): number;
+        getElements(arg0: number, arg1: number[], arg2: number, arg3: number): void;
         /**
          * @deprecated
          */

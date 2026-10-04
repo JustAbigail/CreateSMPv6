@@ -121,6 +121,7 @@ declare module "@package/net/neoforged/neoforge/attachment" {
         static serializable<S extends $Tag, T extends $INBTSerializable<S>>(arg0: $Supplier_<T>): $AttachmentType$Builder<T>;
         static serializable<S extends $Tag, T extends $INBTSerializable<S>>(arg0: $Function_<$IAttachmentHolder, T>): $AttachmentType$Builder<T>;
         getSerializer(): $IAttachmentSerializer<never, never>;
+        get serializer(): $IAttachmentSerializer<never, never>;
     }
     /**
      * Values that may be interpreted as {@link $AttachmentType}.

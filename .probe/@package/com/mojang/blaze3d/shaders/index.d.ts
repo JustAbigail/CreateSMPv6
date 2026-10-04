@@ -13,14 +13,16 @@ declare module "@package/com/mojang/blaze3d/shaders" {
     export interface $Effect extends $Shader {
     }
     export class $Program$Type extends $Enum<$Program$Type> implements $ProgramTypeAccessor {
-        getPrograms(): $Map<string, $Program>;
-        static createProgramType$iris_$md$e5fdf9$0(arg0: string, arg1: number, arg2: string, arg3: string, arg4: number): $Program$Type;
-        getExtension(): string;
+        static createProgramType$iris_$md$3675d4$0(arg0: string, arg1: number, arg2: string, arg3: string, arg4: number): $Program$Type;
         getName(): string;
         static values(): $Program$Type[];
         static valueOf(arg0: string): $Program$Type;
+        getExtension(): string;
+        getPrograms(): $Map<string, $Program>;
         static VERTEX: $Program$Type;
         static FRAGMENT: $Program$Type;
+        get extension(): string;
+        get programs(): $Map<string, $Program>;
     }
     /**
      * Values that may be interpreted as {@link $Program$Type}.
@@ -38,6 +40,8 @@ declare module "@package/com/mojang/blaze3d/shaders" {
         static compileShader(type: $Program$Type_, name: string, shaderData: $InputStream, sourceName: string, preprocessor: $GlslPreprocessor): $Program;
         attachToShader(shader: $Shader): void;
         constructor(type: $Program$Type_, id: number, name: string);
+        get name(): string;
+        get id(): number;
     }
     export class $Uniform extends $AbstractUniform implements $AutoCloseable {
         static glGetUniformLocation(program: number, name: $CharSequence): number;
@@ -67,6 +71,11 @@ declare module "@package/com/mojang/blaze3d/shaders" {
         static UT_FLOAT1: number;
         static UT_FLOAT4: number;
         constructor(name: string, type: number, count: number, parent: $Shader);
+        get name(): string;
+        get count(): number;
+        get type(): number;
+        get intBuffer(): $IntBuffer;
+        get floatBuffer(): $FloatBuffer;
     }
     export class $FogShape extends $Enum<$FogShape> {
         static values(): $FogShape[];
@@ -74,6 +83,7 @@ declare module "@package/com/mojang/blaze3d/shaders" {
         getIndex(): number;
         static CYLINDER: $FogShape;
         static SPHERE: $FogShape;
+        get index(): number;
     }
     /**
      * Values that may be interpreted as {@link $FogShape}.
@@ -87,6 +97,9 @@ declare module "@package/com/mojang/blaze3d/shaders" {
         getVertexProgram(): $Program;
         getFragmentProgram(): $Program;
         attachToProgram(): void;
+        get id(): number;
+        get vertexProgram(): $Program;
+        get fragmentProgram(): $Program;
     }
     export class $AbstractUniform {
         setMat2x2(x: number, y: number, z: number, w: number): void;
@@ -123,5 +136,6 @@ declare module "@package/com/mojang/blaze3d/shaders" {
         constructor(srcColorFactor: number, dstColorFactor: number, srcAlphaFactor: number, dstAlphaFactor: number, blendFunc: number);
         constructor();
         constructor(srcFactor: number, dstFactor: number, blendFunc: number);
+        get opaque(): boolean;
     }
 }

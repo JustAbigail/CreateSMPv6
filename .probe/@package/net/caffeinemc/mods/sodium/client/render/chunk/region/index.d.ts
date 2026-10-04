@@ -12,14 +12,11 @@ declare module "@package/net/caffeinemc/mods/sodium/client/render/chunk/region" 
         removeSection(arg0: $RenderSection): void;
         getChunkX(): number;
         getChunkZ(): number;
-        getOriginX(): number;
+        getRenderList(): $ChunkRenderList;
         getOriginY(): number;
         getOriginZ(): number;
-        getRenderList(): $ChunkRenderList;
+        getOriginX(): number;
         veil$getPerspectiveRenderList(): $ChunkRenderList;
-        getChunkY(): number;
-        swapToRegularRenderList(): void;
-        swapToShadowRenderList(): void;
         clearAllCachedBatches(): void;
         clearCachedBatchFor(arg0: $TerrainRenderPass): void;
         getCachedBatch(arg0: $TerrainRenderPass): $MultiDrawBatch;
@@ -27,12 +24,15 @@ declare module "@package/net/caffeinemc/mods/sodium/client/render/chunk/region" 
         refreshIndexedTesselation(arg0: $CommandList): void;
         getFillFractionInv(): number;
         iris$forceClearAllBatches(): void;
-        createResources(arg0: $CommandList): $RenderRegion$DeviceResources;
+        getChunkY(): number;
+        swapToRegularRenderList(): void;
+        swapToShadowRenderList(): void;
         createStorage(arg0: $TerrainRenderPass): $SectionRenderDataStorage;
         getY(): number;
-        addSection(arg0: $RenderSection): void;
-        getStorage(arg0: $TerrainRenderPass): $SectionRenderDataStorage;
         getSection(arg0: number): $RenderSection;
+        getStorage(arg0: $TerrainRenderPass): $SectionRenderDataStorage;
+        createResources(arg0: $CommandList): $RenderRegion$DeviceResources;
+        addSection(arg0: $RenderSection): void;
         update(arg0: $CommandList): void;
         isEmpty(): boolean;
         getResources(): $RenderRegion$DeviceResources;
@@ -54,5 +54,18 @@ declare module "@package/net/caffeinemc/mods/sodium/client/render/chunk/region" 
         static REGION_HEIGHT_SH: number;
         static REGION_HEIGHT: number;
         constructor(arg0: number, arg1: number, arg2: number, arg3: $StagingBuffer);
+        get chunkX(): number;
+        get chunkZ(): number;
+        get renderList(): $ChunkRenderList;
+        get originY(): number;
+        get originZ(): number;
+        get originX(): number;
+        get fillFractionInv(): number;
+        get chunkY(): number;
+        get y(): number;
+        get empty(): boolean;
+        get resources(): $RenderRegion$DeviceResources;
+        get x(): number;
+        get z(): number;
     }
 }

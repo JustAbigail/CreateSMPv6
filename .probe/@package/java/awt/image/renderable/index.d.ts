@@ -6,10 +6,10 @@ import { $RenderedImage } from "@package/java/awt/image";
 
 declare module "@package/java/awt/image/renderable" {
     export class $RenderContext implements $Cloneable {
-        getRenderingHints(): $RenderingHints;
         setTransform(arg0: $AffineTransform): void;
-        getTransform(): $AffineTransform;
         setRenderingHints(arg0: $RenderingHints): void;
+        getRenderingHints(): $RenderingHints;
+        getTransform(): $AffineTransform;
         /**
          * @deprecated
          */
@@ -32,16 +32,23 @@ declare module "@package/java/awt/image/renderable" {
         static HINTS_OBSERVED: string;
     }
     export interface $RenderableImage {
+        isDynamic(): boolean;
+        getSources(): $Vector<$RenderableImage>;
+        getPropertyNames(): string[];
         createScaledRendering(arg0: number, arg1: number, arg2: $RenderingHints): $RenderedImage;
         createDefaultRendering(): $RenderedImage;
-        isDynamic(): boolean;
+        createRendering(arg0: $RenderContext): $RenderedImage;
         getWidth(): number;
         getHeight(): number;
         getMinX(): number;
         getMinY(): number;
-        getSources(): $Vector<$RenderableImage>;
-        getPropertyNames(): string[];
-        createRendering(arg0: $RenderContext): $RenderedImage;
         getProperty(arg0: string): $Object;
+        get dynamic(): boolean;
+        get sources(): $Vector<$RenderableImage>;
+        get propertyNames(): string[];
+        get width(): number;
+        get height(): number;
+        get minX(): number;
+        get minY(): number;
     }
 }

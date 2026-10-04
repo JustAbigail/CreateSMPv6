@@ -15,8 +15,8 @@ export * as regex from "@package/java/util/regex";
 
 declare module "@package/java/util" {
     export class $Locale$LanguageRange {
-        getRange(): string;
         static mapEquivalents(arg0: $List_<$Locale$LanguageRange>, arg1: $Map_<string, $List_<string>>): $List<$Locale$LanguageRange>;
+        getRange(): string;
         static parse(arg0: string): $List<$Locale$LanguageRange>;
         static parse(arg0: string, arg1: $Map_<string, $List_<string>>): $List<$Locale$LanguageRange>;
         getWeight(): number;
@@ -24,9 +24,10 @@ declare module "@package/java/util" {
         static MIN_WEIGHT: number;
         constructor(arg0: string, arg1: number);
         constructor(arg0: string);
+        get range(): string;
+        get weight(): number;
     }
     export class $UUID implements $Serializable, $Comparable<$UUID> {
-        variant(): number;
         static randomUUID(): $UUID;
         static nameUUIDFromBytes(arg0: number[]): $UUID;
         getLeastSignificantBits(): number;
@@ -36,8 +37,11 @@ declare module "@package/java/util" {
         compareTo(arg0: $UUID_): number;
         timestamp(): number;
         node(): number;
+        variant(): number;
         static fromString(arg0: string): $UUID;
         constructor(arg0: number, arg1: number);
+        get leastSignificantBits(): number;
+        get mostSignificantBits(): number;
     }
     /**
      * Values that may be interpreted as {@link $UUID}.
@@ -46,6 +50,11 @@ declare module "@package/java/util" {
     export class $SortedMap<K, V> {
     }
     export interface $SortedMap<K, V> extends $SequencedMap<K, V> {
+        subMap(arg0: K, arg1: K): $SortedMap<K, V>;
+        headMap(arg0: K): $SortedMap<K, V>;
+        tailMap(arg0: K): $SortedMap<K, V>;
+        lastKey(): K;
+        firstKey(): K;
         putFirst(arg0: K, arg1: V): V;
         putLast(arg0: K, arg1: V): V;
         values(): $Collection<V>;
@@ -53,23 +62,19 @@ declare module "@package/java/util" {
         keySet(): $Set<K>;
         reversed(): $SortedMap<K, V>;
         comparator(): $Comparator<K>;
-        firstKey(): K;
-        subMap(arg0: K, arg1: K): $SortedMap<K, V>;
-        headMap(arg0: K): $SortedMap<K, V>;
-        tailMap(arg0: K): $SortedMap<K, V>;
-        lastKey(): K;
     }
     export class $EnumMap<K extends $Enum<K>, V> extends $AbstractMap<K, V> implements $Serializable, $Cloneable {
         put(arg0: K, arg1: V): V;
-        clone(): $Object;
-        constructor(arg0: $Map_<K, V>);
+        clone(): $EnumMap<K, V>;
         constructor(arg0: $EnumMap<K, V>);
         constructor(arg0: $Class<K>);
+        constructor(arg0: $Map_<K, V>);
     }
     export class $Optional<T> {
         ifPresentOrElse(arg0: $Consumer_<T>, arg1: $Runnable_): void;
         or(arg0: $Supplier_<(T) | undefined>): (T) | undefined;
         orElseGet(arg0: $Supplier_<T>): T;
+        ifPresent(arg0: $Consumer_<T>): void;
         get(): T;
         isEmpty(): boolean;
         map<U>(arg0: $Function_<T, U>): (U) | undefined;
@@ -80,20 +85,20 @@ declare module "@package/java/util" {
         flatMap<U>(arg0: $Function_<T, (U) | undefined>): (U) | undefined;
         isPresent(): boolean;
         orElse(arg0: T): T;
-        orElseThrow<X extends $Throwable>(arg0: $Supplier_<X>): T;
         orElseThrow(): T;
+        orElseThrow<X extends $Throwable>(arg0: $Supplier_<X>): T;
         static ofNullable<T>(arg0: T): (T) | undefined;
-        ifPresent(arg0: $Consumer_<T>): void;
+        get present(): boolean;
     }
     export class $PriorityQueue<E> extends $AbstractQueue<E> implements $Serializable {
         comparator(): $Comparator<E>;
+        constructor();
         constructor(arg0: $PriorityQueue<E>);
         constructor(arg0: $Collection_<E>);
-        constructor(arg0: number, arg1: $Comparator<E>);
-        constructor(arg0: $Comparator<E>);
-        constructor(arg0: number);
-        constructor();
         constructor(arg0: $SortedSet<E>);
+        constructor(arg0: $Comparator<E>);
+        constructor(arg0: number, arg1: $Comparator<E>);
+        constructor(arg0: number);
     }
     export class $AbstractSequentialList<E> extends $AbstractList<E> {
         reversed(): $SequencedCollection<E>;
@@ -108,17 +113,22 @@ declare module "@package/java/util" {
         trySplit(): $Spliterator<number>;
     }
     export class $Currency implements $Serializable {
-        getDisplayName(arg0: $Locale): string;
-        getDisplayName(): string;
-        getSymbol(arg0: $Locale): string;
         getSymbol(): string;
+        getSymbol(arg0: $Locale): string;
         static getAvailableCurrencies(): $Set<$Currency>;
         getDefaultFractionDigits(): number;
         getNumericCode(): number;
         getNumericCodeAsString(): string;
+        getDisplayName(): string;
+        getDisplayName(arg0: $Locale): string;
         static getInstance(arg0: string): $Currency;
         static getInstance(arg0: $Locale): $Currency;
         getCurrencyCode(): string;
+        static get availableCurrencies(): $Set<$Currency>;
+        get defaultFractionDigits(): number;
+        get numericCode(): number;
+        get numericCodeAsString(): string;
+        get currencyCode(): string;
     }
     export class $Collection<E> {
         [Symbol.iterator](): Iterator<E>
@@ -145,6 +155,7 @@ declare module "@package/java/util" {
         parallelStream(): $Stream<E>;
         removeIf(arg0: $Predicate_<E>): boolean;
         [Symbol.iterator](): Iterator<E>
+        get empty(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $Collection}.
@@ -189,6 +200,11 @@ declare module "@package/java/util" {
         andThen(arg0: $IntConsumer_): $IntConsumer;
         constructor();
         constructor(arg0: number, arg1: number, arg2: number, arg3: number);
+        get average(): number;
+        get sum(): number;
+        get count(): number;
+        get max(): number;
+        get min(): number;
     }
     export class $AbstractCollection<E> implements $Collection<E> {
         remove(arg0: $Object): boolean;
@@ -211,6 +227,7 @@ declare module "@package/java/util" {
         removeIf(arg0: $Predicate_<E>): boolean;
         forEach(arg0: $Consumer_<E>): void;
         [Symbol.iterator](): Iterator<E>
+        get empty(): boolean;
     }
     export class $DoubleSummaryStatistics implements $DoubleConsumer {
         getAverage(): number;
@@ -223,6 +240,11 @@ declare module "@package/java/util" {
         andThen(arg0: $DoubleConsumer_): $DoubleConsumer;
         constructor();
         constructor(arg0: number, arg1: number, arg2: number, arg3: number);
+        get average(): number;
+        get sum(): number;
+        get count(): number;
+        get max(): number;
+        get min(): number;
     }
     export class $ImmutableCollections$MapN<K, V> extends $ImmutableCollections$AbstractImmutableMap<K, V> {
     }
@@ -281,6 +303,7 @@ declare module "@package/java/util" {
         retainAll(arg0: $Collection_<never>): boolean;
         containsAll(arg0: $Collection_<never>): boolean;
         [Symbol.iterator](): Iterator<E>
+        get empty(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $Set}.
@@ -309,6 +332,8 @@ declare module "@package/java/util" {
         addLast(arg0: E): void;
         removeFirst(): E;
         removeLast(): E;
+        get first(): E;
+        get last(): E;
     }
     export class $Spliterator<T> {
         static NONNULL: number;
@@ -329,6 +354,8 @@ declare module "@package/java/util" {
         getComparator(): $Comparator<T>;
         forEachRemaining(arg0: $Consumer_<T>): void;
         characteristics(): number;
+        get exactSizeIfKnown(): number;
+        get comparator(): $Comparator<T>;
     }
     export class $Deque<E> {
         [Symbol.iterator](): Iterator<E>
@@ -336,6 +363,16 @@ declare module "@package/java/util" {
     export interface $Deque<E> extends $Queue<E>, $SequencedCollection<E> {
         push(arg0: E): void;
         pop(): E;
+        pollFirst(): E;
+        pollLast(): E;
+        offerLast(arg0: E): boolean;
+        peekFirst(): E;
+        removeFirstOccurrence(arg0: $Object): boolean;
+        offerFirst(arg0: E): boolean;
+        peekLast(): E;
+        removeLastOccurrence(arg0: $Object): boolean;
+        offer(arg0: E): boolean;
+        descendingIterator(): $Iterator<E>;
         remove(arg0: $Object): boolean;
         remove(): E;
         size(): number;
@@ -353,17 +390,9 @@ declare module "@package/java/util" {
         removeFirst(): E;
         removeLast(): E;
         poll(): E;
-        pollFirst(): E;
-        pollLast(): E;
-        offerLast(arg0: E): boolean;
-        peekFirst(): E;
-        removeFirstOccurrence(arg0: $Object): boolean;
-        offerFirst(arg0: E): boolean;
-        peekLast(): E;
-        removeLastOccurrence(arg0: $Object): boolean;
-        offer(arg0: E): boolean;
-        descendingIterator(): $Iterator<E>;
         [Symbol.iterator](): Iterator<E>
+        get first(): E;
+        get last(): E;
     }
     export class $PrimitiveIterator$OfDouble {
     }
@@ -376,6 +405,16 @@ declare module "@package/java/util" {
     export class $ArrayDeque<E> extends $AbstractCollection<E> implements $Deque<E>, $Cloneable, $Serializable {
         push(arg0: E): void;
         pop(): E;
+        pollFirst(): E;
+        pollLast(): E;
+        offerLast(arg0: E): boolean;
+        peekFirst(): E;
+        removeFirstOccurrence(arg0: $Object): boolean;
+        offerFirst(arg0: E): boolean;
+        peekLast(): E;
+        removeLastOccurrence(arg0: $Object): boolean;
+        offer(arg0: E): boolean;
+        descendingIterator(): $Iterator<E>;
         remove(): E;
         clone(): $ArrayDeque<E>;
         peek(): E;
@@ -387,20 +426,12 @@ declare module "@package/java/util" {
         removeFirst(): E;
         removeLast(): E;
         poll(): E;
-        pollFirst(): E;
-        pollLast(): E;
-        offerLast(arg0: E): boolean;
-        peekFirst(): E;
-        removeFirstOccurrence(arg0: $Object): boolean;
-        offerFirst(arg0: E): boolean;
-        peekLast(): E;
-        removeLastOccurrence(arg0: $Object): boolean;
-        offer(arg0: E): boolean;
-        descendingIterator(): $Iterator<E>;
         reversed(): $Deque<E>;
         constructor(arg0: number);
-        constructor(arg0: $Collection_<E>);
         constructor();
+        constructor(arg0: $Collection_<E>);
+        get first(): E;
+        get last(): E;
     }
     export class $AbstractList<E> extends $AbstractCollection<E> implements $List<E> {
         remove(arg0: number): E;
@@ -422,11 +453,23 @@ declare module "@package/java/util" {
         removeFirst(): E;
         removeLast(): E;
         reversed(): $SequencedCollection<E>;
+        get first(): E;
+        get last(): E;
     }
     export class $Locale implements $Cloneable, $Serializable {
-        getDisplayName(): string;
         getDisplayName(arg0: $Locale): string;
+        getDisplayName(): string;
         static getAvailableLocales(): $Locale[];
+        clone(): $Object;
+        static getDefault(): $Locale;
+        static getDefault(arg0: $Locale$Category_): $Locale;
+        static of(arg0: string): $Locale;
+        static of(arg0: string, arg1: string): $Locale;
+        static of(arg0: string, arg1: string, arg2: string): $Locale;
+        static lookup(arg0: $List_<$Locale$LanguageRange>, arg1: $Collection_<$Locale>): $Locale;
+        static filter(arg0: $List_<$Locale$LanguageRange>, arg1: $Collection_<$Locale>): $List<$Locale>;
+        static filter(arg0: $List_<$Locale$LanguageRange>, arg1: $Collection_<$Locale>, arg2: $Locale$FilteringMode_): $List<$Locale>;
+        getLanguage(): string;
         static setDefault(arg0: $Locale$Category_, arg1: $Locale): void;
         static setDefault(arg0: $Locale): void;
         getScript(): string;
@@ -437,14 +480,14 @@ declare module "@package/java/util" {
         getUnicodeLocaleKeys(): $Set<string>;
         getDisplayLanguage(arg0: $Locale): string;
         getDisplayLanguage(): string;
-        getDisplayScript(arg0: $Locale): string;
         getDisplayScript(): string;
+        getDisplayScript(arg0: $Locale): string;
         getDisplayCountry(arg0: $Locale): string;
         getDisplayCountry(): string;
-        getDisplayVariant(arg0: $Locale): string;
         getDisplayVariant(): string;
-        static filterTags(arg0: $List_<$Locale$LanguageRange>, arg1: $Collection_<string>, arg2: $Locale$FilteringMode_): $List<string>;
+        getDisplayVariant(arg0: $Locale): string;
         static filterTags(arg0: $List_<$Locale$LanguageRange>, arg1: $Collection_<string>): $List<string>;
+        static filterTags(arg0: $List_<$Locale$LanguageRange>, arg1: $Collection_<string>, arg2: $Locale$FilteringMode_): $List<string>;
         static lookupTag(arg0: $List_<$Locale$LanguageRange>, arg1: $Collection_<string>): string;
         static availableLocales(): $Stream<$Locale>;
         static getISOCountries(arg0: $Locale$IsoCountryCode_): $Set<string>;
@@ -459,16 +502,6 @@ declare module "@package/java/util" {
         static forLanguageTag(arg0: string): $Locale;
         getISO3Language(): string;
         getISO3Country(): string;
-        clone(): $Object;
-        static getDefault(arg0: $Locale$Category_): $Locale;
-        static getDefault(): $Locale;
-        static of(arg0: string, arg1: string): $Locale;
-        static of(arg0: string): $Locale;
-        static of(arg0: string, arg1: string, arg2: string): $Locale;
-        static lookup(arg0: $List_<$Locale$LanguageRange>, arg1: $Collection_<$Locale>): $Locale;
-        static filter(arg0: $List_<$Locale$LanguageRange>, arg1: $Collection_<$Locale>): $List<$Locale>;
-        static filter(arg0: $List_<$Locale$LanguageRange>, arg1: $Collection_<$Locale>, arg2: $Locale$FilteringMode_): $List<$Locale>;
-        getLanguage(): string;
         static PRC: $Locale;
         static CANADA: $Locale;
         static ENGLISH: $Locale;
@@ -496,15 +529,25 @@ declare module "@package/java/util" {
         /**
          * @deprecated
          */
-        constructor(arg0: string);
-        /**
-         * @deprecated
-         */
         constructor(arg0: string, arg1: string);
         /**
          * @deprecated
          */
         constructor(arg0: string, arg1: string, arg2: string);
+        /**
+         * @deprecated
+         */
+        constructor(arg0: string);
+        get language(): string;
+        get script(): string;
+        get variant(): string;
+        get unicodeLocaleAttributes(): $Set<string>;
+        get unicodeLocaleKeys(): $Set<string>;
+        static get ISOLanguages(): string[];
+        get country(): string;
+        get extensionKeys(): $Set<string>;
+        get ISO3Language(): string;
+        get ISO3Country(): string;
     }
     export class $Comparator<T> {
         static reverseOrder<T extends $Comparable<T>>(): $Comparator<T>;
@@ -558,6 +601,7 @@ declare module "@package/java/util" {
     export class $OptionalLong {
         ifPresentOrElse(arg0: $LongConsumer_, arg1: $Runnable_): void;
         orElseGet(arg0: $LongSupplier_): number;
+        ifPresent(arg0: $LongConsumer_): void;
         isEmpty(): boolean;
         stream(): $LongStream;
         static of(arg0: number): $OptionalLong;
@@ -566,8 +610,9 @@ declare module "@package/java/util" {
         orElse(arg0: number): number;
         orElseThrow(): number;
         orElseThrow<X extends $Throwable>(arg0: $Supplier_<X>): number;
-        ifPresent(arg0: $LongConsumer_): void;
         getAsLong(): number;
+        get present(): boolean;
+        get asLong(): number;
     }
     export class $LongSummaryStatistics implements $LongConsumer, $IntConsumer {
         getAverage(): number;
@@ -582,6 +627,11 @@ declare module "@package/java/util" {
         andThen(arg0: $IntConsumer_): $IntConsumer;
         constructor();
         constructor(arg0: number, arg1: number, arg2: number, arg3: number);
+        get average(): number;
+        get sum(): number;
+        get count(): number;
+        get max(): number;
+        get min(): number;
     }
     export class $Hashtable<K, V> extends $Dictionary<K, V> implements $Map<K, V>, $Cloneable, $Serializable {
         remove(arg0: $Object, arg1: $Object): boolean;
@@ -612,12 +662,12 @@ declare module "@package/java/util" {
     export class $Queue<E> {
     }
     export interface $Queue<E> extends $Collection<E> {
+        offer(arg0: E): boolean;
         remove(): E;
         add(arg0: E): boolean;
         peek(): E;
         element(): E;
         poll(): E;
-        offer(arg0: E): boolean;
     }
     export class $Enumeration<E> {
     }
@@ -637,11 +687,6 @@ declare module "@package/java/util" {
     export class $LinkedList<E> extends $AbstractSequentialList<E> implements $List<E>, $Deque<E>, $Cloneable, $Serializable {
         push(arg0: E): void;
         pop(): E;
-        remove(): E;
-        clone(): $Object;
-        peek(): E;
-        element(): E;
-        poll(): E;
         pollFirst(): E;
         pollLast(): E;
         offerLast(arg0: E): boolean;
@@ -652,6 +697,12 @@ declare module "@package/java/util" {
         removeLastOccurrence(arg0: $Object): boolean;
         offer(arg0: E): boolean;
         descendingIterator(): $Iterator<E>;
+        remove(): E;
+        clone(): $Object;
+        peek(): E;
+        reversed(): $LinkedList<E>;
+        element(): E;
+        poll(): E;
         constructor();
         constructor(arg0: $Collection_<E>);
     }
@@ -667,6 +718,7 @@ declare module "@package/java/util" {
     export class $OptionalInt {
         ifPresentOrElse(arg0: $IntConsumer_, arg1: $Runnable_): void;
         orElseGet(arg0: $IntSupplier_): number;
+        ifPresent(arg0: $IntConsumer_): void;
         isEmpty(): boolean;
         stream(): $IntStream;
         static of(arg0: number): $OptionalInt;
@@ -675,12 +727,14 @@ declare module "@package/java/util" {
         orElse(arg0: number): number;
         orElseThrow(): number;
         orElseThrow<X extends $Throwable>(arg0: $Supplier_<X>): number;
-        ifPresent(arg0: $IntConsumer_): void;
         getAsInt(): number;
+        get present(): boolean;
+        get asInt(): number;
     }
     export class $OptionalDouble {
         ifPresentOrElse(arg0: $DoubleConsumer_, arg1: $Runnable_): void;
         orElseGet(arg0: $DoubleSupplier_): number;
+        ifPresent(arg0: $DoubleConsumer_): void;
         isEmpty(): boolean;
         stream(): $DoubleStream;
         static of(arg0: number): $OptionalDouble;
@@ -689,8 +743,9 @@ declare module "@package/java/util" {
         orElse(arg0: number): number;
         orElseThrow(): number;
         orElseThrow<X extends $Throwable>(arg0: $Supplier_<X>): number;
-        ifPresent(arg0: $DoubleConsumer_): void;
         getAsDouble(): number;
+        get present(): boolean;
+        get asDouble(): number;
     }
     export class $Locale$Category extends $Enum<$Locale$Category> {
         static values(): $Locale$Category[];
@@ -703,40 +758,42 @@ declare module "@package/java/util" {
      */
     export type $Locale$Category_ = "display" | "format";
     export class $Random implements $RandomGenerator, $Serializable {
-        longs(arg0: number, arg1: number, arg2: number): $LongStream;
-        longs(): $LongStream;
-        longs(arg0: number): $LongStream;
-        longs(arg0: number, arg1: number): $LongStream;
-        nextBytes(arg0: number[]): void;
         ints(arg0: number, arg1: number): $IntStream;
-        ints(arg0: number, arg1: number, arg2: number): $IntStream;
         ints(arg0: number): $IntStream;
+        ints(arg0: number, arg1: number, arg2: number): $IntStream;
         ints(): $IntStream;
         setSeed(arg0: number): void;
-        doubles(arg0: number, arg1: number): $DoubleStream;
         doubles(arg0: number): $DoubleStream;
-        doubles(arg0: number, arg1: number, arg2: number): $DoubleStream;
         doubles(): $DoubleStream;
+        doubles(arg0: number, arg1: number, arg2: number): $DoubleStream;
+        doubles(arg0: number, arg1: number): $DoubleStream;
         nextFloat(): number;
         nextGaussian(): number;
+        longs(arg0: number): $LongStream;
+        longs(arg0: number, arg1: number): $LongStream;
+        longs(arg0: number, arg1: number, arg2: number): $LongStream;
+        longs(): $LongStream;
+        nextBytes(arg0: number[]): void;
         static from(arg0: $RandomGenerator_): $Random;
         nextDouble(): number;
         nextInt(): number;
         nextInt(arg0: number): number;
         nextLong(): number;
         nextBoolean(): boolean;
+        nextFloat(arg0: number): number;
+        nextFloat(arg0: number, arg1: number): number;
+        nextGaussian(arg0: number, arg1: number): number;
         isDeprecated(): boolean;
         nextExponential(): number;
-        nextFloat(arg0: number, arg1: number): number;
-        nextFloat(arg0: number): number;
-        nextGaussian(arg0: number, arg1: number): number;
         nextDouble(arg0: number): number;
         nextDouble(arg0: number, arg1: number): number;
         nextInt(arg0: number, arg1: number): number;
-        nextLong(arg0: number): number;
         nextLong(arg0: number, arg1: number): number;
-        constructor();
+        nextLong(arg0: number): number;
         constructor(arg0: number);
+        constructor();
+        set seed(value: number);
+        get deprecated(): boolean;
     }
     export class $AbstractMap<K, V> implements $Map<K, V> {
         remove(arg0: $Object): V;
@@ -762,6 +819,7 @@ declare module "@package/java/util" {
         computeIfAbsent(arg0: K, arg1: $Function_<K, V>): V;
         getOrDefault(arg0: $Object, arg1: V): V;
         computeIfPresent(arg0: K, arg1: $BiFunction_<K, V, V>): V;
+        get empty(): boolean;
     }
     export class $Iterator<E> {
     }
@@ -822,27 +880,29 @@ declare module "@package/java/util" {
         containsValue(arg0: $Object): boolean;
         getOrDefault(arg0: $Object, arg1: V): V;
         computeIfPresent(arg0: K, arg1: $BiFunction_<K, V, V>): V;
+        get empty(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $Map}.
      */
     export type $Map_<K, V> = {[key: string]: V};
     export class $EnumSet<E extends $Enum<E>> extends $AbstractSet<E> implements $Cloneable, $Serializable {
-        static allOf<E extends $Enum<E>>(arg0: $Class<E>): $EnumSet<E>;
-        static complementOf<E extends $Enum<E>>(arg0: $EnumSet<E>): $EnumSet<E>;
         clone(): $Object;
         static copyOf<E extends $Enum<E>>(arg0: $EnumSet<E>): $EnumSet<E>;
         static copyOf<E extends $Enum<E>>(arg0: $Collection_<E>): $EnumSet<E>;
-        static of<E extends $Enum<E>>(arg0: E, ...arg1: E[]): $EnumSet<E>;
-        static of<E extends $Enum<E>>(arg0: E, arg1: E): $EnumSet<E>;
-        static of<E extends $Enum<E>>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E): $EnumSet<E>;
         static of<E extends $Enum<E>>(arg0: E, arg1: E, arg2: E, arg3: E): $EnumSet<E>;
-        static of<E extends $Enum<E>>(arg0: E): $EnumSet<E>;
         static of<E extends $Enum<E>>(arg0: E, arg1: E, arg2: E): $EnumSet<E>;
+        static of<E extends $Enum<E>>(arg0: E, ...arg1: E[]): $EnumSet<E>;
+        static of<E extends $Enum<E>>(arg0: E, arg1: E, arg2: E, arg3: E, arg4: E): $EnumSet<E>;
+        static of<E extends $Enum<E>>(arg0: E): $EnumSet<E>;
+        static of<E extends $Enum<E>>(arg0: E, arg1: E): $EnumSet<E>;
         static noneOf<E extends $Enum<E>>(arg0: $Class<E>): $EnumSet<E>;
         static range<E extends $Enum<E>>(arg0: E, arg1: E): $EnumSet<E>;
+        static allOf<E extends $Enum<E>>(arg0: $Class<E>): $EnumSet<E>;
+        static complementOf<E extends $Enum<E>>(arg0: $EnumSet<E>): $EnumSet<E>;
     }
     export class $Vector<E> extends $AbstractList<E> implements $List<E>, $RandomAccess, $Cloneable, $Serializable {
+        copyInto(arg0: $Object[]): void;
         removeElementAt(arg0: number): void;
         removeElement(arg0: $Object): boolean;
         insertElementAt(arg0: E, arg1: number): void;
@@ -851,7 +911,7 @@ declare module "@package/java/util" {
         lastElement(): E;
         setElementAt(arg0: E, arg1: number): void;
         addElement(arg0: E): void;
-        copyInto(arg0: $Object[]): void;
+        setSize(arg0: number): void;
         clone(): $Object;
         indexOf(arg0: $Object, arg1: number): number;
         lastIndexOf(arg0: $Object, arg1: number): number;
@@ -860,12 +920,11 @@ declare module "@package/java/util" {
         ensureCapacity(arg0: number): void;
         trimToSize(): void;
         elementAt(arg0: number): E;
-        setSize(arg0: number): void;
         reversed(): $SequencedCollection<E>;
         constructor(arg0: number, arg1: number);
-        constructor();
         constructor(arg0: number);
         constructor(arg0: $Collection_<E>);
+        constructor();
     }
     export class $SequencedSet<E> {
     }
@@ -902,6 +961,7 @@ declare module "@package/java/util" {
         elements(): $Enumeration<V>;
         keys(): $Enumeration<K>;
         constructor();
+        get empty(): boolean;
     }
     export class $List<E> {
         static copyOf<E>(arg0: $Collection_<E>): $List<E>;
@@ -956,6 +1016,9 @@ declare module "@package/java/util" {
         removeLast(): E;
         reversed(): $SequencedCollection<E>;
         [Symbol.iterator](): Iterator<E>
+        get empty(): boolean;
+        get first(): E;
+        get last(): E;
     }
     /**
      * Values that may be interpreted as {@link $List}.
@@ -965,7 +1028,17 @@ declare module "@package/java/util" {
         /**
          * @deprecated
          */
-        getDate(): number;
+        getSeconds(): number;
+        /**
+         * @deprecated
+         */
+        getYear(): number;
+        toInstant(): $Instant;
+        /**
+         * @deprecated
+         */
+        static UTC(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number): number;
+        setTime(arg0: number): void;
         /**
          * @deprecated
          */
@@ -994,10 +1067,6 @@ declare module "@package/java/util" {
          * @deprecated
          */
         getTimezoneOffset(): number;
-        /**
-         * @deprecated
-         */
-        getSeconds(): number;
         clone(): $Object;
         compareTo(arg0: $Date): number;
         static from(arg0: $Instant): $Date;
@@ -1011,13 +1080,7 @@ declare module "@package/java/util" {
         /**
          * @deprecated
          */
-        getYear(): number;
-        toInstant(): $Instant;
-        /**
-         * @deprecated
-         */
-        static UTC(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number): number;
-        setTime(arg0: number): void;
+        getDate(): number;
         /**
          * @deprecated
          */
@@ -1042,12 +1105,8 @@ declare module "@package/java/util" {
          * @deprecated
          */
         setSeconds(arg0: number): void;
-        constructor(arg0: number);
-        /**
-         * @deprecated
-         */
-        constructor(arg0: string);
         constructor();
+        constructor(arg0: number);
         /**
          * @deprecated
          */
@@ -1059,7 +1118,13 @@ declare module "@package/java/util" {
         /**
          * @deprecated
          */
+        constructor(arg0: string);
+        /**
+         * @deprecated
+         */
         constructor(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number);
+        get day(): number;
+        get timezoneOffset(): number;
     }
     export class $Map$Entry<K, V> {
         static copyOf<K, V>(arg0: $Map$Entry<K, V>): $Map$Entry<K, V>;
@@ -1074,13 +1139,18 @@ declare module "@package/java/util" {
         getValue(): V;
         getKey(): K;
         setValue(arg0: V): V;
+        get key(): K;
     }
     export class $SortedSet<E> {
     }
     export interface $SortedSet<E> extends $Set<E>, $SequencedSet<E> {
+        subSet(arg0: E, arg1: E): $SortedSet<E>;
+        headSet(arg0: E): $SortedSet<E>;
+        tailSet(arg0: E): $SortedSet<E>;
         last(): E;
         spliterator(): $Spliterator<E>;
         first(): E;
+        reversed(): $SortedSet<E>;
         getFirst(): E;
         getLast(): E;
         addFirst(arg0: E): void;
@@ -1088,10 +1158,6 @@ declare module "@package/java/util" {
         removeFirst(): E;
         removeLast(): E;
         comparator(): $Comparator<E>;
-        subSet(arg0: E, arg1: E): $SortedSet<E>;
-        headSet(arg0: E): $SortedSet<E>;
-        tailSet(arg0: E): $SortedSet<E>;
-        reversed(): $SequencedSet<E>;
     }
     export class $Properties extends $Hashtable<$Object, $Object> {
         getProperty(arg0: string): string;
@@ -1118,7 +1184,7 @@ declare module "@package/java/util" {
         constructor();
     }
     export class $BitSet implements $Cloneable, $Serializable {
-        toByteArray(): number[];
+        and(arg0: $BitSet): void;
         or(arg0: $BitSet): void;
         cardinality(): number;
         nextSetBit(arg0: number): number;
@@ -1128,30 +1194,31 @@ declare module "@package/java/util" {
         intersects(arg0: $BitSet): boolean;
         xor(arg0: $BitSet): void;
         andNot(arg0: $BitSet): void;
-        and(arg0: $BitSet): void;
         size(): number;
-        get(arg0: number): boolean;
         get(arg0: number, arg1: number): $BitSet;
+        get(arg0: number): boolean;
         length(): number;
         clone(): $Object;
+        static valueOf(arg0: number[]): $BitSet;
         static valueOf(arg0: $ByteBuffer): $BitSet;
         static valueOf(arg0: number[]): $BitSet;
         static valueOf(arg0: $LongBuffer): $BitSet;
-        static valueOf(arg0: number[]): $BitSet;
-        clear(arg0: number, arg1: number): void;
-        clear(arg0: number): void;
         clear(): void;
+        clear(arg0: number): void;
+        clear(arg0: number, arg1: number): void;
         isEmpty(): boolean;
         stream(): $IntStream;
         set(arg0: number, arg1: number, arg2: boolean): void;
-        set(arg0: number, arg1: number): void;
         set(arg0: number, arg1: boolean): void;
         set(arg0: number): void;
-        flip(arg0: number): void;
+        set(arg0: number, arg1: number): void;
         flip(arg0: number, arg1: number): void;
+        flip(arg0: number): void;
         nextClearBit(arg0: number): number;
+        toByteArray(): number[];
         constructor();
         constructor(arg0: number);
+        get empty(): boolean;
     }
     export class $ListIterator<E> {
     }

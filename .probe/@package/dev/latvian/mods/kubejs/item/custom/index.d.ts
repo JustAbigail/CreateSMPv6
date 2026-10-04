@@ -1,7 +1,7 @@
 import { $Consumer_, $BiFunction, $BiFunction_ } from "@package/java/util/function";
 import { $Holder_, $Registry } from "@package/net/minecraft/core";
 import { $ArmorItem$Type, $ArmorMaterial, $Item$Properties, $Tier_, $Item, $ItemStack_, $Tier, $DiggerItem, $AnimalArmorItem$BodyType_ } from "@package/net/minecraft/world/item";
-import { $Component } from "@package/net/minecraft/network/chat";
+import { $Component_, $Component } from "@package/net/minecraft/network/chat";
 import { $ResourceLocation_, $ResourceKey, $ResourceLocation } from "@package/net/minecraft/resources";
 import { $Record, $Object } from "@package/java/lang";
 import { $List, $Map_, $Map } from "@package/java/util";
@@ -11,9 +11,9 @@ import { $SourceLine } from "@package/dev/latvian/mods/kubejs/script";
 
 declare module "@package/dev/latvian/mods/kubejs/item/custom" {
     export class $ItemToolTierRegistryKubeEvent extends $Record implements $KubeStartupEvent {
-        tiers(): $Map<string, $Tier>;
-        addBasedOnExisting(id: string, existing: string, tier: $Consumer_<$MutableToolTier>): void;
         addExisting(id: string, tier: $Tier_): void;
+        addBasedOnExisting(id: string, existing: string, tier: $Consumer_<$MutableToolTier>): void;
+        tiers(): $Map<string, $Tier>;
         /**
          * Adds a new tool tier.
          */
@@ -77,6 +77,22 @@ declare module "@package/dev/latvian/mods/kubejs/item/custom" {
         constructor(i: $ResourceLocation_, d: number, s: number, f: $BiFunction_<$Tier, $Item$Properties, $DiggerItem>);
     }
     export class $SmithingTemplateItemBuilder extends $ItemBuilder {
+        /**
+         * Adds a helmet to the list of base item slot icons that the smithing table cycles through when this smithing template is put in
+         */
+        helmetIcon(): this;
+        /**
+         * Adds a chestplate to the list of base item slot icons that the smithing table cycles through when this smithing template is put in
+         */
+        chestplateIcon(): this;
+        /**
+         * Adds leggings to the list of base item slot icons that the smithing table cycles through when this smithing template is put in
+         */
+        leggingsIcon(): this;
+        /**
+         * Adds boots to the list of base item slot icons that the smithing table cycles through when this smithing template is put in
+         */
+        bootsIcon(): this;
         /**
          * Adds the specified texture location to the list of ingredient slot icons that the smithing table cycles through when this smithing template is put in
          */
@@ -168,21 +184,13 @@ declare module "@package/dev/latvian/mods/kubejs/item/custom" {
          */
         hoeIcon(): this;
         /**
-         * Adds a helmet to the list of base item slot icons that the smithing table cycles through when this smithing template is put in
+         * Sets the description text that shows in the item tooltip to describe what ingredients can be added.
+         * Using 'Ingots & Crystals' or 'Netherite Ingot' will use the vanilla language keys so it is translated into other languages automatically.
+         * THIS IS PURELY VISUAL
+         * 
+         * If you wish to apply non standard formatting (like change the colour) set the `ingredientsText` field.
          */
-        helmetIcon(): this;
-        /**
-         * Adds a chestplate to the list of base item slot icons that the smithing table cycles through when this smithing template is put in
-         */
-        chestplateIcon(): this;
-        /**
-         * Adds leggings to the list of base item slot icons that the smithing table cycles through when this smithing template is put in
-         */
-        leggingsIcon(): this;
-        /**
-         * Adds boots to the list of base item slot icons that the smithing table cycles through when this smithing template is put in
-         */
-        bootsIcon(): this;
+        ingredients(text: string): this;
         /**
          * Sets the description text that shows in the item tooltip to describe what it can be applied to.
          * Using 'Armor' or 'Diamond Equipment' will use the vanilla language keys so it is translated into other languages automatically.
@@ -192,13 +200,12 @@ declare module "@package/dev/latvian/mods/kubejs/item/custom" {
          */
         appliesTo(text: string): this;
         /**
-         * Sets the description text that shows in the item tooltip to describe what ingredients can be added.
-         * Using 'Ingots & Crystals' or 'Netherite Ingot' will use the vanilla language keys so it is translated into other languages automatically.
-         * THIS IS PURELY VISUAL
+         * Sets the name for this smithing template.
+         * Note that the normal display name for all smithing templates is the same and cannot be changed, this instead sets the name in the tooltip (see vanilla smithing templates for what this looks like).
          * 
-         * If you wish to apply non standard formatting (like change the colour) set the `ingredientsText` field.
+         * This will be overridden by a lang file if it exists.
          */
-        ingredients(text: string): this;
+        displayName(name: $Component_): this;
         ingredientsText: $Component;
         sourceLine: $SourceLine;
         id: $ResourceLocation;
@@ -295,14 +302,6 @@ declare module "@package/dev/latvian/mods/kubejs/item/custom" {
     }
     export class $HandheldItemBuilder extends $ItemBuilder {
         /**
-         * Sets the base attack speed of the tool. Different tools have different baselines.
-         * 
-         * For example, a sword has a baseline of -2.4, while an axe has a baseline of -3.1.
-         * 
-         * The actual speed is the sum of the baseline and the speed from tier + 4 (bare hand).
-         */
-        speedBaseline(f: number): this;
-        /**
          * Sets the base attack damage of the tool. Different tools have different baselines.
          * 
          * For example, a sword has a baseline of 3, while an axe has a baseline of 6.
@@ -310,6 +309,14 @@ declare module "@package/dev/latvian/mods/kubejs/item/custom" {
          * The actual damage is the sum of the baseline and the attackDamageBonus from tier.
          */
         attackDamageBaseline(f: number): this;
+        /**
+         * Sets the base attack speed of the tool. Different tools have different baselines.
+         * 
+         * For example, a sword has a baseline of -2.4, while an axe has a baseline of -3.1.
+         * 
+         * The actual speed is the sum of the baseline and the speed from tier + 4 (bare hand).
+         */
+        speedBaseline(f: number): this;
         /**
          * Modifies the tool tier.
          */

@@ -16,13 +16,16 @@ declare module "@package/dev/latvian/mods/kubejs/block/state" {
         static fromString(s: string): $BlockStatePredicate;
     }
     export interface $BlockStatePredicate extends $Predicate<$BlockState>, $ReplacementMatch {
+        testBlock(block: $Block_): boolean;
         asRuleTest(): $RuleTest;
         getBlockIds(): $Set<$ResourceLocation>;
         test(state: $BlockState_): boolean;
         check(targetStates: $List_<$OreConfiguration$TargetBlockState>): boolean;
         getBlocks(): $Collection<$Block>;
         getBlockStates(): $Collection<$BlockState>;
-        testBlock(block: $Block_): boolean;
+        get blockIds(): $Set<$ResourceLocation>;
+        get blocks(): $Collection<$Block>;
+        get blockStates(): $Collection<$BlockState>;
     }
     /**
      * Values that may be interpreted as {@link $BlockStatePredicate}.

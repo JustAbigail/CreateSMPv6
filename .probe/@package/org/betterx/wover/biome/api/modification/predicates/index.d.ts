@@ -14,32 +14,33 @@ import { $AbstractConfig$Value } from "@package/de/ambertation/wunderlib/configs
 
 declare module "@package/org/betterx/wover/biome/api/modification/predicates" {
     export class $BiomePredicate {
-        static hasConfig<T, R extends $AbstractConfig$Value<T, R>>(arg0: $AbstractConfig$Value<T, R>, arg1: T): $BiomePredicate;
-        static isVanilla(): $BiomePredicate;
         static inBiomes(...arg0: $ResourceKey_<$Biome>[]): $BiomePredicate;
         static notInBiomes(...arg0: $ResourceKey_<$Biome>[]): $BiomePredicate;
         static inDimension(arg0: $ResourceKey_<$LevelStem>): $BiomePredicate;
         static inOverworld(): $BiomePredicate;
+        static inEnd(): $BiomePredicate;
+        static inNether(): $BiomePredicate;
         static hasStructure(arg0: $ResourceKey_<$Structure>): $BiomePredicate;
         static hasPlacedFeature(arg0: $ResourceKey_<$PlacedFeature>): $BiomePredicate;
         static hasConfiguredFeature(arg0: $ResourceKey_<$ConfiguredFeature<never, never>>): $BiomePredicate;
         static inNamespace(arg0: $ModCore): $BiomePredicate;
         static inNamespace(arg0: string): $BiomePredicate;
-        static notInNamespace(arg0: $ModCore): $BiomePredicate;
         static notInNamespace(arg0: string): $BiomePredicate;
+        static notInNamespace(arg0: $ModCore): $BiomePredicate;
         static pathContains(arg0: string): $BiomePredicate;
-        static inEnd(): $BiomePredicate;
-        static inNether(): $BiomePredicate;
-        static anyOf(...arg0: $BiomePredicate[]): $BiomePredicate;
-        static allOf(...arg0: $BiomePredicate[]): $BiomePredicate;
+        static hasConfig<T, R extends $AbstractConfig$Value<T, R>>(arg0: $AbstractConfig$Value<T, R>, arg1: T): $BiomePredicate;
         static hasTag(arg0: $TagKey_<$Biome>): $BiomePredicate;
         static spawns(arg0: $EntityType_<never>): $BiomePredicate;
         static isBiome(arg0: $ResourceKey_<$Biome>): $BiomePredicate;
+        static and(...arg0: $BiomePredicate[]): $BiomePredicate;
         static or(...arg0: $BiomePredicate[]): $BiomePredicate;
         static not(arg0: $BiomePredicate): $BiomePredicate;
-        static and(...arg0: $BiomePredicate[]): $BiomePredicate;
+        static anyOf(...arg0: $BiomePredicate[]): $BiomePredicate;
+        static allOf(...arg0: $BiomePredicate[]): $BiomePredicate;
         static always(): $BiomePredicate;
+        static isVanilla(): $BiomePredicate;
         static CODEC: $Codec<$BiomePredicate>;
+        static get vanilla(): $BiomePredicate;
     }
     export interface $BiomePredicate {
         test(arg0: $BiomePredicate$Context): boolean;

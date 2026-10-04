@@ -5,5 +5,6 @@ declare module "@package/net/createmod/ponder/api" {
     export interface $VirtualBlockEntity {
         markVirtual(): void;
         isVirtual(): boolean;
+        get virtual(): boolean;
     }
 }

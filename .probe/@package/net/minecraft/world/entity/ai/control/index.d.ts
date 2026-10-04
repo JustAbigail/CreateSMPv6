@@ -36,18 +36,18 @@ declare module "@package/net/minecraft/world/entity/ai/control" {
          * Attempt to rotate the first angle to become the second angle, but only allow overall direction change to at max be third parameter
          */
         rotlerp(sourceAngle: number, targetAngle: number, maximumChange: number): number;
-        /**
-         * Sets the speed and location to move to
-         */
-        setWantedPosition(x: number, arg1: number, y: number, arg3: number): void;
+        getWantedX(): number;
+        getWantedY(): number;
+        getWantedZ(): number;
         /**
          * @return If the mob is currently trying to go somewhere
          */
         hasWanted(): boolean;
         strafe(forward: number, strafe: number): void;
-        getWantedX(): number;
-        getWantedY(): number;
-        getWantedZ(): number;
+        /**
+         * Sets the speed and location to move to
+         */
+        setWantedPosition(x: number, arg1: number, y: number, arg3: number): void;
         getSpeedModifier(): number;
         tick(): void;
         speedModifier: number;
@@ -80,6 +80,14 @@ declare module "@package/net/minecraft/world/entity/ai/control" {
          */
         tick(): void;
         /**
+         * Sets position to look at using entity
+         */
+        setLookAt(entity: $Entity, deltaYaw: number, deltaPitch: number): void;
+        /**
+         * Sets the mob's look vector
+         */
+        setLookAt(lookVector: $Vec3_): void;
+        /**
          * Sets the controlling mob's look vector to the provided entity's location
          */
         setLookAt(entity: $Entity): void;
@@ -87,15 +95,7 @@ declare module "@package/net/minecraft/world/entity/ai/control" {
          * Sets position to look at
          */
         setLookAt(x: number, arg1: number, y: number, arg3: number, z: number): void;
-        /**
-         * Sets the mob's look vector
-         */
-        setLookAt(lookVector: $Vec3_): void;
         setLookAt(x: number, arg1: number, y: number): void;
-        /**
-         * Sets position to look at using entity
-         */
-        setLookAt(entity: $Entity, deltaYaw: number, deltaPitch: number): void;
         /**
          * Rotate as much as possible from `from` to `to` within the bounds of `maxDelta`
          */
@@ -108,5 +108,8 @@ declare module "@package/net/minecraft/world/entity/ai/control" {
         yMaxRotSpeed: number;
         lookAtCooldown: number;
         constructor(mob: $Mob);
+        get YRotD(): (number) | undefined;
+        get XRotD(): (number) | undefined;
+        get lookingAtTarget(): boolean;
     }
 }

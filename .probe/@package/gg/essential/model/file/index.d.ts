@@ -12,8 +12,8 @@ import { $SerializationConstructorMarker } from "@package/kotlinx/serialization/
 
 declare module "@package/gg/essential/model/file" {
     export class $ParticlesFile {
-        getParticleEffect(): $ParticlesFile$ParticleEffect;
         static write$Self$cosmetics(arg0: $ParticlesFile, arg1: $CompositeEncoder, arg2: $SerialDescriptor): void;
+        getParticleEffect(): $ParticlesFile$ParticleEffect;
         getFormatVersion(): string;
         static getFormatVersion$annotations(): void;
         static getParticleEffect$annotations(): void;
@@ -24,12 +24,16 @@ declare module "@package/gg/essential/model/file" {
         static Companion: $ParticlesFile$Companion;
         constructor(arg0: number, arg1: string, arg2: $ParticlesFile$ParticleEffect, arg3: $SerializationConstructorMarker);
         constructor(arg0: string, arg1: $ParticlesFile$ParticleEffect);
+        get particleEffect(): $ParticlesFile$ParticleEffect;
+        get formatVersion(): string;
+        static get formatVersion$annotations(): void;
+        static get particleEffect$annotations(): void;
     }
     export class $AnimationFile {
         component3(): $List<$AnimationEvent>;
-        getTriggers(): $List<$AnimationEvent>;
         static write$Self$cosmetics(arg0: $AnimationFile, arg1: $CompositeEncoder, arg2: $SerialDescriptor): void;
         static access$get$childSerializers$cp(): $Lazy<any>[];
+        getTriggers(): $List<$AnimationEvent>;
         getAnimations(): $Map<string, $AnimationFile$Animation>;
         getFormatVersion(): string;
         static getFormatVersion$annotations(): void;
@@ -41,6 +45,10 @@ declare module "@package/gg/essential/model/file" {
         constructor(arg0: string, arg1: $Map_<string, $AnimationFile$Animation>, arg2: $List_<$AnimationEvent>);
         constructor(arg0: number, arg1: string, arg2: $Map_<any, any>, arg3: $List_<any>, arg4: $SerializationConstructorMarker);
         constructor(arg0: string, arg1: $Map_<any, any>, arg2: $List_<any>, arg3: number, arg4: $DefaultConstructorMarker);
+        get triggers(): $List<$AnimationEvent>;
+        get animations(): $Map<string, $AnimationFile$Animation>;
+        get formatVersion(): string;
+        static get formatVersion$annotations(): void;
     }
     export class $ModelFile$Companion {
         serializer(): $KSerializer<$ModelFile>;
@@ -50,12 +58,12 @@ declare module "@package/gg/essential/model/file" {
         component3(): $Map<string, $Channels>;
         component4(): $Map<number, $List<$AnimationFile$Animation$ParticleEffect>>;
         component5(): $Map<number, $List<$AnimationFile$Animation$SoundEffect>>;
-        getAnimationLength(): number;
         static write$Self$cosmetics(arg0: $AnimationFile$Animation, arg1: $CompositeEncoder, arg2: $SerialDescriptor): void;
         static access$get$childSerializers$cp(): $Lazy<any>[];
+        getAnimationLength(): number;
         getBones(): $Map<string, $Channels>;
-        getLoop(): $AnimationFile$Loop;
         static getAnimationLength$annotations(): void;
+        getLoop(): $AnimationFile$Loop;
         static getParticleEffects$annotations(): void;
         getParticleEffects(): $Map<number, $List<$AnimationFile$Animation$ParticleEffect>>;
         static getSoundEffects$annotations(): void;
@@ -69,6 +77,14 @@ declare module "@package/gg/essential/model/file" {
         constructor();
         constructor(arg0: $AnimationFile$Loop_, arg1: number, arg2: $Map_<string, $Channels>, arg3: $Map_<number, $List_<$AnimationFile$Animation$ParticleEffect>>, arg4: $Map_<number, $List_<$AnimationFile$Animation$SoundEffect>>);
         constructor(arg0: $AnimationFile$Loop_, arg1: number, arg2: $Map_<any, any>, arg3: $Map_<any, any>, arg4: $Map_<any, any>, arg5: number, arg6: $DefaultConstructorMarker);
+        get animationLength(): number;
+        get bones(): $Map<string, $Channels>;
+        static get animationLength$annotations(): void;
+        get loop(): $AnimationFile$Loop;
+        static get particleEffects$annotations(): void;
+        get particleEffects(): $Map<number, $List<$AnimationFile$Animation$ParticleEffect>>;
+        static get soundEffects$annotations(): void;
+        get soundEffects(): $Map<number, $List<$AnimationFile$Animation$SoundEffect>>;
     }
     export class $AnimationFile$Loop extends $Enum<$AnimationFile$Loop> {
         static access$get$cachedSerializer$delegate$cp(): $Lazy<any>;
@@ -79,6 +95,7 @@ declare module "@package/gg/essential/model/file" {
         static HoldOnLastFrame: $AnimationFile$Loop;
         static True: $AnimationFile$Loop;
         static False: $AnimationFile$Loop;
+        static get entries(): $EnumEntries<$AnimationFile$Loop>;
     }
     /**
      * Values that may be interpreted as {@link $AnimationFile$Loop}.
@@ -101,6 +118,10 @@ declare module "@package/gg/essential/model/file" {
         constructor(arg0: $ParticlesFile$Description, arg1: $Map_<any, any>, arg2: $Map_<any, any>, arg3: $ParticleEffectComponents, arg4: number, arg5: $DefaultConstructorMarker);
         constructor(arg0: number, arg1: $ParticlesFile$Description, arg2: $Map_<any, any>, arg3: $Map_<any, any>, arg4: $ParticleEffectComponents, arg5: $SerializationConstructorMarker);
         constructor(arg0: $ParticlesFile$Description, arg1: $Map_<string, $ParticlesFile$Curve>, arg2: $Map_<string, $ParticlesFile$Event>, arg3: $ParticleEffectComponents);
+        get curves(): $Map<string, $ParticlesFile$Curve>;
+        get events(): $Map<string, $ParticlesFile$Event>;
+        get description(): $ParticlesFile$Description;
+        get components(): $ParticleEffectComponents;
     }
     export class $ParticlesFile$Material extends $Enum<$ParticlesFile$Material> {
         static access$get$cachedSerializer$delegate$cp(): $Lazy<any>;
@@ -113,6 +134,9 @@ declare module "@package/gg/essential/model/file" {
         static Add: $ParticlesFile$Material;
         static Blend: $ParticlesFile$Material;
         static Cutout: $ParticlesFile$Material;
+        get needsSorting(): boolean;
+        get backfaceCulling(): boolean;
+        static get entries(): $EnumEntries<$ParticlesFile$Material>;
     }
     /**
      * Values that may be interpreted as {@link $ParticlesFile$Material}.
@@ -129,6 +153,8 @@ declare module "@package/gg/essential/model/file" {
         static Companion: $SoundDefinitionsFile$Companion;
         constructor(arg0: number, arg1: $Map_<any, any>, arg2: $SerializationConstructorMarker);
         constructor(arg0: $Map_<string, $SoundDefinitionsFile$Definition>);
+        static get definitions$annotations(): void;
+        get definitions(): $Map<string, $SoundDefinitionsFile$Definition>;
     }
     export class $ParticlesFile$Companion {
         serializer(): $KSerializer<$ParticlesFile>;
@@ -138,15 +164,15 @@ declare module "@package/gg/essential/model/file" {
         component3(): number;
         component4(): boolean;
         component5(): $List<$SoundDefinitionsFile$Sound>;
-        getSounds(): $List<$SoundDefinitionsFile$Sound>;
-        getMinDistance(): number;
-        getFixedPosition(): boolean;
         static write$Self$cosmetics(arg0: $SoundDefinitionsFile$Definition, arg1: $CompositeEncoder, arg2: $SerialDescriptor): void;
         static access$get$childSerializers$cp(): $Lazy<any>[];
-        getMaxDistance(): number;
+        getMinDistance(): number;
+        getFixedPosition(): boolean;
+        getSounds(): $List<$SoundDefinitionsFile$Sound>;
+        static getFixedPosition$annotations(): void;
         static getMinDistance$annotations(): void;
         static getMaxDistance$annotations(): void;
-        static getFixedPosition$annotations(): void;
+        getMaxDistance(): number;
         copy(arg0: $SoundCategory_, arg1: number, arg2: number, arg3: boolean, arg4: $List_<$SoundDefinitionsFile$Sound>): $SoundDefinitionsFile$Definition;
         getCategory(): $SoundCategory;
         component1(): $SoundCategory;
@@ -156,6 +182,14 @@ declare module "@package/gg/essential/model/file" {
         constructor(arg0: number, arg1: $SoundCategory_, arg2: number, arg3: number, arg4: boolean, arg5: $List_<any>, arg6: $SerializationConstructorMarker);
         constructor(arg0: $SoundCategory_, arg1: number, arg2: number, arg3: boolean, arg4: $List_<$SoundDefinitionsFile$Sound>);
         constructor(arg0: $SoundCategory_, arg1: number, arg2: number, arg3: boolean, arg4: $List_<any>, arg5: number, arg6: $DefaultConstructorMarker);
+        get minDistance(): number;
+        get fixedPosition(): boolean;
+        get sounds(): $List<$SoundDefinitionsFile$Sound>;
+        static get fixedPosition$annotations(): void;
+        static get minDistance$annotations(): void;
+        static get maxDistance$annotations(): void;
+        get maxDistance(): number;
+        get category(): $SoundCategory;
     }
     export class $ModelFile$Geometry {
         static write$Self$cosmetics(arg0: $ModelFile$Geometry, arg1: $CompositeEncoder, arg2: $SerialDescriptor): void;
@@ -170,6 +204,8 @@ declare module "@package/gg/essential/model/file" {
         constructor(arg0: number, arg1: $ModelFile$Description, arg2: $List_<any>, arg3: $SerializationConstructorMarker);
         constructor(arg0: $ModelFile$Description, arg1: $List_<$ModelFile$Bone>);
         constructor(arg0: $ModelFile$Description, arg1: $List_<any>, arg2: number, arg3: $DefaultConstructorMarker);
+        get bones(): $List<$ModelFile$Bone>;
+        get description(): $ModelFile$Description;
     }
     export class $SoundDefinitionsFile$Companion {
         serializer(): $KSerializer<$SoundDefinitionsFile>;
@@ -190,6 +226,10 @@ declare module "@package/gg/essential/model/file" {
         constructor(arg0: number, arg1: string, arg2: $List_<any>, arg3: $SerializationConstructorMarker);
         constructor(arg0: string, arg1: $List_<$ModelFile$Geometry>);
         constructor(arg0: string, arg1: $List_<any>, arg2: number, arg3: $DefaultConstructorMarker);
+        get formatVersion(): string;
+        static get geometries$annotations(): void;
+        get geometries(): $List<$ModelFile$Geometry>;
+        static get formatVersion$annotations(): void;
     }
     export class $AnimationFile$Companion {
         serializer(): $KSerializer<$AnimationFile>;

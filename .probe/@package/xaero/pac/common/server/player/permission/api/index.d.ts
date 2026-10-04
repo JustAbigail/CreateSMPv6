@@ -12,6 +12,11 @@ declare module "@package/xaero/pac/common/server/player/permission/api" {
         getName(): $Component;
         getType(): $Class<T>;
         getComment(): $Component;
+        get nodeString(): string;
+        get defaultNodeString(): string;
+        get name(): $Component;
+        get type(): $Class<T>;
+        get comment(): $Component;
     }
     export class $IPlayerPermissionSystemAPI {
     }

@@ -11,5 +11,6 @@ declare module "@package/net/minecraft/client/player/inventory" {
         isEmpty(): boolean;
         static CODEC: $Codec<$Hotbar>;
         constructor();
+        get empty(): boolean;
     }
 }

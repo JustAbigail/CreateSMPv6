@@ -32,7 +32,7 @@ import { $CommandSourceStack, $CommandSource } from "@package/net/minecraft/comm
 import { $DamageContainer } from "@package/net/neoforged/neoforge/common/damagesource";
 import { $SubLevelEntityCollision$CollisionInfo } from "@package/dev/ryanhcode/sable/sublevel/entity_collision";
 import { $Allay } from "@package/net/minecraft/world/entity/animal/allay";
-import { $Husk, $Evoker, $Drowned, $WitherSkeleton, $Creeper, $Shulker, $Endermite, $Spider, $Blaze, $EnderMan, $MagmaCube, $Witch, $Bogged, $Vindicator, $Zombie, $Strider, $Guardian, $Slime, $ZombifiedPiglin, $Stray, $Silverfish, $Zoglin, $CaveSpider, $Skeleton, $Illusioner, $ZombieVillager, $Pillager, $ElderGuardian, $Ravager, $Phantom, $Vex, $Ghast, $Giant } from "@package/net/minecraft/world/entity/monster";
+import { $Husk, $Evoker, $Drowned, $WitherSkeleton, $Creeper, $Shulker, $Endermite, $Spider, $Blaze, $EnderMan, $MagmaCube, $Witch, $Bogged, $Vindicator, $Zombie, $Strider, $Guardian, $Slime, $Stray, $ZombifiedPiglin, $Silverfish, $Zoglin, $CaveSpider, $Skeleton, $Illusioner, $ZombieVillager, $Pillager, $ElderGuardian, $Ravager, $Phantom, $Vex, $Ghast, $Giant } from "@package/net/minecraft/world/entity/monster";
 import { $Vector3d, $Vector3f } from "@package/org/joml";
 import { $EntityCapability } from "@package/net/neoforged/neoforge/capabilities";
 import { $EntityTypeMethods, $EntityMethods } from "@package/forge/me/thosea/badoptimizations/interfaces";
@@ -329,6 +329,7 @@ declare module "@package/net/minecraft/world/entity" {
         removeStingerTime: number;
         static BASE_SAFE_FALL_DISTANCE: number;
         constructor(entityType: $EntityType_<$GlowSquid>, level: $Level_);
+        get darkTicksRemaining(): number;
     }
     /**
      * @return null or the LivingEntity it was ignited by
@@ -487,8 +488,8 @@ declare module "@package/net/minecraft/world/entity" {
          */
         getArmorCoverPercentage(): number;
         getItemBySlot(slot: $EquipmentSlot_): $ItemStack;
-        canAttack(livingentity: $LivingEntity, condition: $TargetingConditions): boolean;
         canAttack(target: $LivingEntity): boolean;
+        canAttack(livingentity: $LivingEntity, condition: $TargetingConditions): boolean;
         /**
          * Returns false if the entity is an armor stand. Returns `true` for all other entity living bases.
          */
@@ -502,8 +503,8 @@ declare module "@package/net/minecraft/world/entity" {
          */
         removeAllEffects(): boolean;
         getActiveEffectsMap(): $Map<$Holder<$MobEffect>, $MobEffectInstance>;
-        addEffect(effectInstance: $MobEffectInstance): boolean;
         addEffect(effectInstance: $MobEffectInstance, entity: $Entity | null): boolean;
+        addEffect(effectInstance: $MobEffectInstance): boolean;
         handler$zba000$openpartiesandclaims$onAddEffect(arg0: $MobEffectInstance, arg1: $Entity, arg2: $CallbackInfoReturnable<any>): void;
         onEffectAdded(instance: $MobEffectInstance, entity: $Entity | null): void;
         /**
@@ -543,7 +544,6 @@ declare module "@package/net/minecraft/world/entity" {
         actuallyHurt(damageSource: $DamageSource_, damageAmount: number): void;
         knockback(strength: number, arg1: number, x: number): void;
         indicateDamage(xDistance: number, arg1: number): void;
-        redirect$bmn000$fabric_entity_events_v1$beforeEntityKilled(arg0: $LivingEntity, arg1: $DamageSource_, arg2: number): boolean;
         getDeathSound(): $SoundEvent;
         makeSound(sound: $SoundEvent_ | null): void;
         /**
@@ -835,8 +835,8 @@ declare module "@package/net/minecraft/world/entity" {
          */
         getBedOrientation(): $Direction;
         getProjectile(weaponStack: $ItemStack_): $ItemStack;
-        eat(level: $Level_, food: $ItemStack_, foodProperties: $FoodProperties_): $ItemStack;
         eat(level: $Level_, food: $ItemStack_): $ItemStack;
+        eat(level: $Level_, food: $ItemStack_, foodProperties: $FoodProperties_): $ItemStack;
         onEquippedItemBroken(item: $Item_, slot: $EquipmentSlot_): void;
         static getSlotForHand(hand: $InteractionHand_): $EquipmentSlot;
         /**
@@ -882,17 +882,17 @@ declare module "@package/net/minecraft/world/entity" {
          * Returns the amount of health added by the Absorption effect.
          */
         essential$getRealPrevRenderYaw(): number;
-        /**
-         * Called when the entity picks up an item.
-         */
-        take(entity: $Entity, amount: number): void;
+        getAttributeValue(attribute: $Holder_<$Attribute>): number;
         /**
          * Returns false if the entity is an armor stand. Returns `true` for all other entity living bases.
          */
         isBlocking(): boolean;
-        getAttributeValue(attribute: $Holder_<$Attribute>): number;
-        getAttributes(): $AttributeMap;
+        /**
+         * Called when the entity picks up an item.
+         */
+        take(entity: $Entity, amount: number): void;
         getAttribute(attribute: $Holder_<$Attribute>): $AttributeInstance;
+        getAttributes(): $AttributeMap;
         forceAddEffect(instance: $MobEffectInstance, entity: $Entity | null): void;
         getMainHandItem(): $ItemStack;
         /**
@@ -907,8 +907,8 @@ declare module "@package/net/minecraft/world/entity" {
          * Returns false if the entity is an armor stand. Returns `true` for all other entity living bases.
          */
         isUsingItem(): boolean;
-        swing(hand: $InteractionHand_, updateSelf: boolean): void;
         swing(hand: $InteractionHand_): void;
+        swing(hand: $InteractionHand_, updateSelf: boolean): void;
         getItemInHand(hand: $InteractionHand_): $ItemStack;
         /**
          * Returns false if the entity is an armor stand. Returns `true` for all other entity living bases.
@@ -918,6 +918,7 @@ declare module "@package/net/minecraft/world/entity" {
          * Called every tick so the entity can update its state as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
          */
         releaseUsingItem(): void;
+        redirect$bmn000$fabric_entity_events_v1$beforeEntityKilled(arg0: $LivingEntity, arg1: $DamageSource_, arg2: number): boolean;
         /**
          * Returns the amount of health added by the Absorption effect.
          */
@@ -1169,6 +1170,69 @@ declare module "@package/net/minecraft/world/entity" {
         removeStingerTime: number;
         static BASE_SAFE_FALL_DISTANCE: number;
         constructor(entityType: $EntityType_<$LivingEntity>, level: $Level_);
+        get baby(): boolean;
+        get ageScale(): number;
+        get affectedByFluids(): boolean;
+        get baseExperienceReward(): number;
+        get alwaysExperienceDropper(): boolean;
+        get lastAttacker(): $LivingEntity;
+        get lastHurtByMobTimestamp(): number;
+        get lastHurtMobTimestamp(): number;
+        set discardFriction(value: boolean);
+        get activeEffects(): $Collection<$MobEffectInstance>;
+        get fallFlying(): boolean;
+        get armorCoverPercentage(): number;
+        get activeEffectsMap(): $Map<$Holder<$MobEffect>, $MobEffectInstance>;
+        get invertedHealAndHarm(): boolean;
+        get maxAbsorption(): number;
+        get deathSound(): $SoundEvent;
+        get lastDamageSource(): $DamageSource;
+        get soundVolume(): number;
+        get voicePitch(): number;
+        get killCredit(): $LivingEntity;
+        get combatTracker(): $CombatTracker;
+        get lootTable(): $ResourceKey<$LootTable>;
+        get lootTableSeed(): number;
+        get fallSounds(): $LivingEntity$Fallsounds;
+        get hurtDir(): number;
+        get hitbox(): $AABB;
+        get lastClimbablePos(): ($BlockPos) | undefined;
+        get armorValue(): number;
+        get currentSwingDuration(): number;
+        get offhandItem(): $ItemStack;
+        get armorSlots(): $Iterable<$ItemStack>;
+        get handSlots(): $Iterable<$ItemStack>;
+        get armorAndBodyArmorSlots(): $Iterable<$ItemStack>;
+        get allSlots(): $Iterable<$ItemStack>;
+        get immobile(): boolean;
+        get jumpBoostPower(): number;
+        get waterSlowDown(): number;
+        get suppressingSlidingDownLadder(): boolean;
+        get flyingSpeed(): number;
+        get maxHeadRotationRelativeToBody(): number;
+        get sensitiveToWater(): boolean;
+        get autoSpinAttack(): boolean;
+        get mainArm(): $HumanoidArm;
+        get usedItemHand(): $InteractionHand;
+        get useItemRemainingTicks(): number;
+        get ticksUsingItem(): number;
+        get fallFlyingTicks(): number;
+        get affectedByPotions(): boolean;
+        get dismountPoses(): $ImmutableList<$Pose>;
+        get bedOrientation(): $Direction;
+        get blocking(): boolean;
+        get attributes(): $AttributeMap;
+        get deadOrDying(): boolean;
+        get usingItem(): boolean;
+        get sleeping(): boolean;
+        get scale(): number;
+        get reachDistance(): number;
+        get undead(): boolean;
+        get potionEffects(): $EntityPotionEffectsJS;
+        set movementSpeedAddition(value: number);
+        get totalMovementSpeed(): number;
+        set defaultMovementSpeedMultiplier(value: number);
+        set totalMovementSpeedMultiplier(value: number);
     }
     export class $SpawnGroupData {
     }
@@ -1176,15 +1240,17 @@ declare module "@package/net/minecraft/world/entity" {
     }
     export class $AnimationState {
         ifStarted(action: $Consumer_<$AnimationState>): void;
+        getAccumulatedTime(): number;
+        startIfStopped(tickCount: number): void;
         fastForward(duration: number, speed: number): void;
         animateWhen(condition: boolean, tickCount: number): void;
-        startIfStopped(tickCount: number): void;
-        getAccumulatedTime(): number;
         updateTime(ageInTicks: number, speed: number): void;
         start(tickCount: number): void;
         stop(): void;
         isStarted(): boolean;
         constructor();
+        get accumulatedTime(): number;
+        get started(): boolean;
     }
     /**
      * @deprecated
@@ -1195,20 +1261,16 @@ declare module "@package/net/minecraft/world/entity" {
         /**
          * @deprecated
          */
-        shear(source: $SoundSource_): void;
+        readyForShearing(): boolean;
         /**
          * @deprecated
          */
-        readyForShearing(): boolean;
+        shear(source: $SoundSource_): void;
     }
     export class $AreaEffectCloud extends $Entity implements $TraceableEntity {
         addEffect(effectInstance: $MobEffectInstance): void;
-        /**
-         * The maximum height from where the entity is allowed to jump (used in pathfinder)
-         */
-        getDuration(): number;
+        setDuration(duration: number): void;
         getRadius(): number;
-        setRadius(radius: number): void;
         setPotionContents(potionContents: $PotionContents_): void;
         getParticle(): $ParticleOptions;
         setParticle(particleOption: $ParticleOptions_): void;
@@ -1234,9 +1296,13 @@ declare module "@package/net/minecraft/world/entity" {
          */
         getWaitTime(): number;
         setWaitTime(duration: number): void;
+        setRadius(radius: number): void;
         setOwner(owner: $LivingEntity | null): void;
-        setDuration(duration: number): void;
-        getOwner(): $LivingEntity;
+        /**
+         * The maximum height from where the entity is allowed to jump (used in pathfinder)
+         */
+        getDuration(): number;
+        getOwner(): $Entity;
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
         firstTick: boolean;
         wasEyeInWater: boolean;
@@ -1312,6 +1378,7 @@ declare module "@package/net/minecraft/world/entity" {
         dimensions: $EntityDimensions;
         constructor(entityType: $EntityType_<$AreaEffectCloud>, level: $Level_);
         constructor(level: $Level_, x: number, arg2: number, y: number);
+        set potionContents(value: $PotionContents_);
     }
     export class $Display$TextDisplay$CachedInfo extends $Record {
         lines(): $List<$Display$TextDisplay$CachedLine>;
@@ -1329,8 +1396,6 @@ declare module "@package/net/minecraft/world/entity" {
         constructor();
     }
     export class $Entity extends $AttachmentHolder implements $SyncedDataHolder, $Nameable, $EntityAccess$1, $CommandSource, $ScoreHolder, $IEntityExtension, $EntityExtension$1, $RollEntity, $AccessorEntity, $EntityAccessor, $TravelingEntity, $EntityKJS, $EntityAccessor$1, $EntityAccess, $EntityStickExtension, $EntityExtension, $EntityExtension$2, $IEntityDataHolder, $EntityMovementExtension, $EntityMethods, $IEntity {
-        setUUID(uniqueId: $UUID_): void;
-        removeTag(tag: string): boolean;
         nextStep(): number;
         /**
          * Return whether this entity should be rendered as on fire.
@@ -1350,8 +1415,8 @@ declare module "@package/net/minecraft/world/entity" {
          * Gets called every tick from main Entity class
          */
         updateInWaterStateAndDoWaterCurrentPushing(): void;
-        setPos(x: number, arg1: number, y: number): void;
         setPos(addend: $Vec3_): void;
+        setPos(x: number, arg1: number, y: number): void;
         /**
          * Returns a (normalized) vector of where this entity is looking.
          */
@@ -1690,148 +1755,6 @@ declare module "@package/net/minecraft/world/entity" {
          */
         canStartSwimming(): boolean;
         /**
-         * Return the amount of cooldown before this entity can use a portal again.
-         */
-        getFireImmuneTicks(): number;
-        /**
-         * Return the amount of cooldown before this entity can use a portal again.
-         */
-        getTeamColor(): number;
-        /**
-         * Gets called every tick from main Entity class
-         */
-        unRide(): void;
-        /**
-         * Return whether this entity should be rendered as on fire.
-         */
-        isVehicle(): boolean;
-        /**
-         * Gets called every tick from main Entity class
-         */
-        ejectPassengers(): void;
-        getPositionCodec(): $VecDeltaCodec;
-        getTags(): $Set<string>;
-        addTag(tag: string): boolean;
-        handler$ffk000$libjf_data_v0$setKillable(info: $CallbackInfo): void;
-        getEntityData(): $SynchedEntityData;
-        handler$bho000$veil$remove(arg0: $CallbackInfo): void;
-        closerThan(entity: $Entity, horizontalDistance: number, arg2: number): boolean;
-        closerThan(entity: $Entity, distance: number): boolean;
-        setPosRaw(x: number, arg1: number, y: number): void;
-        setBoundingBox(bb: $AABB_): void;
-        turn(yRot: number, arg1: number): void;
-        wrapMethod$cam000$createbigcannons$turn(arg0: number, arg1: number, arg2: $Operation_<any>): void;
-        handler$hfk000$sable$tickInject(arg0: $CallbackInfo): void;
-        /**
-         * Gets called every tick from main Entity class
-         */
-        handlePortal(): void;
-        /**
-         * Return whether this entity should be rendered as on fire.
-         */
-        canSpawnSprintParticle(): boolean;
-        /**
-         * Gets called every tick from main Entity class
-         */
-        spawnSprintParticle(): void;
-        /**
-         * Return whether this entity should be rendered as on fire.
-         */
-        updateInWaterStateAndDoFluidPushing(): boolean;
-        /**
-         * Gets called every tick from main Entity class
-         */
-        updateSwimming(): void;
-        setRemainingFireTicks(ticks: number): void;
-        /**
-         * Gets called every tick from main Entity class
-         */
-        lavaHurt(): void;
-        /**
-         * Gets called every tick from main Entity class
-         */
-        checkBelowWorld(): void;
-        setSharedFlagOnFire(downwards: boolean): void;
-        /**
-         * Gets called every tick from main Entity class
-         */
-        setPortalCooldown(): void;
-        setPortalCooldown(ticks: number): void;
-        /**
-         * Return the amount of cooldown before this entity can use a portal again.
-         */
-        getDimensionChangingDelay(): number;
-        /**
-         * Return the amount of cooldown before this entity can use a portal again.
-         */
-        getPortalCooldown(): number;
-        /**
-         * Return whether this entity should be rendered as on fire.
-         */
-        isOnPortalCooldown(): boolean;
-        /**
-         * Gets called every tick from main Entity class
-         */
-        processPortalCooldown(): void;
-        igniteForSeconds(yaw: number): void;
-        /**
-         * Return the amount of cooldown before this entity can use a portal again.
-         */
-        getRemainingFireTicks(): number;
-        checkSupportingBlock(onGround: boolean, movement: $Vec3_ | null): void;
-        setOnGroundWithMovement(onGround: boolean, movement: $Vec3_): void;
-        /**
-         * Return whether this entity should be rendered as on fire.
-         */
-        isOnFire(): boolean;
-        /**
-         * Given a motion vector, return an updated vector that takes into account restrictions such as collisions (from all directions) and step-up from stepHeight
-         */
-        limitPistonMovement(vec: $Vec3_): $Vec3;
-        maybeBackOffFromEdge(vec: $Vec3_, mover: $MoverType_): $Vec3;
-        redirect$hfk000$sable$collideRedirect(arg0: $Entity, arg1: $Vec3_): $Vec3;
-        isHorizontalCollisionMinor(deltaMovement: $Vec3_): boolean;
-        wrapOperation$hfk000$sable$moveInject(arg0: $Entity, arg1: boolean, arg2: $Vec3_, arg3: $Operation_<any>): void;
-        /**
-         * @deprecated
-         */
-        getOnPosLegacy(): $BlockPos;
-        wrapOperation$hfk000$sable$updateEntityAfterFallOn(arg0: $Block_, arg1: $BlockGetter, arg2: $Entity, arg3: $Operation_<any>): void;
-        getMovementEmission(): $Entity$MovementEmission;
-        getCustomName(): $Component;
-        sendSystemMessage(component: $Component_): void;
-        createCommandSourceStack(): $CommandSourceStack;
-        setOnGround(downwards: boolean): void;
-        getTeam(): $PlayerTeam;
-        /**
-         * Get the world, if available. **`null` is not allowed!** If you are not an entity in the world, return the overworld
-         */
-        getCommandSenderWorld(): $Level;
-        isOnSameTeam(passenger: $Entity): boolean;
-        /**
-         * Returns whether this Entity is on the given scoreboard team.
-         */
-        isAlliedTo(team: $Team): boolean;
-        getEyePosition(partialTicks: number): $Vec3;
-        /**
-         * Returns a (normalized) vector of where this entity is looking.
-         */
-        getEyePosition(): $Vec3;
-        getViewVector(partialTicks: number): $Vec3;
-        /**
-         * Returns a NBTTagCompound that can be used to store custom data for this entity.
-         * It will be written, and read from disc, so it persists over world saves.
-         */
-        getPersistentData(): $CompoundTag;
-        /**
-         * Gets called every tick from main Entity class
-         */
-        waterSwimSound(): void;
-        /**
-         * Gets called every tick from main Entity class
-         */
-        processFlappingMovement(): void;
-        /**
          * Gets called every tick from main Entity class
          */
         playEntityOnFireExtinguishedSound(): void;
@@ -1898,13 +1821,13 @@ declare module "@package/net/minecraft/world/entity" {
         isInWaterOrBubble(): boolean;
         wrapOperation$hil000$sable$inWaterCheck(arg0: $Entity, arg1: boolean, arg2: $Operation_<any>): void;
         /**
-         * Gets called every tick from main Entity class
-         */
-        updateFluidHeightAndDoFluidPushing(): void;
-        /**
          * @deprecated
          */
         updateFluidHeightAndDoFluidPushing(fluidTag: $TagKey_<$Fluid>, motionScale: number): boolean;
+        /**
+         * Gets called every tick from main Entity class
+         */
+        updateFluidHeightAndDoFluidPushing(): void;
         /**
          * Gets called every tick from main Entity class
          */
@@ -1931,168 +1854,106 @@ declare module "@package/net/minecraft/world/entity" {
         getUpVector(partialTicks: number): $Vec3;
         calculateUpVector(xRot: number, yRot: number): $Vec3;
         getLightProbePosition(partialTicks: number): $Vec3;
+        getCustomName(): $Component;
+        sendSystemMessage(component: $Component_): void;
+        createCommandSourceStack(): $CommandSourceStack;
+        setOnGround(downwards: boolean): void;
+        getTeam(): $PlayerTeam;
+        /**
+         * Get the world, if available. **`null` is not allowed!** If you are not an entity in the world, return the overworld
+         */
+        getCommandSenderWorld(): $Level;
+        /**
+         * Returns whether this Entity is on the given scoreboard team.
+         */
+        isAlliedTo(team: $Team): boolean;
+        isOnSameTeam(passenger: $Entity): boolean;
+        getEyePosition(partialTicks: number): $Vec3;
+        /**
+         * Returns a (normalized) vector of where this entity is looking.
+         */
+        getEyePosition(): $Vec3;
+        getViewVector(partialTicks: number): $Vec3;
+        getY(): number;
+        getY(scale: number): number;
+        getDimensions(pose: $Pose_): $EntityDimensions;
+        getPosition(partialTicks: number): $Vec3;
+        /**
+         * Returns `true` if the flag is active for the entity. Known flags: 0: burning 1: sneaking 2: unused 3: sprinting 4: swimming 5: invisible 6: glowing 7: elytra flying
+         */
+        hasPermissions(flag: number): boolean;
+        /**
+         * Gets called every tick from main Entity class
+         */
+        kill(): void;
+        push(passenger: $Entity): void;
+        addMotion(x: number, arg1: number, y: number): void;
+        push(addend: $Vec3_): void;
+        getDisplayName(): $Component;
+        move(type: $MoverType_, pos: $Vec3_): void;
+        setLevel(level: $Level_): void;
+        isSupportedBy(pos: $BlockPos_): boolean;
+        getRandom(): $RandomSource;
+        /**
+         * Gets called every tick from main Entity class
+         */
+        tick(): void;
+        getName(): $Component;
+        remove(reason: $Entity$RemovalReason_): void;
+        load(compound: $CompoundTag_): void;
+        /**
+         * Returns a (normalized) vector of where this entity is looking.
+         */
+        position(): $Vec3;
+        getTypeName(): $Component;
         /**
          * Return whether this entity should be rendered as on fire.
          */
-        canBeHitByProjectile(): boolean;
+        isAlive(): boolean;
         /**
-         * Checks if the offset position from the entity's current position has a collision with a block or a liquid.
+         * Return the amount of cooldown before this entity can use a portal again.
          */
-        shouldRender(x: number, arg1: number, y: number): boolean;
-        /**
-         * Checks if the entity is in range to render.
-         */
-        shouldRenderAtSqrDistance(distance: number): boolean;
+        getId(): number;
         /**
          * Writes this entity to NBT, unless it has been removed or it is a passenger. Also writes this entity's passengers, and the entity type ID (so the produced NBT is sufficient to recreate the entity).
          * To always write the entity, use `#writeWithoutTypeId`.
          * 
          * @return True if the entity was written (and the passed compound should be saved)" false if the entity was not written.
          */
-        saveAsPassenger(compound: $CompoundTag_): boolean;
+        save(compound: $CompoundTag_): boolean;
+        getEntityType(): $EntityType<never>;
+        getSlot(slot: number): $SlotAccess;
+        is(passenger: $Entity): boolean;
+        pick(hitDistance: number, arg1: number, partialTicks: boolean): $HitResult;
         /**
-         * creates a NBT list from the array of doubles passed to this function
+         * Given a motion vector, return an updated vector that takes into account restrictions such as collisions (from all directions) and step-up from stepHeight
          */
-        newDoubleList(...numbers: number[]): $ListTag;
-        redirect$hfd000$sable$fixPassengerSaving(arg0: $CompoundTag_, arg1: string, arg2: $Tag_): $Tag;
+        collide(vec: $Vec3_): $Vec3;
         /**
-         * Returns a new NBTTagList filled with the specified floats
+         * Transforms the entity's current yaw with the given Rotation and returns it. This does not have a side-effect.
          */
-        newFloatList(...numbers: number[]): $ListTag;
-        handler$eok000$collective$Entity_saveWithoutId(arg0: $CompoundTag_, arg1: $CallbackInfoReturnable<any>): void;
-        setAirSupply(ticks: number): void;
-        setCustomName(component: $Component_ | null): void;
-        setCustomNameVisible(downwards: boolean): void;
-        setGlowing(downwards: boolean): void;
+        rotate(transformRotation: $Rotation_): number;
         /**
-         * Return whether this entity should be rendered as on fire.
+         * Transforms the entity's current yaw with the given Mirror and returns it. This does not have a side-effect.
          */
-        repositionEntityAfterLoad(): boolean;
-        handler$eok000$collective$Entity_load(arg0: $CompoundTag_, arg1: $CallbackInfo): void;
-        /**
-         * Return whether this entity should be rendered as on fire.
-         */
-        canBeCollidedWith(): boolean;
-        positionRider(passenger: $Entity, callback: $Entity$MoveFunction_): void;
-        positionRider(passenger: $Entity): void;
-        hasPassenger(passenger: $Entity): boolean;
-        hasPassenger(predicate: $Predicate_<$Entity>): boolean;
-        handler$hfd000$sable$onPositionRider(arg0: $Entity, arg1: $CallbackInfo): void;
-        getVehicleAttachmentPoint(entity: $Entity): $Vec3;
-        onPassengerTurned(passenger: $Entity): void;
-        getAttachments(): $EntityAttachments;
-        static getDefaultPassengerAttachmentPoint(vehicle: $Entity, passenger: $Entity, attachments: $EntityAttachments): $Vec3;
-        startRiding(passenger: $Entity): boolean;
-        startRiding(vehicle: $Entity, force: boolean): boolean;
-        /**
-         * Return whether this entity should be rendered as on fire.
-         */
-        showVehicleHealth(): boolean;
-        /**
-         * @deprecated
-         * Return whether this entity should be rendered as on fire.
-         */
-        couldAcceptPassenger(): boolean;
-        canRide(passenger: $Entity): boolean;
-        canAddPassenger(passenger: $Entity): boolean;
-        addPassenger(passenger: $Entity): void;
+        mirror(transformMirror: $Mirror_): number;
+        setId(ticks: number): void;
         /**
          * Gets called every tick from main Entity class
          */
-        removeVehicle(): void;
-        removePassenger(passenger: $Entity): void;
+        discard(): void;
+        getX(): number;
+        getX(scale: number): number;
+        getZ(scale: number): number;
+        getZ(): number;
         /**
-         * Get entity this is riding
+         * Sets position and rotation, clamping and wrapping params to valid values. Used by network code.
          */
-        getFirstPassenger(): $Entity;
-        getPickRadius(): number;
-        getHandHoldingItemAngle(item: $Item_): $Vec3;
-        /**
-         * Returns the Entity's pitch and yaw as a `Vec2`.
-         */
-        getRotationVector(): $Vec2;
-        /**
-         * Returns a (normalized) vector of where this entity is looking.
-         */
-        getForward(): $Vec3;
-        setAsInsidePortal(portal: $Portal_, pos: $BlockPos_): void;
-        canChangeDimensions(oldLevel: $Level_, newLevel: $Level_): boolean;
-        handler$zzi000$openpartiesandclaims$onHandlePortal(arg0: $CallbackInfo): void;
-        changeDimension(transition: $DimensionTransition_): $Entity;
-        lerpMotion(x: number, arg1: number, y: number): void;
-        /**
-         * Return whether this entity should be rendered as on fire.
-         */
-        dismountsUnderwater(): boolean;
-        /**
-         * Return whether this entity should be rendered as on fire.
-         */
-        canControlVehicle(): boolean;
-        setShiftKeyDown(downwards: boolean): void;
-        /**
-         * Return whether this entity should be rendered as on fire.
-         */
-        isSteppingCarefully(): boolean;
-        /**
-         * Return whether this entity should be rendered as on fire.
-         */
-        isSuppressingBounce(): boolean;
-        /**
-         * Return whether this entity should be rendered as on fire.
-         */
-        isDescending(): boolean;
-        /**
-         * Return whether this entity should be rendered as on fire.
-         */
-        isVisuallyCrawling(): boolean;
-        setSwimming(downwards: boolean): void;
-        /**
-         * Only used by renderer in EntityLivingBase subclasses.
-         * Determines if an entity is visible or not to a specific player, if the entity is normally invisible.
-         * For EntityLivingBase subclasses, returning false when invisible will render the entity semi-transparent.
-         */
-        isInvisibleTo(player: $Player): boolean;
-        updateDynamicGameEventListener(listenerConsumer: $BiConsumer_<$DynamicGameEventListener<never>, $ServerLevel>): void;
-        /**
-         * Returns the string that identifies this Entity's class
-         */
-        getScoreboardName(): string;
-        thunderHit(level: $ServerLevel, lightning: $LightningBolt): void;
-        onAboveBubbleCol(downwards: boolean): void;
-        onInsideBubbleColumn(downwards: boolean): void;
-        moveTowardsClosestSpace(x: number, arg1: number, y: number): void;
-        makeStuckInBlock(state: $BlockState_, motionMultiplier: $Vec3_): void;
-        /**
-         * Return whether this entity should be rendered as on fire.
-         */
-        isAttackable(): boolean;
-        skipAttackInteraction(passenger: $Entity): boolean;
-        handler$ffk000$libjf_data_v0$setInvulnerable(info: $CallbackInfoReturnable<any>): void;
-        handler$ffk000$libjf_data_v0$setInvulnerable(source: $DamageSource_, info: $CallbackInfoReturnable<any>): void;
-        handler$zzi000$openpartiesandclaims$onIsInvulnerableTo(arg0: $DamageSource_, arg1: $CallbackInfoReturnable<any>): void;
-        setInvulnerable(downwards: boolean): void;
-        copyPosition(passenger: $Entity): void;
-        restoreFrom(passenger: $Entity): void;
-        /**
-         * Gets called every tick from main Entity class
-         */
-        removeAfterChangingDimensions(): void;
-        placePortalTicket(pos: $BlockPos_): void;
-        /**
-         * Explosion resistance of a block relative to this entity
-         */
-        getBlockExplosionResistance(explosion: $Explosion, level: $BlockGetter, pos: $BlockPos_, blockState: $BlockState_, fluidState: $FluidState, explosionPower: number): number;
-        shouldBlockExplode(explosion: $Explosion, level: $BlockGetter, pos: $BlockPos_, blockState: $BlockState_, explosionPower: number): boolean;
-        /**
-         * Return whether this entity should be rendered as on fire.
-         */
-        isIgnoringBlockTriggers(): boolean;
-        /**
-         * Return whether this entity should be rendered as on fire.
-         */
-        displayFireAnimation(): boolean;
-        static getViewScale(): number;
-        static setViewScale(renderDistWeight: number): void;
+        setPositionAndRotation(x: number, arg1: number, y: number, arg3: number, z: number): void;
+        moveTo(pos: $Vec3_, yRot: number, xRot: number): void;
+        moveToBlockPos(pos: $BlockPos_, yRot: number, xRot: number): void;
+        moveTo(addend: $Vec3_): void;
+        moveTo(x: number, arg1: number, y: number): void;
         getSelfAndPassengers(): $Stream<$Entity>;
         teleportRelative(x: number, arg1: number, y: number): void;
         /**
@@ -2107,13 +1968,13 @@ declare module "@package/net/minecraft/world/entity" {
         getMotionDirection(): $Direction;
         createHoverEvent(): $HoverEvent;
         broadcastToPlayer(player: $ServerPlayer): boolean;
-        getEyeHeight(pose: $Pose_): number;
         getEyeHeight(): number;
+        getEyeHeight(pose: $Pose_): number;
+        getLeashOffset(partialTicks: number): $Vec3;
         /**
          * Returns a (normalized) vector of where this entity is looking.
          */
         getLeashOffset(): $Vec3;
-        getLeashOffset(partialTicks: number): $Vec3;
         ignoreExplosion(explosion: $Explosion): boolean;
         /**
          * Add the given player to the list of players tracking this entity. For instance, a player may track a boss in order to view its associated boss bar.
@@ -2224,9 +2085,149 @@ declare module "@package/net/minecraft/world/entity" {
          */
         doABarrelRoll$isRolling(): boolean;
         doABarrelRoll$setRolling(downwards: boolean): void;
-        doABarrelRoll$getRoll(): number;
         doABarrelRoll$getRoll(partialTick: number): number;
+        doABarrelRoll$getRoll(): number;
         doABarrelRoll$setRoll(yaw: number): void;
+        gameEvent(gameEvent: $Holder_<$GameEvent>): void;
+        gameEvent(gameEvent: $Holder_<$GameEvent>, entity: $Entity | null): void;
+        playSound(sound: $SoundEvent_, volume: number, pitch: number): void;
+        playSound(sound: $SoundEvent_): void;
+        damageSources(): $DamageSources;
+        /**
+         * Get the Minecraft server instance
+         */
+        getServer(): $MinecraftServer;
+        /**
+         * Returns a (normalized) vector of where this entity is looking.
+         */
+        getLookAngle(): $Vec3;
+        lookAt(anchor: $EntityAnchorArgument$Anchor_, target: $Vec3_): void;
+        /**
+         * Returns a NBTTagCompound that can be used to store custom data for this entity.
+         * It will be written, and read from disc, so it persists over world saves.
+         */
+        getPersistentData(): $CompoundTag;
+        /**
+         * Return the amount of cooldown before this entity can use a portal again.
+         */
+        getFireImmuneTicks(): number;
+        /**
+         * Return the amount of cooldown before this entity can use a portal again.
+         */
+        getTeamColor(): number;
+        /**
+         * Gets called every tick from main Entity class
+         */
+        unRide(): void;
+        /**
+         * Return whether this entity should be rendered as on fire.
+         */
+        isVehicle(): boolean;
+        /**
+         * Gets called every tick from main Entity class
+         */
+        ejectPassengers(): void;
+        getPositionCodec(): $VecDeltaCodec;
+        getTags(): $Set<string>;
+        addTag(tag: string): boolean;
+        handler$ffk000$libjf_data_v0$setKillable(info: $CallbackInfo): void;
+        getEntityData(): $SynchedEntityData;
+        handler$bho000$veil$remove(arg0: $CallbackInfo): void;
+        closerThan(entity: $Entity, horizontalDistance: number, arg2: number): boolean;
+        closerThan(entity: $Entity, distance: number): boolean;
+        setPosRaw(x: number, arg1: number, y: number): void;
+        setBoundingBox(bb: $AABB_): void;
+        turn(yRot: number, arg1: number): void;
+        wrapMethod$cam000$createbigcannons$turn(arg0: number, arg1: number, arg2: $Operation_<any>): void;
+        handler$hfk000$sable$tickInject(arg0: $CallbackInfo): void;
+        /**
+         * Gets called every tick from main Entity class
+         */
+        handlePortal(): void;
+        /**
+         * Return whether this entity should be rendered as on fire.
+         */
+        canSpawnSprintParticle(): boolean;
+        /**
+         * Gets called every tick from main Entity class
+         */
+        spawnSprintParticle(): void;
+        /**
+         * Return whether this entity should be rendered as on fire.
+         */
+        updateInWaterStateAndDoFluidPushing(): boolean;
+        /**
+         * Gets called every tick from main Entity class
+         */
+        updateSwimming(): void;
+        setRemainingFireTicks(ticks: number): void;
+        /**
+         * Gets called every tick from main Entity class
+         */
+        lavaHurt(): void;
+        /**
+         * Gets called every tick from main Entity class
+         */
+        checkBelowWorld(): void;
+        setSharedFlagOnFire(downwards: boolean): void;
+        setPortalCooldown(ticks: number): void;
+        /**
+         * Gets called every tick from main Entity class
+         */
+        setPortalCooldown(): void;
+        /**
+         * Return the amount of cooldown before this entity can use a portal again.
+         */
+        getDimensionChangingDelay(): number;
+        /**
+         * Return the amount of cooldown before this entity can use a portal again.
+         */
+        getPortalCooldown(): number;
+        /**
+         * Return whether this entity should be rendered as on fire.
+         */
+        isOnPortalCooldown(): boolean;
+        /**
+         * Gets called every tick from main Entity class
+         */
+        processPortalCooldown(): void;
+        igniteForSeconds(yaw: number): void;
+        /**
+         * Return the amount of cooldown before this entity can use a portal again.
+         */
+        getRemainingFireTicks(): number;
+        checkSupportingBlock(onGround: boolean, movement: $Vec3_ | null): void;
+        setOnGroundWithMovement(onGround: boolean, movement: $Vec3_): void;
+        /**
+         * Return whether this entity should be rendered as on fire.
+         */
+        isOnFire(): boolean;
+        /**
+         * Given a motion vector, return an updated vector that takes into account restrictions such as collisions (from all directions) and step-up from stepHeight
+         */
+        limitPistonMovement(vec: $Vec3_): $Vec3;
+        maybeBackOffFromEdge(vec: $Vec3_, mover: $MoverType_): $Vec3;
+        redirect$hfk000$sable$collideRedirect(arg0: $Entity, arg1: $Vec3_): $Vec3;
+        isHorizontalCollisionMinor(deltaMovement: $Vec3_): boolean;
+        wrapOperation$hfk000$sable$moveInject(arg0: $Entity, arg1: boolean, arg2: $Vec3_, arg3: $Operation_<any>): void;
+        /**
+         * @deprecated
+         */
+        getOnPosLegacy(): $BlockPos;
+        wrapOperation$hfk000$sable$updateEntityAfterFallOn(arg0: $Block_, arg1: $BlockGetter, arg2: $Entity, arg3: $Operation_<any>): void;
+        getMovementEmission(): $Entity$MovementEmission;
+        /**
+         * Gets called every tick from main Entity class
+         */
+        waterSwimSound(): void;
+        /**
+         * Gets called every tick from main Entity class
+         */
+        processFlappingMovement(): void;
+        /**
+         * Gets the horizontal facing direction of this Entity.
+         */
+        getHorizontalFacing(): $Direction;
         sable$setLastTrackingSubLevelID(uniqueId: $UUID_): void;
         sable$getCollisionContext(): $TheFasterEntityCollisionContext;
         sable$setPosSuperRaw(addend: $Vec3_): void;
@@ -2242,95 +2243,182 @@ declare module "@package/net/minecraft/world/entity" {
         bo$getRenderer(): $EntityRenderer<any>;
         getXaero_OPAC_data(): $EntityData;
         setXaero_OPAC_data(arg0: $EntityData): void;
-        getRandom(): $RandomSource;
-        /**
-         * Gets the horizontal facing direction of this Entity.
-         */
-        getHorizontalFacing(): $Direction;
-        getY(): number;
-        getY(scale: number): number;
-        /**
-         * Gets called every tick from main Entity class
-         */
-        kill(): void;
-        isSupportedBy(pos: $BlockPos_): boolean;
-        getDisplayName(): $Component;
-        move(type: $MoverType_, pos: $Vec3_): void;
-        setLevel(level: $Level_): void;
-        addMotion(x: number, arg1: number, y: number): void;
-        push(passenger: $Entity): void;
-        push(addend: $Vec3_): void;
-        getDimensions(pose: $Pose_): $EntityDimensions;
-        getPosition(partialTicks: number): $Vec3;
-        /**
-         * Returns `true` if the flag is active for the entity. Known flags: 0: burning 1: sneaking 2: unused 3: sprinting 4: swimming 5: invisible 6: glowing 7: elytra flying
-         */
-        hasPermissions(flag: number): boolean;
-        getName(): $Component;
-        remove(reason: $Entity$RemovalReason_): void;
-        load(compound: $CompoundTag_): void;
-        /**
-         * Returns a (normalized) vector of where this entity is looking.
-         */
-        position(): $Vec3;
-        getTypeName(): $Component;
         /**
          * Return whether this entity should be rendered as on fire.
          */
-        isAlive(): boolean;
+        canBeHitByProjectile(): boolean;
         /**
-         * Return the amount of cooldown before this entity can use a portal again.
+         * Checks if the offset position from the entity's current position has a collision with a block or a liquid.
          */
-        getId(): number;
+        shouldRender(x: number, arg1: number, y: number): boolean;
+        /**
+         * Checks if the entity is in range to render.
+         */
+        shouldRenderAtSqrDistance(distance: number): boolean;
         /**
          * Writes this entity to NBT, unless it has been removed or it is a passenger. Also writes this entity's passengers, and the entity type ID (so the produced NBT is sufficient to recreate the entity).
          * To always write the entity, use `#writeWithoutTypeId`.
          * 
          * @return True if the entity was written (and the passed compound should be saved)" false if the entity was not written.
          */
-        save(compound: $CompoundTag_): boolean;
-        getEntityType(): $EntityType<never>;
-        getSlot(slot: number): $SlotAccess;
-        is(passenger: $Entity): boolean;
-        pick(hitDistance: number, arg1: number, partialTicks: boolean): $HitResult;
+        saveAsPassenger(compound: $CompoundTag_): boolean;
         /**
-         * Given a motion vector, return an updated vector that takes into account restrictions such as collisions (from all directions) and step-up from stepHeight
+         * creates a NBT list from the array of doubles passed to this function
          */
-        collide(vec: $Vec3_): $Vec3;
+        newDoubleList(...numbers: number[]): $ListTag;
+        redirect$hfd000$sable$fixPassengerSaving(arg0: $CompoundTag_, arg1: string, arg2: $Tag_): $Tag;
         /**
-         * Transforms the entity's current yaw with the given Rotation and returns it. This does not have a side-effect.
+         * Returns a new NBTTagList filled with the specified floats
          */
-        rotate(transformRotation: $Rotation_): number;
+        newFloatList(...numbers: number[]): $ListTag;
+        handler$eok000$collective$Entity_saveWithoutId(arg0: $CompoundTag_, arg1: $CallbackInfoReturnable<any>): void;
+        setAirSupply(ticks: number): void;
+        setCustomName(component: $Component_ | null): void;
+        setCustomNameVisible(downwards: boolean): void;
+        setGlowing(downwards: boolean): void;
         /**
-         * Transforms the entity's current yaw with the given Mirror and returns it. This does not have a side-effect.
+         * Return whether this entity should be rendered as on fire.
          */
-        mirror(transformMirror: $Mirror_): number;
+        repositionEntityAfterLoad(): boolean;
+        handler$eok000$collective$Entity_load(arg0: $CompoundTag_, arg1: $CallbackInfo): void;
+        /**
+         * Return whether this entity should be rendered as on fire.
+         */
+        canBeCollidedWith(): boolean;
+        positionRider(passenger: $Entity): void;
+        positionRider(passenger: $Entity, callback: $Entity$MoveFunction_): void;
+        hasPassenger(predicate: $Predicate_<$Entity>): boolean;
+        hasPassenger(passenger: $Entity): boolean;
+        handler$hfd000$sable$onPositionRider(arg0: $Entity, arg1: $CallbackInfo): void;
+        getVehicleAttachmentPoint(entity: $Entity): $Vec3;
+        onPassengerTurned(passenger: $Entity): void;
+        getAttachments(): $EntityAttachments;
+        static getDefaultPassengerAttachmentPoint(vehicle: $Entity, passenger: $Entity, attachments: $EntityAttachments): $Vec3;
+        startRiding(vehicle: $Entity, force: boolean): boolean;
+        startRiding(passenger: $Entity): boolean;
+        /**
+         * Return whether this entity should be rendered as on fire.
+         */
+        showVehicleHealth(): boolean;
+        /**
+         * @deprecated
+         * Return whether this entity should be rendered as on fire.
+         */
+        couldAcceptPassenger(): boolean;
+        canRide(passenger: $Entity): boolean;
+        canAddPassenger(passenger: $Entity): boolean;
+        addPassenger(passenger: $Entity): void;
         /**
          * Gets called every tick from main Entity class
          */
-        tick(): void;
+        removeVehicle(): void;
+        removePassenger(passenger: $Entity): void;
         /**
-         * Gets called every tick from main Entity class
+         * Get entity this is riding
          */
-        discard(): void;
-        setId(ticks: number): void;
-        getX(scale: number): number;
-        getX(): number;
-        getZ(scale: number): number;
-        getZ(): number;
+        getFirstPassenger(): $Entity;
+        getPickRadius(): number;
+        getHandHoldingItemAngle(item: $Item_): $Vec3;
         /**
-         * Sets position and rotation, clamping and wrapping params to valid values. Used by network code.
+         * Returns the Entity's pitch and yaw as a `Vec2`.
          */
-        setPositionAndRotation(x: number, arg1: number, y: number, arg3: number, z: number): void;
-        moveToBlockPos(pos: $BlockPos_, yRot: number, xRot: number): void;
-        moveTo(addend: $Vec3_): void;
-        moveTo(x: number, arg1: number, y: number): void;
-        moveTo(pos: $Vec3_, yRot: number, xRot: number): void;
+        getRotationVector(): $Vec2;
         /**
          * Returns a (normalized) vector of where this entity is looking.
          */
-        getLookAngle(): $Vec3;
-        lookAt(anchor: $EntityAnchorArgument$Anchor_, target: $Vec3_): void;
+        getForward(): $Vec3;
+        setAsInsidePortal(portal: $Portal_, pos: $BlockPos_): void;
+        canChangeDimensions(oldLevel: $Level_, newLevel: $Level_): boolean;
+        handler$zzi000$openpartiesandclaims$onHandlePortal(arg0: $CallbackInfo): void;
+        changeDimension(transition: $DimensionTransition_): $Entity;
+        lerpMotion(x: number, arg1: number, y: number): void;
+        /**
+         * Return whether this entity should be rendered as on fire.
+         */
+        dismountsUnderwater(): boolean;
+        /**
+         * Return whether this entity should be rendered as on fire.
+         */
+        canControlVehicle(): boolean;
+        setShiftKeyDown(downwards: boolean): void;
+        /**
+         * Return whether this entity should be rendered as on fire.
+         */
+        isSteppingCarefully(): boolean;
+        /**
+         * Return whether this entity should be rendered as on fire.
+         */
+        isSuppressingBounce(): boolean;
+        /**
+         * Return whether this entity should be rendered as on fire.
+         */
+        isDescending(): boolean;
+        /**
+         * Return whether this entity should be rendered as on fire.
+         */
+        isVisuallyCrawling(): boolean;
+        setSwimming(downwards: boolean): void;
+        /**
+         * Only used by renderer in EntityLivingBase subclasses.
+         * Determines if an entity is visible or not to a specific player, if the entity is normally invisible.
+         * For EntityLivingBase subclasses, returning false when invisible will render the entity semi-transparent.
+         */
+        isInvisibleTo(player: $Player): boolean;
+        updateDynamicGameEventListener(listenerConsumer: $BiConsumer_<$DynamicGameEventListener<never>, $ServerLevel>): void;
+        /**
+         * Returns the string that identifies this Entity's class
+         */
+        getScoreboardName(): string;
+        thunderHit(level: $ServerLevel, lightning: $LightningBolt): void;
+        onAboveBubbleCol(downwards: boolean): void;
+        onInsideBubbleColumn(downwards: boolean): void;
+        moveTowardsClosestSpace(x: number, arg1: number, y: number): void;
+        makeStuckInBlock(state: $BlockState_, motionMultiplier: $Vec3_): void;
+        /**
+         * Return whether this entity should be rendered as on fire.
+         */
+        isAttackable(): boolean;
+        skipAttackInteraction(passenger: $Entity): boolean;
+        handler$ffk000$libjf_data_v0$setInvulnerable(info: $CallbackInfoReturnable<any>): void;
+        handler$ffk000$libjf_data_v0$setInvulnerable(source: $DamageSource_, info: $CallbackInfoReturnable<any>): void;
+        handler$zzi000$openpartiesandclaims$onIsInvulnerableTo(arg0: $DamageSource_, arg1: $CallbackInfoReturnable<any>): void;
+        setInvulnerable(downwards: boolean): void;
+        copyPosition(passenger: $Entity): void;
+        restoreFrom(passenger: $Entity): void;
+        /**
+         * Gets called every tick from main Entity class
+         */
+        removeAfterChangingDimensions(): void;
+        placePortalTicket(pos: $BlockPos_): void;
+        /**
+         * Explosion resistance of a block relative to this entity
+         */
+        getBlockExplosionResistance(explosion: $Explosion, level: $BlockGetter, pos: $BlockPos_, blockState: $BlockState_, fluidState: $FluidState, explosionPower: number): number;
+        shouldBlockExplode(explosion: $Explosion, level: $BlockGetter, pos: $BlockPos_, blockState: $BlockState_, explosionPower: number): boolean;
+        /**
+         * Return whether this entity should be rendered as on fire.
+         */
+        isIgnoringBlockTriggers(): boolean;
+        /**
+         * Return whether this entity should be rendered as on fire.
+         */
+        displayFireAnimation(): boolean;
+        static getViewScale(): number;
+        static setViewScale(renderDistWeight: number): void;
+        getUuid(): $UUID;
+        registryAccess(): $RegistryAccess;
+        /**
+         * Return whether this entity should be rendered as on fire.
+         */
+        isUnderWater(): boolean;
+        /**
+         * Return whether this entity should be rendered as on fire.
+         */
+        isGlowing(): boolean;
+        getPitch(): number;
+        getYaw(): number;
+        setYaw(yaw: number): void;
+        setPitch(yaw: number): void;
         blockPosition(): $BlockPos;
         /**
          * Applies the given player interaction to this Entity.
@@ -2353,33 +2441,11 @@ declare module "@package/net/minecraft/world/entity" {
          * Return whether this entity should be rendered as on fire.
          */
         isSpectator(): boolean;
-        getUuid(): $UUID;
-        registryAccess(): $RegistryAccess;
-        /**
-         * Return whether this entity should be rendered as on fire.
-         */
-        isUnderWater(): boolean;
-        /**
-         * Return whether this entity should be rendered as on fire.
-         */
-        isGlowing(): boolean;
-        getPitch(): number;
-        getYaw(): number;
-        setYaw(yaw: number): void;
-        setPitch(yaw: number): void;
         /**
          * Return whether this entity should be rendered as on fire.
          */
         isRemoved(): boolean;
         setInvisible(downwards: boolean): void;
-        getCapability<T>(arg0: $EntityCapability<T, void>): T;
-        getCapability<T, C>(arg0: $EntityCapability<T, C>, arg1: C): T;
-        /**
-         * Sets position and rotation, clamping and wrapping params to valid values. Used by network code.
-         */
-        absMoveTo(x: number, arg1: number, y: number, arg3: number, z: number): void;
-        absMoveTo(x: number, arg1: number, y: number): void;
-        isColliding(pos: $BlockPos_, state: $BlockState_): boolean;
         chunkPosition(): $ChunkPos;
         /**
          * Gets called every tick from main Entity class
@@ -2410,15 +2476,6 @@ declare module "@package/net/minecraft/world/entity" {
          * Return whether this entity should be rendered as on fire.
          */
         isPassenger(): boolean;
-        damageSources(): $DamageSources;
-        /**
-         * Get the Minecraft server instance
-         */
-        getServer(): $MinecraftServer;
-        gameEvent(gameEvent: $Holder_<$GameEvent>): void;
-        gameEvent(gameEvent: $Holder_<$GameEvent>, entity: $Entity | null): void;
-        playSound(sound: $SoundEvent_, volume: number, pitch: number): void;
-        playSound(sound: $SoundEvent_): void;
         fillCrashReportCategory(category: $CrashReportCategory): void;
         /**
          * Gets the bounding box of this Entity, adjusted to take auxiliary entities into account (e.g. the tile contained by a minecart, such as a command block).
@@ -2427,25 +2484,35 @@ declare module "@package/net/minecraft/world/entity" {
         mayInteract(level: $Level_, pos: $BlockPos_): boolean;
         canCollideWith(passenger: $Entity): boolean;
         /**
-         * Gets the squared distance to the position.
-         */
-        distanceToSqr(x: number, arg1: number, y: number): number;
-        distanceToSqr(vec: $Vec3_): number;
-        /**
          * Measures the **square** of a distance of entity to another entity.
          * Returns the squared distance to the entity.
          */
         distanceToEntitySqr(entity: $Entity): number;
+        distanceToSqr(vec: $Vec3_): number;
+        /**
+         * Gets the squared distance to the position.
+         */
+        distanceToSqr(x: number, arg1: number, y: number): number;
+        isPassengerOfSameVehicle(passenger: $Entity): boolean;
         /**
          * Returns the distance to the entity.
          */
         distanceTo(entity: $Entity): number;
-        isPassengerOfSameVehicle(passenger: $Entity): boolean;
         /**
          * @deprecated
          */
         getLightLevelDependentMagicValue(): number;
+        getCapability<T, C>(arg0: $EntityCapability<T, C>, arg1: C): T;
+        getCapability<T>(arg0: $EntityCapability<T, void>): T;
+        isColliding(pos: $BlockPos_, state: $BlockState_): boolean;
+        /**
+         * Sets position and rotation, clamping and wrapping params to valid values. Used by network code.
+         */
+        absMoveTo(x: number, arg1: number, y: number, arg3: number, z: number): void;
+        absMoveTo(x: number, arg1: number, y: number): void;
         handler$hfd000$sable$onRidingTick(arg0: $CallbackInfo): void;
+        setUUID(uniqueId: $UUID_): void;
+        removeTag(tag: string): boolean;
         /**
          * Return whether this entity should be rendered as on fire.
          */
@@ -2560,8 +2627,8 @@ declare module "@package/net/minecraft/world/entity" {
          * Called when a user uses the creative pick block button on this entity.
          */
         getPickedResult(target: $HitResult): $ItemStack;
-        rayTrace(distance: number, fluids: boolean): $KubeRayTraceResult;
         rayTrace(distance: number): $KubeRayTraceResult;
+        rayTrace(distance: number, fluids: boolean): $KubeRayTraceResult;
         rayTraceEntity(distance: number, filter: $Predicate_<$Entity>): $Entity;
         /**
          * Checks if the entity is a `LivingEntity`.
@@ -2600,6 +2667,17 @@ declare module "@package/net/minecraft/world/entity" {
         /**
          * Teleports an entity to a dimension of specified ID, to specified coordinates and rotation.
          * 
+         * @param x The `x` target coordinate.
+         * @param y The `y` target coordinate.
+         * @param z The `z` target coordinate.
+         * @param yaw The entity's target yaw.
+         * @param pitch The entity's target pitch.
+         * Sets position and rotation, clamping and wrapping params to valid values. Used by network code.
+         */
+        teleportTo(x: number, y: number, y: number, yaw: number, z: number): void;
+        /**
+         * Teleports an entity to a dimension of specified ID, to specified coordinates and rotation.
+         * 
          * @param dimension A `ResourceLocation` of the target dimension. It can be a string representing the dimension ID.
          * @param x The `x` target coordinate.
          * @param y The `y` target coordinate.
@@ -2616,17 +2694,6 @@ declare module "@package/net/minecraft/world/entity" {
          * @param z The `z` target coordinate.
          */
         teleportTo(x: number, y: number, y: number): void;
-        /**
-         * Teleports an entity to a dimension of specified ID, to specified coordinates and rotation.
-         * 
-         * @param x The `x` target coordinate.
-         * @param y The `y` target coordinate.
-         * @param z The `z` target coordinate.
-         * @param yaw The entity's target yaw.
-         * @param pitch The entity's target pitch.
-         * Sets position and rotation, clamping and wrapping params to valid values. Used by network code.
-         */
-        teleportTo(x: number, y: number, y: number, yaw: number, z: number): void;
         /**
          * Gets the name of the team entity is in, or `''` (empty string) if the entity is not part of any team
          * Returns the string that identifies this Entity's class
@@ -2735,6 +2802,26 @@ declare module "@package/net/minecraft/world/entity" {
          * Return whether this entity should be rendered as on fire.
          */
         isPeacefulCreature(): boolean;
+        /**
+         * Sends a message in chat to the entity.
+         * 
+         * @param message A text component. It may be a string, which will be implicitly wrapped into a text component.
+         */
+        tell(component: $Component_): void;
+        /**
+         * Runs the specified console command with permission level of the entity.
+         * 
+         * @param command The console command. Slash at the beginning is optional.
+         */
+        runCommand(command: string): void;
+        /**
+         * Runs the specified console command with permission level of the entity. The command won't output any logs in chat nor console.
+         * 
+         * @param command The console command. Slash at the beginning is optional.
+         */
+        runCommandSilent(command: string): void;
+        getName(): $Component;
+        getDisplayName(): $Component;
         setX(renderDistWeight: number): void;
         setY(renderDistWeight: number): void;
         setZ(renderDistWeight: number): void;
@@ -2756,16 +2843,16 @@ declare module "@package/net/minecraft/world/entity" {
          */
         getTeamId(): string;
         /**
-         * Checks, whether the entity is part of any team.
-         * Return whether this entity should be rendered as on fire.
-         */
-        isOnScoreboardTeam(): boolean;
-        /**
          * Checks, whether the entity is part of a team called `teamName`.
          * 
          * @param teamName The name of the team to check.
          */
         isOnScoreboardTeam(tag: string): boolean;
+        /**
+         * Checks, whether the entity is part of any team.
+         * Return whether this entity should be rendered as on fire.
+         */
+        isOnScoreboardTeam(): boolean;
         /**
          * Gets the entity's facing direction.
          * If the entity faces more than 45 degrees up or down, the resulting facing direction is respectively `up` or `down`.
@@ -2780,15 +2867,15 @@ declare module "@package/net/minecraft/world/entity" {
         spawn(): void;
         /**
          * @deprecated
-         * Replaced by `entity.damage(hp)`
-         */
-        attack(hp: number): boolean;
-        /**
-         * @deprecated
          * Replaced by `entity.damage(hp, damageSource)`
          * Called when the entity is attacked.
          */
         attack(source: $DamageSource_, amount: number): boolean;
+        /**
+         * @deprecated
+         * Replaced by `entity.damage(hp)`
+         */
+        attack(hp: number): boolean;
         /**
          * Measures the distance of entity to block at specified `BlockPos`.
          */
@@ -2810,26 +2897,6 @@ declare module "@package/net/minecraft/world/entity" {
          * Gets the squared distance to the position.
          */
         getDistance(x: number, y: number, y: number): number;
-        getDisplayName(): $Component;
-        getName(): $Component;
-        /**
-         * Sends a message in chat to the entity.
-         * 
-         * @param message A text component. It may be a string, which will be implicitly wrapped into a text component.
-         */
-        tell(component: $Component_): void;
-        /**
-         * Runs the specified console command with permission level of the entity.
-         * 
-         * @param command The console command. Slash at the beginning is optional.
-         */
-        runCommand(command: string): void;
-        /**
-         * Runs the specified console command with permission level of the entity. The command won't output any logs in chat nor console.
-         * 
-         * @param command The console command. Slash at the beginning is optional.
-         */
-        runCommandSilent(command: string): void;
         /**
          * Gets a block at the position of the entity.
          */
@@ -2916,10 +2983,132 @@ declare module "@package/net/minecraft/world/entity" {
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
         constructor(entityType: $EntityType_<never>, level: $Level_);
+        get inWater(): boolean;
+        get inLiquid(): boolean;
+        get inWall(): boolean;
+        get inWaterRainOrBubble(): boolean;
+        get blockSpeedFactor(): number;
+        get blockStateOnLegacy(): $BlockState;
+        get percentFrozen(): number;
+        get maxAirSupply(): number;
+        get soundSource(): $SoundSource;
+        get stringUuid(): string;
+        get randomY(): number;
+        get discrete(): boolean;
+        get weaponItem(): $ItemStack;
+        get maxFallDistance(): number;
+        get bbWidth(): number;
+        get bbHeight(): number;
+        get blockJumpFactor(): number;
+        get defaultGravity(): number;
+        get controlledByLocalInstance(): boolean;
+        get gravity(): number;
+        get inLava(): boolean;
+        get fluidJumpThreshold(): number;
+        get blockPosBelowThatAffectsMyMovement(): $BlockPos;
+        get inBlockState(): $BlockState;
+        get controllingPassenger(): $LivingEntity;
+        get effectiveAi(): boolean;
+        get maxHeightFluidType(): $FluidType;
+        get ticksRequiredToFreeze(): number;
+        get fullyFrozen(): boolean;
+        get eyeY(): number;
+        get pickable(): boolean;
+        get pushable(): boolean;
+        get visuallySwimming(): boolean;
+        get boundingBoxForCulling(): $AABB;
+        get encodeId(): string;
+        get pickResult(): $ItemStack;
+        get forgePersistentData(): $CompoundTag;
+        get addedToLevel(): boolean;
+        get crouching(): boolean;
+        get onRails(): boolean;
+        get flapping(): boolean;
+        get swimSound(): $SoundEvent;
+        get swimSplashSound(): $SoundEvent;
+        get swimHighSpeedSplashSound(): $SoundEvent;
+        get inWaterOrRain(): boolean;
+        get inWaterOrBubble(): boolean;
+        get blockStateOn(): $BlockState;
+        get nearestViewDirection(): $Direction;
+        get team(): $PlayerTeam;
+        get commandSenderWorld(): $Level;
+        get typeName(): $Component;
+        get alive(): boolean;
+        get entityType(): $EntityType<never>;
+        get selfAndPassengers(): $Stream<$Entity>;
+        get motionDirection(): $Direction;
+        get passengersAndSelf(): $Stream<$Entity>;
+        get indirectPassengers(): $Iterable<$Entity>;
+        get rootVehicle(): $Entity;
+        get controlledVehicle(): $Entity;
+        get pistonPushReaction(): $PushReaction;
+        get permissionLevel(): number;
+        get freezing(): boolean;
+        get alwaysTicking(): boolean;
+        get knownMovement(): $Vec3;
+        get lookAngle(): $Vec3;
+        get persistentData(): $CompoundTag;
+        get fireImmuneTicks(): number;
+        get teamColor(): number;
+        get positionCodec(): $VecDeltaCodec;
+        get tags(): $Set<string>;
+        set sharedFlagOnFire(value: boolean);
+        get dimensionChangingDelay(): number;
+        get onPortalCooldown(): boolean;
+        get onFire(): boolean;
+        get onPosLegacy(): $BlockPos;
+        get movementEmission(): $Entity$MovementEmission;
+        get horizontalFacing(): $Direction;
+        get attachments(): $EntityAttachments;
+        get firstPassenger(): $Entity;
+        get pickRadius(): number;
+        get rotationVector(): $Vec2;
+        get forward(): $Vec3;
+        get steppingCarefully(): boolean;
+        get suppressingBounce(): boolean;
+        get descending(): boolean;
+        get visuallyCrawling(): boolean;
+        get scoreboardName(): string;
+        get attackable(): boolean;
+        get ignoringBlockTriggers(): boolean;
+        get underWater(): boolean;
+        get blockX(): number;
+        get blockY(): number;
+        get blockZ(): number;
+        get spectator(): boolean;
+        get passenger(): boolean;
+        get lightLevelDependentMagicValue(): number;
+        set UUID(value: $UUID_);
+        get feedbackDisplayName(): $Component;
+        get multipartEntity(): boolean;
+        get parts(): $PartEntity<never>[];
+        get living(): boolean;
+        get type(): string;
+        get teamName(): string;
+        get self(): boolean;
+        get profile(): $GameProfile;
+        get username(): string;
+        get player(): boolean;
+        get serverPlayer(): boolean;
+        get clientPlayer(): boolean;
+        get frame(): boolean;
+        get monster(): boolean;
+        get animal(): boolean;
+        get ambientCreature(): boolean;
+        get waterCreature(): boolean;
+        get peacefulCreature(): boolean;
+        get passengers(): $EntityArrayList;
+        get teamId(): string;
+        get facing(): $Direction;
+        get block(): $LevelBlock;
+        get scriptType(): $ScriptType;
+        set statusMessage(value: $Component_);
+        set activePostShader(value: $ResourceLocation_);
     }
     export class $PathfinderMob extends $Mob {
-        getWalkTargetValue(pos: $BlockPos_, level: $LevelReader): number;
         getWalkTargetValue(pos: $BlockPos_): number;
+        getWalkTargetValue(pos: $BlockPos_, level: $LevelReader): number;
         /**
          * Returns whether the entity got a `Path`.
          */
@@ -3100,20 +3289,22 @@ declare module "@package/net/minecraft/world/entity" {
         removeStingerTime: number;
         static BASE_SAFE_FALL_DISTANCE: number;
         constructor(entityType: $EntityType_<$PathfinderMob>, level: $Level_);
+        get pathFinding(): boolean;
+        get panicking(): boolean;
     }
     export class $Display$RenderState extends $Record {
         brightnessOverride(): number;
         billboardConstraints(): $Display$BillboardConstraints;
         glowColorOverride(): number;
-        transformation(): $Display$GenericInterpolator<$Transformation>;
         shadowRadius(): $Display$FloatInterpolator;
         shadowStrength(): $Display$FloatInterpolator;
+        transformation(): $Display$GenericInterpolator<$Transformation>;
         constructor(arg0: $Display$GenericInterpolator_<$Transformation>, arg1: $Display$BillboardConstraints_, arg2: number, arg3: $Display$FloatInterpolator_, arg4: $Display$FloatInterpolator_, arg5: number);
     }
     /**
      * Values that may be interpreted as {@link $Display$RenderState}.
      */
-    export type $Display$RenderState_ = { brightnessOverride?: number, glowColorOverride?: number, billboardConstraints?: $Display$BillboardConstraints_, shadowStrength?: $Display$FloatInterpolator_, transformation?: $Display$GenericInterpolator_<$Transformation>, shadowRadius?: $Display$FloatInterpolator_,  } | [brightnessOverride?: number, glowColorOverride?: number, billboardConstraints?: $Display$BillboardConstraints_, shadowStrength?: $Display$FloatInterpolator_, transformation?: $Display$GenericInterpolator_<$Transformation>, shadowRadius?: $Display$FloatInterpolator_, ];
+    export type $Display$RenderState_ = { billboardConstraints?: $Display$BillboardConstraints_, glowColorOverride?: number, brightnessOverride?: number, shadowRadius?: $Display$FloatInterpolator_, transformation?: $Display$GenericInterpolator_<$Transformation>, shadowStrength?: $Display$FloatInterpolator_,  } | [billboardConstraints?: $Display$BillboardConstraints_, glowColorOverride?: number, brightnessOverride?: number, shadowRadius?: $Display$FloatInterpolator_, transformation?: $Display$GenericInterpolator_<$Transformation>, shadowStrength?: $Display$FloatInterpolator_, ];
     export class $RelativeMovement extends $Enum<$RelativeMovement> {
         static pack(movements: $Set_<$RelativeMovement_>): number;
         static values(): $RelativeMovement[];
@@ -3143,24 +3334,17 @@ declare module "@package/net/minecraft/world/entity" {
     export class $EntityType<T extends $Entity> implements $FeatureElement, $EntityTypeTest<$Entity, T>, $EntityTypeExtension<any>, $FabricEntityTypeImpl, $EntityTypeKJS, $InjectedEntityTypeExtension, $EntityTypeMethods {
         fireImmune(): boolean;
         getDefaultLootTable(): $ResourceKey<$LootTable>;
-        getTags(): $Stream<$TagKey<$EntityType<never>>>;
         kjs$getId(): string;
-        canSerialize(): boolean;
-        bo$getRenderer(): $EntityRenderer<any>;
-        getDescription(): $Component;
-        getWidth(): number;
-        getHeight(): number;
+        flywheel$getVisualizer(): $EntityVisualizer<any>;
+        flywheel$setVisualizer(visualizer: $EntityVisualizer<any>): void;
+        fabric_setAlwaysUpdateVelocity(arg0: boolean): void;
+        bo$setRenderer(renderer: $EntityRenderer<any>): void;
         canSpawnFarFromPlayer(): boolean;
         clientTrackingRange(): number;
         updateInterval(): number;
         static createDefaultStackConfig<T extends $Entity>(serverLevel: $ServerLevel, stack: $ItemStack_, player: $Player | null): $Consumer<T>;
         static appendDefaultStackConfig<T extends $Entity>(consumer: $Consumer_<T>, level: $ServerLevel, stack: $ItemStack_, player: $Player | null): $Consumer<T>;
         static appendCustomNameConfig<T extends $Entity>(consumer: $Consumer_<T>, stack: $ItemStack_): $Consumer<T>;
-        static appendCustomEntityStackConfig<T extends $Entity>(consumer: $Consumer_<T>, level: $ServerLevel, stack: $ItemStack_, player: $Player | null): $Consumer<T>;
-        kjs$asHolder(): $Holder<any>;
-        flywheel$getVisualizer(): $EntityVisualizer<any>;
-        flywheel$setVisualizer(visualizer: $EntityVisualizer<any>): void;
-        bo$setRenderer(renderer: $EntityRenderer<any>): void;
         static getYOffset(level: $LevelReader, pos: $BlockPos_, shouldOffsetYMore: boolean, box: $AABB_): number;
         static updateCustomEntityTag(level: $Level_, player: $Player | null, entity: $Entity | null, customData: $CustomData): void;
         canSummon(): boolean;
@@ -3171,17 +3355,21 @@ declare module "@package/net/minecraft/world/entity" {
         trackDeltas(): boolean;
         handler$dbd000$fabric_object_builder_api_v1$alwaysUpdateVelocity(arg0: $CallbackInfoReturnable<any>): void;
         getBaseClass(): $Class<$Entity>;
-        fabric_setAlwaysUpdateVelocity(arg0: boolean): void;
+        kjs$asHolder(): $Holder<any>;
+        static appendCustomEntityStackConfig<T extends $Entity>(consumer: $Consumer_<T>, level: $ServerLevel, stack: $ItemStack_, player: $Player | null): $Consumer<T>;
         /**
          * @deprecated
          */
         builtInRegistryHolder(): $Holder$Reference<$EntityType<never>>;
         getDimensions(): $EntityDimensions;
+        getDescription(): $Component;
+        getWidth(): number;
+        getHeight(): number;
         static getKey(entityType: $EntityType_<never>): $ResourceLocation;
         toShortString(): string;
-        static create(tag: $CompoundTag_, level: $Level_): ($Entity) | undefined;
         create(level: $ServerLevel, consumer: $Consumer_<T> | null, pos: $BlockPos_, spawnType: $MobSpawnType_, shouldOffsetY: boolean, shouldOffsetYMore: boolean): T;
         create(level: $Level_): T;
+        static create(tag: $CompoundTag_, level: $Level_): ($Entity) | undefined;
         is(entityType: $HolderSet_<$EntityType<never>>): boolean;
         /**
          * Checks if this entity type is contained in the tag
@@ -3190,15 +3378,18 @@ declare module "@package/net/minecraft/world/entity" {
         getCategory(): $MobCategory;
         static by(compound: $CompoundTag_): ($EntityType<never>) | undefined;
         requiredFeatures(): $FeatureFlagSet;
-        getDescriptionId(): string;
         kjs$getKey(): $ResourceKey<any>;
-        tryCast(entity: $Entity): T;
+        getTags(): $Stream<$TagKey<$EntityType<never>>>;
+        bo$getRenderer(): $EntityRenderer<any>;
         /**
          * Tries to get the entity type associated by the key.
          */
         static byString(key: string): ($EntityType<never>) | undefined;
-        spawn(level: $ServerLevel, pos: $BlockPos_, spawnType: $MobSpawnType_): T;
+        canSerialize(): boolean;
+        getDescriptionId(): string;
+        tryCast(entity: $Entity): T;
         spawn(serverLevel: $ServerLevel, stack: $ItemStack_ | null, player: $Player | null, pos: $BlockPos_, spawnType: $MobSpawnType_, shouldOffsetY: boolean, shouldOffsetYMore: boolean): T;
+        spawn(level: $ServerLevel, pos: $BlockPos_, spawnType: $MobSpawnType_): T;
         spawn(level: $ServerLevel, consumer: $Consumer_<T> | null, pos: $BlockPos_, spawnType: $MobSpawnType_, shouldOffsetY: boolean, shouldOffsetYMore: boolean): T;
         isEnabled(arg0: $FeatureFlagSet): boolean;
         kjs$getRegistryId(): $ResourceKey<$Registry<$EntityType<never>>>;
@@ -3343,6 +3534,17 @@ declare module "@package/net/minecraft/world/entity" {
         static FIREWORK_ROCKET: $EntityType<$FireworkRocketEntity>;
         constructor(arg0: $EntityType$EntityFactory_<T>, arg1: $MobCategory_, arg2: boolean, arg3: boolean, arg4: boolean, arg5: boolean, arg6: $ImmutableSet<$Block_>, arg7: $EntityDimensions_, arg8: number, arg9: number, arg10: number, arg11: $FeatureFlagSet, arg12: $Predicate_<$EntityType<never>>, arg13: $ToIntFunction_<$EntityType<never>>, arg14: $ToIntFunction_<$EntityType<never>>);
         constructor(factory: $EntityType$EntityFactory_<T>, category: $MobCategory_, serialize: boolean, summon: boolean, fireImmune: boolean, canSpawnFarFromPlayer: boolean, immuneTo: $ImmutableSet<$Block_>, dimensions: $EntityDimensions_, spawnDimensionsScale: number, clientTrackingRange: number, updateInterval: number, requiredFeatures: $FeatureFlagSet);
+        get defaultLootTable(): $ResourceKey<$LootTable>;
+        get baseClass(): $Class<$Entity>;
+        get dimensions(): $EntityDimensions;
+        get description(): $Component;
+        get width(): number;
+        get height(): number;
+        get category(): $MobCategory;
+        get descriptionId(): string;
+        get idLocation(): $ResourceLocation;
+        get mod(): string;
+        get tagKeys(): $List<$TagKey<T>>;
     }
     /**
      * Values that may be interpreted as {@link $EntityType}.
@@ -3427,41 +3629,45 @@ declare module "@package/net/minecraft/world/entity" {
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
         constructor(entityType: $EntityType_<$OminousItemSpawner>, level: $Level_);
+        get item(): $ItemStack;
     }
     export class $EntityType$Builder<T extends $Entity> implements $FabricEntityTypeImpl$Builder, $FabricEntityType$Builder<any> {
         eyeHeight(eyeHeight: number): $EntityType$Builder<$Object>;
         fireImmune(): $EntityType$Builder<$Object>;
+        nameTagOffset(eyeHeight: number): $EntityType$Builder<$Object>;
+        static createNothing<T extends $Entity>(category: $MobCategory_): $EntityType$Builder<T>;
+        noSummon(): $EntityType$Builder<$Object>;
+        vehicleAttachment(attachPoint: $Vec3_): $EntityType$Builder<$Object>;
+        setShouldReceiveVelocityUpdates(arg0: boolean): $EntityType$Builder<$Object>;
         immuneTo(...blocks: $Block_[]): $EntityType$Builder<$Object>;
         canSpawnFarFromPlayer(): $EntityType$Builder<$Object>;
         clientTrackingRange(clientTrackingRange: number): $EntityType$Builder<$Object>;
         updateInterval(clientTrackingRange: number): $EntityType$Builder<$Object>;
         spawnDimensionsScale(eyeHeight: number): $EntityType$Builder<$Object>;
         alwaysUpdateVelocity(arg0: boolean): $EntityType$Builder<any>;
-        setShouldReceiveVelocityUpdates(arg0: boolean): $EntityType$Builder<$Object>;
-        setUpdateInterval(clientTrackingRange: number): $EntityType$Builder<$Object>;
-        setTrackingRange(clientTrackingRange: number): $EntityType$Builder<$Object>;
-        fabric_setLivingEntityBuilder(arg0: $FabricEntityTypeImpl$Builder$Living<any>): void;
-        fabric_setMobEntityBuilder(arg0: $FabricEntityTypeImpl$Builder$Mob<any>): void;
-        nameTagOffset(eyeHeight: number): $EntityType$Builder<$Object>;
-        static createNothing<T extends $Entity>(category: $MobCategory_): $EntityType$Builder<T>;
-        noSummon(): $EntityType$Builder<$Object>;
-        vehicleAttachment(attachPoint: $Vec3_): $EntityType$Builder<$Object>;
         sized(width: number, height: number): $EntityType$Builder<$Object>;
         ridingOffset(eyeHeight: number): $EntityType$Builder<$Object>;
         passengerAttachments(...attachPoints: number[]): $EntityType$Builder<$Object>;
         passengerAttachments(...attachPoints: $Vec3_[]): $EntityType$Builder<$Object>;
+        setUpdateInterval(clientTrackingRange: number): $EntityType$Builder<$Object>;
+        setTrackingRange(clientTrackingRange: number): $EntityType$Builder<$Object>;
+        fabric_setLivingEntityBuilder(arg0: $FabricEntityTypeImpl$Builder$Living<any>): void;
+        fabric_setMobEntityBuilder(arg0: $FabricEntityTypeImpl$Builder$Mob<any>): void;
         static of<T extends $Entity>(factory: $EntityType$EntityFactory_<T>, category: $MobCategory_): $EntityType$Builder<T>;
         build(key: string): $EntityType<$Object>;
         build(): $EntityType<any>;
-        attach(attachment: $EntityAttachment_, pos: $Vec3_): $EntityType$Builder<$Object>;
         attach(attachment: $EntityAttachment_, x: number, y: number, z: number): $EntityType$Builder<$Object>;
+        attach(attachment: $EntityAttachment_, pos: $Vec3_): $EntityType$Builder<$Object>;
         requiredFeatures(...requiredFeatures: $FeatureFlag[]): $EntityType$Builder<$Object>;
         noSave(): $EntityType$Builder<$Object>;
+        set shouldReceiveVelocityUpdates(value: boolean);
+        set trackingRange(value: number);
     }
     export class $LerpingModel {
     }
     export interface $LerpingModel {
         getModelRotationValues(): $Map<string, $Vector3f>;
+        get modelRotationValues(): $Map<string, $Vector3f>;
     }
     /**
      * Values that may be interpreted as {@link $LerpingModel}.
@@ -3514,12 +3720,6 @@ declare module "@package/net/minecraft/world/entity" {
         static LEASH_TOO_FAR_DIST: number;
     }
     export interface $Leashable {
-        getLeashHolder(): $Entity;
-        dropLeash(broadcastPacket: boolean, dropItem: boolean): void;
-        canHaveALeashAttachedToIt(): boolean;
-        setLeashedTo(leashHolder: $Entity, broadcastPacket: boolean): void;
-        writeLeashData(tag: $CompoundTag_, leashData: $Leashable$LeashData | null): void;
-        readLeashData(tag: $CompoundTag_): $Leashable$LeashData;
         getLeashData(): $Leashable$LeashData;
         setLeashData(leashData: $Leashable$LeashData | null): void;
         leashTooFarBehaviour(): void;
@@ -3530,19 +3730,33 @@ declare module "@package/net/minecraft/world/entity" {
         handleLeashAtDistance(leashHolder: $Entity, distance: number): boolean;
         elasticRangeLeashBehaviour(leashHolder: $Entity, distance: number): void;
         closeRangeLeashBehaviour(entity: $Entity): void;
+        writeLeashData(tag: $CompoundTag_, leashData: $Leashable$LeashData | null): void;
+        readLeashData(tag: $CompoundTag_): $Leashable$LeashData;
+        getLeashHolder(): $Entity;
+        dropLeash(broadcastPacket: boolean, dropItem: boolean): void;
+        canHaveALeashAttachedToIt(): boolean;
+        setLeashedTo(leashHolder: $Entity, broadcastPacket: boolean): void;
+        get leashed(): boolean;
+        set delayedLeashHolderId(value: number);
+        get leashHolder(): $Entity;
     }
     export class $PortalProcessor {
         getEntryPosition(): $BlockPos;
         getPortalTime(): number;
+        getPortalLocalTransition(): $Portal$Transition;
+        isInsidePortalThisTick(): boolean;
         isSamePortal(portal: $Portal_): boolean;
         updateEntryPosition(entryPosition: $BlockPos_): void;
         setAsInsidePortalThisTick(insidePortalThisTick: boolean): void;
         processPortalTeleportation(level: $ServerLevel, entity: $Entity, canChangeDimensions: boolean): boolean;
         getPortalDestination(level: $ServerLevel, entity: $Entity): $DimensionTransition;
         hasExpired(): boolean;
-        getPortalLocalTransition(): $Portal$Transition;
-        isInsidePortalThisTick(): boolean;
         constructor(portal: $Portal_, entryPosition: $BlockPos_);
+        get entryPosition(): $BlockPos;
+        get portalTime(): number;
+        get portalLocalTransition(): $Portal$Transition;
+        get insidePortalThisTick(): boolean;
+        set asInsidePortalThisTick(value: boolean);
     }
     export class $MobSpawnType extends $Enum<$MobSpawnType> {
         static isSpawner(spawnType: $MobSpawnType_): boolean;
@@ -3573,13 +3787,13 @@ declare module "@package/net/minecraft/world/entity" {
     export type $MobSpawnType_ = "natural" | "chunk_generation" | "spawner" | "structure" | "breeding" | "mob_summoned" | "jockey" | "event" | "conversion" | "reinforcement" | "triggered" | "bucket" | "spawn_egg" | "command" | "dispenser" | "patrol" | "trial_spawner";
     export class $ExperienceOrb extends $Entity implements $ExperienceOrbAccessor {
         static award(level: $ServerLevel, pos: $Vec3_, amount: number): void;
+        handler$zzj000$openpartiesandclaims$onPlayerTouch(arg0: $Player, arg1: $CallbackInfo): void;
+        repairPlayerItems(player: $ServerPlayer, value: number): number;
         /**
          * Get a fragment of the maximum experience points value for the supplied value of experience points value.
          */
         static getExperienceValue(expValue: number): number;
         static tryMergeToExisting(level: $ServerLevel, pos: $Vec3_, amount: number): boolean;
-        handler$zzj000$openpartiesandclaims$onPlayerTouch(arg0: $Player, arg1: $CallbackInfo): void;
-        repairPlayerItems(player: $ServerPlayer, value: number): number;
         /**
          * Returns a number from 1 to 10 based on how much XP this orb is worth. This is used by RenderXPOrb to determine what texture to use.
          */
@@ -3666,8 +3880,9 @@ declare module "@package/net/minecraft/world/entity" {
         wasTouchingWater: boolean;
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
-        constructor(entityType: $EntityType_<$ExperienceOrb>, level: $Level_);
         constructor(level: $Level_, x: number, arg2: number, y: number, arg4: number);
+        constructor(entityType: $EntityType_<$ExperienceOrb>, level: $Level_);
+        get icon(): number;
     }
     export class $Display$BillboardConstraints extends $Enum<$Display$BillboardConstraints> implements $StringRepresentable {
         static values(): $Display$BillboardConstraints[];
@@ -3681,6 +3896,9 @@ declare module "@package/net/minecraft/world/entity" {
         static FIXED: $Display$BillboardConstraints;
         static BY_ID: $IntFunction<$Display$BillboardConstraints>;
         static HORIZONTAL: $Display$BillboardConstraints;
+        get id(): number;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $Display$BillboardConstraints}.
@@ -3697,19 +3915,20 @@ declare module "@package/net/minecraft/world/entity" {
         fixed(): boolean;
         width(): number;
         height(): number;
-        attachments(): $EntityAttachments;
         static scalable(width: number, height: number): $EntityDimensions;
         withAttachments(attachments: $EntityAttachments$Builder): $EntityDimensions;
+        attachments(): $EntityAttachments;
         constructor(arg0: number, arg1: number, arg2: number, arg3: $EntityAttachments, arg4: boolean);
     }
     /**
      * Values that may be interpreted as {@link $EntityDimensions}.
      */
-    export type $EntityDimensions_ = { eyeHeight?: number, height?: number, fixed?: boolean, attachments?: $EntityAttachments, width?: number,  } | [eyeHeight?: number, height?: number, fixed?: boolean, attachments?: $EntityAttachments, width?: number, ];
+    export type $EntityDimensions_ = { fixed?: boolean, height?: number, eyeHeight?: number, width?: number, attachments?: $EntityAttachments,  } | [fixed?: boolean, height?: number, eyeHeight?: number, width?: number, attachments?: $EntityAttachments, ];
     export class $Attackable {
     }
     export interface $Attackable {
         getLastAttacker(): $LivingEntity;
+        get lastAttacker(): $LivingEntity;
     }
     /**
      * Values that may be interpreted as {@link $Attackable}.
@@ -3742,6 +3961,7 @@ declare module "@package/net/minecraft/world/entity" {
     }
     export interface $TraceableEntity {
         getOwner(): $Entity;
+        get owner(): $Entity;
     }
     /**
      * Values that may be interpreted as {@link $TraceableEntity}.
@@ -3760,6 +3980,12 @@ declare module "@package/net/minecraft/world/entity" {
         static LEFT: $HumanoidArm;
         static BY_ID: $IntFunction<$HumanoidArm>;
         static RIGHT: $HumanoidArm;
+        get key(): string;
+        get id(): number;
+        get opposite(): $HumanoidArm;
+        get serializedName(): string;
+        get caption(): $Component;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $HumanoidArm}.
@@ -3800,16 +4026,17 @@ declare module "@package/net/minecraft/world/entity" {
     }
     export interface $PowerableMob {
         isPowered(): boolean;
+        get powered(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $PowerableMob}.
      */
     export type $PowerableMob_ = (() => boolean);
     export class $Entity$RemovalReason extends $Enum<$Entity$RemovalReason> {
-        shouldSave(): boolean;
-        shouldDestroy(): boolean;
         static values(): $Entity$RemovalReason[];
         static valueOf(arg0: string): $Entity$RemovalReason;
+        shouldDestroy(): boolean;
+        shouldSave(): boolean;
         static UNLOADED_TO_CHUNK: $Entity$RemovalReason;
         static UNLOADED_WITH_PLAYER: $Entity$RemovalReason;
         static DISCARDED: $Entity$RemovalReason;
@@ -3832,13 +4059,13 @@ declare module "@package/net/minecraft/world/entity" {
     export type $SpawnPlacementType_ = ((arg0: $LevelReader, arg1: $BlockPos, arg2: $EntityType<never>) => boolean);
     export class $Interaction extends $Entity implements $Attackable, $Targeting {
         getLastAttacker(): $LivingEntity;
-        getWidth(): number;
-        getHeight(): number;
         setResponse(response: boolean): void;
         /**
          * Return whether this entity should NOT trigger a pressure plate or a tripwire.
          */
         getResponse(): boolean;
+        getWidth(): number;
+        getHeight(): number;
         getTarget(): $LivingEntity;
         setWidth(height: number): void;
         setHeight(height: number): void;
@@ -3913,6 +4140,8 @@ declare module "@package/net/minecraft/world/entity" {
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
         constructor(entityType: $EntityType_<never>, level: $Level_);
+        get lastAttacker(): $LivingEntity;
+        get target(): $LivingEntity;
     }
     export class $Saddleable {
     }
@@ -3921,6 +4150,9 @@ declare module "@package/net/minecraft/world/entity" {
         isSaddleable(): boolean;
         equipSaddle(stack: $ItemStack_, soundSource: $SoundSource_ | null): void;
         getSaddleSoundEvent(): $SoundEvent;
+        get saddled(): boolean;
+        get saddleable(): boolean;
+        get saddleSoundEvent(): $SoundEvent;
     }
     export class $FlyingMob extends $Mob {
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
@@ -4099,6 +4331,8 @@ declare module "@package/net/minecraft/world/entity" {
         static CODEC: $Codec<$Display$TextDisplay$Align>;
         static LEFT: $Display$TextDisplay$Align;
         static RIGHT: $Display$TextDisplay$Align;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $Display$TextDisplay$Align}.
@@ -4117,6 +4351,7 @@ declare module "@package/net/minecraft/world/entity" {
     }
     export interface $Targeting {
         getTarget(): $LivingEntity;
+        get target(): $LivingEntity;
     }
     /**
      * Values that may be interpreted as {@link $Targeting}.
@@ -4153,7 +4388,8 @@ declare module "@package/net/minecraft/world/entity" {
     export type $Pose_ = "standing" | "fall_flying" | "sleeping" | "swimming" | "spin_attack" | "crouching" | "long_jumping" | "dying" | "croaking" | "using_tongue" | "sitting" | "roaring" | "sniffing" | "emerging" | "digging" | "sliding" | "shooting" | "inhaling";
     export class $TamableAnimal extends $Animal implements $OwnableEntity {
         isTame(): boolean;
-        shouldTryTeleportToOwner(): boolean;
+        getOwnerUUID(): $UUID;
+        isInSittingPose(): boolean;
         canFlyToOwner(): boolean;
         unableToMoveToOwner(): boolean;
         setTame(tame: boolean, applyTamingSideEffects: boolean): void;
@@ -4164,9 +4400,8 @@ declare module "@package/net/minecraft/world/entity" {
         applyTamingSideEffects(): void;
         wantsToAttack(target: $LivingEntity, owner: $LivingEntity): boolean;
         tryToTeleportToOwner(): void;
+        shouldTryTeleportToOwner(): boolean;
         spawnTamingParticles(sitting: boolean): void;
-        getOwnerUUID(): $UUID;
-        isInSittingPose(): boolean;
         isOwnedBy(target: $LivingEntity): boolean;
         setOwnerUUID(uuid: $UUID_ | null): void;
         getOwner(): $LivingEntity;
@@ -4345,13 +4580,16 @@ declare module "@package/net/minecraft/world/entity" {
         static BASE_SAFE_FALL_DISTANCE: number;
         age: number;
         constructor(entityType: $EntityType_<$TamableAnimal>, level: $Level_);
+        get owner(): $LivingEntity;
     }
     export class $OwnableEntity {
     }
     export interface $OwnableEntity {
         getOwnerUUID(): $UUID;
-        getOwner(): $LivingEntity;
         level(): $EntityGetter;
+        getOwner(): $LivingEntity;
+        get ownerUUID(): $UUID;
+        get owner(): $LivingEntity;
     }
     export class $EquipmentSlotGroup extends $Enum<$EquipmentSlotGroup> implements $StringRepresentable {
         static bySlot(slot: $EquipmentSlot_): $EquipmentSlotGroup;
@@ -4373,6 +4611,8 @@ declare module "@package/net/minecraft/world/entity" {
         static STREAM_CODEC: $StreamCodec<$ByteBuf, $EquipmentSlotGroup>;
         static CHEST: $EquipmentSlotGroup;
         static BODY: $EquipmentSlotGroup;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $EquipmentSlotGroup}.
@@ -4383,8 +4623,6 @@ declare module "@package/net/minecraft/world/entity" {
     export interface $PlayerRideable {
     }
     export class $Display extends $Entity {
-        getWidth(): number;
-        getHeight(): number;
         updateRenderSubState(interpolate: boolean, partialTick: number): void;
         renderState(): $Display$RenderState;
         static createTransformation(synchedEntityData: $SynchedEntityData): $Transformation;
@@ -4409,6 +4647,8 @@ declare module "@package/net/minecraft/world/entity" {
         setBillboardConstraints(billboardConstraints: $Display$BillboardConstraints_): void;
         getPackedBrightnessOverride(): number;
         calculateInterpolationProgress(partialTick: number): number;
+        getWidth(): number;
+        getHeight(): number;
         setWidth(height: number): void;
         setHeight(height: number): void;
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
@@ -4497,6 +4737,8 @@ declare module "@package/net/minecraft/world/entity" {
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
         constructor(entityType: $EntityType_<never>, level: $Level_);
+        set transformation(value: $Transformation);
+        get packedBrightnessOverride(): number;
     }
     export class $MobCategory extends $Enum<$MobCategory> implements $StringRepresentable, $IExtensibleEnum {
         /**
@@ -4525,6 +4767,14 @@ declare module "@package/net/minecraft/world/entity" {
         static CREATURE: $MobCategory;
         static MISC: $MobCategory;
         static MONSTER: $MobCategory;
+        get friendly(): boolean;
+        get maxInstancesPerChunk(): number;
+        get despawnDistance(): number;
+        get noDespawnDistance(): number;
+        static get extensionInfo(): $ExtensionInfo;
+        get persistent(): boolean;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $MobCategory}.
@@ -4541,7 +4791,7 @@ declare module "@package/net/minecraft/world/entity" {
     /**
      * Values that may be interpreted as {@link $Display$TextDisplay$TextRenderState}.
      */
-    export type $Display$TextDisplay$TextRenderState_ = { text?: $Component_, lineWidth?: number, backgroundColor?: $Display$IntInterpolator_, textOpacity?: $Display$IntInterpolator_, flags?: number,  } | [text?: $Component_, lineWidth?: number, backgroundColor?: $Display$IntInterpolator_, textOpacity?: $Display$IntInterpolator_, flags?: number, ];
+    export type $Display$TextDisplay$TextRenderState_ = { lineWidth?: number, text?: $Component_, flags?: number, textOpacity?: $Display$IntInterpolator_, backgroundColor?: $Display$IntInterpolator_,  } | [lineWidth?: number, text?: $Component_, flags?: number, textOpacity?: $Display$IntInterpolator_, backgroundColor?: $Display$IntInterpolator_, ];
     export class $Display$BlockDisplay extends $Display {
         blockRenderState(): $Display$BlockDisplay$BlockRenderState;
         getBlockState(): $BlockState;
@@ -4658,11 +4908,12 @@ declare module "@package/net/minecraft/world/entity" {
     export class $PlayerRideableJumping {
     }
     export interface $PlayerRideableJumping extends $PlayerRideable {
-        handleStartJump(jumpPower: number): void;
-        handleStopJump(): void;
         canJump(): boolean;
         getJumpCooldown(): number;
         onPlayerJump(jumpPower: number): void;
+        handleStartJump(jumpPower: number): void;
+        handleStopJump(): void;
+        get jumpCooldown(): number;
     }
     export class $Marker extends $Entity {
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
@@ -4749,17 +5000,121 @@ declare module "@package/net/minecraft/world/entity" {
     export class $Mob extends $LivingEntity implements $EquipmentUser, $Leashable, $Targeting {
         getDefaultLootTable(): $ResourceKey<$LootTable>;
         getNavigation(): $PathNavigation;
+        checkSpawnRules(level: $LevelAccessor, reason: $MobSpawnType_): boolean;
+        checkSpawnObstruction(level: $LevelReader): boolean;
         /**
-         * Removes the leash from this entity
+         * Called every tick so the entity can update its state as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
          */
-        dropLeash(broadcastPacket: boolean, dropLeash: boolean): void;
-        setItemSlotAndDropWhenKilled(slot: $EquipmentSlot_, stack: $ItemStack_): void;
+        setPersistenceRequired(): void;
+        setGuaranteedDrop(slot: $EquipmentSlot_): void;
+        canReplaceEqualItem(candidate: $ItemStack_, existing: $ItemStack_): boolean;
+        removeWhenFarAway(distanceToClosestPlayer: number): boolean;
+        /**
+         * Returns whether the entity is in a server world
+         */
+        requiresCustomPersistence(): boolean;
+        /**
+         * Called every tick so the entity can update its state as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
+         */
+        customServerAiStep(): void;
+        /**
+         * Called every tick so the entity can update its state as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
+         */
+        sendDebugPackets(): void;
+        /**
+         * Get number of ticks, at least during which the living entity will be silent.
+         */
+        getMaxHeadYRot(): number;
+        /**
+         * Called every tick so the entity can update its state as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
+         */
+        clampHeadRotationToBody(): void;
+        /**
+         * Get number of ticks, at least during which the living entity will be silent.
+         */
+        getHeadRotSpeed(): number;
+        /**
+         * Get number of ticks, at least during which the living entity will be silent.
+         */
+        getMaxSpawnClusterSize(): number;
+        isMaxGroupSizeReached(size: number): boolean;
+        /**
+         * Called every tick so the entity can update its state as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
+         */
+        dropPreservedEquipment(): void;
+        dropPreservedEquipment(predicate: $Predicate_<$ItemStack>): $Set<$EquipmentSlot>;
+        populateDefaultEquipmentSlots(random: $RandomSource, difficulty: $DifficultyInstance): void;
+        static getEquipmentForSlot(slot: $EquipmentSlot_, chance: number): $Item;
+        populateDefaultEquipmentEnchantments(level: $ServerLevelAccessor, random: $RandomSource, difficulty: $DifficultyInstance): void;
+        enchantSpawnedWeapon(level: $ServerLevelAccessor, random: $RandomSource, difficulty: $DifficultyInstance): void;
+        enchantSpawnedArmor(level: $ServerLevelAccessor, random: $RandomSource, slot: $EquipmentSlot_, difficulty: $DifficultyInstance): void;
+        setDropChance(slot: $EquipmentSlot_, chance: number): void;
+        mobInteract(player: $Player, hand: $InteractionHand_): $InteractionResult;
+        onOffspringSpawnedFromEgg(player: $Player, child: $Mob): void;
+        isWithinRestriction(pos: $BlockPos_): boolean;
+        /**
+         * Returns whether the entity is in a server world
+         */
+        isWithinRestriction(): boolean;
+        restrictTo(pos: $BlockPos_, distance: number): void;
+        getRestrictCenter(): $BlockPos;
+        getRestrictRadius(): number;
+        /**
+         * Called every tick so the entity can update its state as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
+         */
+        clearRestriction(): void;
+        /**
+         * Returns whether the entity is in a server world
+         */
+        hasRestriction(): boolean;
+        getLeashData(): $Leashable$LeashData;
+        setLeashData(leashData: $Leashable$LeashData | null): void;
+        /**
+         * Called every tick so the entity can update its state as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
+         */
+        leashTooFarBehaviour(): void;
+        /**
+         * Returns whether the entity is in a server world
+         */
+        canBeLeashed(): boolean;
+        setAggressive(aggressive: boolean): void;
+        /**
+         * Returns whether the entity is in a server world
+         */
+        isAggressive(): boolean;
+        getAttackBoundingBox(): $AABB;
+        modifyExpressionValue$gnc000$create$mobRidingContraptionsMaintainTheirAttackBox(arg0: $Entity): $Entity;
+        /**
+         * Called every tick so the entity can update its state as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
+         */
+        playAttackSound(): void;
+        /**
+         * Returns whether the entity is in a server world
+         */
+        isSunBurnTick(): boolean;
+        /**
+         * Called every tick so the entity can update its state as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
+         */
+        removeFreeWill(): void;
+        removeAllGoals(filter: $Predicate_<$Goal>): void;
+        getSpawnType(): $MobSpawnType;
+        setSpawnCancelled(aggressive: boolean): void;
         isBodyArmorItem(stack: $ItemStack_): boolean;
         /**
          * Returns whether the entity is in a server world
          */
         isWearingBodyArmor(): boolean;
         setBodyArmorItem(stack: $ItemStack_): void;
+        equip(equipmentTable: $EquipmentTable_): void;
+        equip(equipmentLootTable: $ResourceKey_<$LootTable>, slotDropChances: $Map_<$EquipmentSlot_, number>): void;
+        /**
+         * Returns whether the entity is in a server world
+         */
+        isSpawnCancelled(): boolean;
+        /**
+         * Called every tick so the entity can update its state as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
+         */
+        playAmbientSound(): void;
         /**
          * Returns whether the entity is in a server world
          */
@@ -4859,124 +5214,15 @@ declare module "@package/net/minecraft/world/entity" {
         canReplaceCurrentItem(candidate: $ItemStack_, existing: $ItemStack_): boolean;
         canHoldItem(stack: $ItemStack_): boolean;
         getEquipmentDropChance(slot: $EquipmentSlot_): number;
-        setGuaranteedDrop(slot: $EquipmentSlot_): void;
-        canReplaceEqualItem(candidate: $ItemStack_, existing: $ItemStack_): boolean;
-        removeWhenFarAway(distanceToClosestPlayer: number): boolean;
-        /**
-         * Returns whether the entity is in a server world
-         */
-        requiresCustomPersistence(): boolean;
-        /**
-         * Called every tick so the entity can update its state as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
-         */
-        customServerAiStep(): void;
-        /**
-         * Called every tick so the entity can update its state as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
-         */
-        sendDebugPackets(): void;
-        /**
-         * Get number of ticks, at least during which the living entity will be silent.
-         */
-        getMaxHeadYRot(): number;
-        /**
-         * Called every tick so the entity can update its state as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
-         */
-        clampHeadRotationToBody(): void;
-        /**
-         * Get number of ticks, at least during which the living entity will be silent.
-         */
-        getHeadRotSpeed(): number;
-        /**
-         * Get number of ticks, at least during which the living entity will be silent.
-         */
-        getMaxSpawnClusterSize(): number;
-        isMaxGroupSizeReached(size: number): boolean;
-        dropPreservedEquipment(predicate: $Predicate_<$ItemStack>): $Set<$EquipmentSlot>;
-        /**
-         * Called every tick so the entity can update its state as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
-         */
-        dropPreservedEquipment(): void;
         /**
          * Called every tick so the entity can update its state as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
          */
         registerGoals(): void;
-        setBaby(aggressive: boolean): void;
-        populateDefaultEquipmentSlots(random: $RandomSource, difficulty: $DifficultyInstance): void;
-        static getEquipmentForSlot(slot: $EquipmentSlot_, chance: number): $Item;
-        populateDefaultEquipmentEnchantments(level: $ServerLevelAccessor, random: $RandomSource, difficulty: $DifficultyInstance): void;
-        enchantSpawnedWeapon(level: $ServerLevelAccessor, random: $RandomSource, difficulty: $DifficultyInstance): void;
-        enchantSpawnedArmor(level: $ServerLevelAccessor, random: $RandomSource, slot: $EquipmentSlot_, difficulty: $DifficultyInstance): void;
-        setDropChance(slot: $EquipmentSlot_, chance: number): void;
-        mobInteract(player: $Player, hand: $InteractionHand_): $InteractionResult;
-        onOffspringSpawnedFromEgg(player: $Player, child: $Mob): void;
-        isWithinRestriction(pos: $BlockPos_): boolean;
-        /**
-         * Returns whether the entity is in a server world
-         */
-        isWithinRestriction(): boolean;
-        restrictTo(pos: $BlockPos_, distance: number): void;
-        getRestrictCenter(): $BlockPos;
-        getRestrictRadius(): number;
-        /**
-         * Called every tick so the entity can update its state as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
-         */
-        clearRestriction(): void;
-        /**
-         * Returns whether the entity is in a server world
-         */
-        hasRestriction(): boolean;
-        getLeashData(): $Leashable$LeashData;
-        setLeashData(leashData: $Leashable$LeashData | null): void;
-        /**
-         * Called every tick so the entity can update its state as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
-         */
-        leashTooFarBehaviour(): void;
-        /**
-         * Returns whether the entity is in a server world
-         */
-        canBeLeashed(): boolean;
-        setAggressive(aggressive: boolean): void;
-        /**
-         * Returns whether the entity is in a server world
-         */
-        isAggressive(): boolean;
-        getAttackBoundingBox(): $AABB;
-        modifyExpressionValue$gnc000$create$mobRidingContraptionsMaintainTheirAttackBox(arg0: $Entity): $Entity;
-        /**
-         * Called every tick so the entity can update its state as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
-         */
-        playAttackSound(): void;
-        /**
-         * Returns whether the entity is in a server world
-         */
-        isSunBurnTick(): boolean;
-        /**
-         * Called every tick so the entity can update its state as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
-         */
-        removeFreeWill(): void;
-        removeAllGoals(filter: $Predicate_<$Goal>): void;
-        getSpawnType(): $MobSpawnType;
-        setSpawnCancelled(aggressive: boolean): void;
-        equip(equipmentTable: $EquipmentTable_): void;
-        equip(equipmentLootTable: $ResourceKey_<$LootTable>, slotDropChances: $Map_<$EquipmentSlot_, number>): void;
-        /**
-         * Returns whether the entity is in a server world
-         */
-        isSpawnCancelled(): boolean;
-        /**
-         * Called every tick so the entity can update its state as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
-         */
-        playAmbientSound(): void;
-        checkSpawnRules(level: $LevelAccessor, reason: $MobSpawnType_): boolean;
-        checkSpawnObstruction(level: $LevelReader): boolean;
-        /**
-         * Called every tick so the entity can update its state as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
-         */
-        setPersistenceRequired(): void;
         /**
          * Called every tick so the entity can update its state as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
          */
         spawnAnim(): void;
+        setBaby(aggressive: boolean): void;
         /**
          * Gets the active target the Goal system uses for tracking
          */
@@ -4994,18 +5240,15 @@ declare module "@package/net/minecraft/world/entity" {
          * Changes the X and Y rotation so that this entity is facing the given entity.
          */
         lookAt(entity: $Entity, maxYRotIncrease: number, maxXRotIncrease: number): void;
-        resolveSlot(arg0: $ItemStack_, arg1: $List_<$EquipmentSlot_>): $EquipmentSlot;
-        equip(arg0: $EquipmentTable_, arg1: $LootParams): void;
-        equip(arg0: $ResourceKey_<$LootTable>, arg1: $LootParams, arg2: number, arg3: $Map_<$EquipmentSlot_, number>): void;
-        equip(arg0: $ResourceKey_<$LootTable>, arg1: $LootParams, arg2: $Map_<$EquipmentSlot_, number>): void;
-        getLeashHolder(): $Entity;
         /**
-         * Returns whether the entity is in a server world
+         * Removes the leash from this entity
          */
-        canHaveALeashAttachedToIt(): boolean;
-        setLeashedTo(arg0: $Entity, arg1: boolean): void;
-        writeLeashData(arg0: $CompoundTag_, arg1: $Leashable$LeashData | null): void;
-        readLeashData(arg0: $CompoundTag_): $Leashable$LeashData;
+        dropLeash(broadcastPacket: boolean, dropLeash: boolean): void;
+        setItemSlotAndDropWhenKilled(slot: $EquipmentSlot_, stack: $ItemStack_): void;
+        resolveSlot(arg0: $ItemStack_, arg1: $List_<$EquipmentSlot_>): $EquipmentSlot;
+        equip(arg0: $ResourceKey_<$LootTable>, arg1: $LootParams, arg2: $Map_<$EquipmentSlot_, number>): void;
+        equip(arg0: $ResourceKey_<$LootTable>, arg1: $LootParams, arg2: number, arg3: $Map_<$EquipmentSlot_, number>): void;
+        equip(arg0: $EquipmentTable_, arg1: $LootParams): void;
         /**
          * Returns whether the entity is in a server world
          */
@@ -5018,6 +5261,14 @@ declare module "@package/net/minecraft/world/entity" {
         handleLeashAtDistance(arg0: $Entity, arg1: number): boolean;
         elasticRangeLeashBehaviour(arg0: $Entity, arg1: number): void;
         closeRangeLeashBehaviour(arg0: $Entity): void;
+        writeLeashData(arg0: $CompoundTag_, arg1: $Leashable$LeashData | null): void;
+        readLeashData(arg0: $CompoundTag_): $Leashable$LeashData;
+        getLeashHolder(): $Entity;
+        /**
+         * Returns whether the entity is in a server world
+         */
+        canHaveALeashAttachedToIt(): boolean;
+        setLeashedTo(arg0: $Entity, arg1: boolean): void;
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
         static MAX_WEARING_ARMOR_CHANCE: number;
         lastHurtByPlayerTime: number;
@@ -5184,6 +5435,27 @@ declare module "@package/net/minecraft/world/entity" {
         removeStingerTime: number;
         static BASE_SAFE_FALL_DISTANCE: number;
         constructor(entityType: $EntityType_<$Mob>, level: $Level_);
+        get defaultLootTable(): $ResourceKey<$LootTable>;
+        set guaranteedDrop(value: $EquipmentSlot_);
+        get maxHeadYRot(): number;
+        get headRotSpeed(): number;
+        get maxSpawnClusterSize(): number;
+        get restrictCenter(): $BlockPos;
+        get restrictRadius(): number;
+        get attackBoundingBox(): $AABB;
+        get sunBurnTick(): boolean;
+        get spawnType(): $MobSpawnType;
+        get wearingBodyArmor(): boolean;
+        get maxHeadXRot(): number;
+        get sensing(): $Sensing;
+        get targetFromBrain(): $LivingEntity;
+        get ambientSoundInterval(): number;
+        get ambientSound(): $SoundEvent;
+        get pickupReach(): $Vec3i;
+        set baby(value: boolean);
+        get leashed(): boolean;
+        set delayedLeashHolderId(value: number);
+        get leashHolder(): $Entity;
     }
     export class $Leashable$LeashData {
         setLeashHolder(leashHolder: $Entity): void;
@@ -5215,12 +5487,12 @@ declare module "@package/net/minecraft/world/entity" {
      */
     export type $EquipmentSlot$Type_ = "hand" | "humanoid_armor" | "animal_armor";
     export class $EntityAttachments {
-        getClamped(attachment: $EntityAttachment_, index: number, yRot: number): $Vec3;
         getNullable(attachment: $EntityAttachment_, index: number, yRot: number): $Vec3;
         get(attachment: $EntityAttachment_, index: number, yRot: number): $Vec3;
         scale(xScale: number, yScale: number, zScale: number): $EntityAttachments;
         static builder(): $EntityAttachments$Builder;
         static createDefault(width: number, height: number): $EntityAttachments;
+        getClamped(attachment: $EntityAttachment_, index: number, yRot: number): $Vec3;
         constructor(attachments: $Map_<$EntityAttachment_, $List_<$Vec3_>>);
     }
     export class $EntitySelector {
@@ -5240,19 +5512,19 @@ declare module "@package/net/minecraft/world/entity" {
      */
     export type $EntitySelector_ = string;
     export class $AgeableMob extends $PathfinderMob {
-        static getSpeedUpSecondsWhenFeeding(ticksUntilAdult: number): number;
-        ageUp(amount: number): void;
-        ageUp(amount: number, forced: boolean): void;
         getBreedOffspring(level: $ServerLevel, otherParent: $AgeableMob): $AgeableMob;
         /**
          * Called every tick so the entity can update its state as required. For example, zombies and skeletons use this to react to sunlight and start to burn.
          */
         ageBoundaryReached(): void;
-        setAge(amount: number): void;
+        static getSpeedUpSecondsWhenFeeding(ticksUntilAdult: number): number;
+        ageUp(amount: number): void;
+        ageUp(amount: number, forced: boolean): void;
         /**
          * If Animal, checks if the age timer is negative
          */
         canBreed(): boolean;
+        setAge(amount: number): void;
         getAge(): number;
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
         static MAX_WEARING_ARMOR_CHANCE: number;
@@ -5427,7 +5699,6 @@ declare module "@package/net/minecraft/world/entity" {
         constructor(entityType: $EntityType_<$AgeableMob>, level: $Level_);
     }
     export class $Display$TextDisplay extends $Display {
-        setText(text: $Component_): void;
         textRenderState(): $Display$TextDisplay$TextRenderState;
         getLineWidth(): number;
         setLineWidth(backgroundColor: number): void;
@@ -5437,6 +5708,7 @@ declare module "@package/net/minecraft/world/entity" {
         static getAlign(flags: number): $Display$TextDisplay$Align;
         cacheDisplay(splitter: $Display$TextDisplay$LineSplitter_): $Display$TextDisplay$CachedInfo;
         getFlags(): number;
+        setText(text: $Component_): void;
         getText(): $Component;
         setFlags(flags: number): void;
         getBackgroundColor(): number;
@@ -5562,6 +5834,11 @@ declare module "@package/net/minecraft/world/entity" {
         static NO_COUNT_LIMIT: number;
         static BODY: $EquipmentSlot;
         static FEET: $EquipmentSlot;
+        get filterFlag(): number;
+        get armor(): boolean;
+        get type(): $EquipmentSlot$Type;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $EquipmentSlot}.
@@ -5570,19 +5847,19 @@ declare module "@package/net/minecraft/world/entity" {
     export class $VariantHolder<T> {
     }
     export interface $VariantHolder<T> {
-        setVariant(variant: T): void;
         getVariant(): T;
+        setVariant(variant: T): void;
     }
     export class $EquipmentUser {
     }
     export interface $EquipmentUser {
         getItemBySlot(slot: $EquipmentSlot_): $ItemStack;
         setItemSlot(slot: $EquipmentSlot_, stack: $ItemStack_): void;
-        resolveSlot(stack: $ItemStack_, excludedSlots: $List_<$EquipmentSlot_>): $EquipmentSlot;
         setDropChance(slot: $EquipmentSlot_, dropChance: number): void;
-        equip(equipmentTable: $EquipmentTable_, params: $LootParams): void;
-        equip(equipmentLootTable: $ResourceKey_<$LootTable>, params: $LootParams, seed: number, arg3: $Map_<$EquipmentSlot_, number>): void;
+        resolveSlot(stack: $ItemStack_, excludedSlots: $List_<$EquipmentSlot_>): $EquipmentSlot;
         equip(equipmentLootTable: $ResourceKey_<$LootTable>, params: $LootParams, slotDropChances: $Map_<$EquipmentSlot_, number>): void;
+        equip(equipmentLootTable: $ResourceKey_<$LootTable>, params: $LootParams, seed: number, arg3: $Map_<$EquipmentSlot_, number>): void;
+        equip(equipmentTable: $EquipmentTable_, params: $LootParams): void;
     }
     export class $WalkAnimationState {
         setSpeed(speed: number): void;
@@ -5593,6 +5870,7 @@ declare module "@package/net/minecraft/world/entity" {
         speed(partialTick: number): number;
         speed(): number;
         constructor();
+        get moving(): boolean;
     }
     export class $NeutralMob {
         static TAG_ANGRY_AT: string;
@@ -5610,7 +5888,6 @@ declare module "@package/net/minecraft/world/entity" {
         setLastHurtByPlayer(player: $Player | null): void;
         canAttack(entity: $LivingEntity): boolean;
         playerDied(player: $Player): void;
-        getRemainingPersistentAngerTime(): number;
         isAngryAt(entity: $LivingEntity): boolean;
         updatePersistentAnger(serverLevel: $ServerLevel, updateAnger: boolean): void;
         addPersistentAngerSaveData(nbt: $CompoundTag_): void;
@@ -5623,6 +5900,7 @@ declare module "@package/net/minecraft/world/entity" {
         forgetCurrentTargetAndRefreshUniversalAnger(): void;
         readPersistentAngerSaveData(level: $Level_, tag: $CompoundTag_): void;
         setRemainingPersistentAngerTime(remainingPersistentAngerTime: number): void;
+        getRemainingPersistentAngerTime(): number;
         /**
          * Gets the active target the Task system uses for tracking
          */
@@ -5631,6 +5909,8 @@ declare module "@package/net/minecraft/world/entity" {
          * Hint to AI tasks that we were attacked by the passed EntityLivingBase and should retaliate. Is not guaranteed to change our actual active target (for example if we are currently busy attacking someone else)
          */
         setTarget(livingEntity: $LivingEntity | null): void;
+        set lastHurtByPlayer(value: $Player | null);
+        get angry(): boolean;
     }
     export class $ReputationEventHandler {
     }
@@ -5654,14 +5934,14 @@ declare module "@package/net/minecraft/world/entity" {
         set(stack: $ItemStack_): boolean;
     }
     export class $LightningBolt extends $Entity {
-        getDamage(): number;
+        setDamage(arg0: number): void;
         localvar$zzp000$openpartiesandclaims$onSetCause(arg0: $ServerPlayer): $ServerPlayer;
         handler$ilo000$architectury$handleLightning(ci: $CallbackInfo, list: $List_<any>): void;
         getBlocksSetOnFire(): number;
         getHitEntities(): $Stream<$Entity>;
-        setDamage(arg0: number): void;
         getCause(): $ServerPlayer;
         setCause(cause: $ServerPlayer | null): void;
+        getDamage(): number;
         setVisualOnly(visualOnly: boolean): void;
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
         firstTick: boolean;
@@ -5735,6 +6015,9 @@ declare module "@package/net/minecraft/world/entity" {
         horizontalCollision: boolean;
         dimensions: $EntityDimensions;
         constructor(entityType: $EntityType_<$LightningBolt>, level: $Level_);
+        get blocksSetOnFire(): number;
+        get hitEntities(): $Stream<$Entity>;
+        set visualOnly(value: boolean);
     }
     export class $LivingEntity$Fallsounds extends $Record {
         small(): $SoundEvent;
@@ -5846,13 +6129,13 @@ declare module "@package/net/minecraft/world/entity" {
     /**
      * Values that may be interpreted as {@link $Display$ItemDisplay$ItemRenderState}.
      */
-    export type $Display$ItemDisplay$ItemRenderState_ = { itemStack?: $ItemStack_, itemTransform?: $ItemDisplayContext_,  } | [itemStack?: $ItemStack_, itemTransform?: $ItemDisplayContext_, ];
+    export type $Display$ItemDisplay$ItemRenderState_ = { itemTransform?: $ItemDisplayContext_, itemStack?: $ItemStack_,  } | [itemTransform?: $ItemDisplayContext_, itemStack?: $ItemStack_, ];
     export class $Entity$MovementEmission extends $Enum<$Entity$MovementEmission> {
+        static values(): $Entity$MovementEmission[];
+        static valueOf(arg0: string): $Entity$MovementEmission;
         emitsAnything(): boolean;
         emitsSounds(): boolean;
         emitsEvents(): boolean;
-        static values(): $Entity$MovementEmission[];
-        static valueOf(arg0: string): $Entity$MovementEmission;
         static ALL: $Entity$MovementEmission;
         static EVENTS: $Entity$MovementEmission;
         sounds: boolean;

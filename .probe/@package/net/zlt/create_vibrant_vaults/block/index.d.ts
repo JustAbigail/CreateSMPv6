@@ -30,6 +30,8 @@ declare module "@package/net/zlt/create_vibrant_vaults/block" {
         static CYAN: $ModBlocks$VibrantVaultColor;
         static BROWN: $ModBlocks$VibrantVaultColor;
         static ORANGE: $ModBlocks$VibrantVaultColor;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $ModBlocks$VibrantVaultColor}.

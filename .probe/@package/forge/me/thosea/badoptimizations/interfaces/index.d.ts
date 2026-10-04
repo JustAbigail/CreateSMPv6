@@ -7,8 +7,8 @@ declare module "@package/forge/me/thosea/badoptimizations/interfaces" {
     export class $EntityTypeMethods {
     }
     export interface $EntityTypeMethods {
-        bo$getRenderer(): $EntityRenderer<never>;
         bo$setRenderer(arg0: $EntityRenderer<never>): void;
+        bo$getRenderer(): $EntityRenderer<never>;
     }
     export class $EntityMethods {
     }
@@ -19,7 +19,7 @@ declare module "@package/forge/me/thosea/badoptimizations/interfaces" {
     export class $BlockEntityTypeMethods {
     }
     export interface $BlockEntityTypeMethods {
-        bo$getRenderer<T extends $BlockEntity>(): $BlockEntityRenderer<T>;
         bo$setRenderer(arg0: $BlockEntityRenderer_<never>): void;
+        bo$getRenderer<T extends $BlockEntity>(): $BlockEntityRenderer<T>;
     }
 }

@@ -30,6 +30,9 @@ declare module "@package/net/neoforged/neoforgespi/language" {
         addModFileInfo(arg0: $IModFileInfo): void;
         getIModInfoData(): $List<$IModFileInfo>;
         constructor();
+        get classes(): $Set<$ModFileScanData$ClassData>;
+        get annotations(): $Set<$ModFileScanData$AnnotationData>;
+        get IModInfoData(): $List<$IModFileInfo>;
     }
     export class $IModInfo$Ordering extends $Enum<$IModInfo$Ordering> {
         static values(): $IModInfo$Ordering[];
@@ -51,7 +54,7 @@ declare module "@package/net/neoforged/neoforgespi/language" {
     /**
      * Values that may be interpreted as {@link $ModFileScanData$ClassData}.
      */
-    export type $ModFileScanData$ClassData_ = { parent?: $Type, interfaces?: $Set_<$Type>, clazz?: $Type,  } | [parent?: $Type, interfaces?: $Set_<$Type>, clazz?: $Type, ];
+    export type $ModFileScanData$ClassData_ = { parent?: $Type, clazz?: $Type, interfaces?: $Set_<$Type>,  } | [parent?: $Type, clazz?: $Type, interfaces?: $Set_<$Type>, ];
     export class $IModInfo$DependencySide extends $Enum<$IModInfo$DependencySide> {
         static values(): $IModInfo$DependencySide[];
         static valueOf(arg0: string): $IModInfo$DependencySide;
@@ -60,6 +63,7 @@ declare module "@package/net/neoforged/neoforgespi/language" {
         static SERVER: $IModInfo$DependencySide;
         static CLIENT: $IModInfo$DependencySide;
         static BOTH: $IModInfo$DependencySide;
+        get correctSide(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $IModInfo$DependencySide}.
@@ -69,11 +73,11 @@ declare module "@package/net/neoforged/neoforgespi/language" {
         static UNBOUNDED: $VersionRange;
     }
     export interface $IModInfo {
-        getDescription(): string;
-        getDisplayName(): string;
-        getVersion(): $ArtifactVersion;
         getNamespace(): string;
         getLoader(): $IModLanguageLoader;
+        getDisplayName(): string;
+        getVersion(): $ArtifactVersion;
+        getDescription(): string;
         getConfig(): $IConfigurable;
         getOwningFile(): $IModFileInfo;
         getModId(): string;
@@ -84,6 +88,21 @@ declare module "@package/net/neoforged/neoforgespi/language" {
         getModURL(): ($URL) | undefined;
         getLogoFile(): (string) | undefined;
         getLogoBlur(): boolean;
+        get namespace(): string;
+        get loader(): $IModLanguageLoader;
+        get displayName(): string;
+        get version(): $ArtifactVersion;
+        get description(): string;
+        get config(): $IConfigurable;
+        get owningFile(): $IModFileInfo;
+        get modId(): string;
+        get dependencies(): $List<$IModInfo$ModVersion>;
+        get forgeFeatures(): $List<$ForgeFeature$Bound>;
+        get modProperties(): $Map<string, $Object>;
+        get updateURL(): ($URL) | undefined;
+        get modURL(): ($URL) | undefined;
+        get logoFile(): (string) | undefined;
+        get logoBlur(): boolean;
     }
     export class $IModFileInfo {
     }
@@ -99,6 +118,11 @@ declare module "@package/net/neoforged/neoforgespi/language" {
         getFileProperties(): $Map<string, $Object>;
         getLicense(): string;
         usesServices(): $List<string>;
+        get file(): $IModFile;
+        get config(): $IConfigurable;
+        get mods(): $List<$IModInfo>;
+        get fileProperties(): $Map<string, $Object>;
+        get license(): string;
     }
     export class $IModLanguageLoader {
     }
@@ -125,19 +149,26 @@ declare module "@package/net/neoforged/neoforgespi/language" {
     /**
      * Values that may be interpreted as {@link $ModFileScanData$AnnotationData}.
      */
-    export type $ModFileScanData$AnnotationData_ = { memberName?: string, clazz?: $Type, annotationData?: $Map_<string, $Object>, annotationType?: $Type, targetType?: $ElementType_,  } | [memberName?: string, clazz?: $Type, annotationData?: $Map_<string, $Object>, annotationType?: $Type, targetType?: $ElementType_, ];
+    export type $ModFileScanData$AnnotationData_ = { clazz?: $Type, memberName?: string, targetType?: $ElementType_, annotationType?: $Type, annotationData?: $Map_<string, $Object>,  } | [clazz?: $Type, memberName?: string, targetType?: $ElementType_, annotationType?: $Type, annotationData?: $Map_<string, $Object>, ];
     export class $IModInfo$ModVersion {
     }
     export interface $IModInfo$ModVersion {
-        getReason(): (string) | undefined;
         setOwner(arg0: $IModInfo): void;
         getType(): $IModInfo$DependencyType;
         getOwner(): $IModInfo;
-        getSide(): $IModInfo$DependencySide;
+        getReason(): (string) | undefined;
         getModId(): string;
+        getSide(): $IModInfo$DependencySide;
         getVersionRange(): $VersionRange;
         getOrdering(): $IModInfo$Ordering;
         getReferralURL(): ($URL) | undefined;
+        get type(): $IModInfo$DependencyType;
+        get reason(): (string) | undefined;
+        get modId(): string;
+        get side(): $IModInfo$DependencySide;
+        get versionRange(): $VersionRange;
+        get ordering(): $IModInfo$Ordering;
+        get referralURL(): ($URL) | undefined;
     }
     export class $IModFileInfo$LanguageSpec extends $Record {
         languageName(): string;

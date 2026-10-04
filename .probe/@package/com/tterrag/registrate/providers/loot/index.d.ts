@@ -45,6 +45,7 @@ declare module "@package/com/tterrag/registrate/providers/loot" {
     export interface $RegistrateLootTableProvider$LootType<T extends $RegistrateLootTables> {
         getLootCreator(arg0: $HolderLookup$Provider, arg1: $AbstractRegistrate<never>, arg2: $Consumer_<T>): T;
         getLootSet(): $LootContextParamSet;
+        get lootSet(): $LootContextParamSet;
     }
     export class $RegistrateLootTables {
     }
@@ -56,11 +57,13 @@ declare module "@package/com/tterrag/registrate/providers/loot" {
      */
     export type $RegistrateLootTables_ = (() => void);
     export class $RegistrateLootTableProvider extends $LootTableProvider implements $RegistrateProvider {
-        addLootAction<T extends $RegistrateLootTables>(arg0: $RegistrateLootTableProvider$LootType<T>, arg1: $NonNullConsumer_<T>): void;
         addLootAction(arg0: $LootContextParamSet, arg1: $Consumer_<$BiConsumer<$ResourceKey<$LootTable>, $LootTable$Builder>>): void;
+        addLootAction<T extends $RegistrateLootTables>(arg0: $RegistrateLootTableProvider$LootType<T>, arg1: $NonNullConsumer_<T>): void;
         getProvider(): $HolderLookup$Provider;
         resolve<T>(arg0: $ResourceKey_<T>): $Holder<T>;
         getSide(): $LogicalSide;
         constructor(arg0: $AbstractRegistrate<never>, arg1: $PackOutput, arg2: $CompletableFuture<$HolderLookup$Provider>);
+        get provider(): $HolderLookup$Provider;
+        get side(): $LogicalSide;
     }
 }

@@ -42,30 +42,30 @@ declare module "@package/com/simibubi/create/api/equipment/potatoCannon" {
     }
     export interface $PotatoCannonProjectileType extends RegistryMarked<RegistryTypes.CreatePotatoProjectileTypeTag, RegistryTypes.CreatePotatoProjectileType> {}
     export class $PotatoCannonProjectileType extends $Record {
-        drag(): number;
         knockback(): number;
         damage(): number;
+        soundPitch(): number;
         dropStack(): $ItemStack;
-        renderMode(): $PotatoProjectileRenderMode;
-        gravityMultiplier(): number;
-        preEntityHit(): ($PotatoProjectileEntityHitAction) | undefined;
-        preEntityHit(arg0: $ItemStack_, arg1: $EntityHitResult): boolean;
-        onEntityHit(arg0: $ItemStack_, arg1: $EntityHitResult): boolean;
-        onEntityHit(): ($PotatoProjectileEntityHitAction) | undefined;
-        static getTypeForItem(arg0: $RegistryAccess, arg1: $Item_): ($Holder$Reference<$PotatoCannonProjectileType>) | undefined;
         velocityMultiplier(): number;
         reloadTicks(): number;
+        static getTypeForItem(arg0: $RegistryAccess, arg1: $Item_): ($Holder$Reference<$PotatoCannonProjectileType>) | undefined;
+        renderMode(): $PotatoProjectileRenderMode;
+        gravityMultiplier(): number;
+        preEntityHit(arg0: $ItemStack_, arg1: $EntityHitResult): boolean;
+        preEntityHit(): ($PotatoProjectileEntityHitAction) | undefined;
+        onEntityHit(arg0: $ItemStack_, arg1: $EntityHitResult): boolean;
+        onEntityHit(): ($PotatoProjectileEntityHitAction) | undefined;
         onBlockHit(): ($PotatoProjectileBlockHitAction) | undefined;
         onBlockHit(arg0: $LevelAccessor, arg1: $ItemStack_, arg2: $BlockHitResult): boolean;
         items(): $HolderSet<$Item>;
         split(): number;
         sticky(): boolean;
-        soundPitch(): number;
+        drag(): number;
         static CODEC: $Codec<$PotatoCannonProjectileType>;
         constructor(items: $HolderSet_<$Item>, reloadTicks: number, damage: number, split: number, knockback: number, drag: number, velocityMultiplier: number, gravityMultiplier: number, soundPitch: number, sticky: boolean, dropStack: $ItemStack_, renderMode: $PotatoProjectileRenderMode, preEntityHit: ($PotatoProjectileEntityHitAction) | undefined, onEntityHit: ($PotatoProjectileEntityHitAction) | undefined, onBlockHit: ($PotatoProjectileBlockHitAction) | undefined);
     }
     /**
      * Values that may be interpreted as {@link $PotatoCannonProjectileType}.
      */
-    export type $PotatoCannonProjectileType_ = RegistryTypes.CreatePotatoProjectileType | { split?: number, sticky?: boolean, onBlockHit?: ($PotatoProjectileBlockHitAction) | undefined, knockback?: number, velocityMultiplier?: number, damage?: number, drag?: number, soundPitch?: number, onEntityHit?: ($PotatoProjectileEntityHitAction) | undefined, preEntityHit?: ($PotatoProjectileEntityHitAction) | undefined, items?: $HolderSet_<$Item>, dropStack?: $ItemStack_, reloadTicks?: number, renderMode?: $PotatoProjectileRenderMode, gravityMultiplier?: number,  } | [split?: number, sticky?: boolean, onBlockHit?: ($PotatoProjectileBlockHitAction) | undefined, knockback?: number, velocityMultiplier?: number, damage?: number, drag?: number, soundPitch?: number, onEntityHit?: ($PotatoProjectileEntityHitAction) | undefined, preEntityHit?: ($PotatoProjectileEntityHitAction) | undefined, items?: $HolderSet_<$Item>, dropStack?: $ItemStack_, reloadTicks?: number, renderMode?: $PotatoProjectileRenderMode, gravityMultiplier?: number, ];
+    export type $PotatoCannonProjectileType_ = RegistryTypes.CreatePotatoProjectileType | { soundPitch?: number, drag?: number, damage?: number, velocityMultiplier?: number, knockback?: number, onBlockHit?: ($PotatoProjectileBlockHitAction) | undefined, sticky?: boolean, split?: number, gravityMultiplier?: number, renderMode?: $PotatoProjectileRenderMode, reloadTicks?: number, dropStack?: $ItemStack_, items?: $HolderSet_<$Item>, preEntityHit?: ($PotatoProjectileEntityHitAction) | undefined, onEntityHit?: ($PotatoProjectileEntityHitAction) | undefined,  } | [soundPitch?: number, drag?: number, damage?: number, velocityMultiplier?: number, knockback?: number, onBlockHit?: ($PotatoProjectileBlockHitAction) | undefined, sticky?: boolean, split?: number, gravityMultiplier?: number, renderMode?: $PotatoProjectileRenderMode, reloadTicks?: number, dropStack?: $ItemStack_, items?: $HolderSet_<$Item>, preEntityHit?: ($PotatoProjectileEntityHitAction) | undefined, onEntityHit?: ($PotatoProjectileEntityHitAction) | undefined, ];
 }

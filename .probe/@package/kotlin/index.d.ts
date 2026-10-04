@@ -13,6 +13,8 @@ declare module "@package/kotlin" {
     export interface $Lazy<T> {
         getValue(): T;
         isInitialized(): boolean;
+        get value(): T;
+        get initialized(): boolean;
     }
     export class $Function<R> {
     }
@@ -22,12 +24,14 @@ declare module "@package/kotlin" {
         static INSTANCE: $Unit;
     }
     export class $Pair<A, B> implements $Serializable {
+        getSecond(): B;
         copy(arg0: A, arg1: B): $Pair<A, B>;
         getFirst(): A;
-        getSecond(): B;
         component1(): A;
         component2(): B;
         static copy$default(arg0: $Pair<any, any>, arg1: $Object, arg2: $Object, arg3: number, arg4: $Object): $Pair<any, any>;
         constructor(arg0: A, arg1: B);
+        get second(): B;
+        get first(): A;
     }
 }

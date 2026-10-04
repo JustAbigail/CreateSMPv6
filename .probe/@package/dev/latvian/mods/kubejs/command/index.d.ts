@@ -63,6 +63,12 @@ declare module "@package/dev/latvian/mods/kubejs/command" {
         context: $CommandBuildContext;
         dispatcher: $CommandDispatcher<$CommandSourceStack>;
         constructor(dispatcher: $CommandDispatcher<$CommandSourceStack>, context: $CommandBuildContext, selection: $Commands$CommandSelection_);
+        get commands(): typeof $Commands;
+        get forSinglePlayer(): boolean;
+        get forMultiPlayer(): boolean;
+        get builtinSuggestions(): typeof $SharedSuggestionProvider;
+        get arguments(): typeof $ArgumentTypeWrappers;
+        get registry(): $CommandBuildContext;
     }
     export class $ArgumentTypeWrappers extends $Enum<$ArgumentTypeWrappers> implements $ArgumentTypeWrapper {
         static printAll(): void;

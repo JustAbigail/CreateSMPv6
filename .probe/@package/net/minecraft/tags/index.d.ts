@@ -34,8 +34,8 @@ declare module "@package/net/minecraft/tags" {
         withRequired(arg0: boolean): $TagEntry;
         elementOrTag(): $ExtraCodecs$TagOrElementLocation;
         static optionalTag(elementLocation: $ResourceLocation_): $TagEntry;
-        isTag(): boolean;
         verifyIfPresent(elementPredicate: $Predicate_<$ResourceLocation>, tagPredicate: $Predicate_<$ResourceLocation>): boolean;
+        isTag(): boolean;
         static optionalElement(elementLocation: $ResourceLocation_): $TagEntry;
         static tag(elementLocation: $ResourceLocation_): $TagEntry;
         getId(): $ResourceLocation;
@@ -48,14 +48,18 @@ declare module "@package/net/minecraft/tags" {
         constructor(id: $ResourceLocation_, tag: boolean, required: boolean);
     }
     export class $TagManager implements $PreparableReloadListener, $TagManagerKJS, $IdentifiableResourceReloadListener {
-        kjs$setResources(resources: $ReloadableServerResourcesKJS): void;
         kjs$getResources(): $ReloadableServerResourcesKJS;
-        reload(stage: $PreparableReloadListener$PreparationBarrier_, resourceManager: $ResourceManager, preparationsProfiler: $ProfilerFiller, reloadProfiler: $ProfilerFiller, backgroundExecutor: $Executor_, gameExecutor: $Executor_): $CompletableFuture<void>;
+        kjs$setResources(resources: $ReloadableServerResourcesKJS): void;
         getResult(): $List<$TagManager$LoadResult<never>>;
+        reload(stage: $PreparableReloadListener$PreparationBarrier_, resourceManager: $ResourceManager, preparationsProfiler: $ProfilerFiller, reloadProfiler: $ProfilerFiller, backgroundExecutor: $Executor_, gameExecutor: $Executor_): $CompletableFuture<void>;
         getFabricId(): $ResourceLocation;
         getFabricDependencies(): $Collection<any>;
         getName(): string;
         constructor(registryAccess: $RegistryAccess);
+        get result(): $List<$TagManager$LoadResult<never>>;
+        get fabricId(): $ResourceLocation;
+        get fabricDependencies(): $Collection<any>;
+        get name(): string;
     }
     export class $TagManager$LoadResult<T> extends $Record {
         tags(): $Map<$ResourceLocation, $Collection<$Holder<T>>>;
@@ -67,11 +71,6 @@ declare module "@package/net/minecraft/tags" {
      */
     export type $TagManager$LoadResult_<T> = { key?: $ResourceKey_<$Registry<any>>, tags?: $Map_<$ResourceLocation_, $Collection_<$Holder_<any>>>,  } | [key?: $ResourceKey_<$Registry<any>>, tags?: $Map_<$ResourceLocation_, $Collection_<$Holder_<any>>>, ];
     export class $TagKey<T> extends $Record implements $FabricTagKey, $TagKeyMixin {
-        /**
-         * @note_to_llm `TagKey` is a reference to a tag. KubeJS has special type wrapper for `TagKey<T>`
-         * that allows you to use string literals as `TagKey`. For example, "forge:ores" can be used as a `TagKey<Item>`.
-         * Check available literals for tags using the #tool:prunoideae.probejs/listRegistries and #tool:prunoideae.probejs/queryTagsByRegex tools.
-         */
         isFor(registry: $ResourceKey_<$Registry<never>>): boolean;
         static hashedCodec<T>(registry: $ResourceKey_<$Registry<T>>): $Codec<$TagKey<T>>;
         cast<E>(registry: $ResourceKey_<$Registry<E>>): ($TagKey<E>) | undefined;
@@ -85,13 +84,14 @@ declare module "@package/net/minecraft/tags" {
          * @deprecated
          */
         constructor(registry: $ResourceKey_<$Registry<T>>, location: $ResourceLocation_);
+        get translationKey(): string;
+        get name(): $Component;
     }
     /**
      * Values that may be interpreted as {@link $TagKey}.
      */
     export type $TagKey_<T> = RegistryTypes.ResolveTag<T>;
     export class $TagBuilder implements $ITagBuilderExtension {
-        addTag(elementLocation: $ResourceLocation_): $TagBuilder;
         addOptionalElement(elementLocation: $ResourceLocation_): $TagBuilder;
         addOptionalTag(elementLocation: $ResourceLocation_): $TagBuilder;
         getRemoveEntries(): $Stream<$TagEntry>;
@@ -103,23 +103,26 @@ declare module "@package/net/minecraft/tags" {
         add(entry: $TagEntry): $TagBuilder;
         static create(): $TagBuilder;
         build(): $List<$TagEntry>;
-        removeTag(elementLocation: $ResourceLocation_): $TagBuilder;
-        /**
-         * @deprecated
-         */
-        removeTag(arg0: $ResourceLocation_, arg1: string): $TagBuilder;
+        addTag(elementLocation: $ResourceLocation_): $TagBuilder;
         getRawBuilder(): $TagBuilder;
-        /**
-         * @deprecated
-         */
-        removeElement(arg0: $ResourceLocation_, arg1: string): $TagBuilder;
         removeElement(elementLocation: $ResourceLocation_): $TagBuilder;
         /**
          * @deprecated
          */
+        removeElement(arg0: $ResourceLocation_, arg1: string): $TagBuilder;
+        /**
+         * @deprecated
+         */
         remove(arg0: $TagEntry, arg1: string): $TagBuilder;
+        /**
+         * @deprecated
+         */
+        removeTag(arg0: $ResourceLocation_, arg1: string): $TagBuilder;
+        removeTag(elementLocation: $ResourceLocation_): $TagBuilder;
         entries: $List<$TagEntry>;
         constructor();
+        get removeEntries(): $Stream<$TagEntry>;
+        get rawBuilder(): $TagBuilder;
     }
     export class $TagLoader$EntryWithSource extends $Record {
         remove(): boolean;
@@ -131,7 +134,7 @@ declare module "@package/net/minecraft/tags" {
     /**
      * Values that may be interpreted as {@link $TagLoader$EntryWithSource}.
      */
-    export type $TagLoader$EntryWithSource_ = { entry?: $TagEntry, source?: string, remove?: boolean,  } | [entry?: $TagEntry, source?: string, remove?: boolean, ];
+    export type $TagLoader$EntryWithSource_ = { source?: string, entry?: $TagEntry, remove?: boolean,  } | [source?: string, entry?: $TagEntry, remove?: boolean, ];
     export class $TagEntry$Lookup<T> {
     }
     export interface $TagEntry$Lookup<T> {

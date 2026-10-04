@@ -10,6 +10,7 @@ declare module "@package/net/liukrast/deployer/lib/mixin/accessors" {
     }
     export interface $KineticBlockEntityAccessor {
         getEffects(): $KineticEffectHandler;
+        get effects(): $KineticEffectHandler;
     }
     /**
      * Values that may be interpreted as {@link $KineticBlockEntityAccessor}.
@@ -25,6 +26,7 @@ declare module "@package/net/liukrast/deployer/lib/mixin/accessors" {
     }
     export interface $FilteringBehaviourAccessor {
         setValueBoxTransform(arg0: $ValueBoxTransform): void;
+        set valueBoxTransform(value: $ValueBoxTransform);
     }
     /**
      * Values that may be interpreted as {@link $FilteringBehaviourAccessor}.
@@ -33,9 +35,11 @@ declare module "@package/net/liukrast/deployer/lib/mixin/accessors" {
     export class $PackagerBlockEntityAccessor {
     }
     export interface $PackagerBlockEntityAccessor {
+        getAdvancement(): $AdvancementBehaviour;
         getInvVersionTracker(): $VersionedInventoryTrackerBehaviour;
         invokeGetLinkPos(): $BlockPos;
         invokeSupportsBlockEntity(arg0: $BlockEntity): boolean;
-        getAdvancement(): $AdvancementBehaviour;
+        get advancement(): $AdvancementBehaviour;
+        get invVersionTracker(): $VersionedInventoryTrackerBehaviour;
     }
 }

@@ -20,9 +20,13 @@ declare module "@package/net/mehvahdjukaar/moonlight/api/map/decoration" {
         getX(): number;
         static CODEC: $StreamCodec<$RegistryFriendlyByteBuf, $MLMapDecoration>;
         constructor(arg0: $Holder_<$MLMapDecorationType<never, never>>, arg1: number, arg2: number, arg3: number, arg4: ($Component_) | undefined);
+        get rot(): number;
+        get y(): number;
+        get displayName(): $Component;
+        get type(): $Holder<$MLMapDecorationType<never, never>>;
+        get x(): number;
     }
     export class $MLMapMarker<D extends $MLMapDecoration> {
-        shouldSave(): boolean;
         getMarkerUniqueId(): string;
         preventsExtending(): boolean;
         shouldRefreshFromWorld(): boolean;
@@ -30,9 +34,10 @@ declare module "@package/net/mehvahdjukaar/moonlight/api/map/decoration" {
         static baseCodecGroup<T extends $MLMapMarker<never>>(arg0: $RecordCodecBuilder$Instance<T>): $Products$P7<$RecordCodecBuilder$Mu<T>, $Holder<$MLMapDecorationType<never, never>>, $BlockPos, number, ($Component) | undefined, (boolean) | undefined, (boolean) | undefined, boolean>;
         createDecorationFromMarker(arg0: $MapItemSavedData): D;
         getDisplayName(): ($Component) | undefined;
-        getType(): $Holder<$MLMapDecorationType<never, never>>;
         getFlags(): number;
+        getType(): $Holder<$MLMapDecorationType<never, never>>;
         hasFlag(arg0: number): boolean;
+        shouldSave(): boolean;
         getPos(): $BlockPos;
         getRotation(): number;
         static HAS_SMALL_TEXTURE_FLAG: number;
@@ -42,6 +47,12 @@ declare module "@package/net/mehvahdjukaar/moonlight/api/map/decoration" {
          */
         static REFERENCE_CODEC: $Codec<$MLMapMarker<never>>;
         constructor(arg0: $Holder_<$MLMapDecorationType<never, never>>, arg1: $BlockPos_, arg2: number, arg3: ($Component_) | undefined, arg4: (boolean) | undefined, arg5: (boolean) | undefined, arg6: boolean);
+        get markerUniqueId(): string;
+        get displayName(): ($Component) | undefined;
+        get flags(): number;
+        get type(): $Holder<$MLMapDecorationType<never, never>>;
+        get pos(): $BlockPos;
+        get rotation(): number;
     }
     export interface $MLMapDecorationType<D, M> extends RegistryMarked<RegistryTypes.MoonlightMapMarkerTag, RegistryTypes.MoonlightMapMarker> {}
     export class $MLMapDecorationType<D extends $MLMapDecoration, M extends $MLMapMarker<D>> {
@@ -59,6 +70,11 @@ declare module "@package/net/mehvahdjukaar/moonlight/api/map/decoration" {
         static DIRECT_CODEC: $Codec<$MLMapDecorationType<never, never>>;
         static REFERENCE_CODEC: $Codec<$Holder<$MLMapDecorationType<never, never>>>;
         static STREAM_CODEC: $StreamCodec<$RegistryFriendlyByteBuf, $Holder<$MLMapDecorationType<never, never>>>;
+        get associatedStructure(): ($HolderSet<$Structure>) | undefined;
+        get customFactoryID(): $ResourceLocation;
+        get defaultMapColor(): number;
+        get decorationCodec(): $StreamCodec<$RegistryFriendlyByteBuf, D>;
+        get markerCodec(): $MapCodec<M>;
     }
     /**
      * Values that may be interpreted as {@link $MLMapDecorationType}.

@@ -130,6 +130,8 @@ declare module "@package/java/lang" {
          */
         constructor(arg0: number[], arg1: number, arg2: number, arg3: number);
         constructor(arg0: number[], arg1: number, arg2: number);
+        get empty(): boolean;
+        get blank(): boolean;
     }
     export class $ModuleLayer$Controller {
         addReads(arg0: $Module, arg1: $Module): $ModuleLayer$Controller;
@@ -142,6 +144,11 @@ declare module "@package/java/lang" {
         static of<E extends $Enum<E>>(arg0: $ClassDesc, arg1: string): $Enum$EnumDesc<E>;
     }
     export class $ModuleLayer {
+        static defineModulesWithOneLoader(arg0: $Configuration, arg1: $List_<$ModuleLayer>, arg2: $ClassLoader): $ModuleLayer$Controller;
+        defineModulesWithOneLoader(arg0: $Configuration, arg1: $ClassLoader): $ModuleLayer;
+        static defineModulesWithManyLoaders(arg0: $Configuration, arg1: $List_<$ModuleLayer>, arg2: $ClassLoader): $ModuleLayer$Controller;
+        defineModulesWithManyLoaders(arg0: $Configuration, arg1: $ClassLoader): $ModuleLayer;
+        findLoader(arg0: string): $ClassLoader;
         static empty(): $ModuleLayer;
         static boot(): $ModuleLayer;
         modules(): $Set<$Module>;
@@ -150,11 +157,6 @@ declare module "@package/java/lang" {
         findModule(arg0: string): ($Module) | undefined;
         defineModules(arg0: $Configuration, arg1: $Function_<string, $ClassLoader>): $ModuleLayer;
         static defineModules(arg0: $Configuration, arg1: $List_<$ModuleLayer>, arg2: $Function_<string, $ClassLoader>): $ModuleLayer$Controller;
-        static defineModulesWithOneLoader(arg0: $Configuration, arg1: $List_<$ModuleLayer>, arg2: $ClassLoader): $ModuleLayer$Controller;
-        defineModulesWithOneLoader(arg0: $Configuration, arg1: $ClassLoader): $ModuleLayer;
-        static defineModulesWithManyLoaders(arg0: $Configuration, arg1: $List_<$ModuleLayer>, arg2: $ClassLoader): $ModuleLayer$Controller;
-        defineModulesWithManyLoaders(arg0: $Configuration, arg1: $ClassLoader): $ModuleLayer;
-        findLoader(arg0: string): $ClassLoader;
     }
     export class $Number implements $Serializable {
         byteValue(): number;
@@ -224,6 +226,10 @@ declare module "@package/java/lang" {
         constructor(arg0: string, arg1: $Throwable);
         constructor(arg0: string);
         constructor();
+        get cause(): $Throwable;
+        get message(): string;
+        get suppressed(): $Throwable[];
+        get localizedMessage(): string;
     }
     export class $Character implements $Serializable, $Comparable<string>, $Constable {
         static getName(arg0: number): string;
@@ -459,10 +465,10 @@ declare module "@package/java/lang" {
         constructor();
     }
     export class $ThreadLocal<T> {
+        static withInitial<S>(arg0: $Supplier_<S>): $ThreadLocal<S>;
         remove(): void;
         get(): T;
         set(arg0: T): void;
-        static withInitial<S>(arg0: $Supplier_<S>): $ThreadLocal<S>;
         constructor();
     }
     export class $Cloneable {
@@ -544,6 +550,9 @@ declare module "@package/java/lang" {
         destroy(): void;
         constructor(arg0: string);
         constructor(arg0: $ThreadGroup, arg1: string);
+        get name(): string;
+        get parent(): $ThreadGroup;
+        get destroyed(): boolean;
     }
     export class $Runtime$Version implements $Comparable<$Runtime$Version> {
         version(): $List<number>;
@@ -612,6 +621,7 @@ declare module "@package/java/lang" {
         isEmpty(): boolean;
         codePoints(): $IntStream;
         chars(): $IntStream;
+        get empty(): boolean;
     }
     export class $Thread$UncaughtExceptionHandler {
     }
@@ -635,6 +645,7 @@ declare module "@package/java/lang" {
         codePoints(): $IntStream;
         subSequence(arg0: number, arg1: number): $CharSequence;
         chars(): $IntStream;
+        get empty(): boolean;
     }
     export class $ClassLoader {
         getName(): string;
@@ -657,6 +668,14 @@ declare module "@package/java/lang" {
         setPackageAssertionStatus(arg0: string, arg1: boolean): void;
         setClassAssertionStatus(arg0: string, arg1: boolean): void;
         clearAssertionStatus(): void;
+        get name(): string;
+        static get platformClassLoader(): $ClassLoader;
+        static get systemClassLoader(): $ClassLoader;
+        get registeredAsParallelCapable(): boolean;
+        get parent(): $ClassLoader;
+        get unnamedModule(): $Module;
+        get definedPackages(): $Package[];
+        set defaultAssertionStatus(value: boolean);
     }
     export class $Math {
         static abs(arg0: number): number;
@@ -934,6 +953,55 @@ declare module "@package/java/lang" {
         getNestMembers(): $Class<never>[];
         isSealed(): boolean;
         componentType(): $Class<never>;
+        get name(): string;
+        get module(): $Module;
+        get protectionDomain(): $ProtectionDomain;
+        get modifiers(): number;
+        get interface(): boolean;
+        get array(): boolean;
+        get primitive(): boolean;
+        get hidden(): boolean;
+        get superclass(): $Class<T>;
+        get enum(): boolean;
+        get record(): boolean;
+        get typeParameters(): $TypeVariable<$Class<T>>[];
+        get classLoader(): $ClassLoader;
+        get interfaces(): $Class<never>[];
+        get memberClass(): boolean;
+        get localClass(): boolean;
+        get anonymousClass(): boolean;
+        get enclosingClass(): $Class<never>;
+        get unnamedClass(): boolean;
+        get simpleName(): string;
+        get canonicalName(): string;
+        get synthetic(): boolean;
+        get packageName(): string;
+        get nestHost(): $Class<never>;
+        get permittedSubclasses(): $Class<never>[];
+        get genericSuperclass(): $Type;
+        get package(): $Package;
+        get genericInterfaces(): $Type[];
+        get signers(): $Object[];
+        get enclosingMethod(): $Method;
+        get enclosingConstructor(): $Constructor<never>;
+        get declaringClass(): $Class<never>;
+        get typeName(): string;
+        get classes(): $Class<never>[];
+        get fields(): $Field[];
+        get methods(): $Method[];
+        get constructors(): $Constructor<never>[];
+        get declaredClasses(): $Class<never>[];
+        get declaredFields(): $Field[];
+        get recordComponents(): $RecordComponent[];
+        get declaredMethods(): $Method[];
+        get declaredConstructors(): $Constructor<never>[];
+        get enumConstants(): T[];
+        get annotations(): $Annotation[];
+        get declaredAnnotations(): $Annotation[];
+        get annotatedSuperclass(): $AnnotatedType;
+        get annotatedInterfaces(): $AnnotatedType[];
+        get nestMembers(): $Class<never>[];
+        get sealed(): boolean;
     }
     export class $Package extends $NamedPackage implements $AnnotatedElement {
         getSpecificationTitle(): string;
@@ -958,6 +1026,16 @@ declare module "@package/java/lang" {
         isSealed(): boolean;
         isSealed(arg0: $URL): boolean;
         static getPackages(): $Package[];
+        get specificationTitle(): string;
+        get specificationVersion(): string;
+        get specificationVendor(): string;
+        get implementationTitle(): string;
+        get implementationVersion(): string;
+        get implementationVendor(): string;
+        get name(): string;
+        get annotations(): $Annotation[];
+        get declaredAnnotations(): $Annotation[];
+        static get packages(): $Package[];
     }
     export class $Module implements $AnnotatedElement {
         getName(): string;
@@ -985,6 +1063,15 @@ declare module "@package/java/lang" {
         getAnnotationsByType<T extends $Annotation>(arg0: $Class<T>): T[];
         getDeclaredAnnotation<T extends $Annotation>(arg0: $Class<T>): T;
         getDeclaredAnnotationsByType<T extends $Annotation>(arg0: $Class<T>): T[];
+        get name(): string;
+        get classLoader(): $ClassLoader;
+        get descriptor(): $ModuleDescriptor;
+        get named(): boolean;
+        get annotations(): $Annotation[];
+        get declaredAnnotations(): $Annotation[];
+        get packages(): $Set<string>;
+        get nativeAccessEnabled(): boolean;
+        get layer(): $ModuleLayer;
     }
     export class $Boolean implements $Serializable, $Comparable<boolean>, $Constable {
         static toString(arg0: boolean): string;
@@ -1139,6 +1226,13 @@ declare module "@package/java/lang" {
         constructor(arg0: $ThreadGroup, arg1: $Runnable_);
         constructor(arg0: string);
         constructor(arg0: $ThreadGroup, arg1: string);
+        get stackTrace(): $StackTraceElement[];
+        get virtual(): boolean;
+        get threadGroup(): $ThreadGroup;
+        get alive(): boolean;
+        static get allStackTraces(): $Map<$Thread, $StackTraceElement[]>;
+        get id(): number;
+        get state(): $Thread$State;
     }
     export class $Double extends $Number implements $Comparable<number>, $Constable, $ConstantDesc {
         static toString(arg0: number): string;
@@ -1260,6 +1354,7 @@ declare module "@package/java/lang" {
         describeConstable(): ($Enum$EnumDesc<E>) | undefined;
         getDeclaringClass(): $Class<E>;
         ordinal(): number;
+        get declaringClass(): $Class<E>;
     }
     export class $StackTraceElement implements $Serializable {
         getClassName(): string;
@@ -1272,6 +1367,14 @@ declare module "@package/java/lang" {
         getMethodName(): string;
         constructor(arg0: string, arg1: string, arg2: string, arg3: string, arg4: string, arg5: string, arg6: number);
         constructor(arg0: string, arg1: string, arg2: string, arg3: number);
+        get className(): string;
+        get nativeMethod(): boolean;
+        get fileName(): string;
+        get lineNumber(): number;
+        get moduleName(): string;
+        get moduleVersion(): string;
+        get classLoaderName(): string;
+        get methodName(): string;
     }
     export class $Thread$Builder$OfPlatform {
     }
@@ -1297,6 +1400,7 @@ declare module "@package/java/lang" {
         wait(arg0: number, arg1: number): void;
         wait(): void;
         constructor();
+        get class(): $Class<never>;
     }
     export class $Readable {
     }

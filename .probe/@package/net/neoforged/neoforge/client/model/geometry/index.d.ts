@@ -16,10 +16,6 @@ declare module "@package/net/neoforged/neoforge/client/model/geometry" {
      */
     export class $BlockGeometryBakingContext implements $IGeometryBakingContext {
         bake(baker: $ModelBaker, bakedTextureGetter: $Function_<$Material, $TextureAtlasSprite>, modelTransform: $ModelState, overrides: $ItemOverrides): $BakedModel;
-        setCustomGeometry(geometry: $IUnbakedGeometry_<never>): void;
-        setRootTransform(rootTransform: $Transformation): void;
-        setRenderTypeHint(renderTypeHint: $ResourceLocation_): void;
-        setGui3d(gui3d: boolean): void;
         hasCustomGeometry(): boolean;
         getCustomGeometry(): $IUnbakedGeometry<never>;
         getModelName(): string;
@@ -27,6 +23,10 @@ declare module "@package/net/neoforged/neoforge/client/model/geometry" {
         getRootTransform(): $Transformation;
         getRenderTypeHint(): $ResourceLocation;
         isComponentVisible(part: string, fallback: boolean): boolean;
+        setCustomGeometry(geometry: $IUnbakedGeometry_<never>): void;
+        setRootTransform(rootTransform: $Transformation): void;
+        setRenderTypeHint(renderTypeHint: $ResourceLocation_): void;
+        setGui3d(gui3d: boolean): void;
         hasMaterial(name: string): boolean;
         getTransforms(): $ItemTransforms;
         copyFrom(other: $BlockGeometryBakingContext): void;
@@ -40,6 +40,8 @@ declare module "@package/net/neoforged/neoforge/client/model/geometry" {
         owner: $BlockModel;
         visibilityData: $BlockGeometryBakingContext$VisibilityData;
         constructor(owner: $BlockModel);
+        get modelName(): string;
+        get transforms(): $ItemTransforms;
     }
     /**
      * The context in which a geometry is being baked, providing information such as lighting and
@@ -93,6 +95,11 @@ declare module "@package/net/neoforged/neoforge/client/model/geometry" {
          * @return a `RenderTypeGroup` with the given name, or the empty group if not found.
          */
         getRenderType(name: $ResourceLocation_): $RenderTypeGroup;
+        get modelName(): string;
+        get rootTransform(): $Transformation;
+        get renderTypeHint(): $ResourceLocation;
+        get transforms(): $ItemTransforms;
+        get gui3d(): boolean;
     }
     export class $BlockGeometryBakingContext$VisibilityData {
         isVisible(part: string, fallback: boolean): boolean;
@@ -120,6 +127,7 @@ declare module "@package/net/neoforged/neoforge/client/model/geometry" {
          * via `BlockModel#resolveParents(Function)`
          */
         resolveParents(modelGetter: $Function_<$ResourceLocation, $UnbakedModel>, context: $IGeometryBakingContext): void;
+        get configurableComponentNames(): $Set<string>;
     }
     /**
      * Values that may be interpreted as {@link $IUnbakedGeometry}.

@@ -70,8 +70,8 @@ declare module "@package/kroppeb/stareval/function" {
         createArray(arg0: number): $Object;
         setValueFromReturn(arg0: $Object, arg1: number, arg2: $FunctionReturn): void;
         getValueFromArray(arg0: $Object, arg1: number, arg2: $FunctionReturn): void;
-        createConstant(arg0: $FunctionReturn): $ConstantExpression;
         static convert(arg0: $Type): $UniformType;
+        createConstant(arg0: $FunctionReturn): $ConstantExpression;
         static Float: $Type$Float;
         static Boolean: $Type$Boolean;
         static BooleanParameter: $TypedFunction$Parameter;

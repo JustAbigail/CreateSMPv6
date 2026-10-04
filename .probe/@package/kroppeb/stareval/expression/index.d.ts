@@ -22,5 +22,6 @@ declare module "@package/kroppeb/stareval/expression" {
         listVariables(arg0: $Collection_<$VariableExpression_>): void;
         getType(): $Type;
         partialEval(arg0: $FunctionContext, arg1: $FunctionReturn): $Expression;
+        get type(): $Type;
     }
 }

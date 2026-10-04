@@ -25,6 +25,7 @@ declare module "@package/net/minecraft/world/level/levelgen/placement" {
         static onAverageOnceEvery(chance: number): $RarityFilter;
         getChance(): number;
         static CODEC: $MapCodec<$RarityFilter>;
+        get chance(): number;
     }
     export class $RandomOffsetPlacement extends $PlacementModifier {
         static horizontal(xzSpread: $IntProvider_): $RandomOffsetPlacement;
@@ -60,10 +61,10 @@ declare module "@package/net/minecraft/world/level/levelgen/placement" {
         static CODEC: $MapCodec<$EnvironmentScanPlacement>;
     }
     export class $PlacedFeature extends $Record implements $PlacedFeatureAccessor {
-        place(level: $WorldGenLevel, generator: $ChunkGenerator, random: $RandomSource, pos: $BlockPos_): boolean;
         getFeatures(): $Stream<$ConfiguredFeature<never, never>>;
-        placement(): $List<$PlacementModifier>;
         placeWithBiomeCheck(level: $WorldGenLevel, generator: $ChunkGenerator, random: $RandomSource, pos: $BlockPos_): boolean;
+        placement(): $List<$PlacementModifier>;
+        place(level: $WorldGenLevel, generator: $ChunkGenerator, random: $RandomSource, pos: $BlockPos_): boolean;
         feature(): $Holder<$ConfiguredFeature<never, never>>;
         setFeature(holder: $Holder_<$ConfiguredFeature<never, never>>): void;
         static CODEC: $Codec<$Holder<$PlacedFeature>>;
@@ -71,11 +72,12 @@ declare module "@package/net/minecraft/world/level/levelgen/placement" {
         static LIST_CODEC: $Codec<$HolderSet<$PlacedFeature>>;
         static LIST_OF_LISTS_CODEC: $Codec<$List<$HolderSet<$PlacedFeature>>>;
         constructor(arg0: $Holder_<$ConfiguredFeature<never, never>>, arg1: $List_<$PlacementModifier>);
+        get features(): $Stream<$ConfiguredFeature<never, never>>;
     }
     /**
      * Values that may be interpreted as {@link $PlacedFeature}.
      */
-    export type $PlacedFeature_ = RegistryTypes.WorldgenPlacedFeature | { placement?: $List_<$PlacementModifier>, feature?: $Holder_<$ConfiguredFeature<never, never>>,  } | [placement?: $List_<$PlacementModifier>, feature?: $Holder_<$ConfiguredFeature<never, never>>, ];
+    export type $PlacedFeature_ = RegistryTypes.WorldgenPlacedFeature | { feature?: $Holder_<$ConfiguredFeature<never, never>>, placement?: $List_<$PlacementModifier>,  } | [feature?: $Holder_<$ConfiguredFeature<never, never>>, placement?: $List_<$PlacementModifier>, ];
     export class $NoiseThresholdCountPlacement extends $RepeatingPlacement {
         static of(noiseLevel: number, arg1: number, belowNoise: number): $NoiseThresholdCountPlacement;
         static CODEC: $MapCodec<$NoiseThresholdCountPlacement>;
@@ -91,22 +93,27 @@ declare module "@package/net/minecraft/world/level/levelgen/placement" {
     }
     export class $HeightRangePlacement extends $PlacementModifier implements $HeightRangePlacementAccessor {
         static of(height: $HeightProvider): $HeightRangePlacement;
-        static uniform(minInclusive: $VerticalAnchor_, maxInclusive: $VerticalAnchor_): $HeightRangePlacement;
         static triangle(minInclusive: $VerticalAnchor_, maxInclusive: $VerticalAnchor_): $HeightRangePlacement;
+        static uniform(minInclusive: $VerticalAnchor_, maxInclusive: $VerticalAnchor_): $HeightRangePlacement;
         getHeight(): $HeightProvider;
         static CODEC: $MapCodec<$HeightRangePlacement>;
+        get height(): $HeightProvider;
     }
     export interface $PlacementModifierType<P> extends RegistryMarked<RegistryTypes.WorldgenPlacementModifierTypeTag, RegistryTypes.WorldgenPlacementModifierType> {}
     export class $CaveSurface extends $Enum<$CaveSurface> implements $StringRepresentable {
-        getDirection(): $Direction;
         getY(): number;
         static values(): $CaveSurface[];
         static valueOf(arg0: string): $CaveSurface;
+        getDirection(): $Direction;
         getSerializedName(): string;
         getRemappedEnumConstantName(): string;
         static FLOOR: $CaveSurface;
         static CODEC: $Codec<$CaveSurface>;
         static CEILING: $CaveSurface;
+        get y(): number;
+        get direction(): $Direction;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $CaveSurface}.
@@ -171,14 +178,16 @@ declare module "@package/net/minecraft/world/level/levelgen/placement" {
         static CODEC: $MapCodec<$CountPlacement>;
     }
     export class $PlacementContext extends $WorldGenerationContext {
-        getHeight(heightmapType: $Heightmap$Types_, x: number, z: number): number;
         topFeature(): ($PlacedFeature) | undefined;
         getCarvingMask(chunkPos: $ChunkPos, step: $GenerationStep$Carving_): $CarvingMask;
         getLevel(): $WorldGenLevel;
+        getHeight(heightmapType: $Heightmap$Types_, x: number, z: number): number;
         generator(): $ChunkGenerator;
         getBlockState(pos: $BlockPos_): $BlockState;
         getMinBuildHeight(): number;
         constructor(level: $WorldGenLevel, generator: $ChunkGenerator, topFeature: ($PlacedFeature_) | undefined);
+        get level(): $WorldGenLevel;
+        get minBuildHeight(): number;
     }
     export class $HeightmapPlacement extends $PlacementModifier {
         static onHeightmap(heightmap: $Heightmap$Types_): $HeightmapPlacement;

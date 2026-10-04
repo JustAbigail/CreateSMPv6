@@ -30,7 +30,7 @@ declare module "@package/com/mojang/authlib/yggdrasil" {
     /**
      * Values that may be interpreted as {@link $ProfileResult}.
      */
-    export type $ProfileResult_ = { profile?: $GameProfile, actions?: $Set_<$ProfileActionType_>,  } | [profile?: $GameProfile, actions?: $Set_<$ProfileActionType_>, ];
+    export type $ProfileResult_ = { actions?: $Set_<$ProfileActionType_>, profile?: $GameProfile,  } | [actions?: $Set_<$ProfileActionType_>, profile?: $GameProfile, ];
     export class $ProfileActionType extends $Enum<$ProfileActionType> {
         static values(): $ProfileActionType[];
         static valueOf(arg0: string): $ProfileActionType;
@@ -60,9 +60,10 @@ declare module "@package/com/mojang/authlib/yggdrasil" {
         signature(): $Signature;
     }
     export class $YggdrasilAuthenticationService extends $HttpAuthenticationService {
-        getServicesKeySet(): $ServicesKeySet;
         createUserApiService(arg0: string): $UserApiService;
+        getServicesKeySet(): $ServicesKeySet;
         constructor(arg0: $Proxy);
         constructor(arg0: $Proxy, arg1: $Environment_);
+        get servicesKeySet(): $ServicesKeySet;
     }
 }

@@ -27,14 +27,16 @@ declare module "@package/net/neoforged/neoforge/event/entity" {
      */
     export class $EntityInvulnerabilityCheckEvent extends $EntityEvent {
         isInvulnerable(): boolean;
+        getOriginalInvulnerability(): boolean;
+        getSource(): $DamageSource;
         /**
          * Sets the invulnerable status of the entity. By default, the invulnerability will be
          * set by value passed into the event invocation.
          */
         setInvulnerable(isInvulnerable: boolean): void;
-        getOriginalInvulnerability(): boolean;
-        getSource(): $DamageSource;
         constructor(entity: $Entity, source: $DamageSource_, isVanillaInvulnerable: boolean);
+        get originalInvulnerability(): boolean;
+        get source(): $DamageSource;
     }
     /**
      * This event is fired on the `NeoForge#EVENT_BUS`.
@@ -53,6 +55,8 @@ declare module "@package/net/neoforged/neoforge/event/entity" {
         setCanceled(arg0: boolean): void;
         isCanceled(): boolean;
         constructor(projectile: $Projectile, ray: $HitResult);
+        get projectile(): $Projectile;
+        get rayTraceResult(): $HitResult;
     }
     /**
      * EntityAttributeModificationEvent.
@@ -64,10 +68,11 @@ declare module "@package/net/neoforged/neoforge/event/entity" {
      */
     export class $EntityAttributeModificationEvent extends $Event implements $IModBusEvent {
         has(entityType: $EntityType_<$LivingEntity>, attribute: $Holder_<$Attribute>): boolean;
-        add(entityType: $EntityType_<$LivingEntity>, attribute: $Holder_<$Attribute>, value: number): void;
         add(entityType: $EntityType_<$LivingEntity>, attribute: $Holder_<$Attribute>): void;
+        add(entityType: $EntityType_<$LivingEntity>, attribute: $Holder_<$Attribute>, value: number): void;
         getTypes(): $List<$EntityType<$LivingEntity>>;
         constructor(mapIn: $Map_<$EntityType_<$LivingEntity>, $AttributeSupplier$Builder>);
+        get types(): $List<$EntityType<$LivingEntity>>;
     }
     /**
      * EntityTeleportEvent.TeleportCommand is fired before a living entity is teleported
@@ -123,6 +128,7 @@ declare module "@package/net/neoforged/neoforge/event/entity" {
         setCanceled(arg0: boolean): void;
         isCanceled(): boolean;
         constructor(entity: $Entity, lightning: $LightningBolt);
+        get lightning(): $LightningBolt;
     }
     /**
      * This event is fired on server and client after an Entity has entered a different section.
@@ -139,13 +145,6 @@ declare module "@package/net/neoforged/neoforge/event/entity" {
      * This event is fired on the `NeoForge#EVENT_BUS`.
      */
     export class $EntityEvent$EnteringSection extends $EntityEvent {
-        getOldPos(): $SectionPos;
-        getNewPos(): $SectionPos;
-        /**
-         * Whether the chunk has changed as part of this event. If this method returns false, only the Y position of the
-         * section has changed.
-         */
-        didChunkChange(): boolean;
         /**
          * A packed version of the old section's position. This is to be used with the various methods in `SectionPos`,
          * such as `SectionPos#of(long)` or `SectionPos#x(long)` to avoid allocation.
@@ -156,7 +155,18 @@ declare module "@package/net/neoforged/neoforge/event/entity" {
          * such as `SectionPos#of(long)` or `SectionPos#x(long)` to avoid allocation.
          */
         getPackedNewPos(): number;
+        getOldPos(): $SectionPos;
+        getNewPos(): $SectionPos;
+        /**
+         * Whether the chunk has changed as part of this event. If this method returns false, only the Y position of the
+         * section has changed.
+         */
+        didChunkChange(): boolean;
         constructor(entity: $Entity, packedOldPos: number, packedNewPos: number);
+        get packedOldPos(): number;
+        get packedNewPos(): number;
+        get oldPos(): $SectionPos;
+        get newPos(): $SectionPos;
     }
     export class $EntityMountEvent extends $EntityEvent implements $ICancellableEvent {
         getEntityBeingMounted(): $Entity;
@@ -167,6 +177,11 @@ declare module "@package/net/neoforged/neoforge/event/entity" {
         setCanceled(arg0: boolean): void;
         isCanceled(): boolean;
         constructor(entityMounting: $Entity, entityBeingMounted: $Entity, level: $Level_, isMounting: boolean);
+        get entityBeingMounted(): $Entity;
+        get entityMounting(): $Entity;
+        get mounting(): boolean;
+        get dismounting(): boolean;
+        get level(): $Level;
     }
     export class $RegisterSpawnPlacementsEvent$Operation extends $Enum<$RegisterSpawnPlacementsEvent$Operation> {
         static values(): $RegisterSpawnPlacementsEvent$Operation[];
@@ -194,6 +209,7 @@ declare module "@package/net/neoforged/neoforge/event/entity" {
          */
         getLevel(): $Level;
         constructor(entity: $Entity, level: $Level_);
+        get level(): $Level;
     }
     /**
      * EntityEvent is fired when an event involving any Entity occurs.
@@ -208,6 +224,7 @@ declare module "@package/net/neoforged/neoforge/event/entity" {
     export class $EntityEvent extends $Event {
         getEntity(): $Entity;
         constructor(entity: $Entity);
+        get entity(): $Entity;
     }
     /**
      * EntityTeleportEvent.EnderEntity is fired before an Enderman or Shulker randomly teleports.
@@ -227,6 +244,7 @@ declare module "@package/net/neoforged/neoforge/event/entity" {
     export class $EntityTeleportEvent$EnderEntity extends $EntityTeleportEvent implements $ICancellableEvent {
         getEntityLiving(): $LivingEntity;
         constructor(entity: $LivingEntity, targetX: number, targetY: number, targetZ: number);
+        get entityLiving(): $LivingEntity;
     }
     /**
      * EntityTeleportEvent.ChorusFruit is fired before a LivingEntity is teleported due to consuming Chorus Fruit.
@@ -246,6 +264,7 @@ declare module "@package/net/neoforged/neoforge/event/entity" {
     export class $EntityTeleportEvent$ChorusFruit extends $EntityTeleportEvent implements $ICancellableEvent {
         getEntityLiving(): $LivingEntity;
         constructor(entity: $LivingEntity, targetX: number, targetY: number, targetZ: number);
+        get entityLiving(): $LivingEntity;
     }
     /**
      * EntityTeleportEvent is fired when an event involving any teleportation of an Entity occurs.
@@ -260,13 +279,13 @@ declare module "@package/net/neoforged/neoforge/event/entity" {
      * All children of this event are fired on the `NeoForge#EVENT_BUS`.
      */
     export class $EntityTeleportEvent extends $EntityEvent implements $ICancellableEvent {
-        getPrev(): $Vec3;
         setTargetX(targetX: number): void;
         setTargetY(targetX: number): void;
         setTargetZ(targetX: number): void;
         getPrevX(): number;
         getPrevY(): number;
         getPrevZ(): number;
+        getPrev(): $Vec3;
         getTargetX(): number;
         getTargetY(): number;
         getTargetZ(): number;
@@ -274,6 +293,11 @@ declare module "@package/net/neoforged/neoforge/event/entity" {
         setCanceled(arg0: boolean): void;
         isCanceled(): boolean;
         constructor(entity: $Entity, targetX: number, targetY: number, targetZ: number);
+        get prevX(): number;
+        get prevY(): number;
+        get prevZ(): number;
+        get prev(): $Vec3;
+        get target(): $Vec3;
     }
     /**
      * Fired whenever the entity's `Pose` changes for manipulating the resulting `EntityDimensions`.
@@ -287,11 +311,13 @@ declare module "@package/net/neoforged/neoforge/event/entity" {
      */
     export class $EntityEvent$Size extends $EntityEvent {
         getPose(): $Pose;
-        getNewSize(): $EntityDimensions;
-        setNewSize(size: $EntityDimensions_): void;
         getOldSize(): $EntityDimensions;
+        setNewSize(size: $EntityDimensions_): void;
+        getNewSize(): $EntityDimensions;
         constructor(entity: $Entity, pose: $Pose_, oldSize: $EntityDimensions_, newSize: $EntityDimensions_);
         constructor(entity: $Entity, pose: $Pose_, size: $EntityDimensions_);
+        get pose(): $Pose;
+        get oldSize(): $EntityDimensions;
     }
     /**
      * EntityAttributeCreationEvent.
@@ -367,16 +393,21 @@ declare module "@package/net/neoforged/neoforge/event/entity" {
     export class $EntityTeleportEvent$EnderPearl extends $EntityTeleportEvent implements $ICancellableEvent {
         getPearlEntity(): $ThrownEnderpearl;
         setAttackDamage(attackDamage: number): void;
-        getAttackDamage(): number;
         getHitResult(): $HitResult;
         getPlayer(): $ServerPlayer;
+        getAttackDamage(): number;
         constructor(entity: $ServerPlayer, targetX: number, targetY: number, targetZ: number, pearlEntity: $ThrownEnderpearl, attackDamage: number, hitResult: $HitResult);
+        get pearlEntity(): $ThrownEnderpearl;
+        get hitResult(): $HitResult;
+        get player(): $ServerPlayer;
     }
     export class $RegisterSpawnPlacementsEvent$MergedSpawnPredicate<T extends $Entity> {
         getHeightmapType(): $Heightmap$Types;
         getSpawnType(): $SpawnPlacementType;
         build(): $SpawnPlacements$SpawnPredicate<T>;
         constructor(originalPredicate: $SpawnPlacements$SpawnPredicate_<T>, spawnType: $SpawnPlacementType_, heightmapType: $Heightmap$Types_);
+        get heightmapType(): $Heightmap$Types;
+        get spawnType(): $SpawnPlacementType;
     }
     /**
      * This event is fired whenever an `Entity` joins a `Level`.
@@ -402,6 +433,7 @@ declare module "@package/net/neoforged/neoforge/event/entity" {
         isCanceled(): boolean;
         constructor(entity: $Entity, level: $Level_, loadedFromDisk: boolean);
         constructor(entity: $Entity, level: $Level_);
+        get level(): $Level;
     }
     /**
      * EntityMobGriefingEvent is fired when mob griefing is about to occur and allows an event listener to specify whether it should or not.
@@ -410,9 +442,11 @@ declare module "@package/net/neoforged/neoforge/event/entity" {
      */
     export class $EntityMobGriefingEvent extends $EntityEvent {
         /**
-         * Changes if the entity is allowed to perform the griefing action.
+         * Returns if the mob griefing game rule is enabled.
+         * 
+         * The default state of this event is equivalent to this value.
          */
-        setCanGrief(canGrief: boolean): void;
+        isMobGriefingEnabled(): boolean;
         /**
          * Returns if the mob griefing game rule is enabled.
          * 
@@ -420,12 +454,11 @@ declare module "@package/net/neoforged/neoforge/event/entity" {
          */
         canGrief(): boolean;
         /**
-         * Returns if the mob griefing game rule is enabled.
-         * 
-         * The default state of this event is equivalent to this value.
+         * Changes if the entity is allowed to perform the griefing action.
          */
-        isMobGriefingEnabled(): boolean;
+        setCanGrief(canGrief: boolean): void;
         constructor(level: $Level_, entity: $Entity);
+        get mobGriefingEnabled(): boolean;
     }
     /**
      * EntityTravelToDimensionEvent is fired before an Entity travels to a dimension.
@@ -445,5 +478,6 @@ declare module "@package/net/neoforged/neoforge/event/entity" {
         setCanceled(arg0: boolean): void;
         isCanceled(): boolean;
         constructor(entity: $Entity, dimension: $ResourceKey_<$Level>);
+        get dimension(): $ResourceKey<$Level>;
     }
 }

@@ -1,6 +1,6 @@
 import { $Level } from "@package/net/minecraft/world/level";
 import { $BlockEntityTickKubeEvent } from "@package/dev/latvian/mods/kubejs/block/entity";
-import { $BlockBrokenKubeEvent, $BlockStoppedFallingKubeEvent, $BlockLeftClickedKubeEvent, $BlockStartedFallingKubeEvent, $DetectorBlockKubeEvent, $BlockPlacedKubeEvent, $BlockRightClickedKubeEvent, $FarmlandTrampledKubeEvent, $BlockPickedKubeEvent } from "@package/dev/latvian/mods/kubejs/block";
+import { $BlockBrokenKubeEvent, $BlockLeftClickedKubeEvent, $BlockStoppedFallingKubeEvent, $BlockStartedFallingKubeEvent, $DetectorBlockKubeEvent, $BlockPlacedKubeEvent, $BlockRightClickedKubeEvent, $FarmlandTrampledKubeEvent, $BlockPickedKubeEvent } from "@package/dev/latvian/mods/kubejs/block";
 import { $Item, $ItemStack_ } from "@package/net/minecraft/world/item";
 import { $KubeAssetGenerator } from "@package/dev/latvian/mods/kubejs/generator";
 import { $ParticleProviderRegistryKubeEvent, $KubeJSKeybinds$TickingKeyEvent, $DebugInfoKubeEvent, $LangKubeEvent, $KubeJSKeybinds$KeyEvent, $AtlasSpriteRegistryKubeEvent, $ClientPlayerKubeEvent } from "@package/dev/latvian/mods/kubejs/client";
@@ -10,7 +10,7 @@ import { $FluidStack_ } from "@package/net/neoforged/neoforge/fluids";
 import { $ExplosionKubeEvent$After, $ExplosionKubeEvent$Before, $SimpleLevelKubeEvent } from "@package/dev/latvian/mods/kubejs/level";
 import { $NetworkKubeEvent } from "@package/dev/latvian/mods/kubejs/net";
 import { $InventoryChangedKubeEvent, $ChestKubeEvent, $StageChangedEvent, $SimplePlayerKubeEvent, $InventoryKubeEvent } from "@package/dev/latvian/mods/kubejs/player";
-import { $DynamicItemTooltipsKubeEvent, $ItemPredicate_, $ItemCraftedKubeEvent, $ItemDestroyedKubeEvent, $ModifyItemTooltipsKubeEvent, $ItemPickedUpKubeEvent, $FoodEatenKubeEvent, $ItemSmeltedKubeEvent, $ItemEntityInteractedKubeEvent, $ItemClickedKubeEvent, $ItemDroppedKubeEvent } from "@package/dev/latvian/mods/kubejs/item";
+import { $DynamicItemTooltipsKubeEvent, $ItemPredicate_, $ItemCraftedKubeEvent, $ItemDestroyedKubeEvent, $ModifyItemTooltipsKubeEvent, $ItemPickedUpKubeEvent, $FoodEatenKubeEvent, $ItemSmeltedKubeEvent, $ItemEntityInteractedKubeEvent, $ItemDroppedKubeEvent, $ItemClickedKubeEvent } from "@package/dev/latvian/mods/kubejs/item";
 import { $LivingEntityDropsKubeEvent, $EntitySpawnedKubeEvent, $AfterLivingEntityHurtKubeEvent, $LivingEntityDeathKubeEvent, $BeforeLivingEntityHurtKubeEvent, $CheckLivingEntitySpawnKubeEvent } from "@package/dev/latvian/mods/kubejs/entity";
 import { $GeneratedDataStage_ } from "@package/dev/latvian/mods/kubejs/script/data";
 import { $FluidIngredient_ } from "@package/net/neoforged/neoforge/fluids/crafting";

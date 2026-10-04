@@ -10,5 +10,7 @@ declare module "@package/net/minecraft/util/profiling/metrics/profiling" {
         startTick(): void;
         endTick(): void;
         isRecording(): boolean;
+        get profiler(): $ProfilerFiller;
+        get recording(): boolean;
     }
 }

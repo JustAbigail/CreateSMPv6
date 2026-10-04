@@ -3,19 +3,19 @@ import { $Class } from "@package/java/lang";
 
 declare module "@package/org/objectweb/asm" {
     export class $Type {
-        getInternalName(): string;
-        static getInternalName(arg0: $Class<never>): string;
-        getSort(): number;
         static getConstructorDescriptor(arg0: $Constructor<never>): string;
         getDimensions(): number;
         getElementType(): $Type;
         static getObjectType(arg0: string): $Type;
         getOpcode(arg0: number): number;
+        getInternalName(): string;
+        static getInternalName(arg0: $Class<never>): string;
+        getSort(): number;
         static getArgumentsAndReturnSizes(arg0: string): number;
         getArgumentsAndReturnSizes(): number;
         getArgumentTypes(): $Type[];
-        static getArgumentTypes(arg0: string): $Type[];
         static getArgumentTypes(arg0: $Method): $Type[];
+        static getArgumentTypes(arg0: string): $Type[];
         getDescriptor(): string;
         static getDescriptor(arg0: $Class<never>): string;
         getReturnType(): $Type;
@@ -54,5 +54,10 @@ declare module "@package/org/objectweb/asm" {
         static VOID: number;
         static LONG: number;
         static INT_TYPE: $Type;
+        get dimensions(): number;
+        get elementType(): $Type;
+        get sort(): number;
+        get size(): number;
+        get className(): string;
     }
 }

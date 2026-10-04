@@ -8,17 +8,17 @@ import { $UUID_, $Collection_, $Collection } from "@package/java/util";
 
 declare module "@package/net/minecraft/server/bossevents" {
     export class $CustomBossEvent extends $ServerBossEvent {
-        /**
-         * Makes the boss visible to the given player.
-         */
-        onPlayerDisconnect(player: $ServerPlayer): void;
+        setPlayers(serverPlayerList: $Collection_<$ServerPlayer>): boolean;
         getTextId(): $ResourceLocation;
         /**
          * Makes the boss visible to the given player.
          */
         onPlayerConnect(player: $ServerPlayer): void;
         addOfflinePlayer(player: $UUID_): void;
-        setPlayers(serverPlayerList: $Collection_<$ServerPlayer>): boolean;
+        /**
+         * Makes the boss visible to the given player.
+         */
+        onPlayerDisconnect(player: $ServerPlayer): void;
         getDisplayName(): $Component;
         static load(tag: $CompoundTag_, id: $ResourceLocation_, levelRegistry: $HolderLookup$Provider): $CustomBossEvent;
         getValue(): number;
@@ -34,17 +34,22 @@ declare module "@package/net/minecraft/server/bossevents" {
         progress: number;
         createWorldFog: boolean;
         constructor(id: $ResourceLocation_, name: $Component_);
+        set players(value: $Collection_<$ServerPlayer>);
+        get textId(): $ResourceLocation;
+        get displayName(): $Component;
     }
     export class $CustomBossEvents {
-        onPlayerDisconnect(player: $ServerPlayer): void;
         onPlayerConnect(player: $ServerPlayer): void;
-        getEvents(): $Collection<$CustomBossEvent>;
+        onPlayerDisconnect(player: $ServerPlayer): void;
         getIds(): $Collection<$ResourceLocation>;
+        getEvents(): $Collection<$CustomBossEvent>;
         remove(bossbar: $CustomBossEvent): void;
         get(id: $ResourceLocation_): $CustomBossEvent;
         load(tag: $CompoundTag_, levelRegistry: $HolderLookup$Provider): void;
         save(levelRegistry: $HolderLookup$Provider): $CompoundTag;
         create(id: $ResourceLocation_, name: $Component_): $CustomBossEvent;
         constructor();
+        get ids(): $Collection<$ResourceLocation>;
+        get events(): $Collection<$CustomBossEvent>;
     }
 }

@@ -13,6 +13,8 @@ declare module "@package/dev/worldgen/lithostitched/worldgen/feature/config" {
         static CODEC: $Codec<$CompositeConfig$Type>;
         static CANCEL_ON_FAILURE: $CompositeConfig$Type;
         static CANCEL_ON_SUCCESS: $CompositeConfig$Type;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $CompositeConfig$Type}.

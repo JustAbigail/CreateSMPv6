@@ -3,10 +3,10 @@ import { $List_, $Map_, $Map } from "@package/java/util";
 
 declare module "@package/net/minecraft/util/datafix/fixes" {
     export class $StructuresBecomeConfiguredFix$Conversion extends $Record {
+        fallback(): string;
         static biomeMapped(biomeMapping: $Map_<$List_<string>, string>, fallback: string): $StructuresBecomeConfiguredFix$Conversion;
         static trivial(fallback: string): $StructuresBecomeConfiguredFix$Conversion;
         biomeMapping(): $Map<string, string>;
-        fallback(): string;
         constructor(biomeMapping: $Map_<string, string>, fallback: string);
     }
     /**

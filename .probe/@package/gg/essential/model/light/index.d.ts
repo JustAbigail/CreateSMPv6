@@ -18,11 +18,14 @@ declare module "@package/gg/essential/model/light" {
         static "constructor-impl"(arg0: number, arg1: number): number;
         static "constructor-impl"(arg0: number): number;
         static Companion: $Light$Companion;
+        get value-pVg5ArA(): number;
     }
     export class $Light$Companion {
         "getMIN_VALUE-cWgJFAk"(): number;
         "getMAX_VALUE-cWgJFAk"(): number;
         constructor(arg0: $DefaultConstructorMarker);
+        get MIN_VALUE-cWgJFAk(): number;
+        get MAX_VALUE-cWgJFAk(): number;
     }
     export class $LightProvider {
     }

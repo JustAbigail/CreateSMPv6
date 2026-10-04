@@ -5,6 +5,7 @@ declare module "@package/dev/ryanhcode/offroad/mixin/client/multimining_destruct
     }
     export interface $ClientLevelAccessor {
         getLevelRenderer(): $LevelRenderer;
+        get levelRenderer(): $LevelRenderer;
     }
     /**
      * Values that may be interpreted as {@link $ClientLevelAccessor}.

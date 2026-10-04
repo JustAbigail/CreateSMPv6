@@ -27,7 +27,7 @@ declare module "@package/net/irisshaders/iris/gl/blending" {
     /**
      * Values that may be interpreted as {@link $BufferBlendInformation}.
      */
-    export type $BufferBlendInformation_ = { blendMode?: $BlendMode_, index?: number,  } | [blendMode?: $BlendMode_, index?: number, ];
+    export type $BufferBlendInformation_ = { index?: number, blendMode?: $BlendMode_,  } | [index?: number, blendMode?: $BlendMode_, ];
     export class $AlphaTestFunction extends $Enum<$AlphaTestFunction> {
         getGlId(): number;
         static fromGlId(arg0: number): ($AlphaTestFunction) | undefined;
@@ -43,6 +43,8 @@ declare module "@package/net/irisshaders/iris/gl/blending" {
         static LESS: $AlphaTestFunction;
         static LEQUAL: $AlphaTestFunction;
         static ALWAYS: $AlphaTestFunction;
+        get glId(): number;
+        get expression(): string;
     }
     /**
      * Values that may be interpreted as {@link $AlphaTestFunction}.
@@ -58,5 +60,5 @@ declare module "@package/net/irisshaders/iris/gl/blending" {
     /**
      * Values that may be interpreted as {@link $BlendMode}.
      */
-    export type $BlendMode_ = { dstRgb?: number, dstAlpha?: number, srcRgb?: number, srcAlpha?: number,  } | [dstRgb?: number, dstAlpha?: number, srcRgb?: number, srcAlpha?: number, ];
+    export type $BlendMode_ = { srcAlpha?: number, srcRgb?: number, dstAlpha?: number, dstRgb?: number,  } | [srcAlpha?: number, srcRgb?: number, dstAlpha?: number, dstRgb?: number, ];
 }

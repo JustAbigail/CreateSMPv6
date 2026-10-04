@@ -36,18 +36,18 @@ import { $BannerPattern_ } from "@package/net/minecraft/world/level/block/entity
 declare module "@package/net/minecraft/world/entity/raid" {
     export class $Raids extends $SavedData {
         createOrExtendRaid(player: $ServerPlayer, pos: $BlockPos_): $Raid;
-        static canJoinRaid(raider: $Raider, raid: $Raid): boolean;
-        getNearbyRaid(pos: $BlockPos_, distance: number): $Raid;
         static getFileId(dimensionTypeHolder: $Holder_<$DimensionType>): string;
+        getNearbyRaid(pos: $BlockPos_, distance: number): $Raid;
+        static canJoinRaid(raider: $Raider, raid: $Raid): boolean;
+        tick(): void;
         get(id: number): $Raid;
         static load(level: $ServerLevel, tag: $CompoundTag_): $Raids;
         static factory(level: $ServerLevel): $SavedData$Factory<$Raids>;
-        tick(): void;
         constructor(level: $ServerLevel);
     }
     export class $Raider extends $PatrollingMonster {
-        getCelebrateSound(): $SoundEvent;
         applyRaidBuffs(level: $ServerLevel, wave: number, unused: boolean): void;
+        getCelebrateSound(): $SoundEvent;
         isCelebrating(): boolean;
         canJoinRaid(): boolean;
         setCanJoinRaid(canJoinRaid: boolean): void;
@@ -236,13 +236,15 @@ declare module "@package/net/minecraft/world/entity/raid" {
         removeStingerTime: number;
         static BASE_SAFE_FALL_DISTANCE: number;
         constructor(entityType: $EntityType_<$Raider>, level: $Level_);
+        get celebrateSound(): $SoundEvent;
+        get captain(): boolean;
     }
     export class $Raid {
         absorbRaidOmen(player: $ServerPlayer): boolean;
-        hasFirstWaveSpawned(): boolean;
-        isBetweenWaves(): boolean;
-        isVictory(): boolean;
         getCenter(): $BlockPos;
+        isVictory(): boolean;
+        isBetweenWaves(): boolean;
+        hasFirstWaveSpawned(): boolean;
         getTotalRaidersAlive(): number;
         getTotalHealth(): number;
         getAllRaiders(): $Set<$Raider>;
@@ -250,7 +252,11 @@ declare module "@package/net/minecraft/world/entity/raid" {
         getHealthOfLivingRaiders(): number;
         handler$zbf000$openpartiesandclaims$onFindRandomSpawnPosPre(arg0: $CallbackInfoReturnable<any>): void;
         handler$zbf000$openpartiesandclaims$onFindRandomSpawnPosPost(arg0: $CallbackInfoReturnable<any>): void;
+        static getLeaderBannerInstance(patternRegistry: $HolderGetter<$BannerPattern_>): $ItemStack;
+        getRaidOmenLevel(): number;
+        getMaxRaidOmenLevel(): number;
         isOver(): boolean;
+        isLoss(): boolean;
         getGroupsSpawned(): number;
         joinRaid(wave: number, raider: $Raider, pos: $BlockPos_ | null, isRecruited: boolean): void;
         removeLeader(wave: number): void;
@@ -260,19 +266,15 @@ declare module "@package/net/minecraft/world/entity/raid" {
         setLeader(wave: number, raider: $Raider): void;
         getLeader(wave: number): $Raider;
         updateBossbar(): void;
-        isLoss(): boolean;
         getEnchantOdds(): number;
         getNumGroups(difficulty: $Difficulty_): number;
-        getRaidOmenLevel(): number;
-        getMaxRaidOmenLevel(): number;
-        static getLeaderBannerInstance(patternRegistry: $HolderGetter<$BannerPattern_>): $ItemStack;
         getLevel(): $Level;
+        tick(): void;
         stop(): void;
         getId(): number;
         save(compound: $CompoundTag_): $CompoundTag;
         isStarted(): boolean;
         isActive(): boolean;
-        tick(): void;
         isStopped(): boolean;
         static RAID_REMOVAL_THRESHOLD_SQR: number;
         static TICKS_PER_DAY: number;
@@ -281,7 +283,24 @@ declare module "@package/net/minecraft/world/entity/raid" {
         static VALID_RAID_RADIUS_SQR: number;
         static MAX_NO_ACTION_TIME: number;
         static DEFAULT_MAX_RAID_OMEN_LEVEL: number;
-        constructor(id: number, level: $ServerLevel, center: $BlockPos_);
         constructor(level: $ServerLevel, compound: $CompoundTag_);
+        constructor(id: number, level: $ServerLevel, center: $BlockPos_);
+        get center(): $BlockPos;
+        get victory(): boolean;
+        get betweenWaves(): boolean;
+        get totalRaidersAlive(): number;
+        get totalHealth(): number;
+        get allRaiders(): $Set<$Raider>;
+        get healthOfLivingRaiders(): number;
+        get maxRaidOmenLevel(): number;
+        get over(): boolean;
+        get loss(): boolean;
+        get groupsSpawned(): number;
+        get enchantOdds(): number;
+        get level(): $Level;
+        get id(): number;
+        get started(): boolean;
+        get active(): boolean;
+        get stopped(): boolean;
     }
 }

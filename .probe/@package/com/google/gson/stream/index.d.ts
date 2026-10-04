@@ -45,6 +45,7 @@ declare module "@package/com/google/gson/stream" {
         setIndent(arg0: string): void;
         jsonValue(arg0: string): $JsonWriter;
         constructor(arg0: $Writer);
+        set indent(value: string);
     }
     export class $JsonReader implements $Closeable {
         setLenient(arg0: boolean): void;
@@ -67,5 +68,7 @@ declare module "@package/com/google/gson/stream" {
         nextBoolean(): boolean;
         nextName(): string;
         constructor(arg0: $Reader);
+        get path(): string;
+        get previousPath(): string;
     }
 }

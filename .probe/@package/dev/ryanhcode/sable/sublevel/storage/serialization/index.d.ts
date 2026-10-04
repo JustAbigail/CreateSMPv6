@@ -11,18 +11,19 @@ declare module "@package/dev/ryanhcode/sable/sublevel/storage/serialization" {
         attemptSaveSubLevel(arg0: $ChunkPos, arg1: $SubLevelData): $GlobalSavedSubLevelPointer;
         attemptSaveSubLevel(arg0: $GlobalSavedSubLevelPointer_, arg1: $SubLevelData): void;
         attemptSaveHoldingChunk(arg0: $ChunkPos, arg1: $SubLevelHoldingChunk): void;
-        getFolder(): $Path;
         attemptLoadHoldingChunk(arg0: $ChunkPos): $SubLevelHoldingChunk;
         attemptLoadSubLevel(arg0: $ChunkPos, arg1: $SavedSubLevelPointer_): $SubLevelData;
+        getFolder(): $Path;
         flush(): void;
         close(): void;
         static MAX_CACHE_SIZE: number;
         constructor(arg0: $Path_);
+        get folder(): $Path;
     }
     export class $SubLevelData {
         setOriginLoadedChunk(arg0: $ChunkPos): void;
-        getOriginLoadedChunk(): $ChunkPos;
         fullTag(): $CompoundTag;
+        getOriginLoadedChunk(): $ChunkPos;
         bounds(): $BoundingBox3d;
         dependencies(): $List<$UUID>;
         uuid(): $UUID;

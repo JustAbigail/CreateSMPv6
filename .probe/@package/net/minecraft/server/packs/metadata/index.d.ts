@@ -17,5 +17,6 @@ declare module "@package/net/minecraft/server/packs/metadata" {
          */
         getMetadataSectionName(): string;
         fromJson(json: $JsonObject_): T;
+        get metadataSectionName(): string;
     }
 }

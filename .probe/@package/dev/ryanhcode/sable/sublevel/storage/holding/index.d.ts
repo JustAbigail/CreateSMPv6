@@ -23,11 +23,12 @@ declare module "@package/dev/ryanhcode/sable/sublevel/storage/holding" {
         saveAll(): void;
         close(): void;
         constructor(arg0: $ServerLevel, arg1: $ServerSubLevelContainer);
+        get storage(): $SubLevelStorage;
     }
     export class $SavedSubLevelPointer extends $Record {
-        packed(): number;
         storageIndex(): number;
         subLevelIndex(): number;
+        packed(): number;
         static unpack(arg0: number): $SavedSubLevelPointer;
         constructor(storageIndex: number, subLevelIndex: number);
     }
@@ -46,17 +47,20 @@ declare module "@package/dev/ryanhcode/sable/sublevel/storage/holding" {
         writeTo(arg0: $CompoundTag_): void;
         static from(arg0: $ChunkPos, arg1: $CompoundTag_): $SubLevelHoldingChunk;
         constructor(arg0: $ChunkPos);
+        get loadedHoldingSubLevels(): $Iterable<$HoldingSubLevel>;
+        get subLevelPointers(): $List<$SavedSubLevelPointer>;
+        get chunkPos(): $ChunkPos;
     }
     export class $GlobalSavedSubLevelPointer extends $Record {
         storageIndex(): number;
         subLevelIndex(): number;
-        chunkPos(): $ChunkPos;
         local(): $SavedSubLevelPointer;
+        chunkPos(): $ChunkPos;
         static CODEC: $Codec<$GlobalSavedSubLevelPointer>;
         constructor(chunkPos: $ChunkPos, storageIndex: number, subLevelIndex: number);
     }
     /**
      * Values that may be interpreted as {@link $GlobalSavedSubLevelPointer}.
      */
-    export type $GlobalSavedSubLevelPointer_ = { chunkPos?: $ChunkPos, subLevelIndex?: number, storageIndex?: number,  } | [chunkPos?: $ChunkPos, subLevelIndex?: number, storageIndex?: number, ];
+    export type $GlobalSavedSubLevelPointer_ = { storageIndex?: number, subLevelIndex?: number, chunkPos?: $ChunkPos,  } | [storageIndex?: number, subLevelIndex?: number, chunkPos?: $ChunkPos, ];
 }

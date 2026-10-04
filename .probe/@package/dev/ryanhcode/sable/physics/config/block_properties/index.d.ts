@@ -19,7 +19,7 @@ declare module "@package/dev/ryanhcode/sable/physics/config/block_properties" {
     /**
      * Values that may be interpreted as {@link $BlockStateConditionSet$BlockStateCondition}.
      */
-    export type $BlockStateConditionSet$BlockStateCondition_ = { property?: string, value?: string,  } | [property?: string, value?: string, ];
+    export type $BlockStateConditionSet$BlockStateCondition_ = { value?: string, property?: string,  } | [value?: string, property?: string, ];
     export class $PhysicsBlockPropertiesDefinition extends $Record {
         overrides(): ($Map<$BlockStateConditionSet, $Map<$ResourceLocation, $Object>>) | undefined;
         selector(): $ExtraCodecs$TagOrElementLocation;
@@ -33,7 +33,7 @@ declare module "@package/dev/ryanhcode/sable/physics/config/block_properties" {
     /**
      * Values that may be interpreted as {@link $PhysicsBlockPropertiesDefinition}.
      */
-    export type $PhysicsBlockPropertiesDefinition_ = { selector?: $ExtraCodecs$TagOrElementLocation_, overrides?: ($Map_<$BlockStateConditionSet_, $Map_<$ResourceLocation_, $Object>>) | undefined, properties?: $Map_<$ResourceLocation_, $Object>, priority?: number,  } | [selector?: $ExtraCodecs$TagOrElementLocation_, overrides?: ($Map_<$BlockStateConditionSet_, $Map_<$ResourceLocation_, $Object>>) | undefined, properties?: $Map_<$ResourceLocation_, $Object>, priority?: number, ];
+    export type $PhysicsBlockPropertiesDefinition_ = { selector?: $ExtraCodecs$TagOrElementLocation_, priority?: number, properties?: $Map_<$ResourceLocation_, $Object>, overrides?: ($Map_<$BlockStateConditionSet_, $Map_<$ResourceLocation_, $Object>>) | undefined,  } | [selector?: $ExtraCodecs$TagOrElementLocation_, priority?: number, properties?: $Map_<$ResourceLocation_, $Object>, overrides?: ($Map_<$BlockStateConditionSet_, $Map_<$ResourceLocation_, $Object>>) | undefined, ];
     export interface $PhysicsBlockPropertyTypes$PhysicsBlockPropertyType<T> extends RegistryMarked<RegistryTypes.SablePhysicsBlockPropertiesTag, RegistryTypes.SablePhysicsBlockProperties> {}
     export class $BlockStateConditionSet extends $Record {
         blockStateConditions(): $List<$BlockStateConditionSet$BlockStateCondition>;
@@ -55,5 +55,5 @@ declare module "@package/dev/ryanhcode/sable/physics/config/block_properties" {
     /**
      * Values that may be interpreted as {@link $PhysicsBlockPropertyTypes$PhysicsBlockPropertyType}.
      */
-    export type $PhysicsBlockPropertyTypes$PhysicsBlockPropertyType_<T> = RegistryTypes.SablePhysicsBlockProperties | { defaultValue?: any, codec?: $Codec<any>, id?: number,  } | [defaultValue?: any, codec?: $Codec<any>, id?: number, ];
+    export type $PhysicsBlockPropertyTypes$PhysicsBlockPropertyType_<T> = RegistryTypes.SablePhysicsBlockProperties | { defaultValue?: any, id?: number, codec?: $Codec<any>,  } | [defaultValue?: any, id?: number, codec?: $Codec<any>, ];
 }

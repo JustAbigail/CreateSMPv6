@@ -1,5 +1,5 @@
 import { $ResourceLocation, $ResourceLocation_ } from "@package/net/minecraft/resources";
-import { $Set, $Set_ } from "@package/java/util";
+import { $Set_, $Set } from "@package/java/util";
 import { $LootContextUser, $ValidationContext } from "@package/net/minecraft/world/level/storage/loot";
 import { $ProblemReporter } from "@package/net/minecraft/util";
 
@@ -12,6 +12,7 @@ declare module "@package/net/minecraft/world/level/storage/loot/parameters" {
     export class $LootContextParam<T> {
         getName(): $ResourceLocation;
         constructor(name: $ResourceLocation_);
+        get name(): $ResourceLocation;
     }
     export class $LootContextParamSet$Builder {
         build(): $LootContextParamSet;
@@ -46,5 +47,6 @@ declare module "@package/net/minecraft/world/level/storage/loot/parameters" {
         isAllowed(param: $LootContextParam<never>): boolean;
         static builder(): $LootContextParamSet$Builder;
         constructor(required: $Set_<$LootContextParam<never>>, optional: $Set_<$LootContextParam<never>>);
+        get required(): $Set<$LootContextParam<never>>;
     }
 }

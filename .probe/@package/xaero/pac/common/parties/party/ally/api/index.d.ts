@@ -5,6 +5,7 @@ declare module "@package/xaero/pac/common/parties/party/ally/api" {
     }
     export interface $IPartyAllyAPI {
         getPartyId(): $UUID;
+        get partyId(): $UUID;
     }
     /**
      * Values that may be interpreted as {@link $IPartyAllyAPI}.

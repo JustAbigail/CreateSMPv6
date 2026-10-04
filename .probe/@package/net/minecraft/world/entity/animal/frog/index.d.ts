@@ -31,7 +31,6 @@ import { $Vec3 } from "@package/net/minecraft/world/phys";
 
 declare module "@package/net/minecraft/world/entity/animal/frog" {
     export class $Frog extends $Animal implements $VariantHolder<$Holder<$FrogVariant>> {
-        setVariant(variant: $Holder_<$FrogVariant>): void;
         /**
          * Called to update the entity's position/logic.
          */
@@ -40,8 +39,9 @@ declare module "@package/net/minecraft/world/entity/animal/frog" {
         setTongueTarget(tongueTarget: $Entity): void;
         static checkFrogSpawnRules(animal: $EntityType_<$Animal>, level: $LevelAccessor, spawnType: $MobSpawnType_, pos: $BlockPos_, random: $RandomSource): boolean;
         getVariant(): $Holder<$FrogVariant>;
-        static createAttributes(): $AttributeSupplier$Builder;
+        setVariant(variant: $Holder_<$FrogVariant>): void;
         static canEat(entity: $LivingEntity): boolean;
+        static createAttributes(): $AttributeSupplier$Builder;
         serializeNBT(arg0: $HolderLookup$Provider): $Holder<$FrogVariant>;
         static MAX_WEARING_ARMOR_CHANCE: number;
         lastHurtByPlayerTime: number;
@@ -396,5 +396,6 @@ declare module "@package/net/minecraft/world/entity/animal/frog" {
         removeStingerTime: number;
         static BASE_SAFE_FALL_DISTANCE: number;
         constructor(entityType: $EntityType_<$AbstractFish>, level: $Level_);
+        get ticksLeftUntilAdult(): number;
     }
 }

@@ -25,5 +25,6 @@ declare module "@package/io/netty/channel/epoll" {
         constructor(arg0: number, arg1: $ThreadFactory_, arg2: number);
         constructor(arg0: number, arg1: $ThreadFactory_, arg2: $SelectStrategyFactory_);
         constructor(arg0: number, arg1: $Executor_);
+        set ioRatio(value: number);
     }
 }

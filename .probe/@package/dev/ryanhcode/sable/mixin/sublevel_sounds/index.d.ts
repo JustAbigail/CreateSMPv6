@@ -4,6 +4,7 @@ declare module "@package/dev/ryanhcode/sable/mixin/sublevel_sounds" {
     }
     export interface $ChannelAccessor {
         getSource(): number;
+        get source(): number;
     }
     /**
      * Values that may be interpreted as {@link $ChannelAccessor}.

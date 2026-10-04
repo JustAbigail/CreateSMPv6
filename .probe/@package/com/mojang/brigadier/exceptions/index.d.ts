@@ -8,9 +8,9 @@ declare module "@package/com/mojang/brigadier/exceptions" {
     export interface $CommandExceptionType {
     }
     export class $CommandSyntaxException extends $Exception {
-        getInput(): string;
         getContext(): string;
         getType(): $CommandExceptionType;
+        getInput(): string;
         getCursor(): number;
         getRawMessage(): $Message;
         static BUILT_IN_EXCEPTIONS: $BuiltInExceptionProvider;
@@ -18,6 +18,11 @@ declare module "@package/com/mojang/brigadier/exceptions" {
         static CONTEXT_AMOUNT: number;
         constructor(arg0: $CommandExceptionType, arg1: $Message_);
         constructor(arg0: $CommandExceptionType, arg1: $Message_, arg2: string, arg3: number);
+        get context(): string;
+        get type(): $CommandExceptionType;
+        get input(): string;
+        get cursor(): number;
+        get rawMessage(): $Message;
     }
     export class $DynamicCommandExceptionType implements $CommandExceptionType {
         create(arg0: $Object): $CommandSyntaxException;

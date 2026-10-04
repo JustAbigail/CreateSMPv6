@@ -32,6 +32,7 @@ declare module "@package/net/minecraft/world/level/storage/loot/predicates" {
     }
     export interface $LootItemCondition extends $LootContextUser, $Predicate<$LootContext> {
         getType(): $LootItemConditionType;
+        get type(): $LootItemConditionType;
     }
     export class $AnyOfCondition$Builder extends $CompositeLootItemCondition$Builder {
         constructor(...arg0: $LootItemCondition$Builder_[]);
@@ -40,8 +41,8 @@ declare module "@package/net/minecraft/world/level/storage/loot/predicates" {
     }
     export interface $LootItemCondition$Builder {
         invert(): $LootItemCondition$Builder;
-        or(condition: $LootItemCondition$Builder_): $AnyOfCondition$Builder;
         and(condition: $LootItemCondition$Builder_): $AllOfCondition$Builder;
+        or(condition: $LootItemCondition$Builder_): $AnyOfCondition$Builder;
         build(): $LootItemCondition;
     }
     /**
@@ -68,8 +69,8 @@ declare module "@package/net/minecraft/world/level/storage/loot/predicates" {
         create(conditions: $List_<$LootItemCondition>): $LootItemCondition;
         build(): $LootItemCondition;
         invert(): $LootItemCondition$Builder;
-        or(arg0: $LootItemCondition$Builder_): $AnyOfCondition$Builder;
         and(arg0: $LootItemCondition$Builder_): $AllOfCondition$Builder;
+        or(arg0: $LootItemCondition$Builder_): $AnyOfCondition$Builder;
         constructor(...conditions: $LootItemCondition$Builder_[]);
     }
 }

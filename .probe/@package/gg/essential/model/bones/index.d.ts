@@ -5,7 +5,6 @@ import { $List_, $List } from "@package/java/util";
 
 declare module "@package/gg/essential/model/bones" {
     export class $BakedAnimations$BakedBone {
-        getBoneId(): number;
         getAnimOffsetX(): number;
         setAnimOffsetX(arg0: number): void;
         getAnimOffsetY(): number;
@@ -28,7 +27,9 @@ declare module "@package/gg/essential/model/bones" {
         setGimbal(arg0: boolean): void;
         getWorldGimbal(): boolean;
         setWorldGimbal(arg0: boolean): void;
+        getBoneId(): number;
         constructor(arg0: number);
+        get boneId(): number;
     }
     export class $BakedAnimations {
         static access$getEMPTY$cp(): $BakedAnimations;
@@ -38,9 +39,12 @@ declare module "@package/gg/essential/model/bones" {
         apply(arg0: $Bones): void;
         static Companion: $BakedAnimations$Companion;
         constructor(arg0: $List_<$BakedAnimations$BakedBone>, arg1: $Quaternion);
+        get entityRotation(): $Quaternion;
+        get bakedBones(): $List<$BakedAnimations$BakedBone>;
     }
     export class $BakedAnimations$Companion {
         getEMPTY(): $BakedAnimations;
         constructor(arg0: $DefaultConstructorMarker);
+        get EMPTY(): $BakedAnimations;
     }
 }

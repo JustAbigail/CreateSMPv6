@@ -21,5 +21,7 @@ declare module "@package/com/google/gson/reflect" {
         getRawType(): $Class<T>;
         static getArray(arg0: $Type): $TypeToken<never>;
         static getParameterized(arg0: $Type, ...arg1: $Type[]): $TypeToken<never>;
+        get type(): $Type;
+        get rawType(): $Class<T>;
     }
 }

@@ -22,6 +22,7 @@ declare module "@package/net/mehvahdjukaar/moonlight/api/map" {
     export interface $CustomMapData$DirtyCounter {
         clearDirty(): void;
         isDirty(): boolean;
+        get dirty(): boolean;
     }
     export class $CustomMapData<C extends $CustomMapData$DirtyCounter, P> {
     }
@@ -31,12 +32,13 @@ declare module "@package/net/mehvahdjukaar/moonlight/api/map" {
         applyUpdatePatch(arg0: P): void;
         persistOnRescale(): boolean;
         persistOnCopyOrLock(): boolean;
+        onItemTooltip(arg0: $MapItemSavedData, arg1: $ItemStack_): $Component;
         onItemUpdate(arg0: $MapItemSavedData, arg1: $Entity): boolean;
         setDirty(arg0: $MapItemSavedData, arg1: $Consumer_<C>): void;
-        onItemTooltip(arg0: $MapItemSavedData, arg1: $ItemStack_): $Component;
         load(arg0: $CompoundTag_, arg1: $HolderLookup$Provider): void;
         save(arg0: $CompoundTag_, arg1: $HolderLookup$Provider): void;
         getType(): $CustomMapData$Type<P, never>;
+        get type(): $CustomMapData$Type<P, never>;
     }
     export class $ExpandedMapData {
     }
@@ -63,7 +65,7 @@ declare module "@package/net/mehvahdjukaar/moonlight/api/map" {
     /**
      * Values that may be interpreted as {@link $CustomMapData$DirtyDataPatch}.
      */
-    export type $CustomMapData$DirtyDataPatch_<P, D> = { patch?: any, type?: $CustomMapData$Type_<any, $CustomMapData<never, P>>,  } | [patch?: any, type?: $CustomMapData$Type_<any, $CustomMapData<never, P>>, ];
+    export type $CustomMapData$DirtyDataPatch_<P, D> = { type?: $CustomMapData$Type_<any, $CustomMapData<never, P>>, patch?: any,  } | [type?: $CustomMapData$Type_<any, $CustomMapData<never, P>>, patch?: any, ];
     export interface $CustomMapData$Type<P, T> extends RegistryMarked<RegistryTypes.MoonlightCustomMapDataTypesTag, RegistryTypes.MoonlightCustomMapDataTypes> {}
     export class $CustomMapData$Type<P, T extends $CustomMapData<never, P>> extends $Record {
         patchCodec(): $StreamCodec<$RegistryFriendlyByteBuf, P>;
@@ -77,5 +79,5 @@ declare module "@package/net/mehvahdjukaar/moonlight/api/map" {
     /**
      * Values that may be interpreted as {@link $CustomMapData$Type}.
      */
-    export type $CustomMapData$Type_<P, T> = RegistryTypes.MoonlightCustomMapDataTypes | { factory?: $Supplier_<$CustomMapData<never, P>>, id?: $ResourceLocation_, patchCodec?: $StreamCodec<$RegistryFriendlyByteBuf, any>,  } | [factory?: $Supplier_<$CustomMapData<never, P>>, id?: $ResourceLocation_, patchCodec?: $StreamCodec<$RegistryFriendlyByteBuf, any>, ];
+    export type $CustomMapData$Type_<P, T> = RegistryTypes.MoonlightCustomMapDataTypes | { patchCodec?: $StreamCodec<$RegistryFriendlyByteBuf, any>, id?: $ResourceLocation_, factory?: $Supplier_<$CustomMapData<never, P>>,  } | [patchCodec?: $StreamCodec<$RegistryFriendlyByteBuf, any>, id?: $ResourceLocation_, factory?: $Supplier_<$CustomMapData<never, P>>, ];
 }

@@ -68,6 +68,8 @@ declare module "@package/dev/latvian/mods/kubejs/item/creativetab" {
         tab: $CreativeModeTab;
         showRestrictedItems: boolean;
         constructor(tab: $CreativeModeTab_, showRestrictedItems: boolean, callback: $CreativeTabCallback);
+        set displayName(value: $Component_);
+        set icon(value: $ItemStack_);
     }
     export class $CreativeTabContentSupplier {
         static DEFAULT: $CreativeTabContentSupplier;
@@ -84,6 +86,7 @@ declare module "@package/dev/latvian/mods/kubejs/item/creativetab" {
     }
     export interface $CreativeTabIconSupplier {
         getIcon(): $ItemStack;
+        get icon(): $ItemStack;
     }
     /**
      * Values that may be interpreted as {@link $CreativeTabIconSupplier}.

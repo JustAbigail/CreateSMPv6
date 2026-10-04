@@ -23,6 +23,7 @@ declare module "@package/dev/worldgen/lithostitched/mixin/common" {
     }
     export interface $NoiseBasedChunkGeneratorAccessor {
         setSettings(holder: $Holder_<$NoiseGeneratorSettings>): void;
+        set settings(value: $Holder_<$NoiseGeneratorSettings>);
     }
     /**
      * Values that may be interpreted as {@link $NoiseBasedChunkGeneratorAccessor}.
@@ -35,6 +36,8 @@ declare module "@package/dev/worldgen/lithostitched/mixin/common" {
         setBiomeSource(biomeSource: $BiomeSource): void;
         setFeaturesPerStep(supplier: $Supplier_<$List<$FeatureSorter$StepFeatureData>>): void;
         getGetter(): $Function<$Holder<$Biome>, $BiomeGenerationSettings>;
+        set featuresPerStep(value: $Supplier_<$List<$FeatureSorter$StepFeatureData>>);
+        get getter(): $Function<$Holder<$Biome>, $BiomeGenerationSettings>;
     }
     export class $SinglePoolElementAccessor {
     }
@@ -42,6 +45,7 @@ declare module "@package/dev/worldgen/lithostitched/mixin/common" {
         setProcessors(holder: $Holder_<$StructureProcessorList>): void;
         getProcessors(): $Holder<$StructureProcessorList>;
         getTemplate(): $Either<$ResourceLocation, $StructureTemplate>;
+        get template(): $Either<$ResourceLocation, $StructureTemplate>;
     }
     export class $StructureTemplatePoolAccessor {
     }
@@ -55,6 +59,7 @@ declare module "@package/dev/worldgen/lithostitched/mixin/common" {
     }
     export interface $StructureProcessorListAccessor {
         setProcessors(list: $List_<$StructureProcessor>): void;
+        set processors(value: $List_<$StructureProcessor>);
     }
     /**
      * Values that may be interpreted as {@link $StructureProcessorListAccessor}.
@@ -64,6 +69,7 @@ declare module "@package/dev/worldgen/lithostitched/mixin/common" {
     }
     export interface $HolderReferenceAccessor<T> {
         setValue(object: T): void;
+        set value(value: T);
     }
     /**
      * Values that may be interpreted as {@link $HolderReferenceAccessor}.
@@ -79,6 +85,7 @@ declare module "@package/dev/worldgen/lithostitched/mixin/common" {
     }
     export interface $StructureSetAccessor {
         setStructures(list: $List_<$StructureSet$StructureSelectionEntry_>): void;
+        set structures(value: $List_<$StructureSet$StructureSelectionEntry_>);
     }
     /**
      * Values that may be interpreted as {@link $StructureSetAccessor}.
@@ -93,11 +100,14 @@ declare module "@package/dev/worldgen/lithostitched/mixin/common" {
         setSpecialEffects(biomeSpecialEffects: $BiomeSpecialEffects): void;
         setGenerationSettings(biomeGenerationSettings: $BiomeGenerationSettings): void;
         setMobSettings(mobSpawnSettings: $MobSpawnSettings): void;
+        set generationSettings(value: $BiomeGenerationSettings);
+        set mobSettings(value: $MobSpawnSettings);
     }
     export class $PlacedFeatureAccessor {
     }
     export interface $PlacedFeatureAccessor {
         setFeature(holder: $Holder_<$ConfiguredFeature<never, never>>): void;
+        set feature(value: $Holder_<$ConfiguredFeature<never, never>>);
     }
     /**
      * Values that may be interpreted as {@link $PlacedFeatureAccessor}.
@@ -107,6 +117,7 @@ declare module "@package/dev/worldgen/lithostitched/mixin/common" {
     }
     export interface $RandomStateAccessor {
         getRandom(): $PositionalRandomFactory;
+        get random(): $PositionalRandomFactory;
     }
     /**
      * Values that may be interpreted as {@link $RandomStateAccessor}.
@@ -123,6 +134,7 @@ declare module "@package/dev/worldgen/lithostitched/mixin/common" {
     }
     export interface $BiomeGenerationSettingsAccessor {
         getCarvers(): $Map<$GenerationStep$Carving, $HolderSet<$ConfiguredWorldCarver<never>>>;
+        get carvers(): $Map<$GenerationStep$Carving, $HolderSet<$ConfiguredWorldCarver<never>>>;
     }
     /**
      * Values that may be interpreted as {@link $BiomeGenerationSettingsAccessor}.
@@ -132,6 +144,7 @@ declare module "@package/dev/worldgen/lithostitched/mixin/common" {
     }
     export interface $NoiseGeneratorSettingsAccessor {
         setNoiseRouter(noiseRouter: $NoiseRouter_): void;
+        set noiseRouter(value: $NoiseRouter_);
     }
     /**
      * Values that may be interpreted as {@link $NoiseGeneratorSettingsAccessor}.
@@ -141,6 +154,7 @@ declare module "@package/dev/worldgen/lithostitched/mixin/common" {
     }
     export interface $BiomeSourceInvoker {
         getCodec(): $MapCodec<$BiomeSource>;
+        get codec(): $MapCodec<$BiomeSource>;
     }
     /**
      * Values that may be interpreted as {@link $BiomeSourceInvoker}.

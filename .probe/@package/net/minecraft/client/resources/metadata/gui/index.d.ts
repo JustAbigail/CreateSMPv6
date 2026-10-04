@@ -13,6 +13,8 @@ declare module "@package/net/minecraft/client/resources/metadata/gui" {
         static STRETCH: $GuiSpriteScaling$Type;
         static TILE: $GuiSpriteScaling$Type;
         static NINE_SLICE: $GuiSpriteScaling$Type;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $GuiSpriteScaling$Type}.
@@ -29,7 +31,7 @@ declare module "@package/net/minecraft/client/resources/metadata/gui" {
     /**
      * Values that may be interpreted as {@link $GuiSpriteScaling$NineSlice}.
      */
-    export type $GuiSpriteScaling$NineSlice_ = { border?: $GuiSpriteScaling$NineSlice$Border_, width?: number, height?: number,  } | [border?: $GuiSpriteScaling$NineSlice$Border_, width?: number, height?: number, ];
+    export type $GuiSpriteScaling$NineSlice_ = { width?: number, border?: $GuiSpriteScaling$NineSlice$Border_, height?: number,  } | [width?: number, border?: $GuiSpriteScaling$NineSlice$Border_, height?: number, ];
     export class $GuiSpriteScaling {
         static CODEC: $Codec<$GuiSpriteScaling>;
         static DEFAULT: $GuiSpriteScaling;
@@ -52,5 +54,5 @@ declare module "@package/net/minecraft/client/resources/metadata/gui" {
     /**
      * Values that may be interpreted as {@link $GuiSpriteScaling$NineSlice$Border}.
      */
-    export type $GuiSpriteScaling$NineSlice$Border_ = { top?: number, left?: number, bottom?: number, right?: number,  } | [top?: number, left?: number, bottom?: number, right?: number, ];
+    export type $GuiSpriteScaling$NineSlice$Border_ = { left?: number, top?: number, right?: number, bottom?: number,  } | [left?: number, top?: number, right?: number, bottom?: number, ];
 }

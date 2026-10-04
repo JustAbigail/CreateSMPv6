@@ -11,9 +11,11 @@ declare module "@package/dev/kosmx/playerAnim/api/layered" {
         get3DTransform(modelName: string, type: $TransformType_, tickDelta: number, value0: $Vec3f): $Vec3f;
         setupAnim(tickDelta: number): void;
         getFirstPersonMode(tickDelta: number): $FirstPersonMode;
-        isActive(): boolean;
         tick(): void;
+        isActive(): boolean;
         constructor();
+        set upAnim(value: number);
+        get active(): boolean;
     }
     export class $IAnimation {
     }
@@ -22,7 +24,9 @@ declare module "@package/dev/kosmx/playerAnim/api/layered" {
         get3DTransform(arg0: string, arg1: $TransformType_, arg2: number, arg3: $Vec3f): $Vec3f;
         setupAnim(arg0: number): void;
         getFirstPersonMode(tickDelta: number): $FirstPersonMode;
-        isActive(): boolean;
         tick(): void;
+        isActive(): boolean;
+        set upAnim(value: number);
+        get active(): boolean;
     }
 }

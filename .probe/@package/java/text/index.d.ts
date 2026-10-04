@@ -5,28 +5,28 @@ import { $TimeZone, $Locale, $Map, $Set, $Date, $Set_, $Calendar, $Currency } fr
 
 declare module "@package/java/text" {
     export class $DateFormat extends $Format {
-        getTimeZone(): $TimeZone;
-        setTimeZone(arg0: $TimeZone): void;
-        static getDateTimeInstance(arg0: number, arg1: number, arg2: $Locale): $DateFormat;
+        static getAvailableLocales(): $Locale[];
         static getDateTimeInstance(arg0: number, arg1: number): $DateFormat;
+        static getDateTimeInstance(arg0: number, arg1: number, arg2: $Locale): $DateFormat;
         static getDateTimeInstance(): $DateFormat;
         setLenient(arg0: boolean): void;
-        static getDateInstance(arg0: number): $DateFormat;
         static getDateInstance(arg0: number, arg1: $Locale): $DateFormat;
+        static getDateInstance(arg0: number): $DateFormat;
         static getDateInstance(): $DateFormat;
         static getTimeInstance(): $DateFormat;
-        static getTimeInstance(arg0: number, arg1: $Locale): $DateFormat;
         static getTimeInstance(arg0: number): $DateFormat;
+        static getTimeInstance(arg0: number, arg1: $Locale): $DateFormat;
         setCalendar(arg0: $Calendar): void;
         getCalendar(): $Calendar;
         setNumberFormat(arg0: $NumberFormat): void;
         getNumberFormat(): $NumberFormat;
-        static getAvailableLocales(): $Locale[];
         format(arg0: $Date): string;
         format(arg0: $Date, arg1: $StringBuffer, arg2: $FieldPosition): $StringBuffer;
         static getInstance(): $DateFormat;
         parse(arg0: string): $Date;
         parse(arg0: string, arg1: $ParsePosition): $Date;
+        getTimeZone(): $TimeZone;
+        setTimeZone(arg0: $TimeZone): void;
         isLenient(): boolean;
         static DAY_OF_YEAR_FIELD: number;
         static DATE_FIELD: number;
@@ -51,23 +51,11 @@ declare module "@package/java/text" {
         static DEFAULT: number;
         static SECOND_FIELD: number;
         static LONG: number;
+        static get availableLocales(): $Locale[];
+        static get instance(): $DateFormat;
     }
     export class $NumberFormat extends $Format {
         getRoundingMode(): $RoundingMode;
-        static getNumberInstance(arg0: $Locale): $NumberFormat;
-        static getNumberInstance(): $NumberFormat;
-        isGroupingUsed(): boolean;
-        static getCurrencyInstance(arg0: $Locale): $NumberFormat;
-        static getCurrencyInstance(): $NumberFormat;
-        static getPercentInstance(): $NumberFormat;
-        static getPercentInstance(arg0: $Locale): $NumberFormat;
-        static getCompactNumberInstance(): $NumberFormat;
-        static getCompactNumberInstance(arg0: $Locale, arg1: $NumberFormat$Style_): $NumberFormat;
-        static getIntegerInstance(arg0: $Locale): $NumberFormat;
-        static getIntegerInstance(): $NumberFormat;
-        setGroupingUsed(arg0: boolean): void;
-        setMinimumIntegerDigits(arg0: number): void;
-        setMaximumIntegerDigits(arg0: number): void;
         static getAvailableLocales(): $Locale[];
         isParseIntegerOnly(): boolean;
         setParseIntegerOnly(arg0: boolean): void;
@@ -80,16 +68,31 @@ declare module "@package/java/text" {
         getCurrency(): $Currency;
         setCurrency(arg0: $Currency): void;
         setRoundingMode(arg0: $RoundingMode_): void;
-        format(arg0: number, arg1: $StringBuffer, arg2: $FieldPosition): $StringBuffer;
-        format(arg0: number, arg1: $StringBuffer, arg2: $FieldPosition): $StringBuffer;
+        static getNumberInstance(): $NumberFormat;
+        static getNumberInstance(arg0: $Locale): $NumberFormat;
+        isGroupingUsed(): boolean;
+        static getIntegerInstance(): $NumberFormat;
+        static getIntegerInstance(arg0: $Locale): $NumberFormat;
+        setGroupingUsed(arg0: boolean): void;
+        setMinimumIntegerDigits(arg0: number): void;
+        setMaximumIntegerDigits(arg0: number): void;
         format(arg0: number): string;
         format(arg0: number): string;
-        static getInstance(arg0: $Locale): $NumberFormat;
+        format(arg0: number, arg1: $StringBuffer, arg2: $FieldPosition): $StringBuffer;
+        format(arg0: number, arg1: $StringBuffer, arg2: $FieldPosition): $StringBuffer;
         static getInstance(): $NumberFormat;
+        static getInstance(arg0: $Locale): $NumberFormat;
         parse(arg0: string): $Number;
         parse(arg0: string, arg1: $ParsePosition): $Number;
+        static getCurrencyInstance(): $NumberFormat;
+        static getCurrencyInstance(arg0: $Locale): $NumberFormat;
+        static getPercentInstance(): $NumberFormat;
+        static getPercentInstance(arg0: $Locale): $NumberFormat;
+        static getCompactNumberInstance(): $NumberFormat;
+        static getCompactNumberInstance(arg0: $Locale, arg1: $NumberFormat$Style_): $NumberFormat;
         static FRACTION_FIELD: number;
         static INTEGER_FIELD: number;
+        static get availableLocales(): $Locale[];
     }
     export class $AttributedCharacterIterator$Attribute implements $Serializable {
         static LANGUAGE: $AttributedCharacterIterator$Attribute;
@@ -106,8 +109,10 @@ declare module "@package/java/text" {
         getRunLimit(arg0: $AttributedCharacterIterator$Attribute): number;
         getRunLimit(): number;
         getAllAttributeKeys(): $Set<$AttributedCharacterIterator$Attribute>;
-        getAttributes(): $Map<$AttributedCharacterIterator$Attribute, $Object>;
         getAttribute(arg0: $AttributedCharacterIterator$Attribute): $Object;
+        getAttributes(): $Map<$AttributedCharacterIterator$Attribute, $Object>;
+        get allAttributeKeys(): $Set<$AttributedCharacterIterator$Attribute>;
+        get attributes(): $Map<$AttributedCharacterIterator$Attribute, $Object>;
     }
     export class $SimpleDateFormat extends $DateFormat {
         set2DigitYearStart(arg0: $Date): void;
@@ -151,8 +156,6 @@ declare module "@package/java/text" {
     }
     export interface $CharacterIterator extends $Cloneable {
         setIndex(arg0: number): string;
-        getBeginIndex(): number;
-        getEndIndex(): number;
         clone(): $Object;
         next(): string;
         last(): string;
@@ -160,14 +163,17 @@ declare module "@package/java/text" {
         current(): string;
         getIndex(): number;
         previous(): string;
+        getBeginIndex(): number;
+        getEndIndex(): number;
+        get beginIndex(): number;
+        get endIndex(): number;
     }
     export class $DecimalFormatSymbols implements $Cloneable, $Serializable {
-        getZeroDigit(): string;
         static getAvailableLocales(): $Locale[];
+        getMinusSign(): string;
         getLocale(): $Locale;
         getDecimalSeparator(): string;
         getGroupingSeparator(): string;
-        getMinusSign(): string;
         getCurrency(): $Currency;
         setCurrency(arg0: $Currency): void;
         getInternationalCurrencySymbol(): string;
@@ -196,11 +202,14 @@ declare module "@package/java/text" {
         setExponentSeparator(arg0: string): void;
         getMonetaryGroupingSeparator(): string;
         setMonetaryGroupingSeparator(arg0: string): void;
+        getZeroDigit(): string;
         clone(): $Object;
         static getInstance(arg0: $Locale): $DecimalFormatSymbols;
         static getInstance(): $DecimalFormatSymbols;
         constructor();
         constructor(arg0: $Locale);
+        static get availableLocales(): $Locale[];
+        get locale(): $Locale;
     }
     export class $Format$Field extends $AttributedCharacterIterator$Attribute {
         static LANGUAGE: $AttributedCharacterIterator$Attribute;
@@ -208,13 +217,9 @@ declare module "@package/java/text" {
         static READING: $AttributedCharacterIterator$Attribute;
     }
     export class $DateFormatSymbols implements $Serializable, $Cloneable {
-        setMonths(arg0: string[]): void;
-        setShortMonths(arg0: string[]): void;
-        setWeekdays(arg0: string[]): void;
-        setShortWeekdays(arg0: string[]): void;
-        setAmPmStrings(arg0: string[]): void;
-        setZoneStrings(arg0: string[][]): void;
-        setLocalPatternChars(arg0: string): void;
+        static getAvailableLocales(): $Locale[];
+        getZoneStrings(): string[][];
+        getLocalPatternChars(): string;
         getEras(): string[];
         setEras(arg0: string[]): void;
         getMonths(): string[];
@@ -222,17 +227,28 @@ declare module "@package/java/text" {
         getWeekdays(): string[];
         getShortWeekdays(): string[];
         getAmPmStrings(): string[];
-        static getAvailableLocales(): $Locale[];
-        getZoneStrings(): string[][];
-        getLocalPatternChars(): string;
+        setMonths(arg0: string[]): void;
+        setShortMonths(arg0: string[]): void;
+        setWeekdays(arg0: string[]): void;
+        setShortWeekdays(arg0: string[]): void;
+        setAmPmStrings(arg0: string[]): void;
+        setZoneStrings(arg0: string[][]): void;
+        setLocalPatternChars(arg0: string): void;
         clone(): $Object;
         static getInstance(): $DateFormatSymbols;
         static getInstance(arg0: $Locale): $DateFormatSymbols;
         constructor(arg0: $Locale);
         constructor();
+        static get availableLocales(): $Locale[];
     }
     export class $DecimalFormat extends $NumberFormat {
+        toLocalizedPattern(): string;
+        applyPattern(arg0: string): void;
+        applyLocalizedPattern(arg0: string): void;
+        setDecimalSeparatorAlwaysShown(arg0: boolean): void;
         getGroupingSize(): number;
+        getDecimalFormatSymbols(): $DecimalFormatSymbols;
+        toPattern(): string;
         isParseBigDecimal(): boolean;
         setDecimalFormatSymbols(arg0: $DecimalFormatSymbols): void;
         getPositivePrefix(): string;
@@ -248,28 +264,24 @@ declare module "@package/java/text" {
         setGroupingSize(arg0: number): void;
         isDecimalSeparatorAlwaysShown(): boolean;
         setParseBigDecimal(arg0: boolean): void;
-        getDecimalFormatSymbols(): $DecimalFormatSymbols;
-        toLocalizedPattern(): string;
-        applyPattern(arg0: string): void;
-        applyLocalizedPattern(arg0: string): void;
-        setDecimalSeparatorAlwaysShown(arg0: boolean): void;
-        toPattern(): string;
         static FRACTION_FIELD: number;
         static INTEGER_FIELD: number;
-        constructor(arg0: string);
         constructor();
+        constructor(arg0: string);
         constructor(arg0: string, arg1: $DecimalFormatSymbols);
     }
     export class $FieldPosition {
+        getField(): number;
         setBeginIndex(arg0: number): void;
         setEndIndex(arg0: number): void;
         getFieldAttribute(): $Format$Field;
         getBeginIndex(): number;
         getEndIndex(): number;
-        getField(): number;
-        constructor(arg0: $Format$Field);
         constructor(arg0: number);
         constructor(arg0: $Format$Field, arg1: number);
+        constructor(arg0: $Format$Field);
+        get field(): number;
+        get fieldAttribute(): $Format$Field;
     }
     export class $NumberFormat$Style extends $Enum<$NumberFormat$Style> {
         static values(): $NumberFormat$Style[];
@@ -284,8 +296,8 @@ declare module "@package/java/text" {
     export class $ParsePosition {
         setIndex(arg0: number): void;
         setErrorIndex(arg0: number): void;
-        getErrorIndex(): number;
         getIndex(): number;
+        getErrorIndex(): number;
         constructor(arg0: number);
     }
     export class $Format implements $Serializable, $Cloneable {

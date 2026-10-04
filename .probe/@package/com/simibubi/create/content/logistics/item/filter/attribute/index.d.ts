@@ -15,8 +15,8 @@ declare module "@package/com/simibubi/create/content/logistics/item/filter/attri
     }
     export interface $ItemAttributeType {
         getAllAttributes(arg0: $ItemStack_, arg1: $Level_): $List<$ItemAttribute>;
-        createAttribute(): $ItemAttribute;
         streamCodec(): $StreamCodec<$RegistryFriendlyByteBuf, $ItemAttribute>;
+        createAttribute(): $ItemAttribute;
         codec(): $MapCodec<$ItemAttribute>;
     }
     /**
@@ -33,9 +33,12 @@ declare module "@package/com/simibubi/create/content/logistics/item/filter/attri
     }
     export interface $ItemAttribute {
         getTranslationParameters(): $Object[];
-        getTranslationKey(): string;
         appliesTo(arg0: $ItemStack_, arg1: $Level_): boolean;
+        getTranslationKey(): string;
         format(arg0: boolean): $MutableComponent;
         getType(): $ItemAttributeType;
+        get translationParameters(): $Object[];
+        get translationKey(): string;
+        get type(): $ItemAttributeType;
     }
 }

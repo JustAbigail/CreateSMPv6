@@ -11,6 +11,29 @@ export * as templates from "@package/com/mojang/datafixers/types/templates";
 
 declare module "@package/com/mojang/datafixers/types" {
     export class $Type<A> implements $App<$Type$Mu, A> {
+        point(arg0: $DynamicOps<never>): (A) | undefined;
+        static unbox<A>(arg0: $App<$Type$Mu, A>): $Type<A>;
+        one(arg0: $TypeRewriteRule_): ($RewriteResult<A, never>) | undefined;
+        equals(arg0: $Object, arg1: boolean, arg2: boolean): boolean;
+        write<T>(arg0: $DynamicOps<T>, arg1: A): $DataResult<T>;
+        read<T>(arg0: $Dynamic<T>): $DataResult<$Pair<A, $Dynamic<T>>>;
+        read<T>(arg0: $DynamicOps<T>, arg1: $TypeRewriteRule_, arg2: $PointFreeRule_, arg3: T): $DataResult<$Pair<(never) | undefined, T>>;
+        finder(): $OpticFinder<A>;
+        all(arg0: $TypeRewriteRule_, arg1: boolean, arg2: boolean): $RewriteResult<A, never>;
+        rewrite(arg0: $TypeRewriteRule_, arg1: $PointFreeRule_): ($RewriteResult<A, never>) | undefined;
+        findField(arg0: string): $OpticFinder<never>;
+        template(): $TypeTemplate;
+        codec(): $Codec<A>;
+        ifSame<B>(arg0: $Type<B>, arg1: $RewriteResult_<B, never>): ($RewriteResult<A, never>) | undefined;
+        ifSame<B>(arg0: $Typed<B>): (A) | undefined;
+        ifSame<B>(arg0: $Type<B>, arg1: B): (A) | undefined;
+        everywhere(arg0: $TypeRewriteRule_, arg1: $PointFreeRule_, arg2: boolean, arg3: boolean): ($RewriteResult<A, never>) | undefined;
+        writeDynamic<T>(arg0: $DynamicOps<T>, arg1: A): $DataResult<$Dynamic<T>>;
+        readTyped<T>(arg0: $DynamicOps<T>, arg1: T): $DataResult<$Pair<$Typed<A>, T>>;
+        readTyped<T>(arg0: $Dynamic<T>): $DataResult<$Pair<$Typed<A>, T>>;
+        findChoiceType(arg0: string, arg1: number): ($TaggedChoice$TaggedChoiceType<never>) | undefined;
+        pointTyped(arg0: $DynamicOps<never>): ($Typed<A>) | undefined;
+        findFieldType(arg0: string): $Type<never>;
         buildTemplate(): $TypeTemplate;
         findType<FT, FR>(arg0: $Type<FT>, arg1: $Type<FR>, arg2: $Type$TypeMatcher_<FT, FR>, arg3: boolean): $Either<$TypedOptic<A, never, FT, FR>, $Type$FieldNotFoundException>;
         findFieldTypeOpt(arg0: string): ($Type<never>) | undefined;
@@ -22,29 +45,6 @@ declare module "@package/com/mojang/datafixers/types" {
         readAndWrite<T>(arg0: $DynamicOps<T>, arg1: $Type<never>, arg2: $TypeRewriteRule_, arg3: $PointFreeRule_, arg4: T): $DataResult<T>;
         getSetType<FT, FR>(arg0: $OpticFinder<FT>, arg1: $Type<FR>): $Type<never>;
         findTypeCached<FT, FR>(arg0: $Type<FT>, arg1: $Type<FR>, arg2: $Type$TypeMatcher_<FT, FR>, arg3: boolean): $Either<$TypedOptic<A, never, FT, FR>, $Type$FieldNotFoundException>;
-        point(arg0: $DynamicOps<never>): (A) | undefined;
-        one(arg0: $TypeRewriteRule_): ($RewriteResult<A, never>) | undefined;
-        static unbox<A>(arg0: $App<$Type$Mu, A>): $Type<A>;
-        equals(arg0: $Object, arg1: boolean, arg2: boolean): boolean;
-        write<T>(arg0: $DynamicOps<T>, arg1: A): $DataResult<T>;
-        read<T>(arg0: $DynamicOps<T>, arg1: $TypeRewriteRule_, arg2: $PointFreeRule_, arg3: T): $DataResult<$Pair<(never) | undefined, T>>;
-        read<T>(arg0: $Dynamic<T>): $DataResult<$Pair<A, $Dynamic<T>>>;
-        finder(): $OpticFinder<A>;
-        all(arg0: $TypeRewriteRule_, arg1: boolean, arg2: boolean): $RewriteResult<A, never>;
-        rewrite(arg0: $TypeRewriteRule_, arg1: $PointFreeRule_): ($RewriteResult<A, never>) | undefined;
-        findField(arg0: string): $OpticFinder<never>;
-        template(): $TypeTemplate;
-        codec(): $Codec<A>;
-        ifSame<B>(arg0: $Type<B>, arg1: $RewriteResult_<B, never>): ($RewriteResult<A, never>) | undefined;
-        ifSame<B>(arg0: $Type<B>, arg1: B): (A) | undefined;
-        ifSame<B>(arg0: $Typed<B>): (A) | undefined;
-        everywhere(arg0: $TypeRewriteRule_, arg1: $PointFreeRule_, arg2: boolean, arg3: boolean): ($RewriteResult<A, never>) | undefined;
-        writeDynamic<T>(arg0: $DynamicOps<T>, arg1: A): $DataResult<$Dynamic<T>>;
-        readTyped<T>(arg0: $DynamicOps<T>, arg1: T): $DataResult<$Pair<$Typed<A>, T>>;
-        readTyped<T>(arg0: $Dynamic<T>): $DataResult<$Pair<$Typed<A>, T>>;
-        pointTyped(arg0: $DynamicOps<never>): ($Typed<A>) | undefined;
-        findChoiceType(arg0: string, arg1: number): ($TaggedChoice$TaggedChoiceType<never>) | undefined;
-        findFieldType(arg0: string): $Type<never>;
         constructor();
     }
     export class $Type$Mu implements $K1 {

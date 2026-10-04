@@ -12,6 +12,7 @@ declare module "@package/com/mojang/brigadier/arguments" {
         listSuggestions<S>(arg0: $CommandContext<S>, arg1: $SuggestionsBuilder): $CompletableFuture<$Suggestions>;
         parse<S>(arg0: $StringReader, arg1: S): T;
         parse(arg0: $StringReader): T;
+        get examples(): $Collection<string>;
     }
     /**
      * Values that may be interpreted as {@link $ArgumentType}.

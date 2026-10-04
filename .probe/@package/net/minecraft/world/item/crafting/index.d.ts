@@ -65,8 +65,6 @@ declare module "@package/net/minecraft/world/item/crafting" {
         static STREAM_CODEC: $StreamCodec<$RegistryFriendlyByteBuf, $Recipe<never>>;
     }
     export interface $Recipe<T extends $RecipeInput> {
-        handler$ejk000$bclib$bcl_getRemainingItems(arg0: $RecipeInput, arg1: $CallbackInfoReturnable<any>): void;
-        getToastSymbol(): $ItemStack;
         /**
          * If true, this recipe does not appear in the recipe book and does not respect recipe unlocking (and the doLimitedCrafting gamerule)
          */
@@ -82,6 +80,8 @@ declare module "@package/net/minecraft/world/item/crafting" {
          */
         showNotification(): boolean;
         getSerializer(): $RecipeSerializer<never>;
+        handler$ejk000$bclib$bcl_getRemainingItems(arg0: $RecipeInput, arg1: $CallbackInfoReturnable<any>): void;
+        getToastSymbol(): $ItemStack;
         assemble(input: T, registries: $HolderLookup$Provider): $ItemStack;
         getRemainingItems(input: T): $NonNullList<$ItemStack>;
         matches(input: T, level: $Level_): boolean;
@@ -94,15 +94,22 @@ declare module "@package/net/minecraft/world/item/crafting" {
          * If true, this recipe does not appear in the recipe book and does not respect recipe unlocking (and the doLimitedCrafting gamerule)
          */
         isSpecial(): boolean;
+        get incomplete(): boolean;
+        get ingredients(): $NonNullList<$Ingredient>;
+        get serializer(): $RecipeSerializer<never>;
+        get toastSymbol(): $ItemStack;
+        get type(): $RecipeType<never>;
+        get group(): string;
+        get special(): boolean;
     }
     export class $ShapedRecipePattern {
+        ingredients(): $NonNullList<$Ingredient>;
         static setCraftingSize(arg0: number, arg1: number): void;
         static getMaxWidth(): number;
         static getMaxHeight(): number;
-        ingredients(): $NonNullList<$Ingredient>;
         matches(input: $CraftingInput): boolean;
-        static of(key: $Map_<string, $Ingredient_>, ...pattern: string[]): $ShapedRecipePattern;
         static of(key: $Map_<string, $Ingredient_>, pattern: $List_<string>): $ShapedRecipePattern;
+        static of(key: $Map_<string, $Ingredient_>, ...pattern: string[]): $ShapedRecipePattern;
         width(): number;
         height(): number;
         static shrink(pattern: $List_<string>): string[];
@@ -135,11 +142,12 @@ declare module "@package/net/minecraft/world/item/crafting" {
         find(filter: $SlotFilter_): $ItemStack;
         self(): $RecipeInput;
         constructor(arg0: $ItemStack_, arg1: $ItemStack_, arg2: $ItemStack_);
+        get empty(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $SmithingRecipeInput}.
      */
-    export type $SmithingRecipeInput_ = { addition?: $ItemStack_, template?: $ItemStack_, base?: $ItemStack_,  } | [addition?: $ItemStack_, template?: $ItemStack_, base?: $ItemStack_, ];
+    export type $SmithingRecipeInput_ = { base?: $ItemStack_, template?: $ItemStack_, addition?: $ItemStack_,  } | [base?: $ItemStack_, template?: $ItemStack_, addition?: $ItemStack_, ];
     export class $ShapelessRecipe implements $CraftingRecipe {
         handler$dhi000$wover$setupItemStack(arg0: $RecipeInput, arg1: $HolderLookup$Provider, arg2: $CallbackInfoReturnable<any>): void;
         getResultItem(registries: $HolderLookup$Provider): $ItemStack;
@@ -150,23 +158,28 @@ declare module "@package/net/minecraft/world/item/crafting" {
         canCraftInDimensions(width: number, height: number): boolean;
         getSerializer(): $RecipeSerializer<never>;
         assemble(input: $CraftingInput, registries: $HolderLookup$Provider): $ItemStack;
-        category(): $CraftingBookCategory;
         matches(input: $CraftingInput, level: $Level_): boolean;
+        category(): $CraftingBookCategory;
         /**
          * Recipes with equal group are combined into one button in the recipe book
          */
         getGroup(): string;
         getType(): $RecipeType<never>;
-        handler$ejk000$bclib$bcl_getRemainingItems(arg0: $RecipeInput, arg1: $CallbackInfoReturnable<any>): void;
-        getToastSymbol(): $ItemStack;
         isIncomplete(): boolean;
         showNotification(): boolean;
+        handler$ejk000$bclib$bcl_getRemainingItems(arg0: $RecipeInput, arg1: $CallbackInfoReturnable<any>): void;
+        getToastSymbol(): $ItemStack;
         getRemainingItems(arg0: $CraftingInput): $NonNullList<$ItemStack>;
         isSpecial(): boolean;
         result: $ItemStack;
         ingredients: $NonNullList<$Ingredient>;
         group: string;
         constructor(group: string, category: $CraftingBookCategory_, result: $ItemStack_, ingredients: $NonNullList<$Ingredient_>);
+        get serializer(): $RecipeSerializer<never>;
+        get type(): $RecipeType<never>;
+        get incomplete(): boolean;
+        get toastSymbol(): $ItemStack;
+        get special(): boolean;
     }
     export class $BannerDuplicateRecipe extends $CustomRecipe {
         assemble(input: $CraftingInput, registries: $HolderLookup$Provider): $ItemStack;
@@ -179,6 +192,7 @@ declare module "@package/net/minecraft/world/item/crafting" {
         value(): T;
         id(): $ResourceLocation;
         getSerializer(): $RecipeSerializer<never>;
+        getRecipe(): $Recipe<never>;
         getGroup(): string;
         setGroup(group: string): void;
         getOrCreateId(): $ResourceLocation;
@@ -187,12 +201,17 @@ declare module "@package/net/minecraft/world/item/crafting" {
         replaceInput(cx: $RecipeScriptContext, match: $ReplacementMatchInfo_, arg2: $Object): boolean;
         hasOutput(cx: $RecipeMatchContext, match: $ReplacementMatchInfo_): boolean;
         replaceOutput(cx: $RecipeScriptContext, match: $ReplacementMatchInfo_, arg2: $Object): boolean;
-        getRecipe(): $Recipe<never>;
         self(): $RecipeHolder<never>;
         getType(): $ResourceLocation;
         getMod(): string;
         static STREAM_CODEC: $StreamCodec<$RegistryFriendlyByteBuf, $RecipeHolder<never>>;
         constructor(arg0: $ResourceLocation_, arg1: T);
+        get serializer(): $RecipeSerializer<never>;
+        get recipe(): $Recipe<never>;
+        get orCreateId(): $ResourceLocation;
+        get schema(): $RecipeSchema;
+        get type(): $ResourceLocation;
+        get mod(): string;
     }
     /**
      * Values that may be interpreted as {@link $RecipeHolder}.
@@ -209,6 +228,7 @@ declare module "@package/net/minecraft/world/item/crafting" {
     }
     export interface $Ingredient$Value {
         getItems(): $Collection<$ItemStack>;
+        get items(): $Collection<$ItemStack>;
     }
     /**
      * Values that may be interpreted as {@link $Ingredient$Value}.
@@ -216,10 +236,10 @@ declare module "@package/net/minecraft/world/item/crafting" {
     export type $Ingredient$Value_ = (() => $Collection_<$ItemStack_>);
     export interface $RecipeType<T> extends RegistryMarked<RegistryTypes.RecipeTypeTag, RegistryTypes.RecipeType> {}
     export class $CraftingInput implements $RecipeInput {
-        items(): $List<$ItemStack>;
+        stackedContents(): $StackedContents;
         ingredientCount(): number;
         static ofPositioned(width: number, height: number, items: $List_<$ItemStack_>): $CraftingInput$Positioned;
-        stackedContents(): $StackedContents;
+        items(): $List<$ItemStack>;
         getItem(row: number, column: number): $ItemStack;
         getItem(index: number): $ItemStack;
         size(): number;
@@ -234,6 +254,7 @@ declare module "@package/net/minecraft/world/item/crafting" {
         self(): $RecipeInput;
         static EMPTY: $CraftingInput;
         constructor(width: number, height: number, item: $List_<$ItemStack_>);
+        get empty(): boolean;
     }
     export class $SingleItemRecipe implements $Recipe<$SingleRecipeInput> {
         getResultItem(registries: $HolderLookup$Provider): $ItemStack;
@@ -249,16 +270,22 @@ declare module "@package/net/minecraft/world/item/crafting" {
          * Recipes with equal group are combined into one button in the recipe book
          */
         getGroup(): string;
-        handler$ejk000$bclib$bcl_getRemainingItems(arg0: $RecipeInput, arg1: $CallbackInfoReturnable<any>): void;
-        getToastSymbol(): $ItemStack;
         isIncomplete(): boolean;
         showNotification(): boolean;
+        handler$ejk000$bclib$bcl_getRemainingItems(arg0: $RecipeInput, arg1: $CallbackInfoReturnable<any>): void;
+        getToastSymbol(): $ItemStack;
         getRemainingItems(arg0: $SingleRecipeInput_): $NonNullList<$ItemStack>;
         isSpecial(): boolean;
         result: $ItemStack;
         ingredient: $Ingredient;
         group: string;
         constructor(type: $RecipeType_<never>, serializer: $RecipeSerializer_<never>, group: string, ingredient: $Ingredient_, result: $ItemStack_);
+        get ingredients(): $NonNullList<$Ingredient>;
+        get serializer(): $RecipeSerializer<never>;
+        get type(): $RecipeType<never>;
+        get incomplete(): boolean;
+        get toastSymbol(): $ItemStack;
+        get special(): boolean;
     }
     export class $CookingBookCategory extends $Enum<$CookingBookCategory> implements $StringRepresentable {
         static values(): $CookingBookCategory[];
@@ -269,6 +296,8 @@ declare module "@package/net/minecraft/world/item/crafting" {
         static BLOCKS: $CookingBookCategory;
         static MISC: $CookingBookCategory;
         static FOOD: $CookingBookCategory;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $CookingBookCategory}.
@@ -291,18 +320,20 @@ declare module "@package/net/minecraft/world/item/crafting" {
         test(stack: $ItemStack_ | null): boolean;
         isEmpty(): boolean;
         static of(): $Ingredient;
+        static of(tag: $TagKey_<$Item>): $Ingredient;
         static of(stream: $Stream<$ItemStack_>): $Ingredient;
         static of(...stacks: $ItemStack_[]): $Ingredient;
         static of(...items: $ItemLike_[]): $Ingredient;
-        static of(tag: $TagKey_<$Item>): $Ingredient;
         isSimple(): boolean;
-        static fromValues(stream: $Stream<$Ingredient$Value_>): $Ingredient;
         self(): $Ingredient;
-        or(arg0: $Predicate_<$ItemStack>): $Predicate<$ItemStack>;
+        static fromValues(stream: $Stream<$Ingredient$Value_>): $Ingredient;
         negate(): $Predicate<$ItemStack>;
         and(arg0: $Predicate_<$ItemStack>): $Predicate<$ItemStack>;
+        or(arg0: $Predicate_<$ItemStack>): $Predicate<$ItemStack>;
         requiresTesting(): boolean;
         replaceThisWith(cx: $RecipeScriptContext, arg1: $Object): $Object;
+        asIngredient(): $Ingredient;
+        withCount(count: number): $SizedIngredient;
         getStackArray(): $ItemStack[];
         and(ingredient: $Ingredient_): $Ingredient;
         or(ingredient: $Ingredient_): $Ingredient;
@@ -311,8 +342,6 @@ declare module "@package/net/minecraft/world/item/crafting" {
         getTagKey(): $TagKey<$Item>;
         containsAnyTag(): boolean;
         toIngredientString(ops: $DynamicOps<$Tag_>): string;
-        asIngredient(): $Ingredient;
-        withCount(count: number): $SizedIngredient;
         matches(cx: $RecipeMatchContext, arg1: $Ingredient_, exact: boolean): boolean;
         matches(cx: $RecipeMatchContext, item: $ItemStack_, exact: boolean): boolean;
         getCodec(): $Codec<never>;
@@ -341,39 +370,60 @@ declare module "@package/net/minecraft/world/item/crafting" {
         constructor(values: $Ingredient$Value_[]);
         constructor(values: $Stream<$Ingredient$Value_>);
         constructor(arg0: $ICustomIngredient);
+        get custom(): boolean;
+        get customIngredient(): $ICustomIngredient;
+        get empty(): boolean;
+        get simple(): boolean;
+        get stackArray(): $ItemStack[];
+        get tagKey(): $TagKey<$Item>;
+        get codec(): $Codec<never>;
+        get wildcard(): boolean;
+        get stacks(): $ItemStackSet;
+        get displayStacks(): $ItemStackSet;
+        get itemStream(): $Stream<$Item>;
+        get itemTypes(): $Set<$Item>;
+        get itemIds(): $Set<string>;
+        get first(): $ItemStack;
     }
     /**
      * Values that may be interpreted as {@link $Ingredient}.
      */
     export type $Ingredient_ = $ItemStack_ | $Ingredient[] | RegExp | "*" | "-" | `#${RegistryTypes.ItemTag}` | `@${SpecialTypes.ModId}` | `%${RegistryTypes.CreativeModeTab}`;
     export class $SmithingTransformRecipe implements $SmithingRecipe, $SmithingTransformRecipeAccessor$1, $AccessorSmithingTransformRecipe, $SmithingTransformRecipeAccessor {
+        handler$dhl000$wover$setupItemStack(arg0: $SmithingRecipeInput_, arg1: $HolderLookup$Provider, arg2: $CallbackInfoReturnable<any>): void;
         isIncomplete(): boolean;
         getResultItem(registries: $HolderLookup$Provider): $ItemStack;
+        getSerializer(): $RecipeSerializer<never>;
         isTemplateIngredient(stack: $ItemStack_): boolean;
         isBaseIngredient(stack: $ItemStack_): boolean;
         isAdditionIngredient(stack: $ItemStack_): boolean;
-        getSerializer(): $RecipeSerializer<never>;
         assemble(input: $SmithingRecipeInput_, registries: $HolderLookup$Provider): $ItemStack;
-        handler$dhl000$wover$setupItemStack(arg0: $SmithingRecipeInput_, arg1: $HolderLookup$Provider, arg2: $CallbackInfoReturnable<any>): void;
         matches(input: $SmithingRecipeInput_, level: $Level_): boolean;
-        getToastSymbol(): $ItemStack;
         canCraftInDimensions(arg0: number, arg1: number): boolean;
+        getToastSymbol(): $ItemStack;
         getType(): $RecipeType<never>;
-        handler$ejk000$bclib$bcl_getRemainingItems(arg0: $RecipeInput, arg1: $CallbackInfoReturnable<any>): void;
         getIngredients(): $NonNullList<$Ingredient>;
         showNotification(): boolean;
+        handler$ejk000$bclib$bcl_getRemainingItems(arg0: $RecipeInput, arg1: $CallbackInfoReturnable<any>): void;
         getRemainingItems(arg0: $SmithingRecipeInput_): $NonNullList<$ItemStack>;
         getGroup(): string;
         isSpecial(): boolean;
         getAddition(): $Ingredient;
-        getResult(): $ItemStack;
         getBase(): $Ingredient;
+        getResult(): $ItemStack;
         getTemplate(): $Ingredient;
         template: $Ingredient;
         result: $ItemStack;
         base: $Ingredient;
         addition: $Ingredient;
         constructor(template: $Ingredient_, base: $Ingredient_, addition: $Ingredient_, result: $ItemStack_);
+        get incomplete(): boolean;
+        get serializer(): $RecipeSerializer<never>;
+        get toastSymbol(): $ItemStack;
+        get type(): $RecipeType<never>;
+        get ingredients(): $NonNullList<$Ingredient>;
+        get group(): string;
+        get special(): boolean;
     }
     export class $DecoratedPotRecipe extends $CustomRecipe {
         assemble(arg0: $CraftingInput, arg1: $HolderLookup$Provider): $ItemStack;
@@ -391,28 +441,28 @@ declare module "@package/net/minecraft/world/item/crafting" {
         constructor(group: string, category: $CookingBookCategory_, ingredient: $Ingredient_, result: $ItemStack_, experience: number, cookingTime: number);
     }
     export class $RecipeManager extends $SimpleJsonResourceReloadListener implements $IRecipeContext, $IdentifiableResourceReloadListener, $RecipeManagerAccessor, $RecipeManagerKJS {
-        getRecipeIds(): $Stream<$ResourceLocation>;
-        kjs$setResources(resources: $ReloadableServerResourcesKJS): void;
-        replaceRecipes(recipes: $Iterable_<$RecipeHolder<never>>): void;
-        getOrderedRecipes(): $Collection<$RecipeHolder<never>>;
+        handler$ejj000$bclib$bcl_interceptApply(arg0: $Map_<any, any>, arg1: $ResourceManager, arg2: $ProfilerFiller, arg3: $CallbackInfo): void;
+        polymorph$getContext(): $Object;
         kjs$getResources(): $ReloadableServerResourcesKJS;
         kjs$getRecipeIdMap(): $Map<any, any>;
         kjs$replaceRecipes(map: $Map_<any, any>): void;
         handler$ejj000$bclib$bcl_sort(arg0: $RecipeType_<any>, arg1: $RecipeInput, arg2: $Level_, arg3: $CallbackInfoReturnable<any>): void;
-        handler$ejj000$bclib$bcl_interceptApply(arg0: $Map_<any, any>, arg1: $ResourceManager, arg2: $ProfilerFiller, arg3: $CallbackInfo): void;
         handler$dho000$wover$apply(arg0: $Map_<any, any>, arg1: $ResourceManager, arg2: $ProfilerFiller, arg3: $CallbackInfo): void;
         hadErrorsLoading(): boolean;
-        polymorph$getContext(): $Object;
-        getAllRecipesFor<I extends $RecipeInput, T extends $Recipe<I>>(recipeType: $RecipeType_<T>): $List<$RecipeHolder<T>>;
-        getRecipes(): $Collection<$RecipeHolder<never>>;
-        getRemainingItemsFor<I extends $RecipeInput, T extends $Recipe<I>>(recipeType: $RecipeType_<T>, input: I, lvel: $Level_): $NonNullList<$ItemStack>;
+        kjs$setResources(resources: $ReloadableServerResourcesKJS): void;
+        replaceRecipes(recipes: $Iterable_<$RecipeHolder<never>>): void;
+        getOrderedRecipes(): $Collection<$RecipeHolder<never>>;
+        getRecipeIds(): $Stream<$ResourceLocation>;
         static createCheck<I extends $RecipeInput, T extends $Recipe<I>>(recipeType: $RecipeType_<T>): $RecipeManager$CachedCheck<I, T>;
         getRecipeFor<I extends $RecipeInput, T extends $Recipe<I>>(recipeType: $RecipeType_<T>, input: I, level: $Level_, lastRecipe: $RecipeHolder_<T> | null): ($RecipeHolder<T>) | undefined;
         getRecipeFor<I extends $RecipeInput, T extends $Recipe<I>>(recipeType: $RecipeType_<T>, input: I, level: $Level_, lastRecipe: $ResourceLocation_ | null): ($RecipeHolder<T>) | undefined;
         getRecipeFor<I extends $RecipeInput, T extends $Recipe<I>>(recipeType: $RecipeType_<T>, input: I, level: $Level_): ($RecipeHolder<T>) | undefined;
-        polymorph$setContext(arg0: $Object): void;
+        getRecipes(): $Collection<$RecipeHolder<never>>;
+        getRemainingItemsFor<I extends $RecipeInput, T extends $Recipe<I>>(recipeType: $RecipeType_<T>, input: I, lvel: $Level_): $NonNullList<$ItemStack>;
         getRecipesFor<I extends $RecipeInput, T extends $Recipe<I>>(recipeType: $RecipeType_<T>, input: I, level: $Level_): $List<$RecipeHolder<T>>;
+        getAllRecipesFor<I extends $RecipeInput, T extends $Recipe<I>>(recipeType: $RecipeType_<T>): $List<$RecipeHolder<T>>;
         byKey(recipeId: $ResourceLocation_): ($RecipeHolder<never>) | undefined;
+        polymorph$setContext(arg0: $Object): void;
         apply(object: $Map_<$ResourceLocation_, $JsonElement_>, resourceManager: $ResourceManager, profiler: $ProfilerFiller): void;
         static fromJson(recipeId: $ResourceLocation_, json: $JsonObject_, registries: $HolderLookup$Provider): $RecipeHolder<never>;
         getFabricId(): $ResourceLocation;
@@ -425,6 +475,11 @@ declare module "@package/net/minecraft/world/item/crafting" {
         polymorph$context: $Object;
         registries: $HolderLookup$Provider;
         constructor(registries: $HolderLookup$Provider);
+        get orderedRecipes(): $Collection<$RecipeHolder<never>>;
+        get recipeIds(): $Stream<$ResourceLocation>;
+        get recipes(): $Collection<$RecipeHolder<never>>;
+        get fabricId(): $ResourceLocation;
+        get fabricDependencies(): $Collection<any>;
     }
     export class $StonecutterRecipe extends $SingleItemRecipe {
         matches(input: $SingleRecipeInput_, level: $Level_): boolean;
@@ -454,6 +509,8 @@ declare module "@package/net/minecraft/world/item/crafting" {
         static MISC: $CraftingBookCategory;
         static BY_ID: $IntFunction<$CraftingBookCategory>;
         static STREAM_CODEC: $StreamCodec<$ByteBuf, $CraftingBookCategory>;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $CraftingBookCategory}.
@@ -475,7 +532,7 @@ declare module "@package/net/minecraft/world/item/crafting" {
     /**
      * Values that may be interpreted as {@link $CraftingInput$Positioned}.
      */
-    export type $CraftingInput$Positioned_ = { left?: number, input?: $CraftingInput, top?: number,  } | [left?: number, input?: $CraftingInput, top?: number, ];
+    export type $CraftingInput$Positioned_ = { top?: number, input?: $CraftingInput, left?: number,  } | [top?: number, input?: $CraftingInput, left?: number, ];
     export class $ShulkerBoxColoring extends $CustomRecipe {
         assemble(input: $CraftingInput, registries: $HolderLookup$Provider): $ItemStack;
         matches(input: $CraftingInput, level: $Level_): boolean;
@@ -484,12 +541,11 @@ declare module "@package/net/minecraft/world/item/crafting" {
     export class $CraftingRecipe {
     }
     export interface $CraftingRecipe extends $Recipe<$CraftingInput> {
-        category(): $CraftingBookCategory;
         getType(): $RecipeType<never>;
+        category(): $CraftingBookCategory;
+        get type(): $RecipeType<never>;
     }
     export class $ShapedRecipe implements $CraftingRecipe, $ShapedRecipeAccessor {
-        getWidth(): number;
-        getHeight(): number;
         isIncomplete(): boolean;
         handler$dhi000$wover$setupItemStack(arg0: $RecipeInput, arg1: $HolderLookup$Provider, arg2: $CallbackInfoReturnable<any>): void;
         getResultItem(registries: $HolderLookup$Provider): $ItemStack;
@@ -501,8 +557,10 @@ declare module "@package/net/minecraft/world/item/crafting" {
         showNotification(): boolean;
         getSerializer(): $RecipeSerializer<never>;
         assemble(input: $CraftingInput, registries: $HolderLookup$Provider): $ItemStack;
-        category(): $CraftingBookCategory;
+        getWidth(): number;
+        getHeight(): number;
         matches(input: $CraftingInput, level: $Level_): boolean;
+        category(): $CraftingBookCategory;
         /**
          * Recipes with equal group are combined into one button in the recipe book
          */
@@ -518,6 +576,14 @@ declare module "@package/net/minecraft/world/item/crafting" {
         group: string;
         constructor(group: string, category: $CraftingBookCategory_, pattern: $ShapedRecipePattern, result: $ItemStack_, showNotification: boolean);
         constructor(group: string, category: $CraftingBookCategory_, pattern: $ShapedRecipePattern, result: $ItemStack_);
+        get incomplete(): boolean;
+        get ingredients(): $NonNullList<$Ingredient>;
+        get serializer(): $RecipeSerializer<never>;
+        get width(): number;
+        get height(): number;
+        get type(): $RecipeType<never>;
+        get toastSymbol(): $ItemStack;
+        get special(): boolean;
     }
     export class $TippedArrowRecipe extends $CustomRecipe {
         assemble(input: $CraftingInput, registries: $HolderLookup$Provider): $ItemStack;
@@ -534,7 +600,6 @@ declare module "@package/net/minecraft/world/item/crafting" {
     export class $SmithingRecipe {
     }
     export interface $SmithingRecipe extends $Recipe<$SmithingRecipeInput> {
-        getToastSymbol(): $ItemStack;
         /**
          * Used to determine if this recipe can fit in a grid of the given width/height
          */
@@ -542,7 +607,10 @@ declare module "@package/net/minecraft/world/item/crafting" {
         isTemplateIngredient(stack: $ItemStack_): boolean;
         isBaseIngredient(stack: $ItemStack_): boolean;
         isAdditionIngredient(stack: $ItemStack_): boolean;
+        getToastSymbol(): $ItemStack;
         getType(): $RecipeType<never>;
+        get toastSymbol(): $ItemStack;
+        get type(): $RecipeType<never>;
     }
     export class $CustomRecipe implements $CraftingRecipe {
         getResultItem(registries: $HolderLookup$Provider): $ItemStack;
@@ -552,8 +620,6 @@ declare module "@package/net/minecraft/world/item/crafting" {
          */
         isSpecial(): boolean;
         getType(): $RecipeType<never>;
-        handler$ejk000$bclib$bcl_getRemainingItems(arg0: $RecipeInput, arg1: $CallbackInfoReturnable<any>): void;
-        getToastSymbol(): $ItemStack;
         /**
          * If true, this recipe does not appear in the recipe book and does not respect recipe unlocking (and the doLimitedCrafting gamerule)
          */
@@ -563,14 +629,22 @@ declare module "@package/net/minecraft/world/item/crafting" {
          * If true, this recipe does not appear in the recipe book and does not respect recipe unlocking (and the doLimitedCrafting gamerule)
          */
         showNotification(): boolean;
+        handler$ejk000$bclib$bcl_getRemainingItems(arg0: $RecipeInput, arg1: $CallbackInfoReturnable<any>): void;
+        getToastSymbol(): $ItemStack;
         getRemainingItems(arg0: $CraftingInput): $NonNullList<$ItemStack>;
         getGroup(): string;
         constructor(category: $CraftingBookCategory_);
+        get special(): boolean;
+        get type(): $RecipeType<never>;
+        get incomplete(): boolean;
+        get ingredients(): $NonNullList<$Ingredient>;
+        get toastSymbol(): $ItemStack;
+        get group(): string;
     }
     export class $SingleRecipeInput extends $Record implements $RecipeInput {
         getItem(arg0: number): $ItemStack;
-        size(): number;
         item(): $ItemStack;
+        size(): number;
         isEmpty(): boolean;
         findAll(): $List<$ItemStack>;
         findAll(filter: $SlotFilter_): $List<$ItemStack>;
@@ -578,6 +652,7 @@ declare module "@package/net/minecraft/world/item/crafting" {
         find(filter: $SlotFilter_): $ItemStack;
         self(): $RecipeInput;
         constructor(arg0: $ItemStack_);
+        get empty(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $SingleRecipeInput}.
@@ -586,18 +661,18 @@ declare module "@package/net/minecraft/world/item/crafting" {
     export class $SmithingTrimRecipe implements $SmithingRecipe, $SmithingTrimRecipeAccessor, $AccessorSmithingTrimRecipe {
         isIncomplete(): boolean;
         getResultItem(registries: $HolderLookup$Provider): $ItemStack;
+        getSerializer(): $RecipeSerializer<never>;
         isTemplateIngredient(stack: $ItemStack_): boolean;
         isBaseIngredient(stack: $ItemStack_): boolean;
         isAdditionIngredient(stack: $ItemStack_): boolean;
-        getSerializer(): $RecipeSerializer<never>;
         assemble(input: $SmithingRecipeInput_, registries: $HolderLookup$Provider): $ItemStack;
         matches(input: $SmithingRecipeInput_, level: $Level_): boolean;
-        getToastSymbol(): $ItemStack;
         canCraftInDimensions(arg0: number, arg1: number): boolean;
+        getToastSymbol(): $ItemStack;
         getType(): $RecipeType<never>;
-        handler$ejk000$bclib$bcl_getRemainingItems(arg0: $RecipeInput, arg1: $CallbackInfoReturnable<any>): void;
         getIngredients(): $NonNullList<$Ingredient>;
         showNotification(): boolean;
+        handler$ejk000$bclib$bcl_getRemainingItems(arg0: $RecipeInput, arg1: $CallbackInfoReturnable<any>): void;
         getRemainingItems(arg0: $SmithingRecipeInput_): $NonNullList<$ItemStack>;
         getGroup(): string;
         isSpecial(): boolean;
@@ -608,6 +683,13 @@ declare module "@package/net/minecraft/world/item/crafting" {
         base: $Ingredient;
         addition: $Ingredient;
         constructor(template: $Ingredient_, base: $Ingredient_, addition: $Ingredient_);
+        get incomplete(): boolean;
+        get serializer(): $RecipeSerializer<never>;
+        get toastSymbol(): $ItemStack;
+        get type(): $RecipeType<never>;
+        get ingredients(): $NonNullList<$Ingredient>;
+        get group(): string;
+        get special(): boolean;
     }
     export class $RecipeManager$CachedCheck<I extends $RecipeInput, T extends $Recipe<I>> {
     }
@@ -619,6 +701,10 @@ declare module "@package/net/minecraft/world/item/crafting" {
      */
     export type $RecipeManager$CachedCheck_<I, T> = ((arg0: I, arg1: $Level) => ($RecipeHolder_<T>) | undefined);
     export class $AbstractCookingRecipe implements $Recipe<$SingleRecipeInput> {
+        /**
+         * Gets the experience of this recipe
+         */
+        getExperience(): number;
         getResultItem(registries: $HolderLookup$Provider): $ItemStack;
         getIngredients(): $NonNullList<$Ingredient>;
         /**
@@ -630,21 +716,17 @@ declare module "@package/net/minecraft/world/item/crafting" {
          */
         getCookingTime(): number;
         assemble(input: $SingleRecipeInput_, registries: $HolderLookup$Provider): $ItemStack;
-        /**
-         * Gets the experience of this recipe
-         */
-        getExperience(): number;
-        category(): $CookingBookCategory;
         matches(input: $SingleRecipeInput_, level: $Level_): boolean;
         getType(): $RecipeType<never>;
+        category(): $CookingBookCategory;
         /**
          * Recipes with equal group are combined into one button in the recipe book
          */
         getGroup(): string;
-        handler$ejk000$bclib$bcl_getRemainingItems(arg0: $RecipeInput, arg1: $CallbackInfoReturnable<any>): void;
-        getToastSymbol(): $ItemStack;
         isIncomplete(): boolean;
         showNotification(): boolean;
+        handler$ejk000$bclib$bcl_getRemainingItems(arg0: $RecipeInput, arg1: $CallbackInfoReturnable<any>): void;
+        getToastSymbol(): $ItemStack;
         getRemainingItems(arg0: $SingleRecipeInput_): $NonNullList<$ItemStack>;
         isSpecial(): boolean;
         result: $ItemStack;
@@ -654,6 +736,10 @@ declare module "@package/net/minecraft/world/item/crafting" {
         cookingTime: number;
         group: string;
         constructor(type: $RecipeType_<never>, group: string, category: $CookingBookCategory_, ingredient: $Ingredient_, result: $ItemStack_, experience: number, cookingTime: number);
+        get ingredients(): $NonNullList<$Ingredient>;
+        get incomplete(): boolean;
+        get toastSymbol(): $ItemStack;
+        get special(): boolean;
     }
     export class $RecipeType<T extends $Recipe<never>> {
         static register<T extends $Recipe<never>>(identifier: string): $RecipeType<T>;
@@ -706,6 +792,7 @@ declare module "@package/net/minecraft/world/item/crafting" {
         getItem(index: number): $ItemStack;
         size(): number;
         isEmpty(): boolean;
+        get empty(): boolean;
     }
     export class $RecipeSerializer<T extends $Recipe<never>> {
         static register<S extends $RecipeSerializer<T>, T extends $Recipe<never>>(key: string, recipeSerializer: S): S;

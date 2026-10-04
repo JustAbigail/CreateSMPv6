@@ -57,8 +57,8 @@ declare module "@package/ru/zznty/create_factory_abstractions/api/generic/key" {
     }
     export interface $GenericKeyClientGuiHandler<K extends $GenericKey> {
         renderSlot(arg0: $GuiGraphics, arg1: K, arg2: number, arg3: number): void;
-        renderDecorations(arg0: $GuiGraphics, arg1: K, arg2: number, arg3: number, arg4: number): void;
         tooltipBuilder(arg0: K, arg1: number): $List<$Component>;
+        renderDecorations(arg0: $GuiGraphics, arg1: K, arg2: number, arg3: number, arg4: number): void;
         maxStackSize(arg0: K): number;
         stackSize(arg0: K): number;
         nameBuilder(arg0: K): $LangBuilder;
@@ -67,9 +67,9 @@ declare module "@package/ru/zznty/create_factory_abstractions/api/generic/key" {
     export class $GenericCapabilityWrapperProvider<Cap> {
     }
     export interface $GenericCapabilityWrapperProvider<Cap> {
-        capability(): $BlockCapability<Cap, $Direction>;
         wrap(arg0: $GenericInventorySummaryProvider_): Cap;
         unwrap(arg0: Cap): $GenericInventorySummaryProvider;
+        capability(): $BlockCapability<Cap, $Direction>;
     }
     export interface $GenericKeyRegistration extends RegistryMarked<RegistryTypes.CreateFactoryAbstractionsGenericKeysTag, RegistryTypes.CreateFactoryAbstractionsGenericKeys> {}
     export class $GenericKeyProvider<Key extends $GenericKey> {
@@ -78,8 +78,8 @@ declare module "@package/ru/zznty/create_factory_abstractions/api/generic/key" {
         wrapGeneric<T>(arg0: T): Key;
         ingredientTypeUid(): string;
         capabilityWrapperProvider<Cap>(): $GenericCapabilityWrapperProvider<Cap>;
-        resourceKey<T>(arg0: Key): ($ResourceKey<T>) | undefined;
         defaultKey(): Key;
+        resourceKey<T>(arg0: Key): ($ResourceKey<T>) | undefined;
         wrap<T>(arg0: T): Key;
         unwrap<T>(arg0: Key): T;
     }

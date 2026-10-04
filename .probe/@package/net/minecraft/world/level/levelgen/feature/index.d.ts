@@ -1,5 +1,5 @@
 import { $LevelSimulatedReader, $WorldGenLevel, $LevelWriter } from "@package/net/minecraft/world/level";
-import { $BlockPileConfiguration, $NoneFeatureConfiguration, $DeltaFeatureConfiguration, $RandomBooleanFeatureConfiguration, $EndGatewayConfiguration, $NetherForestVegetationConfig, $ColumnFeatureConfiguration, $UnderwaterMagmaConfiguration, $RandomFeatureConfiguration, $SpikeConfiguration, $MultifaceGrowthConfiguration, $ReplaceSphereConfiguration, $RootSystemConfiguration, $DiskConfiguration, $LayerConfiguration, $TwistingVinesConfig, $PointedDripstoneConfiguration, $SpringConfiguration, $SimpleRandomFeatureConfiguration, $VegetationPatchConfiguration, $HugeMushroomFeatureConfiguration, $ProbabilityFeatureConfiguration, $SculkPatchConfiguration, $LargeDripstoneConfiguration, $FeatureConfiguration, $GeodeConfiguration, $TreeConfiguration, $RandomPatchConfiguration, $CountConfiguration, $BlockColumnConfiguration, $SimpleBlockConfiguration, $BlockStateConfiguration, $DripstoneClusterConfiguration, $OreConfiguration, $ReplaceBlockConfiguration } from "@package/net/minecraft/world/level/levelgen/feature/configurations";
+import { $BlockPileConfiguration, $NoneFeatureConfiguration, $DeltaFeatureConfiguration, $RandomBooleanFeatureConfiguration, $EndGatewayConfiguration, $NetherForestVegetationConfig, $ColumnFeatureConfiguration, $UnderwaterMagmaConfiguration, $RandomFeatureConfiguration, $SpikeConfiguration, $MultifaceGrowthConfiguration, $ReplaceSphereConfiguration, $RootSystemConfiguration, $DiskConfiguration, $TwistingVinesConfig, $LayerConfiguration, $PointedDripstoneConfiguration, $SpringConfiguration, $SimpleRandomFeatureConfiguration, $VegetationPatchConfiguration, $HugeMushroomFeatureConfiguration, $ProbabilityFeatureConfiguration, $SculkPatchConfiguration, $LargeDripstoneConfiguration, $FeatureConfiguration, $GeodeConfiguration, $TreeConfiguration, $RandomPatchConfiguration, $CountConfiguration, $BlockColumnConfiguration, $SimpleBlockConfiguration, $BlockStateConfiguration, $DripstoneClusterConfiguration, $OreConfiguration, $ReplaceBlockConfiguration } from "@package/net/minecraft/world/level/levelgen/feature/configurations";
 import { $TagKey_ } from "@package/net/minecraft/tags";
 import { $Codec, $MapCodec } from "@package/com/mojang/serialization";
 import { $IEndSpike } from "@package/com/yungnickyoung/minecraft/betterendisland/world";
@@ -29,12 +29,6 @@ export * as trunkplacers from "@package/net/minecraft/world/level/levelgen/featu
 
 declare module "@package/net/minecraft/world/level/levelgen/feature" {
     export class $Feature<FC extends $FeatureConfiguration> {
-        /**
-         * Places the given feature at the given location.
-         * During world generation, features are provided with a 3x3 region of chunks, centered on the chunk being generated, that they can safely generate into.
-         */
-        place(context: $FeaturePlaceContext<FC>): boolean;
-        place(config: FC, level: $WorldGenLevel, chunkGenerator: $ChunkGenerator, random: $RandomSource, origin: $BlockPos_): boolean;
         static isDirt(state: $BlockState_): boolean;
         configuredCodec(): $MapCodec<$ConfiguredFeature<FC, $Feature<FC>>>;
         static isReplaceable(blockTag: $TagKey_<$Block>): $Predicate<$BlockState>;
@@ -54,6 +48,12 @@ declare module "@package/net/minecraft/world/level/levelgen/feature" {
          * This is used to prevent floating grass during the generation of features that carve blocks out of the terrain, after other plant-like blocks have generated (such as lake features).
          */
         markAboveForPostProcessing(level: $WorldGenLevel, basePos: $BlockPos_): void;
+        place(config: FC, level: $WorldGenLevel, chunkGenerator: $ChunkGenerator, random: $RandomSource, origin: $BlockPos_): boolean;
+        /**
+         * Places the given feature at the given location.
+         * During world generation, features are provided with a 3x3 region of chunks, centered on the chunk being generated, that they can safely generate into.
+         */
+        place(context: $FeaturePlaceContext<FC>): boolean;
         setBlock(level: $LevelWriter, pos: $BlockPos_, state: $BlockState_): void;
         static VEGETATION_PATCH: $Feature<$VegetationPatchConfiguration>;
         static CHORUS_PLANT: $Feature<$NoneFeatureConfiguration>;
@@ -124,14 +124,15 @@ declare module "@package/net/minecraft/world/level/levelgen/feature" {
      */
     export type $Feature_<FC> = RegistryTypes.WorldgenFeature;
     export class $ConfiguredFeature<FC extends $FeatureConfiguration, F extends $Feature<FC>> extends $Record {
-        place(reader: $WorldGenLevel, chunkGenerator: $ChunkGenerator, random: $RandomSource, pos: $BlockPos_): boolean;
         getFeatures(): $Stream<$ConfiguredFeature<never, never>>;
+        place(reader: $WorldGenLevel, chunkGenerator: $ChunkGenerator, random: $RandomSource, pos: $BlockPos_): boolean;
         feature(): F;
         config(): FC;
         static CODEC: $Codec<$Holder<$ConfiguredFeature<never, never>>>;
         static DIRECT_CODEC: $Codec<$ConfiguredFeature<never, never>>;
         static LIST_CODEC: $Codec<$HolderSet<$ConfiguredFeature<never, never>>>;
         constructor(feature: F, config: FC);
+        get features(): $Stream<$ConfiguredFeature<never, never>>;
     }
     /**
      * Values that may be interpreted as {@link $ConfiguredFeature}.
@@ -143,33 +144,42 @@ declare module "@package/net/minecraft/world/level/levelgen/feature" {
         getFeatures(): $Stream<$ConfiguredFeature<never, never>>;
         static CODEC: $Codec<$LakeFeature$Configuration>;
         constructor(arg0: $BlockStateProvider, arg1: $BlockStateProvider);
+        get features(): $Stream<$ConfiguredFeature<never, never>>;
     }
     /**
      * Values that may be interpreted as {@link $LakeFeature$Configuration}.
      */
     export type $LakeFeature$Configuration_ = { barrier?: $BlockStateProvider, fluid?: $BlockStateProvider,  } | [barrier?: $BlockStateProvider, fluid?: $BlockStateProvider, ];
     export class $FeaturePlaceContext<FC extends $FeatureConfiguration> {
-        origin(): $BlockPos;
         chunkGenerator(): $ChunkGenerator;
         topFeature(): ($ConfiguredFeature<never, never>) | undefined;
+        origin(): $BlockPos;
+        level(): $WorldGenLevel;
         random(): $RandomSource;
         config(): FC;
-        level(): $WorldGenLevel;
         constructor(topFeature: ($ConfiguredFeature_<never, never>) | undefined, level: $WorldGenLevel, chunkGenerator: $ChunkGenerator, random: $RandomSource, origin: $BlockPos_, config: FC);
     }
     export interface $Feature<FC> extends RegistryMarked<RegistryTypes.WorldgenFeatureTag, RegistryTypes.WorldgenFeature> {}
     export class $SpikeFeature$EndSpike implements $IEndSpike {
-        getHeight(): number;
         getRadius(): number;
         isCenterWithinChunk(pos: $BlockPos_): boolean;
         isGuarded(): boolean;
         setCrystalYOffsetFromPillarHeight(arg0: number): void;
         getTopBoundingBox(): $AABB;
         getCrystalYOffset(): number;
+        getHeight(): number;
         getCenterX(): number;
         getCenterZ(): number;
         static CODEC: $Codec<$SpikeFeature$EndSpike>;
         constructor(centerX: number, centerZ: number, radius: number, height: number, guarded: boolean);
+        get radius(): number;
+        get guarded(): boolean;
+        set crystalYOffsetFromPillarHeight(value: number);
+        get topBoundingBox(): $AABB;
+        get crystalYOffset(): number;
+        get height(): number;
+        get centerX(): number;
+        get centerZ(): number;
     }
     export class $SeagrassFeature extends $Feature<$ProbabilityFeatureConfiguration> {
         static VEGETATION_PATCH: $Feature<$VegetationPatchConfiguration>;
@@ -319,6 +329,7 @@ declare module "@package/net/minecraft/world/level/levelgen/feature" {
         hatState: $BlockState;
         stemState: $BlockState;
         constructor(validBaseState: $BlockState_, stemState: $BlockState_, hatState: $BlockState_, decorState: $BlockState_, replaceableBlocks: $BlockPredicate, planted: boolean);
+        get features(): $Stream<$ConfiguredFeature<never, never>>;
     }
     export class $FossilFeatureConfiguration implements $FeatureConfiguration {
         getFeatures(): $Stream<$ConfiguredFeature<never, never>>;
@@ -329,5 +340,6 @@ declare module "@package/net/minecraft/world/level/levelgen/feature" {
         fossilStructures: $List<$ResourceLocation>;
         fossilProcessors: $Holder<$StructureProcessorList>;
         constructor(fossilStructures: $List_<$ResourceLocation_>, overlayStructures: $List_<$ResourceLocation_>, fossilProcessors: $Holder_<$StructureProcessorList>, overlayProcessors: $Holder_<$StructureProcessorList>, maxEmptyCornersAllowed: number);
+        get features(): $Stream<$ConfiguredFeature<never, never>>;
     }
 }

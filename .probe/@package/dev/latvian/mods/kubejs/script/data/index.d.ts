@@ -64,20 +64,20 @@ declare module "@package/dev/latvian/mods/kubejs/script/data" {
         constructor(stage: $GeneratedDataStage_, registries: $Supplier_<$RegistryAccessContainer>);
     }
     export class $VirtualDataMapFile<RT, DT> implements $BiConsumer<$ResourceLocation, DT> {
-        removeTag(tag: $TagKey_<RT>): void;
-        addTag(tag: $TagKey_<RT>, value: DT): void;
-        addTag(tag: $TagKey_<RT>, value: DT, replace: boolean): void;
         remove(holder: RT): void;
         remove(holder: $Holder_<RT>): void;
         remove(holders: $HolderSet_<RT>): void;
         clear(): void;
         replaceAll(): void;
         add(holders: $HolderSet_<RT>, value: DT, replace: boolean): void;
-        add(holder: RT, value: DT): void;
         add(holders: $HolderSet_<RT>, value: DT): void;
-        add(holder: RT, value: DT, replace: boolean): void;
-        add(holder: $Holder_<RT>, value: DT, replace: boolean): void;
         add(holder: $Holder_<RT>, value: DT): void;
+        add(holder: $Holder_<RT>, value: DT, replace: boolean): void;
+        add(holder: RT, value: DT, replace: boolean): void;
+        add(holder: RT, value: DT): void;
+        addTag(tag: $TagKey_<RT>, value: DT): void;
+        addTag(tag: $TagKey_<RT>, value: DT, replace: boolean): void;
+        removeTag(tag: $TagKey_<RT>): void;
         andThen(arg0: $BiConsumer_<$ResourceLocation, DT>): $BiConsumer<$ResourceLocation, DT>;
         registryAccess: $RegistryAccessContainer;
         registry: $Registry<RT>;
@@ -98,6 +98,8 @@ declare module "@package/dev/latvian/mods/kubejs/script/data" {
         static INTERNAL: $GeneratedDataStage;
         static AFTER_MODS: $GeneratedDataStage;
         static FOR_SCRIPTS: $GeneratedDataStage[];
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $GeneratedDataStage}.
@@ -111,17 +113,17 @@ declare module "@package/dev/latvian/mods/kubejs/script/data" {
     }
     export class $VirtualDataPack extends $VirtualResourcePack implements $KubeDataGenerator {
         dataMap<R, T>(type: $DataMapType<R, T>, consumer: $Consumer_<$VirtualDataMapFile<R, T>>): void;
-        setWaxable(from: $Block_, to: $Block_): void;
+        setCompostable(items: $ItemPredicate_, chance: number, canVillagerCompost: boolean): void;
         removeCompostable(items: $ItemPredicate_): void;
         setFurnaceFuel(items: $ItemPredicate_, ticks: $TickDuration_): void;
         removeFurnaceFuel(items: $ItemPredicate_): void;
         setMonsterRoomMobs(entityType: $EntityType_<never>, weight: number): void;
+        setVibrationFrequency(gameEvent: $GameEvent_, frequency: number): void;
         setOxidizable(from: $Block_, to: $Block_): void;
         setParrotImitation(type: $EntityType_<never>, sound: $SoundEvent_): void;
         setRaidHeroGifts(profession: $VillagerProfession_, lootTable: $ResourceKey_<$LootTable>): void;
-        setVibrationFrequency(gameEvent: $GameEvent_, frequency: number): void;
         setVillagerType(biome: $ResourceKey_<$Biome>, villagerType: $VillagerType_): void;
-        setCompostable(items: $ItemPredicate_, chance: number, canVillagerCompost: boolean): void;
+        setWaxable(from: $Block_, to: $Block_): void;
         component: $Component;
         stage: $GeneratedDataStage;
         scriptType: $ScriptType;

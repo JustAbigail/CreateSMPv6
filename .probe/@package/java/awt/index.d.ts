@@ -20,55 +20,71 @@ declare module "@package/java/awt" {
         dispose(): void;
         getColorModel(): $ColorModel;
         getRaster(arg0: number, arg1: number, arg2: number, arg3: number): $Raster;
+        get colorModel(): $ColorModel;
     }
     export class $GraphicsDevice {
+        getDefaultConfiguration(): $GraphicsConfiguration;
         isWindowTranslucencySupported(arg0: $GraphicsDevice$WindowTranslucency): boolean;
         getDisplayMode(): $DisplayMode;
         setDisplayMode(arg0: $DisplayMode): void;
-        getDefaultConfiguration(): $GraphicsConfiguration;
         getConfigurations(): $GraphicsConfiguration[];
+        getIDstring(): string;
+        getBestConfiguration(arg0: $GraphicsConfigTemplate): $GraphicsConfiguration;
+        getFullScreenWindow(): $Window;
         setFullScreenWindow(arg0: $Window): void;
         isFullScreenSupported(): boolean;
         isDisplayChangeSupported(): boolean;
         getDisplayModes(): $DisplayMode[];
         getAvailableAcceleratedMemory(): number;
-        getIDstring(): string;
-        getBestConfiguration(arg0: $GraphicsConfigTemplate): $GraphicsConfiguration;
-        getFullScreenWindow(): $Window;
         getType(): number;
         static TYPE_IMAGE_BUFFER: number;
         static TYPE_RASTER_SCREEN: number;
         static TYPE_PRINTER: number;
+        get defaultConfiguration(): $GraphicsConfiguration;
+        get configurations(): $GraphicsConfiguration[];
+        get IDstring(): string;
+        get fullScreenSupported(): boolean;
+        get displayChangeSupported(): boolean;
+        get displayModes(): $DisplayMode[];
+        get availableAcceleratedMemory(): number;
+        get type(): number;
     }
     export class $GraphicsConfiguration {
         isTranslucencyCapable(): boolean;
         getDevice(): $GraphicsDevice;
-        getDefaultTransform(): $AffineTransform;
-        getColorModel(): $ColorModel;
-        getColorModel(arg0: number): $ColorModel;
         createCompatibleImage(arg0: number, arg1: number, arg2: number): $BufferedImage;
         createCompatibleImage(arg0: number, arg1: number): $BufferedImage;
-        getNormalizingTransform(): $AffineTransform;
-        createCompatibleVolatileImage(arg0: number, arg1: number): $VolatileImage;
-        createCompatibleVolatileImage(arg0: number, arg1: number, arg2: number): $VolatileImage;
         createCompatibleVolatileImage(arg0: number, arg1: number, arg2: $ImageCapabilities): $VolatileImage;
+        createCompatibleVolatileImage(arg0: number, arg1: number, arg2: number): $VolatileImage;
         createCompatibleVolatileImage(arg0: number, arg1: number, arg2: $ImageCapabilities, arg3: number): $VolatileImage;
+        createCompatibleVolatileImage(arg0: number, arg1: number): $VolatileImage;
         getImageCapabilities(): $ImageCapabilities;
+        getDefaultTransform(): $AffineTransform;
+        getNormalizingTransform(): $AffineTransform;
         getBufferCapabilities(): $BufferCapabilities;
+        getColorModel(arg0: number): $ColorModel;
+        getColorModel(): $ColorModel;
         getBounds(): $Rectangle;
+        get translucencyCapable(): boolean;
+        get device(): $GraphicsDevice;
+        get imageCapabilities(): $ImageCapabilities;
+        get defaultTransform(): $AffineTransform;
+        get normalizingTransform(): $AffineTransform;
+        get bufferCapabilities(): $BufferCapabilities;
+        get bounds(): $Rectangle;
     }
     export class $Polygon implements $Shape, $Serializable {
         addPoint(arg0: number, arg1: number): void;
-        getPathIterator(arg0: $AffineTransform, arg1: number): $PathIterator;
-        getPathIterator(arg0: $AffineTransform): $PathIterator;
-        getBounds2D(): $Rectangle2D;
         /**
          * @deprecated
          */
         inside(arg0: number, arg1: number): boolean;
+        invalidate(): void;
         intersects(arg0: number, arg1: number, arg2: number, arg3: number): boolean;
         intersects(arg0: $Rectangle2D): boolean;
-        invalidate(): void;
+        getBounds2D(): $Rectangle2D;
+        getPathIterator(arg0: $AffineTransform, arg1: number): $PathIterator;
+        getPathIterator(arg0: $AffineTransform): $PathIterator;
         reset(): void;
         contains(arg0: number, arg1: number): boolean;
         contains(arg0: number, arg1: number, arg2: number, arg3: number): boolean;
@@ -87,20 +103,25 @@ declare module "@package/java/awt" {
         npoints: number;
         constructor();
         constructor(arg0: number[], arg1: number[], arg2: number);
+        get bounds2D(): $Rectangle2D;
+        get bounds(): $Rectangle;
+        get boundingBox(): $Rectangle;
     }
     export class $Shape {
     }
     export interface $Shape {
-        getPathIterator(arg0: $AffineTransform): $PathIterator;
-        getPathIterator(arg0: $AffineTransform, arg1: number): $PathIterator;
-        getBounds2D(): $Rectangle2D;
         intersects(arg0: number, arg1: number, arg2: number, arg3: number): boolean;
         intersects(arg0: $Rectangle2D): boolean;
+        getBounds2D(): $Rectangle2D;
+        getPathIterator(arg0: $AffineTransform): $PathIterator;
+        getPathIterator(arg0: $AffineTransform, arg1: number): $PathIterator;
         contains(arg0: number, arg1: number): boolean;
         contains(arg0: $Rectangle2D): boolean;
         contains(arg0: number, arg1: number, arg2: number, arg3: number): boolean;
         contains(arg0: $Point2D): boolean;
         getBounds(): $Rectangle;
+        get bounds2D(): $Rectangle2D;
+        get bounds(): $Rectangle;
     }
     export class $Point extends $Point2D implements $Serializable {
         move(arg0: number, arg1: number): void;
@@ -123,28 +144,50 @@ declare module "@package/java/awt" {
         isMultiBufferAvailable(): boolean;
         clone(): $Object;
         constructor(arg0: $ImageCapabilities, arg1: $ImageCapabilities, arg2: $BufferCapabilities$FlipContents);
+        get pageFlipping(): boolean;
+        get flipContents(): $BufferCapabilities$FlipContents;
+        get frontBufferCapabilities(): $ImageCapabilities;
+        get backBufferCapabilities(): $ImageCapabilities;
+        get fullScreenRequired(): boolean;
+        get multiBufferAvailable(): boolean;
     }
     export class $Font implements $Serializable {
-        static textRequiresLayout(arg0: string[], arg1: number, arg2: number): boolean;
-        static createFonts(arg0: $InputStream): $Font[];
-        static createFonts(arg0: $File_): $Font[];
-        getPSName(): string;
-        getSize2D(): number;
         isPlain(): boolean;
-        getAvailableAttributes(): $AttributedCharacterIterator$Attribute[];
-        deriveFont(arg0: number): $Font;
-        deriveFont(arg0: number, arg1: number): $Font;
-        deriveFont(arg0: $Map_<$AttributedCharacterIterator$Attribute, never>): $Font;
         deriveFont(arg0: $AffineTransform): $Font;
         deriveFont(arg0: number): $Font;
+        deriveFont(arg0: number): $Font;
         deriveFont(arg0: number, arg1: $AffineTransform): $Font;
-        canDisplayUpTo(arg0: string[], arg1: number, arg2: number): number;
+        deriveFont(arg0: number, arg1: number): $Font;
+        deriveFont(arg0: $Map_<$AttributedCharacterIterator$Attribute, never>): $Font;
+        getTransform(): $AffineTransform;
+        getFamily(): string;
+        getFamily(arg0: $Locale): string;
+        getNumGlyphs(): number;
+        getFontName(arg0: $Locale): string;
+        getFontName(): string;
+        hasLayoutAttributes(): boolean;
+        getMissingGlyphCode(): number;
+        getBaselineFor(arg0: string): number;
+        canDisplay(arg0: number): boolean;
+        canDisplay(arg0: string): boolean;
+        getItalicAngle(): number;
+        getStringBounds(arg0: string, arg1: number, arg2: number, arg3: $FontRenderContext): $Rectangle2D;
+        getStringBounds(arg0: $CharacterIterator, arg1: number, arg2: number, arg3: $FontRenderContext): $Rectangle2D;
+        getStringBounds(arg0: string, arg1: $FontRenderContext): $Rectangle2D;
+        getStringBounds(arg0: string[], arg1: number, arg2: number, arg3: $FontRenderContext): $Rectangle2D;
+        static textRequiresLayout(arg0: string[], arg1: number, arg2: number): boolean;
+        static createFonts(arg0: $File_): $Font[];
+        static createFonts(arg0: $InputStream): $Font[];
+        getPSName(): string;
+        getSize2D(): number;
+        getAvailableAttributes(): $AttributedCharacterIterator$Attribute[];
         canDisplayUpTo(arg0: $CharacterIterator, arg1: number, arg2: number): number;
+        canDisplayUpTo(arg0: string[], arg1: number, arg2: number): number;
         canDisplayUpTo(arg0: string): number;
         hasUniformLineMetrics(): boolean;
-        getLineMetrics(arg0: string, arg1: $FontRenderContext): $LineMetrics;
         getLineMetrics(arg0: $CharacterIterator, arg1: number, arg2: number, arg3: $FontRenderContext): $LineMetrics;
         getLineMetrics(arg0: string[], arg1: number, arg2: number, arg3: $FontRenderContext): $LineMetrics;
+        getLineMetrics(arg0: string, arg1: $FontRenderContext): $LineMetrics;
         getLineMetrics(arg0: string, arg1: number, arg2: number, arg3: $FontRenderContext): $LineMetrics;
         getMaxCharBounds(arg0: $FontRenderContext): $Rectangle2D;
         createGlyphVector(arg0: $FontRenderContext, arg1: string[]): $GlyphVector;
@@ -152,32 +195,16 @@ declare module "@package/java/awt" {
         createGlyphVector(arg0: $FontRenderContext, arg1: string): $GlyphVector;
         createGlyphVector(arg0: $FontRenderContext, arg1: number[]): $GlyphVector;
         layoutGlyphVector(arg0: $FontRenderContext, arg1: string[], arg2: number, arg3: number, arg4: number): $GlyphVector;
-        getFontName(arg0: $Locale): string;
-        getFontName(): string;
-        hasLayoutAttributes(): boolean;
-        getNumGlyphs(): number;
-        getMissingGlyphCode(): number;
-        getBaselineFor(arg0: string): number;
-        canDisplay(arg0: string): boolean;
-        canDisplay(arg0: number): boolean;
-        getItalicAngle(): number;
-        getStringBounds(arg0: string, arg1: $FontRenderContext): $Rectangle2D;
-        getStringBounds(arg0: string[], arg1: number, arg2: number, arg3: $FontRenderContext): $Rectangle2D;
-        getStringBounds(arg0: $CharacterIterator, arg1: number, arg2: number, arg3: $FontRenderContext): $Rectangle2D;
-        getStringBounds(arg0: string, arg1: number, arg2: number, arg3: $FontRenderContext): $Rectangle2D;
-        getTransform(): $AffineTransform;
-        getFamily(): string;
-        getFamily(arg0: $Locale): string;
         getName(): string;
         static decode(arg0: string): $Font;
         getSize(): number;
         getAttributes(): $Map<$TextAttribute, never>;
         isTransformed(): boolean;
+        static createFont(arg0: number, arg1: $File_): $Font;
+        static createFont(arg0: number, arg1: $InputStream): $Font;
         static getFont(arg0: $Map_<$AttributedCharacterIterator$Attribute, never>): $Font;
         static getFont(arg0: string, arg1: $Font): $Font;
         static getFont(arg0: string): $Font;
-        static createFont(arg0: number, arg1: $InputStream): $Font;
-        static createFont(arg0: number, arg1: $File_): $Font;
         getStyle(): number;
         isBold(): boolean;
         isItalic(): boolean;
@@ -198,16 +225,31 @@ declare module "@package/java/awt" {
         static LAYOUT_LEFT_TO_RIGHT: number;
         static BOLD: number;
         static TYPE1_FONT: number;
-        constructor(arg0: string, arg1: number, arg2: number);
         constructor(arg0: $Map_<$AttributedCharacterIterator$Attribute, never>);
+        constructor(arg0: string, arg1: number, arg2: number);
+        get plain(): boolean;
+        get transform(): $AffineTransform;
+        get numGlyphs(): number;
+        get missingGlyphCode(): number;
+        get italicAngle(): number;
+        get PSName(): string;
+        get size2D(): number;
+        get availableAttributes(): $AttributedCharacterIterator$Attribute[];
+        get name(): string;
+        get size(): number;
+        get attributes(): $Map<$TextAttribute, never>;
+        get transformed(): boolean;
+        get style(): number;
+        get bold(): boolean;
+        get italic(): boolean;
     }
     export class $RenderingHints$Key {
         isCompatibleValue(arg0: $Object): boolean;
     }
     export class $Dimension extends $Dimension2D implements $Serializable {
-        getSize(): $Dimension;
-        setSize(arg0: $Dimension): void;
         setSize(arg0: number, arg1: number): void;
+        setSize(arg0: $Dimension): void;
+        getSize(): $Dimension;
         width: number;
         height: number;
         constructor();
@@ -295,93 +337,99 @@ declare module "@package/java/awt" {
         static VALUE_COLOR_RENDER_SPEED: $Object;
         constructor(arg0: $Map_<$RenderingHints$Key, never>);
         constructor(arg0: $RenderingHints$Key, arg1: $Object);
+        get empty(): boolean;
     }
     export class $ImageCapabilities implements $Cloneable {
         isAccelerated(): boolean;
         isTrueVolatile(): boolean;
         clone(): $Object;
         constructor(arg0: boolean);
+        get accelerated(): boolean;
+        get trueVolatile(): boolean;
     }
     export class $Graphics {
-        drawImage(arg0: $Image, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number, arg6: number, arg7: number, arg8: number, arg9: $Color, arg10: $ImageObserver_): boolean;
-        drawImage(arg0: $Image, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number, arg6: number, arg7: number, arg8: number, arg9: $ImageObserver_): boolean;
+        copyArea(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number): void;
+        clipRect(arg0: number, arg1: number, arg2: number, arg3: number): void;
         drawImage(arg0: $Image, arg1: number, arg2: number, arg3: number, arg4: number, arg5: $Color, arg6: $ImageObserver_): boolean;
         drawImage(arg0: $Image, arg1: number, arg2: number, arg3: $ImageObserver_): boolean;
         drawImage(arg0: $Image, arg1: number, arg2: number, arg3: $Color, arg4: $ImageObserver_): boolean;
         drawImage(arg0: $Image, arg1: number, arg2: number, arg3: number, arg4: number, arg5: $ImageObserver_): boolean;
+        drawImage(arg0: $Image, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number, arg6: number, arg7: number, arg8: number, arg9: $Color, arg10: $ImageObserver_): boolean;
+        drawImage(arg0: $Image, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number, arg6: number, arg7: number, arg8: number, arg9: $ImageObserver_): boolean;
         fillRect(arg0: number, arg1: number, arg2: number, arg3: number): void;
-        getFontMetrics(arg0: $Font): $FontMetrics;
-        getFontMetrics(): $FontMetrics;
-        setFont(arg0: $Font): void;
-        drawLine(arg0: number, arg1: number, arg2: number, arg3: number): void;
+        drawRect(arg0: number, arg1: number, arg2: number, arg3: number): void;
         drawArc(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number): void;
-        clipRect(arg0: number, arg1: number, arg2: number, arg3: number): void;
+        fillOval(arg0: number, arg1: number, arg2: number, arg3: number): void;
+        fillArc(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number): void;
+        fillRoundRect(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number): void;
+        drawPolygon(arg0: $Polygon): void;
+        drawPolygon(arg0: number[], arg1: number[], arg2: number): void;
+        fillPolygon(arg0: number[], arg1: number[], arg2: number): void;
+        fillPolygon(arg0: $Polygon): void;
+        drawLine(arg0: number, arg1: number, arg2: number, arg3: number): void;
+        setFont(arg0: $Font): void;
+        setPaintMode(): void;
+        setXORMode(arg0: $Color): void;
+        drawRoundRect(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number): void;
+        draw3DRect(arg0: number, arg1: number, arg2: number, arg3: number, arg4: boolean): void;
+        fill3DRect(arg0: number, arg1: number, arg2: number, arg3: number, arg4: boolean): void;
+        drawOval(arg0: number, arg1: number, arg2: number, arg3: number): void;
+        drawPolyline(arg0: number[], arg1: number[], arg2: number): void;
+        drawChars(arg0: string[], arg1: number, arg2: number, arg3: number, arg4: number): void;
+        drawBytes(arg0: number[], arg1: number, arg2: number, arg3: number, arg4: number): void;
+        /**
+         * @deprecated
+         */
+        getClipRect(): $Rectangle;
+        getFontMetrics(): $FontMetrics;
+        getFontMetrics(arg0: $Font): $FontMetrics;
         dispose(): void;
+        clearRect(arg0: number, arg1: number, arg2: number, arg3: number): void;
         getClipBounds(): $Rectangle;
         getClipBounds(arg0: $Rectangle): $Rectangle;
         getClip(): $Shape;
         setClip(arg0: number, arg1: number, arg2: number, arg3: number): void;
         setClip(arg0: $Shape): void;
         hitClip(arg0: number, arg1: number, arg2: number, arg3: number): boolean;
-        setPaintMode(): void;
-        setXORMode(arg0: $Color): void;
-        clearRect(arg0: number, arg1: number, arg2: number, arg3: number): void;
-        drawBytes(arg0: number[], arg1: number, arg2: number, arg3: number, arg4: number): void;
-        draw3DRect(arg0: number, arg1: number, arg2: number, arg3: number, arg4: boolean): void;
-        fill3DRect(arg0: number, arg1: number, arg2: number, arg3: number, arg4: boolean): void;
-        /**
-         * @deprecated
-         */
-        getClipRect(): $Rectangle;
-        copyArea(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number): void;
-        drawRect(arg0: number, arg1: number, arg2: number, arg3: number): void;
-        drawRoundRect(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number): void;
-        fillRoundRect(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number): void;
-        drawOval(arg0: number, arg1: number, arg2: number, arg3: number): void;
-        fillOval(arg0: number, arg1: number, arg2: number, arg3: number): void;
-        fillArc(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number): void;
-        drawPolyline(arg0: number[], arg1: number[], arg2: number): void;
-        drawPolygon(arg0: $Polygon): void;
-        drawPolygon(arg0: number[], arg1: number[], arg2: number): void;
-        fillPolygon(arg0: number[], arg1: number[], arg2: number): void;
-        fillPolygon(arg0: $Polygon): void;
-        drawChars(arg0: string[], arg1: number, arg2: number, arg3: number, arg4: number): void;
+        setColor(arg0: $Color): void;
         /**
          * @deprecated
          */
         finalize(): void;
-        create(): $Graphics;
         create(arg0: number, arg1: number, arg2: number, arg3: number): $Graphics;
-        setColor(arg0: $Color): void;
+        create(): $Graphics;
         getColor(): $Color;
         drawString(arg0: string, arg1: number, arg2: number): void;
         drawString(arg0: $AttributedCharacterIterator, arg1: number, arg2: number): void;
         getFont(): $Font;
         translate(arg0: number, arg1: number): void;
+        set XORMode(value: $Color);
     }
     export class $Rectangle extends $Rectangle2D implements $Shape, $Serializable {
         /**
          * @deprecated
          */
-        reshape(arg0: number, arg1: number, arg2: number, arg3: number): void;
-        intersection(arg0: $Rectangle): $Rectangle;
-        /**
-         * @deprecated
-         */
         inside(arg0: number, arg1: number): boolean;
+        union(arg0: $Rectangle): $Rectangle;
         /**
          * @deprecated
          */
         move(arg0: number, arg1: number): void;
         intersects(arg0: $Rectangle): boolean;
-        union(arg0: $Rectangle): $Rectangle;
+        /**
+         * @deprecated
+         */
+        reshape(arg0: number, arg1: number, arg2: number, arg3: number): void;
+        setSize(arg0: number, arg1: number): void;
+        setSize(arg0: $Dimension): void;
+        intersection(arg0: $Rectangle): $Rectangle;
         add(arg0: number, arg1: number): void;
         add(arg0: $Point): void;
         add(arg0: $Rectangle): void;
-        contains(arg0: $Rectangle): boolean;
-        contains(arg0: number, arg1: number, arg2: number, arg3: number): boolean;
-        contains(arg0: $Point): boolean;
         contains(arg0: number, arg1: number): boolean;
+        contains(arg0: $Point): boolean;
+        contains(arg0: number, arg1: number, arg2: number, arg3: number): boolean;
+        contains(arg0: $Rectangle): boolean;
         getLocation(): $Point;
         getSize(): $Dimension;
         /**
@@ -389,8 +437,6 @@ declare module "@package/java/awt" {
          */
         resize(arg0: number, arg1: number): void;
         grow(arg0: number, arg1: number): void;
-        setSize(arg0: number, arg1: number): void;
-        setSize(arg0: $Dimension): void;
         setLocation(arg0: $Point): void;
         setLocation(arg0: number, arg1: number): void;
         setBounds(arg0: $Rectangle): void;
@@ -404,13 +450,13 @@ declare module "@package/java/awt" {
         static OUT_BOTTOM: number;
         static OUT_LEFT: number;
         height: number;
-        constructor(arg0: $Point, arg1: $Dimension);
-        constructor(arg0: number, arg1: number);
         constructor(arg0: number, arg1: number, arg2: number, arg3: number);
-        constructor(arg0: $Dimension);
         constructor(arg0: $Point);
-        constructor(arg0: $Rectangle);
         constructor();
+        constructor(arg0: $Point, arg1: $Dimension);
+        constructor(arg0: $Dimension);
+        constructor(arg0: number, arg1: number);
+        constructor(arg0: $Rectangle);
     }
     export class $Composite {
     }
@@ -434,15 +480,15 @@ declare module "@package/java/awt" {
         darker(): $Color;
         static RGBtoHSB(arg0: number, arg1: number, arg2: number, arg3: number[]): number[];
         static getHSBColor(arg0: number, arg1: number, arg2: number): $Color;
-        getColorComponents(arg0: $ColorSpace, arg1: number[]): number[];
         getColorComponents(arg0: number[]): number[];
-        getColorSpace(): $ColorSpace;
-        getRGB(): number;
-        getTransparency(): number;
+        getColorComponents(arg0: $ColorSpace, arg1: number[]): number[];
         getRed(): number;
         getGreen(): number;
         getBlue(): number;
         getAlpha(): number;
+        getTransparency(): number;
+        getColorSpace(): $ColorSpace;
+        getRGB(): number;
         static decode(arg0: string): $Color;
         createContext(arg0: $ColorModel, arg1: $Rectangle, arg2: $Rectangle2D, arg3: $AffineTransform, arg4: $RenderingHints): $PaintContext;
         static getColor(arg0: string, arg1: $Color): $Color;
@@ -483,6 +529,10 @@ declare module "@package/java/awt" {
         constructor(arg0: $ColorSpace, arg1: number[], arg2: number);
         constructor(arg0: number, arg1: number, arg2: number, arg3: number);
         constructor(arg0: number, arg1: number, arg2: number);
+        get alpha(): number;
+        get transparency(): number;
+        get colorSpace(): $ColorSpace;
+        get RGB(): number;
     }
     export class $Stroke {
     }
@@ -494,6 +544,7 @@ declare module "@package/java/awt" {
      */
     export type $Stroke_ = ((arg0: $Shape) => $Shape);
     export class $Image {
+        getSource(): $ImageProducer;
         getCapabilities(arg0: $GraphicsConfiguration): $ImageCapabilities;
         setAccelerationPriority(arg0: number): void;
         getWidth(arg0: $ImageObserver_): number;
@@ -501,7 +552,6 @@ declare module "@package/java/awt" {
         getGraphics(): $Graphics;
         getScaledInstance(arg0: number, arg1: number, arg2: number): $Image;
         getAccelerationPriority(): number;
-        getSource(): $ImageProducer;
         getProperty(arg0: string, arg1: $ImageObserver_): $Object;
         flush(): void;
         static SCALE_DEFAULT: number;
@@ -510,32 +560,34 @@ declare module "@package/java/awt" {
         static SCALE_AREA_AVERAGING: number;
         static SCALE_SMOOTH: number;
         static SCALE_REPLICATE: number;
+        get source(): $ImageProducer;
+        get graphics(): $Graphics;
     }
     export class $Graphics2D extends $Graphics {
-        getFontRenderContext(): $FontRenderContext;
-        getRenderingHints(): $RenderingHints;
-        getBackground(): $Color;
-        drawImage(arg0: $Image, arg1: $AffineTransform, arg2: $ImageObserver_): boolean;
-        drawImage(arg0: $BufferedImage, arg1: $BufferedImageOp, arg2: number, arg3: number): void;
         setRenderingHint(arg0: $RenderingHints$Key, arg1: $Object): void;
+        getBackground(): $Color;
+        drawImage(arg0: $BufferedImage, arg1: $BufferedImageOp, arg2: number, arg3: number): void;
+        drawImage(arg0: $Image, arg1: $AffineTransform, arg2: $ImageObserver_): boolean;
+        getComposite(): $Composite;
         setTransform(arg0: $AffineTransform): void;
-        getTransform(): $AffineTransform;
-        shear(arg0: number, arg1: number): void;
-        setBackground(arg0: $Color): void;
-        hit(arg0: $Rectangle, arg1: $Shape, arg2: boolean): boolean;
+        setComposite(arg0: $Composite_): void;
+        getPaint(): $Paint;
         setPaint(arg0: $Paint): void;
         drawRenderedImage(arg0: $RenderedImage, arg1: $AffineTransform): void;
+        drawRenderableImage(arg0: $RenderableImage, arg1: $AffineTransform): void;
+        drawGlyphVector(arg0: $GlyphVector, arg1: number, arg2: number): void;
+        getDeviceConfiguration(): $GraphicsConfiguration;
         setStroke(arg0: $Stroke_): void;
         getRenderingHint(arg0: $RenderingHints$Key): $Object;
         setRenderingHints(arg0: $Map_<never, never>): void;
         addRenderingHints(arg0: $Map_<never, never>): void;
-        getPaint(): $Paint;
-        getComposite(): $Composite;
+        getRenderingHints(): $RenderingHints;
         getStroke(): $Stroke;
-        drawRenderableImage(arg0: $RenderableImage, arg1: $AffineTransform): void;
-        getDeviceConfiguration(): $GraphicsConfiguration;
-        drawGlyphVector(arg0: $GlyphVector, arg1: number, arg2: number): void;
-        setComposite(arg0: $Composite_): void;
+        getFontRenderContext(): $FontRenderContext;
+        getTransform(): $AffineTransform;
+        shear(arg0: number, arg1: number): void;
+        setBackground(arg0: $Color): void;
+        hit(arg0: $Rectangle, arg1: $Shape, arg2: boolean): boolean;
         scale(arg0: number, arg1: number): void;
         fill(arg0: $Shape): void;
         transform(arg0: $AffineTransform): void;
@@ -546,6 +598,8 @@ declare module "@package/java/awt" {
         drawString(arg0: string, arg1: number, arg2: number): void;
         translate(arg0: number, arg1: number): void;
         clip(arg0: $Shape): void;
+        get deviceConfiguration(): $GraphicsConfiguration;
+        get fontRenderContext(): $FontRenderContext;
     }
     export class $Transparency {
         static OPAQUE: number;
@@ -554,30 +608,30 @@ declare module "@package/java/awt" {
     }
     export interface $Transparency {
         getTransparency(): number;
+        get transparency(): number;
     }
     /**
      * Values that may be interpreted as {@link $Transparency}.
      */
     export type $Transparency_ = (() => number);
     export class $FontMetrics implements $Serializable {
-        hasUniformLineMetrics(): boolean;
-        getLineMetrics(arg0: string[], arg1: number, arg2: number, arg3: $Graphics): $LineMetrics;
-        getLineMetrics(arg0: string, arg1: number, arg2: number, arg3: $Graphics): $LineMetrics;
-        getLineMetrics(arg0: string, arg1: $Graphics): $LineMetrics;
-        getLineMetrics(arg0: $CharacterIterator, arg1: number, arg2: number, arg3: $Graphics): $LineMetrics;
-        getMaxCharBounds(arg0: $Graphics): $Rectangle2D;
-        getFontRenderContext(): $FontRenderContext;
-        getStringBounds(arg0: string[], arg1: number, arg2: number, arg3: $Graphics): $Rectangle2D;
-        getStringBounds(arg0: $CharacterIterator, arg1: number, arg2: number, arg3: $Graphics): $Rectangle2D;
-        getStringBounds(arg0: string, arg1: number, arg2: number, arg3: $Graphics): $Rectangle2D;
-        getStringBounds(arg0: string, arg1: $Graphics): $Rectangle2D;
-        getAscent(): number;
-        getDescent(): number;
-        getLeading(): number;
         charWidth(arg0: number): number;
         charWidth(arg0: string): number;
+        getAscent(): number;
         stringWidth(arg0: string): number;
-        getHeight(): number;
+        getFontRenderContext(): $FontRenderContext;
+        getStringBounds(arg0: string[], arg1: number, arg2: number, arg3: $Graphics): $Rectangle2D;
+        getStringBounds(arg0: string, arg1: number, arg2: number, arg3: $Graphics): $Rectangle2D;
+        getStringBounds(arg0: $CharacterIterator, arg1: number, arg2: number, arg3: $Graphics): $Rectangle2D;
+        getStringBounds(arg0: string, arg1: $Graphics): $Rectangle2D;
+        getDescent(): number;
+        getLeading(): number;
+        hasUniformLineMetrics(): boolean;
+        getLineMetrics(arg0: $CharacterIterator, arg1: number, arg2: number, arg3: $Graphics): $LineMetrics;
+        getLineMetrics(arg0: string, arg1: $Graphics): $LineMetrics;
+        getLineMetrics(arg0: string, arg1: number, arg2: number, arg3: $Graphics): $LineMetrics;
+        getLineMetrics(arg0: string[], arg1: number, arg2: number, arg3: $Graphics): $LineMetrics;
+        getMaxCharBounds(arg0: $Graphics): $Rectangle2D;
         getMaxDescent(): number;
         getWidths(): number[];
         charsWidth(arg0: string[], arg1: number, arg2: number): number;
@@ -588,6 +642,18 @@ declare module "@package/java/awt" {
         getMaxDecent(): number;
         getMaxAdvance(): number;
         bytesWidth(arg0: number[], arg1: number, arg2: number): number;
+        getHeight(): number;
         getFont(): $Font;
+        get ascent(): number;
+        get fontRenderContext(): $FontRenderContext;
+        get descent(): number;
+        get leading(): number;
+        get maxDescent(): number;
+        get widths(): number[];
+        get maxAscent(): number;
+        get maxDecent(): number;
+        get maxAdvance(): number;
+        get height(): number;
+        get font(): $Font;
     }
 }

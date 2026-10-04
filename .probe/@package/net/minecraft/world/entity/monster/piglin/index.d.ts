@@ -231,6 +231,10 @@ declare module "@package/net/minecraft/world/entity/monster/piglin" {
         removeStingerTime: number;
         static BASE_SAFE_FALL_DISTANCE: number;
         constructor(entityType: $EntityType_<$AbstractPiglin>, level: $Level_);
+        get converting(): boolean;
+        get armPose(): $PiglinArmPose;
+        get adult(): boolean;
+        get holdingMeleeWeapon(): boolean;
     }
     export class $PiglinBrute extends $AbstractPiglin {
         playAngrySound(): void;
@@ -410,7 +414,10 @@ declare module "@package/net/minecraft/world/entity/monster/piglin" {
         constructor(entityType: $EntityType_<$PiglinBrute>, level: $Level_);
     }
     export class $Piglin extends $AbstractPiglin implements $CrossbowAttackMob, $InventoryCarrier {
-        canReplaceCurrentItem(stack: $ItemStack_): boolean;
+        /**
+         * Attack the specified entity using a ranged attack.
+         */
+        performRangedAttack(target: $LivingEntity, distanceFactor: number): void;
         /**
          * If Animal, checks if the age timer is negative
          */
@@ -419,6 +426,7 @@ declare module "@package/net/minecraft/world/entity/monster/piglin" {
          * Set whether this zombie is a child.
          */
         setDancing(childZombie: boolean): void;
+        canReplaceCurrentItem(stack: $ItemStack_): boolean;
         addToInventory(stack: $ItemStack_): $ItemStack;
         canAddToInventory(stack: $ItemStack_): boolean;
         static checkPiglinSpawnRules(piglin: $EntityType_<$Piglin>, level: $LevelAccessor, spawnType: $MobSpawnType_, pos: $BlockPos_, random: $RandomSource): boolean;
@@ -432,12 +440,8 @@ declare module "@package/net/minecraft/world/entity/monster/piglin" {
         holdInOffHand(stack: $ItemStack_): void;
         localvar$zcc000$openpartiesandclaims$onWantsToPickupPre(stack: $ItemStack_): $ItemStack;
         modify$zcc000$openpartiesandclaims$onWantsToPickupPost(arg0: $Piglin): $Piglin;
-        /**
-         * Attack the specified entity using a ranged attack.
-         */
-        performRangedAttack(target: $LivingEntity, distanceFactor: number): void;
-        getInventory(): $SimpleContainer;
         static createAttributes(): $AttributeSupplier$Builder;
+        getInventory(): $SimpleContainer;
         /**
          * Attack the specified entity using a ranged attack.
          */
@@ -616,5 +620,7 @@ declare module "@package/net/minecraft/world/entity/monster/piglin" {
         removeStingerTime: number;
         static BASE_SAFE_FALL_DISTANCE: number;
         constructor(entityType: $EntityType_<$AbstractPiglin>, level: $Level_);
+        set chargingCrossbow(value: boolean);
+        get inventory(): $SimpleContainer;
     }
 }

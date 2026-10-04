@@ -127,21 +127,24 @@ declare module "@package/net/minecraft/world/entity/ai/memory" {
         static HOME: $MemoryModuleType<$GlobalPos>;
         static UNIVERSAL_ANGER: $MemoryModuleType<boolean>;
         constructor(optionalCodec: ($Codec<U>) | undefined);
+        get codec(): ($Codec<$ExpirableValue<U>>) | undefined;
     }
     /**
      * Values that may be interpreted as {@link $MemoryModuleType}.
      */
     export type $MemoryModuleType_<U> = RegistryTypes.MemoryModuleType;
     export class $ExpirableValue<T> {
-        hasExpired(): boolean;
         canExpire(): boolean;
         getTimeToLive(): number;
+        tick(): void;
         getValue(): T;
         static of<T>(value: T): $ExpirableValue<T>;
         static of<T>(value: T, timeToLive: number): $ExpirableValue<T>;
-        tick(): void;
         static codec<T>(valueCodec: $Codec<T>): $Codec<$ExpirableValue<T>>;
+        hasExpired(): boolean;
         constructor(value: T, timeToLive: number);
+        get timeToLive(): number;
+        get value(): T;
     }
     export class $MemoryStatus extends $Enum<$MemoryStatus> {
         static values(): $MemoryStatus[];
@@ -180,5 +183,8 @@ declare module "@package/net/minecraft/world/entity/ai/memory" {
          * Constructs a walk target using a vector that's directly converted to a BlockPos.
          */
         constructor(vectorPos: $Vec3_, speedModifier: number, closeEnoughDist: number);
+        get closeEnoughDist(): number;
+        get speedModifier(): number;
+        get target(): $PositionTracker;
     }
 }

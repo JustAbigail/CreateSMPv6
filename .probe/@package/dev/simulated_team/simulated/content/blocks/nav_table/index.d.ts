@@ -20,6 +20,7 @@ declare module "@package/dev/simulated_team/simulated/content/blocks/nav_table" 
         constructor(arg0: $NavTableBlockEntity);
     }
     export class $NavTableBlockEntity extends $SmartBlockEntity implements $Clearable {
+        getHeldItem(): $ItemStack;
         getTargetPosition(arg0: boolean): $Vec3;
         getProjectedSelfPos(): $Vec3;
         getSublevelRot(): $Quaterniond;
@@ -31,9 +32,8 @@ declare module "@package/dev/simulated_team/simulated/content/blocks/nav_table" 
         lastDistanceToTarget(): number;
         dropHeldItem(): void;
         setHeldItem(arg0: $ItemStack_): $ItemStack;
-        getHeldItem(): $ItemStack;
-        getRedstoneStrength(arg0: $Direction_): number;
         clearContent(): void;
+        getRedstoneStrength(arg0: $Direction_): number;
         worldPosition: $BlockPos;
         isPowering: boolean;
         currentTarget: $Vec3;
@@ -47,5 +47,9 @@ declare module "@package/dev/simulated_team/simulated/content/blocks/nav_table" 
         type: $BlockEntityType<never>;
         subLevel: $SubLevel;
         constructor(arg0: $BlockEntityType_<never>, arg1: $BlockPos_, arg2: $BlockState_);
+        get projectedSelfPos(): $Vec3;
+        get sublevelRot(): $Quaterniond;
+        get relativeAngle(): number;
+        get navTableItem(): $NavigationTarget;
     }
 }

@@ -17,11 +17,13 @@ declare module "@package/net/fabricmc/fabric/api/transfer/v1/item" {
         static PACKET_CODEC: $StreamCodec<$RegistryFriendlyByteBuf, $ItemVariant>;
     }
     export interface $ItemVariant extends $TransferVariant<$Item> {
-        withComponentChanges(arg0: $DataComponentPatch_): $ItemVariant;
-        getRegistryEntry(): $Holder<$Item>;
         toStack(): $ItemStack;
         toStack(arg0: number): $ItemStack;
+        withComponentChanges(arg0: $DataComponentPatch_): $ItemVariant;
+        getRegistryEntry(): $Holder<$Item>;
         getItem(): $Item;
         matches(arg0: $ItemStack_): boolean;
+        get registryEntry(): $Holder<$Item>;
+        get item(): $Item;
     }
 }

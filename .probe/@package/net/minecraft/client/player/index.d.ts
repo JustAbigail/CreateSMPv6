@@ -49,6 +49,13 @@ export * as inventory from "@package/net/minecraft/client/player/inventory";
 
 declare module "@package/net/minecraft/client/player" {
     export class $AbstractClientPlayer extends $Player implements $AbstractClientPlayerAccessor, $ClientPlayerKJS, $ACPExtension, $AbstractClientPlayerExt {
+        getCosmeticsSourceUuid(): $UUID;
+        getCosmeticsSource(): $State<any>;
+        setCosmeticsSource(cosmeticsSource: $State_<any>): void;
+        getWearablesManager(): $WearablesManager;
+        getCosmeticsState(): $CosmeticsState;
+        setEssentialCosmeticsCape(cape: string, textures: $Pair<any, any>): void;
+        applyEssentialCosmeticsMask(skin: $ResourceLocation_): $ResourceLocation;
         getEmissiveCapeTexture(): $UIdentifier;
         wasArmorRenderingSuppressed(): boolean[];
         getPoseManager(): $PlayerPoseManager;
@@ -61,19 +68,12 @@ declare module "@package/net/minecraft/client/player" {
         setRenderedPose(renderedPose: $PlayerPose): void;
         essential$getCosmeticFrozenYaw(): number;
         essential$setCosmeticFrozenYaw(frozenYaw: number): void;
-        deployer$getCape(): number;
-        getCosmeticsSourceUuid(): $UUID;
-        getCosmeticsSource(): $State<any>;
-        setCosmeticsSource(cosmeticsSource: $State_<any>): void;
-        getWearablesManager(): $WearablesManager;
-        getCosmeticsState(): $CosmeticsState;
-        setEssentialCosmeticsCape(cape: string, textures: $Pair<any, any>): void;
-        applyEssentialCosmeticsMask(skin: $ResourceLocation_): $ResourceLocation;
         getPlayerInfo(): $PlayerInfo;
         getDeltaMovementLerped(patialTick: number): $Vec3;
         getSkin(): $PlayerSkin;
         handler$gjl000$create_sa$getSkinMixin(arg0: $CallbackInfoReturnable<any>): void;
         getFieldOfViewModifier(): number;
+        deployer$getCape(): number;
         flywheel$getPlayerInfo(): $PlayerInfo;
         serializeNBT(arg0: $HolderLookup$Provider): $Player;
         lerpYRot: number;
@@ -276,9 +276,20 @@ declare module "@package/net/minecraft/client/player" {
         static DATA_SHOULDER_RIGHT: $EntityDataAccessor<$CompoundTag>;
         currentExplosionCause: $Entity;
         constructor(clientLevel: $ClientLevel, gameProfile: $GameProfile);
+        get cosmeticsSourceUuid(): $UUID;
+        get wearablesManager(): $WearablesManager;
+        get cosmeticsState(): $CosmeticsState;
+        get emissiveCapeTexture(): $UIdentifier;
+        get poseManager(): $PlayerPoseManager;
+        get playerInfo(): $PlayerInfo;
+        get skin(): $PlayerSkin;
+        get fieldOfViewModifier(): number;
     }
     export class $LocalPlayer extends $AbstractClientPlayer implements $LocalPlayerInterface, $LocalClientPlayerKJS, $PlayerFreezeExtension, $PlayerAccessor {
-        drop(fullStack: boolean): boolean;
+        getRecipeBook(): $ClientRecipeBook;
+        sable$calculateViewVector2(arg0: number, arg1: number): $Vec3;
+        handler$ggh004$monsters_in_the_closet$tick(arg0: $CallbackInfo): void;
+        getCurrentMood(): number;
         /**
          * Returns whether the entity is in a server world
          */
@@ -329,10 +340,7 @@ declare module "@package/net/minecraft/client/player" {
         getWaterVision(): number;
         onGameModeChanged(gameMode: $GameType_): void;
         getCurrentConstantMood(): number;
-        sable$calculateViewVector2(arg0: number, arg1: number): $Vec3;
-        handler$ggh004$monsters_in_the_closet$tick(arg0: $CallbackInfo): void;
-        getCurrentMood(): number;
-        getRecipeBook(): $ClientRecipeBook;
+        drop(fullStack: boolean): boolean;
         getStatsCounter(): $StatsCounter;
         /**
          * Returns whether the entity is in a server world
@@ -561,6 +569,18 @@ declare module "@package/net/minecraft/client/player" {
         static DATA_SHOULDER_RIGHT: $EntityDataAccessor<$CompoundTag>;
         currentExplosionCause: $Entity;
         constructor(minecraft: $Minecraft, clientLevel: $ClientLevel, connection: $ClientPacketListener, stats: $StatsCounter, recipeBook: $ClientRecipeBook, wasShiftKeyDown: boolean, wasSprinting: boolean);
+        get recipeBook(): $ClientRecipeBook;
+        get currentMood(): number;
+        get controlledCamera(): boolean;
+        get jumpRidingScale(): number;
+        set permissionLevel(value: number);
+        set showDeathScreen(value: boolean);
+        get movingSlowly(): boolean;
+        get activePortalLocalTransition(): $Portal$Transition;
+        get autoJumpEnabled(): boolean;
+        get waterVision(): number;
+        get currentConstantMood(): number;
+        get statsCounter(): $StatsCounter;
     }
     export class $Input {
         hasForwardImpulse(): boolean;
@@ -575,5 +595,6 @@ declare module "@package/net/minecraft/client/player" {
         right: boolean;
         down: boolean;
         constructor();
+        get moveVector(): $Vec2;
     }
 }

@@ -12,17 +12,17 @@ declare module "@package/net/irisshaders/iris/gl/buffer" {
     /**
      * Values that may be interpreted as {@link $ShaderStorageInfo}.
      */
-    export type $ShaderStorageInfo_ = { name?: string, relative?: boolean, scaleX?: number, scaleY?: number, size?: number,  } | [name?: string, relative?: boolean, scaleX?: number, scaleY?: number, size?: number, ];
+    export type $ShaderStorageInfo_ = { relative?: boolean, name?: string, size?: number, scaleY?: number, scaleX?: number,  } | [relative?: boolean, name?: string, size?: number, scaleY?: number, scaleX?: number, ];
     export class $BuiltShaderStorageInfo extends $Record {
         scaleX(): number;
         scaleY(): number;
-        relative(): boolean;
         content(): number[];
+        relative(): boolean;
         size(): number;
         constructor(size: number, relative: boolean, scaleX: number, scaleY: number, content: number[]);
     }
     /**
      * Values that may be interpreted as {@link $BuiltShaderStorageInfo}.
      */
-    export type $BuiltShaderStorageInfo_ = { content?: number[], relative?: boolean, scaleX?: number, scaleY?: number, size?: number,  } | [content?: number[], relative?: boolean, scaleX?: number, scaleY?: number, size?: number, ];
+    export type $BuiltShaderStorageInfo_ = { relative?: boolean, content?: number[], size?: number, scaleY?: number, scaleX?: number,  } | [relative?: boolean, content?: number[], size?: number, scaleY?: number, scaleX?: number, ];
 }

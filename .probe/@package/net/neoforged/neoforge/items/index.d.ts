@@ -14,26 +14,26 @@ export * as wrapper from "@package/net/neoforged/neoforge/items/wrapper";
 declare module "@package/net/neoforged/neoforge/items" {
     export class $ItemStackHandler implements $IItemHandler, $IItemHandlerModifiable, $INBTSerializable<$CompoundTag>, $ItemStackHandlerAccessor {
         deserializeNBT(provider: $HolderLookup$Provider, nbt: $CompoundTag_): void;
+        serializeNBT(provider: $HolderLookup$Provider): $CompoundTag;
         setSize(size: number): void;
         getSlots(): number;
-        getStackInSlot(slot: number): $ItemStack;
         insertItem(slot: number, stack: $ItemStack_, simulate: boolean): $ItemStack;
         extractItem(slot: number, amount: number, simulate: boolean): $ItemStack;
         getSlotLimit(slot: number): number;
         isItemValid(slot: number, stack: $ItemStack_): boolean;
         setStackInSlot(slot: number, stack: $ItemStack_): void;
-        kjs$self(): $IItemHandler;
-        kjs$getBlock(level: $Level_): $LevelBlock;
+        getStackInSlot(slot: number): $ItemStack;
         kjs$isMutable(): boolean;
         kjs$setStackInSlot(slot: number, stack: $ItemStack_): void;
-        isEmpty(): boolean;
+        kjs$self(): $IItemHandler;
+        kjs$getBlock(level: $Level_): $LevelBlock;
         insertItem(stack: $ItemStack_, simulate: boolean): $ItemStack;
         clear(match: $ItemPredicate_): void;
         clear(): void;
-        find(match: $ItemPredicate_): number;
         find(): number;
-        count(match: $ItemPredicate_): number;
+        find(match: $ItemPredicate_): number;
         count(): number;
+        count(match: $ItemPredicate_): number;
         countNonEmpty(match: $ItemPredicate_): number;
         countNonEmpty(): number;
         getWidth(): number;
@@ -41,7 +41,7 @@ declare module "@package/net/neoforged/neoforge/items" {
         setChanged(): void;
         getAllItems(): $List<$ItemStack>;
         asContainer(): $Container;
-        serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
+        isEmpty(): boolean;
         create$getStacks(): $NonNullList<$ItemStack>;
         getSlots(): number;
         getStackInSlot(slot: number): $ItemStack;
@@ -50,8 +50,13 @@ declare module "@package/net/neoforged/neoforge/items" {
         getSlotLimit(slot: number): number;
         isItemValid(slot: number, stack: $ItemStack_): boolean;
         constructor();
-        constructor(size: number);
         constructor(stacks: $NonNullList<$ItemStack_>);
+        constructor(size: number);
+        set size(value: number);
+        get width(): number;
+        get height(): number;
+        get allItems(): $List<$ItemStack>;
+        get empty(): boolean;
     }
     export class $IItemHandlerModifiable {
     }
@@ -71,22 +76,6 @@ declare module "@package/net/neoforged/neoforge/items" {
          * Returns the number of slots available
          */
         getSlots(): number;
-        kjs$self(): $IItemHandler;
-        /**
-         * Returns the ItemStack in a given slot.
-         * 
-         * The result's stack size may be greater than the itemstack's max size.
-         * 
-         * If the result is empty, then the slot is empty.
-         * 
-         * **IMPORTANT:** This ItemStack *MUST NOT* be modified. This method is not for
-         * altering an inventory's contents. Any implementers who are able to detect
-         * modification through this method should throw an exception.
-         * 
-         * ***SERIOUSLY: DO NOT MODIFY THE RETURNED ITEMSTACK***
-         */
-        getStackInSlot(slot: number): $ItemStack;
-        kjs$getBlock(level: $Level_): $LevelBlock;
         /**
          * Inserts an ItemStack into the given slot and return the remainder.
          * The ItemStack *should not* be modified in this function!
@@ -119,6 +108,22 @@ declare module "@package/net/neoforged/neoforge/items" {
         isItemValid(slot: number, stack: $ItemStack_): boolean;
         kjs$isMutable(): boolean;
         kjs$setStackInSlot(slot: number, stack: $ItemStack_): void;
+        kjs$self(): $IItemHandler;
+        /**
+         * Returns the ItemStack in a given slot.
+         * 
+         * The result's stack size may be greater than the itemstack's max size.
+         * 
+         * If the result is empty, then the slot is empty.
+         * 
+         * **IMPORTANT:** This ItemStack *MUST NOT* be modified. This method is not for
+         * altering an inventory's contents. Any implementers who are able to detect
+         * modification through this method should throw an exception.
+         * 
+         * ***SERIOUSLY: DO NOT MODIFY THE RETURNED ITEMSTACK***
+         */
+        getStackInSlot(slot: number): $ItemStack;
+        kjs$getBlock(level: $Level_): $LevelBlock;
         /**
          * Returns the number of slots available
          */

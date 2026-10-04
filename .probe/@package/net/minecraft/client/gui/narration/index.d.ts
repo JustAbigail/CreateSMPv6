@@ -36,6 +36,7 @@ declare module "@package/net/minecraft/client/gui/narration" {
         static HOVERED: $NarratableEntry$NarrationPriority;
         static NONE: $NarratableEntry$NarrationPriority;
         static FOCUSED: $NarratableEntry$NarrationPriority;
+        get terminal(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $NarratableEntry$NarrationPriority}.
@@ -55,6 +56,7 @@ declare module "@package/net/minecraft/client/gui/narration" {
          * @return the narration priority
          */
         narrationPriority(): $NarratableEntry$NarrationPriority;
+        get active(): boolean;
     }
     /**
      * An interface for providing narration information.

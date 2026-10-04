@@ -10,5 +10,9 @@ declare module "@package/xaero/pac/common/parties/party/member/api" {
         isOwner(): boolean;
         getUsername(): string;
         getUUID(): $UUID;
+        get rank(): $PartyMemberRank;
+        get owner(): boolean;
+        get username(): string;
+        get UUID(): $UUID;
     }
 }

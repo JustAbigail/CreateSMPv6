@@ -44,5 +44,6 @@ declare module "@package/javax/security/auth" {
     export interface $Destroyable {
         isDestroyed(): boolean;
         destroy(): void;
+        get destroyed(): boolean;
     }
 }

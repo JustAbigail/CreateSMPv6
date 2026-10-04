@@ -13,6 +13,7 @@ declare module "@package/net/fabricmc/fabric/api/rendering/data/v1" {
          * @deprecated
          */
         getRenderAttachmentData(): $Object;
+        get renderAttachmentData(): $Object;
     }
     /**
      * Values that may be interpreted as {@link $RenderAttachmentBlockEntity}.

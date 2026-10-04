@@ -10,10 +10,13 @@ declare module "@package/nl/enjarai/doabarrelroll/api/key" {
     }
     export interface $InputContext {
         getKeyBinding(arg0: $InputConstants$Key): $KeyMapping;
-        addKeyBinding(arg0: $KeyMapping): void;
         getKeyBindings(): $List<$KeyMapping>;
         updateKeysByCode(): void;
+        addKeyBinding(arg0: $KeyMapping): void;
         getId(): $ResourceLocation;
         isActive(): boolean;
+        get keyBindings(): $List<$KeyMapping>;
+        get id(): $ResourceLocation;
+        get active(): boolean;
     }
 }

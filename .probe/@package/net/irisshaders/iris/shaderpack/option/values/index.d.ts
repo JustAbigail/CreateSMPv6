@@ -12,18 +12,22 @@ declare module "@package/net/irisshaders/iris/shaderpack/option/values" {
         getStringValue(arg0: string): (string) | undefined;
         toImmutable(): $ImmutableOptionValues;
         getBooleanValue(arg0: string): $OptionalBoolean;
-        getOptionSet(): $OptionSet;
         mutableCopy(): $MutableOptionValues;
+        getOptionSet(): $OptionSet;
+        get optionsChanged(): number;
+        get optionSet(): $OptionSet;
     }
     export class $ImmutableOptionValues implements $OptionValues {
         getOptionsChanged(): number;
         getStringValue(arg0: string): (string) | undefined;
         toImmutable(): $ImmutableOptionValues;
         getBooleanValue(arg0: string): $OptionalBoolean;
-        getOptionSet(): $OptionSet;
         mutableCopy(): $MutableOptionValues;
+        getOptionSet(): $OptionSet;
         getBooleanValueOrDefault(arg0: string): boolean;
         getStringValueOrDefault(arg0: string): string;
+        get optionsChanged(): number;
+        get optionSet(): $OptionSet;
     }
     export class $MutableOptionValues implements $OptionValues {
         getOptionsChanged(): number;
@@ -32,12 +36,17 @@ declare module "@package/net/irisshaders/iris/shaderpack/option/values" {
         getOptions(): $OptionSet;
         toImmutable(): $ImmutableOptionValues;
         getBooleanValue(arg0: string): $OptionalBoolean;
-        getOptionSet(): $OptionSet;
         mutableCopy(): $MutableOptionValues;
         getBooleanValues(): $Map<string, boolean>;
         getStringValues(): $Map<string, string>;
+        getOptionSet(): $OptionSet;
         getBooleanValueOrDefault(arg0: string): boolean;
         getStringValueOrDefault(arg0: string): string;
         constructor(arg0: $OptionSet, arg1: $Map_<string, string>);
+        get optionsChanged(): number;
+        get options(): $OptionSet;
+        get booleanValues(): $Map<string, boolean>;
+        get stringValues(): $Map<string, string>;
+        get optionSet(): $OptionSet;
     }
 }

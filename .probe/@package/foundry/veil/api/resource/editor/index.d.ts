@@ -15,6 +15,8 @@ declare module "@package/foundry/veil/api/resource/editor" {
         isClosed(): boolean;
         render(): void;
         loadFromDisk(): void;
+        get resource(): T;
+        get closed(): boolean;
     }
     export interface $ResourceFileEditor$Factory<T> extends RegistryMarked<RegistryTypes.VeilResourceEditorTag, RegistryTypes.VeilResourceEditor> {}
     export class $ResourceFileEditor$Factory<T extends $VeilResource<never>> {

@@ -12,9 +12,9 @@ import { $DamageSource_ } from "@package/net/minecraft/world/damagesource";
 
 declare module "@package/net/minecraft/world/level/dimension/end" {
     export class $DragonRespawnAnimation extends $Enum<$DragonRespawnAnimation> {
+        tick(level: $ServerLevel, manager: $EndDragonFight, crystals: $List_<$EndCrystal>, ticks: number, pos: $BlockPos_): void;
         static values(): $DragonRespawnAnimation[];
         static valueOf(arg0: string): $DragonRespawnAnimation;
-        tick(level: $ServerLevel, manager: $EndDragonFight, crystals: $List_<$EndCrystal>, ticks: number, pos: $BlockPos_): void;
         static SUMMONING_PILLARS: $DragonRespawnAnimation;
         static START: $DragonRespawnAnimation;
         static END: $DragonRespawnAnimation;
@@ -44,13 +44,10 @@ declare module "@package/net/minecraft/world/level/dimension/end" {
         handler$bno000$betterendisland$resetSpikeCrystals(arg0: $CallbackInfo): void;
         advanceRespawnStage(arg0: $DragonRespawnStage_): void;
         setDragonRespawnStage(arg0: $DragonRespawnStage_): void;
-        onCrystalDestroyed(crystal: $EndCrystal, dmgSrc: $DamageSource_): void;
-        getDragonUUID(): $UUID;
-        updateDragon(dragon: $EnderDragon): void;
-        setDragonKilled(dragon: $EnderDragon): void;
-        hasPreviouslyKilledDragon(): boolean;
-        getCrystalsAlive(): number;
+        removePlayer(arg0: $ServerPlayer): void;
         tryRespawn(): void;
+        saveData(): $EndDragonFight$Data;
+        addPlayer(arg0: $ServerPlayer): void;
         setIsFirstExitPortalSpawn(active: boolean): void;
         hasDragonEverSpawned(): boolean;
         setHasDragonEverSpawned(active: boolean): void;
@@ -60,11 +57,14 @@ declare module "@package/net/minecraft/world/level/dimension/end" {
         getDragonRespawnStage(): $DragonRespawnStage;
         doInitialDragonSpawn(): void;
         tickBellSound(): void;
-        saveData(): $EndDragonFight$Data;
-        addPlayer(arg0: $ServerPlayer): void;
-        removePlayer(arg0: $ServerPlayer): void;
-        reset(active: boolean): void;
+        onCrystalDestroyed(crystal: $EndCrystal, dmgSrc: $DamageSource_): void;
+        getDragonUUID(): $UUID;
+        updateDragon(dragon: $EnderDragon): void;
+        setDragonKilled(dragon: $EnderDragon): void;
+        hasPreviouslyKilledDragon(): boolean;
+        getCrystalsAlive(): number;
         tick(): void;
+        reset(active: boolean): void;
         getPortalLocation(): $BlockPos;
         setPortalLocation(pos: $BlockPos_): void;
         invokeCreateNewDragon(): $EnderDragon;
@@ -76,6 +76,14 @@ declare module "@package/net/minecraft/world/level/dimension/end" {
         static DRAGON_SPAWN_Y: number;
         constructor(level: $ServerLevel, seed: number, arg2: $EndDragonFight$Data_, data: $BlockPos_);
         constructor(level: $ServerLevel, seed: number, arg2: $EndDragonFight$Data_);
+        set respawnStage(value: $DragonRespawnAnimation_);
+        get firstExitPortalSpawn(): boolean;
+        get dragonUUID(): $UUID;
+        set dragonKilled(value: $EnderDragon);
+        get crystalsAlive(): number;
+        get previouslyKilled(): boolean;
+        get dragonEvent(): $ServerBossEvent;
+        get gateways(): $ObjectArrayList<number>;
     }
     export class $EndDragonFight$Data extends $Record {
         needsStateScanning(): boolean;
@@ -88,9 +96,10 @@ declare module "@package/net/minecraft/world/level/dimension/end" {
         static CODEC: $Codec<$EndDragonFight$Data>;
         static DEFAULT: $EndDragonFight$Data;
         constructor(needsStateScanning: boolean, dragonKilled: boolean, previouslyKilled: boolean, isRespawning: boolean, dragonUUID: ($UUID_) | undefined, exitPortalLocation: ($BlockPos_) | undefined, gateways: ($List_<number>) | undefined);
+        get respawning(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $EndDragonFight$Data}.
      */
-    export type $EndDragonFight$Data_ = { dragonKilled?: boolean, dragonUUID?: ($UUID_) | undefined, gateways?: ($List_<number>) | undefined, exitPortalLocation?: ($BlockPos_) | undefined, previouslyKilled?: boolean, isRespawning?: boolean, needsStateScanning?: boolean,  } | [dragonKilled?: boolean, dragonUUID?: ($UUID_) | undefined, gateways?: ($List_<number>) | undefined, exitPortalLocation?: ($BlockPos_) | undefined, previouslyKilled?: boolean, isRespawning?: boolean, needsStateScanning?: boolean, ];
+    export type $EndDragonFight$Data_ = { dragonKilled?: boolean, needsStateScanning?: boolean, isRespawning?: boolean, previouslyKilled?: boolean, exitPortalLocation?: ($BlockPos_) | undefined, gateways?: ($List_<number>) | undefined, dragonUUID?: ($UUID_) | undefined,  } | [dragonKilled?: boolean, needsStateScanning?: boolean, isRespawning?: boolean, previouslyKilled?: boolean, exitPortalLocation?: ($BlockPos_) | undefined, gateways?: ($List_<number>) | undefined, dragonUUID?: ($UUID_) | undefined, ];
 }

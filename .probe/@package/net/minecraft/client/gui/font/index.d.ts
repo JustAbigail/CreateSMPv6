@@ -19,6 +19,8 @@ declare module "@package/net/minecraft/client/gui/font" {
         static CODEC: $Codec<$FontOption>;
         static UNIFORM: $FontOption;
         static JAPANESE_VARIANTS: $FontOption;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $FontOption}.
@@ -32,9 +34,9 @@ declare module "@package/net/minecraft/client/gui/font" {
         constructor(values: $Map_<$FontOption_, boolean>);
     }
     export class $GlyphRenderTypes extends $Record {
-        seeThrough(): $RenderType;
         static createForColorTexture(id: $ResourceLocation_): $GlyphRenderTypes;
         static createForIntensityTexture(id: $ResourceLocation_): $GlyphRenderTypes;
+        seeThrough(): $RenderType;
         normal(): $RenderType;
         select(displayMode: $Font$DisplayMode_): $RenderType;
         polygonOffset(): $RenderType;
@@ -43,10 +45,10 @@ declare module "@package/net/minecraft/client/gui/font" {
     /**
      * Values that may be interpreted as {@link $GlyphRenderTypes}.
      */
-    export type $GlyphRenderTypes_ = { polygonOffset?: $RenderType, seeThrough?: $RenderType, normal?: $RenderType,  } | [polygonOffset?: $RenderType, seeThrough?: $RenderType, normal?: $RenderType, ];
+    export type $GlyphRenderTypes_ = { polygonOffset?: $RenderType, normal?: $RenderType, seeThrough?: $RenderType,  } | [polygonOffset?: $RenderType, normal?: $RenderType, seeThrough?: $RenderType, ];
     export class $FontSet implements $AutoCloseable {
-        getRandomGlyph(glyph: $GlyphInfo): $BakedGlyph;
         whiteGlyph(): $BakedGlyph;
+        getRandomGlyph(glyph: $GlyphInfo): $BakedGlyph;
         getGlyphInfo(character: number, filterFishyGlyphs: boolean): $GlyphInfo;
         getGlyph(character: number): $BakedGlyph;
         reload(allProviders: $List_<$GlyphProvider$Conditional_>, options: $Set_<$FontOption_>): void;

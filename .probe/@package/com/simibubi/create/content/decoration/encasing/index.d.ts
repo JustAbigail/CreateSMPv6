@@ -6,9 +6,10 @@ import { $Block_ } from "@package/net/minecraft/world/level/block";
 
 declare module "@package/com/simibubi/create/content/decoration/encasing" {
     export class $CasingConnectivity$Entry {
-        getCasing(): $CTSpriteShiftEntry;
         isSideValid(arg0: $BlockState_, arg1: $Direction_): boolean;
+        getCasing(): $CTSpriteShiftEntry;
         register(): void;
+        get casing(): $CTSpriteShiftEntry;
     }
     export class $CasingConnectivity {
         makeCasing(arg0: $Block_, arg1: $CTSpriteShiftEntry): void;

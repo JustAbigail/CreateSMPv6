@@ -38,5 +38,6 @@ declare module "@package/net/caffeinemc/mods/sodium/client/render/chunk/map" {
         onChunkStatusAdded(arg0: number, arg1: number, arg2: number): void;
         onChunkStatusRemoved(arg0: number, arg1: number, arg2: number): void;
         constructor();
+        get readyChunks(): $LongCollection;
     }
 }

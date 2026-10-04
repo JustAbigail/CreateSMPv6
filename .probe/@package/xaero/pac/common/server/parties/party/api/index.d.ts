@@ -11,14 +11,12 @@ declare module "@package/xaero/pac/common/server/parties/party/api" {
     export class $IServerPartyAPI {
     }
     export interface $IServerPartyAPI extends $IPartyAPI {
-        isInvited(arg0: $UUID_): boolean;
-        addMember(arg0: $UUID_, arg1: $PartyMemberRank_ | null, arg2: string): $IPartyMemberAPI;
         getOnlineMemberStream(): $Stream<$ServerPlayer>;
         setRank(arg0: $IPartyMemberAPI, arg1: $PartyMemberRank_): boolean;
         uninvitePlayer(arg0: $UUID_): $IPartyPlayerInfoAPI;
         invitePlayer(arg0: $UUID_, arg1: string): $IPartyPlayerInfoAPI;
-        getMemberInfo(arg0: string): $IPartyMemberAPI;
         getMemberInfo(arg0: $UUID_): $IPartyMemberAPI;
+        getMemberInfo(arg0: string): $IPartyMemberAPI;
         addAllyParty(arg0: $UUID_): void;
         removeAllyParty(arg0: $UUID_): void;
         isAlly(arg0: $UUID_): boolean;
@@ -30,10 +28,24 @@ declare module "@package/xaero/pac/common/server/parties/party/api" {
         getNonStaffInfoStream(): $Stream<$IPartyMemberAPI>;
         getInvitedPlayersStream(): $Stream<$IPartyPlayerInfoAPI>;
         getAllyPartiesStream(): $Stream<$IPartyAllyAPI>;
+        addMember(arg0: $UUID_, arg1: $PartyMemberRank_ | null, arg2: string): $IPartyMemberAPI;
+        isInvited(arg0: $UUID_): boolean;
         getDefaultName(): string;
         getId(): $UUID;
         getOwner(): $IPartyMemberAPI;
         removeMember(arg0: $UUID_): $IPartyMemberAPI;
+        get onlineMemberStream(): $Stream<$ServerPlayer>;
+        get memberCount(): number;
+        get allyCount(): number;
+        get inviteCount(): number;
+        get memberInfoStream(): $Stream<$IPartyMemberAPI>;
+        get staffInfoStream(): $Stream<$IPartyMemberAPI>;
+        get nonStaffInfoStream(): $Stream<$IPartyMemberAPI>;
+        get invitedPlayersStream(): $Stream<$IPartyPlayerInfoAPI>;
+        get allyPartiesStream(): $Stream<$IPartyAllyAPI>;
+        get defaultName(): string;
+        get id(): $UUID;
+        get owner(): $IPartyMemberAPI;
     }
     export class $IPartyManagerAPI {
     }
@@ -48,5 +60,6 @@ declare module "@package/xaero/pac/common/server/parties/party/api" {
         getPartyByOwner(arg0: $UUID_): $IServerPartyAPI;
         getPartyByMember(arg0: $UUID_): $IServerPartyAPI;
         getAllStream(): $Stream<$IServerPartyAPI>;
+        get allStream(): $Stream<$IServerPartyAPI>;
     }
 }

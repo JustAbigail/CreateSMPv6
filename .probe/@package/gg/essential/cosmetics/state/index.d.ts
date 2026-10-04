@@ -18,15 +18,21 @@ declare module "@package/gg/essential/cosmetics/state" {
     export class $WearableLocator implements $ParticleSystem$Locator {
         isVisible(): boolean;
         getVelocity(): $Vec3;
+        getPositionAndRotation(): $Pair<$Vec3, $Quaternion>;
         setValid(arg0: boolean): void;
         setWearableVisible(arg0: boolean): void;
         getWearableVisible(): boolean;
-        isValid(): boolean;
         getPosition(): $Vec3;
+        isValid(): boolean;
         getParent(): $ParticleSystem$Locator;
         getRotation(): $Quaternion;
-        getPositionAndRotation(): $Pair<$Vec3, $Quaternion>;
         constructor(arg0: $ParticleSystem$Locator, arg1: boolean);
+        get visible(): boolean;
+        get velocity(): $Vec3;
+        get positionAndRotation(): $Pair<$Vec3, $Quaternion>;
+        get position(): $Vec3;
+        get parent(): $ParticleSystem$Locator;
+        get rotation(): $Quaternion;
     }
     export class $EssentialAnimationSystem {
         processEvent(arg0: $AnimationEventType_): void;

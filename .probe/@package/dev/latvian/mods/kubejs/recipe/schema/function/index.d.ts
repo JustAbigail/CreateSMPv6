@@ -24,5 +24,5 @@ declare module "@package/dev/latvian/mods/kubejs/recipe/schema/function" {
     /**
      * Values that may be interpreted as {@link $RecipeFunctionInstance}.
      */
-    export type $RecipeFunctionInstance_ = { function?: $ResolvedRecipeSchemaFunction_, arguments?: $List_<$RecipeComponent<never>>, name?: string,  } | [function?: $ResolvedRecipeSchemaFunction_, arguments?: $List_<$RecipeComponent<never>>, name?: string, ];
+    export type $RecipeFunctionInstance_ = { name?: string, arguments?: $List_<$RecipeComponent<never>>, function?: $ResolvedRecipeSchemaFunction_,  } | [name?: string, arguments?: $List_<$RecipeComponent<never>>, function?: $ResolvedRecipeSchemaFunction_, ];
 }

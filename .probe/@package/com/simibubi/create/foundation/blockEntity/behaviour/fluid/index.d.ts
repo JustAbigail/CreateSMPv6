@@ -12,27 +12,29 @@ import { $BehaviourType, $BlockEntityBehaviour } from "@package/com/simibubi/cre
 
 declare module "@package/com/simibubi/create/foundation/blockEntity/behaviour/fluid" {
     export class $SmartFluidTankBehaviour$TankSegment implements $TankSegmentAccessor {
-        getFluidLevel(): $LerpedFloat;
-        writeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
-        readNBT(arg0: $CompoundTag_, arg1: $HolderLookup$Provider, arg2: boolean): void;
         getRenderedFluid(): $FluidStack;
         getTotalUnits(arg0: number): number;
         onFluidStackChanged(): void;
+        getFluidLevel(): $LerpedFloat;
+        writeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
+        readNBT(arg0: $CompoundTag_, arg1: $HolderLookup$Provider, arg2: boolean): void;
         isEmpty(arg0: number): boolean;
         tfmg$tank(): $SmartFluidTank;
         constructor(arg0: $SmartFluidTankBehaviour, arg1: number);
+        get renderedFluid(): $FluidStack;
+        get fluidLevel(): $LerpedFloat;
     }
     export class $SmartFluidTankBehaviour extends $BlockEntityBehaviour {
-        getPrimaryTank(): $SmartFluidTankBehaviour$TankSegment;
-        forbidExtraction(): $SmartFluidTankBehaviour;
-        getPrimaryHandler(): $SmartFluidTank;
-        allowExtraction(): $SmartFluidTankBehaviour;
-        allowInsertion(): $SmartFluidTankBehaviour;
-        sendDataLazily(): void;
         forbidInsertion(): $SmartFluidTankBehaviour;
         whenFluidUpdates(arg0: $Runnable_): $SmartFluidTankBehaviour;
         sendDataImmediately(): void;
+        sendDataLazily(): void;
+        getPrimaryHandler(): $SmartFluidTank;
+        allowExtraction(): $SmartFluidTankBehaviour;
+        allowInsertion(): $SmartFluidTankBehaviour;
         getTanks(): $SmartFluidTankBehaviour$TankSegment[];
+        forbidExtraction(): $SmartFluidTankBehaviour;
+        getPrimaryTank(): $SmartFluidTankBehaviour$TankSegment;
         isEmpty(): boolean;
         static single(arg0: $SmartBlockEntity, arg1: number): $SmartFluidTankBehaviour;
         forEach(arg0: $Consumer_<$SmartFluidTankBehaviour$TankSegment>): void;
@@ -42,5 +44,10 @@ declare module "@package/com/simibubi/create/foundation/blockEntity/behaviour/fl
         blockEntity: $SmartBlockEntity;
         static TYPE: $BehaviourType<$SmartFluidTankBehaviour>;
         constructor(arg0: $BehaviourType<$SmartFluidTankBehaviour>, arg1: $SmartBlockEntity, arg2: number, arg3: number, arg4: boolean);
+        get primaryHandler(): $SmartFluidTank;
+        get tanks(): $SmartFluidTankBehaviour$TankSegment[];
+        get primaryTank(): $SmartFluidTankBehaviour$TankSegment;
+        get empty(): boolean;
+        get capability(): $IFluidHandler;
     }
 }

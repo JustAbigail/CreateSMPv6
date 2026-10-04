@@ -9,5 +9,9 @@ declare module "@package/net/caffeinemc/mods/sodium/client/world/cloned" {
         getOrigin(): $SectionPos;
         getSections(): $ClonedChunkSection[];
         constructor(arg0: $SectionPos, arg1: $ClonedChunkSection[], arg2: $BoundingBox, arg3: $List_<never>);
+        get volume(): $BoundingBox;
+        get renderers(): $List<never>;
+        get origin(): $SectionPos;
+        get sections(): $ClonedChunkSection[];
     }
 }

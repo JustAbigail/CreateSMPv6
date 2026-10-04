@@ -23,7 +23,6 @@ declare module "@package/xaero/pac/common/server" {
     export interface $IServerDataAPI {
         getPartyManager(): $IPartyManagerAPI;
         getChunkProtection(): $IChunkProtectionAPI;
-        getServerClaimsManager(): $IServerClaimsManagerAPI;
         getPlayerConfigManager(): $IPlayerConfigManagerAPI;
         /**
          * @deprecated
@@ -31,5 +30,13 @@ declare module "@package/xaero/pac/common/server" {
         getPlayerConfigs(): $IPlayerConfigManagerAPI$1;
         getAPI(): $OpenPACServerAPI;
         getAdaptiveLocalizer(): $IAdaptiveLocalizerAPI;
+        getServerClaimsManager(): $IServerClaimsManagerAPI;
+        get partyManager(): $IPartyManagerAPI;
+        get chunkProtection(): $IChunkProtectionAPI;
+        get playerConfigManager(): $IPlayerConfigManagerAPI;
+        get playerConfigs(): $IPlayerConfigManagerAPI$1;
+        get API(): $OpenPACServerAPI;
+        get adaptiveLocalizer(): $IAdaptiveLocalizerAPI;
+        get serverClaimsManager(): $IServerClaimsManagerAPI;
     }
 }

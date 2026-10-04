@@ -24,5 +24,6 @@ declare module "@package/com/simibubi/create/content/logistics" {
         static STREAM_CODEC: $StreamCodec<$RegistryFriendlyByteBuf, $BigItemStack>;
         constructor(arg0: $ItemStack_);
         constructor(arg0: $ItemStack_, arg1: number);
+        get infinite(): boolean;
     }
 }

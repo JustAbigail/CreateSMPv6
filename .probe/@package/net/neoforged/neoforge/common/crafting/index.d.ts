@@ -29,6 +29,10 @@ declare module "@package/net/neoforged/neoforge/common/crafting" {
     }
     export interface $ICustomIngredient extends $CustomIngredientKJS {
         /**
+         * @return a new `Ingredient` behaving as defined by this custom ingredient
+         */
+        toVanilla(): $Ingredient;
+        /**
          * @return the list of stacks that this ingredient accepts
          * 
          * The following guidelines should be followed for good compatibility:
@@ -44,10 +48,6 @@ declare module "@package/net/neoforged/neoforge/common/crafting" {
          */
         getItems(): $Stream<$ItemStack>;
         /**
-         * @return a new `Ingredient` behaving as defined by this custom ingredient
-         */
-        toVanilla(): $Ingredient;
-        /**
          * Checks if a stack matches this ingredient.
          * The stack **must not** be modified in any way.
          */
@@ -62,6 +62,9 @@ declare module "@package/net/neoforged/neoforge/common/crafting" {
          * Returns whether this ingredient always requires direct stack testing.
          */
         isSimple(): boolean;
+        get items(): $Stream<$ItemStack>;
+        get type(): $IngredientType<never>;
+        get simple(): boolean;
     }
     /**
      * Standard implementation for an ingredient and a count.
@@ -101,6 +104,7 @@ declare module "@package/net/neoforged/neoforge/common/crafting" {
         static STREAM_CODEC: $StreamCodec<$RegistryFriendlyByteBuf, $SizedIngredient>;
         static FLAT_CODEC: $Codec<$SizedIngredient>;
         constructor(ingredient: $Ingredient_, count: number);
+        get items(): $ItemStack[];
     }
     /**
      * Values that may be interpreted as {@link $SizedIngredient}.

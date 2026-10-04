@@ -5,17 +5,18 @@ import { $UserApiService } from "@package/com/mojang/authlib/minecraft";
 
 declare module "@package/net/minecraft/client/gui/screens/social" {
     export class $PlayerSocialManager {
+        getHiddenPlayers(): $Set<$UUID>;
         hidePlayer(id: $UUID_): void;
         showPlayer(id: $UUID_): void;
         getDiscoveredUUID(uuid: string): $UUID;
-        addPlayer(playerInfo: $PlayerInfo): void;
         removePlayer(id: $UUID_): void;
+        addPlayer(playerInfo: $PlayerInfo): void;
         isHidden(id: $UUID_): boolean;
         stopOnlineMode(): void;
         isBlocked(id: $UUID_): boolean;
         shouldHideMessageFrom(id: $UUID_): boolean;
         startOnlineMode(): void;
-        getHiddenPlayers(): $Set<$UUID>;
         constructor(minecraft: $Minecraft, service: $UserApiService);
+        get hiddenPlayers(): $Set<$UUID>;
     }
 }

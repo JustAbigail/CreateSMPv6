@@ -37,6 +37,7 @@ declare module "@package/net/minecraft/world/level/levelgen/feature/stateprovide
         static CODEC: $MapCodec<$WeightedStateProvider>;
         constructor(builder: $SimpleWeightedRandomList$Builder<$BlockState_>);
         constructor(weightedList: $SimpleWeightedRandomList<$BlockState_>);
+        get weightedList(): $SimpleWeightedRandomList<$BlockState>;
     }
     export class $BlockStateProviderType<P extends $BlockStateProvider> {
         codec(): $MapCodec<P>;
@@ -101,6 +102,7 @@ declare module "@package/net/minecraft/world/level/levelgen/feature/stateprovide
         getState(): $BlockState;
         static CODEC: $MapCodec<$SimpleStateProvider>;
         constructor(state: $BlockState_);
+        get state(): $BlockState;
     }
     export class $NoiseProvider extends $NoiseBasedStateProvider implements $NoiseProviderAccessor {
         static noiseProviderCodec<P extends $NoiseProvider>(instance: $RecordCodecBuilder$Instance<P>): $Products$P4<$RecordCodecBuilder$Mu<P>, number, $NormalNoise$NoiseParameters, number, $List<$BlockState>>;

@@ -4,6 +4,7 @@ declare module "@package/net/caffeinemc/mods/sodium/client/platform" {
     }
     export interface $NativeWindowHandle {
         getWin32Handle(): number;
+        get win32Handle(): number;
     }
     /**
      * Values that may be interpreted as {@link $NativeWindowHandle}.

@@ -4,7 +4,7 @@ import { RegistryTypes, RegistryMarked } from "@special/types";
 import { $ParticleModuleSet$Builder } from "@package/foundry/veil/api/quasar/particle";
 
 declare module "@package/foundry/veil/api/quasar/data/module" {
-    export interface $ModuleType<T> extends RegistryMarked<RegistryTypes.VeilQuasarModuleTypeRenderTag, RegistryTypes.VeilQuasarModuleTypeRender> {}
+    export interface $ModuleType<T> extends RegistryMarked<RegistryTypes.VeilQuasarModuleTypeInitTag, RegistryTypes.VeilQuasarModuleTypeInit> {}
     export class $ParticleModuleData {
         static UPDATE_DIRECT_CODEC: $Codec<$ParticleModuleData>;
         static RENDER_DIRECT_CODEC: $Codec<$ParticleModuleData>;
@@ -16,11 +16,13 @@ declare module "@package/foundry/veil/api/quasar/data/module" {
     export interface $ParticleModuleData {
         getType(): $ModuleType<never>;
         addModules(arg0: $ParticleModuleSet$Builder): void;
+        get type(): $ModuleType<never>;
     }
     export class $CodeModule {
     }
     export interface $CodeModule extends $ParticleModuleData {
         getType(): $ModuleType<never>;
+        get type(): $ModuleType<never>;
     }
     /**
      * Values that may be interpreted as {@link $CodeModule}.
@@ -34,5 +36,5 @@ declare module "@package/foundry/veil/api/quasar/data/module" {
     /**
      * Values that may be interpreted as {@link $ModuleType}.
      */
-    export type $ModuleType_<T> = RegistryTypes.VeilQuasarModuleTypeInit | RegistryTypes.VeilQuasarModuleTypeUpdate | RegistryTypes.VeilQuasarModuleTypeRender | (() => $MapCodec_<T>);
+    export type $ModuleType_<T> = RegistryTypes.VeilQuasarModuleTypeUpdate | RegistryTypes.VeilQuasarModuleTypeRender | RegistryTypes.VeilQuasarModuleTypeInit | (() => $MapCodec_<T>);
 }

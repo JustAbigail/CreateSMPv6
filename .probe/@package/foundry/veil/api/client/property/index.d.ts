@@ -16,5 +16,7 @@ declare module "@package/foundry/veil/api/client/property" {
         modify(arg0: T, arg1: $PropertyModifier$PropertyModifierMode_, arg2: ($List_<$MolangExpression_>) | undefined): void;
         static createCodec<T, M extends $Property<T>>(arg0: $Function_<T, M>, arg1: $Codec<T>): $MapCodec<M>;
         constructor(arg0: $PropertyRegistry$PropertyType_<T, $Property<T>>, arg1: T);
+        get environment(): $Supplier<$MolangEnvironment>;
+        get type(): $PropertyRegistry$PropertyType<T, $Property<T>>;
     }
 }

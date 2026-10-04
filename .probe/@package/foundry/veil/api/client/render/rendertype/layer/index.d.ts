@@ -10,5 +10,6 @@ declare module "@package/foundry/veil/api/client/render/rendertype/layer" {
     export interface $RenderTypeLayer {
         getType(): $RenderTypeLayerRegistry$LayerType<never>;
         addShard(arg0: $VeilRenderTypeBuilder, ...arg1: $Object[]): void;
+        get type(): $RenderTypeLayerRegistry$LayerType<never>;
     }
 }

@@ -8,5 +8,7 @@ declare module "@package/net/fabricmc/fabric/api/gamerule/v1" {
         getId(): $ResourceLocation;
         static getCategory<T extends $GameRules$Value<T>>(arg0: $GameRules$Key<T>): ($CustomGameRuleCategory) | undefined;
         constructor(arg0: $ResourceLocation_, arg1: $Component_);
+        get name(): $Component;
+        get id(): $ResourceLocation;
     }
 }

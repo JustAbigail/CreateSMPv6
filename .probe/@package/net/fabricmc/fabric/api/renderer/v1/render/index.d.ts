@@ -45,6 +45,9 @@ declare module "@package/net/fabricmc/fabric/api/renderer/v1/render" {
         getEmitter(): $QuadEmitter;
         getModelData(): $ModelData;
         getRenderType(): $RenderType;
+        get emitter(): $QuadEmitter;
+        get modelData(): $ModelData;
+        get renderType(): $RenderType;
     }
     /**
      * @deprecated

@@ -19,6 +19,7 @@ declare module "@package/net/neoforged/neoforge/event/entity/item" {
          * Creates a new event for an `ItemEntity`.
          */
         constructor(itemEntity: $ItemEntity);
+        get entity(): $ItemEntity;
     }
     /**
      * Event that is fired when an `ItemEntity`'s age has reached its maximum
@@ -73,5 +74,6 @@ declare module "@package/net/neoforged/neoforge/event/entity/item" {
          * Creates a new event for EntityItems tossed by a player.
          */
         constructor(entityItem: $ItemEntity, player: $Player);
+        get player(): $Player;
     }
 }

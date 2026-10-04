@@ -9,11 +9,13 @@ declare module "@package/org/betterx/betternether/mixin/common" {
     export interface $LootTableBuilderAccessor {
         getPools(): $ImmutableList$Builder<$LootPool>;
         getFunctions(): $ImmutableList$Builder<$LootItemFunction>;
+        get pools(): $ImmutableList$Builder<$LootPool>;
+        get functions(): $ImmutableList$Builder<$LootItemFunction>;
     }
     export class $BlockBehaviourPropertiesAccessor {
     }
     export interface $BlockBehaviourPropertiesAccessor {
-        betternether$getOffsetFunction(): $BlockBehaviour$OffsetFunction;
         betternether$setOffsetFunction(arg0: $BlockBehaviour$OffsetFunction_): void;
+        betternether$getOffsetFunction(): $BlockBehaviour$OffsetFunction;
     }
 }

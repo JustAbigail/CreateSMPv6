@@ -15,6 +15,8 @@ declare module "@package/net/caffeinemc/mods/sodium/client/gl/buffer" {
         static COUNT: number;
         static ELEMENT_BUFFER: $GlBufferTarget;
         static ARRAY_BUFFER: $GlBufferTarget;
+        get targetParameter(): number;
+        get bindingParameter(): number;
     }
     /**
      * Values that may be interpreted as {@link $GlBufferTarget}.
@@ -29,6 +31,7 @@ declare module "@package/net/caffeinemc/mods/sodium/client/gl/buffer" {
         static CLIENT_STORAGE: $GlBufferStorageFlags;
         static MAP_READ: $GlBufferStorageFlags;
         static MAP_WRITE: $GlBufferStorageFlags;
+        get bits(): number;
     }
     /**
      * Values that may be interpreted as {@link $GlBufferStorageFlags}.
@@ -46,6 +49,7 @@ declare module "@package/net/caffeinemc/mods/sodium/client/gl/buffer" {
         static UNSYNCHRONIZED: $GlBufferMapFlags;
         static INVALIDATE_BUFFER: $GlBufferMapFlags;
         static WRITE: $GlBufferMapFlags;
+        get bits(): number;
     }
     /**
      * Values that may be interpreted as {@link $GlBufferMapFlags}.
@@ -54,22 +58,26 @@ declare module "@package/net/caffeinemc/mods/sodium/client/gl/buffer" {
     export class $GlImmutableBuffer extends $GlBuffer {
         getFlags(): $EnumBitField<$GlBufferStorageFlags>;
         constructor(arg0: $EnumBitField<$GlBufferStorageFlags_>);
+        get flags(): $EnumBitField<$GlBufferStorageFlags>;
     }
     export class $GlBuffer extends $GlObject {
         getActiveMapping(): $GlBufferMapping;
         setActiveMapping(arg0: $GlBufferMapping): void;
     }
     export class $GlBufferMapping {
+        isDisposed(): boolean;
         getBufferObject(): $GlBuffer;
         getMemoryBuffer(): $ByteBuffer;
-        isDisposed(): boolean;
         dispose(): void;
         write(arg0: $ByteBuffer, arg1: number): void;
         constructor(arg0: $GlBuffer, arg1: $ByteBuffer);
+        get disposed(): boolean;
+        get bufferObject(): $GlBuffer;
+        get memoryBuffer(): $ByteBuffer;
     }
     export class $GlMutableBuffer extends $GlBuffer {
-        getSize(): number;
         setSize(arg0: number): void;
+        getSize(): number;
         constructor();
     }
     export class $GlBufferUsage extends $Enum<$GlBufferUsage> {
@@ -85,6 +93,7 @@ declare module "@package/net/caffeinemc/mods/sodium/client/gl/buffer" {
         static STATIC_READ: $GlBufferUsage;
         static STATIC_DRAW: $GlBufferUsage;
         static DYNAMIC_READ: $GlBufferUsage;
+        get id(): number;
     }
     /**
      * Values that may be interpreted as {@link $GlBufferUsage}.

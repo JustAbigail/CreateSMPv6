@@ -24,8 +24,8 @@ declare module "@package/com/cake/azimuth/behaviour/extensions" {
     export class $KineticBehaviourExtension {
     }
     export interface $KineticBehaviourExtension extends $BehaviourExtension {
-        propagateRotationTo(arg0: $KineticBlockEntity, arg1: $BlockState_, arg2: $BlockState_, arg3: $BlockPos_, arg4: boolean, arg5: boolean): number;
         attachKinetics(): void;
+        propagateRotationTo(arg0: $KineticBlockEntity, arg1: $BlockState_, arg2: $BlockState_, arg3: $BlockPos_, arg4: boolean, arg5: boolean): number;
         forcePropagateRotationTo(arg0: $KineticBlockEntity, arg1: $BlockState_, arg2: $BlockState_, arg3: $BlockPos_, arg4: boolean, arg5: boolean): number;
         repropagateKinetics(): void;
         addExtraPropagationLocations(arg0: $IRotate, arg1: $BlockState_, arg2: $List_<$BlockPos_>): $List<$BlockPos>;
@@ -50,10 +50,13 @@ declare module "@package/com/cake/azimuth/behaviour/extensions" {
     }
     export interface $RenderedBehaviourExtension extends $BehaviourExtension {
         rendersWhenVisualizationAvailable(): boolean;
-        getVisualFactory(): $RenderedBehaviourExtension$BehaviourVisualFactory;
         getRenderBoundingBox(): $AABB;
+        getVisualFactory(): $RenderedBehaviourExtension$BehaviourVisualFactory;
         invalidateRenderBoundingBox(): void;
         getRenderer(): $RenderedBehaviourExtension$BehaviourRenderSupplier;
+        get renderBoundingBox(): $AABB;
+        get visualFactory(): $RenderedBehaviourExtension$BehaviourVisualFactory;
+        get renderer(): $RenderedBehaviourExtension$BehaviourRenderSupplier;
     }
     export class $RenderedBehaviourExtension$BehaviourVisualFactory {
     }

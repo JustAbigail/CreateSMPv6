@@ -7,6 +7,7 @@ declare module "@package/foundry/veil/api/quasar/emitters/module" {
     export interface $ForceParticleModule extends $ParticleModule {
         applyForce(arg0: $QuasarParticle): void;
         setStrength(arg0: number): void;
+        set strength(value: number);
     }
     export class $CollisionParticleModule {
     }
@@ -22,6 +23,7 @@ declare module "@package/foundry/veil/api/quasar/emitters/module" {
     export interface $RenderParticleModule extends $ParticleModule {
         isEnabled(): boolean;
         render(arg0: $QuasarParticle, arg1: number): void;
+        get enabled(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $RenderParticleModule}.

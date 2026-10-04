@@ -13,6 +13,7 @@ declare module "@package/com/xeli/createmetalogistics" {
     }
     export interface $GlobalStationHasChunkloaders {
         getConnectedLoaders(): $Map<$BlockPos, $ChunkLoader$GlobalChunkLoader>;
+        get connectedLoaders(): $Map<$BlockPos, $ChunkLoader$GlobalChunkLoader>;
     }
     /**
      * Values that may be interpreted as {@link $GlobalStationHasChunkloaders}.

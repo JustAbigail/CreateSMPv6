@@ -14,6 +14,7 @@ declare module "@package/net/neoforged/neoforge/client/settings" {
     export interface $IKeyConflictContext {
         isActive(): boolean;
         conflicts(other: $IKeyConflictContext): boolean;
+        get active(): boolean;
     }
     export class $KeyModifier extends $Enum<$KeyModifier> {
         static getKeyModifier(arg0: $InputConstants$Key): $KeyModifier;
@@ -35,6 +36,8 @@ declare module "@package/net/neoforged/neoforge/client/settings" {
         static ALT: $KeyModifier;
         static NONE: $KeyModifier;
         static CONTROL: $KeyModifier;
+        static get activeModifier(): $KeyModifier;
+        static get activeModifiers(): $List<$KeyModifier>;
     }
     /**
      * Values that may be interpreted as {@link $KeyModifier}.

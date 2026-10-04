@@ -1,5 +1,5 @@
-import { $Supplier_ } from "@package/java/util/function";
 import { $StockInventoryType } from "@package/net/liukrast/deployer/lib/logistics/packager";
+import { $Supplier_ } from "@package/java/util/function";
 import { $Codec } from "@package/com/mojang/serialization";
 import { $RegistryFriendlyByteBuf } from "@package/net/minecraft/network";
 import { $GenericOrderContained, $GenericOrderContained_ } from "@package/net/liukrast/deployer/lib/logistics/stockTicker";
@@ -12,19 +12,21 @@ export * as stockTicker from "@package/net/liukrast/deployer/lib/logistics/stock
 
 declare module "@package/net/liukrast/deployer/lib/logistics" {
     export class $GenericPackageOrderData<V> extends $Record {
+        static createStreamCodec<V>(arg0: $Supplier_<$StockInventoryType<never, V, never>>): $StreamCodec<$RegistryFriendlyByteBuf, $GenericPackageOrderData<V>>;
         orderId(): number;
         linkIndex(): number;
         isFinalLink(): boolean;
         fragmentIndex(): number;
         orderContext(): $GenericOrderContained<V>;
-        static createStreamCodec<V>(arg0: $Supplier_<$StockInventoryType<never, V, never>>): $StreamCodec<$RegistryFriendlyByteBuf, $GenericPackageOrderData<V>>;
         isFinal(): boolean;
         static createCodec<V>(arg0: $Supplier_<$StockInventoryType<never, V, never>>): $Codec<$GenericPackageOrderData<V>>;
-        constructor(orderId: number, linkIndex: number, isFinalLink: boolean, fragmentIndex: number, isFinal: boolean, orderContext: $GenericOrderContained_<V> | null);
         constructor(arg0: number, arg1: number, arg2: boolean, arg3: number, arg4: boolean, arg5: ($GenericOrderContained_<V>) | undefined);
+        constructor(orderId: number, linkIndex: number, isFinalLink: boolean, fragmentIndex: number, isFinal: boolean, orderContext: $GenericOrderContained_<V> | null);
+        get finalLink(): boolean;
+        get final(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $GenericPackageOrderData}.
      */
-    export type $GenericPackageOrderData_<V> = { orderContext?: $GenericOrderContained_<any>, linkIndex?: number, isFinalLink?: boolean, isFinal?: boolean, orderId?: number, fragmentIndex?: number,  } | [orderContext?: $GenericOrderContained_<any>, linkIndex?: number, isFinalLink?: boolean, isFinal?: boolean, orderId?: number, fragmentIndex?: number, ];
+    export type $GenericPackageOrderData_<V> = { isFinalLink?: boolean, linkIndex?: number, orderContext?: $GenericOrderContained_<any>, fragmentIndex?: number, orderId?: number, isFinal?: boolean,  } | [isFinalLink?: boolean, linkIndex?: number, orderContext?: $GenericOrderContained_<any>, fragmentIndex?: number, orderId?: number, isFinal?: boolean, ];
 }

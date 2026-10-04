@@ -20,19 +20,26 @@ declare module "@package/com/kipti/bnb/content/kinetics/cogwheel_chain/types" {
      */
     export type $CogwheelChainType$VertexShape_ = "cross" | "square";
     export class $CogwheelChainType {
-        permitsAxisChanges(): boolean;
+        getTranslationKey(): string;
+        getRenderTexture(): $ResourceLocation;
+        getBreakEffectsBlock(): $Block;
         alwaysCostsOneItem(): boolean;
         getCostFactor(): number;
         getCogwheelPredicate(): $Predicate<$Block>;
-        getRenderTexture(): $ResourceLocation;
-        getBreakEffectsBlock(): $Block;
-        getTranslationKey(): string;
+        permitsAxisChanges(): boolean;
         getKey(): $ResourceLocation;
         getRenderType(): $CogwheelChainType$ChainRenderInfo;
         static COGWHEEL_TYPE_BY_ITEM: $SimpleRegistry<$Item, $CogwheelChainType>;
         static STREAM_CODEC: $StreamCodec<$RegistryFriendlyByteBuf, $CogwheelChainType>;
         static DEFAULT_CHAIN_TEXTURE_LOCATION: $ResourceLocation;
         constructor(arg0: number, arg1: $CogwheelChainType$ChainRenderInfo_, arg2: $ResourceLocation_, arg3: $Predicate_<$Item>, arg4: $Predicate_<$Block>, arg5: boolean, arg6: $Supplier_<$Block>);
+        get translationKey(): string;
+        get renderTexture(): $ResourceLocation;
+        get breakEffectsBlock(): $Block;
+        get costFactor(): number;
+        get cogwheelPredicate(): $Predicate<$Block>;
+        get key(): $ResourceLocation;
+        get renderType(): $CogwheelChainType$ChainRenderInfo;
     }
     /**
      * Values that may be interpreted as {@link $CogwheelChainType}.
@@ -49,6 +56,10 @@ declare module "@package/com/kipti/bnb/content/kinetics/cogwheel_chain/types" {
         static CHAIN: $CogwheelChainType$ChainRenderInfo;
         static ROPE: $CogwheelChainType$ChainRenderInfo;
         static BELT: $CogwheelChainType$ChainRenderInfo;
+        get vertexShape(): $CogwheelChainType$VertexShape;
+        get defaultDimensions(): boolean;
+        get width(): number;
+        get height(): number;
     }
     /**
      * Values that may be interpreted as {@link $CogwheelChainType$ChainRenderInfo}.

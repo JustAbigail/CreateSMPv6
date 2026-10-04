@@ -16,8 +16,9 @@ declare module "@package/com/simibubi/create/api/behaviour/movement" {
         static REGISTRY: $SimpleRegistry<$Block, $MovementBehaviour>;
     }
     export interface $MovementBehaviour {
-        cancelStall(arg0: $MovementContext): void;
-        collectOrDropItem(arg0: $MovementContext, arg1: $ItemStack_): void;
+        startMoving(arg0: $MovementContext): void;
+        visitNewPosition(arg0: $MovementContext, arg1: $BlockPos_): void;
+        getActiveAreaOffset(arg0: $MovementContext): $Vec3;
         canBeDisabledVia(arg0: $MovementContext): $ItemStack;
         onDisabledByControls(arg0: $MovementContext): void;
         mustTickWhileDisabled(): boolean;
@@ -26,15 +27,14 @@ declare module "@package/com/simibubi/create/api/behaviour/movement" {
         writeExtraData(arg0: $MovementContext): void;
         renderInContraption(arg0: $MovementContext, arg1: $VirtualRenderWorld, arg2: $ContraptionMatrices, arg3: $MultiBufferSource_): void;
         createVisual(arg0: $VisualizationContext, arg1: $VirtualRenderWorld, arg2: $MovementContext): $ActorVisual;
+        cancelStall(arg0: $MovementContext): void;
+        collectOrDropItem(arg0: $MovementContext, arg1: $ItemStack_): void;
         disableBlockEntityRendering(): boolean;
-        startMoving(arg0: $MovementContext): void;
-        visitNewPosition(arg0: $MovementContext, arg1: $BlockPos_): void;
-        getActiveAreaOffset(arg0: $MovementContext): $Vec3;
         /**
          * @deprecated
          */
         dropItem(arg0: $MovementContext, arg1: $ItemStack_): void;
-        isActive(arg0: $MovementContext): boolean;
         tick(arg0: $MovementContext): void;
+        isActive(arg0: $MovementContext): boolean;
     }
 }

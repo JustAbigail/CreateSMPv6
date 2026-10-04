@@ -10,9 +10,9 @@ declare module "@package/net/neoforged/fml/config" {
         config(): $CommentedConfig;
     }
     export class $ModConfig$Type extends $Enum<$ModConfig$Type> {
-        extension(): string;
         static values(): $ModConfig$Type[];
         static valueOf(arg0: string): $ModConfig$Type;
+        extension(): string;
         static SERVER: $ModConfig$Type;
         static COMMON: $ModConfig$Type;
         static STARTUP: $ModConfig$Type;
@@ -30,13 +30,20 @@ declare module "@package/net/neoforged/fml/config" {
         isEmpty(): boolean;
         isCorrect(arg0: $UnmodifiableCommentedConfig): boolean;
         correct(arg0: $CommentedConfig): void;
+        get empty(): boolean;
     }
     export class $ModConfig {
-        getLoadedConfig(): $IConfigSpec$ILoadedConfig;
         getFullPath(): $Path;
+        getLoadedConfig(): $IConfigSpec$ILoadedConfig;
         getType(): $ModConfig$Type;
         getFileName(): string;
         getSpec(): $IConfigSpec;
         getModId(): string;
+        get fullPath(): $Path;
+        get loadedConfig(): $IConfigSpec$ILoadedConfig;
+        get type(): $ModConfig$Type;
+        get fileName(): string;
+        get spec(): $IConfigSpec;
+        get modId(): string;
     }
 }

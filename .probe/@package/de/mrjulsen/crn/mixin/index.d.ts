@@ -17,9 +17,9 @@ declare module "@package/de/mrjulsen/crn/mixin" {
     export class $TrainStatusAccessor {
     }
     export interface $TrainStatusAccessor {
-        crn$track(): boolean;
         crn$navigation(): boolean;
         crn$conductor(): boolean;
+        crn$track(): boolean;
     }
     export class $ScheduleRuntimeAccessor {
     }
@@ -35,9 +35,9 @@ declare module "@package/de/mrjulsen/crn/mixin" {
     export class $ModularGuiLineBuilderAccessor {
     }
     export interface $ModularGuiLineBuilderAccessor {
-        crn$getFont(): $Font;
         crn$getX(): number;
         crn$getY(): number;
         crn$getTarget(): $ModularGuiLine;
+        crn$getFont(): $Font;
     }
 }

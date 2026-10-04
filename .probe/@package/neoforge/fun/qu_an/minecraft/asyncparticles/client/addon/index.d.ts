@@ -7,9 +7,9 @@ declare module "@package/neoforge/fun/qu_an/minecraft/asyncparticles/client/addo
     export class $ParticleEngineAddon {
     }
     export interface $ParticleEngineAddon {
+        asyncparticle$setFrustum(arg0: $Frustum): void;
         asyncparticle$getFrustum(): $Frustum;
         asyncparticle$addRenderType(arg0: $ParticleRenderType_): void;
-        asyncparticle$setFrustum(arg0: $Frustum): void;
     }
     export class $GpuParticleAddon {
         static COLOR_ALPHA_OFFSET: number;
@@ -46,24 +46,23 @@ declare module "@package/neoforge/fun/qu_an/minecraft/asyncparticles/client/addo
         asyncparticles$getColor(arg0: number): number;
     }
     export class $LightCachedParticleAddon {
-        static compress(light: number): number;
         static decompress(lightCache: number): number;
+        static compress(light: number): number;
         static INITIAL_LIGHT_CACHE: number;
     }
     export interface $LightCachedParticleAddon {
-        asyncparticles$tickLightCache(): void;
-        asyncparticles$invoke_getLightColor(arg0: number): number;
+        asyncparticles$enableLightCache(arg0: boolean): void;
         asyncparticles$isEnabledLightCache(): boolean;
         asyncparticles$setLight(arg0: number): void;
         asyncparticles$getCachedLight(): number;
         asyncparticles$isStaticLight(): boolean;
         asyncparticles$refresh(): void;
-        asyncparticles$enableLightCache(arg0: boolean): void;
+        asyncparticles$tickLightCache(): void;
+        asyncparticles$invoke_getLightColor(arg0: number): number;
     }
     export class $ParticleAddon {
     }
     export interface $ParticleAddon {
-        asyncparticles$getRealClass<T extends $Particle>(): $Class<T>;
         asyncparticles$setTicked(): void;
         asyncparticles$resetTicked(): void;
         asyncparticles$isTicked(): boolean;
@@ -72,6 +71,7 @@ declare module "@package/neoforge/fun/qu_an/minecraft/asyncparticles/client/addo
         asyncparticles$shouldCull(): boolean;
         asyncparticles$setNoCulling(): void;
         asyncparticles$isVisibleOnScreen(): boolean;
+        asyncparticles$getRealClass<T extends $Particle>(): $Class<T>;
         getRenderBoundingBox(arg0: number): $AABB;
     }
 }

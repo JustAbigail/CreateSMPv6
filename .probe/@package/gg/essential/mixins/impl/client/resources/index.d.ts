@@ -7,5 +7,8 @@ declare module "@package/gg/essential/mixins/impl/client/resources" {
         getSkinCache(): $SkinProviderFileCacheAccessor;
         getCapeCache(): $SkinProviderFileCacheAccessor;
         getElytraCache(): $SkinProviderFileCacheAccessor;
+        get skinCache(): $SkinProviderFileCacheAccessor;
+        get capeCache(): $SkinProviderFileCacheAccessor;
+        get elytraCache(): $SkinProviderFileCacheAccessor;
     }
 }

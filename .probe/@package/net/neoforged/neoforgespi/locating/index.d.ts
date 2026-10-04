@@ -27,7 +27,7 @@ declare module "@package/net/neoforged/neoforgespi/locating" {
     /**
      * Values that may be interpreted as {@link $ForgeFeature$Bound}.
      */
-    export type $ForgeFeature$Bound_ = { featureBound?: string, featureName?: string, modInfo?: $IModInfo,  } | [featureBound?: string, featureName?: string, modInfo?: $IModInfo, ];
+    export type $ForgeFeature$Bound_ = { featureName?: string, featureBound?: string, modInfo?: $IModInfo,  } | [featureName?: string, featureBound?: string, modInfo?: $IModInfo, ];
     export class $ModFileInfoParser {
     }
     export interface $ModFileInfoParser {
@@ -47,13 +47,23 @@ declare module "@package/net/neoforged/neoforgespi/locating" {
         getType(): $IModFile$Type;
         getFileName(): string;
         getFilePath(): $Path;
+        getModInfos(): $List<$IModInfo>;
         getSecureJar(): $SecureJar;
         setSecurityStatus(arg0: $SecureJar$Status_): void;
         getSubstitutionMap(): $Supplier<$Map<string, $Object>>;
-        getScanResult(): $ModFileScanData;
-        getModInfos(): $List<$IModInfo>;
         getModFileInfo(): $IModFileInfo;
+        getScanResult(): $ModFileScanData;
         getDiscoveryAttributes(): $ModFileDiscoveryAttributes;
+        get type(): $IModFile$Type;
+        get fileName(): string;
+        get filePath(): $Path;
+        get modInfos(): $List<$IModInfo>;
+        get secureJar(): $SecureJar;
+        set securityStatus(value: $SecureJar$Status_);
+        get substitutionMap(): $Supplier<$Map<string, $Object>>;
+        get modFileInfo(): $IModFileInfo;
+        get scanResult(): $ModFileScanData;
+        get discoveryAttributes(): $ModFileDiscoveryAttributes;
     }
     export class $ModFileDiscoveryAttributes extends $Record {
         locator(): $IModFileCandidateLocator;
@@ -71,5 +81,5 @@ declare module "@package/net/neoforged/neoforgespi/locating" {
     /**
      * Values that may be interpreted as {@link $ModFileDiscoveryAttributes}.
      */
-    export type $ModFileDiscoveryAttributes_ = { locator?: $IModFileCandidateLocator, parent?: $IModFile, dependencyLocator?: $IDependencyLocator, reader?: $IModFileReader,  } | [locator?: $IModFileCandidateLocator, parent?: $IModFile, dependencyLocator?: $IDependencyLocator, reader?: $IModFileReader, ];
+    export type $ModFileDiscoveryAttributes_ = { locator?: $IModFileCandidateLocator, reader?: $IModFileReader, dependencyLocator?: $IDependencyLocator, parent?: $IModFile,  } | [locator?: $IModFileCandidateLocator, reader?: $IModFileReader, dependencyLocator?: $IDependencyLocator, parent?: $IModFile, ];
 }

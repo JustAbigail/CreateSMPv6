@@ -17,40 +17,44 @@ declare module "@package/net/neoforged/fml" {
     }
     export class $ModContainer {
         getNamespace(): string;
+        getModId(): string;
         registerConfig(arg0: $ModConfig$Type_, arg1: $IConfigSpec): void;
         registerConfig(arg0: $ModConfig$Type_, arg1: $IConfigSpec, arg2: string): void;
-        getModId(): string;
+        getModInfo(): $IModInfo;
         getCustomExtension<T extends $IExtensionPoint>(arg0: $Class<T>): (T) | undefined;
         registerExtensionPoint<T extends $IExtensionPoint>(arg0: $Class<T>, arg1: $Supplier_<T>): void;
         registerExtensionPoint<T extends $IExtensionPoint>(arg0: $Class<T>, arg1: T): void;
-        acceptEvent<T extends $Event>(arg0: $EventPriority_, arg1: T): void;
         acceptEvent<T extends $Event>(arg0: T): void;
-        getModInfo(): $IModInfo;
+        acceptEvent<T extends $Event>(arg0: $EventPriority_, arg1: T): void;
         getEventBus(): $IEventBus;
         constructor(arg0: $IModInfo);
+        get namespace(): string;
+        get modId(): string;
+        get modInfo(): $IModInfo;
+        get eventBus(): $IEventBus;
     }
     export class $ModLoadingIssue extends $Record {
         severity(): $ModLoadingIssue$Severity;
         static warning(arg0: string, ...arg1: $Object[]): $ModLoadingIssue;
         cause(): $Throwable;
         static error(arg0: string, ...arg1: $Object[]): $ModLoadingIssue;
+        withAffectedMod(arg0: $IModInfo): $ModLoadingIssue;
         affectedPath(): $Path;
         translationKey(): string;
         withCause(arg0: $Throwable): $ModLoadingIssue;
         withAffectedModFile(arg0: $IModFile): $ModLoadingIssue;
-        withAffectedMod(arg0: $IModInfo): $ModLoadingIssue;
         withAffectedPath(arg0: $Path_): $ModLoadingIssue;
         withSeverity(arg0: $ModLoadingIssue$Severity): $ModLoadingIssue;
-        translationArgs(): $List<$Object>;
         affectedModFile(): $IModFile;
         affectedMod(): $IModInfo;
+        translationArgs(): $List<$Object>;
         constructor(arg0: $ModLoadingIssue$Severity, arg1: string, arg2: $List_<$Object>);
         constructor(severity: $ModLoadingIssue$Severity, translationKey: string, translationArgs: $List_<$Object>, cause: $Throwable, affectedPath: $Path_, affectedModFile: $IModFile, affectedMod: $IModInfo);
     }
     /**
      * Values that may be interpreted as {@link $ModLoadingIssue}.
      */
-    export type $ModLoadingIssue_ = { severity?: $ModLoadingIssue$Severity, translationArgs?: $List_<$Object>, translationKey?: string, cause?: $Throwable, affectedMod?: $IModInfo, affectedPath?: $Path_, affectedModFile?: $IModFile,  } | [severity?: $ModLoadingIssue$Severity, translationArgs?: $List_<$Object>, translationKey?: string, cause?: $Throwable, affectedMod?: $IModInfo, affectedPath?: $Path_, affectedModFile?: $IModFile, ];
+    export type $ModLoadingIssue_ = { cause?: $Throwable, translationKey?: string, translationArgs?: $List_<$Object>, severity?: $ModLoadingIssue$Severity, affectedModFile?: $IModFile, affectedPath?: $Path_, affectedMod?: $IModInfo,  } | [cause?: $Throwable, translationKey?: string, translationArgs?: $List_<$Object>, severity?: $ModLoadingIssue$Severity, affectedModFile?: $IModFile, affectedPath?: $Path_, affectedMod?: $IModInfo, ];
     export class $LogicalSide extends $Enum<$LogicalSide> {
         static values(): $LogicalSide[];
         static valueOf(arg0: string): $LogicalSide;
@@ -58,6 +62,8 @@ declare module "@package/net/neoforged/fml" {
         isServer(): boolean;
         static SERVER: $LogicalSide;
         static CLIENT: $LogicalSide;
+        get client(): boolean;
+        get server(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $LogicalSide}.

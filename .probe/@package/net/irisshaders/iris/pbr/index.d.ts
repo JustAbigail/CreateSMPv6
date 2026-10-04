@@ -7,6 +7,7 @@ declare module "@package/net/irisshaders/iris/pbr" {
     }
     export interface $SpriteContentsExtension {
         getCreatedTicker(): $SpriteContents$Ticker;
+        get createdTicker(): $SpriteContents$Ticker;
     }
     /**
      * Values that may be interpreted as {@link $SpriteContentsExtension}.

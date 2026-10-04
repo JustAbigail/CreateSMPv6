@@ -11,5 +11,7 @@ declare module "@package/gg/essential/mixins/transformers/client/gui" {
         getSelectables(): $List<$NarratableEntry>;
         essential$addDrawableChild<T extends $GuiEventListener>(arg0: T): T;
         essential$getChildren(): $List<$GuiEventListener>;
+        get drawables(): $List<$Renderable>;
+        get selectables(): $List<$NarratableEntry>;
     }
 }

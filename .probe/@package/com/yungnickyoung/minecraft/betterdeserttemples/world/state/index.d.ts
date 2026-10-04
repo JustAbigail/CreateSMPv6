@@ -19,6 +19,7 @@ declare module "@package/com/yungnickyoung/minecraft/betterdeserttemples/world/s
     }
     export interface $ITempleStateCacheProvider {
         getTempleStateCache(): $TempleStateCache;
+        get templeStateCache(): $TempleStateCache;
     }
     /**
      * Values that may be interpreted as {@link $ITempleStateCacheProvider}.

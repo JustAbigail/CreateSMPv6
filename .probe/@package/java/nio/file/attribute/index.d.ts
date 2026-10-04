@@ -36,13 +36,13 @@ declare module "@package/java/nio/file/attribute" {
         value(): T;
     }
     export class $FileTime implements $Comparable<$FileTime> {
-        compareTo(arg0: $FileTime): number;
-        static from(arg0: $Instant): $FileTime;
-        static from(arg0: number, arg1: $TimeUnit_): $FileTime;
-        to(arg0: $TimeUnit_): number;
-        toMillis(): number;
         toInstant(): $Instant;
         static fromMillis(arg0: number): $FileTime;
+        compareTo(arg0: $FileTime): number;
+        static from(arg0: number, arg1: $TimeUnit_): $FileTime;
+        static from(arg0: $Instant): $FileTime;
+        to(arg0: $TimeUnit_): number;
+        toMillis(): number;
     }
     export class $UserPrincipalLookupService {
         lookupPrincipalByName(arg0: string): $UserPrincipal;
@@ -51,15 +51,19 @@ declare module "@package/java/nio/file/attribute" {
     export class $BasicFileAttributes {
     }
     export interface $BasicFileAttributes {
+        isRegularFile(): boolean;
+        creationTime(): $FileTime;
+        isOther(): boolean;
         lastAccessTime(): $FileTime;
         lastModifiedTime(): $FileTime;
         isSymbolicLink(): boolean;
         fileKey(): $Object;
         size(): number;
         isDirectory(): boolean;
-        isRegularFile(): boolean;
-        creationTime(): $FileTime;
-        isOther(): boolean;
+        get regularFile(): boolean;
+        get other(): boolean;
+        get symbolicLink(): boolean;
+        get directory(): boolean;
     }
     export class $GroupPrincipal {
     }

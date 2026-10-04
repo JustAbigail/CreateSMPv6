@@ -36,25 +36,26 @@ declare module "@package/net/neoforged/neoforge/registries" {
         isFrozen(): boolean;
         getRegistries(): $ImmutableSet<$ResourceLocation>;
         constructor(remaps: $Map_<$ResourceLocation_, $Map_<$ResourceLocation_, $IdMappingEvent$IdRemapping_>>, isFrozen: boolean);
+        get frozen(): boolean;
+        get registries(): $ImmutableSet<$ResourceLocation>;
     }
     export class $RegistryBuilder<T> {
-        callback(callback: $RegistryCallback<T>): $RegistryBuilder<T>;
+        onAdd(callback: $AddCallback_<T>): $RegistryBuilder<T>;
         /**
          * Sets the highest numerical id that an entry in this registry
          * is *allowed* to use.
          * Must be greater than or equal to zero.
          */
         maxId(maxId: number): $RegistryBuilder<T>;
-        onClear(callback: $ClearCallback_<T>): $RegistryBuilder<T>;
-        onBake(callback: $BakeCallback_<T>): $RegistryBuilder<T>;
-        onAdd(callback: $AddCallback_<T>): $RegistryBuilder<T>;
+        defaultKey(key: $ResourceLocation_): $RegistryBuilder<T>;
+        defaultKey(key: $ResourceKey_<T>): $RegistryBuilder<T>;
         /**
          * @deprecated
          */
         withIntrusiveHolders(): $RegistryBuilder<T>;
         disableRegistrationCheck(): $RegistryBuilder<T>;
-        defaultKey(key: $ResourceKey_<T>): $RegistryBuilder<T>;
-        defaultKey(key: $ResourceLocation_): $RegistryBuilder<T>;
+        onClear(callback: $ClearCallback_<T>): $RegistryBuilder<T>;
+        onBake(callback: $BakeCallback_<T>): $RegistryBuilder<T>;
         /**
          * Creates a new registry from this builder.
          * Use `NewRegistryEvent#create(RegistryBuilder)` or `DeferredRegister#makeRegistry(Consumer)`
@@ -67,6 +68,7 @@ declare module "@package/net/neoforged/neoforge/registries" {
          * Default: `false`.
          */
         sync(sync: boolean): $RegistryBuilder<T>;
+        callback(callback: $RegistryCallback<T>): $RegistryBuilder<T>;
         constructor(registryKey: $ResourceKey_<$Registry<T>>);
     }
     /**
@@ -110,27 +112,28 @@ declare module "@package/net/neoforged/neoforge/registries" {
      */
     export class $DeferredHolder<R, T extends R> implements $Holder<R>, $Supplier<T> {
         /**
-         * Returns an optional containing the target object, if bound; otherwise an empty optional.
-         */
-        unwrapKey(): ($ResourceKey<R>) | undefined;
-        canSerializeIn(owner: $HolderOwner<R>): boolean;
-        /**
-         * Returns an optional containing the target object, if bound; otherwise an empty optional.
-         */
-        asOptional(): (R) | undefined;
-        /**
-         * @return all tags present on the underlying object
-         * 
-         * If the underlying object is not bound yet, and empty stream is returned.
-         */
-        tags(): $Stream<$TagKey<R>>;
-        /**
          * @return true if the underlying object is available
          * 
          * If `true`, the underlying object was added to the registry,
          * and `#value()` or `#get()` can be called.
          */
         isBound(): boolean;
+        /**
+         * Returns an optional containing the target object, if bound; otherwise an empty optional.
+         */
+        unwrapKey(): ($ResourceKey<R>) | undefined;
+        /**
+         * Returns an optional containing the target object, if bound; otherwise an empty optional.
+         */
+        asOptional(): (R) | undefined;
+        canSerializeIn(owner: $HolderOwner<R>): boolean;
+        getData<Z>(arg0: $DataMapType<R, Z>): Z;
+        /**
+         * @return all tags present on the underlying object
+         * 
+         * If the underlying object is not bound yet, and empty stream is returned.
+         */
+        tags(): $Stream<$TagKey<R>>;
         get(): R;
         value(): R;
         getKey(): $ResourceKey<R>;
@@ -141,26 +144,25 @@ declare module "@package/net/neoforged/neoforge/registries" {
          */
         static create<R, T extends R>(registryName: $ResourceLocation_, valueName: $ResourceLocation_): $DeferredHolder<R, T>;
         /**
-         * Creates a new DeferredHolder targeting the specified value.
-         */
-        static create<R, T extends R>(key: $ResourceKey_<R>): $DeferredHolder<R, T>;
-        /**
          * Creates a new DeferredHolder targeting the value with the specified name in the specified registry.
          */
         static create<R, T extends R>(registryKey: $ResourceKey_<$Registry<R>>, valueName: $ResourceLocation_): $DeferredHolder<R, T>;
+        /**
+         * Creates a new DeferredHolder targeting the specified value.
+         */
+        static create<R, T extends R>(key: $ResourceKey_<R>): $DeferredHolder<R, T>;
         /**
          * Returns an `Either#left()` containing the resource key of this holder.
          */
         unwrap(): $Either<$ResourceKey<R>, R>;
         /**
-         * Evaluates the passed predicate against this holder's resource key.
-         */
-        is(filter: $Predicate_<$ResourceKey<R>>): boolean;
-        /**
          * @return true if the passed ResourceLocation is the same as the ID of the target object
          */
         is(id: $ResourceLocation_): boolean;
-        getData<Z>(arg0: $DataMapType<R, Z>): Z;
+        /**
+         * Evaluates the passed predicate against this holder's resource key.
+         */
+        is(filter: $Predicate_<$ResourceKey<R>>): boolean;
         getDelegate(): $Holder<R>;
         /**
          * Test if a tag matches the object this holder holds.
@@ -169,10 +171,15 @@ declare module "@package/net/neoforged/neoforge/registries" {
         isTag(id: $ResourceLocation_): boolean;
         getRegisteredName(): string;
         unwrapLookup(): $HolderLookup$RegistryLookup<R>;
+        get bound(): boolean;
+        get key(): $ResourceKey<R>;
+        get id(): $ResourceLocation;
+        get delegate(): $Holder<R>;
+        get registeredName(): string;
     }
     export class $IdMappingEvent$IdRemapping extends $Record {
-        newId(): number;
         currId(): number;
+        newId(): number;
         constructor(currId: number, newId: number);
     }
     /**
@@ -189,7 +196,7 @@ declare module "@package/net/neoforged/neoforge/registries" {
      * This event is fired on the mod-specific event bus, on both logical sides.
      */
     export class $NewRegistryEvent extends $Event implements $IModBusEvent, $NewRegistryEventNeoForgeAccessor {
-        static callInit$puzzleslib_$md$e5fdf9$0(): $NewRegistryEvent;
+        static callInit$puzzleslib_$md$3675d4$0(): $NewRegistryEvent;
         /**
          * Registers an already-created registry.
          * This allows storing registries in static final fields and registering them later.
@@ -219,6 +226,7 @@ declare module "@package/net/neoforged/neoforge/registries" {
         register<T>(registryKey: $ResourceKey_<$Registry<T>>, name: $ResourceLocation_, valueSupplier: $Supplier_<T>): void;
         getRegistry<T>(key: $ResourceKey_<$Registry<T>>): $Registry<T>;
         getRegistry(): $Registry<never>;
+        get registryKey(): $ResourceKey<$Registry<never>>;
     }
     export class $DataPackRegistryEvent extends $Event implements $IModBusEvent {
         constructor();
@@ -244,6 +252,7 @@ declare module "@package/net/neoforged/neoforge/registries" {
          * Returns all builtin registries.
          */
         getRegistries(): $Iterable<$Registry<never>>;
+        get registries(): $Iterable<$Registry<never>>;
     }
     export class $RegisterEvent$RegisterHelper<T> {
     }
@@ -268,12 +277,6 @@ declare module "@package/net/neoforged/neoforge/registries" {
     export class $IRegistryExtension<T> {
     }
     export interface $IRegistryExtension<T> {
-        /**
-         * Adds an alias that maps from the name specified by `from` to the name specified by `to`.
-         * 
-         * Any registry lookups that target the first name will resolve as the second name, if the first name is not present.
-         */
-        addAlias(from: $ResourceLocation_, to: $ResourceLocation_): void;
         addCallback<C extends $RegistryCallback<T>>(arg0: $Class<C>, arg1: C): void;
         /**
          * Adds a callback to this registry.
@@ -299,6 +302,13 @@ declare module "@package/net/neoforged/neoforge/registries" {
          */
         getDataMap<A>(type: $DataMapType<T, A>): $Map<$ResourceKey<T>, A>;
         getKeyOrNull(arg0: T): $ResourceLocation;
+        /**
+         * Adds an alias that maps from the name specified by `from` to the name specified by `to`.
+         * 
+         * Any registry lookups that target the first name will resolve as the second name, if the first name is not present.
+         */
+        addAlias(from: $ResourceLocation_, to: $ResourceLocation_): void;
+        getData<A>(arg0: $DataMapType<T, A>, arg1: $ResourceKey_<T>): A;
         /**
          * Resolves a registry key of a potential object in this registry.
          * The original key will be returned if it is contained in this registry.
@@ -326,6 +336,6 @@ declare module "@package/net/neoforged/neoforge/registries" {
          */
         getId(name: $ResourceLocation_): number;
         containsValue(arg0: T): boolean;
-        getData<A>(arg0: $DataMapType<T, A>, arg1: $ResourceKey_<T>): A;
+        get maxId(): number;
     }
 }

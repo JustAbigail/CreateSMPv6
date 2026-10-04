@@ -44,14 +44,9 @@ declare module "@package/net/neoforged/neoforge/client/extensions" {
     }
     export interface $IDimensionSpecialEffectsExtension {
         /**
-         * Ticks the rain of this dimension.
+         * Renders the snow and rain effects of this dimension.
          */
-        tickRain(level: $ClientLevel, ticks: number, camera: $Camera): boolean;
-        /**
-         * Allows for manipulating the coloring of the lightmap texture.
-         * Will be called for each 16*16 combination of sky/block light values.
-         */
-        adjustLightmapColors(level: $ClientLevel, partialTicks: number, skyDarken: number, blockLightRedFlicker: number, skyLight: number, pixelX: number, pixelY: number, colors: $Vector3f): void;
+        renderSnowAndRain(level: $ClientLevel, ticks: number, partialTick: number, lightTexture: $LightTexture, camX: number, camY: number, camZ: number): boolean;
         /**
          * Renders the sky of this dimension.
          */
@@ -61,9 +56,14 @@ declare module "@package/net/neoforged/neoforge/client/extensions" {
          */
         renderClouds(level: $ClientLevel, ticks: number, partialTick: number, poseStack: $PoseStack, camX: number, camY: number, camZ: number, modelViewMatrix: $Matrix4f, projectionMatrix: $Matrix4f): boolean;
         /**
-         * Renders the snow and rain effects of this dimension.
+         * Allows for manipulating the coloring of the lightmap texture.
+         * Will be called for each 16*16 combination of sky/block light values.
          */
-        renderSnowAndRain(level: $ClientLevel, ticks: number, partialTick: number, lightTexture: $LightTexture, camX: number, camY: number, camZ: number): boolean;
+        adjustLightmapColors(level: $ClientLevel, partialTicks: number, skyDarken: number, blockLightRedFlicker: number, skyLight: number, pixelX: number, pixelY: number, colors: $Vector3f): void;
+        /**
+         * Ticks the rain of this dimension.
+         */
+        tickRain(level: $ClientLevel, ticks: number, camera: $Camera): boolean;
     }
     /**
      * Extension interface for `PoseStack`.
@@ -128,6 +128,11 @@ declare module "@package/net/neoforged/neoforge/client/extensions" {
         getKey(): $InputConstants$Key;
         setToDefault(): void;
         isConflictContextAndModifierActive(): boolean;
+        get keyModifier(): $KeyModifier;
+        get defaultKeyModifier(): $KeyModifier;
+        get displayName(): $Component;
+        get key(): $InputConstants$Key;
+        get conflictContextAndModifierActive(): boolean;
     }
     /**
      * Extension type for the `MenuProvider` interface.
@@ -164,6 +169,7 @@ declare module "@package/net/neoforged/neoforge/client/extensions" {
          * Pops a GUI layer from the screen.
          */
         popGuiLayer(): void;
+        get locale(): $Locale;
     }
     /**
      * Extension interface for `GuiGraphics`.
@@ -235,6 +241,7 @@ declare module "@package/net/neoforged/neoforge/client/extensions" {
         getTopLevelModel(location: $ModelResourceLocation_): $UnbakedModel;
         bakeUncached(model: $UnbakedModel, state: $ModelState, sprites: $Function_<$Material, $TextureAtlasSprite>): $BakedModel;
         getModelTextureGetter(): $Function<$Material, $TextureAtlasSprite>;
+        get modelTextureGetter(): $Function<$Material, $TextureAtlasSprite>;
     }
     /**
      * Extension interface for `BakedModel`.
@@ -242,10 +249,6 @@ declare module "@package/net/neoforged/neoforge/client/extensions" {
     export class $IBakedModelExtension {
     }
     export interface $IBakedModelExtension {
-        /**
-         * A null `RenderType` is used for the breaking overlay as well as non-standard rendering, so models should return all their quads.
-         */
-        getQuads(state: $BlockState_, side: $Direction_, rand: $RandomSource, data: $ModelData, renderType: $RenderType): $List<$BakedQuad>;
         /**
          * Gets an ordered list of render types to use when drawing this item.
          * All render types using the `DefaultVertexFormat#NEW_ENTITY` format are supported.
@@ -271,7 +274,15 @@ declare module "@package/net/neoforged/neoforge/client/extensions" {
          * By default, defers query to `ItemBlockRenderTypes`.
          */
         getRenderPasses(itemStack: $ItemStack_, fabulous: boolean): $List<$BakedModel>;
-        getParticleIcon(data: $ModelData): $TextureAtlasSprite;
+        /**
+         * A null `RenderType` is used for the breaking overlay as well as non-standard rendering, so models should return all their quads.
+         */
+        getQuads(state: $BlockState_, side: $Direction_, rand: $RandomSource, data: $ModelData, renderType: $RenderType): $List<$BakedQuad>;
+        /**
+         * Applies a transform for the given `TransformType` and `applyLeftHandTransform`, and
+         * returns the model to be rendered.
+         */
+        applyTransform(transformType: $ItemDisplayContext_, poseStack: $PoseStack, applyLeftHandTransform: boolean): $BakedModel;
         /**
          * Controls the AO behavior for all quads of this model. The default behavior is to use AO unless the block emits light,
          * `TriState#TRUE` and `TriState#FALSE` force AO to be enabled and disabled respectively, regardless of
@@ -281,11 +292,7 @@ declare module "@package/net/neoforged/neoforge/client/extensions" {
          * This method cannot force AO if the global smooth lighting video setting is disabled.
          */
         useAmbientOcclusion(state: $BlockState_, data: $ModelData, renderType: $RenderType): $TriState;
-        /**
-         * Applies a transform for the given `TransformType` and `applyLeftHandTransform`, and
-         * returns the model to be rendered.
-         */
-        applyTransform(transformType: $ItemDisplayContext_, poseStack: $PoseStack, applyLeftHandTransform: boolean): $BakedModel;
+        getParticleIcon(data: $ModelData): $TextureAtlasSprite;
         getModelData(level: $BlockAndTintGetter, pos: $BlockPos_, state: $BlockState_, modelData: $ModelData): $ModelData;
     }
 }

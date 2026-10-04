@@ -13,15 +13,20 @@ import { $BehaviourType, $ValueSettingsBoard, $ValueSettingsBehaviour, $BlockEnt
 
 declare module "@package/com/simibubi/create/foundation/blockEntity/behaviour/filtering" {
     export class $FilteringBehaviour extends $BlockEntityBehaviour implements $ValueSettingsBehaviour, $FilteringBehaviourAccessor {
-        withPredicate(arg0: $Predicate_<$ItemStack>): $FilteringBehaviour;
+        getClipboardKey(): string;
+        writeToClipboard(arg0: $HolderLookup$Provider, arg1: $CompoundTag_, arg2: $Direction_): boolean;
+        readFromClipboard(arg0: $HolderLookup$Provider, arg1: $CompoundTag_, arg2: $Player, arg3: $Direction_, arg4: boolean): boolean;
+        forFluids(): $FilteringBehaviour;
+        isRecipeFilter(): boolean;
         getTip(): $MutableComponent;
         onlyActiveWhen(arg0: $Supplier_<boolean>): $FilteringBehaviour;
+        withPredicate(arg0: $Predicate_<$ItemStack>): $FilteringBehaviour;
+        getValueSettings(): $ValueSettingsBehaviour$ValueSettings;
         getSlotPositioning(): $ValueBoxTransform;
         createBoard(arg0: $Player, arg1: $BlockHitResult): $ValueSettingsBoard;
         setValueSettings(arg0: $Player, arg1: $ValueSettingsBehaviour$ValueSettings_, arg2: boolean): void;
         onShortInteract(arg0: $Player, arg1: $InteractionHand_, arg2: $Direction_, arg3: $BlockHitResult): void;
         acceptsValueSettings(): boolean;
-        getValueSettings(): $ValueSettingsBehaviour$ValueSettings;
         showCount(): $FilteringBehaviour;
         showCountWhen(arg0: $Supplier_<boolean>): $FilteringBehaviour;
         isCountVisible(): boolean;
@@ -31,32 +36,27 @@ declare module "@package/com/simibubi/create/foundation/blockEntity/behaviour/fi
         getCountLabelForValueBox(): $MutableComponent;
         testHit(arg0: $Vec3_): boolean;
         forRecipes(): $FilteringBehaviour;
-        getClipboardKey(): string;
-        writeToClipboard(arg0: $HolderLookup$Provider, arg1: $CompoundTag_, arg2: $Direction_): boolean;
-        readFromClipboard(arg0: $HolderLookup$Provider, arg1: $CompoundTag_, arg2: $Player, arg3: $Direction_, arg4: boolean): boolean;
-        forFluids(): $FilteringBehaviour;
-        isRecipeFilter(): boolean;
-        getLabel(): $MutableComponent;
-        setLabel(arg0: $MutableComponent_): void;
-        getFilter(): $ItemStack;
-        getFilter(arg0: $Direction_): $ItemStack;
         netId(): number;
         withCallback(arg0: $Consumer_<$ItemStack>): $FilteringBehaviour;
+        setLabel(arg0: $MutableComponent_): void;
+        getFilter(arg0: $Direction_): $ItemStack;
+        getFilter(): $ItemStack;
         setFilter(arg0: $ItemStack_): boolean;
         setFilter(arg0: $Direction_, arg1: $ItemStack_): boolean;
+        getLabel(): $MutableComponent;
         test(arg0: $ItemStack_): boolean;
         test(arg0: $FluidStack_): boolean;
         isActive(): boolean;
-        getMaxStackSize(): number;
-        getMaxStackSize(arg0: $Direction_): number;
-        getMaxStackSize(arg0: $ItemStack_): number;
-        formatValue(arg0: $ValueSettingsBehaviour$ValueSettings_): $MutableComponent;
-        getRenderDistance(): number;
         getAmount(): number;
+        getRenderDistance(): number;
+        getMaxStackSize(arg0: $ItemStack_): number;
+        getMaxStackSize(arg0: $Direction_): number;
+        getMaxStackSize(): number;
+        formatValue(arg0: $ValueSettingsBehaviour$ValueSettings_): $MutableComponent;
+        playFeedbackSound(arg0: $BlockEntityBehaviour): void;
         onlyVisibleWithWrench(): boolean;
         newSettingHovered(arg0: $ValueSettingsBehaviour$ValueSettings_): void;
         bypassesInput(arg0: $ItemStack_): boolean;
-        playFeedbackSound(arg0: $BlockEntityBehaviour): void;
         mayInteract(arg0: $Player): boolean;
         setValueBoxTransform(arg0: $ValueBoxTransform): void;
         upTo: boolean;
@@ -65,5 +65,16 @@ declare module "@package/com/simibubi/create/foundation/blockEntity/behaviour/fi
         customLabel: $MutableComponent;
         static TYPE: $BehaviourType<$FilteringBehaviour>;
         constructor(arg0: $SmartBlockEntity, arg1: $ValueBoxTransform);
+        get clipboardKey(): string;
+        get recipeFilter(): boolean;
+        get tip(): $MutableComponent;
+        get slotPositioning(): $ValueBoxTransform;
+        get countVisible(): boolean;
+        get amountTip(): $MutableComponent;
+        get countLabelForValueBox(): $MutableComponent;
+        get active(): boolean;
+        get amount(): number;
+        get renderDistance(): number;
+        set valueBoxTransform(value: $ValueBoxTransform);
     }
 }

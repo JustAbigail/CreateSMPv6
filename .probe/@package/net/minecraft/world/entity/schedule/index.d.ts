@@ -8,6 +8,8 @@ declare module "@package/net/minecraft/world/entity/schedule" {
         getTimeStamp(): number;
         getValue(): number;
         constructor(timestamp: number, value: number);
+        get timeStamp(): number;
+        get value(): number;
     }
     export class $Activity {
         getName(): string;
@@ -38,6 +40,7 @@ declare module "@package/net/minecraft/world/entity/schedule" {
         static LAY_SPAWN: $Activity;
         static RAM: $Activity;
         constructor(name: string);
+        get name(): string;
     }
     /**
      * Values that may be interpreted as {@link $Activity}.
@@ -50,6 +53,7 @@ declare module "@package/net/minecraft/world/entity/schedule" {
         addKeyframes(frames: $Collection_<$Keyframe>): $Timeline;
         getValueAt(dayTime: number): number;
         constructor();
+        get keyframes(): $ImmutableList<$Keyframe>;
     }
     export class $ScheduleBuilder {
         changeActivityAt(duration: number, activity: $Activity_): $ScheduleBuilder;

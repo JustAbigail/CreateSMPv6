@@ -39,30 +39,39 @@ declare module "@package/net/neoforged/neoforge/data/event" {
         createBlockAndItemTags(arg0: $GatherDataEvent$DataProviderFromOutputLookup_<$TagsProvider<$Block>>, arg1: $GatherDataEvent$ItemTagsProvider_): void;
         createProvider<T extends $DataProvider>(arg0: $GatherDataEvent$DataProviderFromOutputLookup_<T>): T;
         createProvider<T extends $DataProvider>(arg0: $GatherDataEvent$DataProviderFromOutput_<T>): T;
-        getGenerator(): $DataGenerator;
-        getExistingFileHelper(): $ExistingFileHelper;
+        getInputs(): $Collection<$Path>;
         getLookupProvider(): $CompletableFuture<$HolderLookup$Provider>;
         includeServer(): boolean;
         includeClient(): boolean;
-        getInputs(): $Collection<$Path>;
+        getExistingFileHelper(): $ExistingFileHelper;
+        getGenerator(): $DataGenerator;
         validate(): boolean;
         addProvider<T extends $DataProvider>(arg0: T): T;
         getModContainer(): $ModContainer;
         getMods(): $Set<string>;
         getResourceManager(packType: $PackType_): $ResourceManager;
         constructor(arg0: $ModContainer, arg1: $DataGenerator, arg2: $GatherDataEvent$DataGeneratorConfig, arg3: $ExistingFileHelper);
+        get inputs(): $Collection<$Path>;
+        get lookupProvider(): $CompletableFuture<$HolderLookup$Provider>;
+        get existingFileHelper(): $ExistingFileHelper;
+        get generator(): $DataGenerator;
+        get modContainer(): $ModContainer;
+        get mods(): $Set<string>;
     }
     export class $GatherDataEvent$DataGeneratorConfig {
-        runAll(): void;
+        getInputs(): $Collection<$Path>;
         makeGenerator(pathEnhancer: $Function_<$Path, $Path>, shouldExecute: boolean): $DataGenerator;
         isFlat(): boolean;
-        getInputs(): $Collection<$Path>;
+        runAll(): void;
         getMods(): $Set<string>;
-        constructor(mods: $Set_<string>, path: $Path_, inputs: $Collection_<$Path_>, lookupProvider: $CompletableFuture<$HolderLookup$Provider>, server: boolean, client: boolean, dev: boolean, reports: boolean, validate: boolean, flat: boolean, assetIndex: string, assetsDir: $File_, existingPacks: $Collection_<$Path_>);
         /**
          * @deprecated
          */
         constructor(mods: $Set_<string>, path: $Path_, inputs: $Collection_<$Path_>, lookupProvider: $CompletableFuture<$HolderLookup$Provider>, server: boolean, client: boolean, dev: boolean, reports: boolean, validate: boolean, flat: boolean);
+        constructor(mods: $Set_<string>, path: $Path_, inputs: $Collection_<$Path_>, lookupProvider: $CompletableFuture<$HolderLookup$Provider>, server: boolean, client: boolean, dev: boolean, reports: boolean, validate: boolean, flat: boolean, assetIndex: string, assetsDir: $File_, existingPacks: $Collection_<$Path_>);
+        get inputs(): $Collection<$Path>;
+        get flat(): boolean;
+        get mods(): $Set<string>;
     }
     export class $GatherDataEvent$ItemTagsProvider {
     }

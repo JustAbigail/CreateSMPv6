@@ -8,5 +8,6 @@ declare module "@package/gg/essential/mixins/transformers/client/resources" {
     export interface $SkinProviderFileCacheAccessor {
         invokeGet(arg0: $MinecraftProfileTexture): $CompletableFuture<$ResourceLocation>;
         getType(): $MinecraftProfileTexture$Type;
+        get type(): $MinecraftProfileTexture$Type;
     }
 }

@@ -9,6 +9,7 @@ declare module "@package/gg/essential/mixins/ext/client" {
     }
     export interface $MinecraftExt {
         getEssential$executor(): $Executor;
+        get essential$executor(): $Executor;
     }
     /**
      * Values that may be interpreted as {@link $MinecraftExt}.
@@ -18,6 +19,7 @@ declare module "@package/gg/essential/mixins/ext/client" {
     }
     export interface $ParticleSystemHolder {
         getParticleSystem(): $ParticleSystem;
+        get particleSystem(): $ParticleSystem;
     }
     /**
      * Values that may be interpreted as {@link $ParticleSystemHolder}.

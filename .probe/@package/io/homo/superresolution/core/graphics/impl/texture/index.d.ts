@@ -32,40 +32,60 @@ declare module "@package/io/homo/superresolution/core/graphics/impl/texture" {
         attachmentDepth(): $TextureUsages;
         transferSource(): $TextureUsages;
         transferDestination(): $TextureUsages;
-        attachmentColor(): $TextureUsages;
-        getUsages(): $List<$TextureUsage>;
         sampler(): $TextureUsages;
+        getUsages(): $List<$TextureUsage>;
+        attachmentColor(): $TextureUsages;
         isEmpty(): boolean;
         copy(): $TextureUsages;
         static create(): $TextureUsages;
         storage(): $TextureUsages;
+        get usages(): $List<$TextureUsage>;
+        get empty(): boolean;
     }
     export class $TextureDescription {
         withSize(arg0: number, arg1: number): $TextureDescription;
         getWrapMode(): $TextureWrapMode;
-        getMipmapSettings(): $TextureMipmapSettings;
-        getFilterMode(): $TextureFilterMode;
-        getLabel(): string;
         getUsages(): $TextureUsages;
+        getFilterMode(): $TextureFilterMode;
+        getMipmapSettings(): $TextureMipmapSettings;
+        getFormat(): $TextureFormat;
+        getLabel(): string;
         getWidth(): number;
         getHeight(): number;
-        getFormat(): $TextureFormat;
         getType(): $TextureType;
         static create(): $TextureDescription$Builder;
+        get wrapMode(): $TextureWrapMode;
+        get usages(): $TextureUsages;
+        get filterMode(): $TextureFilterMode;
+        get mipmapSettings(): $TextureMipmapSettings;
+        get format(): $TextureFormat;
+        get label(): string;
+        get width(): number;
+        get height(): number;
+        get type(): $TextureType;
     }
     export class $ITexture {
     }
     export interface $ITexture extends $Destroyable, $GpuObject {
-        getTextureFilterMode(): $TextureFilterMode;
-        getTextureWrapMode(): $TextureWrapMode;
         getTextureDescription(): $TextureDescription;
         getTextureUsages(): $TextureUsages;
-        getMipmapSettings(): $TextureMipmapSettings;
-        getTextureFormat(): $TextureFormat;
+        getTextureFilterMode(): $TextureFilterMode;
+        getTextureWrapMode(): $TextureWrapMode;
         getTextureType(): $TextureType;
+        getTextureFormat(): $TextureFormat;
+        getMipmapSettings(): $TextureMipmapSettings;
         getWidth(): number;
         getHeight(): number;
         string(): string;
+        get textureDescription(): $TextureDescription;
+        get textureUsages(): $TextureUsages;
+        get textureFilterMode(): $TextureFilterMode;
+        get textureWrapMode(): $TextureWrapMode;
+        get textureType(): $TextureType;
+        get textureFormat(): $TextureFormat;
+        get mipmapSettings(): $TextureMipmapSettings;
+        get width(): number;
+        get height(): number;
     }
     export class $TextureFormat$DataType extends $Enum<$TextureFormat$DataType> {
         static values(): $TextureFormat$DataType[];
@@ -81,20 +101,20 @@ declare module "@package/io/homo/superresolution/core/graphics/impl/texture" {
      */
     export type $TextureFormat$DataType_ = "unsigned_integer" | "signed_integer" | "float" | "unsigned_normalized" | "signed_normalized";
     export class $TextureDescription$Builder {
+        filterMode(arg0: $TextureFilterMode_): $TextureDescription$Builder;
         mipmapSettings(arg0: $TextureMipmapSettings): $TextureDescription$Builder;
         mipmapsAuto(): $TextureDescription$Builder;
         mipmapsManual(arg0: number): $TextureDescription$Builder;
         wrapMode(arg0: $TextureWrapMode_): $TextureDescription$Builder;
         mipmapsDisabled(): $TextureDescription$Builder;
-        usages(arg0: $TextureUsages): $TextureDescription$Builder;
         label(arg0: string): $TextureDescription$Builder;
+        usages(arg0: $TextureUsages): $TextureDescription$Builder;
         size(arg0: number, arg1: number): $TextureDescription$Builder;
         type(arg0: $TextureType_): $TextureDescription$Builder;
         format(arg0: $TextureFormat_): $TextureDescription$Builder;
         build(): $TextureDescription;
         width(arg0: number): $TextureDescription$Builder;
         height(arg0: number): $TextureDescription$Builder;
-        filterMode(arg0: $TextureFilterMode_): $TextureDescription$Builder;
         constructor();
     }
     export class $TextureUsage extends $Enum<$TextureUsage> {
@@ -114,6 +134,7 @@ declare module "@package/io/homo/superresolution/core/graphics/impl/texture" {
     export class $TextureFormat extends $Enum<$TextureFormat> {
         static fromGl(arg0: number): $TextureFormat;
         vk(): number;
+        gl(): number;
         getGlslFormatQualifier(): string;
         isDepth(): boolean;
         isStencil(): boolean;
@@ -125,11 +146,10 @@ declare module "@package/io/homo/superresolution/core/graphics/impl/texture" {
         hasBlueChannel(): boolean;
         hasAlphaChannel(): boolean;
         isDepthStencil(): boolean;
-        gl(): number;
-        getDataType(): $TextureFormat$DataType;
         isNormalized(): boolean;
         isInteger(): boolean;
         isFloat(): boolean;
+        getDataType(): $TextureFormat$DataType;
         static values(): $TextureFormat[];
         static valueOf(arg0: string): $TextureFormat;
         static RGBA8: $TextureFormat;
@@ -157,6 +177,16 @@ declare module "@package/io/homo/superresolution/core/graphics/impl/texture" {
         static DEPTH32F_STENCIL8: $TextureFormat;
         static R11G11B10F: $TextureFormat;
         static R32UI: $TextureFormat;
+        get glslFormatQualifier(): string;
+        get depth(): boolean;
+        get stencil(): boolean;
+        get bytesPerPixel(): number;
+        get channelCount(): number;
+        get depthStencil(): boolean;
+        get normalized(): boolean;
+        get integer(): boolean;
+        get float(): boolean;
+        get dataType(): $TextureFormat$DataType;
     }
     /**
      * Values that may be interpreted as {@link $TextureFormat}.
@@ -184,5 +214,8 @@ declare module "@package/io/homo/superresolution/core/graphics/impl/texture" {
         static auto(): $TextureMipmapSettings;
         static disabled(): $TextureMipmapSettings;
         getLevels(): number;
+        get autoGenerate(): boolean;
+        get enabled(): boolean;
+        get levels(): number;
     }
 }

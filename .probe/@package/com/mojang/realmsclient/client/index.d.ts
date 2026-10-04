@@ -2,11 +2,12 @@ import { $WorldGenerationInfo_ } from "@package/com/mojang/realmsclient/util";
 import { $Minecraft } from "@package/net/minecraft/client";
 import { $Enum } from "@package/java/lang";
 import { $List, $UUID_, $List_ } from "@package/java/util";
-import { $RealmsNews, $ServerActivityList, $RealmsServerAddress, $Ops, $RealmsServerList, $BackupList, $UploadInfo, $WorldTemplatePaginatedList, $RealmsServer, $RealmsServerPlayerLists, $PingResult, $Subscription, $PendingInvitesList, $RealmsWorldOptions, $WorldDownload, $RealmsServer$WorldType_, $RealmsNotification } from "@package/com/mojang/realmsclient/dto";
+import { $RealmsNews, $ServerActivityList, $RealmsServerAddress, $Ops, $RealmsServerList, $BackupList, $UploadInfo, $WorldTemplatePaginatedList, $RealmsServer, $RealmsServerPlayerLists, $PingResult, $PendingInvitesList, $Subscription, $RealmsWorldOptions, $WorldDownload, $RealmsServer$WorldType_, $RealmsNotification } from "@package/com/mojang/realmsclient/dto";
 
 declare module "@package/com/mojang/realmsclient/client" {
     export class $RealmsClient {
         invite(worldId: number, arg1: string): $RealmsServer;
+        deop(worldId: number, arg1: $UUID_): $Ops;
         createSnapshotRealm(parentId: number): $RealmsServer;
         getOwnRealm(id: number): $RealmsServer;
         initializeRealm(worldId: number, arg1: string, name: string): void;
@@ -30,7 +31,6 @@ declare module "@package/com/mojang/realmsclient/client" {
         rejectInvitation(inviteId: string): void;
         agreeToTos(): void;
         deleteRealm(worldId: number): void;
-        deop(worldId: number, arg1: $UUID_): $Ops;
         notificationsDismiss(uuidList: $List_<$UUID_>): void;
         sendPingResults(pingResult: $PingResult): void;
         notificationsSeen(uuidList: $List_<$UUID_>): void;
@@ -51,6 +51,9 @@ declare module "@package/com/mojang/realmsclient/client" {
         getActivity(worldId: number): $ServerActivityList;
         static ENVIRONMENT: $RealmsClient$Environment;
         constructor(sessionId: string, username: string, minecraft: $Minecraft);
+        get news(): $RealmsNews;
+        get liveStats(): $RealmsServerPlayerLists;
+        get notifications(): $List<$RealmsNotification>;
     }
     export class $RealmsClient$Environment extends $Enum<$RealmsClient$Environment> {
         static values(): $RealmsClient$Environment[];

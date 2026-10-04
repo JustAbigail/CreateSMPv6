@@ -4,8 +4,8 @@ import { $List_ } from "@package/java/util";
 declare module "@package/net/irisshaders/iris/features" {
     export class $FeatureFlags extends $Enum<$FeatureFlags> {
         isUsable(): boolean;
-        getHumanReadableName(): string;
         static getInvalidStatus(arg0: $List_<$FeatureFlags_>): string;
+        getHumanReadableName(): string;
         static values(): $FeatureFlags[];
         static valueOf(arg0: string): $FeatureFlags;
         static getValue(arg0: string): $FeatureFlags;
@@ -22,6 +22,8 @@ declare module "@package/net/irisshaders/iris/features" {
         static COMPUTE_SHADERS: $FeatureFlags;
         static ENTITY_TRANSLUCENT: $FeatureFlags;
         static CUSTOM_IMAGES: $FeatureFlags;
+        get usable(): boolean;
+        get humanReadableName(): string;
     }
     /**
      * Values that may be interpreted as {@link $FeatureFlags}.

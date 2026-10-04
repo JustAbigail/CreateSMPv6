@@ -3,9 +3,9 @@ import { $Object } from "@package/java/lang";
 
 declare module "@package/gg/essential/util/image/mask" {
     export class $Mask$Companion {
-        ofSize(arg0: number, arg1: number): $MutableMask;
         static copyOf$default(arg0: $Mask$Companion, arg1: $Bitmap, arg2: number, arg3: number, arg4: number, arg5: number, arg6: number, arg7: $Object): $MutableMask;
         copyOf(arg0: $Bitmap, arg1: number, arg2: number, arg3: number, arg4: number): $MutableMask;
+        ofSize(arg0: number, arg1: number): $MutableMask;
     }
     export class $Mask {
         static Companion: $Mask$Companion;
@@ -16,6 +16,8 @@ declare module "@package/gg/essential/util/image/mask" {
         get(arg0: number, arg1: number): boolean;
         count(): number;
         mutableCopy(): $MutableMask;
+        get width(): number;
+        get height(): number;
     }
     export class $MutableMask {
         static access$set$jd(arg0: $MutableMask, arg1: number, arg2: number, arg3: number, arg4: number): void;
@@ -33,5 +35,7 @@ declare module "@package/gg/essential/util/image/mask" {
         set(arg0: number, arg1: number, arg2: number, arg3: number, arg4: boolean): void;
         set(arg0: number, arg1: number): void;
         inv(): void;
+        set and(value: $Mask);
+        set or(value: $Mask);
     }
 }

@@ -25,16 +25,16 @@ declare module "@package/net/neoforged/neoforge/event/enchanting" {
         /**
          * Helper method around `#getTargetEnchant()` that checks if the target is the specified enchantment, or if the target is null.
          */
-        isTargetting(ench: $Holder_<$Enchantment>): boolean;
+        isTargetting(ench: $ResourceKey_<$Enchantment>): boolean;
         /**
          * Helper method around `#getTargetEnchant()` that checks if the target is the specified enchantment, or if the target is null.
          */
-        isTargetting(ench: $ResourceKey_<$Enchantment>): boolean;
-        getLookup(): $HolderLookup$RegistryLookup<$Enchantment>;
+        isTargetting(ench: $Holder_<$Enchantment>): boolean;
         /**
          * Returns the mutable enchantment->level map.
          */
         getEnchantments(): $ItemEnchantments$Mutable;
+        getLookup(): $HolderLookup$RegistryLookup<$Enchantment>;
         /**
          * Returns the item stack that is being queried against.
          */
@@ -45,6 +45,10 @@ declare module "@package/net/neoforged/neoforge/event/enchanting" {
          */
         getHolder(key: $ResourceKey_<$Enchantment>): ($Holder$Reference<$Enchantment>) | undefined;
         constructor(arg0: $ItemStack_, arg1: $ItemEnchantments$Mutable, arg2: $Holder_<$Enchantment>, arg3: $HolderLookup$RegistryLookup<$Enchantment_>);
+        get targetEnchant(): $Holder<$Enchantment>;
+        get enchantments(): $ItemEnchantments$Mutable;
+        get lookup(): $HolderLookup$RegistryLookup<$Enchantment>;
+        get stack(): $ItemStack;
     }
     /**
      * Fired when the enchantment level is set for each of the three potential enchantments in the enchanting table.
@@ -55,10 +59,6 @@ declare module "@package/net/neoforged/neoforge/event/enchanting" {
      * enchanted is also available.
      */
     export class $EnchantmentLevelSetEvent extends $Event {
-        /**
-         * Get the row for which the enchantment level is being set
-         */
-        getPower(): number;
         /**
          * Get the row for which the enchantment level is being set
          */
@@ -76,17 +76,27 @@ declare module "@package/net/neoforged/neoforge/event/enchanting" {
          */
         setEnchantLevel(level: number): void;
         /**
-         * Get the world object
+         * Get the row for which the enchantment level is being set
          */
-        getLevel(): $Level;
+        getPower(): number;
         /**
          * Get the item being enchanted
          */
         getItem(): $ItemStack;
         /**
+         * Get the world object
+         */
+        getLevel(): $Level;
+        /**
          * Get the pos of the enchantment table
          */
         getPos(): $BlockPos;
         constructor(level: $Level_, pos: $BlockPos_, enchantRow: number, power: number, itemStack: $ItemStack_, enchantLevel: number);
+        get enchantRow(): number;
+        get originalLevel(): number;
+        get power(): number;
+        get item(): $ItemStack;
+        get level(): $Level;
+        get pos(): $BlockPos;
     }
 }

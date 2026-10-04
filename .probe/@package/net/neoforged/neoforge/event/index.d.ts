@@ -62,14 +62,17 @@ declare module "@package/net/neoforged/neoforge/event" {
          */
         getRelevantPlayers(): $Stream<$ServerPlayer>;
         /**
-         * Gets the player that is joining the server, or null when syncing for all players, such as when the reload command runs.
-         */
-        getPlayer(): $ServerPlayer;
-        /**
          * Gets the server's player list, containing all players, when the event fires.
          */
         getPlayerList(): $PlayerList;
+        /**
+         * Gets the player that is joining the server, or null when syncing for all players, such as when the reload command runs.
+         */
+        getPlayer(): $ServerPlayer;
         constructor(playerList: $PlayerList, player: $ServerPlayer);
+        get relevantPlayers(): $Stream<$ServerPlayer>;
+        get playerList(): $PlayerList;
+        get player(): $ServerPlayer;
     }
     /**
      * Fired for registering structure conversions for pre-1.18.2 worlds. This is used by `StructuresBecomeConfiguredFix`
@@ -137,10 +140,6 @@ declare module "@package/net/neoforged/neoforge/event" {
     export class $AnvilUpdateEvent extends $Event implements $ICancellableEvent {
         getOutput(): $ItemStack;
         /**
-         * Sets the output slot to a specific itemstack.
-         */
-        setOutput(output: $ItemStack_): void;
-        /**
          * Changes the level cost of this operation.
          * 
          * The level cost does prevent the output from being available.
@@ -162,16 +161,20 @@ declare module "@package/net/neoforged/neoforge/event" {
          */
         setMaterialCost(materialCost: number): void;
         /**
+         * Sets the output slot to a specific itemstack.
+         */
+        setOutput(output: $ItemStack_): void;
+        /**
          * The material cost is how many units of the right input stack are consumed.
          */
         getMaterialCost(): number;
-        getPlayer(): $Player;
         /**
          * This is the level cost of this anvil operation.
          * 
          * When unchanged, it is guaranteed to be left.getRepairCost() + right.getRepairCost().
          */
         getCost(): number;
+        getPlayer(): $Player;
         /**
          * This is the name as sent by the client. It may be null if none has been sent.
          * 
@@ -183,6 +186,10 @@ declare module "@package/net/neoforged/neoforge/event" {
         setCanceled(arg0: boolean): void;
         isCanceled(): boolean;
         constructor(left: $ItemStack_, right: $ItemStack_, name: string, cost: number, player: $Player);
+        get player(): $Player;
+        get name(): string;
+        get left(): $ItemStack;
+        get right(): $ItemStack;
     }
     /**
      * Fired on `PackRepository` creation to allow mods to add new pack finders.
@@ -206,19 +213,23 @@ declare module "@package/net/neoforged/neoforge/event" {
          */
         isTrusted(): boolean;
         constructor(packType: $PackType_, sources: $Consumer_<$RepositorySource>, trusted: boolean);
+        get packType(): $PackType;
+        get trusted(): boolean;
     }
     /**
      * Fired when tags are updated on either server or client. This event can be used to refresh data that depends on tags.
      */
     export class $TagsUpdatedEvent extends $Event {
+        getRegistryAccess(): $RegistryAccess;
+        getUpdateCause(): $TagsUpdatedEvent$UpdateCause;
         /**
          * Whether static data (which in single player is shared between server and client thread) should be updated as a
          * result of this event. Effectively this means that in single player only the server-side updates this data.
          */
         shouldUpdateStaticData(): boolean;
-        getRegistryAccess(): $RegistryAccess;
-        getUpdateCause(): $TagsUpdatedEvent$UpdateCause;
         constructor(registryAccess: $RegistryAccess, fromClientPacket: boolean, isIntegratedServerConnection: boolean);
+        get registryAccess(): $RegistryAccess;
+        get updateCause(): $TagsUpdatedEvent$UpdateCause;
     }
     /**
      * Allows injecting new blocks into a block entity's `BlockEntityType#validBlocks` field in a safe manner.
@@ -317,6 +328,10 @@ declare module "@package/net/neoforged/neoforge/event" {
      */
     export class $ItemStackedOnOtherEvent extends $Event implements $ICancellableEvent {
         /**
+         * @return a fake slot allowing the listener to see and change what item is being carried
+         */
+        getCarriedSlotAccess(): $SlotAccess;
+        /**
          * @return the stack being carried by the mouse This may be empty!
          */
         getCarriedItem(): $ItemStack;
@@ -329,10 +344,6 @@ declare module "@package/net/neoforged/neoforge/event" {
          */
         getClickAction(): $ClickAction;
         /**
-         * @return a fake slot allowing the listener to see and change what item is being carried
-         */
-        getCarriedSlotAccess(): $SlotAccess;
-        /**
          * @return the player doing the item swap attempt
          */
         getPlayer(): $Player;
@@ -343,6 +354,12 @@ declare module "@package/net/neoforged/neoforge/event" {
         setCanceled(arg0: boolean): void;
         isCanceled(): boolean;
         constructor(carriedItem: $ItemStack_, stackedOnItem: $ItemStack_, slot: $Slot, action: $ClickAction_, player: $Player, carriedSlotAccess: $SlotAccess);
+        get carriedSlotAccess(): $SlotAccess;
+        get carriedItem(): $ItemStack;
+        get stackedOnItem(): $ItemStack;
+        get clickAction(): $ClickAction;
+        get player(): $Player;
+        get slot(): $Slot;
     }
     /**
      * VanillaGameEvent is fired on the server whenever one of Vanilla's GameEvents fire.
@@ -354,14 +371,19 @@ declare module "@package/net/neoforged/neoforge/event" {
      * Cancel this event to prevent Vanilla from posting the `GameEvent` to all nearby GameEventListeners.
      */
     export class $VanillaGameEvent extends $Event implements $ICancellableEvent {
-        getVanillaEvent(): $Holder<$GameEvent>;
         getEventPosition(): $Vec3;
+        getVanillaEvent(): $Holder<$GameEvent>;
         getLevel(): $Level;
         getCause(): $Entity;
         getContext(): $GameEvent$Context;
         setCanceled(arg0: boolean): void;
         isCanceled(): boolean;
         constructor(level: $Level_, vanillaEvent: $Holder_<$GameEvent>, position: $Vec3_, context: $GameEvent$Context_);
+        get eventPosition(): $Vec3;
+        get vanillaEvent(): $Holder<$GameEvent>;
+        get level(): $Level;
+        get cause(): $Entity;
+        get context(): $GameEvent$Context;
     }
     export class $ModMismatchEvent$MismatchResolutionResult extends $Record {
         versionDifference(): $ModMismatchEvent$MismatchedVersionInfo;
@@ -373,7 +395,7 @@ declare module "@package/net/neoforged/neoforge/event" {
     /**
      * Values that may be interpreted as {@link $ModMismatchEvent$MismatchResolutionResult}.
      */
-    export type $ModMismatchEvent$MismatchResolutionResult_ = { resolver?: $ModContainer, versionDifference?: $ModMismatchEvent$MismatchedVersionInfo_, modid?: string,  } | [resolver?: $ModContainer, versionDifference?: $ModMismatchEvent$MismatchedVersionInfo_, modid?: string, ];
+    export type $ModMismatchEvent$MismatchResolutionResult_ = { resolver?: $ModContainer, modid?: string, versionDifference?: $ModMismatchEvent$MismatchedVersionInfo_,  } | [resolver?: $ModContainer, modid?: string, versionDifference?: $ModMismatchEvent$MismatchedVersionInfo_, ];
     /**
      * The event used to modify the default components of an item.
      * 
@@ -417,6 +439,7 @@ declare module "@package/net/neoforged/neoforge/event" {
          */
         modify(item: $ItemLike_, patch: $Consumer_<$DataComponentPatch$Builder>): void;
         constructor();
+        get allItems(): $Stream<$Item>;
     }
     /**
      * Commands are rebuilt whenever `ReloadableServerResources` is recreated.
@@ -438,6 +461,9 @@ declare module "@package/net/neoforged/neoforge/event" {
          */
         getDispatcher(): $CommandDispatcher<$CommandSourceStack>;
         constructor(dispatcher: $CommandDispatcher<$CommandSourceStack>, environment: $Commands$CommandSelection_, context: $CommandBuildContext);
+        get buildContext(): $CommandBuildContext;
+        get commandSelection(): $Commands$CommandSelection;
+        get dispatcher(): $CommandDispatcher<$CommandSourceStack>;
     }
     /**
      * Fires when the mod loader is in the process of loading a world that was last saved
@@ -451,10 +477,6 @@ declare module "@package/net/neoforged/neoforge/event" {
      * This event is fired on the mod-specific event bus, on both logical sides.
      */
     export class $ModMismatchEvent extends $Event implements $IModBusEvent {
-        /**
-         * Marks the mod version mismatch as having been resolved safely by the current mod.
-         */
-        markResolved(modId: string): void;
         /**
          * Gets the current level directory for the world being loaded.
          * Can be used for file operations and manual modification of mod files before world load.
@@ -473,12 +495,19 @@ declare module "@package/net/neoforged/neoforge/event" {
         getUnresolved(): $Stream<$ModMismatchEvent$MismatchResolutionResult>;
         anyResolved(): boolean;
         anyUnresolved(): boolean;
+        /**
+         * Marks the mod version mismatch as having been resolved safely by the current mod.
+         */
+        markResolved(modId: string): void;
         getResolved(): $Stream<$ModMismatchEvent$MismatchResolutionResult>;
         /**
          * Fetch a previous version of a given mod, if it has been mismatched.
          */
         getCurrentVersion(modId: string): $ArtifactVersion;
         constructor(levelDirectory: $LevelStorageSource$LevelDirectory_, previousVersions: $Map_<string, $ArtifactVersion>, missingVersions: $Map_<string, $ArtifactVersion>);
+        get levelDirectory(): $LevelStorageSource$LevelDirectory;
+        get unresolved(): $Stream<$ModMismatchEvent$MismatchResolutionResult>;
+        get resolved(): $Stream<$ModMismatchEvent$MismatchResolutionResult>;
     }
     /**
      * Fired when a `Player` is awarded a `Stat`. This event is fired in `Player#awardStat(Stat, int)`
@@ -524,9 +553,9 @@ declare module "@package/net/neoforged/neoforge/event" {
      */
     export class $LootTableLoadEvent extends $Event implements $ICancellableEvent {
         setTable(table: $LootTable): void;
+        getTable(): $LootTable;
         getName(): $ResourceLocation;
         getKey(): $ResourceKey<$LootTable>;
-        getTable(): $LootTable;
         /**
          * @return a lookup provider that can be used to access registries
          */
@@ -538,6 +567,9 @@ declare module "@package/net/neoforged/neoforge/event" {
          */
         constructor(name: $ResourceLocation_, table: $LootTable);
         constructor(registries: $HolderLookup$Provider, name: $ResourceLocation_, table: $LootTable);
+        get name(): $ResourceLocation;
+        get key(): $ResourceKey<$LootTable>;
+        get registries(): $HolderLookup$Provider;
     }
     /**
      * Game tests are registered on client or server startup.
@@ -616,6 +648,9 @@ declare module "@package/net/neoforged/neoforge/event" {
          */
         getItemStack(): $ItemStack;
         constructor(stack: $ItemStack_, defaultModifiers: $ItemAttributeModifiers_);
+        get defaultModifiers(): $ItemAttributeModifiers;
+        get modifiers(): $List<$ItemAttributeModifiers$Entry>;
+        get itemStack(): $ItemStack;
     }
     /**
      * PlayLevelSoundEvent.AtEntity is fired when a sound is played on the `Level` at an Entity's position.
@@ -634,6 +669,7 @@ declare module "@package/net/neoforged/neoforge/event" {
          */
         getEntity(): $Entity;
         constructor(entity: $Entity, sound: $Holder_<$SoundEvent>, source: $SoundSource_, volume: number, pitch: number);
+        get entity(): $Entity;
     }
     export class $GrindstoneEvent extends $Event {
         getTopItem(): $ItemStack;
@@ -646,6 +682,8 @@ declare module "@package/net/neoforged/neoforge/event" {
          * This is the experience amount determined by the event. It will be `-1` unless `#setXp(int)` is called.
          */
         getXp(): number;
+        get topItem(): $ItemStack;
+        get bottomItem(): $ItemStack;
     }
     /**
      * Fired when the contents of a specific creative mode tab are being populated in `ItemDisplayParameters)`.
@@ -674,14 +712,15 @@ declare module "@package/net/neoforged/neoforge/event" {
          */
         insertAfter(existingEntry: $ItemStack_, newEntry: $ItemStack_, visibility: $CreativeModeTab$TabVisibility_): void;
         /**
-         * Inserts the new entry after the specified existing entry.
-         */
-        insertBefore(existingEntry: $ItemStack_, newEntry: $ItemStack_, visibility: $CreativeModeTab$TabVisibility_): void;
-        /**
          * @return the key of the creative mode tab currently populating its contents
          */
         getTabKey(): $ResourceKey<$CreativeModeTab>;
         hasPermissions(): boolean;
+        /**
+         * Inserts the new entry after the specified existing entry.
+         */
+        insertBefore(existingEntry: $ItemStack_, newEntry: $ItemStack_, visibility: $CreativeModeTab$TabVisibility_): void;
+        getFlags(): $FeatureFlagSet;
         /**
          * Inserts the new stack at the end of the given tab at this point in time.
          */
@@ -691,7 +730,6 @@ declare module "@package/net/neoforged/neoforge/event" {
          */
         accept(newEntry: $ItemStack_, visibility: $CreativeModeTab$TabVisibility_): void;
         getParameters(): $CreativeModeTab$ItemDisplayParameters;
-        getFlags(): $FeatureFlagSet;
         /**
          * Inserts the new stack at the end of the given tab at this point in time.
          */
@@ -702,6 +740,12 @@ declare module "@package/net/neoforged/neoforge/event" {
         accept(arg0: $ItemLike_, arg1: $CreativeModeTab$TabVisibility_): void;
         accept(arg0: $ItemStack_): void;
         constructor(tab: $CreativeModeTab_, tabKey: $ResourceKey_<$CreativeModeTab>, parameters: $CreativeModeTab$ItemDisplayParameters_, parentEntries: $InsertableLinkedOpenCustomHashSet<$ItemStack_>, searchEntries: $InsertableLinkedOpenCustomHashSet<$ItemStack_>);
+        get tab(): $CreativeModeTab;
+        get parentEntries(): $ObjectSortedSet<$ItemStack>;
+        get searchEntries(): $ObjectSortedSet<$ItemStack>;
+        get tabKey(): $ResourceKey<$CreativeModeTab>;
+        get flags(): $FeatureFlagSet;
+        get parameters(): $CreativeModeTab$ItemDisplayParameters;
     }
     export class $TagsUpdatedEvent$UpdateCause extends $Enum<$TagsUpdatedEvent$UpdateCause> {
         static values(): $TagsUpdatedEvent$UpdateCause[];
@@ -744,6 +788,8 @@ declare module "@package/net/neoforged/neoforge/event" {
          */
         constructor(top: $ItemStack_, bottom: $ItemStack_, xp: number);
         constructor(arg0: $ContainerLevelAccess_, arg1: $Player, arg2: $ItemStack_, arg3: $ItemStack_, arg4: number);
+        get containerAccess(): $ContainerLevelAccess;
+        get player(): $Player;
     }
     /**
      * PlayLevelSoundEvent is fired when a sound is played on a `Level`.
@@ -785,13 +831,13 @@ declare module "@package/net/neoforged/neoforge/event" {
          */
         getOriginalPitch(): number;
         /**
-         * @return the level the sound is being played in
-         */
-        getLevel(): $Level;
-        /**
          * @return the sound source
          */
         getSource(): $SoundSource;
+        /**
+         * @return the level the sound is being played in
+         */
+        getLevel(): $Level;
         /**
          * Sets the sound source.
          */
@@ -811,6 +857,9 @@ declare module "@package/net/neoforged/neoforge/event" {
         setCanceled(arg0: boolean): void;
         isCanceled(): boolean;
         constructor(level: $Level_, sound: $Holder_<$SoundEvent>, source: $SoundSource_, volume: number, pitch: number);
+        get originalVolume(): number;
+        get originalPitch(): number;
+        get level(): $Level;
     }
     /**
      * A simple marker event that notifies when the game is about to close.
@@ -857,6 +906,9 @@ declare module "@package/net/neoforged/neoforge/event" {
         setCanceled(arg0: boolean): void;
         isCanceled(): boolean;
         constructor(player: $ServerPlayer, rawText: string, message: $Component_);
+        get username(): string;
+        get rawText(): string;
+        get player(): $ServerPlayer;
     }
     /**
      * DifficultyChangeEvent is fired when difficulty is changing.
@@ -871,6 +923,8 @@ declare module "@package/net/neoforged/neoforge/event" {
         getOldDifficulty(): $Difficulty;
         getDifficulty(): $Difficulty;
         constructor(difficulty: $Difficulty_, oldDifficulty: $Difficulty_);
+        get oldDifficulty(): $Difficulty;
+        get difficulty(): $Difficulty;
     }
     /**
      * The main ResourceManager is recreated on each reload, just after `ReloadableServerResources`'s creation.
@@ -892,6 +946,10 @@ declare module "@package/net/neoforged/neoforge/event" {
         getListeners(): $List<$PreparableReloadListener>;
         addListener(listener: $PreparableReloadListener_): void;
         constructor(serverResources: $ReloadableServerResources, registryAccess: $RegistryAccess);
+        get conditionContext(): $ICondition$IContext;
+        get registryAccess(): $RegistryAccess;
+        get serverResources(): $ReloadableServerResources;
+        get listeners(): $List<$PreparableReloadListener>;
     }
     /**
      * PlayLevelSoundEvent.AtPosition is fired when a sound is played on the `Level` at a specific position.
@@ -910,6 +968,7 @@ declare module "@package/net/neoforged/neoforge/event" {
          */
         getPosition(): $Vec3;
         constructor(level: $Level_, position: $Vec3_, sound: $Holder_<$SoundEvent>, source: $SoundSource_, volume: number, pitch: number);
+        get position(): $Vec3;
     }
     export class $ModMismatchEvent$MismatchedVersionInfo extends $Record {
         wasUpgrade(): boolean;
@@ -917,9 +976,10 @@ declare module "@package/net/neoforged/neoforge/event" {
         oldVersion(): $ArtifactVersion;
         newVersion(): $ArtifactVersion;
         constructor(oldVersion: $ArtifactVersion, newVersion: $ArtifactVersion);
+        get missing(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $ModMismatchEvent$MismatchedVersionInfo}.
      */
-    export type $ModMismatchEvent$MismatchedVersionInfo_ = { newVersion?: $ArtifactVersion, oldVersion?: $ArtifactVersion,  } | [newVersion?: $ArtifactVersion, oldVersion?: $ArtifactVersion, ];
+    export type $ModMismatchEvent$MismatchedVersionInfo_ = { oldVersion?: $ArtifactVersion, newVersion?: $ArtifactVersion,  } | [oldVersion?: $ArtifactVersion, newVersion?: $ArtifactVersion, ];
 }

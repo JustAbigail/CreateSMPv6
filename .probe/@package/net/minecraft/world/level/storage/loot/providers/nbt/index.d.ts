@@ -18,6 +18,8 @@ declare module "@package/net/minecraft/world/level/storage/loot/providers/nbt" {
         getReferencedContextParams(): $Set<$LootContextParam<never>>;
         get(lootContext: $LootContext): $Tag;
         getType(): $LootNbtProviderType;
+        get referencedContextParams(): $Set<$LootContextParam<never>>;
+        get type(): $LootNbtProviderType;
     }
     /**
      * The SerializerType for `NbtProvider`.

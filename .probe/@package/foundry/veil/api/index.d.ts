@@ -17,11 +17,13 @@ declare module "@package/foundry/veil/api" {
         schedule(arg0: $Runnable_, arg1: number): $TickTaskScheduler$TickTask<never>;
         isShutdown(): boolean;
         scheduleAtFixedRate(arg0: $Runnable_, arg1: number, arg2: number): $TickTaskScheduler$TickTask<never>;
+        get shutdown(): boolean;
     }
     export class $TickTaskScheduler$TickTask<V> {
     }
     export interface $TickTaskScheduler$TickTask<V> extends $ScheduledFuture<V> {
-        toCompletableFuture(): $CompletableFuture<V>;
         getDelay(): number;
+        toCompletableFuture(): $CompletableFuture<V>;
+        get delay(): number;
     }
 }

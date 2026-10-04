@@ -222,6 +222,10 @@ declare module "@package/net/minecraft/world/entity/monster/hoglin" {
         static BASE_SAFE_FALL_DISTANCE: number;
         age: number;
         constructor(entityType: $EntityType_<$Hoglin>, level: $Level_);
+        get converting(): boolean;
+        get adult(): boolean;
+        get attackAnimationRemainingTicks(): number;
+        set immuneToZombification(value: boolean);
     }
     export class $HoglinBase {
         static hurtAndThrowTarget(hoglin: $LivingEntity, target: $LivingEntity): boolean;
@@ -230,6 +234,7 @@ declare module "@package/net/minecraft/world/entity/monster/hoglin" {
     }
     export interface $HoglinBase {
         getAttackAnimationRemainingTicks(): number;
+        get attackAnimationRemainingTicks(): number;
     }
     /**
      * Values that may be interpreted as {@link $HoglinBase}.

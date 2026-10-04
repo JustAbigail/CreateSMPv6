@@ -23,8 +23,6 @@ declare module "@package/net/irisshaders/iris/mixin" {
     export class $LevelRendererAccessor {
     }
     export interface $LevelRendererAccessor {
-        getLevel(): $ClientLevel;
-        getEntityRenderDispatcher(): $EntityRenderDispatcher;
         invokeDoesMobEffectBlockSky(arg0: $Camera): boolean;
         invokeRenderSectionLayer(arg0: $RenderType, arg1: number, arg2: number, arg3: number, arg4: $Matrix4f, arg5: $Matrix4f): void;
         invokeSetupRender(arg0: $Camera, arg1: $Frustum, arg2: boolean, arg3: boolean): void;
@@ -34,12 +32,19 @@ declare module "@package/net/irisshaders/iris/mixin" {
         shouldRegenerateClouds(): boolean;
         setShouldRegenerateClouds(arg0: boolean): void;
         getDestructionProgress(): $Long2ObjectMap<$SortedSet<$BlockDestructionProgress>>;
+        getLevel(): $ClientLevel;
+        getEntityRenderDispatcher(): $EntityRenderDispatcher;
+        get destructionProgress(): $Long2ObjectMap<$SortedSet<$BlockDestructionProgress>>;
+        get level(): $ClientLevel;
+        get entityRenderDispatcher(): $EntityRenderDispatcher;
     }
     export class $DimensionTypeAccessor {
     }
     export interface $DimensionTypeAccessor {
         getFixedTime(): $OptionalLong;
         getAmbientLight(): number;
+        get fixedTime(): $OptionalLong;
+        get ambientLight(): number;
     }
     export class $GameRendererAccessor {
     }
@@ -51,11 +56,15 @@ declare module "@package/net/irisshaders/iris/mixin" {
         invokeGetFov(arg0: $Camera, arg1: number, arg2: boolean): number;
         shouldRenderBlockOutlineA(): boolean;
         getBlurEffect(): $PostChain;
+        get renderHand(): boolean;
+        get panoramicMode(): boolean;
+        get blurEffect(): $PostChain;
     }
     export class $LightTextureAccessor {
     }
     export interface $LightTextureAccessor {
         getLightTexture(): $DynamicTexture;
+        get lightTexture(): $DynamicTexture;
     }
     /**
      * Values that may be interpreted as {@link $LightTextureAccessor}.

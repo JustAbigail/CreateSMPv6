@@ -12,9 +12,10 @@ declare module "@package/net/neoforged/neoforge/server/permission/events" {
      * If you cache it, make sure that your PermissionHandler is actually used after this event.
      */
     export class $PermissionGatherEvent$Handler extends $PermissionGatherEvent {
-        addPermissionHandler(identifier: $ResourceLocation_, handlerFactory: $IPermissionHandlerFactory_): void;
         getAvailablePermissionHandlerFactories(): $Map<$ResourceLocation, $IPermissionHandlerFactory>;
+        addPermissionHandler(identifier: $ResourceLocation_, handlerFactory: $IPermissionHandlerFactory_): void;
         constructor();
+        get availablePermissionHandlerFactories(): $Map<$ResourceLocation, $IPermissionHandlerFactory>;
     }
     /**
      * Fired to gather information for the permissions API, such as the `IPermissionHandler` and `PermissionNode`s.
@@ -36,5 +37,6 @@ declare module "@package/net/neoforged/neoforge/server/permission/events" {
         addNodes(...arg0: $PermissionNode<never>[]): void;
         getNodes(): $Collection<$PermissionNode<never>>;
         constructor();
+        get nodes(): $Collection<$PermissionNode<never>>;
     }
 }

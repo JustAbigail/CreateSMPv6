@@ -6,5 +6,6 @@ declare module "@package/fr/iglee42/createcasing/mixins/create" {
     export interface $DeployerBlockEntityAccessor {
         getInvHandler(): $IItemHandlerModifiable;
         invokeInitHandler(): void;
+        get invHandler(): $IItemHandlerModifiable;
     }
 }

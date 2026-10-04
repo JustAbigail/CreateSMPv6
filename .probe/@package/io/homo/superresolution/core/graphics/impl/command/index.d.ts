@@ -47,6 +47,7 @@ declare module "@package/io/homo/superresolution/core/graphics/impl/command" {
     export class $ICommandBuffer {
     }
     export interface $ICommandBuffer {
+        setViewport(arg0: number, arg1: number, arg2: number, arg3: number): void;
         getDevice(): $IDevice;
         memoryBarrier(...arg0: $MemoryBarrierType_[]): void;
         setScissor(arg0: number, arg1: number, arg2: number, arg3: number): void;
@@ -60,19 +61,19 @@ declare module "@package/io/homo/superresolution/core/graphics/impl/command" {
         clearTextureDepth(arg0: $ITexture, arg1: number): void;
         clearTextureStencil(arg0: $ITexture, arg1: number): void;
         copyTexture(arg0: $ITexture, arg1: $ITexture, arg2: number, arg3: number, arg4: number, arg5: number, arg6: number, arg7: number, arg8: number, arg9: number, arg10: number, arg11: number): void;
-        writeToBuffer(arg0: $IBuffer, arg1: number, arg2: $ByteBuffer): void;
-        writeToBuffer(arg0: $IVertexBuffer, arg1: number, arg2: $ByteBuffer): void;
-        writeToBuffer(arg0: $IBuffer, arg1: number, arg2: number, arg3: $IBufferData): void;
-        writeToBuffer(arg0: $IBuffer, arg1: number, arg2: $IBufferData): void;
-        writeToBuffer(arg0: $IBuffer, arg1: number, arg2: number, arg3: $ByteBuffer): void;
-        bindPipeline(arg0: $ComputePipeline): void;
-        bindPipeline(arg0: $GraphicsPipeline): void;
-        waitForFence(): void;
-        beginRenderPass(arg0: $RenderPass): void;
-        endRenderPass(): void;
-        submit(arg0: $IDevice): void;
         behavior(): $CommandBufferBehavior;
         setLineWidth(arg0: number): void;
+        writeToBuffer(arg0: $IBuffer, arg1: number, arg2: $IBufferData): void;
+        writeToBuffer(arg0: $IBuffer, arg1: number, arg2: number, arg3: $IBufferData): void;
+        writeToBuffer(arg0: $IVertexBuffer, arg1: number, arg2: $ByteBuffer): void;
+        writeToBuffer(arg0: $IBuffer, arg1: number, arg2: number, arg3: $ByteBuffer): void;
+        writeToBuffer(arg0: $IBuffer, arg1: number, arg2: $ByteBuffer): void;
+        bindPipeline(arg0: $GraphicsPipeline): void;
+        bindPipeline(arg0: $ComputePipeline): void;
+        beginRenderPass(arg0: $RenderPass): void;
+        endRenderPass(): void;
+        waitForFence(): void;
+        submit(arg0: $IDevice): void;
         reset(): void;
         dispatch(arg0: number, arg1: number, arg2: number): void;
         begin(): void;
@@ -81,13 +82,18 @@ declare module "@package/io/homo/superresolution/core/graphics/impl/command" {
         destroy(): void;
         decoder(): $ICommandDecoder;
         draw(arg0: $IVertexBuffer, arg1: number, arg2: number): void;
-        setViewport(arg0: number, arg1: number, arg2: number, arg3: number): void;
+        get device(): $IDevice;
+        get inFlight(): boolean;
+        get fenceSignaled(): boolean;
+        set lineWidth(value: number);
     }
     export class $ICommandDecoder {
     }
     export interface $ICommandDecoder {
+        setViewport(arg0: $ICommandBuffer, arg1: number, arg2: number, arg3: number, arg4: number): void;
         getDevice(): $IDevice;
         memoryBarrier(arg0: $ICommandBuffer, ...arg1: $MemoryBarrierType_[]): void;
+        getStateTracker(): $ResourceStateTracker;
         setScissor(arg0: $ICommandBuffer, arg1: number, arg2: number, arg3: number, arg4: number): void;
         setBlendConstants(arg0: $ICommandBuffer, arg1: number, arg2: number, arg3: number, arg4: number): void;
         writeToTexture(arg0: $ICommandBuffer, arg1: $ITexture, arg2: $ByteBuffer, arg3: number, arg4: number, arg5: number, arg6: number): void;
@@ -99,20 +105,20 @@ declare module "@package/io/homo/superresolution/core/graphics/impl/command" {
         clearTextureStencil(arg0: $ICommandBuffer, arg1: $ITexture, arg2: number): void;
         copyTexture(arg0: $ICommandBuffer, arg1: $ITexture, arg2: $ITexture, arg3: number, arg4: number, arg5: number, arg6: number, arg7: number, arg8: number, arg9: number, arg10: number, arg11: number, arg12: number): void;
         copyBuffer(arg0: $ICommandBuffer, arg1: $IBuffer, arg2: $IBuffer, arg3: number, arg4: number, arg5: number): void;
-        writeToBuffer(arg0: $ICommandBuffer, arg1: $IBuffer, arg2: number, arg3: number, arg4: $ByteBuffer): void;
-        writeToBuffer(arg0: $ICommandBuffer, arg1: $IBuffer, arg2: number, arg3: $ByteBuffer): void;
+        setLineWidth(arg0: $ICommandBuffer, arg1: number): void;
         writeToBuffer(arg0: $ICommandBuffer, arg1: $IVertexBuffer, arg2: number, arg3: $ByteBuffer): void;
         writeToBuffer(arg0: $ICommandBuffer, arg1: $IBuffer, arg2: number, arg3: number, arg4: $IBufferData): void;
         writeToBuffer(arg0: $ICommandBuffer, arg1: $IBuffer, arg2: number, arg3: $IBufferData): void;
-        bindPipeline(arg0: $ICommandBuffer, arg1: $GraphicsPipeline): void;
+        writeToBuffer(arg0: $ICommandBuffer, arg1: $IBuffer, arg2: number, arg3: number, arg4: $ByteBuffer): void;
+        writeToBuffer(arg0: $ICommandBuffer, arg1: $IBuffer, arg2: number, arg3: $ByteBuffer): void;
         bindPipeline(arg0: $ICommandBuffer, arg1: $ComputePipeline): void;
+        bindPipeline(arg0: $ICommandBuffer, arg1: $GraphicsPipeline): void;
         beginRenderPass(arg0: $ICommandBuffer, arg1: $RenderPass): void;
         endRenderPass(arg0: $ICommandBuffer): void;
-        getStateTracker(): $ResourceStateTracker;
-        setLineWidth(arg0: $ICommandBuffer, arg1: number): void;
         dispatch(arg0: $ICommandBuffer, arg1: number, arg2: number, arg3: number): void;
         draw(arg0: $ICommandBuffer, arg1: $IVertexBuffer, arg2: number, arg3: number): void;
-        setViewport(arg0: $ICommandBuffer, arg1: number, arg2: number, arg3: number, arg4: number): void;
+        get device(): $IDevice;
+        get stateTracker(): $ResourceStateTracker;
     }
     export class $ICommandPool {
     }

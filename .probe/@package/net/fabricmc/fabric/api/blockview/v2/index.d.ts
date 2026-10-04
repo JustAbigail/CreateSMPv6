@@ -7,6 +7,7 @@ declare module "@package/net/fabricmc/fabric/api/blockview/v2" {
     }
     export interface $RenderDataBlockEntity {
         getRenderData(): $Object;
+        get renderData(): $Object;
     }
     export class $FabricBlockView {
     }

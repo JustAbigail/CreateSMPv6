@@ -9,16 +9,28 @@ declare module "@package/org/betterx/wover/surface/api/conditions" {
     }
     export interface $SurfaceRulesContext {
         getSurfaceDepth(): number;
-        getNoiseChunk(): $NoiseChunk;
         getStoneDepthBelow(): number;
+        getNoiseChunk(): $NoiseChunk;
         getLastUpdateY(): number;
         getLastUpdateXZ(): number;
         getStoneDepthAbove(): number;
         getRandomState(): $RandomState;
+        getChunk(): $ChunkAccess;
+        getBiome(): $Supplier<$Holder<$Biome>>;
         getBlockX(): number;
         getBlockY(): number;
         getBlockZ(): number;
-        getBiome(): $Supplier<$Holder<$Biome>>;
-        getChunk(): $ChunkAccess;
+        get surfaceDepth(): number;
+        get stoneDepthBelow(): number;
+        get noiseChunk(): $NoiseChunk;
+        get lastUpdateY(): number;
+        get lastUpdateXZ(): number;
+        get stoneDepthAbove(): number;
+        get randomState(): $RandomState;
+        get chunk(): $ChunkAccess;
+        get biome(): $Supplier<$Holder<$Biome>>;
+        get blockX(): number;
+        get blockY(): number;
+        get blockZ(): number;
     }
 }

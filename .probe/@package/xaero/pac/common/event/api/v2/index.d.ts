@@ -11,5 +11,9 @@ declare module "@package/xaero/pac/common/event/api/v2" {
         getClaimsManagerTrackerAPI(): $IClaimsManagerTrackerRegisterAPI;
         getServer(): $MinecraftServer;
         constructor(arg0: $MinecraftServer, arg1: $IPlayerPermissionSystemRegisterAPI_, arg2: $IPlayerPartySystemRegisterAPI_, arg3: $IClaimsManagerTrackerRegisterAPI_);
+        get permissionSystemManager(): $IPlayerPermissionSystemRegisterAPI;
+        get partySystemManagerAPI(): $IPlayerPartySystemRegisterAPI;
+        get claimsManagerTrackerAPI(): $IClaimsManagerTrackerRegisterAPI;
+        get server(): $MinecraftServer;
     }
 }

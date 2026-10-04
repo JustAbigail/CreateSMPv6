@@ -49,18 +49,18 @@ import { $RegisterCapabilitiesEvent } from "@package/net/neoforged/neoforge/capa
 declare module "@package/com/simibubi/create/content/kinetics/deployer" {
     export class $DeployerBlockEntity extends $KineticBlockEntity implements $Clearable, $DeployerBlockEntityAccessor {
         static registerCapabilities(arg0: $RegisterCapabilitiesEvent): void;
-        triggerFistBump(): void;
-        handler$zcm000$openpartiesandclaims$onActivate(arg0: $CallbackInfo): void;
-        getHandOffset(arg0: number): number;
-        setAnimatedOffset(arg0: number): void;
-        startFistBump(arg0: $Direction_): boolean;
         changeMode(): void;
         discardPlayer(): void;
         redstoneUpdate(): void;
         getHandPose(): $PartialModel;
+        startFistBump(arg0: $Direction_): boolean;
+        triggerFistBump(): void;
+        handler$zcm000$openpartiesandclaims$onActivate(arg0: $CallbackInfo): void;
+        getHandOffset(arg0: number): number;
+        setAnimatedOffset(arg0: number): void;
+        clearContent(): void;
         getRecipe(arg0: $ItemStack_): $RecipeHolder<$Recipe<$RecipeInput>>;
         getPlayer(): $DeployerFakePlayer;
-        clearContent(): void;
         write(arg0: $CompoundTag_, arg1: $HolderLookup$Provider, arg2: boolean): void;
         getInvHandler(): $IItemHandlerModifiable;
         invokeInitHandler(): void;
@@ -79,16 +79,23 @@ declare module "@package/com/simibubi/create/content/kinetics/deployer" {
         preventSpeedUpdate: number;
         network: number;
         constructor(arg0: $BlockEntityType_<never>, arg1: $BlockPos_, arg2: $BlockState_);
+        get handPose(): $PartialModel;
+        set animatedOffset(value: number);
+        get player(): $DeployerFakePlayer;
+        get invHandler(): $IItemHandlerModifiable;
     }
     export class $DeployerRecipeSearchEvent extends $Event implements $ICancellableEvent {
-        addRecipe(arg0: $Supplier_<($RecipeHolder<$Recipe<$RecipeInput>>) | undefined>, arg1: number): void;
         shouldAddRecipeWithPriority(arg0: number): boolean;
+        addRecipe(arg0: $Supplier_<($RecipeHolder<$Recipe<$RecipeInput>>) | undefined>, arg1: number): void;
         getRecipe(): $RecipeHolder<$Recipe<$RecipeInput>>;
-        getInventory(): $RecipeWrapper;
         getBlockEntity(): $DeployerBlockEntity;
+        getInventory(): $RecipeWrapper;
         setCanceled(arg0: boolean): void;
         isCanceled(): boolean;
         constructor(arg0: $DeployerBlockEntity, arg1: $RecipeWrapper);
+        get recipe(): $RecipeHolder<$Recipe<$RecipeInput>>;
+        get blockEntity(): $DeployerBlockEntity;
+        get inventory(): $RecipeWrapper;
     }
     export class $DeployerFakePlayer extends $FakePlayer implements $MixinAccessorDeployerFakePlayer {
         static deployerHasEyesOnHisFeet(arg0: $EntityEvent$Size): void;
@@ -302,5 +309,6 @@ declare module "@package/com/simibubi/create/content/kinetics/deployer" {
         static DATA_SHOULDER_RIGHT: $EntityDataAccessor<$CompoundTag>;
         currentExplosionCause: $Entity;
         constructor(arg0: $ServerLevel, arg1: $UUID_);
+        get blockBreakingProgress(): $Pair<$BlockPos, number>;
     }
 }

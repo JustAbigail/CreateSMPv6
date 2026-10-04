@@ -7,5 +7,7 @@ declare module "@package/com/simibubi/create/content/contraptions/minecart" {
         tickIdleCargoTracker(): void;
         getVersion(): number;
         constructor();
+        get ticksSinceLastExchange(): number;
+        get version(): number;
     }
 }

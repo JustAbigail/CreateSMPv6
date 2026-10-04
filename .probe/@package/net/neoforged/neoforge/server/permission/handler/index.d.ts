@@ -32,5 +32,7 @@ declare module "@package/net/neoforged/neoforge/server/permission/handler" {
          */
         getIdentifier(): $ResourceLocation;
         getPermission<T>(arg0: $ServerPlayer, arg1: $PermissionNode<T>, ...arg2: $PermissionDynamicContext<never>[]): T;
+        get registeredNodes(): $Set<$PermissionNode<never>>;
+        get identifier(): $ResourceLocation;
     }
 }

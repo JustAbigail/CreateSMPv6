@@ -32,5 +32,6 @@ declare module "@package/neoforge/fionathemortal/betterbiomeblend/common" {
         invalidationCounter: number;
         key: number;
         constructor();
+        get referenceCount(): number;
     }
 }

@@ -38,41 +38,50 @@ declare module "@package/dev/latvian/apps/tinyserver" {
         dynamicFiles(path: string, directory: $Path_, responseHandler: $FileResponseHandler_, autoIndex: boolean): void;
         staticFiles(path: string, directory: $Path_, responseHandler: $FileResponseHandler_, autoIndex: boolean): void;
         post(path: string, handler: $HTTPHandler_<REQ>): void;
+        redirect(path: string, redirect: string): void;
         ws<WSS extends $WSSession<REQ>>(path: string): $WSHandler<REQ, WSS>;
         ws<WSS extends $WSSession<REQ>>(path: string, factory: $WSSessionFactory_<REQ, WSS>): $WSHandler<REQ, WSS>;
         get(path: string, handler: $HTTPHandler_<REQ>): void;
         put(path: string, handler: $HTTPHandler_<REQ>): void;
         "delete"(path: string, handler: $HTTPHandler_<REQ>): void;
         patch(path: string, handler: $HTTPHandler_<REQ>): void;
-        redirect(path: string, redirect: string): void;
         constructor(requestFactory: $Supplier_<REQ>);
+        set address(value: string);
+        set serverName(value: string);
+        set maxKeepAliveConnections(value: number);
+        set keepAliveTimeout(value: $Duration_);
+        set daemon(value: boolean);
+        set bufferSize(value: number);
+        get running(): boolean;
     }
     export class $OptionalString extends $Record {
-        asULong(def: number): number;
         asULong(): number;
+        asULong(def: number): number;
         asZoneId(): $ZoneId;
+        isMissing(): boolean;
         asInt(): number;
         asInt(def: number): number;
-        require(): $OptionalString;
-        isMissing(): boolean;
         value(): string;
         static of(str: string): $OptionalString;
         isPresent(): boolean;
-        as<T>(mapper: $Function_<string, T>, def: T): T;
         as<T>(mapper: $Function_<string, T>): T;
-        asDouble(): number;
+        as<T>(mapper: $Function_<string, T>, def: T): T;
         asDouble(def: number): number;
-        asString(): string;
+        asDouble(): number;
         asString(def: string): string;
-        asBoolean(): boolean;
+        asString(): string;
         asBoolean(def: boolean): boolean;
-        asLong(): number;
+        asBoolean(): boolean;
+        require(): $OptionalString;
         asLong(def: number): number;
+        asLong(): number;
         asFloat(): number;
         asFloat(def: number): number;
         static MISSING: $OptionalString;
         static EMPTY: $OptionalString;
         constructor(value: string);
+        get missing(): boolean;
+        get present(): boolean;
     }
     /**
      * Values that may be interpreted as {@link $OptionalString}.
@@ -83,15 +92,15 @@ declare module "@package/dev/latvian/apps/tinyserver" {
         wildcard(): boolean;
         matches(path: string[]): string[];
         static compile(string: string): $CompiledPath;
-        parts(): $CompiledPath$Part[];
         string(): string;
+        parts(): $CompiledPath$Part[];
         static EMPTY: $CompiledPath;
         constructor(parts: $CompiledPath$Part_[], string: string, variables: number, wildcard: boolean);
     }
     /**
      * Values that may be interpreted as {@link $CompiledPath}.
      */
-    export type $CompiledPath_ = { variables?: number, parts?: $CompiledPath$Part_[], string?: string, wildcard?: boolean,  } | [variables?: number, parts?: $CompiledPath$Part_[], string?: string, wildcard?: boolean, ];
+    export type $CompiledPath_ = { variables?: number, wildcard?: boolean, string?: string, parts?: $CompiledPath$Part_[],  } | [variables?: number, wildcard?: boolean, string?: string, parts?: $CompiledPath$Part_[], ];
     export class $StatusCode extends $Record {
         code(): number;
         message(): string;
@@ -112,9 +121,14 @@ declare module "@package/dev/latvian/apps/tinyserver" {
      */
     export type $CompiledPath$Part_ = { name?: string, variable?: boolean,  } | [name?: string, variable?: boolean, ];
     export class $HTTPConnection<REQ extends $HTTPRequest> implements $Runnable {
-        readCRLF(): string;
         readDirectly(buffer: $ByteBuffer): number;
         writeDirectly(buffer: $ByteBuffer): void;
+        readCRLF(): string;
+        readFloat(): number;
+        readByte(): number;
+        readShort(): number;
+        readLong(): number;
+        readDouble(): number;
         run(): void;
         write(buffer: $ByteBuffer): void;
         read(buffer: $ByteBuffer): void;
@@ -123,11 +137,6 @@ declare module "@package/dev/latvian/apps/tinyserver" {
         readInt(): number;
         readBytes(bytes: number[], off: number, len: number): void;
         readBytes(bytes: number[]): void;
-        readByte(): number;
-        readShort(): number;
-        readLong(): number;
-        readDouble(): number;
-        readFloat(): number;
         server(): $HTTPServer<REQ>;
         upgrade(): $HTTPUpgrade<REQ>;
         static SOCKET_CLOSED: $StatusCode;
@@ -147,13 +156,13 @@ declare module "@package/dev/latvian/apps/tinyserver" {
         dynamicFiles(path: string, directory: $Path_, responseHandler: $FileResponseHandler_, autoIndex: boolean): void;
         staticFiles(path: string, directory: $Path_, responseHandler: $FileResponseHandler_, autoIndex: boolean): void;
         post(path: string, handler: $HTTPHandler_<REQ>): void;
+        redirect(path: string, redirect: string): void;
         ws<WSS extends $WSSession<REQ>>(path: string): $WSHandler<REQ, WSS>;
         ws<WSS extends $WSSession<REQ>>(path: string, factory: $WSSessionFactory_<REQ, WSS>): $WSHandler<REQ, WSS>;
         get(path: string, handler: $HTTPHandler_<REQ>): void;
         put(path: string, handler: $HTTPHandler_<REQ>): void;
         "delete"(path: string, handler: $HTTPHandler_<REQ>): void;
         patch(path: string, handler: $HTTPHandler_<REQ>): void;
-        redirect(path: string, redirect: string): void;
         http(method: $HTTPMethod_, path: string, handler: $HTTPHandler_<REQ>): void;
     }
     /**

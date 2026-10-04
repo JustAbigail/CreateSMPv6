@@ -7,5 +7,7 @@ declare module "@package/de/mrjulsen/crn/util" {
         add(type: $PenaltyResult$Type): void;
         constructor();
         constructor(other: $PenaltyResult);
+        get penalties(): $ImmutableMap<$PenaltyResult$Type, number>;
+        get penaltyValue(): number;
     }
 }

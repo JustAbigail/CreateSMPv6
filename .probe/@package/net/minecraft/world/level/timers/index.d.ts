@@ -9,12 +9,13 @@ import { $Class } from "@package/java/lang";
 declare module "@package/net/minecraft/world/level/timers" {
     export class $TimerQueue<T> {
         getEventsIds(): $Set<string>;
+        tick(obj: T, gameTime: number): void;
         remove(eventId: string): number;
         store(): $ListTag;
         schedule(id: string, triggerTime: number, arg2: $TimerCallback_<T>): void;
-        tick(obj: T, gameTime: number): void;
-        constructor(callbacksRegistry: $TimerCallbacks<T>);
         constructor(callbacksRegistry: $TimerCallbacks<T>, scheduledEventsDynamic: $Stream<$Dynamic<never>>);
+        constructor(callbacksRegistry: $TimerCallbacks<T>);
+        get eventsIds(): $Set<string>;
     }
     export class $TimerCallbacks<C> {
         register(serializer: $TimerCallback$Serializer<C, never>): $TimerCallbacks<C>;
@@ -38,5 +39,7 @@ declare module "@package/net/minecraft/world/level/timers" {
         deserialize(tag: $CompoundTag_): C;
         serialize(tag: $CompoundTag_, callback: C): void;
         constructor(id: $ResourceLocation_, cls: $Class<never>);
+        get cls(): $Class<never>;
+        get id(): $ResourceLocation;
     }
 }

@@ -33,38 +33,20 @@ declare module "@package/dev/ryanhcode/sable/api/sublevel" {
         loadTickets(arg0: $Object2ObjectMap<$UUID_, $SubLevelTicketInfo>): void;
         physicsSystem(): $SubLevelPhysicsSystem;
         getHoldingChunkMap(): $SubLevelHoldingChunkMap;
-        getLevel(): $ServerLevel;
         initialize(): void;
         close(): void;
         static DEFAULT_LOG_SIZE_LENGTH: number;
         static DEFAULT_ORIGIN: number;
         static DEFAULT_LOG_PLOT_SIZE: number;
         constructor(arg0: $Level_, arg1: number, arg2: number, arg3: number, arg4: number);
+        get allTickets(): $Map<$UUID, $SubLevelTicketInfo>;
+        get holdingChunkMap(): $SubLevelHoldingChunkMap;
     }
     export class $SubLevelContainer {
-        getOrigin(): $Vector2i;
-        static getContainer(arg0: $Level_): $SubLevelContainer;
-        static getContainer(arg0: $ClientLevel): $ClientSubLevelContainer;
-        static getContainer(arg0: $ServerLevel): $ServerSubLevelContainer;
-        inBounds(arg0: $ChunkPos): boolean;
-        inBounds(arg0: $BlockPos_): boolean;
-        inBounds(arg0: $Vector3dc): boolean;
-        inBounds(arg0: number, arg1: number): boolean;
-        getOccupancy(): $BitSet;
-        getChunkHolder(arg0: $ChunkPos): $PlotChunkHolder;
-        getLevel(): $Level;
-        getIndex(arg0: number, arg1: number): number;
-        tick(): void;
-        getChunk(arg0: $ChunkPos): $LevelChunk;
-        getPlot(arg0: $ChunkPos): $LevelPlot;
-        getPlot(arg0: number, arg1: number): $LevelPlot;
-        getSubLevel(arg0: number, arg1: number): $SubLevel;
-        getSubLevel(arg0: $UUID_): $SubLevel;
-        getAllSubLevels(): $List<$SubLevel>;
         getLogPlotSize(): number;
         processSubLevelRemovals(): void;
-        removeSubLevel(arg0: number, arg1: number, arg2: $SubLevelRemovalReason_): void;
         removeSubLevel(arg0: $SubLevel, arg1: $SubLevelRemovalReason_): void;
+        removeSubLevel(arg0: number, arg1: number, arg2: $SubLevelRemovalReason_): void;
         allocateSubLevel(arg0: $UUID_, arg1: number, arg2: number, arg3: $Pose3d): $SubLevel;
         addObserver(arg0: $SubLevelObserver): void;
         allocateNewSubLevel(arg0: $Pose3d): $SubLevel;
@@ -73,28 +55,54 @@ declare module "@package/dev/ryanhcode/sable/api/sublevel" {
         getLogSideLength(): number;
         getLoadedCount(): number;
         queryIntersecting(arg0: $BoundingBox3dc): $Iterable<$SubLevel>;
+        getAllSubLevels(): $List<$SubLevel>;
+        static getContainer(arg0: $Level_): $SubLevelContainer;
+        static getContainer(arg0: $ServerLevel): $ServerSubLevelContainer;
+        static getContainer(arg0: $ClientLevel): $ClientSubLevelContainer;
+        inBounds(arg0: $ChunkPos): boolean;
+        inBounds(arg0: $BlockPos_): boolean;
+        inBounds(arg0: number, arg1: number): boolean;
+        inBounds(arg0: $Vector3dc): boolean;
+        getOccupancy(): $BitSet;
+        getChunkHolder(arg0: $ChunkPos): $PlotChunkHolder;
+        getOrigin(): $Vector2i;
+        getLevel(): $Level;
+        tick(): void;
+        getIndex(arg0: number, arg1: number): number;
+        getChunk(arg0: $ChunkPos): $LevelChunk;
+        getSubLevel(arg0: $UUID_): $SubLevel;
+        getSubLevel(arg0: number, arg1: number): $SubLevel;
+        getPlot(arg0: number, arg1: number): $LevelPlot;
+        getPlot(arg0: $ChunkPos): $LevelPlot;
         static DEFAULT_LOG_SIZE_LENGTH: number;
         static DEFAULT_ORIGIN: number;
         static DEFAULT_LOG_PLOT_SIZE: number;
         constructor(arg0: $Level_, arg1: number, arg2: number, arg3: number, arg4: number);
+        get logPlotSize(): number;
+        get logSideLength(): number;
+        get loadedCount(): number;
+        get allSubLevels(): $List<$SubLevel>;
+        get occupancy(): $BitSet;
+        get origin(): $Vector2i;
+        get level(): $Level;
     }
     export class $ClientSubLevelContainer extends $SubLevelContainer {
-        addDebugInfo(arg0: $Consumer_<string>): void;
-        getLevel(): $ClientLevel;
         getInterpolation(): $ClientSableInterpolationState;
         freeLightingScene(arg0: number): void;
         getLightingSceneId(arg0: $ClientSubLevel): number;
+        addDebugInfo(arg0: $Consumer_<string>): void;
         static DEFAULT_LOG_SIZE_LENGTH: number;
         static DEFAULT_ORIGIN: number;
         static DEFAULT_LOG_PLOT_SIZE: number;
         constructor(arg0: $Level_, arg1: number, arg2: number, arg3: number, arg4: number);
+        get interpolation(): $ClientSableInterpolationState;
     }
     export class $SubLevelObserver {
     }
     export interface $SubLevelObserver {
-        tick(arg0: $SubLevelContainer): void;
         onSubLevelRemoved(arg0: $SubLevel, arg1: $SubLevelRemovalReason_): void;
         onSubLevelAdded(arg0: $SubLevel): void;
+        tick(arg0: $SubLevelContainer): void;
     }
     export class $SubLevelTrackingPlugin {
     }

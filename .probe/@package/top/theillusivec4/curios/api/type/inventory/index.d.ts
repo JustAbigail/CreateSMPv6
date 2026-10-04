@@ -11,15 +11,16 @@ declare module "@package/top/theillusivec4/curios/api/type/inventory" {
     export class $IDynamicStackHandler {
     }
     export interface $IDynamicStackHandler extends $IItemHandlerModifiable {
-        deserializeNBT(arg0: $HolderLookup$Provider, arg1: $CompoundTag_): void;
-        serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
         getPreviousStackInSlot(arg0: number): $ItemStack;
         setPreviousStackInSlot(arg0: number, arg1: $ItemStack_): void;
+        deserializeNBT(arg0: $HolderLookup$Provider, arg1: $CompoundTag_): void;
+        serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
         grow(arg0: number): void;
         shrink(arg0: number): void;
         getSlots(): number;
-        getStackInSlot(arg0: number): $ItemStack;
         setStackInSlot(arg0: number, arg1: $ItemStack_): void;
+        getStackInSlot(arg0: number): $ItemStack;
+        get slots(): number;
     }
     export class $ICurioStacksHandler {
     }
@@ -41,8 +42,8 @@ declare module "@package/top/theillusivec4/curios/api/type/inventory" {
          * @deprecated
          */
         getSizeShift(): number;
-        canToggleRendering(): boolean;
         hasCosmetic(): boolean;
+        canToggleRendering(): boolean;
         getDropRule(): $ICurio$DropRule;
         getActiveStates(): $NonNullList<boolean>;
         getCosmeticStacks(): $IDynamicStackHandler;
@@ -62,5 +63,18 @@ declare module "@package/top/theillusivec4/curios/api/type/inventory" {
         shrink(arg0: number): void;
         getSlots(): number;
         getRenders(): $NonNullList<boolean>;
+        get visible(): boolean;
+        get permanentModifiers(): $Set<$AttributeModifier>;
+        get cachedModifiers(): $Set<$AttributeModifier>;
+        get syncTag(): $CompoundTag;
+        get sizeShift(): number;
+        get dropRule(): $ICurio$DropRule;
+        get activeStates(): $NonNullList<boolean>;
+        get cosmeticStacks(): $IDynamicStackHandler;
+        get identifier(): string;
+        get stacks(): $IDynamicStackHandler;
+        get modifiers(): $Map<$ResourceLocation, $AttributeModifier>;
+        get slots(): number;
+        get renders(): $NonNullList<boolean>;
     }
 }

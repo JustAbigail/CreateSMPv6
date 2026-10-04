@@ -42,13 +42,13 @@ declare module "@package/dev/latvian/mods/kubejs/net" {
     export type $KubeServerData_ = { recipeViewerData?: ($RecipeViewerData_) | undefined, itemTooltipData?: $List_<$ItemTooltipData_>,  } | [recipeViewerData?: ($RecipeViewerData_) | undefined, itemTooltipData?: $List_<$ItemTooltipData_>, ];
     export class $NetworkKubeEvent implements $KubePlayerEvent {
         /**
-         * The channel of the packet.
-         */
-        getChannel(): string;
-        /**
          * The data of the packet.
          */
         getData(): $CompoundTag;
+        /**
+         * The channel of the packet.
+         */
+        getChannel(): string;
         getPlayer(): $Player;
         getLevel(): $Level;
         getServer(): $MinecraftServer;
@@ -91,5 +91,12 @@ declare module "@package/dev/latvian/mods/kubejs/net" {
         cancel(): $Object;
         getEntity(): $LivingEntity;
         constructor(p: $Player, c: string, d: $CompoundTag_);
+        get data(): $CompoundTag;
+        get channel(): string;
+        get player(): $Player;
+        get level(): $Level;
+        get server(): $MinecraftServer;
+        get registries(): $RegistryAccess;
+        get entity(): $LivingEntity;
     }
 }

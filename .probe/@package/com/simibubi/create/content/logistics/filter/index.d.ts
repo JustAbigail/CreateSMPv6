@@ -8,15 +8,16 @@ declare module "@package/com/simibubi/create/content/logistics/filter" {
     export class $FilterItemStack {
         serializeNBT(arg0: $HolderLookup$Provider): $CompoundTag;
         isFilterItem(): boolean;
-        test(arg0: $Level_, arg1: $FluidStack_, arg2: boolean): boolean;
-        test(arg0: $Level_, arg1: $ItemStack_): boolean;
-        test(arg0: $Level_, arg1: $ItemStack_, arg2: boolean): boolean;
-        test(arg0: $Level_, arg1: $FluidStack_): boolean;
-        isEmpty(): boolean;
-        static of(arg0: $ItemStack_): $FilterItemStack;
-        static of(arg0: $HolderLookup$Provider, arg1: $CompoundTag_): $FilterItemStack;
-        static empty(): $FilterItemStack;
         item(): $ItemStack;
+        test(arg0: $Level_, arg1: $ItemStack_): boolean;
+        test(arg0: $Level_, arg1: $FluidStack_): boolean;
+        test(arg0: $Level_, arg1: $ItemStack_, arg2: boolean): boolean;
+        test(arg0: $Level_, arg1: $FluidStack_, arg2: boolean): boolean;
+        isEmpty(): boolean;
+        static of(arg0: $HolderLookup$Provider, arg1: $CompoundTag_): $FilterItemStack;
+        static of(arg0: $ItemStack_): $FilterItemStack;
+        static empty(): $FilterItemStack;
         fluid(arg0: $Level_): $FluidStack;
+        get filterItem(): boolean;
     }
 }

@@ -8,9 +8,9 @@ import { $List, $Map_, $Map, $Collection_, $List_, $Collection } from "@package/
 
 declare module "@package/net/neoforged/neoforge/common/conditions" {
     export class $WithConditions$Builder<T> {
-        withCarrier(arg0: T): $WithConditions$Builder<T>;
-        addCondition(...arg0: $ICondition[]): $WithConditions$Builder<T>;
         addCondition(arg0: $Collection_<$ICondition>): $WithConditions$Builder<T>;
+        addCondition(...arg0: $ICondition[]): $WithConditions$Builder<T>;
+        withCarrier(arg0: T): $WithConditions$Builder<T>;
         build(): $WithConditions<T>;
         constructor();
     }
@@ -56,7 +56,7 @@ declare module "@package/net/neoforged/neoforge/common/conditions" {
     /**
      * Values that may be interpreted as {@link $WithConditions}.
      */
-    export type $WithConditions_<A> = { carrier?: any, conditions?: $List_<$ICondition>,  } | [carrier?: any, conditions?: $List_<$ICondition>, ];
+    export type $WithConditions_<A> = { conditions?: $List_<$ICondition>, carrier?: any,  } | [conditions?: $List_<$ICondition>, carrier?: any, ];
     export class $ICondition$IContext {
         static TAGS_INVALID: $ICondition$IContext;
         static EMPTY: $ICondition$IContext;

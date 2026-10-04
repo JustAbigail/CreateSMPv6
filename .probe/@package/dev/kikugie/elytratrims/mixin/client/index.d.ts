@@ -10,5 +10,6 @@ declare module "@package/dev/kikugie/elytratrims/mixin/client" {
     export interface $LivingEntityRendererAccessor {
         invokeSetupRotations(arg0: $LivingEntity, arg1: $PoseStack, arg2: number, arg3: number, arg4: number, arg5: number): void;
         getLayers<T extends $LivingEntity, M extends $EntityModel<T>>(): $List<$RenderLayer<T, M>>;
+        get layers(): $List<$RenderLayer<T, M>>;
     }
 }

@@ -26,6 +26,8 @@ declare module "@package/java/nio" {
         slice(arg0: number, arg1: number): $Buffer;
         slice(): $Buffer;
         duplicate(): $Buffer;
+        get direct(): boolean;
+        get readOnly(): boolean;
     }
     export class $DoubleBuffer extends $Buffer implements $Comparable<$DoubleBuffer> {
         get(arg0: number, arg1: number[]): $DoubleBuffer;
@@ -224,52 +226,51 @@ declare module "@package/java/nio" {
         isLoaded(): boolean;
         force(): $MappedByteBuffer;
         force(arg0: number, arg1: number): $MappedByteBuffer;
+        get loaded(): boolean;
     }
     export class $CharBuffer extends $Buffer implements $Comparable<$CharBuffer>, $Appendable, $CharSequence, $Readable {
-        reset(): $CharBuffer;
-        get(arg0: string[], arg1: number, arg2: number): $CharBuffer;
-        get(arg0: number): string;
         get(): string;
+        get(arg0: string[], arg1: number, arg2: number): $CharBuffer;
         get(arg0: string[]): $CharBuffer;
+        get(arg0: number): string;
         get(arg0: number, arg1: string[], arg2: number, arg3: number): $CharBuffer;
         get(arg0: number, arg1: string[]): $CharBuffer;
         put(arg0: number, arg1: string): $CharBuffer;
-        put(arg0: string[], arg1: number, arg2: number): $CharBuffer;
-        put(arg0: number, arg1: string[], arg2: number, arg3: number): $CharBuffer;
-        put(arg0: string[]): $CharBuffer;
-        put(arg0: $CharBuffer): $CharBuffer;
         put(arg0: number, arg1: $CharBuffer, arg2: number, arg3: number): $CharBuffer;
+        put(arg0: string[], arg1: number, arg2: number): $CharBuffer;
         put(arg0: number, arg1: string[]): $CharBuffer;
-        put(arg0: string): $CharBuffer;
         put(arg0: string, arg1: number, arg2: number): $CharBuffer;
         put(arg0: string): $CharBuffer;
+        put(arg0: $CharBuffer): $CharBuffer;
+        put(arg0: number, arg1: string[], arg2: number, arg3: number): $CharBuffer;
+        put(arg0: string): $CharBuffer;
+        put(arg0: string[]): $CharBuffer;
         length(): number;
         append(arg0: string): $CharBuffer;
-        append(arg0: $CharSequence): $CharBuffer;
-        append(arg0: $CharSequence, arg1: number, arg2: number): $CharBuffer;
         compareTo(arg0: $CharBuffer): number;
         clear(): $CharBuffer;
-        static wrap(arg0: string[], arg1: number, arg2: number): $CharBuffer;
         static wrap(arg0: $CharSequence, arg1: number, arg2: number): $CharBuffer;
+        static wrap(arg0: string[], arg1: number, arg2: number): $CharBuffer;
         static wrap(arg0: $CharSequence): $CharBuffer;
         static wrap(arg0: string[]): $CharBuffer;
-        position(arg0: number): $CharBuffer;
         charAt(arg0: number): string;
         mismatch(arg0: $CharBuffer): number;
         isEmpty(): boolean;
+        subSequence(arg0: number, arg1: number): $CharBuffer;
+        limit(arg0: number): $CharBuffer;
         chars(): $IntStream;
         read(arg0: $CharBuffer): number;
-        mark(): $CharBuffer;
         flip(): $CharBuffer;
-        slice(arg0: number, arg1: number): $CharBuffer;
         slice(): $CharBuffer;
+        slice(arg0: number, arg1: number): $CharBuffer;
         duplicate(): $CharBuffer;
         static allocate(arg0: number): $CharBuffer;
         asReadOnlyBuffer(): $CharBuffer;
         compact(): $CharBuffer;
         order(): $ByteOrder;
         codePoints(): $IntStream;
-        subSequence(arg0: number, arg1: number): $CharSequence;
+        append(arg0: $CharSequence, arg1: number, arg2: number): $Appendable;
+        get empty(): boolean;
     }
     export class $ShortBuffer extends $Buffer implements $Comparable<$ShortBuffer> {
         get(arg0: number, arg1: number[]): $ShortBuffer;

@@ -23,6 +23,9 @@ declare module "@package/java/lang/constant" {
         nested(arg0: string, ...arg1: string[]): $ClassDesc;
         componentType(): $ClassDesc;
         resolveConstantDesc(arg0: $MethodHandles$Lookup): $Object;
+        get classOrInterface(): boolean;
+        get array(): boolean;
+        get primitive(): boolean;
     }
     export class $DirectMethodHandleDesc {
     }
@@ -33,6 +36,7 @@ declare module "@package/java/lang/constant" {
         kind(): $DirectMethodHandleDesc$Kind;
         owner(): $ClassDesc;
         refKind(): number;
+        get ownerInterface(): boolean;
     }
     export class $DirectMethodHandleDesc$Kind extends $Enum<$DirectMethodHandleDesc$Kind> {
         static values(): $DirectMethodHandleDesc$Kind[];
@@ -58,11 +62,11 @@ declare module "@package/java/lang/constant" {
      */
     export type $DirectMethodHandleDesc$Kind_ = "static" | "interface_static" | "virtual" | "interface_virtual" | "special" | "interface_special" | "constructor" | "getter" | "setter" | "static_getter" | "static_setter";
     export class $DynamicConstantDesc<T> implements $ConstantDesc {
+        static ofCanonical<T>(arg0: $DirectMethodHandleDesc, arg1: string, arg2: $ClassDesc, arg3: $ConstantDesc_[]): $ConstantDesc;
+        bootstrapArgsList(): $List<$ConstantDesc>;
         constantName(): string;
         constantType(): $ClassDesc;
         bootstrapArgs(): $ConstantDesc[];
-        static ofCanonical<T>(arg0: $DirectMethodHandleDesc, arg1: string, arg2: $ClassDesc, arg3: $ConstantDesc_[]): $ConstantDesc;
-        bootstrapArgsList(): $List<$ConstantDesc>;
         static of<T>(arg0: $DirectMethodHandleDesc, ...arg1: $ConstantDesc_[]): $DynamicConstantDesc<T>;
         static of<T>(arg0: $DirectMethodHandleDesc): $DynamicConstantDesc<T>;
         resolveConstantDesc(arg0: $MethodHandles$Lookup): T;

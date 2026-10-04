@@ -21,5 +21,11 @@ declare module "@package/com/yungnickyoung/minecraft/bettermineshafts/mixin" {
         setMaxX(arg0: number): void;
         setMaxY(arg0: number): void;
         setMaxZ(arg0: number): void;
+        set minY(value: number);
+        set minX(value: number);
+        set minZ(value: number);
+        set maxX(value: number);
+        set maxY(value: number);
+        set maxZ(value: number);
     }
 }

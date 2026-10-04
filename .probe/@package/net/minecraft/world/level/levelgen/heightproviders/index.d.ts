@@ -17,6 +17,9 @@ declare module "@package/net/minecraft/world/level/levelgen/heightproviders" {
         getMinInclusive(): $VerticalAnchor;
         getPlateau(): number;
         static CODEC: $MapCodec<$TrapezoidHeight>;
+        get maxInclusive(): $VerticalAnchor;
+        get minInclusive(): $VerticalAnchor;
+        get plateau(): number;
     }
     export class $WeightedListHeight extends $HeightProvider {
         static CODEC: $MapCodec<$WeightedListHeight>;
@@ -42,18 +45,22 @@ declare module "@package/net/minecraft/world/level/levelgen/heightproviders" {
         static of(value: $VerticalAnchor_): $ConstantHeight;
         static ZERO: $ConstantHeight;
         static CODEC: $MapCodec<$ConstantHeight>;
+        get value(): $VerticalAnchor;
     }
     export class $UniformHeight extends $HeightProvider implements $UniformHeightAccessor {
         static of(minInclusive: $VerticalAnchor_, maxInclusive: $VerticalAnchor_): $UniformHeight;
         getMaxInclusive(): $VerticalAnchor;
         getMinInclusive(): $VerticalAnchor;
         static CODEC: $MapCodec<$UniformHeight>;
+        get maxInclusive(): $VerticalAnchor;
+        get minInclusive(): $VerticalAnchor;
     }
     export class $HeightProvider {
-        sample(random: $RandomSource, context: $WorldGenerationContext): number;
         getType(): $HeightProviderType<never>;
+        sample(random: $RandomSource, context: $WorldGenerationContext): number;
         static CODEC: $Codec<$HeightProvider>;
         constructor();
+        get type(): $HeightProviderType<never>;
     }
     export interface $HeightProviderType<P> extends RegistryMarked<RegistryTypes.HeightProviderTypeTag, RegistryTypes.HeightProviderType> {}
     export class $VeryBiasedToBottomHeight extends $HeightProvider {

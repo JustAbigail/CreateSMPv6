@@ -18,34 +18,34 @@ export * as tooltip from "@package/net/minecraft/client/gui/screens/inventory/to
 
 declare module "@package/net/minecraft/client/gui/screens/inventory" {
     export class $AbstractContainerScreen<T extends $AbstractContainerMenu> extends $Screen implements $MenuAccess<T>, $HandledScreenAccessor, $CreativeModeInventoryScreenAccessor, $CreativeModeInventoryScreenAccessor$1 {
+        getTooltipFromContainerItem(stack: $ItemStack_): $List<$Component>;
+        renderSlot(guiGraphics: $GuiGraphics, slot: $Slot): void;
+        static renderSlotHighlight(guiGraphics: $GuiGraphics, x: number, y: number, blitOffset: number): void;
+        renderSlotHighlight(arg0: $GuiGraphics, arg1: $Slot, arg2: number, arg3: number, arg4: number): void;
+        static renderSlotHighlight(arg0: $GuiGraphics, arg1: number, arg2: number, arg3: number, arg4: number): void;
+        containerTick(): void;
+        renderLabels(guiGraphics: $GuiGraphics, mouseX: number, mouseY: number): void;
+        renderBg(guiGraphics: $GuiGraphics, partialTick: number, mouseX: number, mouseY: number): void;
+        isHovering(x: number, y: number, width: number, height: number, mouseX: number, arg5: number): boolean;
+        isHovering(slot: $Slot, mouseX: number, arg2: number): boolean;
         hasClickedOutside(mouseX: number, arg1: number, mouseY: number, arg3: number, guiLeft: number): boolean;
         /**
          * Called when the mouse is clicked over a slot or outside the gui.
          */
         slotClicked(slot: $Slot, slotId: number, mouseButton: number, type: $ClickType_): void;
-        renderSlot(guiGraphics: $GuiGraphics, slot: $Slot): void;
-        static renderSlotHighlight(arg0: $GuiGraphics, arg1: number, arg2: number, arg3: number, arg4: number): void;
-        static renderSlotHighlight(guiGraphics: $GuiGraphics, x: number, y: number, blitOffset: number): void;
-        renderSlotHighlight(arg0: $GuiGraphics, arg1: $Slot, arg2: number, arg3: number, arg4: number): void;
-        getTooltipFromContainerItem(stack: $ItemStack_): $List<$Component>;
         recalculateQuickCraftRemaining(): void;
         renderSlotContents(arg0: $GuiGraphics, arg1: $ItemStack_, arg2: $Slot, arg3: string | null): void;
         clearDraggingState(): void;
         handleSlotStateChanged(slotId: number, containerId: number, newState: boolean): void;
         checkHotbarKeyPressed(keyCode: number, scanCode: number): boolean;
         getSlotUnderMouse(): $Slot;
+        findSlot(mouseX: number, arg1: number): $Slot;
         getXSize(): number;
         getYSize(): number;
         getSlotColor(arg0: number): number;
-        findSlot(mouseX: number, arg1: number): $Slot;
         renderTooltip(guiGraphics: $GuiGraphics, mouseX: number, mouseY: number): void;
         getGuiTop(): number;
         getGuiLeft(): number;
-        containerTick(): void;
-        renderLabels(guiGraphics: $GuiGraphics, mouseX: number, mouseY: number): void;
-        renderBg(guiGraphics: $GuiGraphics, partialTick: number, mouseX: number, mouseY: number): void;
-        isHovering(slot: $Slot, mouseX: number, arg2: number): boolean;
-        isHovering(x: number, y: number, width: number, height: number, mouseX: number, arg5: number): boolean;
         getFocusedSlot(): $Slot;
         getBackgroundWidth(): number;
         getBackgroundHeight(): number;
@@ -94,6 +94,16 @@ declare module "@package/net/minecraft/client/gui/screens/inventory" {
         topPos: number;
         font: $Font;
         constructor(menu: T, playerInventory: $Inventory, title: $Component_);
+        get slotUnderMouse(): $Slot;
+        get XSize(): number;
+        get YSize(): number;
+        get guiTop(): number;
+        get guiLeft(): number;
+        get focusedSlot(): $Slot;
+        get backgroundWidth(): number;
+        get backgroundHeight(): number;
+        get y(): number;
+        get x(): number;
     }
     export class $EffectRenderingInventoryScreen<T extends $AbstractContainerMenu> extends $AbstractContainerScreen<T> {
         canSeeEffects(): boolean;
@@ -141,6 +151,7 @@ declare module "@package/net/minecraft/client/gui/screens/inventory" {
     }
     export interface $MenuAccess<T extends $AbstractContainerMenu> {
         getMenu(): T;
+        get menu(): T;
     }
     /**
      * Values that may be interpreted as {@link $MenuAccess}.

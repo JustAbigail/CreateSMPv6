@@ -19,6 +19,8 @@ declare module "@package/net/minecraft/world/level/storage/loot/functions" {
         static BLOCK_ENTITY: $CopyNameFunction$NameSource;
         static THIS: $CopyNameFunction$NameSource;
         static ATTACKING_ENTITY: $CopyNameFunction$NameSource;
+        get serializedName(): string;
+        get remappedEnumConstantName(): string;
     }
     /**
      * Values that may be interpreted as {@link $CopyNameFunction$NameSource}.
@@ -58,6 +60,7 @@ declare module "@package/net/minecraft/world/level/storage/loot/functions" {
     }
     export interface $LootItemFunction extends $LootContextUser, $BiFunction<$ItemStack, $LootContext, $ItemStack> {
         getType(): $LootItemFunctionType<$LootItemFunction>;
+        get type(): $LootItemFunctionType<$LootItemFunction>;
     }
     /**
      * Base interface for builders that accept loot functions.

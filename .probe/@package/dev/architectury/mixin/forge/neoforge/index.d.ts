@@ -5,6 +5,7 @@ declare module "@package/dev/architectury/mixin/forge/neoforge" {
     }
     export interface $LiquidBlockAccessor {
         getFluid(): $FlowingFluid;
+        get fluid(): $FlowingFluid;
     }
     /**
      * Values that may be interpreted as {@link $LiquidBlockAccessor}.
@@ -14,6 +15,7 @@ declare module "@package/dev/architectury/mixin/forge/neoforge" {
     }
     export interface $BucketItemAccessor {
         getContent(): $Fluid;
+        get content(): $Fluid;
     }
     /**
      * Values that may be interpreted as {@link $BucketItemAccessor}.

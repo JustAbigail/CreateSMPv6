@@ -21,6 +21,8 @@ declare module "@package/dev/latvian/mods/betteradvancedtooltips" {
         getItem(): $ItemStack;
         append<T>(type: $TooltipTagType_<T>, tags: $Stream<$TagKey_<T>>): void;
         constructor(parentEvent: $ItemTooltipEvent, map: $Map_<$ResourceLocation_, $TagInstance>);
+        get parentEvent(): $ItemTooltipEvent;
+        get item(): $ItemStack;
     }
     export class $TooltipTagType<T> extends $Record {
         component(): $Component;
@@ -39,7 +41,7 @@ declare module "@package/dev/latvian/mods/betteradvancedtooltips" {
     /**
      * Values that may be interpreted as {@link $TooltipTagType}.
      */
-    export type $TooltipTagType_<T> = { component?: $Component_, registryKey?: $ResourceKey_<$Registry<any>>,  } | [component?: $Component_, registryKey?: $ResourceKey_<$Registry<any>>, ];
+    export type $TooltipTagType_<T> = { registryKey?: $ResourceKey_<$Registry<any>>, component?: $Component_,  } | [registryKey?: $ResourceKey_<$Registry<any>>, component?: $Component_, ];
     export class $TagInstance implements $Comparable<$TagInstance> {
         compareTo(o: $TagInstance): number;
         toText(): $Component;

@@ -88,14 +88,21 @@ declare module "@package/gg/essential/model" {
         constructor();
         constructor(arg0: $List_<$Bone>);
         [Symbol.iterator](): Iterator<$Bone>
+        get byPart(): $Map<$EnumPart, $Bone>;
+        get byId(): $List<$Bone>;
+        get empty(): boolean;
+        get root(): $Bone;
+        get byName(): $Map<string, $Bone>;
+        get first(): $Bone;
+        get last(): $Bone;
     }
     export class $ParticleEffect {
         component3(): $ParticlesFile$Material;
         component4(): $ParticleEffectComponents;
         component5(): $Map<string, $ParticlesFile$Curve>;
         component6(): $Map<string, $ParticlesFile$Event>;
-        renderPass(arg0: $Function0_<$RenderBackend$Texture>): $ParticleEffect$RenderPass;
         getCurves(): $Map<string, $ParticlesFile$Curve>;
+        renderPass(arg0: $Function0_<$RenderBackend$Texture>): $ParticleEffect$RenderPass;
         getEvents(): $Map<string, $ParticlesFile$Event>;
         getIdentifier(): string;
         copy(arg0: string, arg1: string, arg2: $ParticlesFile$Material_, arg3: $ParticleEffectComponents, arg4: $Map_<string, $ParticlesFile$Curve>, arg5: $Map_<string, $ParticlesFile$Event>): $ParticleEffect;
@@ -106,13 +113,19 @@ declare module "@package/gg/essential/model" {
         static copy$default(arg0: $ParticleEffect, arg1: string, arg2: string, arg3: $ParticlesFile$Material_, arg4: $ParticleEffectComponents, arg5: $Map_<any, any>, arg6: $Map_<any, any>, arg7: number, arg8: $Object): $ParticleEffect;
         getMaterial(): $ParticlesFile$Material;
         constructor(arg0: string, arg1: string, arg2: $ParticlesFile$Material_, arg3: $ParticleEffectComponents, arg4: $Map_<string, $ParticlesFile$Curve>, arg5: $Map_<string, $ParticlesFile$Event>);
+        get curves(): $Map<string, $ParticlesFile$Curve>;
+        get events(): $Map<string, $ParticlesFile$Event>;
+        get identifier(): string;
+        get file(): string;
+        get components(): $ParticleEffectComponents;
+        get material(): $ParticlesFile$Material;
     }
     export class $EnumPart extends $Enum<$EnumPart> {
+        static fromBoneName(arg0: string): $EnumPart;
+        getArmorSlotIds(): $Set<number>;
         static values(): $EnumPart[];
         static valueOf(arg0: string): $EnumPart;
         static getEntries(): $EnumEntries<$EnumPart>;
-        static fromBoneName(arg0: string): $EnumPart;
-        getArmorSlotIds(): $Set<number>;
         static HEAD: $EnumPart;
         static LEFT_ARM: $EnumPart;
         static ROOT: $EnumPart;
@@ -126,6 +139,8 @@ declare module "@package/gg/essential/model" {
         static RIGHT_WING: $EnumPart;
         static BODY: $EnumPart;
         static RIGHT_ARM: $EnumPart;
+        get armorSlotIds(): $Set<number>;
+        static get entries(): $EnumEntries<$EnumPart>;
     }
     /**
      * Values that may be interpreted as {@link $EnumPart}.
@@ -140,8 +155,8 @@ declare module "@package/gg/essential/model" {
         component7(): $Function0<$RenderBackend$Texture>;
         getTextureSource(): $Function0<$RenderBackend$Texture>;
         getSourceEntity(): $MolangQueryEntity;
-        getTimeSource(): $MolangQueryTime;
         getPreEffectScript(): $Molang;
+        getTimeSource(): $MolangQueryTime;
         getLocator(): $ParticleSystem$Locator;
         copy(arg0: $MolangQueryTime_, arg1: number, arg2: $MolangQueryEntity, arg3: $ParticleEffectWithReferencedEffects, arg4: $ParticleSystem$Locator, arg5: $Molang, arg6: $Function0_<$RenderBackend$Texture>): $ModelAnimationState$ParticleEvent;
         getTime(): number;
@@ -149,6 +164,13 @@ declare module "@package/gg/essential/model" {
         component2(): number;
         static copy$default(arg0: $ModelAnimationState$ParticleEvent, arg1: $MolangQueryTime_, arg2: number, arg3: $MolangQueryEntity, arg4: $ParticleEffectWithReferencedEffects, arg5: $ParticleSystem$Locator, arg6: $Molang, arg7: $Function0_<any>, arg8: number, arg9: $Object): $ModelAnimationState$ParticleEvent;
         constructor(arg0: $MolangQueryTime_, arg1: number, arg2: $MolangQueryEntity, arg3: $ParticleEffectWithReferencedEffects, arg4: $ParticleSystem$Locator, arg5: $Molang, arg6: $Function0_<$RenderBackend$Texture>);
+        get effect(): $ParticleEffectWithReferencedEffects;
+        get textureSource(): $Function0<$RenderBackend$Texture>;
+        get sourceEntity(): $MolangQueryEntity;
+        get preEffectScript(): $Molang;
+        get timeSource(): $MolangQueryTime;
+        get locator(): $ParticleSystem$Locator;
+        get time(): number;
     }
     export class $Animation$Event {
     }
@@ -166,6 +188,8 @@ declare module "@package/gg/essential/model" {
         static FRONT: $Side;
         static RIGHT: $Side;
         static BACK: $Side;
+        get displayName(): string;
+        static get entries(): $EnumEntries<$Side>;
     }
     /**
      * Values that may be interpreted as {@link $Side}.
@@ -181,9 +205,10 @@ declare module "@package/gg/essential/model" {
         divideScalar(arg0: number): $Vector3;
         crossVectors(arg0: $Vector3, arg1: $Vector3): $Vector3;
         distanceToSquared(arg0: $Vector3): number;
-        plus(arg0: $Vector3): $Vector3;
-        minus(arg0: $Vector3): $Vector3;
         negate(): $Vector3;
+        normalize(): $Vector3;
+        plus(arg0: $Vector3): $Vector3;
+        sub(arg0: $Vector3): $Vector3;
         get(arg0: number): number;
         length(): number;
         clone(): $Vector3;
@@ -198,12 +223,11 @@ declare module "@package/gg/essential/model" {
         set(arg0: number, arg1: number): $Vector3;
         set(arg0: $Number, arg1: $Number, arg2: $Number): $Vector3;
         setLength(arg0: number): $Vector3;
-        copy(arg0: number, arg1: number, arg2: number): $Vector3;
         copy(arg0: $Vector3): $Vector3;
-        multiply(arg0: $Vector3): $Vector3;
-        sub(arg0: $Vector3): $Vector3;
-        normalize(): $Vector3;
+        copy(arg0: number, arg1: number, arg2: number): $Vector3;
         reflect(arg0: $Vector3): $Vector3;
+        multiply(arg0: $Vector3): $Vector3;
+        minus(arg0: $Vector3): $Vector3;
         component1(): number;
         component2(): number;
         static copy$default(arg0: $Vector3, arg1: number, arg2: number, arg3: number, arg4: number, arg5: $Object): $Vector3;
@@ -222,40 +246,62 @@ declare module "@package/gg/essential/model" {
         constructor(arg0: number, arg1: number, arg2: number);
         constructor();
         constructor(arg0: $Number, arg1: $Number, arg2: $Number);
+        set scalar(value: $Number);
     }
     export class $ModelAnimationState$AnimationState implements $MolangQueryAnimation, $MolangQueryEntity {
-        getUuid(): $UUID;
-        getHasEnded(): boolean;
+        getModifiedDistanceMoved(): number;
+        getModifiedMoveSpeed(): number;
+        getLoop(): number;
+        getAnimLoopTime(): number;
         getLastEffectTime$cosmetics(): number;
         getEffectLoops$cosmetics(): number;
         setEffectLoops$cosmetics(arg0: number): void;
         setLastEffectTime$cosmetics(arg0: number): void;
         getAnimStartTime(): number;
         getEffectLoopsDuration$cosmetics(): number;
-        getModifiedMoveSpeed(): number;
         getAnimTime(): number;
-        getAnimLoopTime(): number;
-        getModifiedDistanceMoved(): number;
-        getLoop(): number;
-        getLocator(): $ParticleSystem$Locator;
-        getLifeTime(): number;
+        getHasEnded(): boolean;
         getEntity(): $MolangQueryEntity;
+        getLifeTime(): number;
+        getLocator(): $ParticleSystem$Locator;
         getContext(): $MolangContext;
         copy(arg0: $Animation, arg1: $MolangQueryEntity, arg2: number, arg3: $VariablesMap, arg4: number, arg5: number): $ModelAnimationState$AnimationState;
         getTime(): number;
-        static copy$default(arg0: $ModelAnimationState$AnimationState, arg1: $Animation, arg2: $MolangQueryEntity, arg3: number, arg4: $VariablesMap, arg5: number, arg6: number, arg7: number, arg8: $Object): $ModelAnimationState$AnimationState;
         getAnimation(): $Animation;
+        getUuid(): $UUID;
+        static copy$default(arg0: $ModelAnimationState$AnimationState, arg1: $Animation, arg2: $MolangQueryEntity, arg3: number, arg4: $VariablesMap, arg5: number, arg6: number, arg7: number, arg8: $Object): $ModelAnimationState$AnimationState;
         constructor(arg0: $Animation, arg1: $MolangQueryEntity, arg2: number, arg3: $VariablesMap, arg4: number, arg5: number, arg6: number, arg7: $DefaultConstructorMarker);
         constructor(arg0: $Animation, arg1: $MolangQueryEntity, arg2: number, arg3: $VariablesMap, arg4: number, arg5: number);
+        get modifiedDistanceMoved(): number;
+        get modifiedMoveSpeed(): number;
+        get loop(): number;
+        get animLoopTime(): number;
+        get animStartTime(): number;
+        get effectLoopsDuration$cosmetics(): number;
+        get animTime(): number;
+        get hasEnded(): boolean;
+        get entity(): $MolangQueryEntity;
+        get lifeTime(): number;
+        get locator(): $ParticleSystem$Locator;
+        get context(): $MolangContext;
+        get time(): number;
+        get animation(): $Animation;
+        get uuid(): $UUID;
     }
     export class $BedrockModel$Offset {
         getPivotX(): number;
         getPivotY(): number;
         getPivotZ(): number;
+        getOffsetZ(): number;
         getOffsetX(): number;
         getOffsetY(): number;
-        getOffsetZ(): number;
         constructor(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number);
+        get pivotX(): number;
+        get pivotY(): number;
+        get pivotZ(): number;
+        get offsetZ(): number;
+        get offsetX(): number;
+        get offsetY(): number;
     }
     export class $ModelAnimationState$SoundEvent implements $ModelAnimationState$Event {
         component3(): $MolangQueryEntity;
@@ -271,6 +317,11 @@ declare module "@package/gg/essential/model" {
         component2(): number;
         static copy$default(arg0: $ModelAnimationState$SoundEvent, arg1: $MolangQueryTime_, arg2: number, arg3: $MolangQueryEntity, arg4: $SoundEffect, arg5: $ParticleSystem$Locator, arg6: number, arg7: $Object): $ModelAnimationState$SoundEvent;
         constructor(arg0: $MolangQueryTime_, arg1: number, arg2: $MolangQueryEntity, arg3: $SoundEffect, arg4: $ParticleSystem$Locator);
+        get effect(): $SoundEffect;
+        get sourceEntity(): $MolangQueryEntity;
+        get timeSource(): $MolangQueryTime;
+        get locator(): $ParticleSystem$Locator;
+        get time(): number;
     }
     export class $PlayerMolangQuery$RealYawAccess {
     }
@@ -293,14 +344,16 @@ declare module "@package/gg/essential/model" {
         static copy$default(arg0: $ParticleEffect$RenderPass, arg1: $ParticlesFile$Material_, arg2: $RenderBackend$Texture, arg3: number, arg4: $Object): $ParticleEffect$RenderPass;
         getMaterial(): $ParticlesFile$Material;
         constructor(arg0: $ParticlesFile$Material_, arg1: $RenderBackend$Texture);
+        get texture(): $RenderBackend$Texture;
+        get material(): $ParticlesFile$Material;
     }
     export class $BedrockModel {
+        computePose(arg0: $PlayerPose, arg1: $ModelAnimationState): $PlayerPose;
         getCosmetic(): $Cosmetic;
-        getAnimationData(): $AnimationFile;
-        getSoundData(): $SoundDefinitionsFile;
-        static access$getOFFSETS$cp(): $Map<any, any>;
         getDiagnostics(): $List<$Cosmetic$Diagnostic>;
+        static access$getOFFSETS$cp(): $Map<any, any>;
         getAnimations(): $List<$Animation>;
+        getSoundData(): $SoundDefinitionsFile;
         getEmissiveTexture(): $RenderBackend$Texture;
         setEmissiveTexture(arg0: $RenderBackend$Texture): void;
         getSkinMasks(): $Map<$Side, $SkinMask>;
@@ -316,22 +369,36 @@ declare module "@package/gg/essential/model" {
         getSideOptions(): $Set<$Side>;
         isContainsSideOption(): boolean;
         getAnimationByName(arg0: string): $Animation;
+        getAnimationData(): $AnimationFile;
         getParticleData(): $Map<string, $ParticlesFile>;
         getVariant(): string;
-        render(arg0: $UMatrixStack, arg1: $RenderBackend$CommandQueue, arg2: $List_<$List_<$Cube>>, arg3: $BakedAnimations, arg4: $RenderMetadata, arg5: number): void;
         getTexture(): $RenderBackend$Texture;
-        computePose(arg0: $PlayerPose, arg1: $ModelAnimationState): $PlayerPose;
+        render(arg0: $UMatrixStack, arg1: $RenderBackend$CommandQueue, arg2: $List_<$List_<$Cube>>, arg3: $BakedAnimations, arg4: $RenderMetadata, arg5: number): void;
         setTexture(arg0: $RenderBackend$Texture): void;
         static Companion: $BedrockModel$Companion;
         boundingBoxes: $List<$Pair<$Box3, $Side>>;
         static TEXTURE_ANIMATION_FPS: number;
         constructor(arg0: $Cosmetic, arg1: string, arg2: $ModelFile, arg3: $AnimationFile, arg4: $Map_<string, $ParticlesFile>, arg5: $SoundDefinitionsFile, arg6: $RenderBackend$Texture, arg7: $RenderBackend$Texture, arg8: $Map_<$Side_, $SkinMask>);
+        get cosmetic(): $Cosmetic;
+        get diagnostics(): $List<$Cosmetic$Diagnostic>;
+        get soundData(): $SoundDefinitionsFile;
+        get skinMasks(): $Map<$Side, $SkinMask>;
+        get bones(): $Bones;
+        get defaultRenderGeometry(): $List<$List<$Cube>>;
+        get sideOptions(): $Set<$Side>;
+        get containsSideOption(): boolean;
+        get animationData(): $AnimationFile;
+        get particleData(): $Map<string, $ParticlesFile>;
+        get variant(): string;
     }
     export class $Animation$Companion {
         static access$calcAnimationLength(arg0: $Animation$Companion, arg1: $Map_<any, any>): number;
         constructor(arg0: $DefaultConstructorMarker);
     }
     export class $ModelInstance {
+        setModel(arg0: $BedrockModel): void;
+        computePose(arg0: $PlayerPose): $PlayerPose;
+        updateLocators(arg0: $PlayerPose, arg1: $CosmeticsState): void;
         getCosmetic(): $Cosmetic;
         getEssentialAnimationSystem(): $EssentialAnimationSystem;
         switchModel(arg0: $BedrockModel, arg1: $CosmeticsState): void;
@@ -342,15 +409,16 @@ declare module "@package/gg/essential/model" {
         getTextureAnimationSync(): $TextureAnimationSync;
         setTextureAnimationSync(arg0: $TextureAnimationSync): void;
         getAnimationState(): $ModelAnimationState;
-        setModel(arg0: $BedrockModel): void;
+        getEntity(): $MolangQueryEntity;
         setLocator(arg0: $WearableLocator): void;
         getLocator(): $WearableLocator;
-        getEntity(): $MolangQueryEntity;
         render(arg0: $UMatrixStack, arg1: $RenderBackend$CommandQueue, arg2: $List_<$List_<$Cube>>, arg3: $RenderMetadata): void;
         getModel(): $BedrockModel;
-        computePose(arg0: $PlayerPose): $PlayerPose;
-        updateLocators(arg0: $PlayerPose, arg1: $CosmeticsState): void;
         constructor(arg0: $BedrockModel, arg1: $MolangQueryEntity, arg2: $Set_<$AnimationTarget_>, arg3: $CosmeticsState, arg4: $Function1_<string, $Unit>);
+        get cosmetic(): $Cosmetic;
+        get animationTargets(): $Set<$AnimationTarget>;
+        get onAnimation(): $Function1<string, $Unit>;
+        get entity(): $MolangQueryEntity;
     }
     export class $Channels {
         component3(): $Keyframes;
@@ -371,10 +439,16 @@ declare module "@package/gg/essential/model" {
         constructor(arg0: number, arg1: $Keyframes, arg2: $Keyframes, arg3: $Keyframes, arg4: $RelativeTo, arg5: $SerializationConstructorMarker);
         constructor(arg0: $Keyframes, arg1: $Keyframes, arg2: $Keyframes, arg3: $RelativeTo, arg4: number, arg5: $DefaultConstructorMarker);
         constructor();
+        static get relativeTo$annotations(): void;
+        get relativeTo(): $RelativeTo;
+        get position(): $Keyframes;
+        get scale(): $Keyframes;
+        get rotation(): $Keyframes;
     }
     export class $BedrockModel$Companion {
         getOFFSETS(): $Map<$EnumPart, $BedrockModel$Offset>;
         constructor(arg0: $DefaultConstructorMarker);
+        get OFFSETS(): $Map<$EnumPart, $BedrockModel$Offset>;
     }
     export class $ModelAnimationState$Event {
     }
@@ -382,25 +456,35 @@ declare module "@package/gg/essential/model" {
         getSourceEntity(): $MolangQueryEntity;
         getTimeSource(): $MolangQueryTime;
         getTime(): number;
+        get sourceEntity(): $MolangQueryEntity;
+        get timeSource(): $MolangQueryTime;
+        get time(): number;
     }
     export class $RenderMetadata {
         component4(): $Side;
         component5(): $Set<string>;
         getPose(): $PlayerPose;
         getParts(): $Set<$EnumPart>;
+        component6(): $Vector3;
+        component7(): $Set<$EnumPart>;
         getPositionAdjustment(): $Vector3;
         getHiddenBones(): $Set<string>;
         "getLight-cWgJFAk"(): number;
-        component6(): $Vector3;
-        component7(): $Set<$EnumPart>;
+        static "copy-6Qb1oLs$default"(arg0: $RenderMetadata, arg1: $PlayerPose, arg2: $RenderBackend$Texture, arg3: number, arg4: $Side_, arg5: $Set_<any>, arg6: $Vector3, arg7: $Set_<any>, arg8: number, arg9: $Object): $RenderMetadata;
         "component3-cWgJFAk"(): number;
         "copy-6Qb1oLs"(arg0: $PlayerPose, arg1: $RenderBackend$Texture, arg2: number, arg3: $Side_, arg4: $Set_<string>, arg5: $Vector3, arg6: $Set_<$EnumPart_>): $RenderMetadata;
-        static "copy-6Qb1oLs$default"(arg0: $RenderMetadata, arg1: $PlayerPose, arg2: $RenderBackend$Texture, arg3: number, arg4: $Side_, arg5: $Set_<any>, arg6: $Vector3, arg7: $Set_<any>, arg8: number, arg9: $Object): $RenderMetadata;
         getSkin(): $RenderBackend$Texture;
         getSide(): $Side;
         component1(): $PlayerPose;
         component2(): $RenderBackend$Texture;
         constructor(arg0: $PlayerPose, arg1: $RenderBackend$Texture, arg2: number, arg3: $Side_, arg4: $Set_<any>, arg5: $Vector3, arg6: $Set_<any>, arg7: $DefaultConstructorMarker);
+        get pose(): $PlayerPose;
+        get parts(): $Set<$EnumPart>;
+        get positionAdjustment(): $Vector3;
+        get hiddenBones(): $Set<string>;
+        get light-cWgJFAk(): number;
+        get skin(): $RenderBackend$Texture;
+        get side(): $Side;
     }
     export class $CubeUvData {
         getDown(): number[];
@@ -410,6 +494,12 @@ declare module "@package/gg/essential/model" {
         getWest(): number[];
         getEast(): number[];
         constructor(arg0: number[], arg1: number[], arg2: number[], arg3: number[], arg4: number[], arg5: number[]);
+        get down(): number[];
+        get up(): number[];
+        get north(): number[];
+        get south(): number[];
+        get west(): number[];
+        get east(): number[];
     }
     export class $PositionTexVertex {
         component3(): number;
@@ -428,6 +518,7 @@ declare module "@package/gg/essential/model" {
         constructor(arg0: $Vector3, arg1: number, arg2: number);
     }
     export class $ModelAnimationState {
+        updateLocators(arg0: $Bones, arg1: number): void;
         bake(arg0: $Bones): $BakedAnimations;
         getActive(): $List<$ModelAnimationState$AnimationState>;
         static updateEffects$default(arg0: $ModelAnimationState, arg1: number, arg2: number, arg3: $Object): void;
@@ -435,14 +526,17 @@ declare module "@package/gg/essential/model" {
         locatorsNeedUpdating(): boolean;
         getParentLocator(): $ParticleSystem$Locator;
         startAnimation(arg0: $Animation): void;
-        updateEffects(arg0: number): void;
         getEntity(): $MolangQueryEntity;
-        updateLocators(arg0: $Bones, arg1: number): void;
+        updateEffects(arg0: number): void;
         constructor(arg0: $MolangQueryEntity, arg1: $ParticleSystem$Locator, arg2: $Function0_<$RenderBackend$Texture>);
+        get active(): $List<$ModelAnimationState$AnimationState>;
+        get pendingEvents(): $List<$ModelAnimationState$Event>;
+        get parentLocator(): $ParticleSystem$Locator;
+        get entity(): $MolangQueryEntity;
     }
     export class $Cube {
-        "render-Vzb6JUo"(arg0: $UMatrixStack, arg1: $UVertexConsumer, arg2: number, arg3: number): void;
         getBoxName(): string;
+        "render-Vzb6JUo"(arg0: $UMatrixStack, arg1: $UVertexConsumer, arg2: number, arg3: number): void;
         getPosX1(): number;
         setPosX1(arg0: number): void;
         getPosY1(): number;
@@ -462,6 +556,8 @@ declare module "@package/gg/essential/model" {
         constructor(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number, arg6: number, arg7: number, arg8: number, arg9: boolean, arg10: number, arg11: number);
         constructor(arg0: number, arg1: number, arg2: number, arg3: number, arg4: number, arg5: number, arg6: number, arg7: boolean, arg8: number, arg9: number, arg10: $CubeUvData);
         constructor(arg0: $List_<$Face>, arg1: boolean);
+        get quadList(): $List<$Face>;
+        get mirror(): boolean;
     }
     export class $Vector3$Companion {
         constructor(arg0: $DefaultConstructorMarker);
@@ -477,12 +573,12 @@ declare module "@package/gg/essential/model" {
         component3(): number;
         component4(): number;
         component5(): boolean;
-        getSounds(): $List<$SoundEffect$Entry>;
+        component6(): $List<$SoundEffect$Entry>;
         getMinDistance(): number;
         getFixedPosition(): boolean;
-        component6(): $List<$SoundEffect$Entry>;
-        getMaxDistance(): number;
+        getSounds(): $List<$SoundEffect$Entry>;
         randomEntry(): $SoundEffect$Entry;
+        getMaxDistance(): number;
         getName(): string;
         copy(arg0: string, arg1: $SoundCategory_, arg2: number, arg3: number, arg4: boolean, arg5: $List_<$SoundEffect$Entry>): $SoundEffect;
         getCategory(): $SoundCategory;
@@ -491,18 +587,24 @@ declare module "@package/gg/essential/model" {
         static copy$default(arg0: $SoundEffect, arg1: string, arg2: $SoundCategory_, arg3: number, arg4: number, arg5: boolean, arg6: $List_<any>, arg7: number, arg8: $Object): $SoundEffect;
         constructor(arg0: string, arg1: $SoundCategory_, arg2: number, arg3: number, arg4: boolean, arg5: $List_<any>, arg6: number, arg7: $DefaultConstructorMarker);
         constructor(arg0: string, arg1: $SoundCategory_, arg2: number, arg3: number, arg4: boolean, arg5: $List_<$SoundEffect$Entry>);
+        get minDistance(): number;
+        get fixedPosition(): boolean;
+        get sounds(): $List<$SoundEffect$Entry>;
+        get maxDistance(): number;
+        get name(): string;
+        get category(): $SoundCategory;
     }
     export class $Box3 {
-        getCenter(arg0: $Vector3): $Vector3;
         getCenter(): $Vector3;
+        getCenter(arg0: $Vector3): $Vector3;
         expandByPoint(arg0: $Vector3): $Box3;
         expandByScalar(arg0: number): $Box3;
+        setFromPoints(arg0: $List_<$Vector3>): $Box3;
+        static access$getPoints$delegate$cp(): $Lazy<any>;
+        makeEmpty(): $Box3;
         static getCenter$default(arg0: $Box3, arg1: $Vector3, arg2: number, arg3: $Object): $Vector3;
         static getSize$default(arg0: $Box3, arg1: $Vector3, arg2: number, arg3: $Object): $Vector3;
         static getParameter$default(arg0: $Box3, arg1: $Vector3, arg2: $Vector3, arg3: number, arg4: $Object): $Vector3;
-        static access$getPoints$delegate$cp(): $Lazy<any>;
-        setFromPoints(arg0: $List_<$Vector3>): $Box3;
-        makeEmpty(): $Box3;
         intersect(arg0: $Box3): $Box3;
         clone(): $Box3;
         isEmpty(): boolean;
@@ -515,29 +617,29 @@ declare module "@package/gg/essential/model" {
         getParameter(arg0: $Vector3, arg1: $Vector3): $Vector3;
         getMax(): $Vector3;
         getMin(): $Vector3;
-        translate(arg0: $Vector3): $Box3;
         setMin(arg0: $Vector3): void;
         setMax(arg0: $Vector3): void;
         component1(): $Vector3;
         component2(): $Vector3;
         static copy$default(arg0: $Box3, arg1: $Vector3, arg2: $Vector3, arg3: number, arg4: $Object): $Box3;
+        translate(arg0: $Vector3): $Box3;
         static Companion: $Box3$Companion;
-        constructor(arg0: $Vector3, arg1: $Vector3);
         constructor();
         constructor(arg0: $Vector3);
+        constructor(arg0: $Vector3, arg1: $Vector3);
         constructor(arg0: $Vector3, arg1: $Vector3, arg2: number, arg3: $DefaultConstructorMarker);
+        set fromPoints(value: $List_<$Vector3>);
+        get empty(): boolean;
     }
     export class $Bone {
+        getPivotX(): number;
+        getPivotY(): number;
+        getPivotZ(): number;
         isVisible(): boolean;
         getAffectsPose(): boolean;
         resetAnimationOffsets(arg0: boolean): void;
         "render-h-6-dEE"(arg0: $UMatrixStack, arg1: $UVertexConsumer, arg2: $List_<$List_<$Cube>>, arg3: number, arg4: number): void;
-        getPivotX(): number;
-        getPivotY(): number;
-        getPivotZ(): number;
-        getPart(): $EnumPart;
-        setParentRotation(arg0: $Quaternion): void;
-        getParentRotation(): $Quaternion;
+        getBoxName(): string;
         getChildModels(): $List<$Bone>;
         getPoseRotX(): number;
         setPoseRotX(arg0: number): void;
@@ -585,27 +687,39 @@ declare module "@package/gg/essential/model" {
         propagateVisibility(arg0: boolean, arg1: $Side_): void;
         containsVisibleBoxes(arg0: $List_<$List_<$Cube>>): boolean;
         propagateGimbal(arg0: $Quaternion, arg1: $Quaternion): void;
-        getBoxName(): string;
-        getChild(): boolean;
+        setParentRotation(arg0: $Quaternion): void;
+        getParentRotation(): $Quaternion;
         setChild(arg0: boolean): void;
+        getChild(): boolean;
+        getPart(): $EnumPart;
         getId(): number;
         getSide(): $Side;
-        getVisible(): boolean;
         setVisible(arg0: boolean): void;
+        getVisible(): boolean;
         applyTransform(arg0: $UMatrixStack): void;
-        constructor(arg0: number, arg1: string, arg2: $List_<$Bone>, arg3: number, arg4: number, arg5: number, arg6: number, arg7: number, arg8: number, arg9: $Side_);
         constructor(arg0: number, arg1: string, arg2: $List_<any>, arg3: number, arg4: number, arg5: number, arg6: number, arg7: number, arg8: number, arg9: $Side_, arg10: number, arg11: $DefaultConstructorMarker);
+        constructor(arg0: number, arg1: string, arg2: $List_<$Bone>, arg3: number, arg4: number, arg5: number, arg6: number, arg7: number, arg8: number, arg9: $Side_);
+        get pivotX(): number;
+        get pivotY(): number;
+        get pivotZ(): number;
+        get affectsPose(): boolean;
+        get boxName(): string;
+        get childModels(): $List<$Bone>;
+        get affectsPoseParts(): $Set<$EnumPart>;
+        get part(): $EnumPart;
+        get id(): number;
+        get side(): $Side;
     }
     export class $Animation {
         component3(): $AnimationFile$Loop;
         component4(): $Map<string, $Channels>;
         component5(): $TreeMap<number, $List<$Animation$Event>>;
+        component6(): $Set<$EnumPart>;
         getAnimationLength(): number;
         getAffectsPose(): boolean;
-        component6(): $Set<$EnumPart>;
         getBones(): $Map<string, $Channels>;
-        getAffectsPoseParts(): $Set<$EnumPart>;
         getLoop(): $AnimationFile$Loop;
+        getAffectsPoseParts(): $Set<$EnumPart>;
         getEffects(): $TreeMap<number, $List<$Animation$Event>>;
         getName(): string;
         copy(arg0: string, arg1: number, arg2: $AnimationFile$Loop_, arg3: $Map_<string, $Channels>, arg4: $TreeMap<number, $List_<$Animation$Event>>, arg5: $Set_<$EnumPart_>): $Animation;
@@ -613,11 +727,17 @@ declare module "@package/gg/essential/model" {
         component2(): number;
         static copy$default(arg0: $Animation, arg1: string, arg2: number, arg3: $AnimationFile$Loop_, arg4: $Map_<any, any>, arg5: $TreeMap<any, any>, arg6: $Set_<any>, arg7: number, arg8: $Object): $Animation;
         static Companion: $Animation$Companion;
-        constructor(arg0: string, arg1: $AnimationFile$Animation, arg2: $Bones, arg3: $Map_<string, $ParticleEffectWithReferencedEffects>, arg4: $Map_<string, $SoundEffect>);
         constructor(arg0: string, arg1: number, arg2: $AnimationFile$Loop_, arg3: $Map_<string, $Channels>, arg4: $TreeMap<number, $List_<$Animation$Event>>, arg5: $Set_<$EnumPart_>);
+        constructor(arg0: string, arg1: $AnimationFile$Animation, arg2: $Bones, arg3: $Map_<string, $ParticleEffectWithReferencedEffects>, arg4: $Map_<string, $SoundEffect>);
+        get animationLength(): number;
+        get affectsPose(): boolean;
+        get bones(): $Map<string, $Channels>;
+        get loop(): $AnimationFile$Loop;
+        get affectsPoseParts(): $Set<$EnumPart>;
+        get effects(): $TreeMap<number, $List<$Animation$Event>>;
+        get name(): string;
     }
     export class $ParticleSystem {
-        static render$default(arg0: $ParticleSystem, arg1: $UMatrixStack, arg2: $Vec3, arg3: $Quaternion, arg4: $RenderBackend$CommandQueue, arg5: $UUID_, arg6: boolean, arg7: boolean, arg8: $UUID_, arg9: number, arg10: $Object): void;
         "render-wYRpD5U"(arg0: $UMatrixStack, arg1: $Vec3, arg2: $Quaternion, arg3: $RenderBackend$CommandQueue, arg4: $UUID_, arg5: boolean, arg6: boolean, arg7: $UUID_, arg8: $Light): void;
         static "render-wYRpD5U$default"(arg0: $ParticleSystem, arg1: $UMatrixStack, arg2: $Vec3, arg3: $Quaternion, arg4: $RenderBackend$CommandQueue, arg5: $UUID_, arg6: boolean, arg7: boolean, arg8: $UUID_, arg9: $Light, arg10: number, arg11: $Object): void;
         static access$getBillboardRenderPasses$p(arg0: $ParticleSystem): $Map<any, any>;
@@ -626,12 +746,14 @@ declare module "@package/gg/essential/model" {
         static access$getPlaySound$p(arg0: $ParticleSystem): $Function1<any, any>;
         static access$getCollisionProvider$p(arg0: $ParticleSystem): $CollisionProvider;
         static access$getLightProvider$p(arg0: $ParticleSystem): $LightProvider;
+        static render$default(arg0: $ParticleSystem, arg1: $UMatrixStack, arg2: $Vec3, arg3: $Quaternion, arg4: $RenderBackend$CommandQueue, arg5: $UUID_, arg6: boolean, arg7: boolean, arg8: $UUID_, arg9: number, arg10: $Object): void;
         hasAnythingToRender(): boolean;
         update(): void;
         isEmpty(): boolean;
         render(arg0: $UMatrixStack, arg1: $Vec3, arg2: $Quaternion, arg3: $RenderBackend$CommandQueue, arg4: $UUID_, arg5: boolean, arg6: boolean, arg7: $UUID_): void;
         spawn(arg0: $ModelAnimationState$ParticleEvent): void;
         constructor(arg0: $Random, arg1: $CollisionProvider_, arg2: $LightProvider_, arg3: $Function1_<$ModelAnimationState$SoundEvent, $Unit>);
+        get empty(): boolean;
     }
     export class $SoundCategory extends $Enum<$SoundCategory> {
         static access$get$cachedSerializer$delegate$cp(): $Lazy<any>;
@@ -647,6 +769,7 @@ declare module "@package/gg/essential/model" {
         static RECORD: $SoundCategory;
         static BLOCK: $SoundCategory;
         static NEUTRAL: $SoundCategory;
+        static get entries(): $EnumEntries<$SoundCategory>;
     }
     /**
      * Values that may be interpreted as {@link $SoundCategory}.
@@ -662,11 +785,18 @@ declare module "@package/gg/essential/model" {
     export interface $ParticleSystem$Locator {
         isVisible(): boolean;
         getVelocity(): $Vec3;
-        isValid(): boolean;
+        getPositionAndRotation(): $Pair<$Vec3, $Quaternion>;
         getPosition(): $Vec3;
+        isValid(): boolean;
         getParent(): $ParticleSystem$Locator;
         getRotation(): $Quaternion;
-        getPositionAndRotation(): $Pair<$Vec3, $Quaternion>;
+        get visible(): boolean;
+        get velocity(): $Vec3;
+        get positionAndRotation(): $Pair<$Vec3, $Quaternion>;
+        get position(): $Vec3;
+        get valid(): boolean;
+        get parent(): $ParticleSystem$Locator;
+        get rotation(): $Quaternion;
     }
     export class $SoundEffect$Entry {
         component3(): boolean;
@@ -674,13 +804,13 @@ declare module "@package/gg/essential/model" {
         component5(): number;
         getVolume(): number;
         getPitch(): number;
-        getInterruptible(): boolean;
-        getLooping(): boolean;
-        getDirectional(): boolean;
         component6(): boolean;
         component7(): boolean;
         getAsset(): $EssentialAsset;
         component8(): number;
+        getInterruptible(): boolean;
+        getLooping(): boolean;
+        getDirectional(): boolean;
         getStream(): boolean;
         copy(arg0: $EssentialAsset, arg1: boolean, arg2: boolean, arg3: number, arg4: number, arg5: boolean, arg6: boolean, arg7: number): $SoundEffect$Entry;
         getWeight(): number;
@@ -689,16 +819,27 @@ declare module "@package/gg/essential/model" {
         static copy$default(arg0: $SoundEffect$Entry, arg1: $EssentialAsset, arg2: boolean, arg3: boolean, arg4: number, arg5: number, arg6: boolean, arg7: boolean, arg8: number, arg9: number, arg10: $Object): $SoundEffect$Entry;
         constructor(arg0: $EssentialAsset, arg1: boolean, arg2: boolean, arg3: number, arg4: number, arg5: boolean, arg6: boolean, arg7: number, arg8: number, arg9: $DefaultConstructorMarker);
         constructor(arg0: $EssentialAsset, arg1: boolean, arg2: boolean, arg3: number, arg4: number, arg5: boolean, arg6: boolean, arg7: number);
+        get volume(): number;
+        get pitch(): number;
+        get asset(): $EssentialAsset;
+        get interruptible(): boolean;
+        get looping(): boolean;
+        get directional(): boolean;
+        get stream(): boolean;
+        get weight(): number;
     }
     export class $ParticleEffectWithReferencedEffects {
         component3(): $Map<string, $SoundEffect>;
         getParticleEffect(): $ParticleEffect;
+        getOtherParticleByReference(arg0: string): $ParticleEffectWithReferencedEffects;
         getReferencedEffects(): $Map<string, $ParticleEffect>;
         getReferencedSounds(): $Map<string, $SoundEffect>;
-        getOtherParticleByReference(arg0: string): $ParticleEffectWithReferencedEffects;
         copy(arg0: string, arg1: $Map_<string, $ParticleEffect>, arg2: $Map_<string, $SoundEffect>): $ParticleEffectWithReferencedEffects;
         component2(): $Map<string, $ParticleEffect>;
         static copy$default(arg0: $ParticleEffectWithReferencedEffects, arg1: string, arg2: $Map_<any, any>, arg3: $Map_<any, any>, arg4: number, arg5: $Object): $ParticleEffectWithReferencedEffects;
         constructor(arg0: string, arg1: $Map_<string, $ParticleEffect>, arg2: $Map_<string, $SoundEffect>);
+        get particleEffect(): $ParticleEffect;
+        get referencedEffects(): $Map<string, $ParticleEffect>;
+        get referencedSounds(): $Map<string, $SoundEffect>;
     }
 }

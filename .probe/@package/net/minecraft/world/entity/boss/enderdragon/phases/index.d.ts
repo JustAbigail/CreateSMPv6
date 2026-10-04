@@ -42,6 +42,11 @@ declare module "@package/net/minecraft/world/entity/boss/enderdragon/phases" {
          */
         end(): void;
         getPhase(): $EnderDragonPhase<$DragonPhaseInstance>;
+        get sitting(): boolean;
+        get flyTargetLocation(): $Vec3;
+        get flySpeed(): number;
+        get turnSpeed(): number;
+        get phase(): $EnderDragonPhase<$DragonPhaseInstance>;
     }
     export class $DragonLandingPhase extends $AbstractDragonPhaseInstance {
         dragon: $EnderDragon;
@@ -59,11 +64,13 @@ declare module "@package/net/minecraft/world/entity/boss/enderdragon/phases" {
         setTarget(targetLocation: $Vec3_): void;
         dragon: $EnderDragon;
         constructor(dragon: $EnderDragon);
+        set target(value: $Vec3_);
     }
     export class $DragonStrafePlayerPhase extends $AbstractDragonPhaseInstance {
         setTarget(attackTarget: $LivingEntity): void;
         dragon: $EnderDragon;
         constructor(dragon: $EnderDragon);
+        set target(value: $LivingEntity);
     }
     export class $DragonLandingApproachPhase extends $AbstractDragonPhaseInstance {
         dragon: $EnderDragon;
@@ -90,6 +97,7 @@ declare module "@package/net/minecraft/world/entity/boss/enderdragon/phases" {
         getPhase<T extends $DragonPhaseInstance>(phase: $EnderDragonPhase<T>): T;
         setPhase(phase: $EnderDragonPhase<never>): void;
         constructor(dragon: $EnderDragon);
+        get currentPhase(): $DragonPhaseInstance;
     }
     export class $DragonTakeoffPhase extends $AbstractDragonPhaseInstance {
         dragon: $EnderDragon;
@@ -119,6 +127,9 @@ declare module "@package/net/minecraft/world/entity/boss/enderdragon/phases" {
         static SITTING_SCANNING: $EnderDragonPhase<$DragonSittingScanningPhase>;
         static TAKEOFF: $EnderDragonPhase<$DragonTakeoffPhase>;
         static SITTING_ATTACKING: $EnderDragonPhase<$DragonSittingAttackingPhase>;
+        get constructor(): $Constructor<$DragonPhaseInstance>;
+        get id(): number;
+        static get count(): number;
     }
     export class $DragonSittingAttackingPhase extends $AbstractDragonSittingPhase {
         dragon: $EnderDragon;
@@ -158,5 +169,9 @@ declare module "@package/net/minecraft/world/entity/boss/enderdragon/phases" {
         end(): void;
         dragon: $EnderDragon;
         constructor(dragon: $EnderDragon);
+        get sitting(): boolean;
+        get flyTargetLocation(): $Vec3;
+        get flySpeed(): number;
+        get turnSpeed(): number;
     }
 }
