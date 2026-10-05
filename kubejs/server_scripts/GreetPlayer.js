@@ -6,6 +6,7 @@ PlayerEvents.loggedIn((event) => {
 	})
 })
 
+/* 
 BlockEvents.broken((event) => {
 	event.getPlayer().notify({
 		text: [
@@ -15,7 +16,7 @@ BlockEvents.broken((event) => {
 			/*{
 				text: event.getPlayer().getName().getString(),
 				color: "white"
-			},*/
+			},*/ /*
 			event.getPlayer().getName(),
 			"\n",
 			{
@@ -31,3 +32,4 @@ BlockEvents.broken((event) => {
 		}
 	})
 })
+*/

@@ -9,12 +9,36 @@ file = "README.md"
 hash = "e70d7f583c9a8142bb5ecc448a71b3a4503ec6838253cea2898a7fef989d8988"
 
 [[files]]
+file = "kubejs/README.txt"
+hash = "989f3737ae4621b8ff6730bce4cbeeee756921e7e510e0c281c8a350501d98af"
+
+[[files]]
+file = "kubejs/config/client.json"
+hash = "0aeb4cb329b896e33a0777a1683b0b813a6f2f0adc5bc2cf3e6d10e18e442fef"
+
+[[files]]
+file = "kubejs/config/common.json"
+hash = "e00a67922942660d77c213379b5128a46c5abc894178b0be04006d325ff5f6b3"
+
+[[files]]
+file = "kubejs/config/probe-settings.json"
+hash = "5e6f08cab4079c6e045bba33a3b997f1da85758e6f346c8156de94382b4b0bf5"
+
+[[files]]
+file = "kubejs/config/web_server.json"
+hash = "6d4f39340fd45d43524f9519c48f594bea4276bcc1f4a048aca99895ef43caf4"
+
+[[files]]
 file = "kubejs/server_scripts/GreetPlayer.js"
-hash = "85026a9537bfaf52e4104459bfff6f756f5f06d31201e48facdbd02a761050f7"
+hash = "fdb63187ec3c09f4941760eaab22b496ad0f9755841cd1af23280f240685ed17"
 
 [[files]]
 file = "kubejs/server_scripts/GreetPlayer.ts"
 hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[files]]
+file = "kubejs/startup_scripts/ore_processing.js"
+hash = "6d9340d31a4d3c53680c36b60a8345a5cb2fd5cfc8d52b0efc885a2aac7e6916"
 
 [[files]]
 file = "mods/0pack2reload.pw.toml"
